@@ -1,0 +1,7 @@
+# In _config.yml
+title: Computational Methods MATH0058 lecture notes
+author: Timo Betcke, Erik Burman, Max Jensen
+copyright: "2024"
+logo: logo.png
+execute:
+  execute_notebooks: off

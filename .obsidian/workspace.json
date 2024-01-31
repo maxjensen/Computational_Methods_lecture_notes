@@ -1,0 +1,196 @@
+{
+  "main": {
+    "id": "9d08c353fbebe79b",
+    "type": "split",
+    "children": [
+      {
+        "id": "ffdb22144fbb41fc",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "14130e202ec15dbf",
+            "type": "leaf",
+            "state": {
+              "type": "image",
+              "state": {
+                "file": "byte_array.png"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "12039fdc7198c967",
+    "type": "split",
+    "children": [
+      {
+        "id": "5d7d44ea9db7370c",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "b7c07a4c4dc29da3",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "83078a2f49367840",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "a25e4491f4bc0202",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "9b757f99ea7ad0be",
+    "type": "split",
+    "children": [
+      {
+        "id": "63d2f27ac0587fd4",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "703705c73d2da4c0",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "byte_array.png",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "aaf135ed1e4f600c",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "byte_array.png",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "3911ef1952de0a62",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "46bc5d29c70f9997",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "byte_array.png"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false
+    }
+  },
+  "active": "14130e202ec15dbf",
+  "lastOpenFiles": [
+    "_build/html/index.html",
+    "_build/html/_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css",
+    "_build/html/objects.inv",
+    "_build/html/searchindex.js",
+    "_build/html/_images/growth_factors.png",
+    "_build/html/_images/ec5789c83b94a1ab5da0a0107da430e6249c5d25cc5db1c1e994a02d76240b16.png",
+    "_build/html/_images/dda8444885b398171e883c2935913da9785267e5282b66b2e8b313aab89c8924.png",
+    "_build/html/_images/byte_array.png",
+    "_build/html/_images/bf1e4e48bbd0762eb41af28804ac5d10dc612b02be6c12800050f285e2da45d3.png",
+    "_build/html/_images/b6b9f26e02d111686ddba314fc549ae72e2fdf82c4c664efaef06637aa23eda1.png",
+    "_build/html/_images/ad1ae1894a57f02e325c84a253d44c1de0d76032b99fef5e592f5abd26d13447.png",
+    "_build/html/_images/9e36b0c2331391a2356cbe5bbccc9bc4a31f43d0a0e6007421fa4b92f8af0eab.png",
+    "_build/html/_images/98d1e100174bc2ff4950692d737957490a20d559d18832fa29fe2de199c99b28.png",
+    "_build/html/_images/7accb6bdbf8e97149a380e345adc4302c23794fec932b967ee6c9834300bb2cc.png",
+    "_build/html/_images",
+    "_build/html/search.html",
+    "_build/html/genindex.html",
+    "_build/html/_sources/week_9_self_check.ipynb",
+    "_build/html/week_9_self_check.html",
+    "_build/html/_sources/week_8_self_check.ipynb",
+    "_build/html/week_8_self_check.html",
+    "_build/html/_sources/week_7_self_check.md",
+    "_build/html/_sources/week_6_self_check.md",
+    "_build/html/_sources/week_3_self_check.md",
+    "_build/html/_sources/week_2_self_check.md",
+    "_build/html/_sources/week_1_self_check.md",
+    "_build/html/_sources/intro.md",
+    "_build/html/_sources/5.4_eigenvalues_perturbation_theory.md",
+    "_build/html/_sources/5.3_schur_decomposition.md",
+    "_build/html/_sources/5.2_eigenvalues_basic_properties.md",
+    "_build/html/_sources/5.1_complex_vector_spaces.md",
+    "_build/html/_sources/4.3_stable_quadrature_schemes.md",
+    "_build/html/_sources/3.3_least_squares_problems.md",
+    "_build/html/_sources/3.2_singular_value_decomposition.md",
+    "_build/html/_sources/3.1_qr_decomposition.md",
+    "_build/html/_sources/2.2_lu_backward_error.md",
+    "_build/html/_sources/2.1_lu_decomposition.md",
+    "_build/html/_sources/1.5_complexity_notation.md",
+    "_build/html/_sources/1.4_linear_system_error.md",
+    "_build/html/_sources/1.3_error_analysis.md",
+    "_build/html/_sources/1.1_matrix_vector_norms.md",
+    "5.4_eigenvalues_perturbation_theory.md",
+    "5.3_schur_decomposition.md",
+    "5.2_eigenvalues_basic_properties.md",
+    "complex_vector_spaces.md",
+    "5.1_complex_vector_spaces.md"
+  ]
+}

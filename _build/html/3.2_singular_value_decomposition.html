@@ -1,0 +1,674 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>The Singular Value decomposition &#8212; Computational Methods MATH0058 lecture notes</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=afe5de03"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '3.2_singular_value_decomposition';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Least Squares Problems" href="3.3_least_squares_problems.html" />
+    <link rel="prev" title="The QR Decomposition" href="3.1_qr_decomposition.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Computational Methods MATH0058 lecture notes - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Computational Methods MATH0058 lecture notes - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Welcome to MATH0058
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Fundamentals</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="1.1_matrix_vector_norms.html">Matrix and vector norms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_floating_point_arithmetic.html">Floating Point Arithmetic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.3_error_analysis.html">Principles of backward error analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.4_linear_system_error.html">Backward error and condition number of linear systems of equations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_complexity_notation.html">A quick survey of the <span class="math notranslate nohighlight">\(\mathcal{O}\)</span>-notation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_numpy_and_data_layouts.html">Memory layout and Numpy arrays</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition and its numerical stability</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="2.1_lu_decomposition.html">Solving linear system with the LU Decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.2_lu_backward_error.html">Backward error of the LU decomposition and pivoting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.3_lu_backward_error_examples.html">Backward error of the LU decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.4_python_lu_decomposition.html">Implementing the LU decomposition in Python</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Orthogonal decompositions</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="3.1_qr_decomposition.html">The QR Decomposition</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">The Singular Value decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.3_least_squares_problems.html">Least Squares Problems</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Interpolation and quadrature</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="4.1_interpolation_and_quadrature.html">Introduction to interpolation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.2_quadrature.html">Numerical quadrature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.3_stable_quadrature_schemes.html">Stable quadrature schemes</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Eigenvalue problems</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="5.1_complex_vector_spaces.html">Complex vector spaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.2_eigenvalues_basic_properties.html">Basic properties of eigenvalue problems</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="5.3_schur_decomposition.html">The Schur decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.4_eigenvalues_perturbation_theory.html">Perturbation results for eigenvalue problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.5_computing_eigenvalues.html">Computing eigenvalues</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Self Check Questions</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="week_1_self_check.html">Week 1 Self check questions and solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="week_2_self_check.html">Week 2 Self check questions and solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="week_3_self_check.html">Week 3 Self check questions and solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="week_4_self_check.html">Week 4 Self check questions and solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="week_5_self_check.html">Week 5 Self check questions and solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="week_6_self_check.html">Week 6 Self check questions and solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="week_7_self_check.html">Week 7 Self check questions and solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="week_8_self_check.html">Week 8 Self check questions and solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="week_9_self_check.html">Week 9 Self check questions and solutions</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/3.2_singular_value_decomposition.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>The Singular Value decomposition</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theorem-singular-value-decomposition">Theorem (Singular Value Decomposition)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#existence-proof">Existence Proof</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#properties-of-the-svd">Properties of the SVD</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#svd-and-low-rank-approximation">SVD and low-rank approximation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#theorem">Theorem</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-reduced-svd">The reduced SVD</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="the-singular-value-decomposition">
+<h1>The Singular Value decomposition<a class="headerlink" href="#the-singular-value-decomposition" title="Link to this heading">#</a></h1>
+<section id="theorem-singular-value-decomposition">
+<h2>Theorem (Singular Value Decomposition)<a class="headerlink" href="#theorem-singular-value-decomposition" title="Link to this heading">#</a></h2>
+<p>Let <span class="math notranslate nohighlight">\(A\in\mathbb{R}^{m\times n}\)</span>, <span class="math notranslate nohighlight">\(m\geq n\)</span>. Then <span class="math notranslate nohighlight">\(A\)</span> has a singular value decomposition of the form</p>
+<div class="math notranslate nohighlight">
+\[
+A = U\Sigma V^T.
+\]</div>
+<p>Here <span class="math notranslate nohighlight">\(U\in\mathbb{R}^{m\times m}\)</span> and <span class="math notranslate nohighlight">\(V\in\mathbb{R}^{n\times n}\)</span> are orthogonal matrices. The matrix <span class="math notranslate nohighlight">\(\Sigma\)</span> has the form</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\Sigma = \begin{bmatrix}\tilde{\Sigma}\\ 0 \end{bmatrix}
+\end{split}\]</div>
+<p>with <span class="math notranslate nohighlight">\(\tilde{\Sigma} = \text{diag}(\sigma_1, \sigma_2, \dots, \sigma_r, 0, \dots, 0)\)</span>, and <span class="math notranslate nohighlight">\(r\)</span> the rank of the matrix <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<p>The <span class="math notranslate nohighlight">\(\sigma_j\)</span> are called singular values of <span class="math notranslate nohighlight">\(A\)</span>. The columns <span class="math notranslate nohighlight">\(v_j\)</span> of <span class="math notranslate nohighlight">\(V\)</span> are called right singular vectors. The columns <span class="math notranslate nohighlight">\(u_j\)</span> of <span class="math notranslate nohighlight">\(U\)</span> are called left singular vectors.</p>
+</section>
+<section id="existence-proof">
+<h2>Existence Proof<a class="headerlink" href="#existence-proof" title="Link to this heading">#</a></h2>
+<p>The proof proceeds via induction. Define <span class="math notranslate nohighlight">\(\sigma_1 := \|A\|_2\)</span>. In finite dimensions we know that there exists <span class="math notranslate nohighlight">\(v_1\)</span>, <span class="math notranslate nohighlight">\(\|v_1\|_2 = 1\)</span>, s.t. <span class="math notranslate nohighlight">\(Av_1 = \sigma_1 u_1\)</span> for some <span class="math notranslate nohighlight">\(u_1\in\mathbb{R}^m\)</span> with <span class="math notranslate nohighlight">\(\|u_1\|_2 = 1\)</span>. Now let <span class="math notranslate nohighlight">\(U_1\)</span> and <span class="math notranslate nohighlight">\(V_1\)</span> be orthogonal matrices of the form</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+V_1 &amp;= \begin{bmatrix}v_1 &amp; \hat{V}_1\end{bmatrix}\\
+U_1 &amp;= \begin{bmatrix}u_1 &amp; \hat{U}_1\end{bmatrix}
+\end{aligned}
+\end{split}\]</div>
+<p>It follows that</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+S := U_1^TAV_1 = \begin{bmatrix}\sigma_1 &amp; w^T\\
+                            0       &amp; B
+            \end{bmatrix}.
+\end{split}\]</div>
+<p><span class="math notranslate nohighlight">\(w\)</span> is some vector of dimension <span class="math notranslate nohighlight">\(n-1\)</span>. <span class="math notranslate nohighlight">\(B\)</span> is a matrix of dimension <span class="math notranslate nohighlight">\(m-1\times n-1\)</span>. In order to proceed we need to show that <span class="math notranslate nohighlight">\(w=0\)</span>.</p>
+<p>We have</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+\|S\|_2 &amp;= \left\|\begin{bmatrix}\sigma_1 &amp; w^T\\
+                            0       &amp; B
+            \end{bmatrix}\right\|_2\\ 
+        &amp;\geq \frac{\left\|\begin{bmatrix}\sigma_1 &amp; w^T\\
+                                    0       &amp; B
+                    \end{bmatrix}\begin{bmatrix}
+                    \sigma_1\\ w\end{bmatrix}\right\|_2}{\left(\sigma_1^2 + w^Tw\right)^{1/2}}\\
+        &amp;\geq \left(\sigma_1^2 + w^Tw\right)^{1/2}.
+\end{aligned}
+\end{split}\]</div>
+<p>The first inequality follows from the fact that <span class="math notranslate nohighlight">\(\|Ax\| / \|x\| \leq \|A\|\)</span> by definition of a vector induced matrix.norm. The second inequality follows from ignoring the contribution of <span class="math notranslate nohighlight">\(Bw\)</span> to the norm.</p>
+<p>We therefore have that</p>
+<div class="math notranslate nohighlight">
+\[
+\sigma_1 = \|S\|_2 \geq \left(\sigma_1^2 + w^Tw\right)^{1/2}.
+\]</div>
+<p>It follows that</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+U_1^TAV_1 = \begin{bmatrix}\sigma_1 &amp; 0\\
+                           0 &amp; B
+            \end{bmatrix}.
+\end{split}\]</div>
+<p>We now use an induction argument to assume that the SVD of <span class="math notranslate nohighlight">\(B\)</span> exists with</p>
+<div class="math notranslate nohighlight">
+\[
+B = \hat{U}\hat{\Sigma}\hat{V}^T.
+\]</div>
+<p>Then</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+A = U_1\begin{bmatrix}1 &amp; 0 \\
+                      0 &amp; \hat{U}
+        \end{bmatrix}
+        \begin{bmatrix}\sigma_1 &amp; 0\\
+                       0        &amp; \hat{\Sigma}
+        \end{bmatrix}
+        \begin{bmatrix}1 &amp; 0\\
+                       0 &amp; \hat{V}^T
+        \end{bmatrix}V_1^T.
+\end{split}\]</div>
+<p>We now define</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}U:= U_1\begin{bmatrix}1 &amp; 0 \\
+                      0 &amp; \hat{U}
+        \end{bmatrix},\quad V:=        \begin{bmatrix}1 &amp; 0\\
+                       0 &amp; \hat{V}^T
+        \end{bmatrix}V_1^T.
+\end{split}\]</div>
+<p>The induction start is given by a single column vector if <span class="math notranslate nohighlight">\(m &gt; n\)</span> or a scalar if <span class="math notranslate nohighlight">\(m=1\)</span>. The theorem is trivially satisfied in both cases.</p>
+</section>
+<section id="properties-of-the-svd">
+<h2>Properties of the SVD<a class="headerlink" href="#properties-of-the-svd" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>The rank of <span class="math notranslate nohighlight">\(A\)</span> is identical to <span class="math notranslate nohighlight">\(r\)</span>, the number of nonzero singular values.</p></li>
+<li><p>The nullspace <span class="math notranslate nohighlight">\(\text{null}(A)\)</span> is given by <span class="math notranslate nohighlight">\(\text{null}(A):= \text{span}\{v_{r+1}, \dots, v_n\}\)</span>.</p></li>
+<li><p>The range of <span class="math notranslate nohighlight">\(A\)</span> is given by <span class="math notranslate nohighlight">\(\text{ran}(A) := \text{span}\{u_1, \dots, u_r\}\)</span>.</p></li>
+<li><p>We have that <span class="math notranslate nohighlight">\(\|A\|_2 = \|U\Sigma V^T\|_2 = \|\Sigma\|_2 = \sigma_1\)</span>.</p></li>
+<li><p>Using that <span class="math notranslate nohighlight">\(\|Q_1AQ_2\|_F = \|A\|_F\)</span> for orthogonal matrices <span class="math notranslate nohighlight">\(Q_1\)</span>, <span class="math notranslate nohighlight">\(Q_2\)</span> it correspondingly follows that <span class="math notranslate nohighlight">\(\|A\|_F = \|\Sigma\|_F = \left(\sum_{j=1}^r\sigma_j^2\right)^{1/2}\)</span>.
+As corollary we have that <span class="math notranslate nohighlight">\(\|A\|_2 \leq \|A\|_F \leq \sqrt{r}\|A\|_2\)</span>.</p></li>
+<li><p>If <span class="math notranslate nohighlight">\(A\)</span> is invertible then <span class="math notranslate nohighlight">\(A^{-1} = V\Sigma^{-1}U^T\)</span> and therefore <span class="math notranslate nohighlight">\(\|A^{-1}\| = \sigma_n^{-1}\)</span>. It follows for the matrix condition number <span class="math notranslate nohighlight">\(\kappa_{rel}(A)\)</span> that <span class="math notranslate nohighlight">\(\kappa_{rel}(A) = \frac{\sigma_1}{\sigma_n}\)</span>. Moreover <span class="math notranslate nohighlight">\(\Delta A := -\sigma_n u_n v_n^T\)</span> is the smallest possible perturbation such that <span class="math notranslate nohighlight">\(A+\Delta A\)</span> is singular. Hence, the condition number is just the inverse of the smallest relative distance to the next singular matrix.</p></li>
+</ul>
+</section>
+<section id="svd-and-low-rank-approximation">
+<h2>SVD and low-rank approximation<a class="headerlink" href="#svd-and-low-rank-approximation" title="Link to this heading">#</a></h2>
+<p>We can rewrite <span class="math notranslate nohighlight">\(A = U\Sigma V^T\)</span> as</p>
+<div class="math notranslate nohighlight">
+\[
+A = \sigma_1 u_1 v_1^T + \sigma_2u_2v_2^T + \dots + \sigma_r u_r v_r^T.
+\]</div>
+<p>Each of the involved terms <span class="math notranslate nohighlight">\(\sigma_j u_jv_j^T\)</span> forms a rank-1 matrix. Define <span class="math notranslate nohighlight">\(A_\nu := \sum_{j=1}^\nu \sigma_j u_jv_j^T\)</span> for <span class="math notranslate nohighlight">\(\nu\leq r\)</span>. We have that</p>
+<div class="math notranslate nohighlight">
+\[
+\|A - A_{\nu}\|_2 = \sigma_{\nu+1}.
+\]</div>
+<section id="theorem">
+<h3>Theorem<a class="headerlink" href="#theorem" title="Link to this heading">#</a></h3>
+<p>Let <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(A_{\nu}\)</span> be defined as above. Then</p>
+<div class="math notranslate nohighlight">
+\[
+\|A - A_{\nu}\|_2 = \min_{B\in\mathbb{R}^{m\times n}, \text{rank}(B)\leq\nu} \|A - B\|_2 = \sigma_{\nu+1}.
+\]</div>
+</section>
+</section>
+<section id="the-reduced-svd">
+<h2>The reduced SVD<a class="headerlink" href="#the-reduced-svd" title="Link to this heading">#</a></h2>
+<p>Let <span class="math notranslate nohighlight">\(A\in\mathbb{R}^{m\times n}\)</span>. Write the full SVD as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+A = \begin{bmatrix}U_1 &amp; U_2\end{bmatrix}\begin{bmatrix}\hat{\Sigma} &amp; 0\\
+                                                        0            &amp; 0
+                                         \end{bmatrix}
+                                        \begin{bmatrix}V_1 &amp; V_2\end{bmatrix}^T
+\end{split}\]</div>
+<p>with <span class="math notranslate nohighlight">\(U := \begin{bmatrix}U_1 &amp; U_2\end{bmatrix}\in\mathbb{R}^{m\times m}\)</span> and <span class="math notranslate nohighlight">\(V:=\begin{bmatrix}V_1 &amp; V_2\end{bmatrix}\in\mathbb{R}^{n\times n}\)</span> are the orthogonal matrices from the SVD, and <span class="math notranslate nohighlight">\(\Sigma :=\begin{bmatrix}\hat{\Sigma} &amp; 0\\0  &amp; 0\end{bmatrix}\)</span>. The columns of <span class="math notranslate nohighlight">\(U_2\)</span> form a basis for
+the orthogonal complement of the range of <span class="math notranslate nohighlight">\(A\)</span> and the columns of <span class="math notranslate nohighlight">\(V_2\)</span> form the nullspace of <span class="math notranslate nohighlight">\(A\)</span>. We have <span class="math notranslate nohighlight">\(\hat{\Sigma}\in\mathbb{R}^{r\times r}\)</span> a diagonal matrix with <span class="math notranslate nohighlight">\(\sigma_1, \dots, \sigma_r\)</span> being its diagonal elements.</p>
+<p>The <em>reduced SVD</em> is now defined as</p>
+<div class="math notranslate nohighlight">
+\[
+A = U_1\hat{\Sigma}V_1^T.
+\]</div>
+<p>For computational purposes knowledge of the reduced SVD (or dominant parts of it) is usually sufficient.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="3.1_qr_decomposition.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">The QR Decomposition</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="3.3_least_squares_problems.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Least Squares Problems</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theorem-singular-value-decomposition">Theorem (Singular Value Decomposition)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#existence-proof">Existence Proof</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#properties-of-the-svd">Properties of the SVD</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#svd-and-low-rank-approximation">SVD and low-rank approximation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#theorem">Theorem</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-reduced-svd">The reduced SVD</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Timo Betcke, Erik Burman, Max Jensen
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

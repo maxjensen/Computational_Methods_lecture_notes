@@ -1,0 +1,45 @@
+format: jb-book
+root: intro
+parts:
+- caption: Fundamentals
+  chapters:
+    - file: 1.1_matrix_vector_norms
+    - file: 1.2_floating_point_arithmetic.ipynb
+    - file: 1.3_error_analysis
+    - file: 1.4_linear_system_error
+    - file: 1.5_complexity_notation.md
+    - file: 1.6_numpy_and_data_layouts.ipynb
+- caption: LU Decomposition and its numerical stability
+  chapters:
+    - file: 2.1_lu_decomposition.md
+    - file: 2.2_lu_backward_error.md
+    - file: 2.3_lu_backward_error_examples.ipynb
+    - file: 2.4_python_lu_decomposition.ipynb
+- caption: Orthogonal decompositions
+  chapters:
+    - file: 3.1_qr_decomposition
+    - file: 3.2_singular_value_decomposition
+    - file: 3.3_least_squares_problems
+- caption: Interpolation and quadrature
+  chapters:
+    - file: 4.1_interpolation_and_quadrature.ipynb
+    - file: 4.2_quadrature.ipynb
+    - file: 4.3_stable_quadrature_schemes
+- caption: Eigenvalue problems
+  chapters:
+    - file: 5.1_complex_vector_spaces
+    - file: 5.2_eigenvalues_basic_properties
+    - file: 5.3_schur_decomposition
+    - file: 5.4_eigenvalues_perturbation_theory
+    - file: 5.5_computing_eigenvalues.ipynb
+- caption: Self Check Questions
+  chapters:
+    - file: week_1_self_check
+    - file: week_2_self_check
+    - file: week_3_self_check
+    - file: week_4_self_check
+    - file: week_5_self_check.ipynb
+    - file: week_6_self_check
+    - file: week_7_self_check
+    - file: week_8_self_check.ipynb
+    - file: week_9_self_check.ipynb

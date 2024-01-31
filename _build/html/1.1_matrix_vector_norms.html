@@ -1,0 +1,662 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Matrix and vector norms &#8212; Computational Methods MATH0058 lecture notes</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=afe5de03"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '1.1_matrix_vector_norms';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Floating Point Arithmetic" href="1.2_floating_point_arithmetic.html" />
+    <link rel="prev" title="Welcome to MATH0058" href="intro.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Computational Methods MATH0058 lecture notes - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Computational Methods MATH0058 lecture notes - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Welcome to MATH0058
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Fundamentals</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Matrix and vector norms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_floating_point_arithmetic.html">Floating Point Arithmetic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.3_error_analysis.html">Principles of backward error analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.4_linear_system_error.html">Backward error and condition number of linear systems of equations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_complexity_notation.html">A quick survey of the <span class="math notranslate nohighlight">\(\mathcal{O}\)</span>-notation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_numpy_and_data_layouts.html">Memory layout and Numpy arrays</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition and its numerical stability</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="2.1_lu_decomposition.html">Solving linear system with the LU Decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.2_lu_backward_error.html">Backward error of the LU decomposition and pivoting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.3_lu_backward_error_examples.html">Backward error of the LU decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.4_python_lu_decomposition.html">Implementing the LU decomposition in Python</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Orthogonal decompositions</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="3.1_qr_decomposition.html">The QR Decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.2_singular_value_decomposition.html">The Singular Value decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.3_least_squares_problems.html">Least Squares Problems</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Interpolation and quadrature</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="4.1_interpolation_and_quadrature.html">Introduction to interpolation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.2_quadrature.html">Numerical quadrature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.3_stable_quadrature_schemes.html">Stable quadrature schemes</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Eigenvalue problems</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="5.1_complex_vector_spaces.html">Complex vector spaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.2_eigenvalues_basic_properties.html">Basic properties of eigenvalue problems</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="5.3_schur_decomposition.html">The Schur decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.4_eigenvalues_perturbation_theory.html">Perturbation results for eigenvalue problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.5_computing_eigenvalues.html">Computing eigenvalues</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Self Check Questions</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="week_1_self_check.html">Week 1 Self check questions and solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="week_2_self_check.html">Week 2 Self check questions and solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="week_3_self_check.html">Week 3 Self check questions and solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="week_4_self_check.html">Week 4 Self check questions and solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="week_5_self_check.html">Week 5 Self check questions and solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="week_6_self_check.html">Week 6 Self check questions and solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="week_7_self_check.html">Week 7 Self check questions and solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="week_8_self_check.html">Week 8 Self check questions and solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="week_9_self_check.html">Week 9 Self check questions and solutions</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/1.1_matrix_vector_norms.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Matrix and vector norms</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#norm-axioms">Norm axioms</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#frequently-used-vector-norms">Frequently used vector norms</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#norm-equivalence">Norm equivalence</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#norm-equivalence-in-finite-dimensional-vector-spaces">Norm equivalence in finite dimensional vector spaces</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-norms">Matrix norms</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submultiplicativity">Submultiplicativity</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#submultiplicativity-of-the-frobenius-norm">Submultiplicativity of the Frobenius norm</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="matrix-and-vector-norms">
+<h1>Matrix and vector norms<a class="headerlink" href="#matrix-and-vector-norms" title="Link to this heading">#</a></h1>
+<section id="norm-axioms">
+<h2>Norm axioms<a class="headerlink" href="#norm-axioms" title="Link to this heading">#</a></h2>
+<p>Let <span class="math notranslate nohighlight">\(V\)</span> be a vector space and <span class="math notranslate nohighlight">\(\rho: V\rightarrow \mathbb{R}^{+}\)</span> a
+mapping from <span class="math notranslate nohighlight">\(V\)</span> into the nonnegative numbers.
+<span class="math notranslate nohighlight">\(\rho\)</span> is called a norm if it satisfies the following properties</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(\rho(\alpha x) = |\alpha| \rho(x)~\forall \alpha\in\mathbb{R};~x\in V\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\rho(x + y) \leq \rho(x) + \rho(y)~\forall x, y\in V\)</span> (triangle inequality)</p></li>
+<li><p><span class="math notranslate nohighlight">\(\rho(x) = 0\)</span> if and only if <span class="math notranslate nohighlight">\(x = 0\)</span>.</p></li>
+</ol>
+<p>From these axioms it immediately follows that
+$<span class="math notranslate nohighlight">\(
+0 = \rho(0) = \rho(x - x) \leq 2\rho(x)
+\)</span>$</p>
+<p>and therefore <span class="math notranslate nohighlight">\(\rho(x) \geq 0\)</span> for all <span class="math notranslate nohighlight">\(x\in V\)</span>. Hence, a norm is always
+nonnegative.</p>
+<p>The first and third norm axiom are usually easy to prove. The difficult
+one is the second one, the triangle inequality.</p>
+</section>
+<section id="frequently-used-vector-norms">
+<h2>Frequently used vector norms<a class="headerlink" href="#frequently-used-vector-norms" title="Link to this heading">#</a></h2>
+<p>Let <span class="math notranslate nohighlight">\(V\)</span> be the real vector space <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>. Let <span class="math notranslate nohighlight">\(x\in V\)</span> and denote
+by <span class="math notranslate nohighlight">\(x_j\)</span> the <span class="math notranslate nohighlight">\(j\)</span>-th  component of <span class="math notranslate nohighlight">\(x\)</span>.</p>
+<p>The most frequently used vector norms are:</p>
+<ul class="simple">
+<li><p>The <span class="math notranslate nohighlight">\(1\)</span>-norm <span class="math notranslate nohighlight">\(\|x\|_1 = \sum_{j=1}^n|x_j|\)</span>.</p></li>
+<li><p>The <span class="math notranslate nohighlight">\(2\)</span>-norm <span class="math notranslate nohighlight">\(\|x\|_2 = \left[\sum_{j=1}^n|x_j|^2\right]^{1/2}\)</span>.</p></li>
+<li><p>The <span class="math notranslate nohighlight">\(\infty\)</span>-norm <span class="math notranslate nohighlight">\(\|x\|_{\infty} = \max_j |x_j|\)</span>.</p></li>
+</ul>
+<p>These are all special cases of the <span class="math notranslate nohighlight">\(\ell_p\)</span>-norm defined as</p>
+<div class="math notranslate nohighlight">
+\[
+\|x\|_p = \left[\sum_{j=1}^n]|x_j|^p\right]^{1/p}.
+\]</div>
+</section>
+<section id="norm-equivalence">
+<h2>Norm equivalence<a class="headerlink" href="#norm-equivalence" title="Link to this heading">#</a></h2>
+<p>Which norm should we use? This usually depends on the application.
+A taxi driver will prefer the <span class="math notranslate nohighlight">\(1\)</span>-norm when calculating distances as they
+need to follow a street map and can’t go in straight lines to locations.</p>
+<p>In Numerics we often want to prove whether a given numerical approximation
+is converging. Hence, we have some error quantity <span class="math notranslate nohighlight">\(e\)</span> and want to show that
+the sequence of errors <span class="math notranslate nohighlight">\(\left\{e_n\right\}\)</span> converges to <span class="math notranslate nohighlight">\(0\)</span>. Can it happen
+that an error converges to <span class="math notranslate nohighlight">\(0\)</span> in one norm but not in another norm?
+In finite dimensional vector spaces the answer is no. If a sequence converges in one norm it also converges in any other norm. This goes back
+to the following norm equivalence theorem</p>
+<section id="norm-equivalence-in-finite-dimensional-vector-spaces">
+<h3>Norm equivalence in finite dimensional vector spaces<a class="headerlink" href="#norm-equivalence-in-finite-dimensional-vector-spaces" title="Link to this heading">#</a></h3>
+<p>Let <span class="math notranslate nohighlight">\(V\)</span> be a finite dimensional vector space. Consider two norms
+<span class="math notranslate nohighlight">\(\|\cdot\|_a\)</span> and <span class="math notranslate nohighlight">\(\|\cdot\|_b\)</span> on <span class="math notranslate nohighlight">\(V\)</span>. Then there exist positive constants
+<span class="math notranslate nohighlight">\(C_1\)</span>, <span class="math notranslate nohighlight">\(C_2\)</span> such that for all <span class="math notranslate nohighlight">\(x\in V\)</span></p>
+<div class="math notranslate nohighlight">
+\[
+C_1\|x\|_a\leq \|x\|_b\leq C_2\|x\|_a
+\]</div>
+<p>Proof: The proof requires some analysis and is not part of the lecture.
+For those interested in how it works a good reference is the following
+note by <a class="reference external" href="https://math.mit.edu/~stevenj/18.335/norm-equivalence.pdf">Steve Johnson at MIT</a>.</p>
+<p>We note that norm equivalence is only a property of finite dimensional vector spaces. For infinite dimensional spaces (e.g. spaces of functions)
+it is easy to construct examples of functions converging with respect to one norm but not with respect to another norm.</p>
+</section>
+</section>
+<section id="matrix-norms">
+<h2>Matrix norms<a class="headerlink" href="#matrix-norms" title="Link to this heading">#</a></h2>
+<p>Let <span class="math notranslate nohighlight">\(A\in\mathbb{R}^{m\times n}\)</span>. Consider vector norms <span class="math notranslate nohighlight">\(\|x\|_a\)</span> for <span class="math notranslate nohighlight">\(x\in\mathbb{R}^n\)</span> and <span class="math notranslate nohighlight">\(\|y\|_b\)</span> for <span class="math notranslate nohighlight">\(y\in\mathbb{R}^{m}\)</span>. Then an induced matrix norm can be defined as follows:</p>
+<div class="math notranslate nohighlight">
+\[
+\|A\|_{b, a}:= \max_{x\in\mathbb{R}^n\backslash\{0\}}\frac{\|Ax\|_b}{\|x\|_a}
+\]</div>
+<p>If <span class="math notranslate nohighlight">\(a = b\)</span> then we abbreviate <span class="math notranslate nohighlight">\(\|A\|_a := \|A\|_{a, a}\)</span>.</p>
+<p>The following three matrix norms derive from the corresponding vector norms.</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\|A\|_1 :=\max_{1\leq j\leq n} \sum_{i=1}^n|a_{ij}|\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\|A\|_2 :=\sqrt{\lambda_{max}(A^TA)}\)</span>, where
+<span class="math notranslate nohighlight">\(\lambda_max\)</span> denotes the largest eigenvalue.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\|A\|_{\infty} := \max_{1\leq i\leq n}\sum_{j=1}^n|a_{ij}\)</span></p></li>
+</ul>
+<p>The <span class="math notranslate nohighlight">\(\|A\|_2\)</span> matrix norm is difficult to evaluate as it requires computation of the largest eigenvalue of <span class="math notranslate nohighlight">\(A^TA\)</span>, which is an expensive operation. In practice, the following <strong>Frobenius</strong> norm is therefore frequently used instead of the matrix <span class="math notranslate nohighlight">\(2\)</span>-norm.</p>
+<div class="math notranslate nohighlight">
+\[
+\|A\|_F:=\left(\sum_{ij}|a_{ij}|^2\right)^{1/2}.
+\]</div>
+<p>We will later show that</p>
+<div class="math notranslate nohighlight">
+\[
+\|A\|_2\leq \|A\|_F\leq\sqrt{r}\|A\|_2
+\]</div>
+</section>
+<section id="submultiplicativity">
+<h2>Submultiplicativity<a class="headerlink" href="#submultiplicativity" title="Link to this heading">#</a></h2>
+<p>Let <span class="math notranslate nohighlight">\(A\in\mathbb{R}^{m\times n}\)</span> and <span class="math notranslate nohighlight">\(B\in\mathbb{R}^{n\times k}\)</span> with corresponding vector induced matrix norm <span class="math notranslate nohighlight">\(\|\cdot\|\)</span>. For any <span class="math notranslate nohighlight">\(v\in\mathbb{R}^k\)</span> it holds that</p>
+<div class="math notranslate nohighlight">
+\[
+\|ABv\|\leq \|A\|\cdot\|Bv\|\leq \|A\|\cdot \|B\| \cdot \|v\|.
+\]</div>
+<p>Dividing by <span class="math notranslate nohighlight">\(\|v\|\)</span> and taking the maximum over all <span class="math notranslate nohighlight">\(v\in\mathbb{R}^k\backslash\{0\}\)</span> shows that</p>
+<div class="math notranslate nohighlight">
+\[
+\|A\cdot B\|\leq \|A\|\cdot \|B\|.
+\]</div>
+<p>This property is called submultiplicativty. We have just proved it for any vector induced matrix norm. But what about the Frobenius norm?</p>
+<p>First of all, since <span class="math notranslate nohighlight">\(\|A\|_2\leq \|A\|_F\)</span> we have that</p>
+<div class="math notranslate nohighlight">
+\[
+\|Ax\|_2 \leq \|A\|_2\|x\|_2 \leq \|A\|_F\|x\|_2.
+\]</div>
+<p>We can now prove the following statement.</p>
+<section id="submultiplicativity-of-the-frobenius-norm">
+<h3>Submultiplicativity of the Frobenius norm<a class="headerlink" href="#submultiplicativity-of-the-frobenius-norm" title="Link to this heading">#</a></h3>
+<p>For matrices <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> with compatible dimensions such that the product <span class="math notranslate nohighlight">\(AB\)</span> exists it holds that</p>
+<div class="math notranslate nohighlight">
+\[
+\|AB\|_F\leq \|A\|_F\cdot \|B\|_F.
+\]</div>
+<p><strong>Proof:</strong> We denote by <span class="math notranslate nohighlight">\(B_{:, j}\)</span> the <span class="math notranslate nohighlight">\(j\)</span>-th colon of the matrix <span class="math notranslate nohighlight">\(B\)</span>. We can now write</p>
+<div class="math notranslate nohighlight">
+\[
+\|AB\|_F^2 = \sum_{j}\|AB_{:, j}\|_2^2\leq \|A\|_F^2\sum_{j}\|B_{:, j}\|_2^2 = \|A\|_F^2\cdot \|B\|_F^2,
+\]</div>
+<p>from which the result follows.</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="intro.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Welcome to MATH0058</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="1.2_floating_point_arithmetic.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Floating Point Arithmetic</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#norm-axioms">Norm axioms</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#frequently-used-vector-norms">Frequently used vector norms</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#norm-equivalence">Norm equivalence</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#norm-equivalence-in-finite-dimensional-vector-spaces">Norm equivalence in finite dimensional vector spaces</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-norms">Matrix norms</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submultiplicativity">Submultiplicativity</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#submultiplicativity-of-the-frobenius-norm">Submultiplicativity of the Frobenius norm</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Timo Betcke, Erik Burman, Max Jensen
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
