@@ -199,7 +199,6 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Solving linear system with the LU Decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.2_lu_backward_error.html">Backward error of the LU decomposition and pivoting</a></li>
-
 <li class="toctree-l1"><a class="reference internal" href="2.3_lu_backward_error_examples.html">Backward error of the LU decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.4_python_lu_decomposition.html">Implementing the LU decomposition in Python</a></li>
 </ul>
@@ -458,17 +457,12 @@ u_{n-1,n-1}x_{n-1} + u_{n-1, x}x_n &amp;= y_{n-1}\\
 \[
 x_i = \frac{y_i - \sum_{j=i + 1}^n u_{i, j}x_j}{u_{i, i}}.
 \]</div>
-<p>What is the cost of this triangular solve? We are counting the number of additions, subtractions, multiplications, and divisions.</p>
-<p>In step <span class="math notranslate nohighlight">\(i\)</span> we have <span class="math notranslate nohighlight">\(n-i\)</span> multiplications <span class="math notranslate nohighlight">\(n-i-1\)</span> additions, one subtraction (apart from the
-first step) and one division. Hence, the overall number <span class="math notranslate nohighlight">\(ops\)</span> of operations is</p>
+<p>What is the cost of this triangular solve? We count the number of additions, subtractions, multiplications, and divisions.</p>
+<p>To obtain <span class="math notranslate nohighlight">\(x_i\)</span>, we have <span class="math notranslate nohighlight">\(n-i\)</span> multiplications, <span class="math notranslate nohighlight">\(n-i-1\)</span> additions, one subtraction (apart from the expression for <span class="math notranslate nohighlight">\(x_n\)</span>) and one division. Hence, the overall number <span class="math notranslate nohighlight">\(ops\)</span> of operations is</p>
 <div class="math notranslate nohighlight">
 \[
-ops = 2n - 1 + 2\sum_{i=1}^n n-i.
+ops = \sum_{i=1}^n [(n-i) + (n-i-1) + 1 + 1] = \sum_{i=1}^n [2 (n-i) + 1] = n^2.
 \]</div>
-<p>We can easily compute this to obtain
-$<span class="math notranslate nohighlight">\(
-ops = 2n-1 + 2n^2 - n(n+1) = n^2+n - 1.
-\)</span>$</p>
 </section>
 <section id="deriving-the-lu-decomposition">
 <h2>Deriving the LU Decomposition<a class="headerlink" href="#deriving-the-lu-decomposition" title="Link to this heading">#</a></h2>
