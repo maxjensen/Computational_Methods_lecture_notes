@@ -199,7 +199,6 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="2.1_lu_decomposition.html">Solving linear system with the LU Decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.2_lu_backward_error.html">Backward error of the LU decomposition and pivoting</a></li>
-
 <li class="toctree-l1"><a class="reference internal" href="2.3_lu_backward_error_examples.html">Backward error of the LU decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.4_python_lu_decomposition.html">Implementing the LU decomposition in Python</a></li>
 </ul>
@@ -428,7 +427,7 @@ E_{rel} := \frac{\|y - \tilde{y}\|}{\|y\|}.
 \[
 \eta_{rel}(\tilde{y}) := \min\{\epsilon: f(x+ \Delta x) = \tilde{y}: \|\Delta x\|\leq \epsilon \|x\|\}.
 \]</div>
-<p>If the relative backward error for <span class="math notranslate nohighlight">\(\tilde{f}\)</span> is bounded by a small constant times the uncertainty in the input data, we say that the algorithm is backward stable. It means that the backward accuracy of the algorithm is as good as we can expect. Hence, for a numerical algorithm on a computer, we say that an algorithm is backward stable if its backward error is bounded by a small multiple of machine precision.</p>
+<p>If the relative backward error for <span class="math notranslate nohighlight">\(\tilde{f}\)</span> is bounded by a small constant, we say that the algorithm is backward stable. It means that the backward accuracy of the algorithm is as good as we can expect. Hence, for a numerical algorithm on a computer, we say that an algorithm is backward stable if its backward error is bounded by a small multiple of machine precision.</p>
 </section>
 <section id="condition-number">
 <h2>Condition number<a class="headerlink" href="#condition-number" title="Link to this heading">#</a></h2>
@@ -442,8 +441,7 @@ E_{rel} := \frac{\|y - \tilde{y}\|}{\|y\|}.
 \end{aligned}
 \end{split}\]</div>
 <p>Equality (2) is possible by choosing <span class="math notranslate nohighlight">\(\tilde{x}\)</span> such that <span class="math notranslate nohighlight">\(\tilde{f}(x) = f(\tilde{x})\)</span>. Hence, <span class="math notranslate nohighlight">\(\Delta x = x- \tilde{x}\)</span> is the backward perturbation associated with the output <span class="math notranslate nohighlight">\(\tilde{y}\)</span>. The right-hand side in (3) is the product of the derivative of <span class="math notranslate nohighlight">\(f\)</span> and the size of the backward error. It demonstrates that the forward error depends on two quantities, namely the sensitivity of <span class="math notranslate nohighlight">\(f\)</span> to small perturbations (i.e. <span class="math notranslate nohighlight">\(\|f'(x)\|\)</span>) and the size of the backward error <span class="math notranslate nohighlight">\(\|x-\tilde{x}\|\)</span>. This is of fundamental importance. We can devise an extremely good evaluation <span class="math notranslate nohighlight">\(\tilde{f}\)</span> with a small backward error. The output forward error will still be large if the problem is highly sensitive to perturbations.</p>
-<p>A more general definition of sensitivity is given by the <em>condition number</em>. The relative
-condition number <span class="math notranslate nohighlight">\(\kappa_{rel}\)</span> is defined as</p>
+<p>A more important definition of sensitivity is given by the <em>condition number</em>. The relative condition number <span class="math notranslate nohighlight">\(\kappa_{rel}\)</span> is defined as</p>
 <div class="math notranslate nohighlight">
 \[
 \kappa_{rel}(x) := \lim_{\delta\rightarrow 0}\sup_{\|\Delta x\|\leq \delta}\left(\frac{\|\Delta f\|}{\|f\|} / \frac{\|\Delta x\|}{\|x\|}\right)
@@ -451,10 +449,7 @@ condition number <span class="math notranslate nohighlight">\(\kappa_{rel}\)</sp
 <p>with <span class="math notranslate nohighlight">\(\Delta f = f(x) - f(\tilde{x})\)</span> being the perturbation in the output data.</p>
 <p>Hence, it measures the largest possible ratio of relative output error with respect to relative
 input error. If <span class="math notranslate nohighlight">\(f\)</span> is differentiable then <span class="math notranslate nohighlight">\(\kappa_{rel}(x) = \frac{\|f'(x)\|}{\|f(x\|}\|x\|\)</span>.</p>
-<p>What is a good condition number in practice? Ideally, we want the condition number to be close
-to <span class="math notranslate nohighlight">\(1\)</span> since then errors in the input data are not amplified for the output error. For each
-magnitude of the condition number, we lose one digit of accuracy in the output error. This
-can be seen as follows.</p>
+<p>What is a good condition number in practice? Ideally, we want the condition number to be close to <span class="math notranslate nohighlight">\(1\)</span> since then errors in the input data are not amplified for the output error. For each magnitude of the condition number, we lose one digit of accuracy in the output error. This can be seen as follows.</p>
 <p>From the definition of the condition number we obtain for differentiable <span class="math notranslate nohighlight">\(f\)</span> that to first order</p>
 <div class="math notranslate nohighlight">
 \[
