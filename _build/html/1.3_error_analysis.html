@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
   
@@ -398,23 +398,18 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="principles-of-backward-error-analysis">
 <h1>Principles of backward error analysis<a class="headerlink" href="#principles-of-backward-error-analysis" title="Link to this heading">#</a></h1>
-<p>Modern error analysis goes back to the seminal work by <a class="reference external" href="https://en.wikipedia.org/wiki/James_H._Wilkinson">James Hardy Wilkinson</a>.
-It distinguishes between forward error, that is the error in the result of an algorithm, and the backward error, which is a perturbation
-measure for the input data.</p>
-<p>In the following we denote by <span class="math notranslate nohighlight">\(f:X\rightarrow Y\)</span> a function that maps data from an input space <span class="math notranslate nohighlight">\(X\)</span> into an output space <span class="math notranslate nohighlight">\(Y\)</span>. Correspondingly,
-we define a function <span class="math notranslate nohighlight">\(\tilde{f}\)</span>, which represents an approximate evaluation of <span class="math notranslate nohighlight">\(f\)</span>. Consider for example the solution of the linear system
-of equations</p>
+<p>Modern error analysis goes back to the seminal work by <a class="reference external" href="https://en.wikipedia.org/wiki/James_H._Wilkinson">James Hardy Wilkinson</a>. It distinguishes between forward error, which is the error in the result of an algorithm, and backward error, which is a perturbation measure for the input data.</p>
+<p>In the following, we denote by <span class="math notranslate nohighlight">\(f: X \rightarrow Y\)</span> a function that maps data from an input space <span class="math notranslate nohighlight">\(X\)</span> into an output space <span class="math notranslate nohighlight">\(Y\)</span>. Correspondingly, we define a function <span class="math notranslate nohighlight">\(\tilde{f}\)</span>, which represents an approximate evaluation of <span class="math notranslate nohighlight">\(f\)</span>. Consider, for example, the solution of the linear system of equations</p>
 <div class="math notranslate nohighlight">
 \[
 Ay = b
 \]</div>
-<p>with <span class="math notranslate nohighlight">\(A\in\mathbb{R}^{n\times n}\)</span> and <span class="math notranslate nohighlight">\(b\in\mathbb{R}^n\)</span>. Then the input space is the product space <span class="math notranslate nohighlight">\(X=\mathbb{R}^{n\times n} \times \mathbb{R}^n\)</span> and our
-input data is the tuple <span class="math notranslate nohighlight">\((A, b)\in X\)</span>. The output space is <span class="math notranslate nohighlight">\(Y=\mathbb{R}^n\)</span>. The function <span class="math notranslate nohighlight">\(f\)</span> is given as</p>
+<p>with <span class="math notranslate nohighlight">\(A\in\mathbb{R}^{n\times n}\)</span> and <span class="math notranslate nohighlight">\(b\in\mathbb{R}^n\)</span>. Then, the input space is the product space <span class="math notranslate nohighlight">\(X=\mathbb{R}^{n\times n} \times \mathbb{R}^n\)</span> and our input data is the tuple <span class="math notranslate nohighlight">\((A, b)\in X\)</span>. The output space is <span class="math notranslate nohighlight">\(Y=\mathbb{R}^n\)</span>. The function <span class="math notranslate nohighlight">\(f\)</span> is given as</p>
 <div class="math notranslate nohighlight">
 \[
 f(A, b) = A^{-1}b
 \]</div>
-<p>and the approximate function <span class="math notranslate nohighlight">\(\tilde{f}\)</span> is for example the Gaussian elimination algorithm in IEEE double precision to compute the solution <span class="math notranslate nohighlight">\(y\)</span>.</p>
+<p>and the approximate function <span class="math notranslate nohighlight">\(\tilde{f}\)</span> is, for example, the Gaussian elimination algorithm in IEEE double precision to compute the solution <span class="math notranslate nohighlight">\(y\)</span>.</p>
 <section id="forward-error">
 <h2>Forward Error<a class="headerlink" href="#forward-error" title="Link to this heading">#</a></h2>
 <p>Let <span class="math notranslate nohighlight">\(y = f(x)\)</span> and <span class="math notranslate nohighlight">\(\tilde{y} = \tilde{f}(y)\)</span>. The relative forward <span class="math notranslate nohighlight">\(E_{rel}\)</span> is defined as</p>
@@ -422,23 +417,21 @@ f(A, b) = A^{-1}b
 \[
 E_{rel} := \frac{\|y - \tilde{y}\|}{\|y\|}.
 \]</div>
-<p>It measures the difference in output between the exact function <span class="math notranslate nohighlight">\(f\)</span> and the approximate function <span class="math notranslate nohighlight">\(\tilde{f}\)</span> for the same input. In some situations it is not useful to talk about
-the relative forward error (i.e. if <span class="math notranslate nohighlight">\(y=0\)</span>). We then use the absolute forward error <span class="math notranslate nohighlight">\(E_{abs} = \|y-\tilde{y}\|\)</span>.</p>
+<p>It measures the difference in output between the exact function <span class="math notranslate nohighlight">\(f\)</span> and the approximate function <span class="math notranslate nohighlight">\(\tilde{f}\)</span> for the same input. In some situations, talking about the relative forward error (i.e., if <span class="math notranslate nohighlight">\(y=0\)</span>) is not useful. We then use the absolute forward error <span class="math notranslate nohighlight">\(E_{abs} = \|y-\tilde{y}\|\)</span>.</p>
 </section>
 <section id="backward-error">
 <h2>Backward error<a class="headerlink" href="#backward-error" title="Link to this heading">#</a></h2>
-<p>The backward error answers the following question. Given the output <span class="math notranslate nohighlight">\(\tilde{y}\)</span> from the perturbed function <span class="math notranslate nohighlight">\(\tilde{f}\)</span> for the input <span class="math notranslate nohighlight">\(x\)</span>. By how much would I need to perturb <span class="math notranslate nohighlight">\(x\)</span> to an input <span class="math notranslate nohighlight">\(\tilde{x} = x + \Delta x\)</span> so that we have <span class="math notranslate nohighlight">\(\tilde{y} = f(\tilde{x})\)</span>. Hence, it asks
-if the exact function <span class="math notranslate nohighlight">\(f\)</span> could produce the same output as <span class="math notranslate nohighlight">\(\tilde{f}\)</span> but with a slight perturbation in the input data. The idea is that our approximate function <span class="math notranslate nohighlight">\(\tilde{f}\)</span> is useful if only a small perturbation is needed for the input data so that <span class="math notranslate nohighlight">\(f\)</span> produces the same output as <span class="math notranslate nohighlight">\(\tilde{f}\)</span> (the perturbation certainly being dependent on the input data).</p>
+<p>The backward error answers the following question. Given the output <span class="math notranslate nohighlight">\(\tilde{y}\)</span> from the perturbed function <span class="math notranslate nohighlight">\(\tilde{f}\)</span> for the input <span class="math notranslate nohighlight">\(x\)</span>. By how much would I need to perturb <span class="math notranslate nohighlight">\(x\)</span> to an input <span class="math notranslate nohighlight">\(\tilde{x} = x + \Delta x\)</span> so that we have <span class="math notranslate nohighlight">\(\tilde{y} = f(\tilde{x})\)</span>? Hence, it asks if the exact function <span class="math notranslate nohighlight">\(f\)</span> could produce the same output as <span class="math notranslate nohighlight">\(\tilde{f}\)</span> but with a slight perturbation in the input data. The idea is that our approximate function <span class="math notranslate nohighlight">\(\tilde{f}\)</span> is useful if only a small perturbation is needed for the input data so that <span class="math notranslate nohighlight">\(f\)</span> produces the same output as <span class="math notranslate nohighlight">\(\tilde{f}\)</span> (the perturbation is certainly dependent on the input data.)</p>
 <p>Formally, the relative backward error is defined as</p>
 <div class="math notranslate nohighlight">
 \[
 \eta_{rel}(\tilde{y}) := \min\{\epsilon: f(x+ \Delta x) = \tilde{y}: \|\Delta x\|\leq \epsilon \|x\|\}.
 \]</div>
-<p>If the relative backward error for <span class="math notranslate nohighlight">\(\tilde{f}\)</span> is bounded by a small constant times the uncertainty in the input data we say that the algorithm is backward stable. It means that the backward accuracy from the algorithm is as good as we can expect. Hence, for a numerical algorithm on a computer we say that an algorithm is backward stable if its backward error is bounded by a small multiple of machine precision.</p>
+<p>If the relative backward error for <span class="math notranslate nohighlight">\(\tilde{f}\)</span> is bounded by a small constant, we say that the algorithm is backward stable. It means that the backward accuracy of the algorithm is as good as we can expect. Hence, for a numerical algorithm on a computer, we say that an algorithm is backward stable if its backward error is bounded by a small multiple of machine precision.</p>
 </section>
 <section id="condition-number">
 <h2>Condition number<a class="headerlink" href="#condition-number" title="Link to this heading">#</a></h2>
-<p>The definition of the backward error seems convoluted at first. But it is very useful as the following shows. Assume that <span class="math notranslate nohighlight">\(f\)</span> is differentiable. We have to first order the following statement.</p>
+<p>The definition of the backward error seems convoluted at first. But it is very useful, as the following shows. Assume that <span class="math notranslate nohighlight">\(f\)</span> is differentiable. We have the following statement to first order:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{aligned}
@@ -447,12 +440,8 @@ if the exact function <span class="math notranslate nohighlight">\(f\)</span> co
                   &amp;\stackrel{(3)}{\leq} \|f'(x)\|\cdot \|x - \tilde{x}\|
 \end{aligned}
 \end{split}\]</div>
-<p>Equality (2) is possible by choosing <span class="math notranslate nohighlight">\(\tilde{x}\)</span> such that <span class="math notranslate nohighlight">\(\tilde{f}(x) = f(\tilde{x})\)</span>. Hence, <span class="math notranslate nohighlight">\(\Delta x = x- \tilde{x}\)</span> is the backward perturbation associated with the output <span class="math notranslate nohighlight">\(\tilde{y}\)</span>.
-The right-hand side in (3) is the
-product of the derivative of <span class="math notranslate nohighlight">\(f\)</span> and the size of the backward error. It demonstrates that
-the forward error depends on two quantities, namely the sensitivity of <span class="math notranslate nohighlight">\(f\)</span> to small perturbations (i.e. <span class="math notranslate nohighlight">\(\|f'(x)\|\)</span>) and the size of the backward error <span class="math notranslate nohighlight">\(\|x-\tilde{x}\|\)</span>. This is of fundamental importance. We can devise an extremely good evaluation <span class="math notranslate nohighlight">\(\tilde{f}\)</span> with small backward error. If the problem is highly sensitive to perturbations, the output forward error will still be large.</p>
-<p>A more general definition of sensitivity is given by the <em>condition number</em>. The relative
-condition number <span class="math notranslate nohighlight">\(\kappa_{rel}\)</span> is defined as</p>
+<p>Equality (2) is possible by choosing <span class="math notranslate nohighlight">\(\tilde{x}\)</span> such that <span class="math notranslate nohighlight">\(\tilde{f}(x) = f(\tilde{x})\)</span>. Hence, <span class="math notranslate nohighlight">\(\Delta x = x- \tilde{x}\)</span> is the backward perturbation associated with the output <span class="math notranslate nohighlight">\(\tilde{y}\)</span>. The right-hand side in (3) is the product of the derivative of <span class="math notranslate nohighlight">\(f\)</span> and the size of the backward error. It demonstrates that the forward error depends on two quantities, namely the sensitivity of <span class="math notranslate nohighlight">\(f\)</span> to small perturbations (i.e. <span class="math notranslate nohighlight">\(\|f'(x)\|\)</span>) and the size of the backward error <span class="math notranslate nohighlight">\(\|x-\tilde{x}\|\)</span>. This is of fundamental importance. We can devise an extremely good evaluation <span class="math notranslate nohighlight">\(\tilde{f}\)</span> with a small backward error. The output forward error will still be large if the problem is highly sensitive to perturbations.</p>
+<p>A more important definition of sensitivity is given by the <em>condition number</em>. The relative condition number <span class="math notranslate nohighlight">\(\kappa_{rel}\)</span> is defined as</p>
 <div class="math notranslate nohighlight">
 \[
 \kappa_{rel}(x) := \lim_{\delta\rightarrow 0}\sup_{\|\Delta x\|\leq \delta}\left(\frac{\|\Delta f\|}{\|f\|} / \frac{\|\Delta x\|}{\|x\|}\right)
@@ -460,23 +449,20 @@ condition number <span class="math notranslate nohighlight">\(\kappa_{rel}\)</sp
 <p>with <span class="math notranslate nohighlight">\(\Delta f = f(x) - f(\tilde{x})\)</span> being the perturbation in the output data.</p>
 <p>Hence, it measures the largest possible ratio of relative output error with respect to relative
 input error. If <span class="math notranslate nohighlight">\(f\)</span> is differentiable then <span class="math notranslate nohighlight">\(\kappa_{rel}(x) = \frac{\|f'(x)\|}{\|f(x\|}\|x\|\)</span>.</p>
-<p>What is a good condition number in practice? Ideally, we want the condition number to be close
-to <span class="math notranslate nohighlight">\(1\)</span> since then errors in the input data are not amplified for the output error. For each
-magnitude of the condition number we lose one digit of accuracy in the output error. This
-can be seen as follows.</p>
+<p>What is a good condition number in practice? Ideally, we want the condition number to be close to <span class="math notranslate nohighlight">\(1\)</span> since then errors in the input data are not amplified for the output error. For each magnitude of the condition number, we lose one digit of accuracy in the output error. This can be seen as follows.</p>
 <p>From the definition of the condition number we obtain for differentiable <span class="math notranslate nohighlight">\(f\)</span> that to first order</p>
 <div class="math notranslate nohighlight">
 \[
 \frac{\|\Delta f\|}{\|f\|}\leq \kappa_{rel}(x)\cdot \frac{\|\Delta x\|}{\|x\|},
 \]</div>
-<p>or in other words the relative forward error is bounded by the product of condition number
+<p>or in other words, the relative forward error is bounded by the product of condition number
 and relative backward error.</p>
-<p>Assume we work in double precision and that the algorithm is backward stable. Then the backward error is a small multiple of <span class="math notranslate nohighlight">\(\epsilon_{mach}\)</span>. Hence, if the condition number is <span class="math notranslate nohighlight">\(100\)</span> we expect to lose two digits of accuracy in the forward error. If the condition number is in the order of <span class="math notranslate nohighlight">\(\epsilon_{mach}^{-1}\)</span> then we will likely use almost all digits.</p>
-<p>If a condition number is small we say that the problem is <em>well-conditioned</em>. If the condition
-is large we say that the problem is <em>ill-conditioned</em>. The precise meaning of these terms depends on the requirements of the application.</p>
+<p>Assume we work in double precision and that the algorithm is backward stable. Then, the backward error is a small multiple of <span class="math notranslate nohighlight">\(\epsilon_{mach}\)</span>. Hence, if the condition number is <span class="math notranslate nohighlight">\(100\)</span> we expect to lose two digits of accuracy in the forward error. If the condition number is in the order of <span class="math notranslate nohighlight">\(\epsilon_{mach}^{-1}\)</span>, then we will likely use almost all digits.</p>
+<p>If a condition number is small, we say that the problem is <em>well-conditioned</em>. If the condition
+is large, we say that the problem is <em>ill-conditioned</em>. The precise meaning of these terms depends on the requirements of the application.</p>
 <p><strong>Note: The condition number is a worst-case bound. In practice, the actual forward error may
 be better than predicted by the condition number.</strong></p>
-<p><strong>Note: In the following we will generally not use the subscript <span class="math notranslate nohighlight">\(rel\)</span> for relative quantities. Unless otherwise stated we always work with relative quantities.</strong></p>
+<p><strong>Note: In the following, we will generally not use the subscript <span class="math notranslate nohighlight">\(rel\)</span> for relative quantities. Unless otherwise stated, we always work with relative quantities.</strong></p>
 </section>
 </section>
 

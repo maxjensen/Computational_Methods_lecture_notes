@@ -11,9 +11,11 @@
             "id": "14130e202ec15dbf",
             "type": "leaf",
             "state": {
-              "type": "image",
+              "type": "markdown",
               "state": {
-                "file": "byte_array.png"
+                "file": "2.1_lu_decomposition.md",
+                "mode": "preview",
+                "source": true
               }
             }
           }
@@ -67,7 +69,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "9b757f99ea7ad0be",
@@ -83,7 +86,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "byte_array.png",
+                "file": "2.1_lu_decomposition.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -100,7 +103,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "byte_array.png",
+                "file": "2.1_lu_decomposition.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -123,7 +126,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "byte_array.png"
+                "file": "2.1_lu_decomposition.md"
               }
             }
           }
@@ -146,6 +149,15 @@
   },
   "active": "14130e202ec15dbf",
   "lastOpenFiles": [
+    "1.3_error_analysis.md",
+    "3.3_least_squares_problems.md",
+    "3.2_singular_value_decomposition.md",
+    "3.1_qr_decomposition.md",
+    "2.2_lu_backward_error.md",
+    "2.1_lu_decomposition.md",
+    "1.5_complexity_notation.md",
+    "1.4_linear_system_error.md",
+    "1.1_matrix_vector_norms.md",
     "_build/html/index.html",
     "_build/html/_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css",
     "_build/html/objects.inv",
@@ -166,7 +178,6 @@
     "_build/html/_sources/week_9_self_check.ipynb",
     "_build/html/week_9_self_check.html",
     "_build/html/_sources/week_8_self_check.ipynb",
-    "_build/html/week_8_self_check.html",
     "_build/html/_sources/week_7_self_check.md",
     "_build/html/_sources/week_6_self_check.md",
     "_build/html/_sources/week_3_self_check.md",
@@ -183,14 +194,6 @@
     "_build/html/_sources/3.1_qr_decomposition.md",
     "_build/html/_sources/2.2_lu_backward_error.md",
     "_build/html/_sources/2.1_lu_decomposition.md",
-    "_build/html/_sources/1.5_complexity_notation.md",
-    "_build/html/_sources/1.4_linear_system_error.md",
-    "_build/html/_sources/1.3_error_analysis.md",
-    "_build/html/_sources/1.1_matrix_vector_norms.md",
-    "5.4_eigenvalues_perturbation_theory.md",
-    "5.3_schur_decomposition.md",
-    "5.2_eigenvalues_basic_properties.md",
-    "complex_vector_spaces.md",
-    "5.1_complex_vector_spaces.md"
+    "_build/html/_sources/1.5_complexity_notation.md"
   ]
 }

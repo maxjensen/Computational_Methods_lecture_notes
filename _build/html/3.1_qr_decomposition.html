@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
   
@@ -404,9 +404,7 @@ document.write(`
 <h1>The QR Decomposition<a class="headerlink" href="#the-qr-decomposition" title="Link to this heading">#</a></h1>
 <section id="orthogonal-matrices">
 <h2>Orthogonal matrices<a class="headerlink" href="#orthogonal-matrices" title="Link to this heading">#</a></h2>
-<p>Let <span class="math notranslate nohighlight">\(Q\in\mathbb{R}^{n\times n}\)</span>. <span class="math notranslate nohighlight">\(Q\)</span> is called <em>orthogonal</em> if <span class="math notranslate nohighlight">\(Q^TQ=I\)</span>. Hence, all rows and columns of <span class="math notranslate nohighlight">\(Q\)</span> have unit length,
-and the columns of <span class="math notranslate nohighlight">\(Q\)</span> are mutually orthogonal. Orthogonal transformations are angle and 2-norm preserving. We can see this as follows. Denote by <span class="math notranslate nohighlight">\(\langle x, y\rangle := y^Tx\)</span> the
-usual Euclidian inner product. We have</p>
+<p>Let <span class="math notranslate nohighlight">\(Q\in\mathbb{R}^{n\times n}\)</span>. <span class="math notranslate nohighlight">\(Q\)</span> is called <em>orthogonal</em> if <span class="math notranslate nohighlight">\(Q^TQ=I\)</span>. Hence, all rows and columns of <span class="math notranslate nohighlight">\(Q\)</span> have unit length, and the columns of <span class="math notranslate nohighlight">\(Q\)</span> are mutually orthogonal. Orthogonal transformations are angle and 2-norm preserving. We can see this as follows. Denote by <span class="math notranslate nohighlight">\(\langle x, y\rangle := y^Tx\)</span> the usual Euclidian inner product. We have</p>
 <div class="math notranslate nohighlight">
 \[
 \langle Qx, Qy\rangle = \langle x, Q^TQy\rangle = \langle x, y\rangle.
@@ -415,33 +413,39 @@ usual Euclidian inner product. We have</p>
 </section>
 <section id="id1">
 <h2>The QR Decomposition<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
-<p>Consider <span class="math notranslate nohighlight">\(A\in\mathbb{R}^{m\times n}\)</span>, <span class="math notranslate nohighlight">\(m\geq n\)</span>. We want to orthogonalise the colunmns of <span class="math notranslate nohighlight">\(A\)</span>. The following algorithm is called <em>Gram-Schmidt</em> orthogonalisation.</p>
+<p>Consider <span class="math notranslate nohighlight">\(A\in\mathbb{R}^{m\times n}\)</span>, <span class="math notranslate nohighlight">\(m\geq n\)</span>. We want to orthogonalise the columns of <span class="math notranslate nohighlight">\(A\)</span>. The following algorithm is called <em>Gram-Schmidt</em> orthogonalisation.</p>
 <p>Let <span class="math notranslate nohighlight">\(\tilde{q}_1 :=a_1\)</span> be the fst column of <span class="math notranslate nohighlight">\(A\)</span>.</p>
-<ul class="simple">
+<ul>
 <li><p>Define <span class="math notranslate nohighlight">\(q_1 := \frac{\tilde{q}_1}{\|\tilde{q}_1\|_2}\)</span></p></li>
-<li><p>The column <span class="math notranslate nohighlight">\(q_2\)</span> is computed by orthogonalizing <span class="math notranslate nohighlight">\(a_2\)</span> against <span class="math notranslate nohighlight">\(q_1\)</span>.
-$<span class="math notranslate nohighlight">\(
-  \begin{aligned}
-  \tilde{q}_2 &amp;:= a_2 - \langle a_2, q_1\rangle q_1\\
-  q_2 &amp;:= \frac{\tilde{q}_2}{\|\tilde{q}_2\|_2}.
-  \end{aligned}
-  \)</span>$</p></li>
-<li><p>For the column <span class="math notranslate nohighlight">\(q_3\)</span> we need to orthogonalize against <span class="math notranslate nohighlight">\(a_3\)</span> against <span class="math notranslate nohighlight">\(q_1\)</span> and <span class="math notranslate nohighlight">\(q_2\)</span>, that is
-$<span class="math notranslate nohighlight">\(
-  \begin{aligned}
-  \tilde{q}_3 &amp;:= a_3 - \langle a_3, q_1\rangle q_1 - \langle a_3, q_2\rangle q_2\\
-  q_3 &amp;:= \frac{\tilde{q}_3}{\|\tilde{q}_3\|_2}.
-  \end{aligned}
-  \)</span>$</p></li>
-<li><p>For column <span class="math notranslate nohighlight">\(q_k\)</span> we correspondingly obtain
-$<span class="math notranslate nohighlight">\(
-  \begin{aligned}
-  \tilde{q}_k &amp;:= a_k - \sum_{j=1}^{k-1}\langle a_k, q_j\rangle q_j\\
-  q_3 &amp;:= \frac{\tilde{q}_3}{\|\tilde{q}_3\|_2}.
-  \end{aligned}
-  \)</span>$</p></li>
+<li><p>The column <span class="math notranslate nohighlight">\(q_2\)</span> is computed by orthogonalizing <span class="math notranslate nohighlight">\(a_2\)</span> against <span class="math notranslate nohighlight">\(q_1\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+    \begin{aligned}
+    \tilde{q}_2 &amp;:= a_2 - \langle a_2, q_1\rangle q_1\\
+    q_2 &amp;:= \frac{\tilde{q}_2}{\|\tilde{q}_2\|_2}.
+    \end{aligned}
+    \end{split}\]</div>
+</li>
+<li><p>For the column <span class="math notranslate nohighlight">\(q_3\)</span> we need to orthogonalize against <span class="math notranslate nohighlight">\(a_3\)</span> against <span class="math notranslate nohighlight">\(q_1\)</span> and <span class="math notranslate nohighlight">\(q_2\)</span>, that is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+    \begin{aligned}
+    \tilde{q}_3 &amp;:= a_3 - \langle a_3, q_1\rangle q_1 - \langle a_3, q_2\rangle q_2\\
+    q_3 &amp;:= \frac{\tilde{q}_3}{\|\tilde{q}_3\|_2}.
+    \end{aligned}
+    \end{split}\]</div>
+</li>
+<li><p>For column <span class="math notranslate nohighlight">\(q_k\)</span> we correspondingly obtain</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+    \begin{aligned}
+    \tilde{q}_k &amp;:= a_k - \sum_{j=1}^{k-1}\langle a_k, q_j\rangle q_j\\
+    q_3 &amp;:= \frac{\tilde{q}_3}{\|\tilde{q}_3\|_2}.
+    \end{aligned}
+    \end{split}\]</div>
+</li>
 </ul>
-<p>We can write this procedure as a matrix decomposition. From the above we have that</p>
+<p>We can write this procedure as a matrix decomposition. From the above, we have that</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{aligned}
@@ -473,14 +477,12 @@ R = \begin{bmatrix}
 <p>is an upper triangular matrix.</p>
 <section id="theorem-qr-decomposition">
 <h3>Theorem (QR Decomposition)<a class="headerlink" href="#theorem-qr-decomposition" title="Link to this heading">#</a></h3>
-<p>Let <span class="math notranslate nohighlight">\(A\in\mathbb{R}^{m\times n}\)</span>, <span class="math notranslate nohighlight">\(m\geq n\)</span>. Then the QR decomposition <span class="math notranslate nohighlight">\(A=QR\)</span> with
-<span class="math notranslate nohighlight">\(Q\in\mathbb{R}^{m\times n}\)</span>, <span class="math notranslate nohighlight">\(Q^TQ = I\)</span>, <span class="math notranslate nohighlight">\(R\in\mathbb{R}^{n\times n}\)</span> upper triangular, exists and is unique up to the choice of signs in the diagonal elements <span class="math notranslate nohighlight">\(r_{i,i}\)</span>.</p>
+<p>Let <span class="math notranslate nohighlight">\(A\in\mathbb{R}^{m\times n}\)</span>, <span class="math notranslate nohighlight">\(m\geq n\)</span>. Then the QR decomposition <span class="math notranslate nohighlight">\(A=QR\)</span> with <span class="math notranslate nohighlight">\(Q\in\mathbb{R}^{m\times n}\)</span>, <span class="math notranslate nohighlight">\(Q^TQ = I\)</span>, <span class="math notranslate nohighlight">\(R\in\mathbb{R}^{n\times n}\)</span> upper triangular, exists and is unique up to the choice of signs in the diagonal elements <span class="math notranslate nohighlight">\(r_{i,i}\)</span>.</p>
 </section>
 </section>
 <section id="solving-linear-systems-of-equations-with-the-qr-decomposition">
 <h2>Solving linear systems of equations with the QR decomposition<a class="headerlink" href="#solving-linear-systems-of-equations-with-the-qr-decomposition" title="Link to this heading">#</a></h2>
-<p>Consider the linear system of equations <span class="math notranslate nohighlight">\(Ax = b\)</span> with <span class="math notranslate nohighlight">\(A\in\mathbb{R}^{n\times n}\)</span>.
-Let</p>
+<p>Consider the linear system of equations <span class="math notranslate nohighlight">\(Ax = b\)</span> with <span class="math notranslate nohighlight">\(A\in\mathbb{R}^{n\times n}\)</span>. Let</p>
 <div class="math notranslate nohighlight">
 \[
 A = QR
@@ -495,11 +497,11 @@ Rx &amp;= Q^Tb.\\
 \end{aligned}
 \end{split}\]</div>
 <p>The last equation is a simple upper triangular system that can be solved by backward substitution.</p>
-<p><strong>It can be shown that the solution of a linear system of equations via QR decomposition is always backward stable. But it is rarely done in practice as it is around twice as expensive as the LU decomosition.</strong></p>
+<p><strong>It can be shown that the solution of a linear system of equations via QR decomposition is always backward stable. But it is rarely done in practice as it is around twice as expensive as the LU decomposition.</strong></p>
 </section>
 <section id="reduced-vs-full-qr-decomposition">
 <h2>Reduced vs full QR decomposition<a class="headerlink" href="#reduced-vs-full-qr-decomposition" title="Link to this heading">#</a></h2>
-<p>Consider the QR decomposition <span class="math notranslate nohighlight">\(A = QR\)</span> with <span class="math notranslate nohighlight">\(Q\in\mathbb{R}^{m\times n}\)</span> and <span class="math notranslate nohighlight">\(R\in\mathbb{R}^{n\times n}\)</span>. We call this QR decomposition a reduced QR decomposition. To define the full QR decomposition let <span class="math notranslate nohighlight">\(Q^{\bot}\in\mathbb{R}^{m\times m-n}\)</span> be a matrix whose columns are orthornomal and satisfy <span class="math notranslate nohighlight">\(\hat{Q}^TQ = 0\)</span> (i.e. they are a basis of the orthogonal complement of the range of <span class="math notranslate nohighlight">\(A\)</span>). We can reformulate the QR decomposition as</p>
+<p>Consider the QR decomposition <span class="math notranslate nohighlight">\(A = QR\)</span> with <span class="math notranslate nohighlight">\(Q\in\mathbb{R}^{m\times n}\)</span> and <span class="math notranslate nohighlight">\(R\in\mathbb{R}^{n\times n}\)</span>. We call this QR decomposition a reduced QR decomposition. To define the full QR decomposition, let <span class="math notranslate nohighlight">\(Q^{\bot}\in\mathbb{R}^{m\times m-n}\)</span> be a matrix whose columns are orthonormal and satisfy <span class="math notranslate nohighlight">\(\hat{Q}^TQ = 0\)</span> (i.e. they are a basis of the orthogonal complement of the range of <span class="math notranslate nohighlight">\(A\)</span>). We can reformulate the QR decomposition as</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 A = \begin{bmatrix}Q &amp; Q^{\bot}\end{bmatrix}\begin{bmatrix}R\\ 0\end{bmatrix} =: \tilde{R}\tilde{Q}.

@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
   
@@ -199,6 +199,7 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="2.1_lu_decomposition.html">Solving linear system with the LU Decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.2_lu_backward_error.html">Backward error of the LU decomposition and pivoting</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="2.3_lu_backward_error_examples.html">Backward error of the LU decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.4_python_lu_decomposition.html">Implementing the LU decomposition in Python</a></li>
 </ul>
@@ -403,14 +404,14 @@ document.write(`
 <h2>Memory layouts<a class="headerlink" href="#memory-layouts" title="Link to this heading">#</a></h2>
 <p>We can imagine memory as a linear collection of consecutive memory addresses (each one representing one byte).</p>
 <p><img alt="Byte array in memory" src="_images/byte_array.png" /></p>
-<p>The key toe fficient data representations is to order data spatially local in memory. This means that the data we want to work on next should be as close to our current data as possible. The reason is that memory accesses in modern computers are extremely expensive compared to actual computations. In order to alleviate this problem all modern CPUs rely on sophisticated caches that try to read data ahead of time from the memory. This works only if the next pieces of data are close to the data that we are currently working on.</p>
-<p>Standard Python list types do not guarantee this locality. List elements can be at very different memory addresses, making standard lists are other base Python types unsuitable for numerical operations. What we require is a buffer type that guarantees us a chunk of consecutive addresses in the system memory.</p>
+<p>The key to efficient data representations is to order data spatially local in memory. This means the data we want to work on next should be as close to our current data as possible. The reason is that memory accesses in modern computers are extremely expensive compared to actual computations. To alleviate this problem, all modern CPUs rely on sophisticated caches that try to read data from the memory ahead of time. This works only if the next pieces of data are close to the data that we are currently working on.</p>
+<p>Standard Python list types do not guarantee this locality. List elements can be at very different memory addresses, making standard lists and other base Python types unsuitable for numerical operations. We require a buffer type that guarantees us a chunk of consecutive addresses in the system memory.</p>
 <p>What happens if we have a matrix? Consider a 2 x 2 matrix</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 A = \begin{bmatrix} 1 &amp; 2\\ 3 &amp; 4\end{bmatrix}
 \end{split}\]</div>
-<p>We have two ways of ordering this matrix across the memory band</p>
+<p>We have two ways of ordering this matrix across the memory band.</p>
 <ul class="simple">
 <li><p><strong>C-Style ordering:</strong> This aligns the matrix row by row in memory. Hence, our memory buffer will have four elements that read</p></li>
 </ul>
@@ -425,25 +426,25 @@ A = \begin{bmatrix} 1 &amp; 2\\ 3 &amp; 4\end{bmatrix}
 \[
 1, 3, 2, 4
 \]</div>
-<p>Both memory layout styles are used across scientific computing, and it is important to know what the assumed layout in a given numerical library is. Ignoring data layouts leads to inefficiency if code has to translate on the fly between the layouts, or even bugs if the layout differences are ignored by a library.</p>
+<p>Both memory layout styles are used across scientific computing, and it is important to know the assumed layout in a given numerical library. Ignoring data layouts leads to inefficiency if code has to translate on the fly between the layouts or even bugs if a library ignores the layout differences.</p>
 </section>
 <section id="numpy-to-the-rescue">
 <h2>Numpy to the rescue<a class="headerlink" href="#numpy-to-the-rescue" title="Link to this heading">#</a></h2>
-<p><a class="reference external" href="https://numpy.org/">Numpy</a> solves all these problems by providing an array type that reserves consecutive chunks of memory and allows the user to transparently map data onto this chunk of memory, either using C-style ordering (default), or Fortran-style ordering (optional). Numpy also guarantees that operations between arrays of different orderings are executed correctly (although we should avoid this). Numpy has long established as the de facto standard for array types in Python. Indeed, many other libraries have taken over the Numpy syntax and conventions to make their data types interoperate nicely with Numpy.</p>
+<p><a class="reference external" href="https://numpy.org/">Numpy</a> solves all these problems by providing an array type that reserves consecutive chunks of memory and allows the user to transparently map data onto this chunk of memory, either using C-style ordering (default) or Fortran-style ordering (optional). Numpy also guarantees that operations between arrays of different orderings are executed correctly (although we should avoid this). Numpy has long established itself as the de facto standard for array types in Python. Indeed, many other libraries have taken over the Numpy syntax and conventions to make their data types interoperate nicely with Numpy.</p>
 <p><strong>Numpy is a major reason for the large success of Python.</strong></p>
-<p>Very recently an associated <a class="reference external" href="https://www.nature.com/articles/s41586-020-2649-2">Numpy paper</a> was published in Nature, something very rare for a software library and demonstrating how fundamental Numpy has become to any kind of science that relies on data processing. Most of these operations are implemented by calling natively into accelerated BLAS/Lapack functions.</p>
+<p>Very recently, an associated <a class="reference external" href="https://www.nature.com/articles/s41586-020-2649-2">Numpy paper</a> was published in Nature, something very rare for a software library and demonstrating how fundamental Numpy has become to any kind of science that relies on data processing. Most of these operations are implemented by calling natively into accelerated BLAS/Lapack functions.</p>
 </section>
 <section id="blas-and-lapack">
 <h2>BLAS and Lapack<a class="headerlink" href="#blas-and-lapack" title="Link to this heading">#</a></h2>
-<p><a class="reference external" href="http://www.netlib.org/blas/">BLAS (Basic Linear Algebra Subroutines)</a> defines a set of interfaces to standard linear algebra functions. There are three BLAS Variantes, Level 1, 2, and 3.</p>
+<p><a class="reference external" href="http://www.netlib.org/blas/">BLAS (Basic Linear Algebra Subroutines)</a> defines a set of interfaces to standard linear algebra functions. There are three BLAS variants, Level 1, 2, and 3.</p>
 <ul class="simple">
-<li><p>BLAS Level 1 defines functions that require <span class="math notranslate nohighlight">\(O(n)\)</span> computational complexity (<span class="math notranslate nohighlight">\(n\)</span> is the number of element), such as vector addition, multiplication with scalars or dot products.</p></li>
-<li><p>BLAS Level 2 defines functions that require <span class="math notranslate nohighlight">\(O(n^2)\)</span> computational complexity, such as matrix-vector products, or triangular solves.</p></li>
+<li><p>BLAS Level 1 defines functions that require <span class="math notranslate nohighlight">\(O(n)\)</span> computational complexity (<span class="math notranslate nohighlight">\(n\)</span> is the number of elements), such as vector addition, multiplication with scalars or dot products.</p></li>
+<li><p>BLAS Level 2 defines functions that require <span class="math notranslate nohighlight">\(O(n^2)\)</span> computational complexity, such as matrix-vector products or triangular solves.</p></li>
 <li><p>BLAS Level 3 defines functions that require <span class="math notranslate nohighlight">\(O(n^3)\)</span> computational complexity, of which the most important one is the matrix-matrix product.</p></li>
 </ul>
-<p>There exists a reference BLAS implementation from <a class="reference external" href="http://www.netlib.org">http://www.netlib.org</a>. However, this should never be used in practice. The key to fast BLAS operations are implementations that optimally use the CPU Cache architecture to minimize data transfer delays. There exist a number of BLAS libraries that are optimised for modern CPUs, and do not only exploit caching but also SIMD acceleration and multi-core processing. Examples of such libraries are <a class="reference external" href="https://software.intel.com/content/www/us/en/develop/tools/math-kernel-library.html">Intel MKL</a>, <a class="reference external" href="https://www.openblas.net/">Openblas</a> or <a class="reference external" href="https://github.com/flame/blis">BLIS</a>.</p>
-<p><a class="reference external" href="http://netlib.org/lapack">Lapack</a> is a library of advanced linear algebra functions such as linear system solves, eigenvalue problems, singular values, least-squares problems, etc., that make use of BLAS. Lapack routines are highly optimised to use matrix-matrix Level-3 BLAS operations whenever possible. The reason is memory efficiency. The ratio of computational complexity to memory complexity for matrix-matrix products is <span class="math notranslate nohighlight">\(O(n^3)\)</span> to <span class="math notranslate nohighlight">\(O(n^2)\)</span>. Hence, for larger problems we have far more operations than memory accesses, which is what we want as memory accesses are slow.</p>
-<p>Numpy links against available BLAS and Lapack libraries to make sure to have the most efficient implementations of linear algebra operations available. If Numpy is installed from conda-forge, then by default the Openblas library is used. Alternatively, one can also use Intel MKL.</p>
+<p>A reference BLAS implementation exists from <a class="reference external" href="http://www.netlib.org">http://www.netlib.org</a>. However, this should never be used in practice. The key to fast BLAS operations are implementations that optimally use the CPU Cache architecture to minimise data transfer delays. Several BLAS libraries exist that are optimised for modern CPUs and do not only exploit caching but also SIMD acceleration and multi-core processing. Examples of such libraries are <a class="reference external" href="https://software.intel.com/content/www/us/en/develop/tools/math-kernel-library.html">Intel MKL</a>, <a class="reference external" href="https://www.openblas.net/">Openblas</a> or <a class="reference external" href="https://github.com/flame/blis">BLIS</a>.</p>
+<p><a class="reference external" href="http://netlib.org/lapack">Lapack</a> is a library of advanced linear algebra functions such as linear system solves, eigenvalue problems, singular values, least-squares problems, etc., using BLAS. Lapack routines are highly optimised to use matrix-matrix Level-3 BLAS operations whenever possible. The reason is memory efficiency. The ratio of computational complexity to memory complexity for matrix-matrix products is <span class="math notranslate nohighlight">\(O(n^3)\)</span> to <span class="math notranslate nohighlight">\(O(n^2)\)</span>. Hence, for larger problems, we have far more operations than memory accesses, which is what we want as memory accesses are slow.</p>
+<p>Numpy links against available BLAS and Lapack libraries to ensure the most efficient implementations of linear algebra operations. If Numpy is installed from conda-forge, then by default, the Openblas library is used. Alternatively, one can also use Intel MKL.</p>
 </section>
 <section id="getting-started-in-numpy">
 <h2>Getting started in Numpy<a class="headerlink" href="#getting-started-in-numpy" title="Link to this heading">#</a></h2>
@@ -463,7 +464,7 @@ A = \begin{bmatrix} 1 &amp; 2\\ 3 &amp; 4\end{bmatrix}
 </div>
 </div>
 </div>
-<p>The parameter <code class="docutils literal notranslate"><span class="pre">dtype=&quot;float64&quot;</span></code> is not necessary here as Numpy automatically recognizes that the list contains two floating point numbers and therefore uses a 64 bit floating point number (double precision) as default type. To use single precision use <code class="docutils literal notranslate"><span class="pre">dtype=float32</span></code>. A list of available types can be found <a class="reference external" href="https://numpy.org/devdocs/user/basics.types.html">here</a>.</p>
+<p>The parameter <code class="docutils literal notranslate"><span class="pre">dtype=&quot;float64&quot;</span></code> is not necessary here as Numpy automatically recognizes that the list contains two floating point numbers and, therefore, uses a 64-bit floating point number (double precision) as the default type. To use single precision, use <code class="docutils literal notranslate"><span class="pre">dtype=float32</span></code>. A list of available types can be found <a class="reference external" href="https://numpy.org/devdocs/user/basics.types.html">here</a>.</p>
 <p>Below are some ways to create an array with Numpy.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">

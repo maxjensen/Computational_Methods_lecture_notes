@@ -197,6 +197,7 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="2.1_lu_decomposition.html">Solving linear system with the LU Decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.2_lu_backward_error.html">Backward error of the LU decomposition and pivoting</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="2.3_lu_backward_error_examples.html">Backward error of the LU decomposition</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Implementing the LU decomposition in Python</a></li>
 </ul>
@@ -384,7 +385,7 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="implementing-the-lu-decomposition-in-python">
 <h1>Implementing the LU decomposition in Python<a class="headerlink" href="#implementing-the-lu-decomposition-in-python" title="Link to this heading">#</a></h1>
-<p>In the following we demonstrate a simple LU decomposition in Python. We also demonstrate do timing comparisions against the Python implementation from Scipy to show that <strong>one should never use a self-implementation of the LU decomposition but always use existing Numpy/Scipy routines</strong>.</p>
+<p>In the following, we demonstrate a simple LU decomposition in Python. We also present timing comparisons against the Python implementation from Scipy to show that <strong>one should never use a self-implementation of the LU decomposition but always use existing Numpy/Scipy routines</strong>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
