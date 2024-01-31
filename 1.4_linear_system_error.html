@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
   
@@ -199,6 +199,7 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="2.1_lu_decomposition.html">Solving linear system with the LU Decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.2_lu_backward_error.html">Backward error of the LU decomposition and pivoting</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="2.3_lu_backward_error_examples.html">Backward error of the LU decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.4_python_lu_decomposition.html">Implementing the LU decomposition in Python</a></li>
 </ul>
@@ -403,7 +404,7 @@ document.write(`
 <p>We consider the linear system of equations <span class="math notranslate nohighlight">\(Ay = b\)</span> with <span class="math notranslate nohighlight">\(A\in\mathbb{R}^{n\times n}\)</span> and <span class="math notranslate nohighlight">\(b\in\mathbb{R}^n\)</span>. We assume that <span class="math notranslate nohighlight">\(A\)</span> is nonsingular.</p>
 <section id="backward-error">
 <h2>Backward error<a class="headerlink" href="#backward-error" title="Link to this heading">#</a></h2>
-<p>For this linear system of equations the definition of the backward error is given as</p>
+<p>For this linear system of equations, the definition of the backward error is given as</p>
 <div class="math notranslate nohighlight">
 \[
 \eta(\tilde{y}) = \min \{\epsilon: (A+\Delta A)\tilde{y} = b + \Delta b, \|\Delta A\| \leq \epsilon \|A\|, \|\Delta b\|\leq \epsilon\|b\|\}.
@@ -413,7 +414,7 @@ document.write(`
 \[
 \eta(\tilde{y}) = \frac{\|b - A\tilde{y}\|}{\|A\|\cdot \|\tilde{y}\| + \|b\|}
 \]</div>
-<p>The beauty of this result is that it only has computable quantities. The expression <span class="math notranslate nohighlight">\(r := b - A\tilde{y}\)</span> is called the residual of the linear system. It measures how close the left- and right-hand side are. Residual expressions are typical in backward error results.</p>
+<p>The beauty of this result is that it only has computable quantities. The expression <span class="math notranslate nohighlight">\(r := b - A\tilde{y}\)</span> is called the residual of the linear system. It measures how close the left- and right-hand sides are. Residual expressions are typical in backward error results.</p>
 </section>
 <section id="condition-number">
 <h2>Condition Number<a class="headerlink" href="#condition-number" title="Link to this heading">#</a></h2>
@@ -427,15 +428,14 @@ document.write(`
 \[
 S_n  = \sum_{i=0}^{n}X^{i}
 \]</div>
-<p>By norm equivalence and submultiplicativity we have for
-each matrix element <span class="math notranslate nohighlight">\((S_n)_{\ell, t}\)</span> that</p>
+<p>By norm equivalence and submultiplicativity we have foreach matrix element <span class="math notranslate nohighlight">\((S_n)_{\ell, t}\)</span> that</p>
 <div class="math notranslate nohighlight">
 \[
 |(S_n)_{\ell, t}| \leq \sum_{i=0}^{n}\left|\left(X^i\right)_{\ell, t}\right|\leq \sum_{i=0}^n\max_{\ell, t}\left|\left(X^i\right)_{\ell, t}\right| \leq C\sum_{i=0}^{\infty}\|X^{i}\|\leq C\sum_{i=0}^\infty \|X\|^{i}= \frac{C}{1 - \|X\|}.
 \]</div>
 <p>for some <span class="math notranslate nohighlight">\(C&gt; 0\)</span>.</p>
 <p>Hence, every component of <span class="math notranslate nohighlight">\(S_n\)</span> is absolutely convergent and therefore the sum <span class="math notranslate nohighlight">\(S_n\)</span> converges with <span class="math notranslate nohighlight">\(X^{n}\rightarrow 0\)</span> as <span class="math notranslate nohighlight">\(n\rightarrow\infty\)</span>.</p>
-<p>For the inverse we have</p>
+<p>For the inverse, we have</p>
 <div class="math notranslate nohighlight">
 \[
 (I - X)S_n = I - X^{n+1}
@@ -455,8 +455,7 @@ each matrix element <span class="math notranslate nohighlight">\((S_n)_{\ell, t}
 \[
 \|S\| \leq \sum_{i=0}^{\infty}\|X\|^{i} = \frac{1}{1-\|X\|}.
 \]</div>
-<p>We can now estimate the condition number of the linear system of equations <span class="math notranslate nohighlight">\(Ay=b\)</span>.
-Let <span class="math notranslate nohighlight">\(\Delta A\)</span> and <span class="math notranslate nohighlight">\(\Delta b\)</span> be perturbations in <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(b\)</span>, and let <span class="math notranslate nohighlight">\(\Delta y \)</span> satisfy</p>
+<p>We can now estimate the condition number of the linear system of equations <span class="math notranslate nohighlight">\(Ay=b\)</span>. Let <span class="math notranslate nohighlight">\(\Delta A\)</span> and <span class="math notranslate nohighlight">\(\Delta b\)</span> be perturbations in <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(b\)</span>, and let <span class="math notranslate nohighlight">\(\Delta y \)</span> satisfy</p>
 <div class="math notranslate nohighlight">
 \[
 (A + \Delta A)(y + \Delta y) = b + \Delta b.
@@ -478,18 +477,17 @@ apply the previous lemma and obtain</p>
 \frac{\|\Delta y\|}{\|y\|} &amp;\leq \frac{\|A^{-1}\|}{1-\|A^{-1}\|\cdot \|\Delta A\|}\left(\|\Delta A\| + \frac{\|\Delta b\|}{\|y\|}\right)\\
 &amp;= \frac{\|A^{-1}\|\cdot \|A\|}{1-\|A^{-1}\| \cdot \|A\|\frac{\|\Delta A\|}{\|A\|}}\left(\frac{\|\Delta A\|}{\|A\|} + \frac{\|\Delta b\|}{\|b\|}\right),\end{aligned}
 \end{split}\]</div>
-<p>where in the last equation we have used that <span class="math notranslate nohighlight">\(\|b\| = \|Ay\| \leq \|A\|\cdot\|y\|\)</span>.</p>
-<p>By ignoring higher order terms in <span class="math notranslate nohighlight">\(\|\Delta A\|\)</span> we obtain</p>
+<p>where in the last equation, we have used that <span class="math notranslate nohighlight">\(\|b\| = \|Ay\| \leq \|A\|\cdot\|y\|\)</span>.</p>
+<p>By ignoring higher-order terms in <span class="math notranslate nohighlight">\(\|\Delta A\|\)</span> we obtain</p>
 <div class="math notranslate nohighlight">
 \[
 \frac{\|\Delta y\|}{\|y\|} \leq \|A^{-1}\|\cdot \|A\|\left(\frac{\|\Delta A\|}{\|A\|} + \frac{\|\Delta b\|}{\|b\|}\right).
 \]</div>
 <p>The left-hand side is the relative output perturbation. The right-hand side is the product of
-<span class="math notranslate nohighlight">\(\|A^{-1}\|\cdot \|A\|\)</span> and the relative input perturbation <span class="math notranslate nohighlight">\(\left(\frac{\|\Delta A\|}{\|A\|} + \frac{\|\Delta b\|}{\|b\|}\right)\)</span>. Hence, we have <span class="math notranslate nohighlight">\(\kappa_{rel}(A) = \|A^{-1}\|\|A\|\)</span> being the condition number of the linear system. This argument is not completely precise since
-one still needs to show that there actually exists a perturbation so that the left-hand side and right-hand side have equality. But we leave this technical detail here out.</p>
+<span class="math notranslate nohighlight">\(\|A^{-1}\|\cdot \|A\|\)</span> and the relative input perturbation <span class="math notranslate nohighlight">\(\left(\frac{\|\Delta A\|}{\|A\|} + \frac{\|\Delta b\|}{\|b\|}\right)\)</span>. Hence, we have <span class="math notranslate nohighlight">\(\kappa_{rel}(A) = \|A^{-1}\|\|A\|\)</span> being the condition number of the linear system. This argument is not completely precise since one still needs to show that a perturbation actually exists so that the left-hand side and right-hand side are equal. But we leave this technical detail here out.</p>
 <p><strong>Note: Since we also allow perturbations in <span class="math notranslate nohighlight">\(b\)</span> we should formally write <span class="math notranslate nohighlight">\(\kappa_{rel}(A, b)\)</span> as
 condition number. But we see that the condition number only depends on <span class="math notranslate nohighlight">\(A\)</span> and not on <span class="math notranslate nohighlight">\(b\)</span>. Therefore, one simply writes <span class="math notranslate nohighlight">\(\kappa_{rel}(A)\)</span>.</strong></p>
-<p>Going back to our earlier equation we hence have the precise estimate that</p>
+<p>Going back to our earlier equation, we hence have the precise estimate that</p>
 <div class="math notranslate nohighlight">
 \[
 \frac{\|\Delta y\|}{\|y\|}\leq \frac{\kappa_{rel}(A)}{1-\kappa_{rel}(A)\frac{\|\Delta A\|}{\|A\|}}\left(\frac{\|\Delta A\|}{\|A\|} + \frac{\|\Delta b\|}{\|b\|}\right),
@@ -500,8 +498,8 @@ condition number. But we see that the condition number only depends on <span cla
 \[
 \min\left\{\frac{\|\Delta A\|_2}{\|A\|_2}: A + \Delta A~singular \right\} = \frac{1}{\kappa_{rel}(A)}.
 \]</div>
-<p>We are not going to prove this result here. Later in the term we will derive tools that make
-the relationship between condition number and distance to singularity immediately obvious.</p>
+<p>We are not going to prove this result here. Later in the term, we will derive tools that make
+the relationship between condition number and distance to singularity is immediately obvious.</p>
 </section>
 </section>
 </section>

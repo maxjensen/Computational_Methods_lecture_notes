@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
   
@@ -199,6 +199,7 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Solving linear system with the LU Decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.2_lu_backward_error.html">Backward error of the LU decomposition and pivoting</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="2.3_lu_backward_error_examples.html">Backward error of the LU decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.4_python_lu_decomposition.html">Implementing the LU decomposition in Python</a></li>
 </ul>
@@ -404,7 +405,7 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="solving-linear-system-with-the-lu-decomposition">
 <h1>Solving linear system with the LU Decomposition<a class="headerlink" href="#solving-linear-system-with-the-lu-decomposition" title="Link to this heading">#</a></h1>
-<p>Solving linear systems of equations is among the most fundamental operations in a computer. Many problems (even nonlinear ones) evenutally reduce to sequences of linear system solves.</p>
+<p>Solving linear systems of equations is among the most fundamental operations in a computer. Many problems (even nonlinear ones) eventually reduce to sequences of linear system solves.</p>
 <p>Most students learn about Gaussian elimination in their first Calculus modules. The LU decomposition is simply a more organised way to perform Gaussian elimination.</p>
 <section id="basic-idea">
 <h2>Basic idea<a class="headerlink" href="#basic-idea" title="Link to this heading">#</a></h2>
@@ -438,12 +439,11 @@ Ly = b
 Ux = y.
 \]</div>
 <p>This seems cumbersome. Instead of one linear system. We now have two. However, the trick is to choose a decomposition that makes solving linear systems with <span class="math notranslate nohighlight">\(L\)</span> and <span class="math notranslate nohighlight">\(U\)</span> particularly easy.</p>
-<p>In the LU decomposition <span class="math notranslate nohighlight">\(L\)</span> will be a lower triangular matrix, that is nonzero elements are only on the diagonal and below the diagonal. <span class="math notranslate nohighlight">\(U\)</span> will correspondingly be an upper triangular matrix.</p>
+<p>In the LU decomposition, <span class="math notranslate nohighlight">\(L\)</span> will be a lower triangular matrix; that is, nonzero elements are only on the diagonal and below the diagonal. <span class="math notranslate nohighlight">\(U\)</span> will correspondingly be an upper triangular matrix.</p>
 </section>
 <section id="solving-an-upper-triangular-system-of-equations">
 <h2>Solving an upper triangular system of equations<a class="headerlink" href="#solving-an-upper-triangular-system-of-equations" title="Link to this heading">#</a></h2>
-<p>Assume we have upper triangular <span class="math notranslate nohighlight">\(U\)</span>. We want to solve <span class="math notranslate nohighlight">\(Ux = y\)</span>.</p>
-<p>The equations are</p>
+<p>Assume we have upper triangular <span class="math notranslate nohighlight">\(U\)</span>. We want to solve <span class="math notranslate nohighlight">\(Ux = y\)</span>. The equations are</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{aligned}
@@ -458,19 +458,17 @@ u_{n-1,n-1}x_{n-1} + u_{n-1, x}x_n &amp;= y_{n-1}\\
 \[
 x_i = \frac{y_i - \sum_{j=i + 1}^n u_{i, j}x_j}{u_{i, i}}.
 \]</div>
-<p>What is the cost of this triangular solve? We are counting the number of
-additions, subtractions, multiplications, and divisions.</p>
+<p>What is the cost of this triangular solve? We are counting the number of additions, subtractions, multiplications, and divisions.</p>
 <p>In step <span class="math notranslate nohighlight">\(i\)</span> we have <span class="math notranslate nohighlight">\(n-i\)</span> multiplications <span class="math notranslate nohighlight">\(n-i-1\)</span> additions, one subtraction (apart from the
 first step) and one division. Hence, the overall number <span class="math notranslate nohighlight">\(ops\)</span> of operations is</p>
 <div class="math notranslate nohighlight">
 \[
 ops = 2n - 1 + 2\sum_{i=1}^n n-i.
 \]</div>
-<p>We can easily compute this to obtain</p>
-<div class="math notranslate nohighlight">
-\[
+<p>We can easily compute this to obtain
+$<span class="math notranslate nohighlight">\(
 ops = 2n-1 + 2n^2 - n(n+1) = n^2+n - 1.
-\]</div>
+\)</span>$</p>
 </section>
 <section id="deriving-the-lu-decomposition">
 <h2>Deriving the LU Decomposition<a class="headerlink" href="#deriving-the-lu-decomposition" title="Link to this heading">#</a></h2>
@@ -490,8 +488,7 @@ x_1\\ x_2 \\ x_3
 \end{bmatrix}
 = \begin{bmatrix}b_1 \\ b_2 \\ b_3\end{bmatrix}.
 \end{split}\]</div>
-<p>We want to transform this system into an upper triangular system.
-In the first step we multiply the first row with <span class="math notranslate nohighlight">\(\ell_{21} = \frac{a_{21}}{a_{11}}\)</span> and subtract from the second row to obtain the
+<p>We want to transform this system into an upper triangular system. In the first step, we multiply the first row with <span class="math notranslate nohighlight">\(\ell_{21} = \frac{a_{21}}{a_{11}}\)</span> and subtract from the second row to obtain the
 modified system</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -510,7 +507,7 @@ x_1\\ x_2 \\ x_3
 \[
 \tilde{a}_{22} = a_{22} - l_{21}a_{12}, \quad \tilde{a}_{23} = a_{23} - \ell_{21}a_{13}
 \]</div>
-<p>and <span class="math notranslate nohighlight">\(b_2\)</span> modified correspondingly. We then define <span class="math notranslate nohighlight">\(\ell_{31} = \frac{a_{31}}{a_{11}}\)</span> and proceed in a similar way with the third row to obtaiin</p>
+<p>and <span class="math notranslate nohighlight">\(b_2\)</span> modified correspondingly. We then define <span class="math notranslate nohighlight">\(\ell_{31} = \frac{a_{31}}{a_{11}}\)</span> and proceed in a similar way with the third row to obtain</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{bmatrix}
@@ -549,8 +546,8 @@ that will directly lead us to the LU decomposition.</p>
 L_{21} := I - \ell_{21}e_2e_1^T,
 \]</div>
 <p>Here, the vector <span class="math notranslate nohighlight">\(e_j\)</span> is the <span class="math notranslate nohighlight">\(j\)</span>-th unit vector, which has a <span class="math notranslate nohighlight">\(1\)</span> at position <span class="math notranslate nohighlight">\(j\)</span> and zeros otherwise.</p>
-<p>If we form the product <span class="math notranslate nohighlight">\(L_{21}A\)</span> it is straight forward to see that the result is a matrix, where <span class="math notranslate nohighlight">\(\ell_{21}\)</span> times the first row is subtracted from the second row. The reason is that <span class="math notranslate nohighlight">\(e_1^TA\)</span> picks out the first row of <span class="math notranslate nohighlight">\(A\)</span>, and then the multiplication <span class="math notranslate nohighlight">\(e_2e_1^TA\)</span> creates a new matrix whose second row is the first row of <span class="math notranslate nohighlight">\(A\)</span>, and zeros otherwise.</p>
-<p>We can now write the continued subtraction of multiples of one row from another to achieve at an upper triangular matrix as</p>
+<p>If we form the product <span class="math notranslate nohighlight">\(L_{21}A\)</span>, it is straightforward to see that the result is a matrix, where <span class="math notranslate nohighlight">\(\ell_{21}\)</span> times the first row is subtracted from the second row. The reason is that <span class="math notranslate nohighlight">\(e_1^TA\)</span> picks out the first row of <span class="math notranslate nohighlight">\(A\)</span>, and then the multiplication <span class="math notranslate nohighlight">\(e_2e_1^TA\)</span> creates a new matrix whose second row is the first row of <span class="math notranslate nohighlight">\(A\)</span>, and zeros otherwise.</p>
+<p>We can now write the continued subtraction of multiples of one row from another to achieve an upper triangular matrix as</p>
 <div class="math notranslate nohighlight">
 \[
 U = L_{n, n-1}\dots L_{32}\dots L_{n1}\dots L_{31}L_{21}A.
@@ -565,8 +562,7 @@ L := L_{21}^{-1}L_{31}^{-1}\dots
 \[
 A = LU.
 \]</div>
-<p>We know by construction that <span class="math notranslate nohighlight">\(U\)</span> is upper triangular. But what
-is the structure of <span class="math notranslate nohighlight">\(L\)</span>? First of all, we have that</p>
+<p>We know by construction that <span class="math notranslate nohighlight">\(U\)</span> is upper triangular. But what is the structure of <span class="math notranslate nohighlight">\(L\)</span>? First of all, we have that</p>
 <div class="math notranslate nohighlight">
 \[
 L_{i, j}^{-1} = I + \ell_{i, j}e_ie_j^T.
@@ -584,9 +580,7 @@ L &amp;= (I + \ell_{21}e_2e_1^T)(I + \ell_{31}e_3e_1^T)\dots\\
   &amp;= I + \ell_{21}e_2e_1^T + \ell_{31} e_3e_1^T\dots
 \end{aligned}
 \end{split}\]</div>
-<p>Hence, <span class="math notranslate nohighlight">\(L\)</span> is a lower triangular matrix whose diagonal is just
-the identity matrix and where at position <span class="math notranslate nohighlight">\((i, j)\)</span> we have the
-entry <span class="math notranslate nohighlight">\(\ell_{i, j}\)</span>, a remarkably simple structure, and exactly
+<p>Hence, <span class="math notranslate nohighlight">\(L\)</span> is a lower triangular matrix whose diagonal is just the identity matrix and where at position <span class="math notranslate nohighlight">\((i, j)\)</span> we have the entry <span class="math notranslate nohighlight">\(\ell_{i, j}\)</span>, a remarkably simple structure, and exactly
 what we need.</p>
 </section>
 <section id="the-complete-algorithm">
@@ -596,24 +590,18 @@ what we need.</p>
 \[
 Ax = b
 \]</div>
-<p>In the first step we compute the LU decomposition</p>
+<p>In the first step, we compute the LU decomposition</p>
 <div class="math notranslate nohighlight">
 \[
 A = LU
 \]</div>
 <p>by Gaussian elimination and storing the <span class="math notranslate nohighlight">\(\ell_{ij}\)</span> multipliers for each row in the corresponding position of the <span class="math notranslate nohighlight">\(L\)</span> matrix.</p>
-<p>We then solve <span class="math notranslate nohighlight">\(Ly=b\)</span> by forward substitution, that is first we
-solve for <span class="math notranslate nohighlight">\(y_1\)</span>, then for <span class="math notranslate nohighlight">\(y_2\)</span>, etc. The algorithm is very similar to the triangular solve that we discussed earlier. We
-just have to proceed from the first entry to the last entry of
-<span class="math notranslate nohighlight">\(y\)</span> since the matrix is now lower triangular. Moreover, since all diagonal entries are <span class="math notranslate nohighlight">\(1\)</span> we do not need to divide by <span class="math notranslate nohighlight">\(L_{ii}\)</span>.</p>
+<p>We then solve <span class="math notranslate nohighlight">\(Ly=b\)</span> by forward substitution; that is, first, we solve for <span class="math notranslate nohighlight">\(y_1\)</span>, then for <span class="math notranslate nohighlight">\(y_2\)</span>, etc. The algorithm is very similar to the triangular solve that we discussed earlier. We just have to proceed from the first entry to the last entry of <span class="math notranslate nohighlight">\(y\)</span> since the matrix is now lower triangular. Moreover, since all diagonal entries are <span class="math notranslate nohighlight">\(1\)</span> we do not need to divide by <span class="math notranslate nohighlight">\(L_{ii}\)</span>.</p>
 <p>We then solve <span class="math notranslate nohighlight">\(Ux=b\)</span> by backward substitution.</p>
 </section>
 <section id="cost-of-the-lu-decomposition">
 <h2>Cost of the LU Decomposition<a class="headerlink" href="#cost-of-the-lu-decomposition" title="Link to this heading">#</a></h2>
-<p>We have already established that a triangular solve
-costs <span class="math notranslate nohighlight">\(\mathcal{O}(n^2)\)</span> operations. For the computation of the decomposition <span class="math notranslate nohighlight">\(A=LU\)</span> an operation count gives a cost of <span class="math notranslate nohighlight">\(\frac{2}{3}n^3 + O(n^2)\)</span> operations. Hence, by far the dominating cost
-is the LU decomposition itself. Once we have computed it the forward and backward solves are relatively much cheaper. If we want to solve many linear systems where the matrix <span class="math notranslate nohighlight">\(A\)</span> never changes but the right-hand side <span class="math notranslate nohighlight">\(b\)</span> changes, we only need to
-compute the <span class="math notranslate nohighlight">\(LU\)</span> decomposition once and can then forward and backward solve easily in each step.</p>
+<p>We have already established that a triangular solve costs <span class="math notranslate nohighlight">\(\mathcal{O}(n^2)\)</span> operations. For the computation of the decomposition <span class="math notranslate nohighlight">\(A=LU\)</span> an operation count gives a cost of <span class="math notranslate nohighlight">\(\frac{2}{3}n^3 + O(n^2)\)</span> operations. Hence, by far the dominating cost is the LU decomposition itself. Once we have computed it the forward and backward solves are relatively much cheaper. If we want to solve many linear systems where the matrix <span class="math notranslate nohighlight">\(A\)</span> never changes but the right-hand side <span class="math notranslate nohighlight">\(b\)</span> changes, we only need to compute the <span class="math notranslate nohighlight">\(LU\)</span> decomposition once and can then forward and backward solve easily in each step.</p>
 </section>
 </section>
 

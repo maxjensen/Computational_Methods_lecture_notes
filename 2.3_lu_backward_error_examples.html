@@ -199,6 +199,7 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="2.1_lu_decomposition.html">Solving linear system with the LU Decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.2_lu_backward_error.html">Backward error of the LU decomposition and pivoting</a></li>
+
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Backward error of the LU decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.4_python_lu_decomposition.html">Implementing the LU decomposition in Python</a></li>
 </ul>
@@ -397,8 +398,7 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="backward-error-of-the-lu-decomposition">
 <h1>Backward error of the LU decomposition<a class="headerlink" href="#backward-error-of-the-lu-decomposition" title="Link to this heading">#</a></h1>
-<p>In this section we will present some examples that illuminate the behaviour of the growth factor <span class="math notranslate nohighlight">\(\rho\)</span> in the LU decomposition.
-We will start off by a worst case example and then present numerical experiments from the literature that indicate in practice the growth factor is rarely relevant. Indeed, in practice the LU decomposition has excellent backward stability properties.</p>
+<p>In this section, we will present some examples illuminating the growth factor <span class="math notranslate nohighlight">\(\rho\)</span> behaviour in the LU decomposition. We will start with a worst-case example and then present numerical experiments from the literature that indicate that the growth factor is rarely relevant in practice. Indeed, in practice, the LU decomposition has excellent backward stability properties.</p>
 <section id="worst-case-instability">
 <h2>Worst-Case Instability<a class="headerlink" href="#worst-case-instability" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
@@ -515,8 +515,8 @@ We will start off by a worst case example and then present numerical experiments
 </section>
 <section id="growth-factor-of-random-matrices">
 <h2>Growth factor of random matrices<a class="headerlink" href="#growth-factor-of-random-matrices" title="Link to this heading">#</a></h2>
-<p>While we have shown an example, where the growth factor grows exponentially, in practice this does not seem to be of relevance. This is a puzzle that still concerns researchers in Numerical Linear Algebra. A beautiful study on this topic was performed by Driscoll and Maki in 2007 who numerically computed the probability density functions for certain types of random matrices to have large growth factors.</p>
-<p>The following plot shows the probability density functions for the growth factor <span class="math notranslate nohighlight">\(\rho\)</span> for matrices of dimension <span class="math notranslate nohighlight">\(8\)</span>, <span class="math notranslate nohighlight">\(16\)</span>, and <span class="math notranslate nohighlight">\(32\)</span> (see <a class="reference external" href="http://www.math.udel.edu/~driscoll/papers/2007-DriscollMaki-673.pdf">Driscoll, Maki ‘07</a>). It shows that large growth factors are exponentially unlikely to occur randomly. Indeed, essentially no practical application is known, where growth factors cause difficulties. Hence, <strong>in practice Gaussian elimination with column pivoting is backward stable</strong>.</p>
+<p>While we have shown an example where the growth factor grows exponentially, in practice, this is rarely relevant. This is a puzzle that still concerns researchers in Numerical Linear Algebra. A beautiful study on this topic was performed by Driscoll and Maki in 2007, who numerically computed the probability density functions for certain types of random matrices to have large growth factors.</p>
+<p>The following plot shows the probability density functions for the growth factor <span class="math notranslate nohighlight">\(\rho\)</span> for matrices of dimension <span class="math notranslate nohighlight">\(8\)</span>, <span class="math notranslate nohighlight">\(16\)</span>, and <span class="math notranslate nohighlight">\(32\)</span> (see <a class="reference external" href="http://www.math.udel.edu/~driscoll/papers/2007-DriscollMaki-673.pdf">Driscoll, Maki ‘07</a>). It shows that large growth factors are exponentially unlikely to occur randomly. Indeed, essentially, no practical application is known where growth factors cause difficulties. Hence, <strong>in practice, Gaussian elimination with column pivoting is backward stable</strong>.</p>
 <p><img alt="Growth factors" src="_images/growth_factors.png" /></p>
 </section>
 </section>
