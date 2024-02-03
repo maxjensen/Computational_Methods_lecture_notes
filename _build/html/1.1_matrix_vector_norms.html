@@ -192,21 +192,20 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="1.2_floating_point_arithmetic.html">Floating Point Arithmetic</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.3_error_analysis.html">Principles of backward error analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.4_linear_system_error.html">Backward error and condition number of linear systems of equations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="1.5_complexity_notation.html">A quick survey of the <span class="math notranslate nohighlight">\(\mathcal{O}\)</span>-notation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_complexity_notation.html">A quick survey of asymptotic notation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.6_numpy_and_data_layouts.html">Memory layout and Numpy arrays</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition and its numerical stability</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="2.1_lu_decomposition.html">Solving linear system with the LU Decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.2_lu_backward_error.html">Backward error of the LU decomposition and pivoting</a></li>
-
 <li class="toctree-l1"><a class="reference internal" href="2.3_lu_backward_error_examples.html">Backward error of the LU decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.4_python_lu_decomposition.html">Implementing the LU decomposition in Python</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Orthogonal decompositions</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="3.1_qr_decomposition.html">The QR Decomposition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="3.2_singular_value_decomposition.html">The Singular Value decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.2_singular_value_decomposition.html">The Singular Value Decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3.3_least_squares_problems.html">Least Squares Problems</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Interpolation and quadrature</span></p>
@@ -409,7 +408,7 @@ document.write(`
 <h1>Matrix and vector norms<a class="headerlink" href="#matrix-and-vector-norms" title="Link to this heading">#</a></h1>
 <section id="norm-axioms">
 <h2>Norm axioms<a class="headerlink" href="#norm-axioms" title="Link to this heading">#</a></h2>
-<p>Let <span class="math notranslate nohighlight">\(V\)</span> be a vector space, and <span class="math notranslate nohighlight">\(\rho: V\rightarrow \mathbb{R}^{+}\)</span> a mapping from <span class="math notranslate nohighlight">\(V\)</span> into the nonnegative numbers. <span class="math notranslate nohighlight">\(\rho\)</span> is called a norm if it satisfies the following properties</p>
+<p>Let <span class="math notranslate nohighlight">\(V\)</span> be a real vector space, <span class="math notranslate nohighlight">\(\mathbb{R}^{+} := [0, \infty)\)</span>, and <span class="math notranslate nohighlight">\(\rho: V\rightarrow \mathbb{R}^{+}\)</span> a mapping from <span class="math notranslate nohighlight">\(V\)</span> into the nonnegative numbers. <span class="math notranslate nohighlight">\(\rho\)</span> is called a norm if it satisfies the following properties</p>
 <ol class="arabic simple">
 <li><p><span class="math notranslate nohighlight">\(\rho(\alpha x) = |\alpha| \rho(x)~\forall \alpha\in\mathbb{R};~x\in V\)</span></p></li>
 <li><p><span class="math notranslate nohighlight">\(\rho(x + y) \leq \rho(x) + \rho(y)~\forall x, y\in V\)</span> (triangle inequality)</p></li>
@@ -435,13 +434,14 @@ document.write(`
 <p>These are all special cases of the <span class="math notranslate nohighlight">\(\ell_p\)</span>-norm defined as</p>
 <div class="math notranslate nohighlight">
 \[
-\|x\|_p = \left[\sum_{j=1}^n]|x_j|^p\right]^{1/p}.
+\|x\|_p = \left[\sum_{j=1}^n]|x_j|^p\right]^{1/p}
 \]</div>
+<p>in the sense that <span class="math notranslate nohighlight">\(\|x\|_{\infty} = \lim_{p \to \infty} \|x\|_p\)</span> for all <span class="math notranslate nohighlight">\(x\)</span>.</p>
 </section>
 <section id="norm-equivalence">
 <h2>Norm equivalence<a class="headerlink" href="#norm-equivalence" title="Link to this heading">#</a></h2>
-<p>Which norm should we use? This usually depends on the application. A taxi driver will prefer the <span class="math notranslate nohighlight">\(1\)</span>-norm when calculating distances as they need to follow a street map and can’t go in straight lines to locations.</p>
-<p>We often want to prove whether a given numerical approximation converges in Numerics. Hence, we have some error quantity <span class="math notranslate nohighlight">\(e\)</span> and want to show that the sequence of errors <span class="math notranslate nohighlight">\(\left\{e_n\right\}\)</span> converges to <span class="math notranslate nohighlight">\(0\)</span>. Can it happen that an error converges to <span class="math notranslate nohighlight">\(0\)</span> in one norm but not in another norm? In finite dimensional vector spaces, the answer is no. If a sequence converges in one norm, it also converges in any other norm. This goes back to the following norm equivalence theorem</p>
+<p>Which norm should we use? This usually depends on the application. A New York taxi driver will prefer the <span class="math notranslate nohighlight">\(1\)</span>-norm when calculating distances as they need to follow a street map and can’t go in straight lines to locations.</p>
+<p>In Numerical Analysis, we often want to prove whether a given numerical approximation converges. We consider several computations indexed by <span class="math notranslate nohighlight">\(n\)</span> and have a corresponding error quantity <span class="math notranslate nohighlight">\(e_n\)</span>. We want to show that the sequence of errors <span class="math notranslate nohighlight">\(\left\{e_n\right\}\)</span> converges to <span class="math notranslate nohighlight">\(0\)</span> as <span class="math notranslate nohighlight">\(n \to \infty\)</span>. Can it happen that an error converges to <span class="math notranslate nohighlight">\(0\)</span> in one norm but not in another norm? In finite dimensional vector spaces, the answer is no. If a sequence converges in one norm, it also converges in all others. This goes back to the following norm equivalence theorem.</p>
 <section id="norm-equivalence-in-finite-dimensional-vector-spaces">
 <h3>Norm equivalence in finite dimensional vector spaces<a class="headerlink" href="#norm-equivalence-in-finite-dimensional-vector-spaces" title="Link to this heading">#</a></h3>
 <p>Let <span class="math notranslate nohighlight">\(V\)</span> be a finite-dimensional vector space. Consider two norms <span class="math notranslate nohighlight">\(\|\cdot\|_a\)</span> and <span class="math notranslate nohighlight">\(\|\cdot\|_b\)</span> on <span class="math notranslate nohighlight">\(V\)</span>. Then, there exist positive constants <span class="math notranslate nohighlight">\(C_1\)</span>, <span class="math notranslate nohighlight">\(C_2\)</span> such that for all <span class="math notranslate nohighlight">\(x\in V\)</span></p>
@@ -450,7 +450,7 @@ document.write(`
 C_1\|x\|_a\leq \|x\|_b\leq C_2\|x\|_a
 \]</div>
 <p>Proof: The proof requires some analysis and is not part of the lecture. A good reference for those interested in how it works is the following note by <a class="reference external" href="https://math.mit.edu/~stevenj/18.335/norm-equivalence.pdf">Steve Johnson at MIT</a>.</p>
-<p>We note that norm equivalence is only a property of finite dimensional vector spaces. For infinite dimensional spaces (e.g. spaces of functions) it is easy to construct examples of functions converging with respect to one norm but not with respect to another norm.</p>
+<p>We note that norm equivalence is only a property of finite dimensional vector spaces. For infinite dimensional spaces (e.g., spaces of functions), it is easy to construct examples of functions converging with respect to one norm but not another.</p>
 </section>
 </section>
 <section id="matrix-norms">

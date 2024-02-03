@@ -70,7 +70,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = '3.1_qr_decomposition';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="The Singular Value decomposition" href="3.2_singular_value_decomposition.html" />
+    <link rel="next" title="The Singular Value Decomposition" href="3.2_singular_value_decomposition.html" />
     <link rel="prev" title="Implementing the LU decomposition in Python" href="2.4_python_lu_decomposition.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -192,7 +192,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="1.2_floating_point_arithmetic.html">Floating Point Arithmetic</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.3_error_analysis.html">Principles of backward error analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.4_linear_system_error.html">Backward error and condition number of linear systems of equations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="1.5_complexity_notation.html">A quick survey of the <span class="math notranslate nohighlight">\(\mathcal{O}\)</span>-notation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_complexity_notation.html">A quick survey of asymptotic notation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.6_numpy_and_data_layouts.html">Memory layout and Numpy arrays</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition and its numerical stability</span></p>
@@ -205,7 +205,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Orthogonal decompositions</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">The QR Decomposition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="3.2_singular_value_decomposition.html">The Singular Value decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.2_singular_value_decomposition.html">The Singular Value Decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3.3_least_squares_problems.html">Least Squares Problems</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Interpolation and quadrature</span></p>
@@ -229,7 +229,6 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="week_2_self_check.html">Week 2 Self check questions and solutions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="week_3_self_check.html">Week 3 Self check questions and solutions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="week_4_self_check.html">Week 4 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_5_self_check.html">Week 5 Self check questions and solutions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="week_6_self_check.html">Week 6 Self check questions and solutions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="week_7_self_check.html">Week 7 Self check questions and solutions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="week_8_self_check.html">Week 8 Self check questions and solutions</a></li>
@@ -383,12 +382,32 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#orthogonal-matrices">Orthogonal matrices</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">The QR Decomposition</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qr-decomposition-via-gram-schmidt-orthogonalisation">QR Decomposition via Gram-Schmidt Orthogonalisation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm">Algorithm</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-decomposition-representation">Matrix Decomposition Representation</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#theorem-qr-decomposition">Theorem (QR Decomposition)</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-linear-systems-of-equations-with-the-qr-decomposition">Solving linear systems of equations with the QR decomposition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-linear-systems-of-equations-with-the-qr-decomposition">Solving linear systems of equations with the QR decomposition</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#improved-explanation-solving-linear-systems-using-qr-decomposition">Improved Explanation: Solving Linear Systems Using QR Decomposition</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reduced-vs-full-qr-decomposition">Reduced vs full QR decomposition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#examples-and-self-check-questions">Examples and self-check questions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation-from-scratch">Implementation from scratch</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-numpy-s-implementation">Using Numpy’s implementation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-material-for-interested-students">Additional material for interested students</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#qr-decomposition-with-householder-transformations">QR Decomposition with Householder Transformations</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#householder-transformations">Householder Transformations</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application-in-qr-decomposition">Application in QR Decomposition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comparing-with-the-gram-schmidt-method">Comparing with the Gram-Schmidt method</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -404,109 +423,289 @@ document.write(`
 <h1>The QR Decomposition<a class="headerlink" href="#the-qr-decomposition" title="Link to this heading">#</a></h1>
 <section id="orthogonal-matrices">
 <h2>Orthogonal matrices<a class="headerlink" href="#orthogonal-matrices" title="Link to this heading">#</a></h2>
-<p>Let <span class="math notranslate nohighlight">\(Q\in\mathbb{R}^{n\times n}\)</span>. <span class="math notranslate nohighlight">\(Q\)</span> is called <em>orthogonal</em> if <span class="math notranslate nohighlight">\(Q^TQ=I\)</span>. Hence, all rows and columns of <span class="math notranslate nohighlight">\(Q\)</span> have unit length, and the columns of <span class="math notranslate nohighlight">\(Q\)</span> are mutually orthogonal. Orthogonal transformations are angle and 2-norm preserving. We can see this as follows. Denote by <span class="math notranslate nohighlight">\(\langle x, y\rangle := y^Tx\)</span> the usual Euclidian inner product. We have</p>
+<p>Let <span class="math notranslate nohighlight">\(Q \in \mathbb{R}^{n \times n}\)</span>. The matrix <span class="math notranslate nohighlight">\(Q\)</span> is called <em>orthogonal</em> if <span class="math notranslate nohighlight">\(Q^TQ = I\)</span>, where <span class="math notranslate nohighlight">\(I\)</span> is the identity matrix. This definition implies that all rows and columns of <span class="math notranslate nohighlight">\(Q\)</span> are of unit length and are mutually orthogonal.</p>
+<p>The significance of orthogonal transformations lies in their ability to preserve angles and the 2-norm. To understand this, consider the standard Euclidean inner product, defined as <span class="math notranslate nohighlight">\(\langle x, y \rangle := y^Tx\)</span> for vectors <span class="math notranslate nohighlight">\(x, y \in \mathbb{R}^n\)</span>.</p>
+<p>Now, observe the effect of an orthogonal transformation <span class="math notranslate nohighlight">\(Q\)</span> on this inner product:</p>
 <div class="math notranslate nohighlight">
 \[
-\langle Qx, Qy\rangle = \langle x, Q^TQy\rangle = \langle x, y\rangle.
+\langle Qx, Qy \rangle = (Qx)^T(Qy) = x^TQ^TQy = x^TIy = \langle x, y \rangle.
 \]</div>
-<p>Preservation of norm follows from <span class="math notranslate nohighlight">\(\|Qx\|_2^2 = \langle Qx, Qx\rangle = \langle x, x\rangle = \|x\|_2^2\)</span>.</p>
+<p>This equation shows that the inner product (and thus the angle) between <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> is preserved after applying the orthogonal transformation <span class="math notranslate nohighlight">\(Q\)</span>.</p>
+<p>Furthermore, the preservation of the 2-norm under orthogonal transformations can be seen as follows:</p>
+<div class="math notranslate nohighlight">
+\[
+\|Qx\|_2^2 = \langle Qx, Qx \rangle = x^TQ^TQx = x^Tx = \|x\|_2^2.
+\]</div>
+<p>This demonstrates that a vector’s 2-norm (or length) is unchanged when multiplied by an orthogonal matrix.</p>
 </section>
-<section id="id1">
-<h2>The QR Decomposition<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
-<p>Consider <span class="math notranslate nohighlight">\(A\in\mathbb{R}^{m\times n}\)</span>, <span class="math notranslate nohighlight">\(m\geq n\)</span>. We want to orthogonalise the columns of <span class="math notranslate nohighlight">\(A\)</span>. The following algorithm is called <em>Gram-Schmidt</em> orthogonalisation.</p>
-<p>Let <span class="math notranslate nohighlight">\(\tilde{q}_1 :=a_1\)</span> be the fst column of <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<section id="qr-decomposition-via-gram-schmidt-orthogonalisation">
+<h2>QR Decomposition via Gram-Schmidt Orthogonalisation<a class="headerlink" href="#qr-decomposition-via-gram-schmidt-orthogonalisation" title="Link to this heading">#</a></h2>
+<p>Consider a matrix <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span> with <span class="math notranslate nohighlight">\(m \geq n\)</span>. The aim is to orthogonalise the columns of <span class="math notranslate nohighlight">\(A\)</span>. This process is achieved through the Gram-Schmidt orthogonalisation method.</p>
+<section id="algorithm">
+<h3>Algorithm<a class="headerlink" href="#algorithm" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p><strong>Initial Column</strong>:</p>
 <ul>
-<li><p>Define <span class="math notranslate nohighlight">\(q_1 := \frac{\tilde{q}_1}{\|\tilde{q}_1\|_2}\)</span></p></li>
-<li><p>The column <span class="math notranslate nohighlight">\(q_2\)</span> is computed by orthogonalizing <span class="math notranslate nohighlight">\(a_2\)</span> against <span class="math notranslate nohighlight">\(q_1\)</span>.</p>
+<li><p>Let <span class="math notranslate nohighlight">\(\tilde{q}_1\)</span> be the first column of <span class="math notranslate nohighlight">\(A\)</span>, i.e., <span class="math notranslate nohighlight">\(\tilde{q}_1 := a_1\)</span>.</p></li>
+<li><p>Normalize <span class="math notranslate nohighlight">\(\tilde{q}_1\)</span> to obtain <span class="math notranslate nohighlight">\(q_1\)</span>, defined as:</p>
 <div class="math notranslate nohighlight">
-\[\begin{split}
-    \begin{aligned}
-    \tilde{q}_2 &amp;:= a_2 - \langle a_2, q_1\rangle q_1\\
-    q_2 &amp;:= \frac{\tilde{q}_2}{\|\tilde{q}_2\|_2}.
-    \end{aligned}
-    \end{split}\]</div>
+\[ q_1 := \frac{\tilde{q}_1}{\|\tilde{q}_1\|_2} \]</div>
 </li>
-<li><p>For the column <span class="math notranslate nohighlight">\(q_3\)</span> we need to orthogonalize against <span class="math notranslate nohighlight">\(a_3\)</span> against <span class="math notranslate nohighlight">\(q_1\)</span> and <span class="math notranslate nohighlight">\(q_2\)</span>, that is</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-    \begin{aligned}
-    \tilde{q}_3 &amp;:= a_3 - \langle a_3, q_1\rangle q_1 - \langle a_3, q_2\rangle q_2\\
-    q_3 &amp;:= \frac{\tilde{q}_3}{\|\tilde{q}_3\|_2}.
-    \end{aligned}
-    \end{split}\]</div>
+</ul>
 </li>
-<li><p>For column <span class="math notranslate nohighlight">\(q_k\)</span> we correspondingly obtain</p>
+<li><p><strong>Subsequent Columns</strong>:</p>
+<ul>
+<li><p>To compute the column <span class="math notranslate nohighlight">\(q_2\)</span>, orthogonalize <span class="math notranslate nohighlight">\(a_2\)</span> against <span class="math notranslate nohighlight">\(q_1\)</span>:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-    \begin{aligned}
-    \tilde{q}_k &amp;:= a_k - \sum_{j=1}^{k-1}\langle a_k, q_j\rangle q_j\\
-    q_3 &amp;:= \frac{\tilde{q}_3}{\|\tilde{q}_3\|_2}.
-    \end{aligned}
+     \begin{aligned}
+     \tilde{q}_2 &amp;:= a_2 - \langle a_2, q_1 \rangle q_1,\\
+     q_2 &amp;:= \frac{\tilde{q}_2}{\|\tilde{q}_2\|_2}.
+     \end{aligned}
+     \end{split}\]</div>
+</li>
+<li><p>For column <span class="math notranslate nohighlight">\(q_3\)</span>, orthogonalize <span class="math notranslate nohighlight">\(a_3\)</span> against <span class="math notranslate nohighlight">\(q_1\)</span> and <span class="math notranslate nohighlight">\(q_2\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+     \begin{aligned}
+     \tilde{q}_3 &amp;:= a_3 - \langle a_3, q_1 \rangle q_1 - \langle a_3, q_2 \rangle q_2,\\
+     q_3 &amp;:= \frac{\tilde{q}_3}{\|\tilde{q}_3\|_2}.
+     \end{aligned}
+     \end{split}\]</div>
+</li>
+<li><p>Similarly, for column <span class="math notranslate nohighlight">\(q_k\)</span>, orthogonalize <span class="math notranslate nohighlight">\(a_k\)</span> against all previous <span class="math notranslate nohighlight">\(q_j\)</span> (for <span class="math notranslate nohighlight">\(j = 1, \ldots, k-1\)</span>):</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+     \begin{aligned}
+     \tilde{q}_k &amp;:= a_k - \sum_{j=1}^{k-1}\langle a_k, q_j \rangle q_j,\\
+     q_k &amp;:= \frac{\tilde{q}_k}{\|\tilde{q}_k\|_2}.
+     \end{aligned}
+     \end{split}\]</div>
+</li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="matrix-decomposition-representation">
+<h3>Matrix Decomposition Representation<a class="headerlink" href="#matrix-decomposition-representation" title="Link to this heading">#</a></h3>
+<p>This procedure can be expressed as a matrix decomposition:</p>
+<ul>
+<li><p>For each column <span class="math notranslate nohighlight">\(a_k\)</span> of <span class="math notranslate nohighlight">\(A\)</span>, we have:
+$<span class="math notranslate nohighlight">\( a_k = \|\tilde{q}_k\|_2 q_k + \sum_{j=1}^{k-1}\langle a_k, q_j \rangle q_j \)</span>$</p></li>
+<li><p>Hence, the matrix <span class="math notranslate nohighlight">\(A\)</span> can be decomposed as <span class="math notranslate nohighlight">\(A = QR\)</span> where:</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(Q = \begin{pmatrix} q_1, \ldots, q_n \end{pmatrix}\)</span> is a matrix with orthogonal columns.</p></li>
+<li><p><span class="math notranslate nohighlight">\(R\)</span> is an upper triangular matrix defined as:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+    R = \begin{pmatrix}
+    \|\tilde{q}_1\|_2 &amp; \langle a_2, q_1 \rangle &amp; \ldots &amp; \langle a_n, q_1 \rangle \\
+                      &amp; \|\tilde{q}_2\|_2        &amp; \ddots &amp; \vdots \\
+                      &amp;                          &amp; \ddots &amp; \langle a_n, q_{n-1} \rangle \\
+                      &amp;                          &amp;        &amp; \|\tilde{q}_n\|_2
+    \end{pmatrix}
     \end{split}\]</div>
 </li>
 </ul>
-<p>We can write this procedure as a matrix decomposition. From the above, we have that</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{aligned}
-a_1 &amp;= \|\tilde{q}_1\|_2q_1\\
-a_2 &amp;= \|\tilde{q}_2\|_2q_2 + \langle a_2, q_1\rangle q_1\\
-a_k &amp;= \|\tilde{q}_k\|_2q_k + \sum_{j=1}^{k-1}\langle a_k, q_j\rangle q_j
-\end{aligned}
-\end{split}\]</div>
-<p>It follows that</p>
-<div class="math notranslate nohighlight">
-\[
-A = QR
-\]</div>
-<p>with</p>
-<div class="math notranslate nohighlight">
-\[
-Q = \begin{bmatrix}q_1, \dots, q_n\end{bmatrix}
-\]</div>
-<p>having orthogonal columns and</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-R = \begin{bmatrix}
-\|\tilde{q}_1\|_2 &amp; \langle a_2, q_1\rangle &amp; \dots &amp; \langle a_n, q_1\rangle\\
-                  &amp;  \|\tilde{q}_2\|_2 &amp; \ddots &amp; \vdots\\
-                  &amp;                    &amp; \ddots &amp; \\
-                  &amp;                    &amp;        &amp; \|\tilde{q}_n\|_2
-\end{bmatrix}
-\end{split}\]</div>
-<p>is an upper triangular matrix.</p>
+</li>
+</ul>
+</section>
 <section id="theorem-qr-decomposition">
 <h3>Theorem (QR Decomposition)<a class="headerlink" href="#theorem-qr-decomposition" title="Link to this heading">#</a></h3>
-<p>Let <span class="math notranslate nohighlight">\(A\in\mathbb{R}^{m\times n}\)</span>, <span class="math notranslate nohighlight">\(m\geq n\)</span>. Then the QR decomposition <span class="math notranslate nohighlight">\(A=QR\)</span> with <span class="math notranslate nohighlight">\(Q\in\mathbb{R}^{m\times n}\)</span>, <span class="math notranslate nohighlight">\(Q^TQ = I\)</span>, <span class="math notranslate nohighlight">\(R\in\mathbb{R}^{n\times n}\)</span> upper triangular, exists and is unique up to the choice of signs in the diagonal elements <span class="math notranslate nohighlight">\(r_{i,i}\)</span>.</p>
+<p>Given <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span>with <span class="math notranslate nohighlight">\(m \geq n\)</span>, a QR decomposition of <span class="math notranslate nohighlight">\(A = QR\)</span> exists, where <span class="math notranslate nohighlight">\(Q\)</span> is an <span class="math notranslate nohighlight">\(m \times n\)</span> orthogonal matrix satisfying <span class="math notranslate nohighlight">\(Q^TQ = I\)</span> and where <span class="math notranslate nohighlight">\(R\)</span> is an <span class="math notranslate nohighlight">\(n \times n\)</span> upper triangular matrix. If <span class="math notranslate nohighlight">\(A\)</span> has a full rank, then this QR decomposition is unique up to the signs of the diagonal elements of <span class="math notranslate nohighlight">\(R\)</span>.</p>
 </section>
 </section>
 <section id="solving-linear-systems-of-equations-with-the-qr-decomposition">
 <h2>Solving linear systems of equations with the QR decomposition<a class="headerlink" href="#solving-linear-systems-of-equations-with-the-qr-decomposition" title="Link to this heading">#</a></h2>
-<p>Consider the linear system of equations <span class="math notranslate nohighlight">\(Ax = b\)</span> with <span class="math notranslate nohighlight">\(A\in\mathbb{R}^{n\times n}\)</span>. Let</p>
-<div class="math notranslate nohighlight">
-\[
-A = QR
-\]</div>
-<p>be the QR decomposition of <span class="math notranslate nohighlight">\(A\)</span>. We can use it as follows to solve the linear system of equations.</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{aligned}
-Ax &amp;= b,\\
-QRx &amp;= b,\\
-Rx &amp;= Q^Tb.\\
-\end{aligned}
-\end{split}\]</div>
-<p>The last equation is a simple upper triangular system that can be solved by backward substitution.</p>
-<p><strong>It can be shown that the solution of a linear system of equations via QR decomposition is always backward stable. But it is rarely done in practice as it is around twice as expensive as the LU decomposition.</strong></p>
+<section id="improved-explanation-solving-linear-systems-using-qr-decomposition">
+<h3>Improved Explanation: Solving Linear Systems Using QR Decomposition<a class="headerlink" href="#improved-explanation-solving-linear-systems-using-qr-decomposition" title="Link to this heading">#</a></h3>
+<p>To solve <span class="math notranslate nohighlight">\(Ax = b\)</span>, we can employ the QR decomposition of <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{n \times n}\)</span>.</p>
+<p>The linear system <span class="math notranslate nohighlight">\(Ax = b\)</span> can be rewritten using the QR decomposition:</p>
+<ol class="arabic simple">
+<li><p>Original System: <span class="math notranslate nohighlight">\(Ax = b\)</span>.</p></li>
+<li><p>Substituting <span class="math notranslate nohighlight">\(A = QR\)</span>: <span class="math notranslate nohighlight">\(QRx = b\)</span>.</p></li>
+<li><p>Left-multiplying by <span class="math notranslate nohighlight">\(Q^T\)</span> (since <span class="math notranslate nohighlight">\(Q\)</span> is orthogonal, <span class="math notranslate nohighlight">\(Q^TQ = I\)</span>): <span class="math notranslate nohighlight">\(Q^TQRx = Q^Tb\)</span>.</p></li>
+<li><p>Simplifying (as <span class="math notranslate nohighlight">\(Q^TQ = I\)</span>): <span class="math notranslate nohighlight">\(Rx = Q^Tb\)</span>.</p></li>
+</ol>
+<p>The last equation, <span class="math notranslate nohighlight">\(Rx = Q^Tb\)</span>, represents an upper triangular system. This can be efficiently solved by backward substitution, starting from the last equation and substituting backwards to find all unknowns.</p>
+<ul class="simple">
+<li><p><strong>Backward Stability</strong>: Solving linear systems via QR decomposition is known to be backward stable. Backward stability refers to the property where the computed solution is the exact solution to a slightly perturbed version of the original problem. This stability is particularly beneficial when dealing with ill-conditioned matrices or when high precision is required.</p></li>
+<li><p><strong>Comparison with LU Decomposition</strong>: Despite its stability, the QR decomposition method for solving linear systems is not as commonly used as the LU decomposition in practice. This is primarily due to its computational cost. The QR decomposition typically requires about twice as many operations as the LU decomposition, making it less efficient for large-scale problems.</p></li>
+</ul>
+</section>
 </section>
 <section id="reduced-vs-full-qr-decomposition">
 <h2>Reduced vs full QR decomposition<a class="headerlink" href="#reduced-vs-full-qr-decomposition" title="Link to this heading">#</a></h2>
 <p>Consider the QR decomposition <span class="math notranslate nohighlight">\(A = QR\)</span> with <span class="math notranslate nohighlight">\(Q\in\mathbb{R}^{m\times n}\)</span> and <span class="math notranslate nohighlight">\(R\in\mathbb{R}^{n\times n}\)</span>. We call this QR decomposition a reduced QR decomposition. To define the full QR decomposition, let <span class="math notranslate nohighlight">\(Q^{\bot}\in\mathbb{R}^{m\times m-n}\)</span> be a matrix whose columns are orthonormal and satisfy <span class="math notranslate nohighlight">\(\hat{Q}^TQ = 0\)</span> (i.e. they are a basis of the orthogonal complement of the range of <span class="math notranslate nohighlight">\(A\)</span>). We can reformulate the QR decomposition as</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-A = \begin{bmatrix}Q &amp; Q^{\bot}\end{bmatrix}\begin{bmatrix}R\\ 0\end{bmatrix} =: \tilde{R}\tilde{Q}.
+A = \begin{pmatrix}Q &amp; Q^{\bot}\end{pmatrix}\begin{pmatrix}R\\ 0\end{pmatrix} =: \tilde{R}\tilde{Q}.
 \end{split}\]</div>
 <p>The QR decomposition <span class="math notranslate nohighlight">\(A = \tilde{Q}\tilde{R}\)</span> is called full QR decomposition. It is rarely used in practical computation as the columns of <span class="math notranslate nohighlight">\(Q^{\bot}\)</span> are usually not required. But it is important theoretically, as <span class="math notranslate nohighlight">\(Q^{\bot}\)</span> contains information about the range of <span class="math notranslate nohighlight">\(A\)</span> and its orthogonal complement.</p>
+</section>
+<section id="examples-and-self-check-questions">
+<h2>Examples and self-check questions<a class="headerlink" href="#examples-and-self-check-questions" title="Link to this heading">#</a></h2>
+<blockquote>
+<div><p><strong>Example</strong>
+Here are the intermediate computations and the final results of the QR decomposition of the matrix</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} A = \begin{pmatrix} 3 &amp; 2 \\ 1 &amp; 4 \\ 0 &amp; 5 \end{pmatrix}.\end{split}\]</div>
+<ol class="arabic simple">
+<li><p><strong>First Column (<span class="math notranslate nohighlight">\(q_1\)</span>)</strong>:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[\begin{split}q_1 = \begin{pmatrix} 0.9487 \\ 0.3162 \\ 0 \end{pmatrix}\end{split}\]</div>
+<ol class="arabic simple" start="2">
+<li><p><strong>Orthogonalized Second Column (<span class="math notranslate nohighlight">\(\tilde{q}_2\)</span>)</strong>:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[\begin{split}\tilde{q}_2 = \begin{pmatrix} -1 \\ 3 \\ 5 \end{pmatrix}\end{split}\]</div>
+<ol class="arabic simple" start="3">
+<li><p><strong>Normalized Second Column (<span class="math notranslate nohighlight">\(q_2\)</span>)</strong>:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[\begin{split}q_2 = \begin{pmatrix} -0.1690 \\ 0.5071 \\ 0.8452 \end{pmatrix}\end{split}\]</div>
+<ol class="arabic simple" start="4">
+<li><p><strong>Orthogonal Matrix <span class="math notranslate nohighlight">\(Q\)</span></strong>:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[\begin{split}Q = \begin{pmatrix} 0.9487 &amp; -0.1690 \\ 0.3162 &amp; 0.5071 \\ 0 &amp; 0.8452 \end{pmatrix}\end{split}\]</div>
+<ol class="arabic simple" start="5">
+<li><p><strong>Upper Triangular Matrix <span class="math notranslate nohighlight">\(R\)</span></strong>:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[\begin{split}R = \begin{pmatrix} 3.1623 &amp; 3.1623 \\ 0 &amp; 5.9161 \end{pmatrix}\end{split}\]</div>
+<p>The matrices <span class="math notranslate nohighlight">\(Q\)</span> and <span class="math notranslate nohighlight">\(R\)</span> form the QR decomposition of <span class="math notranslate nohighlight">\(A\)</span>, such that <span class="math notranslate nohighlight">\(A = QR\)</span>. The matrix <span class="math notranslate nohighlight">\(Q\)</span> contains orthonormal columns, and <span class="math notranslate nohighlight">\(R\)</span> is an upper triangular matrix.</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>Question</strong> A matrix <span class="math notranslate nohighlight">\(A\)</span> is called tridiagonal if on its diagonal and first off-diagonals contain non-zero entries: <span class="math notranslate nohighlight">\(a_{ij} = 0\)</span> if <span class="math notranslate nohighlight">\(|i - j| \geq 2\)</span>. Show that if <span class="math notranslate nohighlight">\(A\)</span> is tridiagonal, then <span class="math notranslate nohighlight">\(R\)</span> of its <span class="math notranslate nohighlight">\(QR\)</span> factorisation is nonzero only on the diagonal and the first two upper off-diagonals.</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>Question</strong> Given <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{n \times m}\)</span> with <span class="math notranslate nohighlight">\(m \geq n\)</span> show that the factorisation <span class="math notranslate nohighlight">\(A = LQ\)</span> exists, where <span class="math notranslate nohighlight">\(Q\)</span> is an <span class="math notranslate nohighlight">\(n \times m\)</span> matrix with orthogonal rows and where <span class="math notranslate nohighlight">\(L\)</span> is an <span class="math notranslate nohighlight">\(n \times n\)</span> lower triangular matrix.</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>Question</strong> Determine the <span class="math notranslate nohighlight">\(2\times 2\)</span> matrix <span class="math notranslate nohighlight">\(Q\)</span> that rotates a vector by an angle <span class="math notranslate nohighlight">\(\theta\)</span>. Is this matrix orthogonal? Show that <span class="math notranslate nohighlight">\(Q^{-1}\)</span> is identical to the matrix that rotates vectors by an angle of <span class="math notranslate nohighlight">\(-\theta\)</span>.</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>Question</strong> Let <span class="math notranslate nohighlight">\(u\in\mathbb{R}^n\)</span> with <span class="math notranslate nohighlight">\(\|u\|_2=1\)</span>. Define <span class="math notranslate nohighlight">\(P=uu^T\)</span>. Show that <span class="math notranslate nohighlight">\(P=P^2\)</span>. Is <span class="math notranslate nohighlight">\(P\)</span> an orthogonal matrix? Describe what <span class="math notranslate nohighlight">\(P\)</span> is doing. Matrices that satisfy <span class="math notranslate nohighlight">\(P=P^2\)</span> are also called projectors.</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>Question</strong> Let <span class="math notranslate nohighlight">\(P=P^2\)</span> be a projector satisfying <span class="math notranslate nohighlight">\(P=P^T\)</span>. Show that <span class="math notranslate nohighlight">\(Q=I-2P\)</span> is an orthogonal matrix. Give a geometric interpretation of <span class="math notranslate nohighlight">\(Q\)</span>.</p>
+</div></blockquote>
+<p><a class="reference external" href="https://maxjensen.github.io/Computational_Methods_lecture_notes/week_5_self_check.html">Solutions</a></p>
+</section>
+<section id="python-skills">
+<h2>Python skills<a class="headerlink" href="#python-skills" title="Link to this heading">#</a></h2>
+<section id="implementation-from-scratch">
+<h3>Implementation from scratch<a class="headerlink" href="#implementation-from-scratch" title="Link to this heading">#</a></h3>
+<p>Step 1: Import Numpy</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+<p>Step 2: Implement the Gram-Schmidt method</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">gram_schmidt</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>
+    <span class="n">m</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">Q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span>
+    <span class="n">R</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span>
+
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">Q</span><span class="p">[:,</span> <span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">A</span><span class="p">[:,</span> <span class="n">k</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
+            <span class="n">R</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">Q</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">A</span><span class="p">[:,</span> <span class="n">k</span><span class="p">])</span>
+            <span class="n">Q</span><span class="p">[:,</span> <span class="n">k</span><span class="p">]</span> <span class="o">-=</span> <span class="n">R</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">k</span><span class="p">]</span> <span class="o">*</span> <span class="n">Q</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span>
+        <span class="n">R</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">Q</span><span class="p">[:,</span> <span class="n">k</span><span class="p">])</span>
+        <span class="n">Q</span><span class="p">[:,</span> <span class="n">k</span><span class="p">]</span> <span class="o">/=</span> <span class="n">R</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">k</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">Q</span><span class="p">,</span> <span class="n">R</span>
+</pre></div>
+</div>
+<p>Step 3: Test with the matrix of the above example</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define a matrix</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">]])</span>
+
+<span class="c1"># Perform QR Decomposition</span>
+<span class="n">Q</span><span class="p">,</span> <span class="n">R</span> <span class="o">=</span> <span class="n">gram_schmidt</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Matrix Q:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">Q</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Matrix R:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">R</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Step 4: Verify the decomposition</p>
+<p>We can verify the decomposition by checking if <span class="math notranslate nohighlight">\(A \approx QR\)</span>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check if A is approximately equal to QR</span>
+<span class="n">A_approx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">Q</span><span class="p">,</span> <span class="n">R</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Matrix A reconstructed from Q and R:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">A_approx</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="using-numpy-s-implementation">
+<h3>Using Numpy’s implementation<a class="headerlink" href="#using-numpy-s-implementation" title="Link to this heading">#</a></h3>
+<p>Here is an example using Numpy’s implementation:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># Step 1: Create a random matrix</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Matrix A:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+
+<span class="c1"># Step 2: Perform QR decomposition</span>
+<span class="n">Q</span><span class="p">,</span> <span class="n">R</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">qr</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+
+<span class="c1"># Step 3: Display results</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Orthogonal Matrix Q:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">Q</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Upper Triangular Matrix R:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">R</span><span class="p">)</span>
+
+<span class="c1"># Step 4: Verification</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Product QR:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">Q</span><span class="p">,</span> <span class="n">R</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Product Q^TQ (should be close to identity):&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">Q</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">Q</span><span class="p">))</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="additional-material-for-interested-students">
+<h2>Additional material for interested students<a class="headerlink" href="#additional-material-for-interested-students" title="Link to this heading">#</a></h2>
+<section id="qr-decomposition-with-householder-transformations">
+<h3>QR Decomposition with Householder Transformations<a class="headerlink" href="#qr-decomposition-with-householder-transformations" title="Link to this heading">#</a></h3>
+<p>While the Gram-Schmidt process is a common approach to obtain the QR decomposition of a matrix, the Householder transformation method provides a more stable and efficient alternative, especially for large matrices. In this section, we explore the QR decomposition using Householder transformations.</p>
+<section id="householder-transformations">
+<h4>Householder Transformations<a class="headerlink" href="#householder-transformations" title="Link to this heading">#</a></h4>
+<p>Given a vector <span class="math notranslate nohighlight">\(v \in \mathbb{R}^n \setminus \{0\}\)</span>, the corresponding Householder transformation  <span class="math notranslate nohighlight">\(H\)</span> of order <span class="math notranslate nohighlight">\(n\)</span> is defined as:</p>
+<div class="math notranslate nohighlight">
+\[ H = I - 2 \frac{vv^T}{v^Tv}  \]</div>
+<p>Clearly,</p>
+<div class="math notranslate nohighlight">
+\[ H x = I - 2 \frac{v^T x}{v^Tv} v \]</div>
+<p>Split <span class="math notranslate nohighlight">\(x = x_o + x_c\)</span> into the orthogonal and collinear part: <span class="math notranslate nohighlight">\(v^T x_o = 0\)</span> and <span class="math notranslate nohighlight">\(\alpha v^T = x_c\)</span> for some <span class="math notranslate nohighlight">\(\alpha \in \mathbb{R}\)</span>. Then</p>
+<div class="math notranslate nohighlight">
+\[
+H x = \left(x_o - 2 \frac{v^T x_o}{v^Tv} v\right) + \left(x_c - 2 \frac{v^T x_c}{v^Tv} v\right) = x_o - x_c,
+\]</div>
+<p>meaning that geometrically Householder transformation is a reflection of <span class="math notranslate nohighlight">\(x\)</span> in the hyperplane which is perpendicular to <span class="math notranslate nohighlight">\(v\)</span>.</p>
+</section>
+</section>
+<section id="application-in-qr-decomposition">
+<h3>Application in QR Decomposition<a class="headerlink" href="#application-in-qr-decomposition" title="Link to this heading">#</a></h3>
+<p>As with the Gram-Schmidt method above, the goal is to transform a given matrix <span class="math notranslate nohighlight">\(A\)</span> into an upper triangular matrix <span class="math notranslate nohighlight">\(R\)</span> using orthogonal transformations. This is achieved iteratively, column by column, using Householder matrices.</p>
+<p><strong>Step-by-Step Process</strong>:</p>
+<ol class="arabic simple">
+<li><p><strong>Target Vector</strong>: Consider the first column of <span class="math notranslate nohighlight">\(A\)</span>. Let’s denote this column as <span class="math notranslate nohighlight">\(x\)</span>. We want to transform <span class="math notranslate nohighlight">\(x\)</span> into a new vector <span class="math notranslate nohighlight">\(x'\)</span> that has the same norm as <span class="math notranslate nohighlight">\(x\)</span> but all components zero except for the first component.</p></li>
+<li><p><strong>Constructing <span class="math notranslate nohighlight">\(v\)</span></strong>: To create the Householder matrix <span class="math notranslate nohighlight">\(H\)</span>, we first need to construct the vector <span class="math notranslate nohighlight">\(v\)</span>. This is done by taking <span class="math notranslate nohighlight">\(v = x - \|x\|e_1\)</span>, where <span class="math notranslate nohighlight">\(e_1\)</span> is the first unit vector. With <span class="math notranslate nohighlight">\(v\)</span> determined, we form the Householder matrix <span class="math notranslate nohighlight">\(H = I - 2 \frac{vv^T}{v^Tv}\)</span>.</p></li>
+<li><p><strong>Applying <span class="math notranslate nohighlight">\(H\)</span></strong>: Multiply <span class="math notranslate nohighlight">\(H\)</span> by <span class="math notranslate nohighlight">\(A\)</span> (i.e., <span class="math notranslate nohighlight">\(HA\)</span>) to reflect the first column of <span class="math notranslate nohighlight">\(A\)</span> about the plane orthogonal to <span class="math notranslate nohighlight">\(v\)</span>. This operation zeros out all elements below the diagonal in the first column (See Lecture 10 of <a class="reference external" href="https://ucl.primo.exlibrisgroup.com/permalink/44UCL_INST/155jbua/alma990010608020204761">Trefethen, Bau</a>).</p></li>
+<li><p><strong>Iterative Process</strong>: Repeat the process for the submatrix of <span class="math notranslate nohighlight">\(A\)</span> excluding the already zeroed elements. Each step involves constructing a new Householder matrix to introduce zeros in the subsequent column, below the diagonal.</p></li>
+</ol>
+</section>
+<section id="comparing-with-the-gram-schmidt-method">
+<h3>Comparing with the Gram-Schmidt method<a class="headerlink" href="#comparing-with-the-gram-schmidt-method" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Numerical Stability</strong>: Householder transformations are generally more numerically stable than both the classical (and modified) Gram-Schmidt processes.</p></li>
+<li><p><strong>Efficiency in Large Matrices</strong>: For large matrices, the increased stability of Householder transformations often outweighs its higher computational complexity.</p></li>
+<li><p><strong>Ease of Understanding</strong>: The Gram-Schmidt process is often easier to understand and implement.</p></li>
+</ul>
+</section>
 </section>
 </section>
 
@@ -554,7 +753,7 @@ A = \begin{bmatrix}Q &amp; Q^{\bot}\end{bmatrix}\begin{bmatrix}R\\ 0\end{bmatrix
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">The Singular Value decomposition</p>
+        <p class="prev-next-title">The Singular Value Decomposition</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -575,12 +774,32 @@ A = \begin{bmatrix}Q &amp; Q^{\bot}\end{bmatrix}\begin{bmatrix}R\\ 0\end{bmatrix
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#orthogonal-matrices">Orthogonal matrices</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">The QR Decomposition</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qr-decomposition-via-gram-schmidt-orthogonalisation">QR Decomposition via Gram-Schmidt Orthogonalisation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm">Algorithm</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-decomposition-representation">Matrix Decomposition Representation</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#theorem-qr-decomposition">Theorem (QR Decomposition)</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-linear-systems-of-equations-with-the-qr-decomposition">Solving linear systems of equations with the QR decomposition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-linear-systems-of-equations-with-the-qr-decomposition">Solving linear systems of equations with the QR decomposition</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#improved-explanation-solving-linear-systems-using-qr-decomposition">Improved Explanation: Solving Linear Systems Using QR Decomposition</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reduced-vs-full-qr-decomposition">Reduced vs full QR decomposition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#examples-and-self-check-questions">Examples and self-check questions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation-from-scratch">Implementation from scratch</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-numpy-s-implementation">Using Numpy’s implementation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-material-for-interested-students">Additional material for interested students</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#qr-decomposition-with-householder-transformations">QR Decomposition with Householder Transformations</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#householder-transformations">Householder Transformations</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application-in-qr-decomposition">Application in QR Decomposition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comparing-with-the-gram-schmidt-method">Comparing with the Gram-Schmidt method</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 

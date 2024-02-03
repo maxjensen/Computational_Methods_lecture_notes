@@ -38,7 +38,7 @@ parts:
     - file: week_2_self_check
     - file: week_3_self_check
     - file: week_4_self_check
-    - file: week_5_self_check.ipynb
+    - file: week_5_self_check
     - file: week_6_self_check
     - file: week_7_self_check
     - file: week_8_self_check.ipynb

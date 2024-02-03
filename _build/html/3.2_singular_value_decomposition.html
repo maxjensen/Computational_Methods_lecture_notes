@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>The Singular Value decomposition &#8212; Computational Methods MATH0058 lecture notes</title>
+    <title>The Singular Value Decomposition &#8212; Computational Methods MATH0058 lecture notes</title>
   
   
   
@@ -192,7 +192,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="1.2_floating_point_arithmetic.html">Floating Point Arithmetic</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.3_error_analysis.html">Principles of backward error analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.4_linear_system_error.html">Backward error and condition number of linear systems of equations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="1.5_complexity_notation.html">A quick survey of the <span class="math notranslate nohighlight">\(\mathcal{O}\)</span>-notation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_complexity_notation.html">A quick survey of asymptotic notation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.6_numpy_and_data_layouts.html">Memory layout and Numpy arrays</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition and its numerical stability</span></p>
@@ -205,7 +205,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Orthogonal decompositions</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="3.1_qr_decomposition.html">The QR Decomposition</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">The Singular Value decomposition</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">The Singular Value Decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3.3_least_squares_problems.html">Least Squares Problems</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Interpolation and quadrature</span></p>
@@ -372,7 +372,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>The Singular Value decomposition</h1>
+    <h1>The Singular Value Decomposition</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -383,13 +383,16 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theorem-singular-value-decomposition">Theorem (Singular Value Decomposition)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#existence-proof">Existence Proof</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#properties-of-the-svd">Properties of the SVD</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#svd-and-low-rank-approximation">SVD and low-rank approximation</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#theorem">Theorem</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-reduced-svd">The reduced SVD</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-material-for-interested-students">Additional material for interested students</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#improved-statement-and-proof-of-the-theorem">Improved Statement and Proof of the Theorem</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -402,7 +405,7 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="the-singular-value-decomposition">
-<h1>The Singular Value decomposition<a class="headerlink" href="#the-singular-value-decomposition" title="Link to this heading">#</a></h1>
+<h1>The Singular Value Decomposition<a class="headerlink" href="#the-singular-value-decomposition" title="Link to this heading">#</a></h1>
 <section id="theorem-singular-value-decomposition">
 <h2>Theorem (Singular Value Decomposition)<a class="headerlink" href="#theorem-singular-value-decomposition" title="Link to this heading">#</a></h2>
 <p>Let <span class="math notranslate nohighlight">\(A\in\mathbb{R}^{m\times n}\)</span>, <span class="math notranslate nohighlight">\(m\geq n\)</span>. Then <span class="math notranslate nohighlight">\(A\)</span> has a singular value decomposition of the form</p>
@@ -417,79 +420,6 @@ A = U\Sigma V^T.
 \end{split}\]</div>
 <p>with <span class="math notranslate nohighlight">\(\tilde{\Sigma} = \text{diag}(\sigma_1, \sigma_2, \dots, \sigma_r, 0, \dots, 0)\)</span>, and <span class="math notranslate nohighlight">\(r\)</span> the rank of the matrix <span class="math notranslate nohighlight">\(A\)</span>.</p>
 <p>The <span class="math notranslate nohighlight">\(\sigma_j\)</span> are called singular values of <span class="math notranslate nohighlight">\(A\)</span>. The columns <span class="math notranslate nohighlight">\(v_j\)</span> of <span class="math notranslate nohighlight">\(V\)</span> are called right singular vectors. The columns <span class="math notranslate nohighlight">\(u_j\)</span> of <span class="math notranslate nohighlight">\(U\)</span> are called left singular vectors.</p>
-</section>
-<section id="existence-proof">
-<h2>Existence Proof<a class="headerlink" href="#existence-proof" title="Link to this heading">#</a></h2>
-<p>The proof proceeds via induction. Define <span class="math notranslate nohighlight">\(\sigma_1 := \|A\|_2\)</span>. In finite dimensions we know that there exists <span class="math notranslate nohighlight">\(v_1\)</span>, <span class="math notranslate nohighlight">\(\|v_1\|_2 = 1\)</span>, s.t. <span class="math notranslate nohighlight">\(Av_1 = \sigma_1 u_1\)</span> for some <span class="math notranslate nohighlight">\(u_1\in\mathbb{R}^m\)</span> with <span class="math notranslate nohighlight">\(\|u_1\|_2 = 1\)</span>. Now let <span class="math notranslate nohighlight">\(U_1\)</span> and <span class="math notranslate nohighlight">\(V_1\)</span> be orthogonal matrices of the form</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{aligned}
-V_1 &amp;= \begin{bmatrix}v_1 &amp; \hat{V}_1\end{bmatrix}\\
-U_1 &amp;= \begin{bmatrix}u_1 &amp; \hat{U}_1\end{bmatrix}
-\end{aligned}
-\end{split}\]</div>
-<p>It follows that</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-S := U_1^TAV_1 = \begin{bmatrix}\sigma_1 &amp; w^T\\
-                            0       &amp; B
-            \end{bmatrix}.
-\end{split}\]</div>
-<p><span class="math notranslate nohighlight">\(w\)</span> is some vector of dimension <span class="math notranslate nohighlight">\(n-1\)</span>. <span class="math notranslate nohighlight">\(B\)</span> is a matrix of dimension <span class="math notranslate nohighlight">\(m-1\times n-1\)</span>. In order to proceed we need to show that <span class="math notranslate nohighlight">\(w=0\)</span>.</p>
-<p>We have</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{aligned}
-\|S\|_2 &amp;= \left\|\begin{bmatrix}\sigma_1 &amp; w^T\\
-                            0       &amp; B
-            \end{bmatrix}\right\|_2\\ 
-        &amp;\geq \frac{\left\|\begin{bmatrix}\sigma_1 &amp; w^T\\
-                                    0       &amp; B
-                    \end{bmatrix}\begin{bmatrix}
-                    \sigma_1\\ w\end{bmatrix}\right\|_2}{\left(\sigma_1^2 + w^Tw\right)^{1/2}}\\
-        &amp;\geq \left(\sigma_1^2 + w^Tw\right)^{1/2}.
-\end{aligned}
-\end{split}\]</div>
-<p>The first inequality follows from the fact that <span class="math notranslate nohighlight">\(\|Ax\| / \|x\| \leq \|A\|\)</span> by definition of a vector-induced matrix norm. The second inequality follows from ignoring the contribution of <span class="math notranslate nohighlight">\(Bw\)</span> to the norm.</p>
-<p>We therefore have that</p>
-<div class="math notranslate nohighlight">
-\[
-\sigma_1 = \|S\|_2 \geq \left(\sigma_1^2 + w^Tw\right)^{1/2}.
-\]</div>
-<p>It follows that</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-U_1^TAV_1 = \begin{bmatrix}\sigma_1 &amp; 0\\
-                           0 &amp; B
-            \end{bmatrix}.
-\end{split}\]</div>
-<p>We now use an induction argument to assume that the SVD of <span class="math notranslate nohighlight">\(B\)</span> exists with</p>
-<div class="math notranslate nohighlight">
-\[
-B = \hat{U}\hat{\Sigma}\hat{V}^T.
-\]</div>
-<p>Then</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-A = U_1\begin{bmatrix}1 &amp; 0 \\
-                      0 &amp; \hat{U}
-        \end{bmatrix}
-        \begin{bmatrix}\sigma_1 &amp; 0\\
-                       0        &amp; \hat{\Sigma}
-        \end{bmatrix}
-        \begin{bmatrix}1 &amp; 0\\
-                       0 &amp; \hat{V}^T
-        \end{bmatrix}V_1^T.
-\end{split}\]</div>
-<p>We now define</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}U:= U_1\begin{bmatrix}1 &amp; 0 \\
-                      0 &amp; \hat{U}
-        \end{bmatrix},\quad V:=        \begin{bmatrix}1 &amp; 0\\
-                       0 &amp; \hat{V}^T
-        \end{bmatrix}V_1^T.
-\end{split}\]</div>
-<p>The induction start is given by a single column vector if <span class="math notranslate nohighlight">\(m &gt; n\)</span> or a scalar if <span class="math notranslate nohighlight">\(m=1\)</span>. The theorem is trivially satisfied in both cases.</p>
 </section>
 <section id="properties-of-the-svd">
 <h2>Properties of the SVD<a class="headerlink" href="#properties-of-the-svd" title="Link to this heading">#</a></h2>
@@ -541,6 +471,52 @@ A = \begin{bmatrix}U_1 &amp; U_2\end{bmatrix}\begin{bmatrix}\hat{\Sigma} &amp; 0
 A = U_1\hat{\Sigma}V_1^T.
 \]</div>
 <p>Knowledge of the reduced SVD (or dominant parts) is usually sufficient for computational purposes.</p>
+</section>
+<section id="additional-material-for-interested-students">
+<h2>Additional material for interested students<a class="headerlink" href="#additional-material-for-interested-students" title="Link to this heading">#</a></h2>
+<section id="improved-statement-and-proof-of-the-theorem">
+<h3>Improved Statement and Proof of the Theorem<a class="headerlink" href="#improved-statement-and-proof-of-the-theorem" title="Link to this heading">#</a></h3>
+<p><strong>Theorem (Existence of Singular Value Decomposition)</strong>: Every real matrix <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span> with <span class="math notranslate nohighlight">\(m \geq n\)</span> has a singular value decomposition (SVD).</p>
+<p><strong>Proof</strong>: We utilise an inductive argument to establish the existence of the SVD for any matrix <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span>.</p>
+<ol class="arabic">
+<li><p><strong>Base Case</strong>: Define the largest singular value of <span class="math notranslate nohighlight">\(A\)</span>, denoted as <span class="math notranslate nohighlight">\(\sigma_1\)</span>, to be <span class="math notranslate nohighlight">\(\sigma_1 := \|A\|_2\)</span>. Due to the properties of finite-dimensional vector spaces, there exists a unit vector <span class="math notranslate nohighlight">\(v_1 \in \mathbb{R}^n\)</span>, maximising <span class="math notranslate nohighlight">\(\max_{v \neq 0} \| A v \|_2 / \|v\|_2\)</span>, such that <span class="math notranslate nohighlight">\(Av_1 = \sigma_1 u_1\)</span> for some unit vector <span class="math notranslate nohighlight">\(u_1 \in \mathbb{R}^m\)</span>.</p></li>
+<li><p><strong>Formation of Orthogonal Matrices <span class="math notranslate nohighlight">\(U_1\)</span> and <span class="math notranslate nohighlight">\(V_1\)</span></strong>:
+Construct orthogonal matrices <span class="math notranslate nohighlight">\(U_1\)</span> and <span class="math notranslate nohighlight">\(V_1\)</span> in the form:</p>
+<div class="math notranslate nohighlight">
+\[
+   V_1 = \begin{bmatrix} v_1 &amp; \hat{V}_1 \end{bmatrix}, \quad U_1 = \begin{bmatrix} u_1 &amp; \hat{U}_1 \end{bmatrix}
+   \]</div>
+<p>where <span class="math notranslate nohighlight">\(\hat{V}_1\)</span> and <span class="math notranslate nohighlight">\(\hat{U}_1\)</span> are matrices that complete <span class="math notranslate nohighlight">\(v_1\)</span> and <span class="math notranslate nohighlight">\(u_1\)</span> to orthonormal bases. Their existence is guaranteed by the Gram-Schmidt method.</p>
+</li>
+<li><p><strong>Transformed Matrix <span class="math notranslate nohighlight">\(S\)</span></strong>:
+Consider the matrix <span class="math notranslate nohighlight">\(S := U_1^T A V_1\)</span>, which takes the form:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+   S = \begin{bmatrix} \sigma_1 &amp; w^T \\ 0 &amp; B \end{bmatrix}
+   \end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(w\)</span> is a vector in <span class="math notranslate nohighlight">\(\mathbb{R}^{n-1}\)</span> and <span class="math notranslate nohighlight">\(B\)</span> is a <span class="math notranslate nohighlight">\((m-1) \times (n-1)\)</span> matrix.</p>
+</li>
+<li><p><strong>Proof that <span class="math notranslate nohighlight">\(w = 0\)</span></strong>:
+To show <span class="math notranslate nohighlight">\(w = 0\)</span>, we use the properties of matrix norms:
+$<span class="math notranslate nohighlight">\(
+\|S\|_2 = \|U_1^T A V_1\|_2 \geq \left\| \begin{bmatrix} \sigma_1 &amp; w^T \\ 0 &amp; B \end{bmatrix} \begin{bmatrix} \sigma_1 \\ w \end{bmatrix} \right\|_2 \bigg/ \left\| \begin{bmatrix} \sigma_1 \\ w \end{bmatrix} \right\|_2 \geq \left( \sigma_1^2 + \|w\|^2 \right)^{1/2}
+\)</span><span class="math notranslate nohighlight">\(
+The inequality \)</span>|Ax| / |x| \leq |A|<span class="math notranslate nohighlight">\( and the disregard of the contribution of \)</span>Bw<span class="math notranslate nohighlight">\( in the norm lead to the conclusion that \)</span>\sigma_1 = |S|_2 \geq \left( \sigma_1^2 + |w|^2 \right)^{1/2}<span class="math notranslate nohighlight">\(, implying \)</span>w = 0$.</p></li>
+<li><p><strong>Inductive Step</strong>:
+Assume the SVD of <span class="math notranslate nohighlight">\(B\)</span> exists: <span class="math notranslate nohighlight">\(B = \hat{U} \hat{\Sigma} \hat{V}^T\)</span>. Then <span class="math notranslate nohighlight">\(A\)</span> can be decomposed as:
+$<span class="math notranslate nohighlight">\(
+A = U_1 \begin{bmatrix} 1 &amp; 0 \\ 0 &amp; \hat{U} \end{bmatrix} \begin{bmatrix} \sigma_1 &amp; 0 \\ 0 &amp; \hat{\Sigma} \end{bmatrix} \begin{bmatrix} 1 &amp; 0 \\ 0 &amp; \hat{V}^T \end{bmatrix} V_1^T
+\)</span><span class="math notranslate nohighlight">\(
+Defining 
+\)</span><span class="math notranslate nohighlight">\(
+U = U_1 \begin{bmatrix} 1 &amp; 0 \\ 0 &amp; \hat{U} \end{bmatrix}, \qquad V = \begin{bmatrix} 1 &amp; 0 \\ 0 &amp; \hat{V}^T \end{bmatrix} V_1^T,
+\)</span>$
+we complete the inductive step.</p></li>
+<li><p><strong>Conclusion</strong>:
+For the case <span class="math notranslate nohighlight">\(m &gt; n\)</span>, the theorem is satisfied by a column vector, and for <span class="math notranslate nohighlight">\(m = n\)</span>, it is satisfied trivially. Hence, every matrix</p></li>
+</ol>
+<p>The above proof does not inform us how to design an efficient numerical algorithm to construct the SVD of a matrix.</p>
+</section>
 </section>
 </section>
 
@@ -609,13 +585,16 @@ A = U_1\hat{\Sigma}V_1^T.
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theorem-singular-value-decomposition">Theorem (Singular Value Decomposition)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#existence-proof">Existence Proof</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#properties-of-the-svd">Properties of the SVD</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#svd-and-low-rank-approximation">SVD and low-rank approximation</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#theorem">Theorem</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-reduced-svd">The reduced SVD</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-material-for-interested-students">Additional material for interested students</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#improved-statement-and-proof-of-the-theorem">Improved Statement and Proof of the Theorem</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 
