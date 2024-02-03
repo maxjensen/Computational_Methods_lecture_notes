@@ -160,6 +160,8 @@
   },
   "active": "14130e202ec15dbf",
   "lastOpenFiles": [
+    "_build/html/_static/proof.css",
+    "_build/html/prf-prf.html",
     "week_5_self_check.md",
     "3.1_qr_decomposition.md",
     "3.2_singular_value_decomposition.md",
@@ -182,7 +184,6 @@
     "_build/html/genindex.html",
     "_build/html/_sources/week_9_self_check.ipynb",
     "_build/html/week_9_self_check.html",
-    "_build/html/_sources/week_8_self_check.ipynb",
     "_build/html/_sources/week_7_self_check.md",
     "_build/html/_sources/week_6_self_check.md",
     "_build/html/_sources/week_5_self_check.md",
@@ -204,7 +205,6 @@
     "_build/html/_sources/1.4_linear_system_error.md",
     "_build/html/_sources/1.3_error_analysis.md",
     "_build/html/_sources/1.1_matrix_vector_norms.md",
-    "week_6_self_check.md",
-    "week_3_self_check.md"
+    "week_6_self_check.md"
   ]
 }

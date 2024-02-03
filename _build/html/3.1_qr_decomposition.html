@@ -34,6 +34,7 @@
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=ca93fcec" />
     <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -384,15 +385,11 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#orthogonal-matrices">Orthogonal matrices</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qr-decomposition-via-gram-schmidt-orthogonalisation">QR Decomposition via Gram-Schmidt Orthogonalisation</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm">Algorithm</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-decomposition-representation">Matrix Decomposition Representation</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#theorem-qr-decomposition">Theorem (QR Decomposition)</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-linear-systems-of-equations-with-the-qr-decomposition">Solving linear systems of equations with the QR decomposition</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#improved-explanation-solving-linear-systems-using-qr-decomposition">Improved Explanation: Solving Linear Systems Using QR Decomposition</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-linear-systems-of-equations-with-the-qr-decomposition">Solving linear systems of equations with the QR decomposition</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reduced-vs-full-qr-decomposition">Reduced vs full QR decomposition</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation-from-scratch">Implementation from scratch</a></li>
@@ -433,40 +430,26 @@ document.write(`
 </section>
 <section id="qr-decomposition-via-gram-schmidt-orthogonalisation">
 <h2>QR Decomposition via Gram-Schmidt Orthogonalisation<a class="headerlink" href="#qr-decomposition-via-gram-schmidt-orthogonalisation" title="Link to this heading">#</a></h2>
-<p>Consider a matrix <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span> with <span class="math notranslate nohighlight">\(m \geq n\)</span>. The aim is to orthogonalise the columns of <span class="math notranslate nohighlight">\(A\)</span>. This process is achieved through the Gram-Schmidt orthogonalisation method.</p>
-<section id="algorithm">
-<h3>Algorithm<a class="headerlink" href="#algorithm" title="Link to this heading">#</a></h3>
-<ol class="arabic">
-<li><p><strong>Initial Column</strong>:</p>
+<p>Consider a matrix <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span>  with <span class="math notranslate nohighlight">\(m \geq n\)</span>. The aim is to orthogonalise the columns of <span class="math notranslate nohighlight">\(A\)</span>. This process is achieved through the Gram-Schmidt orthogonalisation method.</p>
+<div class="proof algorithm admonition" id="algorithm-0">
+<p class="admonition-title"><span class="caption-number">Algorithm 1 </span> (Gram-Schmidt Orthogonalisation)</p>
+<section class="algorithm-content" id="proof-content">
+<p><strong>Inputs</strong> <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span></p>
+<p><strong>Outputs</strong> <span class="math notranslate nohighlight">\(Q, R \in \mathbb{R}^{m \times n}\)</span></p>
 <ul>
-<li><p>Let <span class="math notranslate nohighlight">\(\tilde{q}_1\)</span> be the first column of <span class="math notranslate nohighlight">\(A\)</span>, i.e., <span class="math notranslate nohighlight">\(\tilde{q}_1 := a_1\)</span>.</p></li>
-<li><p>Normalize <span class="math notranslate nohighlight">\(\tilde{q}_1\)</span> to obtain <span class="math notranslate nohighlight">\(q_1\)</span>, defined as:</p>
+<li><p>Let <span class="math notranslate nohighlight">\(\tilde{q}_1\)</span> be the first column <span class="math notranslate nohighlight">\(a_1\)</span> of <span class="math notranslate nohighlight">\(A\)</span> and normalize <span class="math notranslate nohighlight">\(\tilde{q}_1\)</span> to obtain <span class="math notranslate nohighlight">\(q_1\)</span>, defined as:</p>
 <div class="math notranslate nohighlight">
-\[ q_1 := \frac{\tilde{q}_1}{\|\tilde{q}_1\|_2} \]</div>
+\[\begin{split}
+  \begin{aligned} 
+  \tilde{q}_1 &amp;:= a_1,\\
+  q_1 &amp;:= \frac{\tilde{q}_1}{\|\tilde{q}_1\|_2}
+  \end{aligned}
+  \end{split}\]</div>
 </li>
+<li><p>For <span class="math notranslate nohighlight">\(k\)</span> in <span class="math notranslate nohighlight">\(\{2, \ldots, n\}\)</span>:</p>
+<ul class="simple">
+<li><p>To compute column <span class="math notranslate nohighlight">\(q_k\)</span>, orthogonalize column <span class="math notranslate nohighlight">\(a_k\)</span> against all previous <span class="math notranslate nohighlight">\(q_j\)</span> (for <span class="math notranslate nohighlight">\(j = 1, \ldots, k-1\)</span>):</p></li>
 </ul>
-</li>
-<li><p><strong>Subsequent Columns</strong>:</p>
-<ul>
-<li><p>To compute the column <span class="math notranslate nohighlight">\(q_2\)</span>, orthogonalize <span class="math notranslate nohighlight">\(a_2\)</span> against <span class="math notranslate nohighlight">\(q_1\)</span>:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-     \begin{aligned}
-     \tilde{q}_2 &amp;:= a_2 - \langle a_2, q_1 \rangle q_1,\\
-     q_2 &amp;:= \frac{\tilde{q}_2}{\|\tilde{q}_2\|_2}.
-     \end{aligned}
-     \end{split}\]</div>
-</li>
-<li><p>For column <span class="math notranslate nohighlight">\(q_3\)</span>, orthogonalize <span class="math notranslate nohighlight">\(a_3\)</span> against <span class="math notranslate nohighlight">\(q_1\)</span> and <span class="math notranslate nohighlight">\(q_2\)</span>:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-     \begin{aligned}
-     \tilde{q}_3 &amp;:= a_3 - \langle a_3, q_1 \rangle q_1 - \langle a_3, q_2 \rangle q_2,\\
-     q_3 &amp;:= \frac{\tilde{q}_3}{\|\tilde{q}_3\|_2}.
-     \end{aligned}
-     \end{split}\]</div>
-</li>
-<li><p>Similarly, for column <span class="math notranslate nohighlight">\(q_k\)</span>, orthogonalize <span class="math notranslate nohighlight">\(a_k\)</span> against all previous <span class="math notranslate nohighlight">\(q_j\)</span> (for <span class="math notranslate nohighlight">\(j = 1, \ldots, k-1\)</span>):</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
      \begin{aligned}
@@ -476,10 +459,8 @@ document.write(`
      \end{split}\]</div>
 </li>
 </ul>
-</li>
-</ol>
 </section>
-<section id="matrix-decomposition-representation">
+</div><section id="matrix-decomposition-representation">
 <h3>Matrix Decomposition Representation<a class="headerlink" href="#matrix-decomposition-representation" title="Link to this heading">#</a></h3>
 <p>This procedure can be expressed as a matrix decomposition:</p>
 <ul>
@@ -505,13 +486,15 @@ $<span class="math notranslate nohighlight">\( a_k = \|\tilde{q}_k\|_2 q_k + \su
 </section>
 <section id="theorem-qr-decomposition">
 <h3>Theorem (QR Decomposition)<a class="headerlink" href="#theorem-qr-decomposition" title="Link to this heading">#</a></h3>
+<div class="proof theorem admonition" id="theorem-1">
+<p class="admonition-title"><span class="caption-number">Theorem 1 </span> (QR Decomposition)</p>
+<section class="theorem-content" id="proof-content">
 <p>Given <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span>with <span class="math notranslate nohighlight">\(m \geq n\)</span>, a QR decomposition of <span class="math notranslate nohighlight">\(A = QR\)</span> exists, where <span class="math notranslate nohighlight">\(Q\)</span> is an <span class="math notranslate nohighlight">\(m \times n\)</span> orthogonal matrix satisfying <span class="math notranslate nohighlight">\(Q^TQ = I\)</span> and where <span class="math notranslate nohighlight">\(R\)</span> is an <span class="math notranslate nohighlight">\(n \times n\)</span> upper triangular matrix. If <span class="math notranslate nohighlight">\(A\)</span> has a full rank, then this QR decomposition is unique up to the signs of the diagonal elements of <span class="math notranslate nohighlight">\(R\)</span>.</p>
 </section>
+</div></section>
 </section>
 <section id="solving-linear-systems-of-equations-with-the-qr-decomposition">
 <h2>Solving linear systems of equations with the QR decomposition<a class="headerlink" href="#solving-linear-systems-of-equations-with-the-qr-decomposition" title="Link to this heading">#</a></h2>
-<section id="improved-explanation-solving-linear-systems-using-qr-decomposition">
-<h3>Improved Explanation: Solving Linear Systems Using QR Decomposition<a class="headerlink" href="#improved-explanation-solving-linear-systems-using-qr-decomposition" title="Link to this heading">#</a></h3>
 <p>To solve <span class="math notranslate nohighlight">\(Ax = b\)</span>, we can employ the QR decomposition of <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{n \times n}\)</span>.</p>
 <p>The linear system <span class="math notranslate nohighlight">\(Ax = b\)</span> can be rewritten using the QR decomposition:</p>
 <ol class="arabic simple">
@@ -525,7 +508,6 @@ $<span class="math notranslate nohighlight">\( a_k = \|\tilde{q}_k\|_2 q_k + \su
 <li><p><strong>Backward Stability</strong>: Solving linear systems via QR decomposition is known to be backward stable. Backward stability refers to the property where the computed solution is the exact solution to a slightly perturbed version of the original problem. This stability is particularly beneficial when dealing with ill-conditioned matrices or when high precision is required.</p></li>
 <li><p><strong>Comparison with LU Decomposition</strong>: Despite its stability, the QR decomposition method for solving linear systems is not as commonly used as the LU decomposition in practice. This is primarily due to its computational cost. The QR decomposition typically requires about twice as many operations as the LU decomposition, making it less efficient for large-scale problems.</p></li>
 </ul>
-</section>
 </section>
 <section id="reduced-vs-full-qr-decomposition">
 <h2>Reduced vs full QR decomposition<a class="headerlink" href="#reduced-vs-full-qr-decomposition" title="Link to this heading">#</a></h2>
@@ -560,7 +542,7 @@ A = \begin{pmatrix}Q &amp; Q^{\bot}\end{pmatrix}\begin{pmatrix}R\\ 0\end{pmatrix
     <span class="k">return</span> <span class="n">Q</span><span class="p">,</span> <span class="n">R</span>
 </pre></div>
 </div>
-<p>Step 3: Test with the matrix of the above example</p>
+<p>Step 3: Test with the matrix of the first self-check question</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define a matrix</span>
 <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">]])</span>
 
@@ -951,15 +933,11 @@ H x = \left(x_o - 2 \frac{v^T x_o}{v^Tv} v\right) + \left(x_c - 2 \frac{v^T x_c}
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#orthogonal-matrices">Orthogonal matrices</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qr-decomposition-via-gram-schmidt-orthogonalisation">QR Decomposition via Gram-Schmidt Orthogonalisation</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm">Algorithm</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-decomposition-representation">Matrix Decomposition Representation</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#theorem-qr-decomposition">Theorem (QR Decomposition)</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-linear-systems-of-equations-with-the-qr-decomposition">Solving linear systems of equations with the QR decomposition</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#improved-explanation-solving-linear-systems-using-qr-decomposition">Improved Explanation: Solving Linear Systems Using QR Decomposition</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-linear-systems-of-equations-with-the-qr-decomposition">Solving linear systems of equations with the QR decomposition</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reduced-vs-full-qr-decomposition">Reduced vs full QR decomposition</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation-from-scratch">Implementation from scratch</a></li>
