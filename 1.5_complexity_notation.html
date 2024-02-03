@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>A quick survey of the \(\mathcal{O}\)-notation &#8212; Computational Methods MATH0058 lecture notes</title>
+    <title>A quick survey of asymptotic notation &#8212; Computational Methods MATH0058 lecture notes</title>
   
   
   
@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
   
@@ -192,21 +192,20 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="1.2_floating_point_arithmetic.html">Floating Point Arithmetic</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.3_error_analysis.html">Principles of backward error analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.4_linear_system_error.html">Backward error and condition number of linear systems of equations</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">A quick survey of the <span class="math notranslate nohighlight">\(\mathcal{O}\)</span>-notation</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">A quick survey of asymptotic notation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.6_numpy_and_data_layouts.html">Memory layout and Numpy arrays</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition and its numerical stability</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="2.1_lu_decomposition.html">Solving linear system with the LU Decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.2_lu_backward_error.html">Backward error of the LU decomposition and pivoting</a></li>
-
 <li class="toctree-l1"><a class="reference internal" href="2.3_lu_backward_error_examples.html">Backward error of the LU decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.4_python_lu_decomposition.html">Implementing the LU decomposition in Python</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Orthogonal decompositions</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="3.1_qr_decomposition.html">The QR Decomposition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="3.2_singular_value_decomposition.html">The Singular Value decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.2_singular_value_decomposition.html">The Singular Value Decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3.3_least_squares_problems.html">Least Squares Problems</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Interpolation and quadrature</span></p>
@@ -373,7 +372,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>A quick survey of the \mathcal{O}-notation</h1>
+    <h1>A quick survey of asymptotic notation</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -396,16 +395,14 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="a-quick-survey-of-the-mathcal-o-notation">
-<h1>A quick survey of the <span class="math notranslate nohighlight">\(\mathcal{O}\)</span>-notation<a class="headerlink" href="#a-quick-survey-of-the-mathcal-o-notation" title="Link to this heading">#</a></h1>
-<p>Throughout this module, we are interested in leading order complexities of quantities.
-Consider a polynomial</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="a-quick-survey-of-asymptotic-notation">
+<h1>A quick survey of asymptotic notation<a class="headerlink" href="#a-quick-survey-of-asymptotic-notation" title="Link to this heading">#</a></h1>
+<p>Throughout this module, we are interested in leading order complexities of quantities. Consider a polynomial</p>
 <div class="math notranslate nohighlight">
 \[
 p(n) = 3n^3 + 5n^2 + 1.
 \]</div>
-<p>If we are only interested in the asymptotic behaviour for large <span class="math notranslate nohighlight">\(n\)</span> then only the cubic term of <span class="math notranslate nohighlight">\(p\)</span> is relevant. Moreover, if we only want to express that the polynomial is growing cubically the <span class="math notranslate nohighlight">\(3\)</span> in front of <span class="math notranslate nohighlight">\(n^3\)</span> is not relevant either. A convenient notation to express this is the <span class="math notranslate nohighlight">\(\mathcal{O}\)</span>-notation.</p>
-<p>The formal definition is as follows</p>
+<p>If we are only interested in the asymptotic behaviour for large <span class="math notranslate nohighlight">\(n\)</span> then only the cubic term of <span class="math notranslate nohighlight">\(p\)</span> is relevant. Moreover, if we only want to express that the polynomial is growing cubically, the <span class="math notranslate nohighlight">\(3\)</span> in front of <span class="math notranslate nohighlight">\(n^3\)</span> is irrelevant. A convenient notation to express this is the <span class="math notranslate nohighlight">\(\mathcal{O}\)</span>-notation.</p>
 <section id="definition-of-mathcal-o-notation">
 <h2>Definition of <span class="math notranslate nohighlight">\(\mathcal{O}\)</span>-notation<a class="headerlink" href="#definition-of-mathcal-o-notation" title="Link to this heading">#</a></h2>
 <p>Let <span class="math notranslate nohighlight">\(g(n)\)</span> and <span class="math notranslate nohighlight">\(f(n)\)</span> be two given functions for <span class="math notranslate nohighlight">\(n\in\mathbb{N}\)</span>. If there exists <span class="math notranslate nohighlight">\(n_0 \in \mathbb{N}\)</span> and a constant <span class="math notranslate nohighlight">\(C&gt; 0\)</span> such that</p>
