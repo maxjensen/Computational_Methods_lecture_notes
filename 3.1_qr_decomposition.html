@@ -389,10 +389,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#theorem-qr-decomposition">Theorem (QR Decomposition)</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-linear-systems-of-equations-with-the-qr-decomposition">Solving linear systems of equations with the QR decomposition</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#improved-explanation-solving-linear-systems-using-qr-decomposition">Improved Explanation: Solving Linear Systems Using QR Decomposition</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-linear-systems-of-equations-with-the-qr-decomposition">Solving linear systems of equations with the QR decomposition</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reduced-vs-full-qr-decomposition">Reduced vs full QR decomposition</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation-from-scratch">Implementation from scratch</a></li>
@@ -510,8 +507,6 @@ $<span class="math notranslate nohighlight">\( a_k = \|\tilde{q}_k\|_2 q_k + \su
 </section>
 <section id="solving-linear-systems-of-equations-with-the-qr-decomposition">
 <h2>Solving linear systems of equations with the QR decomposition<a class="headerlink" href="#solving-linear-systems-of-equations-with-the-qr-decomposition" title="Link to this heading">#</a></h2>
-<section id="improved-explanation-solving-linear-systems-using-qr-decomposition">
-<h3>Improved Explanation: Solving Linear Systems Using QR Decomposition<a class="headerlink" href="#improved-explanation-solving-linear-systems-using-qr-decomposition" title="Link to this heading">#</a></h3>
 <p>To solve <span class="math notranslate nohighlight">\(Ax = b\)</span>, we can employ the QR decomposition of <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{n \times n}\)</span>.</p>
 <p>The linear system <span class="math notranslate nohighlight">\(Ax = b\)</span> can be rewritten using the QR decomposition:</p>
 <ol class="arabic simple">
@@ -525,7 +520,6 @@ $<span class="math notranslate nohighlight">\( a_k = \|\tilde{q}_k\|_2 q_k + \su
 <li><p><strong>Backward Stability</strong>: Solving linear systems via QR decomposition is known to be backward stable. Backward stability refers to the property where the computed solution is the exact solution to a slightly perturbed version of the original problem. This stability is particularly beneficial when dealing with ill-conditioned matrices or when high precision is required.</p></li>
 <li><p><strong>Comparison with LU Decomposition</strong>: Despite its stability, the QR decomposition method for solving linear systems is not as commonly used as the LU decomposition in practice. This is primarily due to its computational cost. The QR decomposition typically requires about twice as many operations as the LU decomposition, making it less efficient for large-scale problems.</p></li>
 </ul>
-</section>
 </section>
 <section id="reduced-vs-full-qr-decomposition">
 <h2>Reduced vs full QR decomposition<a class="headerlink" href="#reduced-vs-full-qr-decomposition" title="Link to this heading">#</a></h2>
@@ -560,7 +554,7 @@ A = \begin{pmatrix}Q &amp; Q^{\bot}\end{pmatrix}\begin{pmatrix}R\\ 0\end{pmatrix
     <span class="k">return</span> <span class="n">Q</span><span class="p">,</span> <span class="n">R</span>
 </pre></div>
 </div>
-<p>Step 3: Test with the matrix of the above example</p>
+<p>Step 3: Test with the matrix of the first self-check question</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define a matrix</span>
 <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">]])</span>
 
@@ -956,10 +950,7 @@ H x = \left(x_o - 2 \frac{v^T x_o}{v^Tv} v\right) + \left(x_c - 2 \frac{v^T x_c}
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#theorem-qr-decomposition">Theorem (QR Decomposition)</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-linear-systems-of-equations-with-the-qr-decomposition">Solving linear systems of equations with the QR decomposition</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#improved-explanation-solving-linear-systems-using-qr-decomposition">Improved Explanation: Solving Linear Systems Using QR Decomposition</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-linear-systems-of-equations-with-the-qr-decomposition">Solving linear systems of equations with the QR decomposition</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reduced-vs-full-qr-decomposition">Reduced vs full QR decomposition</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation-from-scratch">Implementation from scratch</a></li>
