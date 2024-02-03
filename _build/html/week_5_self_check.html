@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Self-check questions: QR Decomposition &#8212; Computational Methods MATH0058 lecture notes</title>
+    <title>Week 5 Self check questions and solutions &#8212; Computational Methods MATH0058 lecture notes</title>
   
   
   
@@ -229,7 +229,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="week_2_self_check.html">Week 2 Self check questions and solutions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="week_3_self_check.html">Week 3 Self check questions and solutions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="week_4_self_check.html">Week 4 Self check questions and solutions</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Self-check questions: QR Decomposition</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Week 5 Self check questions and solutions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="week_6_self_check.html">Week 6 Self check questions and solutions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="week_7_self_check.html">Week 7 Self check questions and solutions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="week_8_self_check.html">Week 8 Self check questions and solutions</a></li>
@@ -370,7 +370,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Self-check questions: QR Decomposition</h1>
+    <h1>Week 5 Self check questions and solutions</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -384,8 +384,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="self-check-questions-qr-decomposition">
-<h1>Self-check questions: QR Decomposition<a class="headerlink" href="#self-check-questions-qr-decomposition" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="week-5-self-check-questions-and-solutions">
+<h1>Week 5 Self check questions and solutions<a class="headerlink" href="#week-5-self-check-questions-and-solutions" title="Link to this heading">#</a></h1>
 <blockquote>
 <div><p><strong>Question</strong> A matrix <span class="math notranslate nohighlight">\(A\)</span> is called tridiagonal if on its diagonal and first off-diagonals contain non-zero entries: <span class="math notranslate nohighlight">\(a_{ij} = 0\)</span> if <span class="math notranslate nohighlight">\(|i - j| \geq 2\)</span>. Show that if <span class="math notranslate nohighlight">\(A\)</span> is tridiagonal, then <span class="math notranslate nohighlight">\(R\)</span> of its <span class="math notranslate nohighlight">\(QR\)</span> factorisation is nonzero only on the diagonal and the first two upper off-diagonals.</p>
 </div></blockquote>
@@ -415,15 +415,43 @@ document.write(`
 <blockquote>
 <div><p><strong>Question</strong> Given <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{n \times m}\)</span> with <span class="math notranslate nohighlight">\(m \geq n\)</span> show that the factorisation <span class="math notranslate nohighlight">\(A = LQ\)</span> exists, where <span class="math notranslate nohighlight">\(Q\)</span> is an <span class="math notranslate nohighlight">\(n \times m\)</span> matrix with orthogonal rows and where <span class="math notranslate nohighlight">\(L\)</span> is an <span class="math notranslate nohighlight">\(n \times n\)</span> lower triangular matrix.</p>
 </div></blockquote>
-<p><strong>Answer</strong> Using the <span class="math notranslate nohighlight">\(QR\)</span> decomposition <span class="math notranslate nohighlight">\(A^T = \bar{Q} R\)</span> of the transpose,
-$<span class="math notranslate nohighlight">\(
+<p><strong>Answer</strong> Using the <span class="math notranslate nohighlight">\(QR\)</span> decomposition <span class="math notranslate nohighlight">\(A^T = \bar{Q} R\)</span> of the transpose,</p>
+<div class="math notranslate nohighlight">
+\[
 A = (A^T)^T = (\bar{Q} R)^T = R^T \bar{Q}^T = L Q
-\)</span><span class="math notranslate nohighlight">\(
-with \)</span>L := R^T<span class="math notranslate nohighlight">\( and \)</span>Q := \bar{Q}^T$.</p>
+\]</div>
+<p>with <span class="math notranslate nohighlight">\(L := R^T\)</span> and <span class="math notranslate nohighlight">\(Q := \bar{Q}^T\)</span>.</p>
 <blockquote>
 <div><p><strong>Question</strong> Determine the <span class="math notranslate nohighlight">\(2\times 2\)</span> matrix <span class="math notranslate nohighlight">\(Q\)</span> that rotates a vector by an angle <span class="math notranslate nohighlight">\(\theta\)</span>. Is this matrix orthogonal? Show that <span class="math notranslate nohighlight">\(Q^{-1}\)</span> is identical to the matrix that rotates vectors by an angle of <span class="math notranslate nohighlight">\(-\theta\)</span>.</p>
 </div></blockquote>
-<p><strong>Answer</strong> The rotation matrix is given as follows:</p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<strong>Answer</strong><div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">The rotation matrix is given as follows:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}  
+Q =   
+\begin{bmatrix}  
+\cos\theta &amp; -\sin\theta\\  
+\sin\theta &amp; \cos\theta  
+\end{bmatrix}  
+\end{split}\]</div>
+<p class="sd-card-text">The matrix <span class="math notranslate nohighlight">\(Q\)</span> is orthogonal since <span class="math notranslate nohighlight">\(Q^TQ=I\)</span>. The rotation matrix for the angle <span class="math notranslate nohighlight">\(-\theta\)</span> is obtained as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}  
+\hat{Q} =  
+\begin{bmatrix}  
+\cos\theta &amp; +\sin\theta\\  
+-\sin\theta &amp; \cos\theta  
+\end{bmatrix},  
+\end{split}\]</div>
+<p class="sd-card-text">which is just the transpose of <span class="math notranslate nohighlight">\(Q\)</span>. Hence, as expected, the inverse of <span class="math notranslate nohighlight">\(Q\)</span> is just the rotation by <span class="math notranslate nohighlight">\(-\theta\)</span>.</p>
+</div>
+</details><p><strong>Answer</strong> The rotation matrix is given as follows:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}  
 Q =   

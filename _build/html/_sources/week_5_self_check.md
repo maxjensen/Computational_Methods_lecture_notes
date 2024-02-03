@@ -1,4 +1,4 @@
-# Self-check questions: QR Decomposition
+# Week 5 Self check questions and solutions
 
 > **Question** A matrix $A$ is called tridiagonal if on its diagonal and first off-diagonals contain non-zero entries: $a_{ij} = 0$ if $|i - j| \geq 2$. Show that if $A$ is tridiagonal, then $R$ of its $QR$ factorisation is nonzero only on the diagonal and the first two upper off-diagonals.
 
@@ -28,12 +28,38 @@ We need to show $r_{ij} = 0$ if $j + 2 \geq i$:
 > **Question** Given $A \in \mathbb{R}^{n \times m}$ with $m \geq n$ show that the factorisation $A = LQ$ exists, where $Q$ is an $n \times m$ matrix with orthogonal rows and where $L$ is an $n \times n$ lower triangular matrix. 
 
 **Answer** Using the $QR$ decomposition $A^T = \bar{Q} R$ of the transpose,
+
 $$
 A = (A^T)^T = (\bar{Q} R)^T = R^T \bar{Q}^T = L Q
 $$
+
 with $L := R^T$ and $Q := \bar{Q}^T$.
 
 > **Question** Determine the $2\times 2$ matrix $Q$ that rotates a vector by an angle $\theta$. Is this matrix orthogonal? Show that $Q^{-1}$ is identical to the matrix that rotates vectors by an angle of $-\theta$.
+
+```{dropdown} **Answer**
+The rotation matrix is given as follows:  
+  
+$$  
+Q =   
+\begin{bmatrix}  
+\cos\theta & -\sin\theta\\  
+\sin\theta & \cos\theta  
+\end{bmatrix}  
+$$  
+  
+The matrix $Q$ is orthogonal since $Q^TQ=I$. The rotation matrix for the angle $-\theta$ is obtained as  
+  
+$$  
+\hat{Q} =  
+\begin{bmatrix}  
+\cos\theta & +\sin\theta\\  
+-\sin\theta & \cos\theta  
+\end{bmatrix},  
+$$  
+  
+which is just the transpose of $Q$. Hence, as expected, the inverse of $Q$ is just the rotation by $-\theta$.
+```
 
 **Answer** The rotation matrix is given as follows:  
   
