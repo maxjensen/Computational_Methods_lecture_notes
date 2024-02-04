@@ -11,5 +11,3 @@ numerical solution of PDEs, etc.
 At the end of the module we will also take a sidestep into basic interpolation.
 There are some wonderful connections to numerical linear algebra, and interpolation
 is (next to matrix methods) another key ingredient for more advanced numerical methods.
-
-
