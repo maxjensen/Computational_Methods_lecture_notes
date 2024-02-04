@@ -529,8 +529,50 @@ A = U_1\hat{\Sigma}V_1^T.
 <h2>Self-check questions<a class="headerlink" href="#self-check-questions" title="Link to this heading">#</a></h2>
 <div class="tip admonition">
 <p class="admonition-title"><strong>Question</strong></p>
-<p>Let <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span>, <span class="math notranslate nohighlight">\(m \geq n\)</span>. Show that the singular values of <span class="math notranslate nohighlight">\(A\)</span> are the square roots of the
-eigenvalues of <span class="math notranslate nohighlight">\(A^TA\)</span>.</p>
+<p>Find the SVD of</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+A = \begin{pmatrix}
+0 &amp; 2 &amp; 0\\
+-3 &amp; 0 &amp; 0\\
+0 &amp; 0 &amp; 1
+\end{pmatrix}.
+\end{split}\]</div>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<strong>Answer</strong><div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">While we have not discussed a general technique for finding the SVD yet, we can still determine it in simple enough settings using an ad hoc analysis.</p>
+<p class="sd-card-text">The matrix at hand has only one non-zero entry in each column and row, which is a key step towards finding the singular values. We order the entries by modulus and place them on the diagonal by permuting the first two columns and rows. This can be achieved by multiplication with a permutation matrix from the left for rows and from the right for columns:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+A = 
+\begin{pmatrix}
+0 &amp; 1 &amp; 0\\
+1 &amp; 0 &amp; 0\\
+0 &amp; 0 &amp; 1
+\end{pmatrix}
+\cdot
+\begin{pmatrix}
+3 &amp; 0 &amp; 0\\
+0 &amp; 2 &amp; 0\\
+0 &amp; 0 &amp; 1
+\end{pmatrix}
+\cdot
+\begin{pmatrix}
+0 &amp; 1 &amp; 0\\
+1 &amp; 0 &amp; 0\\
+0 &amp; 0 &amp; 1
+\end{pmatrix}.
+\end{split}\]</div>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Let <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span>, <span class="math notranslate nohighlight">\(m \geq n\)</span>. Show that the singular values of <span class="math notranslate nohighlight">\(A\)</span> are the square roots of the eigenvalues of <span class="math notranslate nohighlight">\(A^TA\)</span>.</p>
 </div>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
@@ -540,19 +582,15 @@ eigenvalues of <span class="math notranslate nohighlight">\(A^TA\)</span>.</p>
 <svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
 </summary><div class="sd-summary-content sd-card-body docutils">
 <p class="sd-card-text">To show that the singular values of <span class="math notranslate nohighlight">\(A\)</span> are the square roots of the eigenvalues of <span class="math notranslate nohighlight">\(A^TA\)</span>,
-consider the singular value decomposition of <span class="math notranslate nohighlight">\(A\)</span>, which is <span class="math notranslate nohighlight">\(A = U\Sigma V^T\)</span>, where <span class="math notranslate nohighlight">\(\Sigma\)</span>
-is a diagonal matrix containing the singular values of <span class="math notranslate nohighlight">\(A\)</span>.</p>
+consider the singular value decomposition of <span class="math notranslate nohighlight">\(A\)</span>, which is <span class="math notranslate nohighlight">\(A = U\Sigma V^T\)</span>, where <span class="math notranslate nohighlight">\(\Sigma\)</span>  is a diagonal matrix containing the singular values of <span class="math notranslate nohighlight">\(A\)</span>.</p>
 <p class="sd-card-text">Now, compute <span class="math notranslate nohighlight">\(A^TA\)</span>:</p>
 <div class="math notranslate nohighlight">
 \[
 A^TA = (U\Sigma V^T)^T(U\Sigma V^T) = V\Sigma^TU^TU\Sigma V^T = V\Sigma^2V^T.
 \]</div>
-<p class="sd-card-text">Since <span class="math notranslate nohighlight">\(U\)</span> and <span class="math notranslate nohighlight">\(V\)</span> are orthogonal matrices, <span class="math notranslate nohighlight">\(U^TU = I_m\)</span> and <span class="math notranslate nohighlight">\(V^TV = I_n\)</span>, where <span class="math notranslate nohighlight">\(I_m\)</span> and <span class="math notranslate nohighlight">\(I_n\)</span>
-are identity matrices of size <span class="math notranslate nohighlight">\(m\)</span> and <span class="math notranslate nohighlight">\(n\)</span>, respectively.</p>
+<p class="sd-card-text">Since <span class="math notranslate nohighlight">\(U\)</span> and <span class="math notranslate nohighlight">\(V\)</span> are orthogonal matrices, <span class="math notranslate nohighlight">\(U^TU = I_m\)</span> and <span class="math notranslate nohighlight">\(V^TV = I_n\)</span>, where <span class="math notranslate nohighlight">\(I_m\)</span> and <span class="math notranslate nohighlight">\(I_n\)</span> are identity matrices of size <span class="math notranslate nohighlight">\(m\)</span> and <span class="math notranslate nohighlight">\(n\)</span>, respectively.</p>
 <p class="sd-card-text">In the equation <span class="math notranslate nohighlight">\(A^TA = V\Sigma^2V^T\)</span>, the matrix <span class="math notranslate nohighlight">\(\Sigma^2\)</span> contains the squares of the
-singular values of <span class="math notranslate nohighlight">\(A\)</span>. The matrix <span class="math notranslate nohighlight">\(A^TA\)</span> is symmetric, and its eigenvalues are given by the
-diagonal elements of <span class="math notranslate nohighlight">\(\Sigma^2\)</span>. Thus, the singular values of <span class="math notranslate nohighlight">\(A\)</span> are the square roots of the
-eigenvalues of <span class="math notranslate nohighlight">\(A^TA\)</span>.</p>
+singular values of <span class="math notranslate nohighlight">\(A\)</span>. The matrix <span class="math notranslate nohighlight">\(A^TA\)</span> is symmetric, and its eigenvalues are given by the diagonal elements of <span class="math notranslate nohighlight">\(\Sigma^2\)</span>. Thus, the singular values of <span class="math notranslate nohighlight">\(A\)</span> are the square roots of the eigenvalues of <span class="math notranslate nohighlight">\(A^TA\)</span>.</p>
 </div>
 </details><div class="tip admonition">
 <p class="admonition-title"><strong>Question</strong></p>
@@ -569,10 +607,7 @@ eigenvalues of <span class="math notranslate nohighlight">\(A^TA\)</span>.</p>
 <div class="sd-summary-up docutils">
 <svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
 </summary><div class="sd-summary-content sd-card-body docutils">
-<p class="sd-card-text">The singular value decomposition of <span class="math notranslate nohighlight">\(A\)</span> is given as <span class="math notranslate nohighlight">\(A = U\Sigma V^T\)</span>. Since the 2-norm is invariant
-under orthogonal transformations, we can replace <span class="math notranslate nohighlight">\(A\)</span> by <span class="math notranslate nohighlight">\(\Sigma\)</span> in the expression <span class="math notranslate nohighlight">\(\|Ax\|_2\)</span> without
-changing its value. Let <span class="math notranslate nohighlight">\(y = V^T x\)</span>, which implies that <span class="math notranslate nohighlight">\(\|y\|_2 = \|x\|_2\)</span> due to the orthogonality
-of <span class="math notranslate nohighlight">\(V\)</span>. Therefore, the expression becomes:</p>
+<p class="sd-card-text">The singular value decomposition of <span class="math notranslate nohighlight">\(A\)</span> is given as <span class="math notranslate nohighlight">\(A = U\Sigma V^T\)</span>. Since the 2-norm is invariant under orthogonal transformations, we can replace <span class="math notranslate nohighlight">\(A\)</span> by <span class="math notranslate nohighlight">\(\Sigma\)</span> in the expression <span class="math notranslate nohighlight">\(\|Ax\|_2\)</span> without changing its value. Let <span class="math notranslate nohighlight">\(y = V^T x\)</span>, which implies that <span class="math notranslate nohighlight">\(\|y\|_2 = \|x\|_2\)</span> due to the orthogonality of <span class="math notranslate nohighlight">\(V\)</span>. Therefore, the expression becomes:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \min_{\substack{x \in \mathbb{R}^n \\ x \neq 0}} \frac{\|Ax\|_2}{\|x\|_2} = \min_{\substack{y \in \mathbb{R}^n \\ y \neq 0}} \frac{\|\Sigma y\|_2}{\|y\|_2}.
@@ -582,15 +617,14 @@ of <span class="math notranslate nohighlight">\(V\)</span>. Therefore, the expre
 \[
 \|\Sigma y\|_2^2 = \sum_{j=1}^n \sigma_j^2 y_j^2 \geq \sigma_n^2 \sum_{j=1}^n y_j^2 = \sigma_n^2,
 \]</div>
-<p class="sd-card-text">where the inequality arises because <span class="math notranslate nohighlight">\(\sigma_n\)</span> is the smallest singular value. This inequality becomes an equality when <span class="math notranslate nohighlight">\(y\)</span> is chosen as the unit vector <span class="math notranslate nohighlight">\(e_n\)</span>, which corresponds to the direction of the smallest singular value in the transformed space.</p>
-<p class="sd-card-text">Therefore, we conclude that the smallest singular value <span class="math notranslate nohighlight">\(\sigma_n\)</span> of <span class="math notranslate nohighlight">\(A\)</span> is the minimum of the ratio <span class="math notranslate nohighlight">\(\frac{\|Ax\|_2}{\|x\|_2}\)</span> over all non-zero vectors <span class="math notranslate nohighlight">\(x \in \mathbb{R}^n\)</span>. This result shows the significance of the smallest singular value in determining the behavior of the matrix norm relative to the vector norm.</p>
-<p class="sd-card-text">The exercise reveals a symmetry in the characterization of singular values: maximizing the ratio yields the largest singular value, while minimizing it results in the smallest singular value.</p>
+<p class="sd-card-text">where the inequality arises because <span class="math notranslate nohighlight">\(\sigma_n\)</span> is the smallest singular value. This inequality becomes equality when <span class="math notranslate nohighlight">\(y\)</span> is chosen as the unit vector <span class="math notranslate nohighlight">\(e_n\)</span>, corresponding to the direction of the smallest singular value in the transformed space.</p>
+<p class="sd-card-text">Therefore, we conclude that the smallest singular value <span class="math notranslate nohighlight">\(\sigma_n\)</span> of <span class="math notranslate nohighlight">\(A\)</span> is the minimum of the ratio <span class="math notranslate nohighlight">\(\frac{\|Ax\|_2}{\|x\|_2}\)</span> over all non-zero vectors <span class="math notranslate nohighlight">\(x \in \mathbb{R}^n\)</span>. This result shows the significance of the smallest singular value in determining the behaviour of the matrix norm relative to the vector norm.</p>
+<p class="sd-card-text">The exercise reveals symmetry in characterising singular values: maximising the ratio yields the largest singular value while minimising it results in the smallest singular value.</p>
 </div>
 </details><div class="tip admonition">
 <p class="admonition-title"><strong>Question</strong></p>
 <p>Let <span class="math notranslate nohighlight">\(A = QR\)</span> be the QR decomposition of a matrix <span class="math notranslate nohighlight">\(A\in\mathbb{R}^{m\times n}\)</span> with
-<span class="math notranslate nohighlight">\(R\in\mathbb{R}^{n\times n}\)</span>. Show that the singular values of <span class="math notranslate nohighlight">\(A\)</span> are identical to the singular values
-of <span class="math notranslate nohighlight">\(R\)</span>.</p>
+<span class="math notranslate nohighlight">\(R\in\mathbb{R}^{n\times n}\)</span>. Show that the singular values of <span class="math notranslate nohighlight">\(A\)</span> are identical to those of <span class="math notranslate nohighlight">\(R\)</span>.</p>
 </div>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
@@ -622,23 +656,17 @@ A = \left( \begin{bmatrix} Q &amp; Q^{\perp} \end{bmatrix} \begin{bmatrix} U &am
 <p class="sd-card-text">Notice that the matrix product</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{bmatrix} Q &amp; Q^{\perp} \end{bmatrix} \begin{bmatrix} U &amp; 0 \\ 0 &amp; I \end{bmatrix}\end{split}\]</div>
-<p class="sd-card-text">is orthogonal. Thus, the matrix <span class="math notranslate nohighlight">\(A\)</span> has been expressed in a form that reveals its singular value
-decomposition, where the singular values are exactly those contained in <span class="math notranslate nohighlight">\(\Sigma\)</span>. Therefore,
-the singular values of <span class="math notranslate nohighlight">\(A\)</span> are identical to the singular values of <span class="math notranslate nohighlight">\(R\)</span>.</p>
+<p class="sd-card-text">is orthogonal. Thus, the matrix <span class="math notranslate nohighlight">\(A\)</span> has been expressed in a form that reveals its singular value decomposition, where the singular values are exactly those contained in <span class="math notranslate nohighlight">\(\Sigma\)</span>. Therefore, the singular values of <span class="math notranslate nohighlight">\(A\)</span> are identical to those of <span class="math notranslate nohighlight">\(R\)</span>.</p>
 </div>
 </details><div class="tip admonition">
 <p class="admonition-title"><strong>Question</strong></p>
-<p>Consider a full rank, square linear system <span class="math notranslate nohighlight">\(Ax = b\)</span>, where <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{n \times n}\)</span> and <span class="math notranslate nohighlight">\(b \in \mathbb{R}^n\)</span>.
-The singular value decomposition (SVD) of <span class="math notranslate nohighlight">\(A\)</span> is given as <span class="math notranslate nohighlight">\(A = U \Sigma V^T\)</span>.
-The system can be solved using the SVD by setting up <span class="math notranslate nohighlight">\(U z = b\)</span>, <span class="math notranslate nohighlight">\(\Sigma y = z\)</span>, and <span class="math notranslate nohighlight">\(V^T x = y\)</span>.</p>
-<p>Your task is to analyze the condition numbers of each stage of this process:</p>
+<p>Consider a full-rank, square linear system <span class="math notranslate nohighlight">\(Ax = b\)</span>, where <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{n \times n}\)</span> and <span class="math notranslate nohighlight">\(b \in \mathbb{R}^n\)</span>. The singular value decomposition (SVD) of <span class="math notranslate nohighlight">\(A\)</span> is given as <span class="math notranslate nohighlight">\(A = U \Sigma V^T\)</span>. The system can be solved using the SVD by setting up <span class="math notranslate nohighlight">\(U z = b\)</span>, <span class="math notranslate nohighlight">\(\Sigma y = z\)</span>, and <span class="math notranslate nohighlight">\(V^T x = y\)</span>.</p>
+<p>Your task is to analyse the condition numbers of each stage of this process:</p>
 <ol class="arabic simple">
 <li><p>Determine the condition number of the matrix <span class="math notranslate nohighlight">\(U\)</span> and explain its significance in solving <span class="math notranslate nohighlight">\(U z = b\)</span>.</p></li>
-<li><p>Calculate the condition number of the diagonal matrix <span class="math notranslate nohighlight">\(\Sigma\)</span> and discuss how it affects the
-solution of <span class="math notranslate nohighlight">\(\Sigma y = z\)</span>.</p></li>
+<li><p>Calculate the condition number of the diagonal matrix <span class="math notranslate nohighlight">\(\Sigma\)</span> and discuss how it affects the solution of <span class="math notranslate nohighlight">\(\Sigma y = z\)</span>.</p></li>
 <li><p>Evaluate the condition number of <span class="math notranslate nohighlight">\(V^T\)</span> and its impact on solving <span class="math notranslate nohighlight">\(V^T x = y\)</span>.</p></li>
-<li><p>Finally, relate the condition numbers found in steps 1-3 to the overall condition number of the matrix
-<span class="math notranslate nohighlight">\(A\)</span> and explain how they influence the stability and accuracy of solving the linear system <span class="math notranslate nohighlight">\(Ax = b\)</span>.</p></li>
+<li><p>Finally, relate the condition numbers found in steps 1-3 to the overall condition number of the matrix <span class="math notranslate nohighlight">\(A\)</span> and explain how they influence the stability and accuracy of solving the linear system <span class="math notranslate nohighlight">\(Ax = b\)</span>.</p></li>
 </ol>
 </div>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
