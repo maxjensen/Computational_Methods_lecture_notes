@@ -32,9 +32,9 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=ca93fcec" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -547,13 +547,13 @@ A = \begin{pmatrix}
 <svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
 </summary><div class="sd-summary-content sd-card-body docutils">
 <p class="sd-card-text">While we have not discussed a general technique for finding the SVD yet, we can still determine it in simple enough settings using an ad hoc analysis.</p>
-<p class="sd-card-text">The matrix at hand has only one non-zero entry in each column and row, which is a key step towards finding the singular values. We order the entries by modulus and place them on the diagonal by permuting the first two columns and rows. This can be achieved by multiplication with a permutation matrix from the left for rows and from the right for columns:</p>
+<p class="sd-card-text">The matrix at hand has only one non-zero entry in each column and row, which is a key step towards finding the singular values. We order the entries by modulus and place them on the diagonal by permuting the first two rows. This can be achieved by multiplication with a permutation matrix from the left. Adjusting signs ensures all singular values are non-negative:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 A = 
 \begin{pmatrix}
 0 &amp; 1 &amp; 0\\
-1 &amp; 0 &amp; 0\\
+-1 &amp; 0 &amp; 0\\
 0 &amp; 0 &amp; 1
 \end{pmatrix}
 \cdot
@@ -564,10 +564,11 @@ A =
 \end{pmatrix}
 \cdot
 \begin{pmatrix}
-0 &amp; 1 &amp; 0\\
 1 &amp; 0 &amp; 0\\
+0 &amp; 1 &amp; 0\\
 0 &amp; 0 &amp; 1
-\end{pmatrix}.
+\end{pmatrix}
+= U \Sigma V^T.
 \end{split}\]</div>
 </div>
 </details><div class="tip admonition">
