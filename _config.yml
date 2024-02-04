@@ -6,5 +6,9 @@ logo: logo.png
 sphinx:
   extra_extensions:
     - sphinx_proof
+  config:
+    bibtex_reference_style: author_year
+bibtex_bibfiles:
+    - references.bib
 execute:
   execute_notebooks: off

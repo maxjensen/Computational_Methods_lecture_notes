@@ -150,7 +150,7 @@ const thebe_selector_output = ".output, .cell_output"
 
   
 
-<a class="navbar-brand logo" href="intro.html">
+<a class="navbar-brand logo" href="index.html">
   
   
   
@@ -182,8 +182,8 @@ const thebe_selector_output = ".output, .cell_output"
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
-                <a class="reference internal" href="intro.html">
-                    Welcome to MATH0058
+                <a class="reference internal" href="index.html">
+                    Welcome!
                 </a>
             </li>
         </ul>
@@ -235,6 +235,10 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="week_7_self_check.html">Week 7 Self check questions and solutions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="week_8_self_check.html">Week 8 Self check questions and solutions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="week_9_self_check.html">Week 9 Self check questions and solutions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back matter</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="backmatter.html">Bibliography</a></li>
 </ul>
 
     </div>
@@ -386,7 +390,6 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#orthogonal-matrices">Orthogonal matrices</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qr-decomposition-via-gram-schmidt-orthogonalisation">QR Decomposition via Gram-Schmidt Orthogonalisation</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-decomposition-representation">Matrix Decomposition Representation</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#theorem-qr-decomposition">Theorem (QR Decomposition)</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-linear-systems-of-equations-with-the-qr-decomposition">Solving linear systems of equations with the QR decomposition</a></li>
@@ -397,7 +400,7 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#self-check-questions">Self-check questions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-material-for-interested-students">Additional material for interested students</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-material">Optional material</a></li>
 </ul>
             </nav>
         </div>
@@ -462,10 +465,12 @@ document.write(`
 </section>
 </div><section id="matrix-decomposition-representation">
 <h3>Matrix Decomposition Representation<a class="headerlink" href="#matrix-decomposition-representation" title="Link to this heading">#</a></h3>
-<p>This procedure can be expressed as a matrix decomposition:</p>
+<p>The Gram-Schmidt procedure can be expressed as a matrix decomposition:</p>
 <ul>
-<li><p>For each column <span class="math notranslate nohighlight">\(a_k\)</span> of <span class="math notranslate nohighlight">\(A\)</span>, we have:
-$<span class="math notranslate nohighlight">\( a_k = \|\tilde{q}_k\|_2 q_k + \sum_{j=1}^{k-1}\langle a_k, q_j \rangle q_j \)</span>$</p></li>
+<li><p>For each column <span class="math notranslate nohighlight">\(a_k\)</span> of <span class="math notranslate nohighlight">\(A\)</span>, we have:</p>
+<div class="math notranslate nohighlight">
+\[ a_k = \|\tilde{q}_k\|_2 q_k + \sum_{j=1}^{k-1}\langle a_k, q_j \rangle q_j \]</div>
+</li>
 <li><p>Hence, the matrix <span class="math notranslate nohighlight">\(A\)</span> can be decomposed as <span class="math notranslate nohighlight">\(A = QR\)</span> where:</p>
 <ul>
 <li><p><span class="math notranslate nohighlight">\(Q = \begin{pmatrix} q_1, \ldots, q_n \end{pmatrix}\)</span> is a matrix with orthogonal columns.</p></li>
@@ -483,9 +488,6 @@ $<span class="math notranslate nohighlight">\( a_k = \|\tilde{q}_k\|_2 q_k + \su
 </ul>
 </li>
 </ul>
-</section>
-<section id="theorem-qr-decomposition">
-<h3>Theorem (QR Decomposition)<a class="headerlink" href="#theorem-qr-decomposition" title="Link to this heading">#</a></h3>
 <div class="proof theorem admonition" id="theorem-1">
 <p class="admonition-title"><span class="caption-number">Theorem 1 </span> (QR Decomposition)</p>
 <section class="theorem-content" id="proof-content">
@@ -756,7 +758,7 @@ P^2 = uu^Tuu^T = uu^T
 </div>
 </details><div class="tip admonition">
 <p class="admonition-title"><strong>Question</strong></p>
-<p>In the following we define two different ways of orthogonalising a set of vectors.</p>
+<p>In the following, we define two different ways of orthogonalising a set of vectors.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>  
   
 <span class="k">def</span> <span class="nf">gram_schmidt</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>  
@@ -825,8 +827,8 @@ P^2 = uu^Tuu^T = uu^T
 </div>
 </div>
 </details></section>
-<section id="additional-material-for-interested-students">
-<h2>Additional material for interested students<a class="headerlink" href="#additional-material-for-interested-students" title="Link to this heading">#</a></h2>
+<section id="optional-material">
+<h2>Optional material<a class="headerlink" href="#optional-material" title="Link to this heading">#</a></h2>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
 QR Decomposition with Householder Transformations<div class="sd-summary-down docutils">
@@ -852,10 +854,10 @@ H x = \left(x_o - 2 \frac{v^T x_o}{v^Tv} v\right) + \left(x_c - 2 \frac{v^T x_c}
 <p class="sd-card-text">As with the Gram-Schmidt method above, the goal is to transform a given matrix <span class="math notranslate nohighlight">\(A\)</span> into an upper triangular matrix <span class="math notranslate nohighlight">\(R\)</span> using orthogonal transformations. This is achieved iteratively, column by column, using Householder matrices.</p>
 <p class="sd-card-text"><strong>Step-by-Step Process</strong>:</p>
 <ol class="arabic simple">
-<li><p class="sd-card-text"><strong>Target Vector</strong>: Consider the first column of <span class="math notranslate nohighlight">\(A\)</span>. Let’s denote this column as <span class="math notranslate nohighlight">\(x\)</span>. We want to transform <span class="math notranslate nohighlight">\(x\)</span> into a new vector <span class="math notranslate nohighlight">\(x'\)</span> that has the same norm as <span class="math notranslate nohighlight">\(x\)</span> but all components zero except for the first component.</p></li>
+<li><p class="sd-card-text"><strong>Target Vector</strong>: Consider the first column of <span class="math notranslate nohighlight">\(A\)</span>. Let’s denote this column as <span class="math notranslate nohighlight">\(x\)</span>. We want to transform <span class="math notranslate nohighlight">\(x\)</span> into a new vector <span class="math notranslate nohighlight">\(x'\)</span> with the same norm as <span class="math notranslate nohighlight">\(x\)</span> but all components are zero except for the first component.</p></li>
 <li><p class="sd-card-text"><strong>Constructing <span class="math notranslate nohighlight">\(v\)</span></strong>: To create the Householder matrix <span class="math notranslate nohighlight">\(H\)</span>, we first need to construct the vector <span class="math notranslate nohighlight">\(v\)</span>. This is done by taking <span class="math notranslate nohighlight">\(v = x - \|x\|e_1\)</span>, where <span class="math notranslate nohighlight">\(e_1\)</span> is the first unit vector. With <span class="math notranslate nohighlight">\(v\)</span> determined, we form the Householder matrix <span class="math notranslate nohighlight">\(H = I - 2 \frac{vv^T}{v^Tv}\)</span>.</p></li>
-<li><p class="sd-card-text"><strong>Applying <span class="math notranslate nohighlight">\(H\)</span></strong>: Multiply <span class="math notranslate nohighlight">\(H\)</span> by <span class="math notranslate nohighlight">\(A\)</span> (i.e., <span class="math notranslate nohighlight">\(HA\)</span>) to reflect the first column of <span class="math notranslate nohighlight">\(A\)</span> about the plane orthogonal to <span class="math notranslate nohighlight">\(v\)</span>. This operation zeros out all elements below the diagonal in the first column (See Lecture 10 of <a class="reference external" href="https://ucl.primo.exlibrisgroup.com/permalink/44UCL_INST/155jbua/alma990010608020204761">Trefethen, Bau</a>).</p></li>
-<li><p class="sd-card-text"><strong>Iterative Process</strong>: Repeat the process for the submatrix of <span class="math notranslate nohighlight">\(A\)</span> excluding the already zeroed elements. Each step involves constructing a new Householder matrix to introduce zeros in the subsequent column, below the diagonal.</p></li>
+<li><p class="sd-card-text"><strong>Applying <span class="math notranslate nohighlight">\(H\)</span></strong>: Multiply <span class="math notranslate nohighlight">\(H\)</span> by <span class="math notranslate nohighlight">\(A\)</span> (i.e., <span class="math notranslate nohighlight">\(HA\)</span>) to reflect the first column of <span class="math notranslate nohighlight">\(A\)</span> about the plane orthogonal to <span class="math notranslate nohighlight">\(v\)</span>. This operation zeros out all elements below the diagonal in the first column; see Lecture 10 of <span id="id1">[<a class="reference internal" href="backmatter.html#id2" title="Lloyd N. Trefethen and David Bau, III. Numerical linear algebra. Society for Industrial and Applied Mathematics (SIAM), Philadelphia, PA, 1997. ISBN 0-89871-361-7. URL: https://ucl.primo.exlibrisgroup.com/permalink/44UCL_INST/155jbua/alma990010608020204761, doi:10.1137/1.9780898719574.">Trefethen and Bau, 1997</a>]</span>.</p></li>
+<li><p class="sd-card-text"><strong>Iterative Process</strong>: Repeat the process for the submatrix of <span class="math notranslate nohighlight">\(A\)</span> excluding the already zeroed elements. Each step involves constructing a new Householder matrix to introduce zeros in the subsequent column below the diagonal.</p></li>
 </ol>
 <h4 class="rubric" id="comparing-with-the-gram-schmidt-method">Comparing with the Gram-Schmidt method</h4>
 <ul class="simple">
@@ -934,7 +936,6 @@ H x = \left(x_o - 2 \frac{v^T x_o}{v^Tv} v\right) + \left(x_c - 2 \frac{v^T x_c}
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#orthogonal-matrices">Orthogonal matrices</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qr-decomposition-via-gram-schmidt-orthogonalisation">QR Decomposition via Gram-Schmidt Orthogonalisation</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-decomposition-representation">Matrix Decomposition Representation</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#theorem-qr-decomposition">Theorem (QR Decomposition)</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-linear-systems-of-equations-with-the-qr-decomposition">Solving linear systems of equations with the QR decomposition</a></li>
@@ -945,7 +946,7 @@ H x = \left(x_o - 2 \frac{v^T x_o}{v^Tv} v\right) + \left(x_c - 2 \frac{v^T x_c}
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#self-check-questions">Self-check questions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-material-for-interested-students">Additional material for interested students</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-material">Optional material</a></li>
 </ul>
   </nav></div>
 

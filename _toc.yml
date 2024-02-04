@@ -1,5 +1,5 @@
 format: jb-book
-root: intro
+root: index
 parts:
 - caption: Fundamentals
   chapters:
@@ -43,3 +43,6 @@ parts:
     - file: week_7_self_check
     - file: week_8_self_check.ipynb
     - file: week_9_self_check.ipynb
+- caption: Back matter
+  chapters:
+    - file: backmatter
