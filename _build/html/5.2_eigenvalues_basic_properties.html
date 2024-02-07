@@ -219,7 +219,6 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="5.1_complex_vector_spaces.html">Complex vector spaces</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Basic properties of eigenvalue problems</a></li>
-
 <li class="toctree-l1"><a class="reference internal" href="5.3_schur_decomposition.html">The Schur decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="5.4_eigenvalues_perturbation_theory.html">Perturbation results for eigenvalue problems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="5.5_computing_eigenvalues.html">Computing eigenvalues</a></li>
@@ -387,16 +386,14 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Basic properties of eigenvalue problems</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definition-and-motivation">Definition and motivation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#characteristic-polynomials-algebraic-and-geometric-multiplicities">Characteristic polynomials, algebraic and geometric multiplicities</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eigenvalue-decomposition">Eigenvalue decomposition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-eigenvalues-with-unequal-algebraic-and-geometric-multiplicities">Exercise: Eigenvalues with Unequal Algebraic and Geometric Multiplicities</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#characteristic-polynomials-algebraic-and-geometric-multiplicities">Characteristic polynomials, algebraic and geometric multiplicities</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-eigenvalue-decomposition">The eigenvalue decomposition</a></li>
 </ul>
-</li>
-</ul>
-
             </nav>
         </div>
     </div>
@@ -411,80 +408,118 @@ document.write(`
 <h1>Basic properties of eigenvalue problems<a class="headerlink" href="#basic-properties-of-eigenvalue-problems" title="Link to this heading">#</a></h1>
 <section id="definition-and-motivation">
 <h2>Definition and motivation<a class="headerlink" href="#definition-and-motivation" title="Link to this heading">#</a></h2>
-<p>Let <span class="math notranslate nohighlight">\(A\in\mathbb{C}^{n\times n}\)</span>. An eigenvalue problem takes the form
-to find <span class="math notranslate nohighlight">\(x\in\mathbb{C}^n\)</span>, <span class="math notranslate nohighlight">\(x\neq 0\)</span> and <span class="math notranslate nohighlight">\(\lambda\in\mathbb{C}\)</span> such that</p>
+<p>Consider a matrix <span class="math notranslate nohighlight">\(A\)</span> in <span class="math notranslate nohighlight">\(\mathbb{C}^{n \times n}\)</span>. An eigenvalue problem is formulated to find a nonzero vector <span class="math notranslate nohighlight">\(x \in \mathbb{C}^n\)</span> and a scalar <span class="math notranslate nohighlight">\(\lambda \in \mathbb{C}\)</span> such that:</p>
 <div class="math notranslate nohighlight">
 \[
-Ax = \lambda x.
+A x = \lambda x.
 \]</div>
-<p>Eigenvalue problems arise naturally in the study of initial value problems.
-Consider the problem of solving the ODE</p>
+<p>Eigenvalue problems are fundamentally important in various fields, including the study of differential equations. For instance, consider solving the ordinary differential equation (ODE):</p>
 <div class="math notranslate nohighlight">
 \[
-y' = Ay
+y' = Ay,
 \]</div>
-<p>for <span class="math notranslate nohighlight">\(A\in\mathbb{C}^{n\times n}\)</span> with <span class="math notranslate nohighlight">\(y(0) = y_0\)</span>.</p>
-<p>By writing <span class="math notranslate nohighlight">\(y(t) = y_0e^{\lambda t}\)</span> and substituting we obtain the
-eigenvalue problem</p>
+<p>where <span class="math notranslate nohighlight">\(A \in \mathbb{C}^{n \times n}\)</span> and <span class="math notranslate nohighlight">\(y(0) = y_0\)</span>. If <span class="math notranslate nohighlight">\(y_0\)</span> is an eigenvector of <span class="math notranslate nohighlight">\(A\)</span> with eigenvalue <span class="math notranslate nohighlight">\(\lambda\)</span>, then the solution of the ODE is given by <span class="math notranslate nohighlight">\(y(t) = y_0 e^{\lambda t}\)</span>:</p>
 <div class="math notranslate nohighlight">
 \[
-Ay_0 = \lambda y_0.
+y'(t) = \lambda y_0 e^{\lambda t} = A y_0 e^{\lambda t} = A y(t).
 \]</div>
-<p>When reasoning about eigenvalues it therefore makes sense to think of
-eigenvalues not just as properties of matrices but as properties of
-dynamical systems driven by the matrix <span class="math notranslate nohighlight">\(A\)</span>. This contrasts singular values,
-which describe the mapping properties of a matrix <span class="math notranslate nohighlight">\(A\)</span> and are therefore
-intuitively quite distinct from eigenvalues.</p>
+<p>This perspective emphasises eigenvalues as not merely properties of matrices but as fundamental characteristics of dynamical systems governed by the matrix <span class="math notranslate nohighlight">\(A\)</span>. This view contrasts singular values, which are more about the mapping attributes of a matrix <span class="math notranslate nohighlight">\(A\)</span>.</p>
 </section>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="characteristic-polynomials-algebraic-and-geometric-multiplicities">
-<h1>Characteristic polynomials, algebraic and geometric multiplicities<a class="headerlink" href="#characteristic-polynomials-algebraic-and-geometric-multiplicities" title="Link to this heading">#</a></h1>
-<p>We can rewrite an eigenvalue problem in the form</p>
+<section id="characteristic-polynomials-algebraic-and-geometric-multiplicities">
+<h2>Characteristic polynomials, algebraic and geometric multiplicities<a class="headerlink" href="#characteristic-polynomials-algebraic-and-geometric-multiplicities" title="Link to this heading">#</a></h2>
+<p>Rewriting the eigenvalue problem, we get:</p>
 <div class="math notranslate nohighlight">
 \[
 (\lambda I - A)x = 0.
 \]</div>
-<p>This has nontrivial solutions <span class="math notranslate nohighlight">\(x\)</span> if and only if <span class="math notranslate nohighlight">\(\lambda I - A\)</span> is singular, or
-equivalently</p>
+<p>Nontrivial solutions <span class="math notranslate nohighlight">\(x\)</span> exist if and only if <span class="math notranslate nohighlight">\(\lambda I - A\)</span> is singular, which is equivalent to:</p>
 <div class="math notranslate nohighlight">
 \[
 \det(\lambda I - A) = 0.
 \]</div>
-<p>We define the characteristic polynomial</p>
+<p>We define the characteristic polynomial as:</p>
 <div class="math notranslate nohighlight">
 \[
 p(\lambda) := \det(\lambda I - A).
 \]</div>
-<p>By expanding the determinant we can see that <span class="math notranslate nohighlight">\(p\)</span> is a polynomial of maximum
-degree <span class="math notranslate nohighlight">\(n\)</span>. Denote the <span class="math notranslate nohighlight">\(j\)</span>the zero of <span class="math notranslate nohighlight">\(p\)</span> as <span class="math notranslate nohighlight">\(\lambda_j\)</span>. We have that</p>
+<p>Expanding this determinant reveals that <span class="math notranslate nohighlight">\(p\)</span> is a polynomial with a maximum degree of <span class="math notranslate nohighlight">\(n\)</span>. Let <span class="math notranslate nohighlight">\(\lambda_j\)</span> be the <span class="math notranslate nohighlight">\(j\)</span>th zero of <span class="math notranslate nohighlight">\(p\)</span>. Then:</p>
 <div class="math notranslate nohighlight">
 \[
-P(\lambda) = \prod_j (\lambda -\lambda_j)^\alpha_j,
+p(\lambda) = \prod_j (\lambda - \lambda_j)^{\alpha_j},
 \]</div>
-<p>where <span class="math notranslate nohighlight">\(\alpha_j\)</span> denotes the algebraic multiplicity of the <span class="math notranslate nohighlight">\(j\)</span>th root.
-From the fundamental theorem of algebra we know that <span class="math notranslate nohighlight">\(n = \sum_j \alpha_j\)</span>.
-Hence, if we count by multiplicities an <span class="math notranslate nohighlight">\(n\times n\)</span> matrix has <span class="math notranslate nohighlight">\(n\)</span> eigenvalues.</p>
-<p>For eigenvalue problems also of relevance is the geometrix multicity <span class="math notranslate nohighlight">\(\beta_j\)</span>
-of an eigenvalue <span class="math notranslate nohighlight">\(\lambda_j\)</span>. <span class="math notranslate nohighlight">\(\beta_j\)</span> is defined as the dimension of the
-nullspace of</p>
-<div class="math notranslate nohighlight">
-\[
-\lambda_j I - A.
-\]</div>
-<p>If <span class="math notranslate nohighlight">\(\lambda_j\)</span> is a single eigenvalue then this dimension is <span class="math notranslate nohighlight">\(1\)</span>.
-If <span class="math notranslate nohighlight">\(\alpha_j &gt;1\)</span> we have that <span class="math notranslate nohighlight">\(\beta_j \leq \alpha_j\)</span>. More about this
-relationship is obtained by discussing the Jordan normal form of a matrix,
-which is not topic of this module.</p>
-<section id="the-eigenvalue-decomposition">
-<h2>The eigenvalue decomposition<a class="headerlink" href="#the-eigenvalue-decomposition" title="Link to this heading">#</a></h2>
-<p>If <span class="math notranslate nohighlight">\(\alpha_j=\beta_j\)</span> for all <span class="math notranslate nohighlight">\(j\)</span> the following eigenvalue decomposition exists</p>
+<p>where <span class="math notranslate nohighlight">\(\alpha_j\)</span> is the algebraic multiplicity of the <span class="math notranslate nohighlight">\(j\)</span>th root. According to the fundamental theorem of algebra, <span class="math notranslate nohighlight">\(n = \sum_j \alpha_j\)</span>, meaning an <span class="math notranslate nohighlight">\(n \times n\)</span> matrix has <span class="math notranslate nohighlight">\(n\)</span> eigenvalues, including multiplicities.</p>
+<p>The geometric multiplicity <span class="math notranslate nohighlight">\(\beta_j\)</span> of an eigenvalue <span class="math notranslate nohighlight">\(\lambda_j\)</span> is the dimension of the kernel of <span class="math notranslate nohighlight">\(\lambda_j I - A\)</span>. For a simple eigenvalue, <span class="math notranslate nohighlight">\(\beta_j = 1\)</span>. If <span class="math notranslate nohighlight">\(\alpha_j &gt; 1\)</span>, then <span class="math notranslate nohighlight">\(\beta_j \leq \alpha_j\)</span>. The relationship between algebraic and geometric multiplicities is further explored through the concept of Jordan normal form, which is beyond the scope of this module.</p>
+</section>
+<section id="eigenvalue-decomposition">
+<h2>Eigenvalue decomposition<a class="headerlink" href="#eigenvalue-decomposition" title="Link to this heading">#</a></h2>
+<p>If for all <span class="math notranslate nohighlight">\(j\)</span>, the algebraic and geometric multiplicities are equal (<span class="math notranslate nohighlight">\(\alpha_j = \beta_j\)</span>), the matrix <span class="math notranslate nohighlight">\(A\)</span> admits an eigenvalue decomposition:</p>
 <div class="math notranslate nohighlight">
 \[
 A = X\Lambda X^{-1},
 \]</div>
-<p>where <span class="math notranslate nohighlight">\(X\in\mathbb{C}^{n\times n}\)</span> is a nonsingular matrix whose columns <span class="math notranslate nohighlight">\(x_j\)</span> are
-the eigenvectors of <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(\Lambda\)</span> is a diagonal matrix whose diagonal entries
-are the associated eigenvalues <span class="math notranslate nohighlight">\(\lambda_j\)</span>.</p>
+<p>where <span class="math notranslate nohighlight">\(X \in \mathbb{C}^{n \times n}\)</span> is a nonsingular matrix with columns <span class="math notranslate nohighlight">\(x_j\)</span> comprising eigenvectors of <span class="math notranslate nohighlight">\(A\)</span>, and <span class="math notranslate nohighlight">\(\Lambda\)</span> is a diagonal matrix with diagonal entries being the corresponding eigenvalues <span class="math notranslate nohighlight">\(\lambda_j\)</span>.</p>
+</section>
+<section id="python-skills">
+<h2>Python skills<a class="headerlink" href="#python-skills" title="Link to this heading">#</a></h2>
+<p>Shortly, we will be delving into constructing numerical methods to compute eigenvalues and eigenvectors. Here, we look at a simple example, which uses Numpy’s eigensystem solver as a black box.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># Define a complex matrix A</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">2</span><span class="o">+</span><span class="mi">1</span><span class="n">j</span><span class="p">,</span> <span class="mi">4</span><span class="o">-</span><span class="mi">1</span><span class="n">j</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="o">+</span><span class="mi">1</span><span class="n">j</span><span class="p">,</span> <span class="mi">3</span><span class="o">-</span><span class="mi">2</span><span class="n">j</span><span class="p">]])</span>
+
+<span class="c1"># Solve the eigenvalue problem</span>
+<span class="n">eigenvalues</span><span class="p">,</span> <span class="n">eigenvectors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+
+<span class="c1"># Display eigenvalues and eigenvectors</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Eigenvalues of A:&quot;</span><span class="p">,</span> <span class="n">eigenvalues</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Eigenvectors of A:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">eigenvectors</span><span class="p">)</span>
+
+<span class="c1"># Eigenvalue decomposition (if A is diagonalizable)</span>
+<span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">matrix_rank</span><span class="p">(</span><span class="n">eigenvectors</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>
+    <span class="n">Lambda</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">eigenvalues</span><span class="p">)</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">eigenvectors</span>
+    <span class="n">X_inv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+    <span class="n">A_reconstructed</span> <span class="o">=</span> <span class="n">X</span> <span class="o">@</span> <span class="n">Lambda</span> <span class="o">@</span> <span class="n">X_inv</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Reconstructed A from its eigenvalue decomposition:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">A_reconstructed</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;A cannot be diagonalized with a full set of eigenvectors.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<section id="exercise-eigenvalues-with-unequal-algebraic-and-geometric-multiplicities">
+<h3>Exercise: Eigenvalues with Unequal Algebraic and Geometric Multiplicities<a class="headerlink" href="#exercise-eigenvalues-with-unequal-algebraic-and-geometric-multiplicities" title="Link to this heading">#</a></h3>
+<div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Analyze the matrix <span class="math notranslate nohighlight">\(A\)</span> given by:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+A = \begin{pmatrix}
+3 &amp; 1 &amp; 0 \\
+0 &amp; 3 &amp; 1 \\
+0 &amp; 0 &amp; 3
+\end{pmatrix}.
+\end{split}\]</div>
+<p>Determine the eigenvalues and eigenvectors of matrix ( A ).</p>
+<p>Compute the algebraic and geometric multiplicities of each eigenvalue.</p>
+<p>Can <span class="math notranslate nohighlight">\(A\)</span> be decomposed as <span class="math notranslate nohighlight">\(A = X \Lambda X^{-1}\)</span> where <span class="math notranslate nohighlight">\(\Lambda\)</span> is a diagonal matrix and <span class="math notranslate nohighlight">\(X\)</span> non-singular? Explain why or why not.</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<strong>Answer</strong><div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">We solve <span class="math notranslate nohighlight">\(\det(A - \lambda I) = 0\)</span> to find the eigenvalues. The only possible eigenvalue in this case is <span class="math notranslate nohighlight">\(\lambda = 3\)</span>.</p>
+<p class="sd-card-text">For <span class="math notranslate nohighlight">\(\lambda = 3\)</span> the equation <span class="math notranslate nohighlight">\((A - \lambda I)x = 0\)</span> simplifies to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{pmatrix} 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 1 \\ 0 &amp; 0 &amp; 0 \end{pmatrix}x = 0.
+\end{split}\]</div>
+<p class="sd-card-text">The solution space is spanned by <span class="math notranslate nohighlight">\((1, 0, 0)^T\)</span>.</p>
+<p class="sd-card-text">The eigenvalue <span class="math notranslate nohighlight">\(\lambda = 3\)</span> appears three times on the diagonal of <span class="math notranslate nohighlight">\(A\)</span>, so its algebraic multiplicity is 3. The solution to the eigenvector equation yields only one linearly independent eigenvector, so the geometric multiplicity of <span class="math notranslate nohighlight">\(\lambda = 3\)</span> is <span class="math notranslate nohighlight">\(1\)</span>.</p>
+<p class="sd-card-text">Since the algebraic and geometric multiplicities of the eigenvalue are not equal, <span class="math notranslate nohighlight">\(A\)</span> cannot be decomposed as <span class="math notranslate nohighlight">\(A = X\Lambda X^{-1}\)</span>. For such a decomposition to exist, the matrix must have a full set of linearly independent eigenvectors.</p>
+</div>
+</details></section>
 </section>
 </section>
 
@@ -552,16 +587,14 @@ are the associated eigenvalues <span class="math notranslate nohighlight">\(\lam
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Basic properties of eigenvalue problems</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definition-and-motivation">Definition and motivation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#characteristic-polynomials-algebraic-and-geometric-multiplicities">Characteristic polynomials, algebraic and geometric multiplicities</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eigenvalue-decomposition">Eigenvalue decomposition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-eigenvalues-with-unequal-algebraic-and-geometric-multiplicities">Exercise: Eigenvalues with Unequal Algebraic and Geometric Multiplicities</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#characteristic-polynomials-algebraic-and-geometric-multiplicities">Characteristic polynomials, algebraic and geometric multiplicities</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-eigenvalue-decomposition">The eigenvalue decomposition</a></li>
 </ul>
-</li>
-</ul>
-
   </nav></div>
 
 </div></div>
