@@ -32,9 +32,9 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=ca93fcec" />
     <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -408,19 +408,20 @@ document.write(`
 <div class="proof theorem admonition" id="theorem-0">
 <p class="admonition-title"><span class="caption-number">Theorem 2 </span> (Singular Value Decomposition)</p>
 <section class="theorem-content" id="proof-content">
-<p>For any matrix <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span>, where <span class="math notranslate nohighlight">\(m \geq n\)</span>, there exists a singular value decomposition (SVD) expressed as</p>
+<p>For any matrix <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span>, there exists a singular value decomposition (SVD) expressed as</p>
 <div class="math notranslate nohighlight">
 \[
 A = U\Sigma V^T.
 \]</div>
-<p>In this decomposition, <span class="math notranslate nohighlight">\(U \in \mathbb{R}^{m \times m}\)</span> and <span class="math notranslate nohighlight">\(V \in \mathbb{R}^{n \times n}\)</span> are orthogonal matrices. The matrix <span class="math notranslate nohighlight">\(\Sigma \in \mathbb{R}^{m \times n}\)</span> is a block matrix of the form</p>
+<p>In this decomposition, <span class="math notranslate nohighlight">\(U \in \mathbb{R}^{m \times m}\)</span> and <span class="math notranslate nohighlight">\(V \in \mathbb{R}^{n \times n}\)</span> are orthogonal matrices and <span class="math notranslate nohighlight">\(\Sigma\)</span> is diagonal (meaning <span class="math notranslate nohighlight">\(\sigma_{ij} = 0\)</span> for all <span class="math notranslate nohighlight">\(i \neq j\)</span>) with non-negative entries <span class="math notranslate nohighlight">\(\sigma_i := \sigma_{ii}\)</span> on the diagonal that descend in magnitude: <span class="math notranslate nohighlight">\(\sigma_i \geq \sigma_{i+1}\)</span>.</p>
+</section>
+</div><p>For the remainder of the page, assume that <span class="math notranslate nohighlight">\(m \geq n\)</span>. The matrix <span class="math notranslate nohighlight">\(\Sigma \in \mathbb{R}^{m \times n}\)</span> is a block matrix of the form</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \Sigma = \begin{bmatrix} \tilde{\Sigma} \\ 0 \end{bmatrix},
 \end{split}\]</div>
 <p>where <span class="math notranslate nohighlight">\(\tilde{\Sigma} = \text{diag}(\sigma_1, \sigma_2, \dots, \sigma_r, 0, \dots, 0)\)</span> is a diagonal matrix with non-negative real numbers <span class="math notranslate nohighlight">\(\sigma_1, \sigma_2, \dots, \sigma_r\)</span> on the diagonal, and <span class="math notranslate nohighlight">\(r\)</span> represents the rank of the matrix <span class="math notranslate nohighlight">\(A\)</span>.</p>
-</section>
-</div><p>These diagonal entries <span class="math notranslate nohighlight">\(\sigma_i\)</span> (for <span class="math notranslate nohighlight">\(i = 1, 2, \dots, r\)</span>) are known as the singular values of <span class="math notranslate nohighlight">\(A\)</span>. The columns <span class="math notranslate nohighlight">\(v_j\)</span> of <span class="math notranslate nohighlight">\(V\)</span> are called right singular vectors. The columns <span class="math notranslate nohighlight">\(u_j\)</span> of <span class="math notranslate nohighlight">\(U\)</span> are called left singular vectors.</p>
+<p>These diagonal entries <span class="math notranslate nohighlight">\(\sigma_i\)</span> (for <span class="math notranslate nohighlight">\(i = 1, 2, \dots, r\)</span>) are known as the singular values of <span class="math notranslate nohighlight">\(A\)</span>. The columns <span class="math notranslate nohighlight">\(v_j\)</span> of <span class="math notranslate nohighlight">\(V\)</span> are called right singular vectors. The columns <span class="math notranslate nohighlight">\(u_j\)</span> of <span class="math notranslate nohighlight">\(U\)</span> are called left singular vectors.</p>
 <p><strong>Insights</strong></p>
 <ol class="arabic">
 <li><p><strong>Rank determination</strong>: The rank of matrix <span class="math notranslate nohighlight">\(A\)</span> is equal to <span class="math notranslate nohighlight">\(r\)</span>, defined as the count of non-zero singular values in the decomposition.</p></li>
@@ -697,7 +698,7 @@ Existence of the Singular Value Decomposition<div class="sd-summary-down docutil
 <div class="proof theorem admonition" id="theorem-2">
 <p class="admonition-title"><span class="caption-number">Theorem 4 </span> (Existence of Singular Value Decomposition)</p>
 <section class="theorem-content" id="proof-content">
-<p class="sd-card-text">Every real matrix <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span> with <span class="math notranslate nohighlight">\(m \geq n\)</span> has a singular value decomposition (SVD).</p>
+<p class="sd-card-text">Every real matrix <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span> has a singular value decomposition (SVD).</p>
 </section>
 </div><div class="proof admonition" id="proof">
 <p class="sd-card-text">Proof. We utilise an inductive argument to establish the existence of the SVD for any matrix <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span>.</p>
