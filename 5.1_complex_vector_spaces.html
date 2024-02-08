@@ -32,9 +32,9 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=ca93fcec" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -219,9 +219,8 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Complex vector spaces</a></li>
 <li class="toctree-l1"><a class="reference internal" href="5.2_eigenvalues_basic_properties.html">Basic properties of eigenvalue problems</a></li>
-<li class="toctree-l1"><a class="reference internal" href="5.3_schur_decomposition.html">The Schur decomposition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="5.4_eigenvalues_perturbation_theory.html">Perturbation results for eigenvalue problems</a></li>
-<li class="toctree-l1"><a class="reference internal" href="5.5_computing_eigenvalues.html">Computing eigenvalues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.3_eigenvalues_perturbation_theory.html">Perturbation results for eigenvalue problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.4_computing_eigenvalues.html">Computing eigenvalues</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Self Check Questions</span></p>
 <ul class="nav bd-sidenav">
@@ -445,7 +444,11 @@ A^H = A.
 \[
 Q^H Q = I.
 \]</div>
-<p>Thus, a unitary matrix in complex spaces is analogous to an orthogonal matrix in real spaces.</p>
+<p>Thus, a unitary matrix in complex spaces is analogous to an orthogonal matrix in real spaces. All unitary matrices satisfy</p>
+<div class="math notranslate nohighlight">
+\[
+|\det(Q)| = 1. 
+\]</div>
 </section>
 <section id="python-skills">
 <h2>Python skills<a class="headerlink" href="#python-skills" title="Link to this heading">#</a></h2>
@@ -511,7 +514,7 @@ x^H A x &gt; 0 \qquad \forall \, x\in\mathbb{C}^{n} \setminus \{0\}.
 </div>
 </details><div class="tip admonition">
 <p class="admonition-title"><strong>Question</strong></p>
-<p>Prove each eigenvalue of a unitary matrix has modulus <span class="math notranslate nohighlight">\(1\)</span>.</p>
+<p>Show that all unitary matrices <span class="math notranslate nohighlight">\(Q\)</span> satisfy <span class="math notranslate nohighlight">\(|\det(Q)| = 1\)</span>.</p>
 </div>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
@@ -520,12 +523,12 @@ x^H A x &gt; 0 \qquad \forall \, x\in\mathbb{C}^{n} \setminus \{0\}.
 <div class="sd-summary-up docutils">
 <svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
 </summary><div class="sd-summary-content sd-card-body docutils">
-<p class="sd-card-text">An eigenvector <span class="math notranslate nohighlight">\(v \neq 0\)</span> of a unitary matrix <span class="math notranslate nohighlight">\(Q\)</span> with eigenvalue <span class="math notranslate nohighlight">\(\lambda\)</span> satisfies <span class="math notranslate nohighlight">\(Q v = \lambda v\)</span>. Furthermore, <span class="math notranslate nohighlight">\(v^H Q^H = \overline{\lambda} v^H\)</span>, noting that <span class="math notranslate nohighlight">\(\lambda\)</span> is a scalar and so its transpose. Multiplying both identities with each other gives</p>
+<p class="sd-card-text">From <span class="math notranslate nohighlight">\(Q^H Q = I\)</span>, we conclude</p>
 <div class="math notranslate nohighlight">
 \[
-(v^H Q^H) (Q v) = (\overline{\lambda} v^H) (\lambda v).
+1 = \det(I) = \det(Q^H Q) = \det(Q^H) \det(Q) = \overline{\det(Q)} \det(Q) = |\det(Q)|^2.
 \]</div>
-<p class="sd-card-text">Using <span class="math notranslate nohighlight">\(Q^H Q = I\)</span>, we arrive at <span class="math notranslate nohighlight">\(\| v \|_2^2 = |\lambda|^2 \| v \|_2^2\)</span>, implying <span class="math notranslate nohighlight">\(|\lambda| = 1\)</span>.</p>
+<p class="sd-card-text">It follows that <span class="math notranslate nohighlight">\(|\det(Q)| = 1\)</span>.</p>
 </div>
 </details></section>
 </section>
