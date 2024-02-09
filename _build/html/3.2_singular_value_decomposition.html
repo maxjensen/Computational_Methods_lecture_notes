@@ -32,9 +32,9 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=ca93fcec" />
     <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -219,10 +219,8 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="5.1_complex_vector_spaces.html">Complex vector spaces</a></li>
 <li class="toctree-l1"><a class="reference internal" href="5.2_eigenvalues_basic_properties.html">Basic properties of eigenvalue problems</a></li>
-
-<li class="toctree-l1"><a class="reference internal" href="5.3_schur_decomposition.html">The Schur decomposition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="5.4_eigenvalues_perturbation_theory.html">Perturbation results for eigenvalue problems</a></li>
-<li class="toctree-l1"><a class="reference internal" href="5.5_computing_eigenvalues.html">Computing eigenvalues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.3_eigenvalues_perturbation_theory.html">Perturbation results for eigenvalue problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.4_computing_eigenvalues.html">Computing eigenvalues</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Self Check Questions</span></p>
 <ul class="nav bd-sidenav">
@@ -405,15 +403,20 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="the-singular-value-decomposition">
 <h1>The Singular Value Decomposition<a class="headerlink" href="#the-singular-value-decomposition" title="Link to this heading">#</a></h1>
+<p>A matrix <span class="math notranslate nohighlight">\(\Sigma \in \mathbb{R}^{m \times n}\)</span> is called diagonal if <span class="math notranslate nohighlight">\(\sigma_{ij} = 0\)</span> for all <span class="math notranslate nohighlight">\(i \neq j\)</span>.</p>
 <div class="proof theorem admonition" id="theorem-0">
 <p class="admonition-title"><span class="caption-number">Theorem 2 </span> (Singular Value Decomposition)</p>
 <section class="theorem-content" id="proof-content">
-<p>For any matrix <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span>, there exists a singular value decomposition (SVD) expressed as</p>
+<p>For any matrix <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span>, there exists a singular value decomposition (SVD)</p>
 <div class="math notranslate nohighlight">
 \[
-A = U\Sigma V^T.
+A = U\Sigma V^T,
 \]</div>
-<p>In this decomposition, <span class="math notranslate nohighlight">\(U \in \mathbb{R}^{m \times m}\)</span> and <span class="math notranslate nohighlight">\(V \in \mathbb{R}^{n \times n}\)</span> are orthogonal matrices and <span class="math notranslate nohighlight">\(\Sigma\)</span> is diagonal (meaning <span class="math notranslate nohighlight">\(\sigma_{ij} = 0\)</span> for all <span class="math notranslate nohighlight">\(i \neq j\)</span>) with non-negative entries <span class="math notranslate nohighlight">\(\sigma_i := \sigma_{ii}\)</span> on the diagonal that descend in magnitude: <span class="math notranslate nohighlight">\(\sigma_i \geq \sigma_{i+1}\)</span>.</p>
+<p>where <span class="math notranslate nohighlight">\(U \in \mathbb{R}^{m \times m}\)</span> and <span class="math notranslate nohighlight">\(V \in \mathbb{R}^{n \times n}\)</span> are orthogonal matrices and <span class="math notranslate nohighlight">\(\Sigma\)</span> is diagonal with non-negative descending  diagonal elements <span class="math notranslate nohighlight">\(\sigma_i := \sigma_{ii}\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+\sigma_1 \geq \sigma_2 \geq \ldots \geq \sigma_n \geq 0.
+\]</div>
 </section>
 </div><p>For the remainder of the page, assume that <span class="math notranslate nohighlight">\(m \geq n\)</span>. The matrix <span class="math notranslate nohighlight">\(\Sigma \in \mathbb{R}^{m \times n}\)</span> is a block matrix of the form</p>
 <div class="math notranslate nohighlight">
@@ -421,7 +424,7 @@ A = U\Sigma V^T.
 \Sigma = \begin{bmatrix} \tilde{\Sigma} \\ 0 \end{bmatrix},
 \end{split}\]</div>
 <p>where <span class="math notranslate nohighlight">\(\tilde{\Sigma} = \text{diag}(\sigma_1, \sigma_2, \dots, \sigma_r, 0, \dots, 0)\)</span> is a diagonal matrix with non-negative real numbers <span class="math notranslate nohighlight">\(\sigma_1, \sigma_2, \dots, \sigma_r\)</span> on the diagonal, and <span class="math notranslate nohighlight">\(r\)</span> represents the rank of the matrix <span class="math notranslate nohighlight">\(A\)</span>.</p>
-<p>These diagonal entries <span class="math notranslate nohighlight">\(\sigma_i\)</span> (for <span class="math notranslate nohighlight">\(i = 1, 2, \dots, r\)</span>) are known as the singular values of <span class="math notranslate nohighlight">\(A\)</span>. The columns <span class="math notranslate nohighlight">\(v_j\)</span> of <span class="math notranslate nohighlight">\(V\)</span> are called right singular vectors. The columns <span class="math notranslate nohighlight">\(u_j\)</span> of <span class="math notranslate nohighlight">\(U\)</span> are called left singular vectors.</p>
+<p>These diagonal entries <span class="math notranslate nohighlight">\(\sigma_i\)</span> (for <span class="math notranslate nohighlight">\(i = 1, 2, \dots, n\)</span>) are known as the singular values of <span class="math notranslate nohighlight">\(A\)</span>. The columns <span class="math notranslate nohighlight">\(v_j\)</span> of <span class="math notranslate nohighlight">\(V\)</span> are called right singular vectors. The columns <span class="math notranslate nohighlight">\(u_j\)</span> of <span class="math notranslate nohighlight">\(U\)</span> are called left singular vectors.</p>
 <p><strong>Insights</strong></p>
 <ol class="arabic">
 <li><p><strong>Rank determination</strong>: The rank of matrix <span class="math notranslate nohighlight">\(A\)</span> is equal to <span class="math notranslate nohighlight">\(r\)</span>, defined as the count of non-zero singular values in the decomposition.</p></li>
@@ -454,12 +457,6 @@ A_\nu := \sum_{j=1}^\nu \sigma_j u_j v_j^T,
 \|A - A_{\nu}\|_2 = \sigma_{\nu+1}.
 \]</div>
 <p>This expression quantifies the significance of each singular value and its associated rank-1 component in approximating the original matrix <span class="math notranslate nohighlight">\(A\)</span>.</p>
-<p>This formulation highlights the utility of singular value decomposition (SVD) in reducing computational costs in numerical linear algebra tasks. Traditional matrix-matrix multiplications, without using advanced techniques like <a class="reference external" href="https://en.wikipedia.org/wiki/Strassen_algorithm">Strassen’s algorithm</a>, typically scale with a computational complexity of <span class="math notranslate nohighlight">\(\mathcal{O}(N^3)\)</span>. However, when dealing with the multiplication of two rank-1 matrices, such as <span class="math notranslate nohighlight">\(\sigma u v^T\)</span> and <span class="math notranslate nohighlight">\(\hat{\sigma} \hat{u} \hat{v}^T\)</span>, the process becomes much more efficient. The key step involves calculating the scalar product <span class="math notranslate nohighlight">\(\langle v, \hat{u}\rangle\)</span>, which is then scaled by the product of <span class="math notranslate nohighlight">\(\sigma\)</span> and <span class="math notranslate nohighlight">\(\hat{\sigma}\)</span>. This results in the rank-1 representation of the overall product:</p>
-<div class="math notranslate nohighlight">
-\[
-(\sigma u v^T) (\hat{\sigma} \hat{u} \hat{v}^T) = (\sigma \hat{\sigma} \langle v, \hat{u}\rangle) u \hat{v}^T.
-\]</div>
-<p>Building on this approach, the multiplication of rank-<span class="math notranslate nohighlight">\(k\)</span> approximations of two matrices <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> can be executed with a computational cost of <span class="math notranslate nohighlight">\(\mathcal{O}(n \cdot k^2)\)</span>. This method is particularly advantageous in applications where the singular values diminish rapidly in magnitude. In such scenarios, using a rank-<span class="math notranslate nohighlight">\(k\)</span> approximation yields substantial computational savings, often with only a moderate or negligible compromise in accuracy. This balance between efficiency and precision makes SVD a powerful tool in large-scale numerical computations.</p>
 <div class="proof theorem admonition" id="theorem-1">
 <p class="admonition-title"><span class="caption-number">Theorem 3 </span> (Low-rank matrix approximation)</p>
 <section class="theorem-content" id="proof-content">
@@ -469,7 +466,13 @@ A_\nu := \sum_{j=1}^\nu \sigma_j u_j v_j^T,
 \|A - A_{\nu}\|_2 = \min_{B\in\mathbb{R}^{m\times n}, \text{rank}(B)\leq\nu} \|A - B\|_2 = \sigma_{\nu+1}.
 \]</div>
 </section>
-</div></section>
+</div><p>This formulation highlights the utility of singular value decomposition (SVD) in reducing computational costs in numerical linear algebra tasks. Traditional matrix-matrix multiplications, without using advanced techniques like <a class="reference external" href="https://en.wikipedia.org/wiki/Strassen_algorithm">Strassen’s algorithm</a>, typically scale with a computational complexity of <span class="math notranslate nohighlight">\(\mathcal{O}(N^3)\)</span>. However, when dealing with the multiplication of two rank-1 matrices, such as <span class="math notranslate nohighlight">\(\sigma u v^T\)</span> and <span class="math notranslate nohighlight">\(\hat{\sigma} \hat{u} \hat{v}^T\)</span>, the process becomes much more efficient. The key step involves calculating the scalar product <span class="math notranslate nohighlight">\(\langle v, \hat{u}\rangle\)</span>, which is then scaled by the product of <span class="math notranslate nohighlight">\(\sigma\)</span> and <span class="math notranslate nohighlight">\(\hat{\sigma}\)</span>. This results in the rank-1 representation of the overall product:</p>
+<div class="math notranslate nohighlight">
+\[
+(\sigma u v^T) (\hat{\sigma} \hat{u} \hat{v}^T) = (\sigma \hat{\sigma} \langle v, \hat{u}\rangle) u \hat{v}^T.
+\]</div>
+<p>Building on this approach, the multiplication of rank-<span class="math notranslate nohighlight">\(k\)</span> approximations of two matrices <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> can be executed with a computational cost of <span class="math notranslate nohighlight">\(\mathcal{O}(n \cdot k^2)\)</span>. This method is particularly advantageous in applications where the singular values diminish rapidly in magnitude. In such scenarios, using a rank-<span class="math notranslate nohighlight">\(k\)</span> approximation yields substantial computational savings, often with only a moderate or negligible compromise in accuracy. This balance between efficiency and precision makes SVD a powerful tool in large-scale numerical computations.</p>
+</section>
 <section id="the-reduced-svd">
 <h2>The reduced SVD<a class="headerlink" href="#the-reduced-svd" title="Link to this heading">#</a></h2>
 <p>Above we introduced the form of the SVD which is know as the <em>full SVD</em> of <span class="math notranslate nohighlight">\(A  \in \mathbb{R}^{m \times n}\)</span>:</p>
@@ -533,11 +536,11 @@ A = U_1\hat{\Sigma}V_1^T.
 <p>Find the SVD of</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-A = \begin{pmatrix}
+A = \begin{bmatrix}
 0 &amp; 2 &amp; 0\\
 -3 &amp; 0 &amp; 0\\
 0 &amp; 0 &amp; 1
-\end{pmatrix}.
+\end{bmatrix}.
 \end{split}\]</div>
 </div>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
@@ -552,23 +555,23 @@ A = \begin{pmatrix}
 <div class="math notranslate nohighlight">
 \[\begin{split}
 A = 
-\begin{pmatrix}
+\begin{bmatrix}
 0 &amp; 1 &amp; 0\\
 -1 &amp; 0 &amp; 0\\
 0 &amp; 0 &amp; 1
-\end{pmatrix}
+\end{bmatrix}
 \cdot
-\begin{pmatrix}
+\begin{bmatrix}
 3 &amp; 0 &amp; 0\\
 0 &amp; 2 &amp; 0\\
 0 &amp; 0 &amp; 1
-\end{pmatrix}
+\end{bmatrix}
 \cdot
-\begin{pmatrix}
+\begin{bmatrix}
 1 &amp; 0 &amp; 0\\
 0 &amp; 1 &amp; 0\\
 0 &amp; 0 &amp; 1
-\end{pmatrix}
+\end{bmatrix}
 = U \Sigma V^T.
 \end{split}\]</div>
 </div>

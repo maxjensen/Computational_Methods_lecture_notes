@@ -13,8 +13,20 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "5.2_eigenvalues_basic_properties.md",
+                "file": "4.3_stable_quadrature_schemes.md",
                 "mode": "source",
+                "source": true
+              }
+            }
+          },
+          {
+            "id": "f927d4d8fb3aec66",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "4.1_interpolation_and_quadrature.md",
+                "mode": "preview",
                 "source": true
               }
             }
@@ -31,7 +43,8 @@
               }
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -81,7 +94,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "9b757f99ea7ad0be",
@@ -97,7 +111,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "5.2_eigenvalues_basic_properties.md",
+                "file": "4.1_interpolation_and_quadrature.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -114,7 +128,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "5.2_eigenvalues_basic_properties.md",
+                "file": "4.1_interpolation_and_quadrature.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -137,7 +151,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "5.2_eigenvalues_basic_properties.md"
+                "file": "4.1_interpolation_and_quadrature.md"
               }
             }
           }
@@ -158,15 +172,25 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "14130e202ec15dbf",
+  "active": "f927d4d8fb3aec66",
   "lastOpenFiles": [
-    "5.1_complex_vector_spaces.md",
-    "5.2_eigenvalues_basic_properties.md",
-    "3.3_least_squares_problems.md",
     "4.3_stable_quadrature_schemes.md",
+    "4.1_interpolation_and_quadrature.md",
+    "5.1_complex_vector_spaces.md",
+    "3.3_least_squares_problems.md",
     "3.2_singular_value_decomposition.md",
-    "week_7_self_check.md",
-    "week_6_self_check.md",
+    "3.1_qr_decomposition.md",
+    "5.3_eigenvalues_perturbation_theory.md",
+    "5.2_eigenvalues_basic_properties.md",
+    "2.2_lu_backward_error.md",
+    "2.1_lu_decomposition.md",
+    "1.5_complexity_notation.md",
+    "1.4_linear_system_error.md",
+    "1.3_error_analysis.md",
+    "1.1_matrix_vector_norms.md",
+    "growth_factors.png",
+    "logo.png",
+    "byte_array.png",
     "_build/html/_static/proof.css",
     "_build/html/_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css",
     "_build/html/objects.inv",
@@ -178,9 +202,6 @@
     "_build/html/_images/bf1e4e48bbd0762eb41af28804ac5d10dc612b02be6c12800050f285e2da45d3.png",
     "_build/html/_images/b6b9f26e02d111686ddba314fc549ae72e2fdf82c4c664efaef06637aa23eda1.png",
     "_build/html/_images/ad1ae1894a57f02e325c84a253d44c1de0d76032b99fef5e592f5abd26d13447.png",
-    "_build/html/_images/9e36b0c2331391a2356cbe5bbccc9bc4a31f43d0a0e6007421fa4b92f8af0eab.png",
-    "_build/html/_images/98d1e100174bc2ff4950692d737957490a20d559d18832fa29fe2de199c99b28.png",
-    "_build/html/_images/7accb6bdbf8e97149a380e345adc4302c23794fec932b967ee6c9834300bb2cc.png",
     "_build/html/_images",
     "_build/html/search.html",
     "_build/html/prf-prf.html",
@@ -195,16 +216,9 @@
     "_build/html/_sources/week_1_self_check.md",
     "_build/html/_sources/index.md",
     "_build/html/_sources/backmatter.md",
-    "_build/html/_sources/5.4_eigenvalues_perturbation_theory.md",
-    "_build/html/_sources/5.3_schur_decomposition.md",
+    "_build/html/_sources/5.3_eigenvalues_perturbation_theory.md",
     "_build/html/_sources/5.2_eigenvalues_basic_properties.md",
     "_build/html/_sources/5.1_complex_vector_spaces.md",
-    "_build/html/_sources/4.3_stable_quadrature_schemes.md",
-    "_build/html/_sources/3.3_least_squares_problems.md",
-    "_build/html/_sources/3.2_singular_value_decomposition.md",
-    "_build/html/_sources/3.1_qr_decomposition.md",
-    "_build/html/_sources/2.2_lu_backward_error.md",
-    "_build/html/_sources/2.1_lu_decomposition.md",
-    "_build/html/_sources/1.5_complexity_notation.md"
+    "_build/html/_sources/4.3_stable_quadrature_schemes.md"
   ]
 }
