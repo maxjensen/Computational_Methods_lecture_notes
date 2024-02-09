@@ -32,9 +32,9 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=ca93fcec" />
     <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -236,6 +236,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Back matter</span></p>
 <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="prerequisities.html">Useful facts and notation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="backmatter.html">Bibliography</a></li>
 </ul>
 
@@ -471,16 +472,16 @@ document.write(`
 </li>
 <li><p>Hence, the matrix <span class="math notranslate nohighlight">\(A\)</span> can be decomposed as <span class="math notranslate nohighlight">\(A = QR\)</span> where:</p>
 <ul>
-<li><p><span class="math notranslate nohighlight">\(Q = \begin{pmatrix} q_1, \ldots, q_n \end{pmatrix}\)</span> is a matrix with orthogonal columns.</p></li>
+<li><p><span class="math notranslate nohighlight">\(Q = \begin{bmatrix} q_1, \ldots, q_n \end{bmatrix}\)</span> is a matrix with orthogonal columns.</p></li>
 <li><p><span class="math notranslate nohighlight">\(R\)</span> is an upper triangular matrix defined as:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-    R = \begin{pmatrix}
+    R = \begin{bmatrix}
     \|\tilde{q}_1\|_2 &amp; \langle a_2, q_1 \rangle &amp; \ldots &amp; \langle a_n, q_1 \rangle \\
                       &amp; \|\tilde{q}_2\|_2        &amp; \ddots &amp; \vdots \\
                       &amp;                          &amp; \ddots &amp; \langle a_n, q_{n-1} \rangle \\
                       &amp;                          &amp;        &amp; \|\tilde{q}_n\|_2
-    \end{pmatrix}
+    \end{bmatrix}
     \end{split}\]</div>
 </li>
 </ul>
@@ -489,7 +490,7 @@ document.write(`
 <div class="proof theorem admonition" id="theorem-1">
 <p class="admonition-title"><span class="caption-number">Theorem 1 </span> (QR Decomposition)</p>
 <section class="theorem-content" id="proof-content">
-<p>Given <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span>with <span class="math notranslate nohighlight">\(m \geq n\)</span>, a QR decomposition of <span class="math notranslate nohighlight">\(A = QR\)</span> exists, where <span class="math notranslate nohighlight">\(Q\)</span> is an <span class="math notranslate nohighlight">\(m \times n\)</span> orthogonal matrix satisfying <span class="math notranslate nohighlight">\(Q^TQ = I\)</span> and where <span class="math notranslate nohighlight">\(R\)</span> is an <span class="math notranslate nohighlight">\(n \times n\)</span> upper triangular matrix. If <span class="math notranslate nohighlight">\(A\)</span> has a full rank, then this QR decomposition is unique up to the signs of the diagonal elements of <span class="math notranslate nohighlight">\(R\)</span>.</p>
+<p>Given <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span> with <span class="math notranslate nohighlight">\(m \geq n\)</span>, a QR decomposition of <span class="math notranslate nohighlight">\(A = QR\)</span> exists, where <span class="math notranslate nohighlight">\(Q\)</span> is an <span class="math notranslate nohighlight">\(m \times n\)</span> orthogonal matrix satisfying <span class="math notranslate nohighlight">\(Q^TQ = I\)</span> and where <span class="math notranslate nohighlight">\(R\)</span> is an <span class="math notranslate nohighlight">\(n \times n\)</span> upper triangular matrix. If <span class="math notranslate nohighlight">\(A\)</span> has a full rank, then the QR decomposition is unique if we require the diagonal elements of <span class="math notranslate nohighlight">\(R\)</span> to be positive.</p>
 </section>
 </div></section>
 </section>
@@ -514,7 +515,7 @@ document.write(`
 <p>Consider the QR decomposition <span class="math notranslate nohighlight">\(A = QR\)</span> with <span class="math notranslate nohighlight">\(Q\in\mathbb{R}^{m\times n}\)</span> and <span class="math notranslate nohighlight">\(R\in\mathbb{R}^{n\times n}\)</span>. We call this QR decomposition a reduced QR decomposition. To define the full QR decomposition, let <span class="math notranslate nohighlight">\(Q^{\bot}\in\mathbb{R}^{m\times m-n}\)</span> be a matrix whose columns are orthonormal and satisfy <span class="math notranslate nohighlight">\(\hat{Q}^TQ = 0\)</span> (i.e. they are a basis of the orthogonal complement of the range of <span class="math notranslate nohighlight">\(A\)</span>). We can reformulate the QR decomposition as</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-A = \begin{pmatrix}Q &amp; Q^{\bot}\end{pmatrix}\begin{pmatrix}R\\ 0\end{pmatrix} =: \tilde{R}\tilde{Q}.
+A = \begin{bmatrix}Q &amp; Q^{\bot}\end{bmatrix}\begin{bmatrix}R\\ 0\end{bmatrix} =: \tilde{R}\tilde{Q}.
 \end{split}\]</div>
 <p>The QR decomposition <span class="math notranslate nohighlight">\(A = \tilde{Q}\tilde{R}\)</span> is called full QR decomposition. It is rarely used in practical computation as the columns of <span class="math notranslate nohighlight">\(Q^{\bot}\)</span> are usually not required. But it is important theoretically, as <span class="math notranslate nohighlight">\(Q^{\bot}\)</span> contains information about the range of <span class="math notranslate nohighlight">\(A\)</span> and its orthogonal complement.</p>
 </section>
@@ -596,7 +597,7 @@ A = \begin{pmatrix}Q &amp; Q^{\bot}\end{pmatrix}\begin{pmatrix}R\\ 0\end{pmatrix
 <p class="admonition-title"><strong>Question</strong></p>
 <p>Find the QR decomposition of the matrix</p>
 <div class="math notranslate nohighlight">
-\[\begin{split} A = \begin{pmatrix} 3 &amp; 2 \\ 1 &amp; 4 \\ 0 &amp; 5 \end{pmatrix}.\end{split}\]</div>
+\[\begin{split} A = \begin{bmatrix} 3 &amp; 2 \\ 1 &amp; 4 \\ 0 &amp; 5 \end{bmatrix}.\end{split}\]</div>
 <p>using the Gram-Schmidt method.</p>
 </div>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
@@ -610,27 +611,27 @@ A = \begin{pmatrix}Q &amp; Q^{\bot}\end{pmatrix}\begin{pmatrix}R\\ 0\end{pmatrix
 <li><p class="sd-card-text"><strong>First Column (<span class="math notranslate nohighlight">\(q_1\)</span>)</strong>:</p></li>
 </ol>
 <div class="math notranslate nohighlight">
-\[\begin{split}q_1 = \begin{pmatrix} 0.9487 \\ 0.3162 \\ 0 \end{pmatrix}\end{split}\]</div>
+\[\begin{split}q_1 = \begin{bmatrix} 0.9487 \\ 0.3162 \\ 0 \end{bmatrix}\end{split}\]</div>
 <ol class="arabic simple" start="2">
 <li><p class="sd-card-text"><strong>Orthogonalized Second Column (<span class="math notranslate nohighlight">\(\tilde{q}_2\)</span>)</strong>:</p></li>
 </ol>
 <div class="math notranslate nohighlight">
-\[\begin{split}\tilde{q}_2 = \begin{pmatrix} -1 \\ 3 \\ 5 \end{pmatrix}\end{split}\]</div>
+\[\begin{split}\tilde{q}_2 = \begin{bmatrix} -1 \\ 3 \\ 5 \end{bmatrix}\end{split}\]</div>
 <ol class="arabic simple" start="3">
 <li><p class="sd-card-text"><strong>Normalized Second Column (<span class="math notranslate nohighlight">\(q_2\)</span>)</strong>:</p></li>
 </ol>
 <div class="math notranslate nohighlight">
-\[\begin{split}q_2 = \begin{pmatrix} -0.1690 \\ 0.5071 \\ 0.8452 \end{pmatrix}\end{split}\]</div>
+\[\begin{split}q_2 = \begin{bmatrix} -0.1690 \\ 0.5071 \\ 0.8452 \end{bmatrix}\end{split}\]</div>
 <ol class="arabic simple" start="4">
 <li><p class="sd-card-text"><strong>Orthogonal Matrix <span class="math notranslate nohighlight">\(Q\)</span></strong>:</p></li>
 </ol>
 <div class="math notranslate nohighlight">
-\[\begin{split}Q = \begin{pmatrix} 0.9487 &amp; -0.1690 \\ 0.3162 &amp; 0.5071 \\ 0 &amp; 0.8452 \end{pmatrix}\end{split}\]</div>
+\[\begin{split}Q = \begin{bmatrix} 0.9487 &amp; -0.1690 \\ 0.3162 &amp; 0.5071 \\ 0 &amp; 0.8452 \end{bmatrix}\end{split}\]</div>
 <ol class="arabic simple" start="5">
 <li><p class="sd-card-text"><strong>Upper Triangular Matrix <span class="math notranslate nohighlight">\(R\)</span></strong>:</p></li>
 </ol>
 <div class="math notranslate nohighlight">
-\[\begin{split}R = \begin{pmatrix} 3.1623 &amp; 3.1623 \\ 0 &amp; 5.9161 \end{pmatrix}\end{split}\]</div>
+\[\begin{split}R = \begin{bmatrix} 3.1623 &amp; 3.1623 \\ 0 &amp; 5.9161 \end{bmatrix}\end{split}\]</div>
 <p class="sd-card-text">The matrices <span class="math notranslate nohighlight">\(Q\)</span> and <span class="math notranslate nohighlight">\(R\)</span> form the QR decomposition of <span class="math notranslate nohighlight">\(A\)</span>, such that <span class="math notranslate nohighlight">\(A = QR\)</span>. The matrix <span class="math notranslate nohighlight">\(Q\)</span> contains orthonormal columns, and <span class="math notranslate nohighlight">\(R\)</span> is an upper triangular matrix.</p>
 </div>
 </details><div class="tip admonition">
@@ -647,12 +648,12 @@ A = \begin{pmatrix}Q &amp; Q^{\bot}\end{pmatrix}\begin{pmatrix}R\\ 0\end{pmatrix
 <p class="sd-card-text">Recall the structure of <span class="math notranslate nohighlight">\(R\)</span>:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-    R = \begin{pmatrix}
+    R = \begin{bmatrix}
     \|\tilde{q}_1\|_2 &amp; \langle a_2, q_1 \rangle &amp; \ldots &amp; \langle a_n, q_1 \rangle \\
                       &amp; \|\tilde{q}_2\|_2        &amp; \ddots &amp; \vdots \\
                       &amp;                          &amp; \ddots &amp; \langle a_n, q_{n-1} \rangle \\
                       &amp;                          &amp;        &amp; \|\tilde{q}_n\|_2
-    \end{pmatrix}
+    \end{bmatrix}
     \end{split}\]</div>
 <p class="sd-card-text">We need to show <span class="math notranslate nohighlight">\(r_{ij} = 0\)</span> if <span class="math notranslate nohighlight">\(j + 2 \geq i\)</span>:</p>
 <ul>

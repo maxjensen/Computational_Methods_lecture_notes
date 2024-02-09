@@ -32,9 +32,9 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=ca93fcec" />
     <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -236,6 +236,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Back matter</span></p>
 <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="prerequisities.html">Useful facts and notation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="backmatter.html">Bibliography</a></li>
 </ul>
 
@@ -421,7 +422,7 @@ document.write(`
 \[
 \hat{x} = \text{arg}\min_{x \in \mathbb{R}^n} \|Ax - b\|_2.
 \]</div>
-<p>Thus, in the least squares sense, the optimisation problem seeks the best approximation of a solution to the possibly overdetermined system of linear equations represented by <span class="math notranslate nohighlight">\(Ax = b\)</span>.</p>
+<p>Thus, in the least squares sense, the optimisation problem generalises the concept of the solution to a system of linear equations: if <span class="math notranslate nohighlight">\(A\)</span> is invertible, then <span class="math notranslate nohighlight">\(A \hat{x} = b\)</span>. If <span class="math notranslate nohighlight">\(A\)</span> is overdetermined, then <span class="math notranslate nohighlight">\(\hat{x}\)</span> aims to minimise the amount by which <span class="math notranslate nohighlight">\(A \hat{x}\)</span> fails to achieve equality with <span class="math notranslate nohighlight">\(b\)</span>.</p>
 <section id="the-normal-equation">
 <h2>The normal equation<a class="headerlink" href="#the-normal-equation" title="Link to this heading">#</a></h2>
 <p>The identity</p>
@@ -464,7 +465,10 @@ A^TA\hat{x} = A^Tb.
 </div>
 <section id="properties-of-the-normal-equation">
 <h3>Properties of the normal equation<a class="headerlink" href="#properties-of-the-normal-equation" title="Link to this heading">#</a></h3>
-<p><em>For the remainder of the page, we assume that <span class="math notranslate nohighlight">\(m \ge n\)</span> and that <span class="math notranslate nohighlight">\(A\)</span> has full rank: <span class="math notranslate nohighlight">\(\mathrm{rank}(A) = n\)</span>.</em></p>
+<div class="warning admonition">
+<p class="admonition-title"><strong>Assumption</strong></p>
+<p>For the remainder of the page, we assume that <span class="math notranslate nohighlight">\(m \ge n\)</span> and that <span class="math notranslate nohighlight">\(A\)</span> has full rank: <span class="math notranslate nohighlight">\(\mathrm{rank}(A) = n\)</span>.</p>
+</div>
 <p>Let <span class="math notranslate nohighlight">\(A = U\Sigma V^T \in \mathbb{R}^{m \times n}\)</span> be the SVD of <span class="math notranslate nohighlight">\(A\)</span>. To generalise the relative condition number of a square matrix, we define the relative condition number for a rectangular <span class="math notranslate nohighlight">\((m \times n)\)</span>-matrix as</p>
 <div class="math notranslate nohighlight">
 \[
@@ -473,7 +477,7 @@ A^TA\hat{x} = A^Tb.
 <p>We also have</p>
 <div class="math notranslate nohighlight">
 \[
-A^TA = V\Sigma^T\Sigma V^T,
+A^TA = V\Sigma^T\Sigma V^T \in \mathbb{R}^{n \times n},
 \]</div>
 <p>guaranteeing the non-singularity of <span class="math notranslate nohighlight">\(A^T A\)</span> and, therefore, the existence of a unique minimiser of the least-squares problem.</p>
 <p>Furthermore,</p>
@@ -490,12 +494,12 @@ A^TA = V\Sigma^T\Sigma V^T,
 <p>The full <span class="math notranslate nohighlight">\(QR\)</span> decomposition of <span class="math notranslate nohighlight">\(A\)</span> can be expressed as follows:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-A = \begin{pmatrix} Q_1 &amp; Q_2 \end{pmatrix}\begin{pmatrix} R \\ 0 \end{pmatrix},
+A = \begin{bmatrix} Q_1 &amp; Q_2 \end{bmatrix}\begin{bmatrix} R \\ 0 \end{bmatrix},
 \end{split}\]</div>
 <p>where <span class="math notranslate nohighlight">\(Q_1\)</span> and <span class="math notranslate nohighlight">\(Q_2\)</span> are orthogonal matrices, and <span class="math notranslate nohighlight">\(R\)</span> is an upper triangular matrix. Substituting this decomposition into the least-squares problem, we get:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-\|Ax - b\|_2 = \left\|\begin{pmatrix} Q_1 &amp; Q_2 \end{pmatrix}\begin{pmatrix} R \\ 0 \end{pmatrix}x - b\right\|_2 = \left\|\begin{pmatrix} R \\ 0 \end{pmatrix}x - \begin{pmatrix} Q_1^Tb \\ Q_2^Tb \end{pmatrix}\right\|_2
+\|Ax - b\|_2 = \left\|\begin{bmatrix} Q_1 &amp; Q_2 \end{bmatrix}\begin{bmatrix} R \\ 0 \end{bmatrix}x - b\right\|_2 = \left\|\begin{bmatrix} R \\ 0 \end{bmatrix}x - \begin{bmatrix} Q_1^Tb \\ Q_2^Tb \end{bmatrix}\right\|_2
 \end{split}\]</div>
 <p>Here, we observe that only the first block-row is influenced by the choice of <span class="math notranslate nohighlight">\(x\)</span>. In the second block-row, <span class="math notranslate nohighlight">\(x\)</span> is multiplied by zero, meaning no choice of <span class="math notranslate nohighlight">\(x\)</span> will reduce the contribution from this part. Therefore, the minimiser of the least squares problem is found by solving:</p>
 <div class="math notranslate nohighlight">
@@ -520,12 +524,12 @@ Rx = Q_1^Tb.
 <p>Let <span class="math notranslate nohighlight">\(y=V^Tx\)</span> and factorise out <span class="math notranslate nohighlight">\(U\)</span> to obtain</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-\|Ax - b\|_2 = \left\|\begin{pmatrix}\tilde{\Sigma}\\ 0\end{pmatrix}y - \begin{pmatrix}U_1^Tb\\ U_2^Tb\end{pmatrix}\right\|_2.
+\|Ax - b\|_2 = \left\|\begin{bmatrix}\tilde{\Sigma}\\ 0\end{bmatrix}y - \begin{bmatrix}U_1^Tb\\ U_2^Tb\end{bmatrix}\right\|_2.
 \end{split}\]</div>
 <p>Hence, <span class="math notranslate nohighlight">\(y = \tilde{\Sigma}^{-1}U_1^Tb\)</span> and therefore</p>
 <div class="math notranslate nohighlight">
 \[
-x = V\tilde{\Sigma}^{-1}U_1^Tb = V\begin{pmatrix}\tilde{\Sigma}^{-1} &amp; 0\end{pmatrix}U^Tb.
+x = V\tilde{\Sigma}^{-1}U_1^Tb = V\begin{bmatrix}\tilde{\Sigma}^{-1} &amp; 0\end{bmatrix}U^Tb.
 \]</div>
 <p>This leads to the important concept of a pseudo-inverse of a matrix.</p>
 <div class="proof definition admonition" id="definition-1">
@@ -534,7 +538,7 @@ x = V\tilde{\Sigma}^{-1}U_1^Tb = V\begin{pmatrix}\tilde{\Sigma}^{-1} &amp; 0\end
 <p>Let <span class="math notranslate nohighlight">\(U \Sigma V^T\)</span> be an SVD of <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span>, <span class="math notranslate nohighlight">\(m \geq n\)</span> and <span class="math notranslate nohighlight">\(\mathrm{rank}(A) = n\)</span>. Then the pseudo-inverse of <span class="math notranslate nohighlight">\(A\)</span> is</p>
 <div class="math notranslate nohighlight">
 \[
-A^{\dagger} := V\begin{pmatrix}\tilde{\Sigma}^{-1} &amp; 0\end{pmatrix}U^T.
+A^{\dagger} := V\begin{bmatrix}\tilde{\Sigma}^{-1} &amp; 0\end{bmatrix}U^T.
 \]</div>
 </section>
 </div><p>The pseudo-inverse of <span class="math notranslate nohighlight">\(A\)</span> is a generalisation of the inverse of <span class="math notranslate nohighlight">\(A\)</span>. In the same way that <span class="math notranslate nohighlight">\(A^{-1}b\)</span> solves the linear system <span class="math notranslate nohighlight">\(Ax=b\)</span> for a square matrix <span class="math notranslate nohighlight">\(A\)</span>, the pseudo-inverse <span class="math notranslate nohighlight">\(A^{\dagger}\)</span> applied to <span class="math notranslate nohighlight">\(b\)</span> solves the least-squares minimisation problem  <span class="math notranslate nohighlight">\(\|Ax-b\|_2\)</span> for rectangular <span class="math notranslate nohighlight">\(A\)</span>.</p>
@@ -609,9 +613,9 @@ A^{\dagger} := V\begin{pmatrix}\tilde{\Sigma}^{-1} &amp; 0\end{pmatrix}U^T.
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \text{arg}\min_{(c,m) \in \mathbb{R}^2} \left\| 
-\begin{pmatrix} 1 &amp; 1\\ 1 &amp; 2\\ 1 &amp; 3 \end{pmatrix}
-\begin{pmatrix} c\\ m \end{pmatrix}
-- \begin{pmatrix} 2\\ 3\\ 5 \end{pmatrix}
+\begin{bmatrix} 1 &amp; 1\\ 1 &amp; 2\\ 1 &amp; 3 \end{bmatrix}
+\begin{bmatrix} c\\ m \end{bmatrix}
+- \begin{bmatrix} 2\\ 3\\ 5 \end{bmatrix}
 \right\|^2.
 \end{split}\]</div>
 <p class="sd-card-text">We learned three methods to proceed: solve the normal equation, the QR reformulation or the SVD reformulation. The two latter choices are preferable for bigger problems solved with a computer. However, for hand calculations of small problems, solving the original normal equation is often the most convenient approach.</p>
@@ -662,7 +666,7 @@ A^{\dagger} := V\begin{pmatrix}\tilde{\Sigma}^{-1} &amp; 0\end{pmatrix}U^T.
 </div>
 </details><div class="tip admonition">
 <p class="admonition-title"><strong>Question</strong></p>
-<p>Let <span class="math notranslate nohighlight">\(A\in\mathbb{R}^{m\times n}\)</span> with <span class="math notranslate nohighlight">\(m\geq n\)</span> and <span class="math notranslate nohighlight">\(\text{rank}(A)=n\)</span> and <span class="math notranslate nohighlight">\(b\in\mathbb{R}^m\)</span>. We define the following least-squares problem: Find <span class="math notranslate nohighlight">\(\hat{x}\in\mathbb{R}^n\)</span>, such that</p>
+<p>Let <span class="math notranslate nohighlight">\(A\in\mathbb{R}^{m\times n}\)</span> with <span class="math notranslate nohighlight">\(m\geq n\)</span> and <span class="math notranslate nohighlight">\(\text{rank}(A)=n\)</span> and <span class="math notranslate nohighlight">\(b\in\mathbb{R}^m\)</span>. How would should you approach the following least-squares problem with the SVD? Find <span class="math notranslate nohighlight">\(\hat{x}\in\mathbb{R}^n\)</span>, such that</p>
 <div class="math notranslate nohighlight">
 \[
 \|A\hat{x}-b\|_2 = \min_{x\in\mathbb{R}^n}\|Ax-b\|_2.
@@ -708,7 +712,7 @@ Show that the solution of this least-squares problem is identical to the solutio
 <p class="sd-card-text">The modified least-squares problem is identical to</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-\min_{x\in\mathbb{R}^n}\left\|\begin{pmatrix}A\\L\end{pmatrix} \, \begin{pmatrix}x\\x\end{pmatrix} -\begin{pmatrix}b\\ 0\end{pmatrix}\right\|_2.
+\min_{x\in\mathbb{R}^n}\left\|\begin{bmatrix}A\\L\end{bmatrix} \, \begin{bmatrix}x\\x\end{bmatrix} -\begin{bmatrix}b\\ 0\end{bmatrix}\right\|_2.
 \end{split}\]</div>
 <p class="sd-card-text">Applying the normal equation to this problem we arrive at</p>
 <div class="math notranslate nohighlight">
@@ -760,12 +764,12 @@ of <span class="math notranslate nohighlight">\(R\)</span>.</p>
 <p class="sd-card-text">We use the full QR decomposition, that is let</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-A = \begin{pmatrix}Q &amp; Q^{\bot}\end{pmatrix}\begin{pmatrix}R\\ 0\end{pmatrix}.
+A = \begin{bmatrix}Q &amp; Q^{\bot}\end{bmatrix}\begin{bmatrix}R\\ 0\end{bmatrix}.
 \end{split}\]</div>
 <p class="sd-card-text">Let <span class="math notranslate nohighlight">\(R = U\Sigma V^T\)</span> be the SVD of <span class="math notranslate nohighlight">\(R\)</span>. Plugging into the above equation gives</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-A = \begin{pmatrix}Q &amp; Q^{\bot}\end{pmatrix}\begin{pmatrix}U &amp; 0 \\ 0 &amp; I\end{pmatrix}\begin{pmatrix}\Sigma \\ 0\end{pmatrix}V^T.
+A = \begin{bmatrix}Q &amp; Q^{\bot}\end{bmatrix}\begin{bmatrix}U &amp; 0 \\ 0 &amp; I\end{bmatrix}\begin{bmatrix}\Sigma \\ 0\end{bmatrix}V^T.
 \end{split}\]</div>
 <p class="sd-card-text">We see that this is the singular value decomposition of <span class="math notranslate nohighlight">\(A\)</span> with singular values contained in <span class="math notranslate nohighlight">\(\Sigma\)</span>.</p>
 </div>

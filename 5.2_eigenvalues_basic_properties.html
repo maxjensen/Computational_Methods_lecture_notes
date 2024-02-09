@@ -236,6 +236,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Back matter</span></p>
 <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="prerequisities.html">Useful facts and notation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="backmatter.html">Bibliography</a></li>
 </ul>
 
@@ -467,7 +468,7 @@ A = X\Lambda X^{-1},
 <p>The eigenvalue decomposition <span class="math notranslate nohighlight">\(A = X\Lambda X^{-1}\)</span> is not always suitable for computational purposes. It might not exist, requiring a Jordan normal form instead. In floating point arithmetic, even though small machine perturbations usually ensure diagonalizability, the proximity to a Jordan form can introduce instabilities. Additionally, the eigenvector matrix <span class="math notranslate nohighlight">\(X\)</span> might be ill-conditioned, making its inverse computationally unreliable.</p>
 <p>For practical computations, the Schur decomposition of <span class="math notranslate nohighlight">\(A\)</span> is more robust.</p>
 <div class="proof theorem admonition" id="theorem-0">
-<p class="admonition-title"><span class="caption-number">Theorem 6 </span> (Existence of the Schur decomposition)</p>
+<p class="admonition-title"><span class="caption-number">Theorem 7 </span> (Existence of the Schur decomposition)</p>
 <section class="theorem-content" id="proof-content">
 <p>Every complex matrix <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{n \times n}\)</span> has a Schur decomposition</p>
 <div class="math notranslate nohighlight">
@@ -552,11 +553,11 @@ A = Q R Q^H
 <p>Analyze the matrix <span class="math notranslate nohighlight">\(A\)</span> given by:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-A = \begin{pmatrix}
+A = \begin{bmatrix}
 3 &amp; 1 &amp; 0 \\
 0 &amp; 3 &amp; 1 \\
 0 &amp; 0 &amp; 3
-\end{pmatrix}.
+\end{bmatrix}.
 \end{split}\]</div>
 <p>Determine the eigenvalues and eigenvectors of matrix ( A ).</p>
 <p>Compute the algebraic and geometric multiplicities of each eigenvalue.</p>
@@ -573,7 +574,7 @@ A = \begin{pmatrix}
 <p class="sd-card-text">For <span class="math notranslate nohighlight">\(\lambda = 3\)</span>, the equation <span class="math notranslate nohighlight">\((A - \lambda I)x = 0\)</span> simplifies to</p>
 <div class="math notranslate nohighlight">
 \[\begin{split} 
-\begin{pmatrix} 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 1 \\ 0 &amp; 0 &amp; 0 \end{pmatrix}x = 0.
+\begin{bmatrix} 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 1 \\ 0 &amp; 0 &amp; 0 \end{bmatrix}x = 0.
 \end{split}\]</div>
 <p class="sd-card-text">The solution space is spanned by <span class="math notranslate nohighlight">\((1, 0, 0)^T\)</span>.</p>
 <p class="sd-card-text">The eigenvalue <span class="math notranslate nohighlight">\(\lambda = 3\)</span> appears three times on the diagonal of <span class="math notranslate nohighlight">\(A\)</span>, so its algebraic multiplicity is 3. The solution to the eigenvector equation yields only one linearly independent eigenvector, so the geometric multiplicity of <span class="math notranslate nohighlight">\(\lambda = 3\)</span> is <span class="math notranslate nohighlight">\(1\)</span>.</p>
@@ -641,13 +642,13 @@ Jordan normal form<div class="sd-summary-down docutils">
 <li><p class="sd-card-text"><strong>Structure</strong>: A matrix in Jordan normal form is a block diagonal matrix where each block is a Jordan block. A Jordan block is an upper triangular matrix of the form:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-   J = \begin{pmatrix}
+   J = \begin{bmatrix}
    \lambda &amp; 1 &amp; 0 &amp; \cdots &amp; 0 \\
    0 &amp; \lambda &amp; 1 &amp; \cdots &amp; 0 \\
    0 &amp; 0 &amp; \lambda &amp; \ddots &amp; \vdots \\
    \vdots &amp; \vdots &amp; \ddots &amp; \ddots &amp; 1 \\
    0 &amp; 0 &amp; \cdots &amp; 0 &amp; \lambda
-   \end{pmatrix}.
+   \end{bmatrix}.
    \end{split}\]</div>
 <p class="sd-card-text">Here, <span class="math notranslate nohighlight">\(\lambda\)</span> is an eigenvalue of the original matrix, and the size of the Jordan block corresponds to the algebraic multiplicity of that eigenvalue.</p>
 </li>

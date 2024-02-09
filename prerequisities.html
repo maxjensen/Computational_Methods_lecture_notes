@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Perturbation results for eigenvalue problems &#8212; Computational Methods MATH0058 lecture notes</title>
+    <title>Useful facts and notation &#8212; Computational Methods MATH0058 lecture notes</title>
   
   
   
@@ -68,11 +68,11 @@ const thebe_selector_output = ".output, .cell_output"
 </script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = '5.3_eigenvalues_perturbation_theory';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'prerequisities';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Computing eigenvalues" href="5.4_computing_eigenvalues.html" />
-    <link rel="prev" title="Basic properties of eigenvalue problems" href="5.2_eigenvalues_basic_properties.html" />
+    <link rel="next" title="Bibliography" href="backmatter.html" />
+    <link rel="prev" title="Week 9 Self check questions and solutions" href="week_9_self_check.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -216,10 +216,10 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="4.3_stable_quadrature_schemes.html">Stable quadrature schemes</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Eigenvalue problems</span></p>
-<ul class="current nav bd-sidenav">
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="5.1_complex_vector_spaces.html">Complex vector spaces</a></li>
 <li class="toctree-l1"><a class="reference internal" href="5.2_eigenvalues_basic_properties.html">Basic properties of eigenvalue problems</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Perturbation results for eigenvalue problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.3_eigenvalues_perturbation_theory.html">Perturbation results for eigenvalue problems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="5.4_computing_eigenvalues.html">Computing eigenvalues</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Self Check Questions</span></p>
@@ -235,8 +235,8 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="week_9_self_check.html">Week 9 Self check questions and solutions</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Back matter</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="prerequisities.html">Useful facts and notation</a></li>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Useful facts and notation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="backmatter.html">Bibliography</a></li>
 </ul>
 
@@ -292,7 +292,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="_sources/5.3_eigenvalues_perturbation_theory.md" target="_blank"
+      <li><a href="_sources/prerequisities.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -376,7 +376,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Perturbation results for eigenvalue problems</h1>
+    <h1>Useful facts and notation</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -386,16 +386,8 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eigenvalue-condition-numbers">Eigenvalue Condition numbers</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eigenvalue-perturbations-and-the-resolvent">Eigenvalue perturbations and the resolvent</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#theorem">Theorem</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-bauer-fike-theorem">The Bauer-Fike Theorem</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#perturbation-bounds-for-hermitian-eigenvalue-problems">Perturbation bounds for Hermitian eigenvalue problems</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rayleigh-quotient-for-hermitian-eigenvalue-problems">Rayleigh-Quotient for Hermitian eigenvalue problems</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notation">Notation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#facts">Facts</a></li>
 </ul>
             </nav>
         </div>
@@ -407,173 +399,57 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="perturbation-results-for-eigenvalue-problems">
-<h1>Perturbation results for eigenvalue problems<a class="headerlink" href="#perturbation-results-for-eigenvalue-problems" title="Link to this heading">#</a></h1>
-<p>In this section we are discussing some classical eigenvalue perturbation bounds.
-We start with condition numbers of eigenvalues and then provide eigenvalue perturbation
-results for symmetric and nonsymmetric systems.</p>
-<section id="eigenvalue-condition-numbers">
-<h2>Eigenvalue Condition numbers<a class="headerlink" href="#eigenvalue-condition-numbers" title="Link to this heading">#</a></h2>
-<p>Let <span class="math notranslate nohighlight">\(A\in\mathbb{C}^{n\times n}\)</span> and <span class="math notranslate nohighlight">\((\lambda, x)\)</span> an eigenpair of <span class="math notranslate nohighlight">\(A\)</span>. Denote the associated left-eigenvector as <span class="math notranslate nohighlight">\(y\)</span>.
-A left eigenvector satisfies <span class="math notranslate nohighlight">\(y^HA = \lambda y^H\)</span>.</p>
-<p>Let <span class="math notranslate nohighlight">\(\lambda + \delta\lambda\)</span> be an eigenvalue of the perturbed matrix <span class="math notranslate nohighlight">\(A+\Delta A\)</span>. Then to first order</p>
-<div class="math notranslate nohighlight">
-\[
-\delta\lambda = \frac{y^H\Delta Ax}{y^Hx}
-\]</div>
-<p>(see exercises for proof).</p>
-<p>It follows that to first order</p>
-<div class="math notranslate nohighlight">
-\[
-|\delta\lambda| \leq \frac{\|x\| \|y\|}{|x^Hy|} \|\Delta A\|
-\]</div>
-<p>and we can define the absolute condition number <span class="math notranslate nohighlight">\(\kappa(\lambda) = \frac{\|x\| \|y\|}{|x^Hy|}\)</span>.</p>
-<p>Hence, if <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> are orthogonal then the condition number tends to infinity. Let us now investigate what
-happens if <span class="math notranslate nohighlight">\(\lambda\)</span> is a multiple eigenvalue. For simplicity assume that its algebraic multiplicity is the
-same as its geometric multiplicity. Then we have two right eigenvectors <span class="math notranslate nohighlight">\(x_1\)</span>, and <span class="math notranslate nohighlight">\(x_2\)</span>, but also two left
-eigenvectors <span class="math notranslate nohighlight">\(y_1\)</span> and <span class="math notranslate nohighlight">\(y_2\)</span>. Moreover, any nonzero linear combination <span class="math notranslate nohighlight">\(\alpha_1 x_1 + \alpha_2 x_2\)</span> is a
-right eigenvector, and similarly any linear combination of <span class="math notranslate nohighlight">\(y_1\)</span> and <span class="math notranslate nohighlight">\(y_2\)</span> is a left eigenvector.</p>
-<p>Assume that <span class="math notranslate nohighlight">\(y_1\)</span> is not orthogonal to <span class="math notranslate nohighlight">\(x_2\)</span> (otherwise, we already have an orthogonal pair of left and right
-eigenvector). We can then solve</p>
-<div class="math notranslate nohighlight">
-\[
-y_1^H(x_1 - \alpha x_2) = 0,
-\]</div>
-<p>from which it follows that <span class="math notranslate nohighlight">\(y_1 \bot (x_1 - \frac{y_1^H x_1}{y_1^H x_2}x_2)\)</span>. As conclusion whenever we have
-a multiple eigenvalue we can find a combination of left and right eigenvector that is orthogonal, demonstrating
-that multiple eigenvalues are unstable to perturbations. This is intuitively clear. If we have a polynomial with
-a multiple root then a small arbitrary perturbation in the coefficients will turn a multiple root into several simple
-roots. If we have a Jordan form (that is the geometric multiplicity is smaller than the algebraic multiplicity) we can
-do similar considerations.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="useful-facts-and-notation">
+<h1>Useful facts and notation<a class="headerlink" href="#useful-facts-and-notation" title="Link to this heading">#</a></h1>
+<section id="notation">
+<h2>Notation<a class="headerlink" href="#notation" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(f \in C[a,b]\)</span>: <span class="math notranslate nohighlight">\(f\)</span> is continuous on <span class="math notranslate nohighlight">\([a,b]\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(f \in C^{n+1}[a,b]\)</span>: <span class="math notranslate nohighlight">\(f\)</span> is <span class="math notranslate nohighlight">\(n+1\)</span> times continuously differentiable on <span class="math notranslate nohighlight">\([a,b]\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathcal{P}_n\)</span>: The set of polynomials of degree at most <span class="math notranslate nohighlight">\(n\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\delta_{ij}\)</span>: The Kronecker delta, equal to <span class="math notranslate nohighlight">\(1\)</span> if <span class="math notranslate nohighlight">\(i=j\)</span> and 0 otherwise.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>: The <span class="math notranslate nohighlight">\(n\)</span>-dimensional real coordinate space.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbb{R}^{m \times n}\)</span>: The set of <span class="math notranslate nohighlight">\(m \times n\)</span> real matrices.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbb{R}^+\)</span>: The set of positive real numbers.</p></li>
+<li><p><span class="math notranslate nohighlight">\(A_{ij}\)</span>: The element in the <span class="math notranslate nohighlight">\(i\)</span>-th row and <span class="math notranslate nohighlight">\(j\)</span>-th column of matrix <span class="math notranslate nohighlight">\(A\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(A_{:,j}\)</span>: The <span class="math notranslate nohighlight">\(j\)</span>-th column of matrix <span class="math notranslate nohighlight">\(A\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(A_{i,:}\)</span>: The <span class="math notranslate nohighlight">\(i\)</span>-th row of matrix <span class="math notranslate nohighlight">\(A\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(A^T\)</span>: The transpose of matrix <span class="math notranslate nohighlight">\(A\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\text{diag}(a_1, \ldots, a_n)\)</span>: A diagonal matrix with diagonal elements <span class="math notranslate nohighlight">\(a_1, \ldots, a_n\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\text{diag}(A)\)</span>: The diagonal of matrix <span class="math notranslate nohighlight">\(A\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\det(A)\)</span>: The determinant of matrix <span class="math notranslate nohighlight">\(A\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\text{rank}(A)\)</span>: The rank of matrix <span class="math notranslate nohighlight">\(A\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\text{ker}(A)\)</span>: The kernel (null space) of matrix <span class="math notranslate nohighlight">\(A\)</span>.</p></li>
+</ul>
 </section>
-<section id="eigenvalue-perturbations-and-the-resolvent">
-<h2>Eigenvalue perturbations and the resolvent<a class="headerlink" href="#eigenvalue-perturbations-and-the-resolvent" title="Link to this heading">#</a></h2>
-<p>We define the resolvent fuction as <span class="math notranslate nohighlight">\(z\rightarrow (zI - A)^{-1}\)</span> for <span class="math notranslate nohighlight">\(A\in\mathbb{C}^{n\times n}\)</span>. If <span class="math notranslate nohighlight">\(z\)</span> is an eigenvalue
-then the resolvent function is unbounded since <span class="math notranslate nohighlight">\(zI - A\)</span> is not invertible in that case. It is interesting to
-consider what happens with the resolvent function if <span class="math notranslate nohighlight">\(z\)</span> is not an eigenvalue but close to an eigenvalue.</p>
-<section id="theorem">
-<h3>Theorem<a class="headerlink" href="#theorem" title="Link to this heading">#</a></h3>
-<p>The followin statements are equivalent.</p>
-<ol class="arabic simple">
-<li><p><span class="math notranslate nohighlight">\(z\)</span> is an eigenvalue of <span class="math notranslate nohighlight">\(A+\Delta A\)</span> for some <span class="math notranslate nohighlight">\(\Delta A\)</span> with <span class="math notranslate nohighlight">\(\|\Delta A\|_2\leq \epsilon\)</span>.</p></li>
-<li><p>There exists a vector <span class="math notranslate nohighlight">\(u\in\mathbb{C}^n\)</span> with <span class="math notranslate nohighlight">\(\|(A-zI)u\|_2 \leq \epsilon\)</span> and <span class="math notranslate nohighlight">\(\|u\|_2=1\)</span>.</p></li>
-<li><p>For the smallest singular value <span class="math notranslate nohighlight">\(\sigma_n\)</span> of <span class="math notranslate nohighlight">\((zI - A)\)</span> we have that <span class="math notranslate nohighlight">\(\sigma_n\leq\epsilon\)</span>.</p></li>
-<li><p><span class="math notranslate nohighlight">\(\|(zI - A)^{-1}\|_2\geq \epsilon^{-1}\)</span>.</p></li>
-</ol>
-<p>Statement 1 is about the existence of a nearby matrix with a slightly perturbed eigenvalue. Statement
-2 is about the existence of a vector <span class="math notranslate nohighlight">\(u\)</span> that satisfies <span class="math notranslate nohighlight">\(Au\approx \lambda u\)</span> with only a small error. Statement 3
-is about the size of the smallest singluar value of <span class="math notranslate nohighlight">\(zI - A\)</span> and statement 4 gives a lower bound on the size
-of the resolvent function close to an eigenvalue.</p>
-<p>This theorem shows that all these concepts are equivalent to each other. Let us give a proof.</p>
-<p>Assume that statement 1 is true. We hence have</p>
-<div class="math notranslate nohighlight">
-\[
-(A + \Delta A) u = zu 
-\]</div>
-<p>for some <span class="math notranslate nohighlight">\(u\)</span> with <span class="math notranslate nohighlight">\(\|u\|_2=1\)</span> and <span class="math notranslate nohighlight">\(\|\Delta A\|_2\leq \epsilon\)</span>. Reordering gives</p>
-<div class="math notranslate nohighlight">
-\[
-\|(A - zI)u\|_2 = \|\Delta A u\|_2 \leq \|\Delta A\|_2 \leq \epsilon
-\]</div>
-<p>showing statement 2. Now let us show that 3 follows from 2. From the exercises we know that</p>
-<div class="math notranslate nohighlight">
-\[
-\sigma_n = \min_{u\in\mathbb{C}^n, \|u\|_2=1} \|(zI - A)u\|_2
-\]</div>
-<p>Using Statement 2 it follows immediately that <span class="math notranslate nohighlight">\(\sigma_n \leq \epsilon\)</span>.</p>
-<p>4 now follows from 3 since</p>
-<div class="math notranslate nohighlight">
-\[
-\|(zI - A)^{-1}\|_2 = \sigma_n^{-1} \geq \sigma_n^{-1}.
-\]</div>
-<p>Finally, we need to prove that 1 follows from 4 to establish equivalence of all statements.</p>
-<p>We have from statement 4 that there exist <span class="math notranslate nohighlight">\(u\)</span>, <span class="math notranslate nohighlight">\(v\)</span> with <span class="math notranslate nohighlight">\(\|u\|_2=\|v\|_2=1\)</span> and <span class="math notranslate nohighlight">\(\hat{\epsilon}\leq \epsilon\)</span>
-such that</p>
-<div class="math notranslate nohighlight">
-\[
-(zI-A)^{-1}v = \hat{\epsilon}^{-1}u.
-\]</div>
-<p>It follows that <span class="math notranslate nohighlight">\(\epsilon v = (zI-A)u\)</span> and therefore</p>
-<div class="math notranslate nohighlight">
-\[
-(A + \hat{\epsilon}vu^H)u = zu.
-\]</div>
-<p>Statement 1 therefore follows with <span class="math notranslate nohighlight">\(\Delta A = \hat{\epsilon}vu^H\)</span>.</p>
-</section>
-</section>
-<section id="the-bauer-fike-theorem">
-<h2>The Bauer-Fike Theorem<a class="headerlink" href="#the-bauer-fike-theorem" title="Link to this heading">#</a></h2>
-<p>Let <span class="math notranslate nohighlight">\(A\in\mathbb{C}^{n\times n}\)</span> be diagonalizable with <span class="math notranslate nohighlight">\(AX = X\Lambda\)</span>, <span class="math notranslate nohighlight">\(\Lambda\in\mathbb{C}^{n\times n}\)</span> diagonal,
-and <span class="math notranslate nohighlight">\(\Delta A\)</span> a perturbation of <span class="math notranslate nohighlight">\(A\)</span>. For every eigenvalue <span class="math notranslate nohighlight">\(z\)</span> of <span class="math notranslate nohighlight">\(A+\Delta A\)</span>
-there exists an eigenvalue <span class="math notranslate nohighlight">\(\lambda\)</span> of <span class="math notranslate nohighlight">\(A\)</span> such that</p>
-<div class="math notranslate nohighlight">
-\[
-|z-\lambda| \leq \|X\|_2 \|X^{-1}\|_2 \|\Delta A\|_2.
-\]</div>
-<p>Before we prove this statement let us briefly reflect on it. The statement shows that the condition number of the
-eigenvector matrix <span class="math notranslate nohighlight">\(X\)</span> determines by how much we can expect arbitrary eigenvalues to be perturbed under perturbations of <span class="math notranslate nohighlight">\(A\)</span>.</p>
-<p>This result is related to the eigenvalue condition number. From <span class="math notranslate nohighlight">\(AX = X\Lambda\)</span> it follows that <span class="math notranslate nohighlight">\(X^{-1}A = \Lambda X^{-1}\)</span>. Hence, the rows of <span class="math notranslate nohighlight">\(X^{-1}\)</span> are the left eigenvectors
-of the matrix <span class="math notranslate nohighlight">\(A\)</span>. The Bauer-Fike theorem therefore gives a sharp bound for the maximum perturbation of any eigenvalue
-based on the norm of the matrix of right eigenvectors and the matrix of left eigenvectors.</p>
-<p>The eigenvalue condition number in contrast uses the angle between left and right eigenvector to give a first order bound for each
-individual eigenvalue.</p>
-<p>The proof of the Bauer-Fike theorem is straight forward using our previous perturbation bounds. From <span class="math notranslate nohighlight">\(z\)</span> being an
-eigenvalue of <span class="math notranslate nohighlight">\(A+\Delta A\)</span> it follows that</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{aligned}
-\|\Delta A\|_2^{-1}&amp;\leq \|(zI - A)^{-1}\|_2\\ 
-                &amp;\leq \|(zI - X\Lambda X^{-1})^{-1}\|_2\\
-                &amp;\leq \|X\|_2\|X^{-1}\|_2 \|(zI - \Lambda)^{-1}\|_2\\
-                &amp;= \|X\|_2\|X^{-1}\|_2 |z-\lambda|^{-1} 
-\end{aligned} 
-\end{split}\]</div>
-<p>for an eigenvalue <span class="math notranslate nohighlight">\(\lambda\)</span> of <span class="math notranslate nohighlight">\(A\)</span>. Reordering gives the desired statement.</p>
-</section>
-<section id="perturbation-bounds-for-hermitian-eigenvalue-problems">
-<h2>Perturbation bounds for Hermitian eigenvalue problems<a class="headerlink" href="#perturbation-bounds-for-hermitian-eigenvalue-problems" title="Link to this heading">#</a></h2>
-<p>If a matrix <span class="math notranslate nohighlight">\(A\)</span> is Hermitian (that is <span class="math notranslate nohighlight">\(A^H=A\)</span>) then from the Schur decomposition it follows that</p>
-<div class="math notranslate nohighlight">
-\[
-A = Q\Lambda Q^H
-\]</div>
-<p>with <span class="math notranslate nohighlight">\(Q^HQ = I\)</span>. Moreover, the left eigenvectors are identical to the right eigenvectors.
-Hence, if <span class="math notranslate nohighlight">\(\lambda\)</span> is a not a multiple eigenvalue of <span class="math notranslate nohighlight">\(A\)</span> then we have that <span class="math notranslate nohighlight">\(\kappa(\lambda)=1\)</span>.
-Similarly, the Bauer-Fike theorem simplifies to <span class="math notranslate nohighlight">\(|z-\lambda| \leq \|\Delta A\|_2\)</span>, showing that
-eigenvalues of symmetric matrices are at most perturbed by the size of the input perturbation.</p>
-<section id="rayleigh-quotient-for-hermitian-eigenvalue-problems">
-<h3>Rayleigh-Quotient for Hermitian eigenvalue problems<a class="headerlink" href="#rayleigh-quotient-for-hermitian-eigenvalue-problems" title="Link to this heading">#</a></h3>
-<p>Let <span class="math notranslate nohighlight">\(A\in\mathbb{R}^{n\times n}\)</span> be a symmetric matrix (that is <span class="math notranslate nohighlight">\(A=A^T\)</span>). Define the Rayleigh quotient</p>
-<div class="math notranslate nohighlight">
-\[
-r(x) = \frac{x^TAx}{x^Tx}.
-\]</div>
-<p>The Rayleigh quotient has a powerful property. First of all it is straight forward to see that if <span class="math notranslate nohighlight">\(x\)</span> is an
-eigenvector then <span class="math notranslate nohighlight">\(r(x) = \lambda\)</span>. What happens if instead of <span class="math notranslate nohighlight">\(x\)</span> we apply a small perturbation <span class="math notranslate nohighlight">\(\tilde{x} = x + \epsilon\)</span>?
-We then obtain</p>
-<div class="math notranslate nohighlight">
-\[
-r(\tilde{x}) = \lambda + \mathcal{O}(\epsilon^2).
-\]</div>
-<p>It follows that if we know the eigenvector only up to an accuracy of <span class="math notranslate nohighlight">\(\epsilon\)</span> we can still extract the
-eigenvalue up to an accuracy of <span class="math notranslate nohighlight">\(\mathcal{O}(\epsilon^2)\)</span>. This is exploited in
-numerical algorithms to compute eigenvalues with high accuracy for Hermitian problems.</p>
-<p>The proof of this statement is rather simple. All it says is that <span class="math notranslate nohighlight">\(\nabla r(x) = 0\)</span> if <span class="math notranslate nohighlight">\(x\)</span> is an eigenvector. The
-rest follows from Taylor’s theorem. So let’s compute the derivative of <span class="math notranslate nohighlight">\(r(x)\)</span>.</p>
-<p>We have that</p>
-<div class="math notranslate nohighlight">
-\[
-(x + \epsilon)^HA(x + \epsilon) = x^HAx + 2x^HA\epsilon + \epsilon^HA\epsilon.
-\]</div>
-<p>Hence, <span class="math notranslate nohighlight">\((x^TAx)' = 2x^TA\)</span> for a symmetric matrix <span class="math notranslate nohighlight">\(A\)</span> (convince yourself that we needed to use the
-property that <span class="math notranslate nohighlight">\(A\)</span> is symmetric for this derivation).</p>
-<p>Applying the quotient rule we now get that</p>
-<div class="math notranslate nohighlight">
-\[
-\nabla r(x) =  \frac{2}{\|x\|_2^2}\left[Ax - r(x)x\right].
-\]</div>
-<p>Hence, if <span class="math notranslate nohighlight">\(x\)</span> is an eigenvector, using that then <span class="math notranslate nohighlight">\(r(x) = \lambda\)</span> we obtain <span class="math notranslate nohighlight">\(\nabla r(x) = 0\)</span>.</p>
-</section>
+<section id="facts">
+<h2>Facts<a class="headerlink" href="#facts" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Geometric Series</strong>: <span class="math notranslate nohighlight">\(\sum_{k=0}^n x^k = \frac{1-x^{n+1}}{1-x}\)</span> for <span class="math notranslate nohighlight">\(x \neq 1\)</span>. Converges to <span class="math notranslate nohighlight">\(\frac{1}{1-x}\)</span> if <span class="math notranslate nohighlight">\(|x| &lt; 1\)</span>.</p></li>
+<li><p><strong>Continuity and Limits</strong>: A function <span class="math notranslate nohighlight">\(f\)</span> is continuous at a point <span class="math notranslate nohighlight">\(c\)</span> if <span class="math notranslate nohighlight">\(\lim_{x \to c} f(x) = f(c)\)</span>.</p></li>
+<li><p><strong>Boundeness of Continuous Functions</strong>: A continuous function on a closed interval is bounded.</p></li>
+<li><p><strong>Mean Value Theorem</strong>: If <span class="math notranslate nohighlight">\(f \in C[a,b]\)</span> and differentiable on <span class="math notranslate nohighlight">\((a,b)\)</span>, there exists a <span class="math notranslate nohighlight">\(\xi \in (a,b)\)</span> such that <span class="math notranslate nohighlight">\(f'(c) = \frac{f(b) - f(a)}{b-a}\)</span>.</p></li>
+<li><p><strong>Taylor’s Theorem</strong>: For <span class="math notranslate nohighlight">\(f \in C^{n+1}[a,b]\)</span> and <span class="math notranslate nohighlight">\(x_0, x \in [a,b]\)</span>, there’s a <span class="math notranslate nohighlight">\(\xi\)</span> between <span class="math notranslate nohighlight">\(x_0\)</span> and <span class="math notranslate nohighlight">\(x\)</span> with <span class="math notranslate nohighlight">\(f(x) = f(x_0) + f'(x_0)(x-x_0) + \frac{f''(x_0)}{2!}(x-x_0)^2 + \ldots + \frac{f^{(n)}(x_0)}{n!}(x-x_0)^n + \frac{f^{(n+1)}(\xi)}{(n+1)!}(x-x_0)^{n+1}.\)</span></p></li>
+<li><p><strong>Fundamental Theorem of Calculus:</strong> If <span class="math notranslate nohighlight">\(f\)</span> is continuous on <span class="math notranslate nohighlight">\([a, b]\)</span>, then <span class="math notranslate nohighlight">\(\int_a^b f(x) dx = F(b) - F(a)\)</span>, where <span class="math notranslate nohighlight">\(f\)</span> is the derivative of <span class="math notranslate nohighlight">\(F\)</span>.</p></li>
+<li><p><strong>Scalar Product of Vectors</strong>: The scalar product of vectors <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> is <span class="math notranslate nohighlight">\(x^Ty\)</span>.</p></li>
+<li><p><strong>Outer Product</strong> The outer product of two vectors <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span>, denoted as <span class="math notranslate nohighlight">\(x \otimes y\)</span>, is a matrix where the element in the <span class="math notranslate nohighlight">\(i\)</span>-th row and <span class="math notranslate nohighlight">\(j\)</span>-th column is given by <span class="math notranslate nohighlight">\(x_i y_j\)</span>. Thus, <span class="math notranslate nohighlight">\(x \otimes y = xy^T\)</span>.</p></li>
+<li><p><strong>Orthogonality</strong>: Two vectors are orthogonal if their scalar product is zero.</p></li>
+<li><p><strong>Orthogonal Complement</strong>: The orthogonal complement of a subspace <span class="math notranslate nohighlight">\(V\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span> is the set of all vectors in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span> orthogonal to every vector in <span class="math notranslate nohighlight">\(V\)</span>.</p></li>
+<li><p><strong>Linear Independence</strong>: A set of vectors is linearly independent if no vector in the set can be written as a linear combination of the others.</p></li>
+<li><p><strong>Basis and Dimension</strong>: A basis of a vector space is a linearly independent set of vectors that spans the space. The number of vectors in a basis is the dimension of the space.</p></li>
+<li><p><strong>Rank of a Matrix</strong>: The rank of a matrix is the maximum number of linearly independent rows or columns.</p></li>
+<li><p><strong>Eigenvectors and Eigenvalues</strong>: For square matrix <span class="math notranslate nohighlight">\(A\)</span>, <span class="math notranslate nohighlight">\(v \neq 0\)</span> is an eigenvector if <span class="math notranslate nohighlight">\(Av = \lambda v\)</span> for some scalar <span class="math notranslate nohighlight">\(\lambda\)</span> (the eigenvalue).</p></li>
+<li><p><strong>Characteristic Polynomial</strong>: The characteristic polynomial of matrix <span class="math notranslate nohighlight">\(A\)</span> is <span class="math notranslate nohighlight">\(\det(A - \lambda I)\)</span>. Its roots are the eigenvalues of <span class="math notranslate nohighlight">\(A\)</span>.</p></li>
+<li><p><strong>Eigenvalues of Triangular Matrix</strong>: Eigenvalues of a triangular matrix are its diagonal elements.</p></li>
+<li><p><strong>Determinant and Eigenvalues</strong>: The determinant of a matrix <span class="math notranslate nohighlight">\(A\)</span> is the product of its eigenvalues.</p></li>
+<li><p><strong>Inverse</strong>: A matrix <span class="math notranslate nohighlight">\(A\)</span> is invertible if and only if its determinant is non-zero. The inverse of <span class="math notranslate nohighlight">\(A\)</span> is <span class="math notranslate nohighlight">\(A^{-1}\)</span> such that <span class="math notranslate nohighlight">\(AA^{-1} = A^{-1}A = I\)</span></p></li>
+<li><p><strong>Singularity</strong>: A matrix is singular if it has no inverse, i.e., its determinant is zero.</p></li>
+<li><p><strong>Regular Matrix</strong>: A matrix is regular if it is non-singular.</p></li>
+<li><p><strong>Diagonalisation</strong>: A matrix <span class="math notranslate nohighlight">\(A\)</span> is diagonalizable if it has <span class="math notranslate nohighlight">\(n\)</span> linearly independent eigenvectors. It can be written as <span class="math notranslate nohighlight">\(A = X \Lambda X^{-1}\)</span>, where <span class="math notranslate nohighlight">\(\Lambda\)</span> is a diagonal matrix of eigenvalues and <span class="math notranslate nohighlight">\(X\)</span> is a matrix of eigenvectors.</p></li>
+<li><p><strong>Geometric and Algebraic Multiplicity</strong>: The geometric multiplicity of an eigenvalue is the dimension of the eigenspace. The algebraic multiplicity is the number of times the eigenvalue appears as a root of the characteristic polynomial.</p></li>
+<li><p><strong>Backward and forward substitution</strong> is used to solve a system of linear equations where the matrix is triangular. Backward substitution is also known as back substitution or backward elimination.</p></li>
+<li><p><strong>Gaussian elimination</strong> is a method for solving linear systems. It consists of applying row operations to transform the matrix into triangular form and then solving for the variables. Gaussian elimination is also known as row reduction.</p></li>
+</ul>
 </section>
 </section>
 
@@ -608,20 +484,20 @@ property that <span class="math notranslate nohighlight">\(A\)</span> is symmetr
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="5.2_eigenvalues_basic_properties.html"
+       href="week_9_self_check.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Basic properties of eigenvalue problems</p>
+        <p class="prev-next-title">Week 9 Self check questions and solutions</p>
       </div>
     </a>
     <a class="right-next"
-       href="5.4_computing_eigenvalues.html"
+       href="backmatter.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Computing eigenvalues</p>
+        <p class="prev-next-title">Bibliography</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -641,16 +517,8 @@ property that <span class="math notranslate nohighlight">\(A\)</span> is symmetr
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eigenvalue-condition-numbers">Eigenvalue Condition numbers</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eigenvalue-perturbations-and-the-resolvent">Eigenvalue perturbations and the resolvent</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#theorem">Theorem</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-bauer-fike-theorem">The Bauer-Fike Theorem</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#perturbation-bounds-for-hermitian-eigenvalue-problems">Perturbation bounds for Hermitian eigenvalue problems</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rayleigh-quotient-for-hermitian-eigenvalue-problems">Rayleigh-Quotient for Hermitian eigenvalue problems</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notation">Notation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#facts">Facts</a></li>
 </ul>
   </nav></div>
 
