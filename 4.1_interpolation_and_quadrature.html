@@ -392,7 +392,7 @@ document.write(`
 <h1>Introduction to interpolation<a class="headerlink" href="#introduction-to-interpolation" title="Link to this heading">#</a></h1>
 <p>The set of real polynomials of degree less than or equal to <span class="math notranslate nohighlight">\(n\)</span> is denoted by <span class="math notranslate nohighlight">\(\mathcal{P}_n\)</span>. We consider the following task:</p>
 <div class="tip admonition">
-<p class="admonition-title">Task: Polynomial Interpolation</p>
+<p class="admonition-title">Polynomial Interpolation</p>
 <p>Given <span class="math notranslate nohighlight">\(n+1\)</span> distinct points <span class="math notranslate nohighlight">\(x_0,x_1,\dots,x_n\)</span>, and <span class="math notranslate nohighlight">\(n+1\)</span> values <span class="math notranslate nohighlight">\(y_0,y_1,\dots,y_n\)</span>, find a polynomial <span class="math notranslate nohighlight">\(p_n \in \mathcal{P}_n\)</span> such that</p>
 <div class="math notranslate nohighlight">
 \[
@@ -425,7 +425,7 @@ p_n(x)= \sum_{j=0}^n y_j L_j(x).
 <div class="proof theorem admonition" id="theorem-0">
 <p class="admonition-title"><span class="caption-number">Theorem 6 </span> (Existence and uniqueness of interpolating polynomial)</p>
 <section class="theorem-content" id="proof-content">
-<p>Given <span class="math notranslate nohighlight">\(\{ (x_i,y_i) \}_{i=0}^n\)</span> with <span class="math notranslate nohighlight">\(x_i &lt; x_{i+1}\)</span> there exists a unique <span class="math notranslate nohighlight">\(p_n \in \mathcal{P}_n\)</span> such that <span class="math notranslate nohighlight">\(p_n(x_i) = y_i\)</span>.</p>
+<p>Given <span class="math notranslate nohighlight">\(\{ (x_i,y_i) \}_{i=0}^n\)</span> with <span class="math notranslate nohighlight">\(x_i &lt; x_{i+1}\)</span>, there exists a unique <span class="math notranslate nohighlight">\(p_n \in \mathcal{P}_n\)</span> such that <span class="math notranslate nohighlight">\(p_n(x_i) = y_i\)</span>.</p>
 </section>
 </div><div class="proof admonition" id="proof">
 <p>Proof. Let <span class="math notranslate nohighlight">\(q_n(x)\)</span> be an other polynomial of degree at most <span class="math notranslate nohighlight">\(n\)</span> that satisfies <span class="math notranslate nohighlight">\(q_n(x_j)=y_j\)</span>. Let <span class="math notranslate nohighlight">\(w_n:=p_n-q_n\)</span>. We then have <span class="math notranslate nohighlight">\(w(x_j)=0\)</span>, <span class="math notranslate nohighlight">\(j=0,\dots,n\)</span>. Hence, the polynomial <span class="math notranslate nohighlight">\(w_n\)</span> is a polynomial of maximum degree <span class="math notranslate nohighlight">\(n\)</span> with <span class="math notranslate nohighlight">\(n+1\)</span> distinct zeros. But since a nontrivial polynomial can only have at most <span class="math notranslate nohighlight">\(n\)</span> zeros, it follows that <span class="math notranslate nohighlight">\(w\equiv 0\)</span>, showing that <span class="math notranslate nohighlight">\(p_n\)</span> is the unique interpolation polynomial.</p>
@@ -443,31 +443,277 @@ p_n(x)= \sum_{j=0}^n y_j L_j(x).
 f(x) - p(x) = \frac{\omega_{n+1}(x) f^{(n+1)}(\xi)}{(n+1)!}.
 \]</div>
 </div>
-<p>One disadvantage of Interpolation error bound is that the result only applies to <span class="math notranslate nohighlight">\(f \in C^{n+1}[a,b]\)</span>. The celebrated Weierstrass approximation theorem shows that control on higher-order derivatives is not necessary for the approximation by polynomials.</p>
+<p>One disadvantage of the above interpolation error bound is that the result only applies to <span class="math notranslate nohighlight">\(f \in C^{n+1}[a,b]\)</span>. The celebrated Weierstrass approximation theorem shows that control on higher-order derivatives is not necessary for the approximation by polynomials.</p>
 <div class="prf-theorem admonition">
 <p class="admonition-title">Fact: Weierstrass approximation theorem</p>
 <p>Given <span class="math notranslate nohighlight">\(f \in C[a,b]\)</span> and <span class="math notranslate nohighlight">\(\epsilon &gt; 0\)</span> there exists an <span class="math notranslate nohighlight">\(n \in \mathbb{N}\)</span> and <span class="math notranslate nohighlight">\(p \in \mathcal{P}_n\)</span> such that <span class="math notranslate nohighlight">\(\| f - p \|_\infty &lt; \epsilon\)</span>.</p>
 </div>
-<p>Here <span class="math notranslate nohighlight">\(\| g \|_\infty = \max_{x \in [a,b]} |g(x)|\)</span> denotes the <span class="math notranslate nohighlight">\(\infty\)</span>- or uniform norm on <span class="math notranslate nohighlight">\(C[a,b]\)</span>.</p>
-<p>This <span class="math notranslate nohighlight">\(p\)</span> has to be selected with some care, and an unrefined interpolation method will generally not provide polynomials which approximate arbitrarily well. This is mainly due to the Runge phenomenon.</p>
-<p>\begin{figure}[ht]\centering
-\subfloat[<span class="math notranslate nohighlight">\(f(x) = \cos(x)\)</span>]{\includegraphics[width=0.45\textwidth]{./images/lec_2_runge_cos.pdf}} \hspace{1cm}
-\subfloat[<span class="math notranslate nohighlight">\(f(x) = \frac{1}{1+15 x^2}\)</span>]{\includegraphics[width=0.45\textwidth]{./images/lec_2_runge_1over1plusxsq.pdf}}\
-\subfloat[<span class="math notranslate nohighlight">\(f(x) = |x|\)</span>]{\includegraphics[width=0.45\textwidth]{./images/lec_2_runge_abs.pdf}} \hspace{1cm}
-\subfloat[<span class="math notranslate nohighlight">\(f(x) = \sign(x)\)</span>]{\includegraphics[width=0.45\textwidth]{./images/lec_2_runge_sign.pdf}}
-\caption{Equidistant polynomial interpolation of degrees <span class="math notranslate nohighlight">\(3\)</span>, <span class="math notranslate nohighlight">\(6\)</span>, <span class="math notranslate nohighlight">\(9\)</span> and <span class="math notranslate nohighlight">\(12\)</span>.}
-\label{fig:equi_poly_int}
-\end{figure}</p>
-<p>![[lec_2_runge_1over1plusxsq.pdf]]</p>
-<p>![[lec_2_runge_abs.pdf]]</p>
-<p>![[lec_2_runge_cos.pdf]]</p>
-<p>![[lec_2_runge_sign.pdf]]</p>
+<p>Here <span class="math notranslate nohighlight">\(\| g \|_\infty = \max_{x \in [a,b]} |g(x)|\)</span> denotes the <span class="math notranslate nohighlight">\(\infty\)</span>-norm on <span class="math notranslate nohighlight">\(C[a,b]\)</span>.</p>
+<p>The <span class="math notranslate nohighlight">\(p\)</span> of the Weierstrass approximation theorem has to be selected with much care, and an unrefined interpolation method will generally not provide polynomials which approximate arbitrarily well. This is mainly due to the Runge phenomenon.</p>
 <div class="proof example admonition" id="example-1">
 <p class="admonition-title"><span class="caption-number">Example 1 </span></p>
 <section class="example-content" id="proof-content">
-<p>Unless very smooth functions such as <span class="math notranslate nohighlight">\(\cos\)</span> are interpolated (recall that <span class="math notranslate nohighlight">\(\| \cos^{(n)} \|_\infty =1\)</span> for all <span class="math notranslate nohighlight">\(n \in \mathbb{N}\)</span>), one observes that interpolating polynomials of high-order exhibit strong oscillations near the interval ends. This behaviour is known as the Runge phenomenon.</p>
+<p>Unless very smooth functions such as <span class="math notranslate nohighlight">\(\cos\)</span> are interpolated (recall that <span class="math notranslate nohighlight">\(\| \cos^{(n)} \|_\infty = 1\)</span> for all <span class="math notranslate nohighlight">\(n\)</span>th derivatives <span class="math notranslate nohighlight">\(\cos^{(n)}\)</span>, <span class="math notranslate nohighlight">\(n \in \mathbb{N}\)</span>), one observes that interpolating polynomials of high-order exhibit strong oscillations near the interval ends. This behaviour is known as the Runge phenomenon.</p>
+<p>Click through the tabs to see:</p>
+<ul class="simple">
+<li><p>An example with infinitely many uniformly bounded derivatives.</p></li>
+<li><p>An example with infinitely many derivatives.</p></li>
+<li><p>An example with a continuous function.</p></li>
+<li><p>An example with a discontinuous function.</p></li>
+</ul>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-0">
+cos(x)</label><div class="sd-tab-content docutils">
+<p><img alt="cos" src="_images/cos.png" /></p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+Matplotlib code<div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">scipy.interpolate</span> <span class="kn">import</span> <span class="n">lagrange</span>
+
+<span class="c1"># Function to perform polynomial interpolation and plot</span>
+<span class="k">def</span> <span class="nf">plot_interpolation</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">nodes</span><span class="p">,</span> <span class="n">xx</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+    <span class="n">values</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">nodes</span><span class="p">)</span>  <span class="c1"># evaluate f at the nodes</span>
+
+    <span class="c1"># Perform polynomial interpolation</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">lagrange</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span>
+    
+    <span class="c1"># evaluate interpolating polynomial at xx</span>
+    <span class="n">p_xx</span> <span class="o">=</span> <span class="n">p</span><span class="p">(</span><span class="n">xx</span><span class="p">)</span>
+
+    <span class="c1"># Plot</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">p_xx</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">)</span>
+
+<span class="c1"># Fine grid for plotting</span>
+<span class="n">xx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>  
+
+<span class="c1"># True function</span>
+<span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">f_xx</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">xx</span><span class="p">)</span>
+
+<span class="c1"># Plot the true function</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">f_xx</span><span class="p">,</span> <span class="s1">&#39;k--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;True Function $f$&#39;</span><span class="p">)</span>
+
+<span class="c1"># Plot for different n</span>
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">12</span><span class="p">]:</span>
+    <span class="n">plot_interpolation</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="n">xx</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;n = </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Formatting the plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Polynomial Interpolation of the Cosine Function&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details></div>
+<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-1">
+1 / (1 + 15 x^2)</label><div class="sd-tab-content docutils">
+<p><img alt="fraction" src="_images/fraction.png" /></p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+Matplotlib code<div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">scipy.interpolate</span> <span class="kn">import</span> <span class="n">lagrange</span>
+
+<span class="c1"># Function to perform polynomial interpolation and plot</span>
+<span class="k">def</span> <span class="nf">plot_interpolation</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">nodes</span><span class="p">,</span> <span class="n">xx</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+    <span class="n">values</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">nodes</span><span class="p">)</span>  <span class="c1"># evaluate f at the nodes</span>
+
+    <span class="c1"># Perform polynomial interpolation</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">lagrange</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span>
+    
+    <span class="c1"># evaluate interpolating polynomial at xx</span>
+    <span class="n">p_xx</span> <span class="o">=</span> <span class="n">p</span><span class="p">(</span><span class="n">xx</span><span class="p">)</span>
+
+    <span class="c1"># Plot</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">p_xx</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">)</span>
+
+<span class="c1"># Fine grid for plotting</span>
+<span class="n">xx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>  
+
+<span class="c1"># True function</span>
+<span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mf">15.0</span> <span class="o">*</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">f_xx</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">xx</span><span class="p">)</span>
+
+<span class="c1"># Plot the true function</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">f_xx</span><span class="p">,</span> <span class="s1">&#39;k--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;True Function $f$&#39;</span><span class="p">)</span>
+
+<span class="c1"># Plot for different n</span>
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">12</span><span class="p">]:</span>
+    <span class="n">plot_interpolation</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="n">xx</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;n = </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Formatting the plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Polynomial Interpolation of the Cosine Function&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details></div>
+<input id="sd-tab-item-2" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-2">
+abs(x)</label><div class="sd-tab-content docutils">
+<p><img alt="cos" src="_images/abs.png" /></p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+Matplotlib code<div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">scipy.interpolate</span> <span class="kn">import</span> <span class="n">lagrange</span>
+
+<span class="c1"># Function to perform polynomial interpolation and plot</span>
+<span class="k">def</span> <span class="nf">plot_interpolation</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">nodes</span><span class="p">,</span> <span class="n">xx</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+    <span class="n">values</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">nodes</span><span class="p">)</span>  <span class="c1"># evaluate f at the nodes</span>
+
+    <span class="c1"># Perform polynomial interpolation</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">lagrange</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span>
+    
+    <span class="c1"># evaluate interpolating polynomial at xx</span>
+    <span class="n">p_xx</span> <span class="o">=</span> <span class="n">p</span><span class="p">(</span><span class="n">xx</span><span class="p">)</span>
+
+    <span class="c1"># Plot</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">p_xx</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">)</span>
+
+<span class="c1"># Fine grid for plotting</span>
+<span class="n">xx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>  
+
+<span class="c1"># True function</span>
+<span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">f_xx</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">xx</span><span class="p">)</span>
+
+<span class="c1"># Plot the true function</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">f_xx</span><span class="p">,</span> <span class="s1">&#39;k--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;True Function $f$&#39;</span><span class="p">)</span>
+
+<span class="c1"># Plot for different n</span>
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">12</span><span class="p">]:</span>
+    <span class="n">plot_interpolation</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="n">xx</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;n = </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Formatting the plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Polynomial Interpolation of the Cosine Function&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details></div>
+<input id="sd-tab-item-3" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-3">
+sign(x)</label><div class="sd-tab-content docutils">
+<p><img alt="cos" src="_images/sign.png" /></p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+Matplotlib code<div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">scipy.interpolate</span> <span class="kn">import</span> <span class="n">lagrange</span>
+
+<span class="c1"># Function to perform polynomial interpolation and plot</span>
+<span class="k">def</span> <span class="nf">plot_interpolation</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">nodes</span><span class="p">,</span> <span class="n">xx</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+    <span class="n">values</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">nodes</span><span class="p">)</span>  <span class="c1"># evaluate f at the nodes</span>
+
+    <span class="c1"># Perform polynomial interpolation</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">lagrange</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span>
+    
+    <span class="c1"># evaluate interpolating polynomial at xx</span>
+    <span class="n">p_xx</span> <span class="o">=</span> <span class="n">p</span><span class="p">(</span><span class="n">xx</span><span class="p">)</span>
+
+    <span class="c1"># Plot</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">p_xx</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">)</span>
+
+<span class="c1"># Fine grid for plotting</span>
+<span class="n">xx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>  
+
+<span class="c1"># True function</span>
+<span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">f_xx</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">xx</span><span class="p">)</span>
+
+<span class="c1"># Plot the true function</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">f_xx</span><span class="p">,</span> <span class="s1">&#39;k--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;True Function $f$&#39;</span><span class="p">)</span>
+
+<span class="c1"># Plot for different n</span>
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">12</span><span class="p">]:</span>
+    <span class="n">plot_interpolation</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="n">xx</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;n = </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Formatting the plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Polynomial Interpolation of the Cosine Function&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details></div>
+</div>
 </section>
-</div></section>
+</div><p>To understand the Runge phenomenon, it is instructive to examine the error term</p>
+<div class="math notranslate nohighlight">
+\[
+\omega_{n+1}(x) \frac{f^{(n+1)}(\xi)}{(n+1!)} = E(x), \qquad x \in (x_0, x_n)
+\]</div>
+<p>more carefully for functions such as the <span class="math notranslate nohighlight">\(x \mapsto \frac{1}{1 + 15 x^2}\)</span> of the previous example.</p>
+<p>The part <span class="math notranslate nohighlight">\(\frac{f^{(n+1)}(\xi)}{(n+1!)}\)</span> depends on the</p>
+<p>We have</p>
+<div class="math notranslate nohighlight">
+\[
+| E(x) | \le \frac{| x - x_0 | \cdots | x - x_n |}{(n+1)!} \| f^{(n+1)} \|_\infty.
+\]</div>
+<p>Let <span class="math notranslate nohighlight">\(h := \max_i x_{i+1} - x_i\)</span> and <span class="math notranslate nohighlight">\(x \in (x_j, x_{j+1})\)</span>. Then</p>
+<div class="math notranslate nohighlight">
+\[
+| x - x_j | \, | x - x_{j+1} | \le \frac{h^2}{4},
+\]</div>
+<p>because the product is largest if <span class="math notranslate nohighlight">\(x = \frac{1}{2} (x_j + x_{j+1})\)</span>. Furthermore, <span class="math notranslate nohighlight">\(| x - x_{j+2} | \le 2 h\)</span>, <span class="math notranslate nohighlight">\(| x - x_{j+3} | \le 3 h\)</span>, \ldots The worst cases are <span class="math notranslate nohighlight">\(j=0\)</span> and <span class="math notranslate nohighlight">\(j+1 = n\)</span>. Then</p>
+<div class="math notranslate nohighlight">
+\[
+| x - x_0 | \cdots | x - x_n | \le \frac{h^{n+1}}{4} n!\,.
+\]</div>
+<p>Thus</p>
+<div class="math notranslate nohighlight">
+\[
+\| E \|_\infty \le \frac{h^{n+1}}{4 (n+1)} \| f^{(n+1)} \|_\infty.
+\]</div>
+<p>If the spacing is uniform, i.e. <span class="math notranslate nohighlight">\(x_{j+1} - x_j = (b-a)/n\)</span>, then</p>
+<div class="math notranslate nohighlight">
+\[
+\| E \|_\infty \le \frac{((b-a)/n)^{n+1}}{4 (n+1)} \| f^{(n+1)} \|_\infty.
+\]</div>
+<p>While one has no control on the given term <span class="math notranslate nohighlight">\(\| f^{(n+1)} \|_\infty\)</span> one can influence <span class="math notranslate nohighlight">\(\| \omega_{n+1} \|_\infty\)</span> by selecting the nodes carefully.</p>
+</section>
 
     <script type="text/x-thebe-config">
     {
