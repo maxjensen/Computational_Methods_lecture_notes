@@ -8,7 +8,7 @@
         "type": "tabs",
         "children": [
           {
-            "id": "14130e202ec15dbf",
+            "id": "be34097491d462e5",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -16,30 +16,6 @@
                 "file": "4.1_interpolation_and_quadrature.md",
                 "mode": "source",
                 "source": true
-              }
-            }
-          },
-          {
-            "id": "f927d4d8fb3aec66",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "3.3_least_squares_problems.md",
-                "mode": "source",
-                "source": true
-              }
-            }
-          },
-          {
-            "id": "be34097491d462e5",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "week_5_self_check.md",
-                "mode": "source",
-                "source": false
               }
             }
           }
@@ -170,53 +146,53 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "14130e202ec15dbf",
+  "active": "be34097491d462e5",
   "lastOpenFiles": [
-    "3.3_least_squares_problems.md",
-    "4.1_interpolation_and_quadrature.md",
+    "_build/html/_images/cheb_error_polynomial.png",
+    "figures/cheb_error_polynomial.png",
+    "figures/Untitled.png",
+    "_build/html/_images/cheb_sign.png",
+    "_build/html/_images/cheb_modulus.png",
+    "_build/html/_images/cheb_fraction.png",
+    "_build/html/_images/cheb_cos.png",
+    "figures/cheb_fraction.png",
+    "figures/cheb_modulus.png",
+    "figures/cheb_cos.png",
+    "figures/cheb_sign.png",
+    "_build/html/searchindex.js.tmp",
     "3.2_singular_value_decomposition.md",
-    "4.3_stable_quadrature_schemes.md",
-    "week_5_self_check.md",
+    "3.3_least_squares_problems.md",
     "3.1_qr_decomposition.md",
-    "5.1_complex_vector_spaces.md",
-    "5.3_eigenvalues_perturbation_theory.md",
-    "5.2_eigenvalues_basic_properties.md",
-    "2.2_lu_backward_error.md",
-    "2.1_lu_decomposition.md",
-    "1.5_complexity_notation.md",
-    "1.4_linear_system_error.md",
-    "1.3_error_analysis.md",
-    "1.1_matrix_vector_norms.md",
-    "growth_factors.png",
-    "logo.png",
-    "byte_array.png",
+    "notation_and_facts.md",
+    "4.1_interpolation_and_quadrature.md",
+    "bibliography.md",
     "_build/html/_static/proof.css",
     "_build/html/_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css",
     "_build/html/objects.inv",
     "_build/html/searchindex.js",
-    "_build/html/_images/growth_factors.png",
-    "_build/html/_images/ec5789c83b94a1ab5da0a0107da430e6249c5d25cc5db1c1e994a02d76240b16.png",
-    "_build/html/_images/dda8444885b398171e883c2935913da9785267e5282b66b2e8b313aab89c8924.png",
-    "_build/html/_images/byte_array.png",
-    "_build/html/_images/bf1e4e48bbd0762eb41af28804ac5d10dc612b02be6c12800050f285e2da45d3.png",
-    "_build/html/_images/b6b9f26e02d111686ddba314fc549ae72e2fdf82c4c664efaef06637aa23eda1.png",
-    "_build/html/_images/ad1ae1894a57f02e325c84a253d44c1de0d76032b99fef5e592f5abd26d13447.png",
     "_build/html/_images",
     "_build/html/search.html",
     "_build/html/prf-prf.html",
     "_build/html/genindex.html",
     "_build/html/_sources/week_9_self_check.ipynb",
-    "_build/html/week_9_self_check.html",
     "_build/html/_sources/week_7_self_check.md",
     "_build/html/_sources/week_6_self_check.md",
     "_build/html/_sources/week_5_self_check.md",
     "_build/html/_sources/week_3_self_check.md",
     "_build/html/_sources/week_2_self_check.md",
     "_build/html/_sources/week_1_self_check.md",
+    "_build/html/_sources/notation_and_facts.md",
     "_build/html/_sources/index.md",
-    "_build/html/_sources/backmatter.md",
+    "_build/html/_sources/bibliography.md",
     "_build/html/_sources/5.3_eigenvalues_perturbation_theory.md",
     "_build/html/_sources/5.2_eigenvalues_basic_properties.md",
-    "_build/html/_sources/5.1_complex_vector_spaces.md"
+    "_build/html/_sources/5.1_complex_vector_spaces.md",
+    "_build/html/_sources/4.3_stable_quadrature_schemes.md",
+    "_build/html/_sources/4.1_interpolation_and_quadrature.md",
+    "_build/html/_sources/3.3_least_squares_problems.md",
+    "_build/html/_sources/3.2_singular_value_decomposition.md",
+    "_build/html/_sources/3.1_qr_decomposition.md",
+    "_build/html/_sources/2.2_lu_backward_error.md",
+    "_build/html/_sources/2.1_lu_decomposition.md"
   ]
 }

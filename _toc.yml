@@ -44,4 +44,5 @@ parts:
     - file: week_9_self_check.ipynb
 - caption: Back matter
   chapters:
-    - file: backmatter
+    - file: notation_and_facts
+    - file: bibliography
