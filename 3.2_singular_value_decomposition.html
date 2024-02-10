@@ -236,8 +236,8 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Back matter</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="prerequisities.html">Useful facts and notation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="backmatter.html">Bibliography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notation_and_facts.html">Notation and facts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bibliography.html">Bibliography</a></li>
 </ul>
 
     </div>
@@ -429,16 +429,17 @@ A = U\Sigma V^T,
 <p><strong>Insights</strong></p>
 <ol class="arabic">
 <li><p><strong>Rank determination</strong>: The rank of matrix <span class="math notranslate nohighlight">\(A\)</span> is equal to <span class="math notranslate nohighlight">\(r\)</span>, defined as the count of non-zero singular values in the decomposition.</p></li>
-<li><p><strong>Kernel characterisation</strong>: The kernel (or null space) of <span class="math notranslate nohighlight">\(A\)</span>, denoted as <span class="math notranslate nohighlight">\(\text{ker}(A)\)</span>, is characterised by the span of the vectors <span class="math notranslate nohighlight">\(\{v_{r+1}, \dots, v_n\}\)</span>.</p></li>
+<li><p><strong>Kernel characterisation</strong>: The kernel (or null space) of <span class="math notranslate nohighlight">\(A\)</span>, denoted as <span class="math notranslate nohighlight">\(\text{ker}(A)\)</span>, is the span of the vectors <span class="math notranslate nohighlight">\(\{v_{r+1}, \dots, v_n\}\)</span>.</p></li>
 <li><p><strong>Range specification</strong>: The range of <span class="math notranslate nohighlight">\(A\)</span>, represented as <span class="math notranslate nohighlight">\(\text{ran}(A)\)</span>, is the span of the vectors <span class="math notranslate nohighlight">\(\{u_1, \dots, u_r\}\)</span>.</p></li>
-<li><p><strong>2 norm relation</strong>: The <span class="math notranslate nohighlight">\(2\)</span> norm of <span class="math notranslate nohighlight">\(A\)</span> is equivalent to the greatest singular value, <span class="math notranslate nohighlight">\(\sigma_1\)</span>. Hence, <span class="math notranslate nohighlight">\(\|A\|_2 = \sigma_1\)</span>.</p></li>
-<li><p><strong>Frobenius norm calculation</strong>: Utilising the property that <span class="math notranslate nohighlight">\(\|Q_1 A Q_2\|_F = \|A\|_F\)</span> for any orthogonal matrices <span class="math notranslate nohighlight">\(Q_1\)</span> and <span class="math notranslate nohighlight">\(Q_2\)</span>, we find that</p>
+<li><p><strong><span class="math notranslate nohighlight">\(2\)</span>-norm relation</strong>: The <span class="math notranslate nohighlight">\(2\)</span> norm of <span class="math notranslate nohighlight">\(A\)</span> is equal to the greatest singular value, <span class="math notranslate nohighlight">\(\sigma_1\)</span>. Hence, <span class="math notranslate nohighlight">\(\|A\|_2 = \sigma_1\)</span>.</p></li>
+<li><p><strong>Frobenius norm calculation</strong>: Utilising the property that <span class="math notranslate nohighlight">\(\|Q A P\|_F = \|A\|_F\)</span> for any orthogonal matrices <span class="math notranslate nohighlight">\(Q\)</span> and <span class="math notranslate nohighlight">\(P\)</span>, we find that</p>
 <div class="math notranslate nohighlight">
 \[\|A\|_F =\left(\sum_{j=1}^r\sigma_j^2\right)^{1/2}.\]</div>
 </li>
 <li><p><strong>Norm inequalities</strong>: As a direct result, we deduce the inequality <span class="math notranslate nohighlight">\(\|A\|_2 \leq \|A\|_F \leq \sqrt{r}\|A\|_2\)</span>.</p></li>
 <li><p><strong>Inverse and condition number</strong>: For an invertible matrix <span class="math notranslate nohighlight">\(A\)</span>, its inverse is <span class="math notranslate nohighlight">\(A^{-1} = V\Sigma^{-1}U^T\)</span>, and <span class="math notranslate nohighlight">\(\|A^{-1}\|_2 = \sigma_n^{-1}\)</span>. The relative condition number, <span class="math notranslate nohighlight">\(\kappa_{rel}(A)\)</span>, is thus <span class="math notranslate nohighlight">\(\frac{\sigma_1}{\sigma_n}\)</span>. The smallest perturbation that makes <span class="math notranslate nohighlight">\(A + \Delta A\)</span> singular is <span class="math notranslate nohighlight">\(\Delta A = -\sigma_n u_n v_n^T\)</span>. Therefore, the condition number inversely relates to the smallest relative perturbation distance to singularity.</p></li>
 </ol>
+<p>See also the related self-check question below.</p>
 <section id="svd-and-low-rank-approximation">
 <h2>SVD and low-rank approximation<a class="headerlink" href="#svd-and-low-rank-approximation" title="Link to this heading">#</a></h2>
 <p>The singular value decomposition of matrix <span class="math notranslate nohighlight">\(A\)</span>, represented as <span class="math notranslate nohighlight">\(A = U\Sigma V^T\)</span>, can be expansively expressed as a sum of rank-1 matrices:</p>
@@ -575,6 +576,54 @@ A =
 \end{bmatrix}
 = U \Sigma V^T.
 \end{split}\]</div>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Explain why each of the insights, listed after the theorem about the existence of the SVD, holds.</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<strong>Answer</strong><div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">To prove these insights, let’s assume that the SVD of a <span class="math notranslate nohighlight">\(A\)</span> is given by <span class="math notranslate nohighlight">\(A = U \Sigma V^T\)</span>.</p>
+<p class="sd-card-text"><strong>Rank determination:</strong> We first show that <span class="math notranslate nohighlight">\(\text{rank}(A) \geq r\)</span>. Indeed, this is the case if one can find <span class="math notranslate nohighlight">\(r\)</span> linearly independent vectors in the range of <span class="math notranslate nohighlight">\(A\)</span>. Because <span class="math notranslate nohighlight">\(U\)</span> is orthogonal, its first <span class="math notranslate nohighlight">\(r\)</span> columns <span class="math notranslate nohighlight">\(\{u_1, \ldots, u_r\}\)</span> are linearly independent. Moreover, <span class="math notranslate nohighlight">\(u_j \in \text{ran}(A)\)</span> because the <span class="math notranslate nohighlight">\(j\)</span>th column vector <span class="math notranslate nohighlight">\(v_j\)</span> of <span class="math notranslate nohighlight">\(V\)</span> maps</p>
+<div class="math notranslate nohighlight">
+\[
+A \, v_j = U \, \Sigma V^T \, v_j = U \, \Sigma \, e_j = \sigma_j \, U e_j = \sigma_j \, u_j.
+\]</div>
+<p class="sd-card-text">Now we show that <span class="math notranslate nohighlight">\(\text{rank}(A) \leq r\)</span>, recall the reduced SVD form <span class="math notranslate nohighlight">\(A = U_1\hat{\Sigma}V_1^T\)</span>. This implies <span class="math notranslate nohighlight">\(\text{rank}(A) \leq \text{rank}(U_1)\)</span>. Because <span class="math notranslate nohighlight">\(U_1\)</span> has only <span class="math notranslate nohighlight">\(r\)</span> columns, the result follows.</p>
+<p class="sd-card-text"><strong>Kernel characterization:</strong> <span class="math notranslate nohighlight">\(Ax = 0\)</span> implies <span class="math notranslate nohighlight">\(U \Sigma V^T x = 0\)</span>. Multiplying both sides by <span class="math notranslate nohighlight">\(U^T\)</span>, we get <span class="math notranslate nohighlight">\(\Sigma V^T x = 0\)</span>. This equation can only be satisfied by vectors in the span of the columns of <span class="math notranslate nohighlight">\(V\)</span> corresponding to zero singular values, which are <span class="math notranslate nohighlight">\(\{v_{r+1}, \dots, v_n\}\)</span>.</p>
+<p class="sd-card-text"><strong>Range specification:</strong> The above argument for the rank determination showed that the columns of <span class="math notranslate nohighlight">\(A\)</span> are spanned by the columns of <span class="math notranslate nohighlight">\(U\)</span> corresponding to non-zero singular values in <span class="math notranslate nohighlight">\(\Sigma\)</span>. Hence, <span class="math notranslate nohighlight">\(\text{ran}(A)\)</span> is spanned by <span class="math notranslate nohighlight">\(\{u_1, \dots, u_r\}\)</span>.</p>
+<p class="sd-card-text"><strong><span class="math notranslate nohighlight">\(2\)</span>-Norm relation:</strong> We matrix norm is induced by the Euclidean norm:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\| A \|_2 &amp; = \max_{x \neq 0} \frac{\| A x \|_2}{\| x \|_2} = \max_{x \neq 0} \frac{\| U \Sigma V^T x \|_2}{\| x \|_2} \stackrel{\| x \| = \| V^T x \|}{=} \max_{x \neq 0} \frac{\| U \Sigma V^T x \|_2}{\| V^T x \|_2}\\
+&amp; \stackrel{V^T x = y}{=} \max_{y \neq 0} \frac{\| U \Sigma y \|_2}{\| y \|_2} \stackrel{\| U \Sigma y \| = \| \Sigma y \|}{=} \max_{y \neq 0} \frac{\| \Sigma y \|_2}{\| y \|_2} \stackrel{(*)}{=} \sigma_1.
+\end{align}
+\end{split}\]</div>
+<p class="sd-card-text">For <span class="math notranslate nohighlight">\((*)\)</span> we use that <span class="math notranslate nohighlight">\(\sigma_1\)</span> is attained by <span class="math notranslate nohighlight">\(\| \Sigma y \| / \| y \|\)</span> with <span class="math notranslate nohighlight">\(y = e_1\)</span> and that <span class="math notranslate nohighlight">\(\| \Sigma y \|^2 \leq \sum_i (\sigma_1 y_i)^2 = \sigma_1^2 \| y \|^2\)</span>.</p>
+<p class="sd-card-text"><strong>Frobenius norm calculation:</strong>
+To show that multiplication with an orthogonal matrix from the left and right does not change the Frobenius norm, we use that the multiplication with an orthogonal matrix does not change the <span class="math notranslate nohighlight">\(2\)</span>-norm of a vector:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\sum_{i,j} |(Q A P)_{ij}|^2 &amp; = \sum_j \| (Q A P)_{:,j} \|_2^2 = \sum_j \| (A P)_{:,j} \|_2^2 = \| A P \|_F^2\\
+&amp; = \| P^T A^T \|_F^2 = \sum_j \| (P^T A^T)_{:,j} \|_2^2 = \| A^T \|F^2.
+\end{align}
+\end{split}\]</div>
+<p class="sd-card-text">Therefore,</p>
+<div class="math notranslate nohighlight">
+\[
+\| A \|_F^2 = \| U \Sigma V^T \|_F^2 = \| \Sigma \|_F^2 = \sum_{i = 1}^r \sigma_i^2.
+\]</div>
+<p class="sd-card-text"><strong>Norm inequalities:</strong> We note that <span class="math notranslate nohighlight">\(\| A \|_2^2 = \sigma_1^2 \leq \sum_{i = 1}^r \sigma_i^2 = \| A \|_F^2 \leq r \sigma_1^2 = r \| A \|_2^2\)</span>.</p>
+<p class="sd-card-text"><strong>Inverse and condition number:</strong>
+Let <span class="math notranslate nohighlight">\(A\)</span> be invertible. Because <span class="math notranslate nohighlight">\((U \Sigma V^T) (V \Sigma^{-1} U^T) = I\)</span>, it is clear that <span class="math notranslate nohighlight">\(A^{-1} = V \Sigma^{-1} U^T\)</span>. Therefore, <span class="math notranslate nohighlight">\(\|A^{-1}\|_2\)</span> is <span class="math notranslate nohighlight">\(\sigma_n^{-1}\)</span>, the reciprocal of the smallest singular value and the relative condition number for the <span class="math notranslate nohighlight">\(2\)</span>-norm is <span class="math notranslate nohighlight">\(\kappa_{rel}(A) = \| A \|_2 \cdot \| A^{-1} \|_2 = \sigma_1 / \sigma_n\)</span>.</p>
+<p class="sd-card-text">Using the theorem of the low-rank matrix approximation, the smallest perturbation <span class="math notranslate nohighlight">\(\Delta A\)</span> that makes <span class="math notranslate nohighlight">\(A + \Delta A\)</span> singular corresponds to the smallest singular value, so <span class="math notranslate nohighlight">\(\Delta A = -\sigma_n u_n v_n^T\)</span>, implying that the condition number is inversely related to the smallest relative perturbation distance to singularity.</p>
 </div>
 </details><div class="tip admonition">
 <p class="admonition-title"><strong>Question</strong></p>

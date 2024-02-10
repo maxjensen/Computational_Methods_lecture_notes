@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Useful facts and notation &#8212; Computational Methods MATH0058 lecture notes</title>
+    <title>Notation and facts &#8212; Computational Methods MATH0058 lecture notes</title>
   
   
   
@@ -68,10 +68,10 @@ const thebe_selector_output = ".output, .cell_output"
 </script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'prerequisities';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notation_and_facts';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Bibliography" href="backmatter.html" />
+    <link rel="next" title="Bibliography" href="bibliography.html" />
     <link rel="prev" title="Week 9 Self check questions and solutions" href="week_9_self_check.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -236,8 +236,8 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Back matter</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Useful facts and notation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="backmatter.html">Bibliography</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Notation and facts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bibliography.html">Bibliography</a></li>
 </ul>
 
     </div>
@@ -292,7 +292,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="_sources/prerequisities.md" target="_blank"
+      <li><a href="_sources/notation_and_facts.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -376,7 +376,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Useful facts and notation</h1>
+    <h1>Notation and facts</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -399,21 +399,23 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="useful-facts-and-notation">
-<h1>Useful facts and notation<a class="headerlink" href="#useful-facts-and-notation" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="notation-and-facts">
+<h1>Notation and facts<a class="headerlink" href="#notation-and-facts" title="Link to this heading">#</a></h1>
 <section id="notation">
 <h2>Notation<a class="headerlink" href="#notation" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(f \in C[a,b]\)</span>: <span class="math notranslate nohighlight">\(f\)</span> is continuous on <span class="math notranslate nohighlight">\([a,b]\)</span>.</p></li>
-<li><p><span class="math notranslate nohighlight">\(f \in C^{n+1}[a,b]\)</span>: <span class="math notranslate nohighlight">\(f\)</span> is <span class="math notranslate nohighlight">\(n+1\)</span> times continuously differentiable on <span class="math notranslate nohighlight">\([a,b]\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(f \in C^n[a,b]\)</span>: <span class="math notranslate nohighlight">\(f\)</span> is <span class="math notranslate nohighlight">\(n\)</span> times continuously differentiable on <span class="math notranslate nohighlight">\([a,b]\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(f \in C^\infty{n+1}[a,b]\)</span>: <span class="math notranslate nohighlight">\(f\)</span> is arbitrary times continuously differentiable on <span class="math notranslate nohighlight">\([a,b]\)</span>.</p></li>
 <li><p><span class="math notranslate nohighlight">\(\mathcal{P}_n\)</span>: The set of polynomials of degree at most <span class="math notranslate nohighlight">\(n\)</span>.</p></li>
 <li><p><span class="math notranslate nohighlight">\(\delta_{ij}\)</span>: The Kronecker delta, equal to <span class="math notranslate nohighlight">\(1\)</span> if <span class="math notranslate nohighlight">\(i=j\)</span> and 0 otherwise.</p></li>
 <li><p><span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>: The <span class="math notranslate nohighlight">\(n\)</span>-dimensional real coordinate space.</p></li>
 <li><p><span class="math notranslate nohighlight">\(\mathbb{R}^{m \times n}\)</span>: The set of <span class="math notranslate nohighlight">\(m \times n\)</span> real matrices.</p></li>
 <li><p><span class="math notranslate nohighlight">\(\mathbb{R}^+\)</span>: The set of positive real numbers.</p></li>
-<li><p><span class="math notranslate nohighlight">\(A_{ij}\)</span>: The element in the <span class="math notranslate nohighlight">\(i\)</span>-th row and <span class="math notranslate nohighlight">\(j\)</span>-th column of matrix <span class="math notranslate nohighlight">\(A\)</span>.</p></li>
-<li><p><span class="math notranslate nohighlight">\(A_{:,j}\)</span>: The <span class="math notranslate nohighlight">\(j\)</span>-th column of matrix <span class="math notranslate nohighlight">\(A\)</span>.</p></li>
-<li><p><span class="math notranslate nohighlight">\(A_{i,:}\)</span>: The <span class="math notranslate nohighlight">\(i\)</span>-th row of matrix <span class="math notranslate nohighlight">\(A\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(e_i\)</span>: The <span class="math notranslate nohighlight">\(i\)</span>-th standard basis vector.</p></li>
+<li><p><span class="math notranslate nohighlight">\(a_{ij}\)</span>: The element in the <span class="math notranslate nohighlight">\(i\)</span>-th row and <span class="math notranslate nohighlight">\(j\)</span>-th column of matrix <span class="math notranslate nohighlight">\(A\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(a_{:,j}\)</span> or <span class="math notranslate nohighlight">\(a_j\)</span>:: The <span class="math notranslate nohighlight">\(j\)</span>-th column of matrix <span class="math notranslate nohighlight">\(A\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(a_{i,:}\)</span>: The <span class="math notranslate nohighlight">\(i\)</span>-th row of matrix <span class="math notranslate nohighlight">\(A\)</span>.</p></li>
 <li><p><span class="math notranslate nohighlight">\(A^T\)</span>: The transpose of matrix <span class="math notranslate nohighlight">\(A\)</span>.</p></li>
 <li><p><span class="math notranslate nohighlight">\(\text{diag}(a_1, \ldots, a_n)\)</span>: A diagonal matrix with diagonal elements <span class="math notranslate nohighlight">\(a_1, \ldots, a_n\)</span>.</p></li>
 <li><p><span class="math notranslate nohighlight">\(\text{diag}(A)\)</span>: The diagonal of matrix <span class="math notranslate nohighlight">\(A\)</span>.</p></li>
@@ -425,30 +427,30 @@ document.write(`
 <section id="facts">
 <h2>Facts<a class="headerlink" href="#facts" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p><strong>Geometric Series</strong>: <span class="math notranslate nohighlight">\(\sum_{k=0}^n x^k = \frac{1-x^{n+1}}{1-x}\)</span> for <span class="math notranslate nohighlight">\(x \neq 1\)</span>. Converges to <span class="math notranslate nohighlight">\(\frac{1}{1-x}\)</span> if <span class="math notranslate nohighlight">\(|x| &lt; 1\)</span>.</p></li>
-<li><p><strong>Continuity and Limits</strong>: A function <span class="math notranslate nohighlight">\(f\)</span> is continuous at a point <span class="math notranslate nohighlight">\(c\)</span> if <span class="math notranslate nohighlight">\(\lim_{x \to c} f(x) = f(c)\)</span>.</p></li>
-<li><p><strong>Boundeness of Continuous Functions</strong>: A continuous function on a closed interval is bounded.</p></li>
-<li><p><strong>Mean Value Theorem</strong>: If <span class="math notranslate nohighlight">\(f \in C[a,b]\)</span> and differentiable on <span class="math notranslate nohighlight">\((a,b)\)</span>, there exists a <span class="math notranslate nohighlight">\(\xi \in (a,b)\)</span> such that <span class="math notranslate nohighlight">\(f'(c) = \frac{f(b) - f(a)}{b-a}\)</span>.</p></li>
-<li><p><strong>Taylor’s Theorem</strong>: For <span class="math notranslate nohighlight">\(f \in C^{n+1}[a,b]\)</span> and <span class="math notranslate nohighlight">\(x_0, x \in [a,b]\)</span>, there’s a <span class="math notranslate nohighlight">\(\xi\)</span> between <span class="math notranslate nohighlight">\(x_0\)</span> and <span class="math notranslate nohighlight">\(x\)</span> with <span class="math notranslate nohighlight">\(f(x) = f(x_0) + f'(x_0)(x-x_0) + \frac{f''(x_0)}{2!}(x-x_0)^2 + \ldots + \frac{f^{(n)}(x_0)}{n!}(x-x_0)^n + \frac{f^{(n+1)}(\xi)}{(n+1)!}(x-x_0)^{n+1}.\)</span></p></li>
-<li><p><strong>Fundamental Theorem of Calculus:</strong> If <span class="math notranslate nohighlight">\(f\)</span> is continuous on <span class="math notranslate nohighlight">\([a, b]\)</span>, then <span class="math notranslate nohighlight">\(\int_a^b f(x) dx = F(b) - F(a)\)</span>, where <span class="math notranslate nohighlight">\(f\)</span> is the derivative of <span class="math notranslate nohighlight">\(F\)</span>.</p></li>
-<li><p><strong>Scalar Product of Vectors</strong>: The scalar product of vectors <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> is <span class="math notranslate nohighlight">\(x^Ty\)</span>.</p></li>
-<li><p><strong>Outer Product</strong> The outer product of two vectors <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span>, denoted as <span class="math notranslate nohighlight">\(x \otimes y\)</span>, is a matrix where the element in the <span class="math notranslate nohighlight">\(i\)</span>-th row and <span class="math notranslate nohighlight">\(j\)</span>-th column is given by <span class="math notranslate nohighlight">\(x_i y_j\)</span>. Thus, <span class="math notranslate nohighlight">\(x \otimes y = xy^T\)</span>.</p></li>
+<li><p><strong>Geometric series</strong>: <span class="math notranslate nohighlight">\(\sum_{k=0}^n x^k = \frac{1-x^{n+1}}{1-x}\)</span> for <span class="math notranslate nohighlight">\(x \neq 1\)</span>. Converges to <span class="math notranslate nohighlight">\(\frac{1}{1-x}\)</span> if <span class="math notranslate nohighlight">\(|x| &lt; 1\)</span>.</p></li>
+<li><p><strong>Continuity and limits</strong>: A function <span class="math notranslate nohighlight">\(f\)</span> is continuous at a point <span class="math notranslate nohighlight">\(c\)</span> if <span class="math notranslate nohighlight">\(\lim_{x \to c} f(x) = f(c)\)</span>.</p></li>
+<li><p><strong>Boundeness of continuous functions</strong>: A continuous function on a closed interval is bounded.</p></li>
+<li><p><strong>Mean value theorem</strong>: If <span class="math notranslate nohighlight">\(f \in C[a,b]\)</span> and differentiable on <span class="math notranslate nohighlight">\((a,b)\)</span>, there exists a <span class="math notranslate nohighlight">\(\xi \in (a,b)\)</span> such that <span class="math notranslate nohighlight">\(f'(c) = \frac{f(b) - f(a)}{b-a}\)</span>.</p></li>
+<li><p><strong>Taylor’s theorem</strong>: For <span class="math notranslate nohighlight">\(f \in C^{n+1}[a,b]\)</span> and <span class="math notranslate nohighlight">\(x_0, x \in [a,b]\)</span>, there’s a <span class="math notranslate nohighlight">\(\xi\)</span> between <span class="math notranslate nohighlight">\(x_0\)</span> and <span class="math notranslate nohighlight">\(x\)</span> with <span class="math notranslate nohighlight">\(f(x) = f(x_0) + f'(x_0)(x-x_0) + \frac{f''(x_0)}{2!}(x-x_0)^2 + \ldots + \frac{f^{(n)}(x_0)}{n!}(x-x_0)^n + \frac{f^{(n+1)}(\xi)}{(n+1)!}(x-x_0)^{n+1}.\)</span></p></li>
+<li><p><strong>Fundamental theorem of calculus:</strong> If <span class="math notranslate nohighlight">\(f\)</span> is continuous on <span class="math notranslate nohighlight">\([a, b]\)</span>, then <span class="math notranslate nohighlight">\(\int_a^b f(x) dx = F(b) - F(a)\)</span>, where <span class="math notranslate nohighlight">\(f\)</span> is the derivative of <span class="math notranslate nohighlight">\(F\)</span>.</p></li>
+<li><p><strong>Scalar product of vectors</strong>: The scalar product of vectors <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> is <span class="math notranslate nohighlight">\(x^Ty\)</span>.</p></li>
+<li><p><strong>Outer product:</strong> The outer product of two vectors <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span>, denoted as <span class="math notranslate nohighlight">\(x \otimes y\)</span>, is a matrix where the element in the <span class="math notranslate nohighlight">\(i\)</span>-th row and <span class="math notranslate nohighlight">\(j\)</span>-th column is given by <span class="math notranslate nohighlight">\(x_i y_j\)</span>. Thus, <span class="math notranslate nohighlight">\(x \otimes y = xy^T\)</span>.</p></li>
 <li><p><strong>Orthogonality</strong>: Two vectors are orthogonal if their scalar product is zero.</p></li>
-<li><p><strong>Orthogonal Complement</strong>: The orthogonal complement of a subspace <span class="math notranslate nohighlight">\(V\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span> is the set of all vectors in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span> orthogonal to every vector in <span class="math notranslate nohighlight">\(V\)</span>.</p></li>
-<li><p><strong>Linear Independence</strong>: A set of vectors is linearly independent if no vector in the set can be written as a linear combination of the others.</p></li>
-<li><p><strong>Basis and Dimension</strong>: A basis of a vector space is a linearly independent set of vectors that spans the space. The number of vectors in a basis is the dimension of the space.</p></li>
-<li><p><strong>Rank of a Matrix</strong>: The rank of a matrix is the maximum number of linearly independent rows or columns.</p></li>
-<li><p><strong>Eigenvectors and Eigenvalues</strong>: For square matrix <span class="math notranslate nohighlight">\(A\)</span>, <span class="math notranslate nohighlight">\(v \neq 0\)</span> is an eigenvector if <span class="math notranslate nohighlight">\(Av = \lambda v\)</span> for some scalar <span class="math notranslate nohighlight">\(\lambda\)</span> (the eigenvalue).</p></li>
-<li><p><strong>Characteristic Polynomial</strong>: The characteristic polynomial of matrix <span class="math notranslate nohighlight">\(A\)</span> is <span class="math notranslate nohighlight">\(\det(A - \lambda I)\)</span>. Its roots are the eigenvalues of <span class="math notranslate nohighlight">\(A\)</span>.</p></li>
-<li><p><strong>Eigenvalues of Triangular Matrix</strong>: Eigenvalues of a triangular matrix are its diagonal elements.</p></li>
-<li><p><strong>Determinant and Eigenvalues</strong>: The determinant of a matrix <span class="math notranslate nohighlight">\(A\)</span> is the product of its eigenvalues.</p></li>
+<li><p><strong>Orthogonal complement</strong>: The orthogonal complement of a subspace <span class="math notranslate nohighlight">\(V\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span> is the set of all vectors in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span> orthogonal to every vector in <span class="math notranslate nohighlight">\(V\)</span>.</p></li>
+<li><p><strong>Linear independence</strong>: A set of vectors is linearly independent if no vector in the set can be written as a linear combination of the others.</p></li>
+<li><p><strong>Basis and dimension</strong>: A basis of a vector space is a linearly independent set of vectors that spans the space. The number of vectors in a basis is the dimension of the space.</p></li>
+<li><p><strong>Rank of a matrix</strong>: The rank of a matrix is the maximum number of linearly independent rows or columns.</p></li>
+<li><p><strong>Eigenvectors and eigenvalues</strong>: For square matrix <span class="math notranslate nohighlight">\(A\)</span>, <span class="math notranslate nohighlight">\(v \neq 0\)</span> is an eigenvector if <span class="math notranslate nohighlight">\(Av = \lambda v\)</span> for some scalar <span class="math notranslate nohighlight">\(\lambda\)</span> (the eigenvalue).</p></li>
+<li><p><strong>Characteristic polynomial</strong>: The characteristic polynomial of matrix <span class="math notranslate nohighlight">\(A\)</span> is <span class="math notranslate nohighlight">\(\det(A - \lambda I)\)</span>. Its roots are the eigenvalues of <span class="math notranslate nohighlight">\(A\)</span>.</p></li>
+<li><p><strong>Eigenvalues of triangular matrix</strong>: Eigenvalues of a triangular matrix are its diagonal elements.</p></li>
+<li><p><strong>Determinant and eigenvalues</strong>: The determinant of a matrix <span class="math notranslate nohighlight">\(A\)</span> is the product of its eigenvalues.</p></li>
 <li><p><strong>Inverse</strong>: A matrix <span class="math notranslate nohighlight">\(A\)</span> is invertible if and only if its determinant is non-zero. The inverse of <span class="math notranslate nohighlight">\(A\)</span> is <span class="math notranslate nohighlight">\(A^{-1}\)</span> such that <span class="math notranslate nohighlight">\(AA^{-1} = A^{-1}A = I\)</span></p></li>
 <li><p><strong>Singularity</strong>: A matrix is singular if it has no inverse, i.e., its determinant is zero.</p></li>
-<li><p><strong>Regular Matrix</strong>: A matrix is regular if it is non-singular.</p></li>
-<li><p><strong>Diagonalisation</strong>: A matrix <span class="math notranslate nohighlight">\(A\)</span> is diagonalizable if it has <span class="math notranslate nohighlight">\(n\)</span> linearly independent eigenvectors. It can be written as <span class="math notranslate nohighlight">\(A = X \Lambda X^{-1}\)</span>, where <span class="math notranslate nohighlight">\(\Lambda\)</span> is a diagonal matrix of eigenvalues and <span class="math notranslate nohighlight">\(X\)</span> is a matrix of eigenvectors.</p></li>
-<li><p><strong>Geometric and Algebraic Multiplicity</strong>: The geometric multiplicity of an eigenvalue is the dimension of the eigenspace. The algebraic multiplicity is the number of times the eigenvalue appears as a root of the characteristic polynomial.</p></li>
-<li><p><strong>Backward and forward substitution</strong> is used to solve a system of linear equations where the matrix is triangular. Backward substitution is also known as back substitution or backward elimination.</p></li>
-<li><p><strong>Gaussian elimination</strong> is a method for solving linear systems. It consists of applying row operations to transform the matrix into triangular form and then solving for the variables. Gaussian elimination is also known as row reduction.</p></li>
+<li><p><strong>Regular matrix</strong>: A matrix is regular if it is non-singular.</p></li>
+<li><p><strong>Diagonalisation</strong>: A matrix <span class="math notranslate nohighlight">\(A\)</span> is diagonalisable if it has <span class="math notranslate nohighlight">\(n\)</span> linearly independent eigenvectors. It can be written as <span class="math notranslate nohighlight">\(A = X \Lambda X^{-1}\)</span>, where <span class="math notranslate nohighlight">\(\Lambda\)</span> is a diagonal matrix of eigenvalues and <span class="math notranslate nohighlight">\(X\)</span> is a matrix of eigenvectors.</p></li>
+<li><p><strong>Geometric and algebraic multiplicity</strong>: The geometric multiplicity of an eigenvalue is the dimension of the eigenspace. The algebraic multiplicity is the number of times the eigenvalue appears as a root of the characteristic polynomial.</p></li>
+<li><p><strong>Backward and forward substitution:</strong> is used to solve a system of linear equations where the matrix is triangular. Backward substitution is also known as back substitution or backward elimination.</p></li>
+<li><p><strong>Gaussian elimination:</strong> is a method for solving linear systems. It consists of applying row operations to transform the matrix into triangular form and then solving for the variables. Gaussian elimination is also known as row reduction.</p></li>
 </ul>
 </section>
 </section>
@@ -493,7 +495,7 @@ document.write(`
       </div>
     </a>
     <a class="right-next"
-       href="backmatter.html"
+       href="bibliography.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
