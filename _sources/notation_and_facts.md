@@ -12,10 +12,11 @@
 - $\mathbb{R}^+$: The set of positive real numbers.
 - $e_i$: The $i$-th standard basis vector.
 - $a_{ij}$: The element in the $i$-th row and $j$-th column of matrix $A$.
-- $a_{:,j}$ or $a_j$:: The $j$-th column of matrix $A$.
+- $a_{:,j}$ or $a_j$: The $j$-th column of matrix $A$.
 - $a_{i,:}$: The $i$-th row of matrix $A$.
 - $A^T$: The transpose of matrix $A$.
-- $\text{diag}(a_1, \ldots, a_n)$: A diagonal matrix with diagonal elements $a_1, \ldots, a_n$.
+- $I$: The identity matrix, sometimes $I_n$ to denote the size.
+- $\text{diag}(a_1, \ldots, a_n)$: A diagonal matrix with diagonal elements $a_1, \ldots, a_n \in \mathbb{R}$.
 - $\text{diag}(A)$: The diagonal of matrix $A$.
 - $\det(A)$: The determinant of matrix $A$.
 - $\text{rank}(A)$: The rank of matrix $A$.

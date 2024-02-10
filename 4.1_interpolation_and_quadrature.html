@@ -32,9 +32,9 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=ca93fcec" />
     <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -433,7 +433,7 @@ p_n(x)= \sum_{j=0}^n y_j L_j(x).
 \]</div>
 <p>The above form of the interpolation polynomial is called <em>Lagrange interpolation formula</em>. We still need to prove uniqueness.</p>
 <div class="proof theorem admonition" id="theorem-0">
-<p class="admonition-title"><span class="caption-number">Theorem 6 </span> (Existence and uniqueness of interpolating polynomial)</p>
+<p class="admonition-title"><span class="caption-number">Theorem 4 </span> (Existence and uniqueness of interpolating polynomial)</p>
 <section class="theorem-content" id="proof-content">
 <p>Given <span class="math notranslate nohighlight">\(\{ (x_i,y_i) \}_{i=0}^n\)</span> with <span class="math notranslate nohighlight">\(x_i &lt; x_{i+1}\)</span>, there exists a unique <span class="math notranslate nohighlight">\(p_n \in \mathcal{P}_n\)</span> such that <span class="math notranslate nohighlight">\(p_n(x_i) = y_i\)</span>.</p>
 </section>
@@ -461,7 +461,7 @@ f(x) - p(x) = \frac{\omega_{n+1}(x) f^{(n+1)}(\xi)}{(n+1)!}.
 <p>Here <span class="math notranslate nohighlight">\(\| g \|_\infty = \max_{x \in [a,b]} |g(x)|\)</span> denotes the <span class="math notranslate nohighlight">\(\infty\)</span>-norm on <span class="math notranslate nohighlight">\(C[a,b]\)</span>.</p>
 <p>The <span class="math notranslate nohighlight">\(p\)</span> of the Weierstrass approximation theorem has to be selected with much care, and an unrefined interpolation method will generally not provide polynomials which approximate arbitrarily well. This is mainly due to the Runge phenomenon.</p>
 <div class="proof example admonition" id="example-1">
-<p class="admonition-title"><span class="caption-number">Example 1 </span></p>
+<p class="admonition-title"><span class="caption-number">Example 4 </span></p>
 <section class="example-content" id="proof-content">
 <p>Unless very smooth functions such as <span class="math notranslate nohighlight">\(\cos\)</span> are interpolated (recall that <span class="math notranslate nohighlight">\(\| \cos^{(n)} \|_\infty = 1\)</span> for all <span class="math notranslate nohighlight">\(n\)</span>th derivatives <span class="math notranslate nohighlight">\(\cos^{(n)}\)</span>, <span class="math notranslate nohighlight">\(n \in \mathbb{N}\)</span>), one observes that interpolating polynomials of high-order exhibit strong oscillations near the interval ends. This behaviour is known as the Runge phenomenon.</p>
 <p>Click through the tabs to see:</p>
@@ -743,7 +743,7 @@ Matplotlib code<div class="sd-summary-down docutils">
 <section id="chebychev-interpolation">
 <h2>Chebychev Interpolation<a class="headerlink" href="#chebychev-interpolation" title="Link to this heading">#</a></h2>
 <div class="proof definition admonition" id="definition-2">
-<p class="admonition-title"><span class="caption-number">Definition 2 </span></p>
+<p class="admonition-title"><span class="caption-number">Definition 3 </span></p>
 <section class="definition-content" id="proof-content">
 <p><em>Chebychev polynomials of first kind</em> are defined by the recursive formula</p>
 <div class="math notranslate nohighlight">

@@ -406,7 +406,7 @@ document.write(`
 <h1>The Singular Value Decomposition<a class="headerlink" href="#the-singular-value-decomposition" title="Link to this heading">#</a></h1>
 <p>A matrix <span class="math notranslate nohighlight">\(\Sigma \in \mathbb{R}^{m \times n}\)</span> is called diagonal if <span class="math notranslate nohighlight">\(\sigma_{ij} = 0\)</span> for all <span class="math notranslate nohighlight">\(i \neq j\)</span>.</p>
 <div class="proof theorem admonition" id="theorem-0">
-<p class="admonition-title"><span class="caption-number">Theorem 2 </span> (Singular Value Decomposition)</p>
+<p class="admonition-title"><span class="caption-number">Theorem 1 </span> (Singular Value Decomposition)</p>
 <section class="theorem-content" id="proof-content">
 <p>For any matrix <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span>, there exists a singular value decomposition (SVD)</p>
 <div class="math notranslate nohighlight">
@@ -419,7 +419,7 @@ A = U\Sigma V^T,
 \sigma_1 \geq \sigma_2 \geq \ldots \geq \sigma_n \geq 0.
 \]</div>
 </section>
-</div><p>For the remainder of the page, assume that <span class="math notranslate nohighlight">\(m \geq n\)</span>. The matrix <span class="math notranslate nohighlight">\(\Sigma \in \mathbb{R}^{m \times n}\)</span> is a block matrix of the form</p>
+</div><p>The proof is given below in the optional materials section. For the remainder of the page, assume that <span class="math notranslate nohighlight">\(m \geq n\)</span>. The matrix <span class="math notranslate nohighlight">\(\Sigma \in \mathbb{R}^{m \times n}\)</span> is a block matrix of the form</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \Sigma = \begin{bmatrix} \tilde{\Sigma} \\ 0 \end{bmatrix},
@@ -442,7 +442,12 @@ A = U\Sigma V^T,
 <p>See also the related self-check question below.</p>
 <section id="svd-and-low-rank-approximation">
 <h2>SVD and low-rank approximation<a class="headerlink" href="#svd-and-low-rank-approximation" title="Link to this heading">#</a></h2>
-<p>The singular value decomposition of matrix <span class="math notranslate nohighlight">\(A\)</span>, represented as <span class="math notranslate nohighlight">\(A = U\Sigma V^T\)</span>, can be expansively expressed as a sum of rank-1 matrices:</p>
+<p>The singular value decomposition of matrix <span class="math notranslate nohighlight">\(A\)</span>, represented as <span class="math notranslate nohighlight">\(A = U\Sigma V^T\)</span>, can be expansively expressed as a sum of rank-1 matrices: For the element <span class="math notranslate nohighlight">\(a_{ij}\)</span> we find</p>
+<div class="math notranslate nohighlight">
+\[
+a_{ij} = \sum_{k,\ell} u_{ik} \, \sigma_{k\ell = 1}^n \, v_{j\ell} = \sum_{k = 1}^r u_{ik} \, \sigma_k \, v_{jk}.
+\]</div>
+<p>Thus for the matrix <span class="math notranslate nohighlight">\(A\)</span>,</p>
 <div class="math notranslate nohighlight">
 \[
 A = \sigma_1 u_1 v_1^T + \sigma_2 u_2 v_2^T + \dots + \sigma_r u_r v_r^T,
@@ -450,30 +455,34 @@ A = \sigma_1 u_1 v_1^T + \sigma_2 u_2 v_2^T + \dots + \sigma_r u_r v_r^T,
 <p>where each term <span class="math notranslate nohighlight">\(\sigma_j u_j v_j^T\)</span> is a matrix of rank 1. Let’s define a partial sum of these terms as <span class="math notranslate nohighlight">\(A_\nu\)</span>, given by:</p>
 <div class="math notranslate nohighlight">
 \[
-A_\nu := \sum_{j=1}^\nu \sigma_j u_j v_j^T,
+A_\nu := \sum_{k=1}^\nu \sigma_k u_k v_k^T,
 \]</div>
-<p>for any <span class="math notranslate nohighlight">\(\nu \leq r\)</span>. This partial sum captures the contribution of the first <span class="math notranslate nohighlight">\(\nu\)</span> singular values and their corresponding singular vectors to the matrix <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<p>for any <span class="math notranslate nohighlight">\(0 \leq \nu \leq r\)</span>. This partial sum captures the contribution of the first <span class="math notranslate nohighlight">\(\nu\)</span> singular values and their corresponding singular vectors to the matrix <span class="math notranslate nohighlight">\(A\)</span>.</p>
 <p>The spectral norm of the difference between <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(A_\nu\)</span> is equal to the <span class="math notranslate nohighlight">\((\nu+1)\)</span>-th singular value, <span class="math notranslate nohighlight">\(\sigma_{\nu+1}\)</span>. Thus, we have:</p>
 <div class="math notranslate nohighlight">
 \[
 \|A - A_{\nu}\|_2 = \sigma_{\nu+1}.
 \]</div>
 <p>This expression quantifies the significance of each singular value and its associated rank-1 component in approximating the original matrix <span class="math notranslate nohighlight">\(A\)</span>.</p>
-<div class="proof theorem admonition" id="theorem-1">
-<p class="admonition-title"><span class="caption-number">Theorem 3 </span> (Low-rank matrix approximation)</p>
-<section class="theorem-content" id="proof-content">
+<div class="prf-theorem admonition">
+<p class="admonition-title">Fact: Low-rank matrix approximation</p>
 <p>Let <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(A_{\nu}\)</span> be defined as above. Then</p>
 <div class="math notranslate nohighlight">
 \[
 \|A - A_{\nu}\|_2 = \min_{B\in\mathbb{R}^{m\times n}, \text{ rank}(B)\leq\nu} \|A - B\|_2 = \sigma_{\nu+1}.
 \]</div>
-</section>
-</div><p>This formulation highlights the utility of singular value decomposition (SVD) in reducing computational costs in numerical linear algebra tasks. Traditional matrix-matrix multiplications, without using advanced techniques like <a class="reference external" href="https://en.wikipedia.org/wiki/Strassen_algorithm">Strassen’s algorithm</a>, typically scale with a computational complexity of <span class="math notranslate nohighlight">\(\mathcal{O}(N^3)\)</span>. However, when dealing with the multiplication of two rank-1 matrices, such as <span class="math notranslate nohighlight">\(\sigma u v^T\)</span> and <span class="math notranslate nohighlight">\(\hat{\sigma} \hat{u} \hat{v}^T\)</span>, the process becomes much more efficient. The key step involves calculating the scalar product <span class="math notranslate nohighlight">\(\langle v, \hat{u}\rangle\)</span>, which is then scaled by the product of <span class="math notranslate nohighlight">\(\sigma\)</span> and <span class="math notranslate nohighlight">\(\hat{\sigma}\)</span>. This results in the rank-1 representation of the overall product:</p>
+</div>
+<p>This formulation highlights the utility of singular value decomposition (SVD) in reducing computational costs in numerical linear algebra tasks. Traditional matrix-matrix multiplications, without using advanced techniques like <a class="reference external" href="https://en.wikipedia.org/wiki/Strassen_algorithm">Strassen’s algorithm</a>, typically scale with a computational complexity of <span class="math notranslate nohighlight">\(\mathcal{O}(N^3)\)</span>. However, when dealing with the multiplication of two rank-1 matrices, such as <span class="math notranslate nohighlight">\(\sigma u v^T\)</span> and <span class="math notranslate nohighlight">\(\hat{\sigma} \hat{u} \hat{v}^T\)</span>, the process becomes much more efficient. The key step involves calculating the scalar product <span class="math notranslate nohighlight">\(\langle v, \hat{u}\rangle\)</span>, which is then scaled by the product of <span class="math notranslate nohighlight">\(\sigma\)</span> and <span class="math notranslate nohighlight">\(\hat{\sigma}\)</span>. This results in the rank-1 representation of the overall product:</p>
 <div class="math notranslate nohighlight">
 \[
 (\sigma u v^T) (\hat{\sigma} \hat{u} \hat{v}^T) = (\sigma \hat{\sigma} \langle v, \hat{u}\rangle) u \hat{v}^T.
 \]</div>
-<p>Building on this approach, the multiplication of rank-<span class="math notranslate nohighlight">\(\nu\)</span> approximations of two matrices <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> can be executed with a computational cost of <span class="math notranslate nohighlight">\(\mathcal{O}(n \cdot \nu^2)\)</span>. This method is particularly advantageous in applications where the singular values diminish rapidly in magnitude. In such scenarios, using a rank-<span class="math notranslate nohighlight">\(\nu\)</span> approximation yields substantial computational savings, often with only a moderate or negligible compromise in accuracy. This balance between efficiency and precision makes SVD a powerful tool in large-scale numerical computations.</p>
+<p>Building on this approach, the multiplication of rank-<span class="math notranslate nohighlight">\(\nu\)</span> approximations of two matrices <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> can be executed with a computational cost of <span class="math notranslate nohighlight">\(\mathcal{O}(n \cdot \nu^2)\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+A_\nu \cdot \hat{A}_\nu = \sum_{k,\ell} (\sigma_k u_k v_k^T) (\hat{\sigma}_\ell \hat{u}_\ell \hat{v}_\ell^T) = \sum_{k,\ell} (\sigma_k \hat{\sigma}_\ell \langle v_k, \hat{u}_\ell\rangle) u_k \hat{v}^T_\ell.
+\]</div>
+<p>This method is particularly advantageous in applications where the singular values diminish rapidly in magnitude. In such scenarios, using a rank-<span class="math notranslate nohighlight">\(\nu\)</span> approximation yields substantial computational savings, often with only a moderate or negligible compromise in accuracy. This balance between efficiency and precision makes SVD a powerful tool in large-scale numerical computations.</p>
 </section>
 <section id="the-reduced-svd">
 <h2>The reduced SVD<a class="headerlink" href="#the-reduced-svd" title="Link to this heading">#</a></h2>
@@ -678,6 +687,19 @@ singular values of <span class="math notranslate nohighlight">\(A\)</span>. The 
 </div>
 </details><div class="tip admonition">
 <p class="admonition-title"><strong>Question</strong></p>
+<p>Explain how the orthogonal complement of the range of a matrix <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span> can be computed with its SVD <span class="math notranslate nohighlight">\(U \Sigma V^T\)</span>.</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<strong>Answer</strong><div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Let’s denote the number of non-zero singular values as <span class="math notranslate nohighlight">\(r\)</span>. As established above (‘3rd insight’), the first <span class="math notranslate nohighlight">\(r\)</span> columns of <span class="math notranslate nohighlight">\(U\)</span> form a basis for <span class="math notranslate nohighlight">\(\text{ran}(A)\)</span>. Since <span class="math notranslate nohighlight">\(U\)</span> is orthogonal, its columns are orthonormal vectors. Thus, the set of columns <span class="math notranslate nohighlight">\(\{ u_{r+1}, u_{r+2}, \ldots, u_m \}\)</span> of <span class="math notranslate nohighlight">\(U\)</span> are orthonormal to the first <span class="math notranslate nohighlight">\(r\)</span> columns of <span class="math notranslate nohighlight">\(U\)</span> and hence to all vectors in <span class="math notranslate nohighlight">\(\text{ran}(A)\)</span>. The dimension of the orthogonal complement is <span class="math notranslate nohighlight">\(m-r\)</span>. Hence the vectors <span class="math notranslate nohighlight">\(\{ u_{r+1}, u_{r+2}, \ldots, u_m \}\)</span> form a basis for the orthogonal complement.</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
 <p>Let <span class="math notranslate nohighlight">\(A = QR\)</span> be the QR decomposition of a matrix <span class="math notranslate nohighlight">\(A\in\mathbb{R}^{m\times n}\)</span> with
 <span class="math notranslate nohighlight">\(R\in\mathbb{R}^{n\times n}\)</span>. Show that the singular values of <span class="math notranslate nohighlight">\(A\)</span> are identical to those of <span class="math notranslate nohighlight">\(R\)</span>.</p>
 </div>
@@ -748,8 +770,8 @@ Existence of the Singular Value Decomposition<div class="sd-summary-down docutil
 <div class="sd-summary-up docutils">
 <svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
 </summary><div class="sd-summary-content sd-card-body docutils">
-<div class="proof theorem admonition" id="theorem-2">
-<p class="admonition-title"><span class="caption-number">Theorem 4 </span> (Existence of Singular Value Decomposition)</p>
+<div class="proof theorem admonition" id="theorem-1">
+<p class="admonition-title"><span class="caption-number">Theorem 2 </span> (Existence of Singular Value Decomposition)</p>
 <section class="theorem-content" id="proof-content">
 <p class="sd-card-text">Every real matrix <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span> has a singular value decomposition (SVD).</p>
 </section>
