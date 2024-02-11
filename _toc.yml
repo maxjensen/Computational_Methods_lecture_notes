@@ -22,7 +22,7 @@ parts:
     - file: 3.3_least_squares_problems
 - caption: Interpolation and quadrature
   chapters:
-    - file: 4.1_interpolation_and_quadrature
+    - file: 4.1_interpolation
     - file: 4.2_quadrature.ipynb
     - file: 4.3_stable_quadrature_schemes
 - caption: Eigenvalue problems

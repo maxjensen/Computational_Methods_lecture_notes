@@ -148,6 +148,8 @@
   },
   "active": "be34097491d462e5",
   "lastOpenFiles": [
+    "_build/html/_images/compare_cheb_uniform.png",
+    "figures/compare_cheb_uniform.png",
     "_build/html/_images/cheb_error_polynomial.png",
     "figures/cheb_error_polynomial.png",
     "figures/Untitled.png",
@@ -157,8 +159,6 @@
     "_build/html/_images/cheb_cos.png",
     "figures/cheb_fraction.png",
     "figures/cheb_modulus.png",
-    "figures/cheb_cos.png",
-    "figures/cheb_sign.png",
     "_build/html/searchindex.js.tmp",
     "3.2_singular_value_decomposition.md",
     "3.3_least_squares_problems.md",
