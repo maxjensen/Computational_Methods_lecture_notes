@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Numerical quadrature &#8212; Computational Methods MATH0058 lecture notes</title>
+    <title>Introduction to Quadrature &#8212; Computational Methods MATH0058 lecture notes</title>
   
   
   
@@ -71,8 +71,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = '4.2_quadrature';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Stable quadrature schemes" href="4.3_stable_quadrature_schemes.html" />
-    <link rel="prev" title="Introduction to interpolation" href="4.1_interpolation_and_quadrature.html" />
+    <link rel="next" title="Stable Quadrature Schemes" href="4.3_stable_quadrature_schemes.html" />
+    <link rel="prev" title="Polynomial Interpolation" href="4.1_interpolation.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -211,9 +211,9 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Interpolation and quadrature</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="4.1_interpolation_and_quadrature.html">Introduction to interpolation</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Numerical quadrature</a></li>
-<li class="toctree-l1"><a class="reference internal" href="4.3_stable_quadrature_schemes.html">Stable quadrature schemes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.1_interpolation.html">Polynomial Interpolation</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Introduction to Quadrature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.3_stable_quadrature_schemes.html">Stable Quadrature Schemes</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Eigenvalue problems</span></p>
 <ul class="nav bd-sidenav">
@@ -292,7 +292,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="_sources/4.2_quadrature.ipynb" target="_blank"
+      <li><a href="_sources/4.2_quadrature.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -302,7 +302,7 @@ const thebe_selector_output = ".output, .cell_output"
 <span class="btn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="btn__text-container">.ipynb</span>
+<span class="btn__text-container">.md</span>
 </a>
 </li>
       
@@ -376,7 +376,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Numerical quadrature</h1>
+    <h1>Introduction to Quadrature</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -386,9 +386,10 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#newton-cotes-formulae">Newton-Cotes formulae</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#error-estimates">Error estimates</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#runge-phenomenon-for-newton-cotes-rules">Runge phenomenon for Newton-Cotes rules</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpolatory-quadratures">Interpolatory Quadratures</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#error-bound">Error bound</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#runge-phenomenon">Runge phenomenon</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#self-check-questions">Self-check questions</a></li>
 </ul>
             </nav>
         </div>
@@ -400,67 +401,181 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="numerical-quadrature">
-<h1>Numerical quadrature<a class="headerlink" href="#numerical-quadrature" title="Link to this heading">#</a></h1>
-<p>One application of interpolation is the numerical integration (or quadrature) of functions. Given a complicated function <span class="math notranslate nohighlight">\(f\)</span> in an interval <span class="math notranslate nohighlight">\([a,b]\)</span>. Instead of evaluating</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="introduction-to-quadrature">
+<h1>Introduction to Quadrature<a class="headerlink" href="#introduction-to-quadrature" title="Link to this heading">#</a></h1>
+<p>In this section, we aim to approximate the definite integral</p>
 <div class="math notranslate nohighlight">
 \[
-I:=\int_a^bf(x)dx
+\mathcal{I}(f) := \int_a^b f(x) dx
 \]</div>
-<p>we evaluate</p>
+<p>on the interval <span class="math notranslate nohighlight">\([a,b] \subset \mathbb{R}\)</span>, using a method known as <em>quadrature</em>. A <em>quadrature formula</em> is an approximation of the form</p>
 <div class="math notranslate nohighlight">
 \[
-I_n:=\int_a^bp_n(x)dx,
+\mathcal{Q}(f) := \sum_{k=0}^m \sigma_k f(x_k),
 \]</div>
-<p>where <span class="math notranslate nohighlight">\(p_n\)</span> interpolates <span class="math notranslate nohighlight">\(f\)</span> at a given set of points.</p>
-<section id="newton-cotes-formulae">
-<h2>Newton-Cotes formulae<a class="headerlink" href="#newton-cotes-formulae" title="Link to this heading">#</a></h2>
-<p>We now describe the derivation of Newton-Cotes integration formulae. Define</p>
+<p>where <span class="math notranslate nohighlight">\(\{x_k\}\)</span> are called <em>nodes</em>, and <span class="math notranslate nohighlight">\(\sigma_k\)</span> are corresponding <em>weights</em> or <em>coefficients</em>. The choice of nodes and coefficients is crucial for the accuracy of the approximation. Importantly, quadrature formulas share a key property with integrals: linearity. This means</p>
 <div class="math notranslate nohighlight">
 \[
-x_j=a+ih, i=0,\dots,n
+\mathcal{Q}(\alpha f + \beta g) = \alpha \mathcal{Q}(f) + \beta \mathcal{Q}(g) \quad \text{for all } \alpha, \beta \in \mathbb{R}.
 \]</div>
-<p>with <span class="math notranslate nohighlight">\(h=\frac{b-a}{n}\)</span>.</p>
-<p>We interpolate <span class="math notranslate nohighlight">\(f\)</span> using a Lagrange interpolation polynomial of the form</p>
+<p>The <em>degree of exactness</em> of a quadrature formula <span class="math notranslate nohighlight">\(\mathcal{Q}\)</span> is defined as the highest degree <span class="math notranslate nohighlight">\(r\)</span> for which it exactly integrates all polynomials up to degree <span class="math notranslate nohighlight">\(r\)</span>, but not for degree <span class="math notranslate nohighlight">\(r+1\)</span>. Formally,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+   \mathcal{Q}(x^j) &amp; = \mathcal{I}(x^j) \quad \text{for } j = 0, \ldots, r,\\
+   \mathcal{Q}(x^{r+1}) &amp; \neq \mathcal{I}(x^{r+1}).
+\end{aligned}
+\end{split}\]</div>
+<p>Therefore, a quadrature formula <span class="math notranslate nohighlight">\(\mathcal{Q}\)</span> with a degree of exactness <span class="math notranslate nohighlight">\(r\)</span> perfectly approximates the integral of any polynomial in <span class="math notranslate nohighlight">\(\mathcal{P}_r\)</span>, the set of all polynomials of degree up to <span class="math notranslate nohighlight">\(r\)</span>.</p>
+<section id="interpolatory-quadratures">
+<h2>Interpolatory Quadratures<a class="headerlink" href="#interpolatory-quadratures" title="Link to this heading">#</a></h2>
+<p>Interpolatory quadrature involves approximating a function <span class="math notranslate nohighlight">\(f\)</span> by a polynomial <span class="math notranslate nohighlight">\(p\)</span> that interpolates <span class="math notranslate nohighlight">\(f\)</span> at given nodes <span class="math notranslate nohighlight">\(\{x_k\}\)</span>, and then integrating this polynomial. Utilising Lagrange interpolation, <span class="math notranslate nohighlight">\(p(x)\)</span> is expressed as</p>
 <div class="math notranslate nohighlight">
 \[
-p_n(x)=\sum_{k=0}^nL_k(x)f(x_k).
+p(x) = \sum_{k=0}^n f(x_k) L_k(x), \quad \text{where } L_k(x) = \prod_{l\ne k} \frac{x-x_l}{x_k-x_l}.
 \]</div>
-<p>We obtain</p>
+<p>This leads to the quadrature formula</p>
 <div class="math notranslate nohighlight">
 \[
-\int_a^bf(x)dx\approx \int_a^b\sum_{k=0}^nL_k(x)f(x_k)=\sum_{k=0}^nf(x_k)\int_a^bL_k(x)dx:=\sum_{k=0}^nf(x_k)\omega_k,
+\mathcal{Q}_n(f) := \int_a^b p(x) dx = \sum_{k=0}^n f(x_k) \int_a^b L_k(x) dx,
 \]</div>
-<p>where the <span class="math notranslate nohighlight">\(\omega_k:=\int_a^bL_k(x)dx\)</span> are called integration weights. They are independent of the function to integrate and can be precomputed and tabulated.</p>
-<p>We note two simple observations for Newton-Cotes rules:</p>
-<ol class="arabic simple">
-<li><p>The sum of the weights <span class="math notranslate nohighlight">\(\omega_k\)</span> is always <span class="math notranslate nohighlight">\(b - a\)</span>. This follows from integrating the
-constant function <span class="math notranslate nohighlight">\(1\)</span>.</p></li>
-<li><p>The weights are symmetric in the sense that <span class="math notranslate nohighlight">\(\omega_j = \omega_{n-j}\)</span>. This follows
-from the symmetry of the <span class="math notranslate nohighlight">\(L_k\)</span> with respect to the middle of the interval <span class="math notranslate nohighlight">\([a,b]\)</span>.</p></li>
-</ol>
-<p>Two particular examples of Newton-Cotes rules are:</p>
-<p>Trapezoid Rule (n=1): <span class="math notranslate nohighlight">\(\int_a^bf(x)dx\approx \frac{b-a}{2}\left[f(a)+f(b)\right]\)</span>.</p>
-<p>Simpson’s Rule (n=2): <span class="math notranslate nohighlight">\(\int_a^bf(x)dx\approx \frac{b-a}{6}\left[f(a)+4f((a+b)/2)+f(b)\right]\)</span></p>
+<p>with the weights <span class="math notranslate nohighlight">\(\sigma_k = \int_a^b L_k(x) dx\)</span>. Hence, the interpolatory quadrature formula becomes</p>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{Q}_n(f) = \sum_{k=0}^n \sigma_k f(x_k).
+\]</div>
+<p>The degree of exactness of <span class="math notranslate nohighlight">\(\mathcal{Q}_n\)</span> is at least <span class="math notranslate nohighlight">\(n\)</span>, and it holds that</p>
+<div class="math notranslate nohighlight">
+\[
+\sum_{k=0}^n \sigma_k = 1 \quad \text{if } n \ge 0 \text{ and } \mathcal{Q}_n(1) = \mathcal{I}(1).
+\]</div>
+<p>In the case of equidistant nodes, we obtain the <em>Newton-Cotes formulas</em>, and if these nodes include the endpoints <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span>, the formulas are termed <em>closed</em> Newton-Cotes formulas.</p>
+<div class="proof example admonition" id="example-0">
+<p class="admonition-title"><span class="caption-number">Example 6 </span> (Interpolatory quadrature formulas)</p>
+<section class="example-content" id="proof-content">
+<ul>
+<li><p><strong>Rectangle Method</strong>:</p>
+<div class="math notranslate nohighlight">
+\[
+   \mathcal{Q}_0(f) = (b-a)f\Bigl(\frac{a+b}{2}\Bigr).
+   \]</div>
+</li>
+<li><p><strong>Trapezoid Rule</strong> (a closed Newton-Cotes formula for <span class="math notranslate nohighlight">\(n=1\)</span>):</p>
+<div class="math notranslate nohighlight">
+\[
+   \mathcal{Q}_1(f) = (b-a)\frac{f(a)+f(b)}{2}.
+   \]</div>
+</li>
+<li><p><strong>Simpson’s Rule</strong> (a closed Newton-Cotes formula for <span class="math notranslate nohighlight">\(n=2\)</span>):</p>
+<div class="math notranslate nohighlight">
+\[\mathcal{Q}_2(f) = (b-a)\,\Bigl[ \frac{1}{6} f(a) + \frac{2}{3} f\Bigl(\frac{a+b}{2}\Bigr) + \frac{1}{6} f(b) \Bigr].\]</div>
+</li>
+</ul>
 </section>
-<section id="error-estimates">
-<h2>Error estimates<a class="headerlink" href="#error-estimates" title="Link to this heading">#</a></h2>
-<p>The error <span class="math notranslate nohighlight">\(E_n\)</span> of a quadrature formula is defined as <span class="math notranslate nohighlight">\(E_n(f):=\int_a^bf(x)dx-\sum_{k=0}^n\omega_kf(x_k)\)</span>. We now have</p>
+</div></section>
+<section id="error-bound">
+<h2>Error bound<a class="headerlink" href="#error-bound" title="Link to this heading">#</a></h2>
+<p>Using the <a class="reference internal" href="4.1_interpolation.html"><span class="std std-doc">interpolation error bound</span></a>, we obtain</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+   |\mathcal{Q}(f)-\mathcal{Q}_n(f)| &amp;= |\mathcal{Q}(f)-\mathcal{Q}_n(p)| = |\mathcal{Q}(f)-\mathcal{Q}(p)| = |\mathcal{Q}(f-p)|\\
+	&amp;= \Bigl| \int_a^b \frac{\omega_{n+1}(x)}{(n+1)!}\,f^{(n+1)}(\xi(x)) dx \Bigr|\\
+	&amp;\le \frac1{(n+1)!}\,\max_{\xi\in[a,b]} |f^{(n+1)}(\xi)| \,\int_a^b |\omega_{n+1}(x)| dx.
+\end{aligned}
+\end{split}\]</div>
+<p>This error bound suggests that the accuracy of <span class="math notranslate nohighlight">\(\mathcal{Q}_n\)</span> is limited <em>both</em> by the differentiability of <span class="math notranslate nohighlight">\(f\)</span>, which is usually out of our control as numerical analysts, and by the size of <span class="math notranslate nohighlight">\(|\omega_{n+1}|\)</span>, which depends on the choice of the nodes <span class="math notranslate nohighlight">\(\{x_k\}\)</span> and thus may be improved. We will address these two issues in the next section.</p>
+</section>
+<section id="runge-phenomenon">
+<h2>Runge phenomenon<a class="headerlink" href="#runge-phenomenon" title="Link to this heading">#</a></h2>
+<p>Even when <span class="math notranslate nohighlight">\(|\omega_{n+1}|\)</span> is bounded, and when <span class="math notranslate nohighlight">\(f\)</span> is smooth, interpolatory quadrature may still suffer from Runge’s phenomenon. We find negative values for some coefficients <span class="math notranslate nohighlight">\(\sigma_k^{(n)}\)</span> even for moderate values of <span class="math notranslate nohighlight">\(n\)</span>, 8 in the case of closed Newton-Cotes formulas. In fact, one can prove that, for the closed Newton-Cotes formulas,</p>
 <div class="math notranslate nohighlight">
 \[
-|E_n(f)|=\left|\int_a^b\left[f(x)-L_k(x)f(x_k)\right]dx\right|\leq \int_a^b|f(x)-p_n(x)|dx.
+\sum_{k=0}^n \bigl|\sigma_k^{(n)}\bigr| \to \infty \qquad n \to \infty.
 \]</div>
-<p>The last integral can be estimated as</p>
-<div class="math notranslate nohighlight">
-\[
-|E_n(x)|\leq \frac{M_{n+1}}{(n+1)!}\int_a^b|(x-x_0)\dots(x-x_n)|dx,
-\]</div>
-<p>where <span class="math notranslate nohighlight">\(M_{n+1}=\max_{\xi\in[a,b]}|f^{(n+1)}(\xi)|\)</span>.</p>
+<p>This makes this quadrature vulnerable to round-off errors for large <span class="math notranslate nohighlight">\(n\)</span>.</p>
 </section>
-<section id="runge-phenomenon-for-newton-cotes-rules">
-<h2>Runge phenomenon for Newton-Cotes rules<a class="headerlink" href="#runge-phenomenon-for-newton-cotes-rules" title="Link to this heading">#</a></h2>
-<p>If we increase the order of the Newton-Cotes rule then apart from special cases we will encounter the Runge phenomenon. Hence, in order to achieve high accuracy we need to do something else. In practice one often uses so-called composite rules. The idea is that we split <span class="math notranslate nohighlight">\([a,b]\)</span> into <span class="math notranslate nohighlight">\(m\)</span> subintervals <span class="math notranslate nohighlight">\([\tau_i,\tau_{i+1}]\)</span> with <span class="math notranslate nohighlight">\(\tau_i=a+\frac{i}{m}(b-a)\)</span>, <span class="math notranslate nohighlight">\(i=0,\dots,m-1\)</span>, and apply a low-order Newton-Cotes rule in each subinterval.</p>
-</section>
+<section id="self-check-questions">
+<h2>Self-check questions<a class="headerlink" href="#self-check-questions" title="Link to this heading">#</a></h2>
+<div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Show that if the domain is symmetric (<span class="math notranslate nohighlight">\(a = -b\)</span>) and the nodes are symmetric (<span class="math notranslate nohighlight">\(x_{n-k}=-x_k\)</span>), then <span class="math notranslate nohighlight">\(\sigma_{n-k}=\sigma_k\)</span>.</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<strong>Answer</strong><div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">A change of variable argument shows that …</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Q</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<strong>Answer</strong><div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">A</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Q</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<strong>Answer</strong><div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">A</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Q</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<strong>Answer</strong><div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">A</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Q</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<strong>Answer</strong><div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">A</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Q</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<strong>Answer</strong><div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">A</p>
+</div>
+</details></section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -494,12 +609,12 @@ from the symmetry of the <span class="math notranslate nohighlight">\(L_k\)</spa
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="4.1_interpolation_and_quadrature.html"
+       href="4.1_interpolation.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Introduction to interpolation</p>
+        <p class="prev-next-title">Polynomial Interpolation</p>
       </div>
     </a>
     <a class="right-next"
@@ -507,7 +622,7 @@ from the symmetry of the <span class="math notranslate nohighlight">\(L_k\)</spa
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Stable quadrature schemes</p>
+        <p class="prev-next-title">Stable Quadrature Schemes</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -527,9 +642,10 @@ from the symmetry of the <span class="math notranslate nohighlight">\(L_k\)</spa
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#newton-cotes-formulae">Newton-Cotes formulae</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#error-estimates">Error estimates</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#runge-phenomenon-for-newton-cotes-rules">Runge phenomenon for Newton-Cotes rules</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpolatory-quadratures">Interpolatory Quadratures</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#error-bound">Error bound</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#runge-phenomenon">Runge phenomenon</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#self-check-questions">Self-check questions</a></li>
 </ul>
   </nav></div>
 

@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Week 6 Self check questions and solutions &#8212; Computational Methods MATH0058 lecture notes</title>
+    <title>Numerical quadrature &#8212; Computational Methods MATH0058 lecture notes</title>
   
   
   
@@ -68,11 +68,9 @@ const thebe_selector_output = ".output, .cell_output"
 </script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'week_6_self_check';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '4.2_quadrature.orig';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Week 7 Self check questions and solutions" href="week_7_self_check.html" />
-    <link rel="prev" title="Week 5 Self check questions and solutions" href="week_5_self_check.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -133,6 +131,8 @@ const thebe_selector_output = ".output, .cell_output"
     <div class="bd-container__inner bd-page-width">
       
       
+      
+        
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -223,13 +223,13 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="5.4_computing_eigenvalues.html">Computing eigenvalues</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Self Check Questions</span></p>
-<ul class="current nav bd-sidenav">
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="week_1_self_check.html">Week 1 Self check questions and solutions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="week_2_self_check.html">Week 2 Self check questions and solutions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="week_3_self_check.html">Week 3 Self check questions and solutions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="week_4_self_check.html">Week 4 Self check questions and solutions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="week_5_self_check.html">Week 5 Self check questions and solutions</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Week 6 Self check questions and solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="week_6_self_check.html">Week 6 Self check questions and solutions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="week_7_self_check.html">Week 7 Self check questions and solutions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="week_8_self_check.html">Week 8 Self check questions and solutions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="week_9_self_check.html">Week 9 Self check questions and solutions</a></li>
@@ -292,7 +292,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="_sources/week_6_self_check.md" target="_blank"
+      <li><a href="_sources/4.2_quadrature.orig.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -302,7 +302,7 @@ const thebe_selector_output = ".output, .cell_output"
 <span class="btn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="btn__text-container">.md</span>
+<span class="btn__text-container">.ipynb</span>
 </a>
 </li>
       
@@ -363,7 +363,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -374,11 +376,21 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Week 6 Self check questions and solutions</h1>
+    <h1>Numerical quadrature</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#newton-cotes-formulae">Newton-Cotes formulae</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#error-estimates">Error estimates</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#runge-phenomenon-for-newton-cotes-rules">Runge phenomenon for Newton-Cotes rules</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -388,78 +400,67 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="week-6-self-check-questions-and-solutions">
-<h1>Week 6 Self check questions and solutions<a class="headerlink" href="#week-6-self-check-questions-and-solutions" title="Link to this heading">#</a></h1>
-<p><strong>Question 1:</strong></p>
-<p>Let <span class="math notranslate nohighlight">\(A\in\mathbb{R}^{m\times n}\)</span> with <span class="math notranslate nohighlight">\(m\geq n\)</span> and <span class="math notranslate nohighlight">\(\text{rank}(A)=n\)</span> and <span class="math notranslate nohighlight">\(b\in\mathbb{R}^m\)</span>. We define the following least-squares problem:</p>
-<p>Find <span class="math notranslate nohighlight">\(\hat{x}\in\mathbb{R}^n\)</span>, such that</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="numerical-quadrature">
+<h1>Numerical quadrature<a class="headerlink" href="#numerical-quadrature" title="Link to this heading">#</a></h1>
+<p>One application of interpolation is the numerical integration (or quadrature) of functions. Given a complicated function <span class="math notranslate nohighlight">\(f\)</span> in an interval <span class="math notranslate nohighlight">\([a,b]\)</span>. Instead of evaluating</p>
 <div class="math notranslate nohighlight">
 \[
-\|A\hat{x}-b\|_2 = \min_{x\in\mathbb{R}^n}\|Ax-b\|_2.
+I:=\int_a^bf(x)dx
 \]</div>
-<p><strong>Solution:</strong></p>
-<p>The SVD of <span class="math notranslate nohighlight">\(A\)</span> is given as <span class="math notranslate nohighlight">\(A=U\Sigma V^T\)</span>, where <span class="math notranslate nohighlight">\(U\in\mathbb{R}^{m\times m}\)</span> and <span class="math notranslate nohighlight">\(V\in\mathbb{R}^{n\times n}\)</span> are orthogonal
-matrices and <span class="math notranslate nohighlight">\(\Sigma \in\mathbb{R}^{m\times n}\)</span> is a diagonal matrix with the nonzero singular values <span class="math notranslate nohighlight">\(\sigma_1\geq\sigma_2\geq\dots\geq\sigma_r\)</span> in decreasing order on the diagonal of the matrix.</p>
-<p>Let <span class="math notranslate nohighlight">\(A = U\Sigma V^T\)</span>. Substituting into the least-squares problem we have</p>
+<p>we evaluate</p>
 <div class="math notranslate nohighlight">
 \[
-\|Ax-b\|_2 = \|U\Sigma V^Tx - b\|_2 = \|\Sigma y - \hat{b}\|_2
+I_n:=\int_a^bp_n(x)dx,
 \]</div>
-<p>for <span class="math notranslate nohighlight">\(y=V^Tx\)</span> and <span class="math notranslate nohighlight">\(\hat{b} = U^Tb\)</span>. By minimizing the above expression we find <span class="math notranslate nohighlight">\(y_j\)</span> as <span class="math notranslate nohighlight">\(y_j = \hat{b}_j/\sigma_j\)</span>. If <span class="math notranslate nohighlight">\(\sigma_j=0\)</span> then we set <span class="math notranslate nohighlight">\(y_j=0\)</span>. This is equivalent to <span class="math notranslate nohighlight">\(y = \Sigma^{\dagger}\hat{b}\)</span>.
-Substituting back in for <span class="math notranslate nohighlight">\(\hat{b}\)</span> and <span class="math notranslate nohighlight">\(y\)</span> we obtain <span class="math notranslate nohighlight">\(x = V\Sigma^{\dagger}U^Tb = A^{\dagger}b\)</span>.</p>
-<p><strong>Question 2:</strong></p>
-<p>We now consider the modified least-squares problem</p>
+<p>where <span class="math notranslate nohighlight">\(p_n\)</span> interpolates <span class="math notranslate nohighlight">\(f\)</span> at a given set of points.</p>
+<section id="newton-cotes-formulae">
+<h2>Newton-Cotes formulae<a class="headerlink" href="#newton-cotes-formulae" title="Link to this heading">#</a></h2>
+<p>We now describe the derivation of Newton-Cotes integration formulae. Define</p>
 <div class="math notranslate nohighlight">
 \[
-\min_{x\in\mathbb{R}^n} \|Ax-b\|_2^2+\|L x\|_2^2
+x_j=a+ih, i=0,\dots,n
 \]</div>
-<p>with <span class="math notranslate nohighlight">\(L\in\mathbb{R}^{n\times n}\)</span> nonsingular.
-Show that the solution of this least-squares problem is identical to the solution of</p>
+<p>with <span class="math notranslate nohighlight">\(h=\frac{b-a}{n}\)</span>.</p>
+<p>We interpolate <span class="math notranslate nohighlight">\(f\)</span> using a Lagrange interpolation polynomial of the form</p>
 <div class="math notranslate nohighlight">
 \[
-(A^TA+L^TL)x = A^Tb.
+p_n(x)=\sum_{k=0}^nL_k(x)f(x_k).
 \]</div>
-<p><strong>Solution:</strong></p>
-<p>The modified least-squares problem is identical to</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\min_{x\in\mathbb{R}^n}\left\|\begin{bmatrix}A\\L\end{bmatrix}x-\begin{bmatrix}b\\ 0\end{bmatrix}\right\|_2.
-\end{split}\]</div>
-<p>Applying the normal equation to this problem we arrive at</p>
+<p>We obtain</p>
 <div class="math notranslate nohighlight">
 \[
-(A^TA+L^TL)x = A^Tb.
+\int_a^bf(x)dx\approx \int_a^b\sum_{k=0}^nL_k(x)f(x_k)=\sum_{k=0}^nf(x_k)\int_a^bL_k(x)dx:=\sum_{k=0}^nf(x_k)\omega_k,
 \]</div>
-<p><strong>Question 3:</strong></p>
-<p>Let <span class="math notranslate nohighlight">\(A\in\mathbb{R}^{m\times n}\)</span> with <span class="math notranslate nohighlight">\(m\geq n\)</span>. Show that the smallest singular value <span class="math notranslate nohighlight">\(\sigma_n\)</span> of <span class="math notranslate nohighlight">\(A\)</span> satisfies</p>
+<p>where the <span class="math notranslate nohighlight">\(\omega_k:=\int_a^bL_k(x)dx\)</span> are called integration weights. They are independent of the function to integrate and can be precomputed and tabulated.</p>
+<p>We note two simple observations for Newton-Cotes rules:</p>
+<ol class="arabic simple">
+<li><p>The sum of the weights <span class="math notranslate nohighlight">\(\omega_k\)</span> is always <span class="math notranslate nohighlight">\(b - a\)</span>. This follows from integrating the
+constant function <span class="math notranslate nohighlight">\(1\)</span>.</p></li>
+<li><p>The weights are symmetric in the sense that <span class="math notranslate nohighlight">\(\omega_j = \omega_{n-j}\)</span>. This follows
+from the symmetry of the <span class="math notranslate nohighlight">\(L_k\)</span> with respect to the middle of the interval <span class="math notranslate nohighlight">\([a,b]\)</span>.</p></li>
+</ol>
+<p>Two particular examples of Newton-Cotes rules are:</p>
+<p>Trapezoid Rule (n=1): <span class="math notranslate nohighlight">\(\int_a^bf(x)dx\approx \frac{b-a}{2}\left[f(a)+f(b)\right]\)</span>.</p>
+<p>Simpson’s Rule (n=2): <span class="math notranslate nohighlight">\(\int_a^bf(x)dx\approx \frac{b-a}{6}\left[f(a)+4f((a+b)/2)+f(b)\right]\)</span></p>
+</section>
+<section id="error-estimates">
+<h2>Error estimates<a class="headerlink" href="#error-estimates" title="Link to this heading">#</a></h2>
+<p>The error <span class="math notranslate nohighlight">\(E_n\)</span> of a quadrature formula is defined as <span class="math notranslate nohighlight">\(E_n(f):=\int_a^bf(x)dx-\sum_{k=0}^n\omega_kf(x_k)\)</span>. We now have</p>
 <div class="math notranslate nohighlight">
 \[
-\sigma_n = \min_{x\in\mathbb{R}^n} \frac{\|Ax\|_2}{\|x\|_2}.
+|E_n(f)|=\left|\int_a^b\left[f(x)-L_k(x)f(x_k)\right]dx\right|\leq \int_a^b|f(x)-p_n(x)|dx.
 \]</div>
-<p><strong>Solution:</strong></p>
-<p>Using the SVD <span class="math notranslate nohighlight">\(A = U\Sigma V^T\)</span> we can replace <span class="math notranslate nohighlight">\(A\)</span> by the diagonal matrix <span class="math notranslate nohighlight">\(\Sigma\)</span> since the 2-norm is invariant under orthogonal transformations. Let now <span class="math notranslate nohighlight">\(y\)</span> be given with <span class="math notranslate nohighlight">\(\|y\|_2=1\)</span>. We have</p>
+<p>The last integral can be estimated as</p>
 <div class="math notranslate nohighlight">
 \[
-\|\Sigma y\|_2^2 = \sum_{j}\sigma_j^2y_j^2 \geq \sigma_n\sum_jy_j^2 = \sigma_n.
+|E_n(x)|\leq \frac{M_{n+1}}{(n+1)!}\int_a^b|(x-x_0)\dots(x-x_n)|dx,
 \]</div>
-<p>This inequality becomes an equality for <span class="math notranslate nohighlight">\(y\)</span> chosen to be the unit vector <span class="math notranslate nohighlight">\(e_n\)</span>. Hence, for <span class="math notranslate nohighlight">\(\Sigma\)</span> diagonal the result follows and therefore for arbitrary <span class="math notranslate nohighlight">\(A\in\mathbb{R}^{m\times n}\)</span> through the invariance of the norm under orthogonal transformations.</p>
-<p>Notice the symmetry between smallest and largest singular value. By maximizing we obtain the largest singular value and by minimizing the smallest.</p>
-<p><strong>Question 4:</strong></p>
-<p>Let <span class="math notranslate nohighlight">\(A = QR\)</span> be the QR decomposition of a matrix <span class="math notranslate nohighlight">\(A\in\mathbb{R}^{m\times n}\)</span> with
-<span class="math notranslate nohighlight">\(R\in\mathbb{R}^{n\times n}\)</span>. Show that the singular values of <span class="math notranslate nohighlight">\(A\)</span> are identical to the singular values
-of <span class="math notranslate nohighlight">\(R\)</span>.</p>
-<p><strong>Solution:</strong></p>
-<p>We use the full QR decomposition, that is let</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-A = \begin{bmatrix}Q &amp; Q^{\bot}\end{bmatrix}\begin{bmatrix}R\\ 0\end{bmatrix}.
-\end{split}\]</div>
-<p>Let <span class="math notranslate nohighlight">\(R = U\Sigma V^T\)</span> be the SVD of <span class="math notranslate nohighlight">\(R\)</span>. Plugging into the above equation gives</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-A = \begin{bmatrix}Q &amp; Q^{\bot}\end{bmatrix}\begin{bmatrix}U &amp; 0 \\ 0 &amp; I\end{bmatrix}\begin{bmatrix}\Sigma \\ 0\end{bmatrix}V^T.
-\end{split}\]</div>
-<p>We see that this is the singular value decomposition of <span class="math notranslate nohighlight">\(A\)</span> with singular values contained in <span class="math notranslate nohighlight">\(\Sigma\)</span>.</p>
+<p>where <span class="math notranslate nohighlight">\(M_{n+1}=\max_{\xi\in[a,b]}|f^{(n+1)}(\xi)|\)</span>.</p>
+</section>
+<section id="runge-phenomenon-for-newton-cotes-rules">
+<h2>Runge phenomenon for Newton-Cotes rules<a class="headerlink" href="#runge-phenomenon-for-newton-cotes-rules" title="Link to this heading">#</a></h2>
+<p>If we increase the order of the Newton-Cotes rule then apart from special cases we will encounter the Runge phenomenon. Hence, in order to achieve high accuracy we need to do something else. In practice one often uses so-called composite rules. The idea is that we split <span class="math notranslate nohighlight">\([a,b]\)</span> into <span class="math notranslate nohighlight">\(m\)</span> subintervals <span class="math notranslate nohighlight">\([\tau_i,\tau_{i+1}]\)</span> with <span class="math notranslate nohighlight">\(\tau_i=a+\frac{i}{m}(b-a)\)</span>, <span class="math notranslate nohighlight">\(i=0,\dots,m-1\)</span>, and apply a low-order Newton-Cotes rule in each subinterval.</p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -492,24 +493,6 @@ A = \begin{bmatrix}Q &amp; Q^{\bot}\end{bmatrix}\begin{bmatrix}U &amp; 0 \\ 0 &a
                 <footer class="prev-next-footer">
                   
 <div class="prev-next-area">
-    <a class="left-prev"
-       href="week_5_self_check.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Week 5 Self check questions and solutions</p>
-      </div>
-    </a>
-    <a class="right-next"
-       href="week_7_self_check.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Week 7 Self check questions and solutions</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
 </div>
                 </footer>
               
@@ -517,7 +500,22 @@ A = \begin{bmatrix}Q &amp; Q^{\bot}\end{bmatrix}\begin{bmatrix}U &amp; 0 \\ 0 &a
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"></div>
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#newton-cotes-formulae">Newton-Cotes formulae</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#error-estimates">Error estimates</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#runge-phenomenon-for-newton-cotes-rules">Runge phenomenon for Newton-Cotes rules</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Stable quadrature schemes &#8212; Computational Methods MATH0058 lecture notes</title>
+    <title>Stable Quadrature Schemes &#8212; Computational Methods MATH0058 lecture notes</title>
   
   
   
@@ -72,7 +72,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Complex vector spaces" href="5.1_complex_vector_spaces.html" />
-    <link rel="prev" title="Numerical quadrature" href="4.2_quadrature.html" />
+    <link rel="prev" title="Introduction to Quadrature" href="4.2_quadrature.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -211,9 +211,9 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Interpolation and quadrature</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="4.1_interpolation_and_quadrature.html">Introduction to interpolation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="4.2_quadrature.html">Numerical quadrature</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Stable quadrature schemes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.1_interpolation.html">Polynomial Interpolation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.2_quadrature.html">Introduction to Quadrature</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Stable Quadrature Schemes</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Eigenvalue problems</span></p>
 <ul class="nav bd-sidenav">
@@ -376,7 +376,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Stable quadrature schemes</h1>
+    <h1>Stable Quadrature Schemes</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -386,9 +386,9 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summated-or-composite-quadrature-rules">Summated (or composite) quadrature rules</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clenshaw-curtis-quadrature-rules">Clenshaw-Curtis Quadrature rules</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gauss-quadrature">Gauss quadrature</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#composite-quadratures">Composite Quadratures</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gauss-quadratures">Gauss Quadratures</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#self-check-questions">Self-check questions</a></li>
 </ul>
             </nav>
         </div>
@@ -401,83 +401,172 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="stable-quadrature-schemes">
-<h1>Stable quadrature schemes<a class="headerlink" href="#stable-quadrature-schemes" title="Link to this heading">#</a></h1>
-<p>We know that Newton-Cotes quadrature rules are unstable as we decrease the polynomial degree <span class="math notranslate nohighlight">\(n\)</span> of the
-underlying interpolation. The reason is Runge’s phenomenon. In the following we will briefly present
-some quadrature schemes that do not suffer from this problem and are highly useful in practical computations.</p>
-<section id="summated-or-composite-quadrature-rules">
-<h2>Summated (or composite) quadrature rules<a class="headerlink" href="#summated-or-composite-quadrature-rules" title="Link to this heading">#</a></h2>
-<p>The idea of summated quadrature rules is simple but powerful. Consider the integral <span class="math notranslate nohighlight">\(I = \int_a^bf(x)dx\)</span>.
-Instead of using a Newton-Cotes rule for the whole interval we split up the interval in many small intervals
-of size <span class="math notranslate nohighlight">\(h\)</span>.</p>
-<p>Let <span class="math notranslate nohighlight">\(x_j = a + jh\)</span> for <span class="math notranslate nohighlight">\(h = (b-a)/N\)</span>, <span class="math notranslate nohighlight">\(j = 0, \dots, N\)</span> be N+1 distinct points with <span class="math notranslate nohighlight">\(x_0=a\)</span> and <span class="math notranslate nohighlight">\(x_N=b\)</span>.</p>
-<p>We write</p>
+<h1>Stable Quadrature Schemes<a class="headerlink" href="#stable-quadrature-schemes" title="Link to this heading">#</a></h1>
+<section id="composite-quadratures">
+<h2>Composite Quadratures<a class="headerlink" href="#composite-quadratures" title="Link to this heading">#</a></h2>
+<p>When (one thinks that) <span class="math notranslate nohighlight">\(f\)</span> is not very smooth, a better approximation to <span class="math notranslate nohighlight">\(\mathcal{I}(f)\)</span> may be obtained by subdividing <span class="math notranslate nohighlight">\([a,b]\)</span> into <span class="math notranslate nohighlight">\(m\)</span> subintervals <span class="math notranslate nohighlight">\(\{[x_{i-1},x_i]\}_{i=1}^m\)</span>, each of equal length <span class="math notranslate nohighlight">\(h:=(b-a)/m\)</span> and apply an interpolatory quadrature formula of small degree <span class="math notranslate nohighlight">\(n\)</span> in each subinterval <span class="math notranslate nohighlight">\([x_{i-1},x_i]\)</span>.</p>
+<p>For example, using the trapezium rule on <span class="math notranslate nohighlight">\([x_{i-1},x_i]\)</span>, we find</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+   \mathcal{C}_{1,m}(f) &amp;= \frac{b-a}m\, \Bigl[ \Bigl( \frac{1}{2} f(x_0) + \frac{1}{2} f(x_1) \Bigr)
+	+ \Bigl(\frac{1}{2} f(x_1) + \frac{1}{2} f(x_2) \Bigr) + \cdots
+	+ \Bigl( \frac{1}{2} f(x_{m-1}) + \frac{1}{2} f(x_m) \Bigr) \Bigr] \notag\\
+   &amp;= h\, \Bigl[ \frac{1}{2} f(x_0) + f(x_1) + f(x_2) + \cdots
+	+ f(x_{m-1}) + \frac{1}{2} f(x_m) \Bigr].
+\end{align}
+\end{split}\]</div>
+<p>This scheme involves <span class="math notranslate nohighlight">\(m+1\)</span> evaluations of <span class="math notranslate nohighlight">\(f\)</span>. To use Simpson’s rule in <span class="math notranslate nohighlight">\([x_{i-1},x_i]\)</span>, we need to introduce the extra
+node <span class="math notranslate nohighlight">\(x_{i-1/2}:=(x_{i-1}+x_i)/2\)</span>. The resulting scheme is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+   \mathcal{C}_{2,m}(f) &amp;= \frac{b-a}{m} \, \Bigl[ \frac{1}{6} f(x_0) + \frac{2}{3} f(x_{1/2}) + \frac{1}{6} f(x_1)
+	+ \frac{1}{6} f(x_1) + \frac{2}{3} f(x_{3/2}) + \frac{1}{6} f(x_2)\\
+	&amp; \phantom{= \frac{b-a}{m} \, \Bigl[} + \cdots + \frac{1}{6} f(x_{m-1}) + \frac{2}{3} f(x_{m-1/2}) + \frac{1}{6} f(x_m)\Bigr]\\
+	&amp;= h\, \Bigl[  \frac{1}{6} f(x_0) + \frac{2}{3} f(x_{1/2}) + \frac{1}{3} f(x_1) + \frac{2}{3} f(x_{3/2})\\
+	&amp;\phantom{= \frac{b-a}{m} \, \Bigl[}  + \cdots + \frac{1}{3} f(x_{m-1}) + \frac{2}{3} f(x_{m-1/2}) + \frac{1}{6} f(x_m) \Bigr],
+\end{align}
+\end{split}\]</div>
+<p>It involves <span class="math notranslate nohighlight">\(2m+1\)</span> evaluations of <span class="math notranslate nohighlight">\(f\)</span>.</p>
+<p>Error bounds for these methods can be obtained directly from those of the underlying methods. For <span class="math notranslate nohighlight">\(\mathcal{C}_{1,m}\)</span> we have, in the subinterval <span class="math notranslate nohighlight">\([x_{i-1},x_i]\)</span>,</p>
 <div class="math notranslate nohighlight">
 \[
-I = \int_{a}^{b}f(x)dx = \sum_{j=0}^{N-1} \int_{x_j}^{x_{j+1}}f(x)dx.
+\bigl|\mathcal{I}(f)-\mathcal{I}_1(f)\bigr| \le \frac{1}{2!}\,\max_{\xi\in[x_{i-1},x_i]}\,|f''(\xi)| \,\int_{x_{i-1}}^{x_i} |\omega_2(x)| dx = \frac{h^3}{12}\,\max_{\xi\in[x_{i-1},x_i]}\,|f''(\xi)|,
 \]</div>
-<p>Each integral is now posed on a small interval of size <span class="math notranslate nohighlight">\(h\)</span>. Instead of applying the Newton-Cotes rule to the
-large interval we apply the Newton-Cotes rule to each subinterval. Let us demonstrate this with the trapezoid rule</p>
+<p>where <span class="math notranslate nohighlight">\(\omega_2(x)=(x-x_{i-1})(x-x_i)\)</span>. Adding these up, we have in <span class="math notranslate nohighlight">\([a,b]=[x_0,x_m]\)</span>,</p>
 <div class="math notranslate nohighlight">
 \[
-\int_{a}^{b}f(x)dx \approx \frac{b-a}{2} \left(f(b) + f(a)\right).
+\bigl|\mathcal{I}(f)-\mathcal{C}_{1,m}(f)\bigr|	\le \frac{mh^3}{12}\,\max_i\Bigl\{\max_{\xi\in[x_{i-1},x_i]}\,|f''(\xi)|\Bigr\} = (b-a)\,\frac{h^2}{12}\,\max_{\xi\in[a,b]}\,|f''(\xi)|.
 \]</div>
-<p>Applying this rule to each subinterval <span class="math notranslate nohighlight">\([x_j, x_{j+1}]\)</span> we obtain</p>
-<div class="math notranslate nohighlight">
-\[
-I\approx \frac{h}{2}\sum_{j=0}^{N-1}\left(f(x_{j+1}) + f(x_j)\right).
-\]</div>
-<p>Note that for each interior point <span class="math notranslate nohighlight">\(x_j\)</span> with <span class="math notranslate nohighlight">\(0&lt;j&lt;N\)</span> the corresponding value <span class="math notranslate nohighlight">\(f(x_j)\)</span> appears twice. We hence
-have the very simple expression</p>
-<div class="math notranslate nohighlight">
-\[
-I\approx h\left[\frac{1}{2}f(a) + \sum_{j=1}^{N-1}f(x_j) + \frac{1}{2}f(b)\right].
-\]</div>
-<p>It is possible to show that the rate of convergence of this rule is quadratic in <span class="math notranslate nohighlight">\(h\)</span> for sufficiently smooth functions,
-that is the error decreases with <span class="math notranslate nohighlight">\(\mathcal{O}(h^2)\)</span>. But what happened to Runge’s phenomenon?</p>
-<p>The trick is that we are not increasing the polynomial degree <span class="math notranslate nohighlight">\(N\)</span> but keep it fixed. We rather decrease the
-interval size <span class="math notranslate nohighlight">\(h\)</span>. So Runge’s phenomenon is irrelevant for this rule as it only applies for growing polynomial degree.</p>
-<p>If <span class="math notranslate nohighlight">\(f\)</span> is periodic with period <span class="math notranslate nohighlight">\((b - a)\)</span> the composite trapezoid rule becomes even simpler. In that case we have
-<span class="math notranslate nohighlight">\(f(a) = f(b)\)</span> and</p>
-<div class="math notranslate nohighlight">
-\[
-I\approx h\sum_{j=0}^{N-1}f(x_j).
-\]</div>
-<p>For periodic and analytic functions one can show that this quadrature rule even converges with exponential accuracy.
-This is a feature used by many practical fast algorithms.</p>
 </section>
-<section id="clenshaw-curtis-quadrature-rules">
-<h2>Clenshaw-Curtis Quadrature rules<a class="headerlink" href="#clenshaw-curtis-quadrature-rules" title="Link to this heading">#</a></h2>
-<p>We define Chebychev points as follows.
-Let <span class="math notranslate nohighlight">\(\theta_j = \frac{j}{N+1}\pi\)</span> for <span class="math notranslate nohighlight">\(j = 0, \dots, N+1\)</span> and define</p>
-<p><span class="math notranslate nohighlight">\(z_j = e^{i\theta_j}\)</span>.</p>
-<p>The Chebychev points are defined as <span class="math notranslate nohighlight">\(x_j = \frac{1}{2}\left(z_j + z_j^{-1}\right) = \text{Re}\{z_j\}\)</span>.</p>
-<p>Chebychev points have the property that they cluster towards the boundary of the interval <span class="math notranslate nohighlight">\([-1, 1]\)</span>.
-It is this property that allows them to overcome the Runge phenomenon. It is possible to show that
-interpolation in Chebychev points is completely stable, no matter the number of points. Moreover,
-if we return to the question of approximation of functions via interpolation it is possible to show that
-interpolation polynomials in Chebychev points converge against the functions if it is sufficiently smooth.</p>
-<p>Quarature in Chebychev points is called Clenshaw-Curtis quadrature. It is highly efficient for numerically
-integrating smooth functions and remains stable for large number of quadrature points.</p>
+<section id="gauss-quadratures">
+<h2>Gauss Quadratures<a class="headerlink" href="#gauss-quadratures" title="Link to this heading">#</a></h2>
+<p>It is clear that the degree of exactness of an interpolatory quadrature <span class="math notranslate nohighlight">\(\mathcal{Q}_n(f)\)</span> is at least <span class="math notranslate nohighlight">\(n\)</span>.
+By considering <span class="math notranslate nohighlight">\(f(x)=(x-x_0)^2\cdots(x-x_n)^2\)</span>, we find that the degree of exactness of any interpolatory quadrature is
+no more than <span class="math notranslate nohighlight">\(2n+1\)</span>. Gauss showed that by judicious choice of the nodes <span class="math notranslate nohighlight">\(\{x_k\}\)</span>, one could indeed obtain a quadrature exact for all <span class="math notranslate nohighlight">\(f \in \mathcal{P}_{2n+1}\)</span>. The resulting Gauss quadrature rests on the following</p>
+<div class="prf-theorem admonition">
+<p class="admonition-title">Fact: Gauss quadrature</p>
+<p>The interpolatory formula</p>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{G}_n(f) := (b-a) \sum_{k=0}^n \sigma_k f(x_k)
+\]</div>
+<p>has degree of exactness <span class="math notranslate nohighlight">\(2n+1\)</span> if and only if <span class="math notranslate nohighlight">\(\{x_k\}\)</span> is chosen such that <span class="math notranslate nohighlight">\(\hat p(x) := (x-x_0) \cdots (x-x_n)\)</span> satisfies</p>
+<div class="math notranslate nohighlight">
+\[
+\int_a^b \hat p(x) \, p(x) \, dx = 0 \qquad \forall \, p \in \mathcal{P}_n.
+\]</div>
+</div>
+<p>Thus, the nodes <span class="math notranslate nohighlight">\(\{x_k\}_{k=0}^n\)</span> are the roots of a polynomial <span class="math notranslate nohighlight">\(\phi_{n+1} \in \mathcal{P}_{n+1}\)</span> which is in the orthogonal complement of <span class="math notranslate nohighlight">\(\mathcal{P}_n\)</span> in <span class="math notranslate nohighlight">\(\mathcal{P}_{n+1}\)</span> with respect to the inner product <span class="math notranslate nohighlight">\(\langle p, q \rangle = \int_a^b p(x) \, q(x) \, dx\)</span>.</p>
+<p>Once the nodes are determined, the coefficients can be computed as usual. Unlike the coefficients <span class="math notranslate nohighlight">\(\sigma_k\)</span> of a general quadrature formula,  Gauss quadrature weights are always positive, as can be seen by considering <span class="math notranslate nohighlight">\(\bar p_k(x)=\hat p(x)^2/(x-x_k)^2 \in \mathcal{P}_{2n}\)</span>: Due to the degree of exactness <span class="math notranslate nohighlight">\(2n+1\)</span> and <span class="math notranslate nohighlight">\(\bar p_k(x_j) = \delta_{jk}\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[
+0 &lt; \mathcal{I}(p_k) = \mathcal{Q}(p_k) = \sigma_k.
+\]</div>
 </section>
-<section id="gauss-quadrature">
-<h2>Gauss quadrature<a class="headerlink" href="#gauss-quadrature" title="Link to this heading">#</a></h2>
-<p>The final quadrature technique that we want to mention is Gauss quadrature. The basic idea is the following.</p>
-<p>Consider a quadrature rule <span class="math notranslate nohighlight">\(I\approx \sum_{j=0}^N f(x_j)\omega_j\)</span>. We have
-two sets of unknowns, the points <span class="math notranslate nohighlight">\(x_j\)</span> and the weights <span class="math notranslate nohighlight">\(\omega_j\)</span>. Gauss quadrature rules
-are designed in such a way as to integrate polynomials with as high order as possible, exactly.</p>
-<p>We have <span class="math notranslate nohighlight">\(2n+2\)</span> unknowns (the <span class="math notranslate nohighlight">\(n+1\)</span> quadrature points and associated weights). We can therefore
-hope to integrate exactly polynomials up to degree <span class="math notranslate nohighlight">\(2n+1\)</span>, which are defined by <span class="math notranslate nohighlight">\(2n+2\)</span> coefficients. Indeed,
-that is exactly what Gauss quadrature is able to do.</p>
-<p>The main drawback of Gauss quadrature is the more involved computation of the nodes and weights. We will not
-go into detail of this here. However, this is a step that only needs to be performed once.
-One can then simply tabulate the nodes and weights in the program code without recomputing them. This is exactly
-what is done in many practical applications that require quadrature.</p>
-<p>Traditionally, Gauss quadrature is preferred over Clenshaw-Curtis quadrature since
-it integrates polynomials of higher order exactly (Clenshaw-Curtis is only exact for polynomials up to degree <span class="math notranslate nohighlight">\(n\)</span>).
-However, this is not the whole story and recent work by Trefethen shows that in practice
-both rules are similarly accurate for the integration of sufficiently smooth functions.</p>
-</section>
+<section id="self-check-questions">
+<h2>Self-check questions<a class="headerlink" href="#self-check-questions" title="Link to this heading">#</a></h2>
+<div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Show</p>
+<div class="math notranslate nohighlight">
+\[
+\bigl|\mathcal{I}(f)-\mathcal{C}_{2,m}(f)\bigr| \le (b-a)\,\frac{h^3}{192}\,\max_{\xi\in[a,b]}\,|f'''(\xi)|.
+\]</div>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<strong>Answer</strong><div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Using</p>
+<div class="math notranslate nohighlight">
+\[
+\int_{x_{i-1}}^{x_i} |\omega_3(x)| dx = h^4 \int_0^1 \bigl|(t-0)(t-1/2)(t-1)\bigr| dt = \frac{h^4}{32},
+\]</div>
+<p class="sd-card-text">we find</p>
+<div class="math notranslate nohighlight">
+\[
+\bigl|\mathcal{I}(f)-\mathcal{C}_{2,m}(f)\bigr| \le \frac{m}{3!}\,\frac{h^4}{32}\,\max_{\xi\in[a,b]}\,|f'''(\xi)| = (b-a)\,\frac{h^3}{192}\,\max_{\xi\in[a,b]}\,|f'''(\xi)|.
+\]</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p class="sd-card-text">When <span class="math notranslate nohighlight">\(f\)</span> is smooth enough, we could actually prove with a more sophisticated argument taking the symmetry of the nodes into account that:</p>
+<div class="math notranslate nohighlight">
+\[
+\bigl|\mathcal{I}(f)-\mathcal{C}_{2,m}(f)\bigr| = (b-a)\,\frac{h^4}{2880}\,\max_{\xi\in[a,b]}\,|f^{(4)}(\xi)|.
+\]</div>
+</div>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Q</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<strong>Answer</strong><div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">A</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Q</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<strong>Answer</strong><div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">A</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Q</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<strong>Answer</strong><div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">A</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Q</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<strong>Answer</strong><div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">A</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Q</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<strong>Answer</strong><div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">A</p>
+</div>
+</details></section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -516,7 +605,7 @@ both rules are similarly accurate for the integration of sufficiently smooth fun
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Numerical quadrature</p>
+        <p class="prev-next-title">Introduction to Quadrature</p>
       </div>
     </a>
     <a class="right-next"
@@ -544,9 +633,9 @@ both rules are similarly accurate for the integration of sufficiently smooth fun
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summated-or-composite-quadrature-rules">Summated (or composite) quadrature rules</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clenshaw-curtis-quadrature-rules">Clenshaw-Curtis Quadrature rules</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gauss-quadrature">Gauss quadrature</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#composite-quadratures">Composite Quadratures</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gauss-quadratures">Gauss Quadratures</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#self-check-questions">Self-check questions</a></li>
 </ul>
   </nav></div>
 

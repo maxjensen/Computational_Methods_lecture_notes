@@ -4,7 +4,7 @@
 
 - $f \in C[a,b]$: $f$ is continuous on $[a,b]$.
 - $f \in C^n[a,b]$: $f$ is $n$ times continuously differentiable on $[a,b]$.
-- $f \in C^\infty{n+1}[a,b]$: $f$ is arbitrary times continuously differentiable on $[a,b]$.
+- $f \in C^\infty[a,b]$: $f$ is arbitrary times continuously differentiable on $[a,b]$.
 - $\mathcal{P}_n$: The set of polynomials of degree at most $n$.
 - $\delta_{ij}$: The Kronecker delta, equal to $1$ if $i=j$ and 0 otherwise.
 - $\mathbb{R}^n$: The $n$-dimensional real coordinate space.
