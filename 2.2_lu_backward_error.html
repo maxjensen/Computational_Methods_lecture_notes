@@ -211,8 +211,8 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Interpolation and quadrature</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="4.1_interpolation_and_quadrature.html">Introduction to interpolation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="4.2_quadrature.html">Numerical quadrature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.1_interpolation.html">Introduction to interpolation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.2_quadrature.html">Introduction to quadrature</a></li>
 <li class="toctree-l1"><a class="reference internal" href="4.3_stable_quadrature_schemes.html">Stable quadrature schemes</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Eigenvalue problems</span></p>
@@ -406,15 +406,21 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="backward-error-of-the-lu-decomposition-and-pivoting">
 <h1>Backward error of the LU decomposition and pivoting<a class="headerlink" href="#backward-error-of-the-lu-decomposition-and-pivoting" title="Link to this heading">#</a></h1>
-<p>The backward error of the LU decomposition is a fascinating topic. Despite the LU decomposition having been well known for decades there are still many open questions regarding the backward error.</p>
-<p>First of all, the LU decomposition itself is not backward stable, and we will see examples of why this is not the case. Indeed, LU decomposition can catastrophically increase the backward error.</p>
-<p>We will then learn about a small modification to the LU decomposition, called pivoting, which makes the algorithm stable in almost all situations. One can still construct matrices for which the improved algorithm is not backward stable. But these are quite pathological and do not tend to be relevant in practice.</p>
+<p>The backward error of the LU decomposition is a fascinating topic. Despite the LU decomposition having been well known
+for decades there are still many open questions regarding the backward error.</p>
+<p>First of all, the LU decomposition itself is not backward stable, and we will see examples of why this is not the case.
+Indeed, LU decomposition can catastrophically increase the backward error.</p>
+<p>We will then learn about a small modification to the LU decomposition, called pivoting, which makes the algorithm stable
+in almost all situations. One can still construct matrices for which the improved algorithm is not backward stable. But
+these are quite pathological and do not tend to be relevant in practice.</p>
 <section id="a-first-backward-error-result">
 <h2>A first backward error result<a class="headerlink" href="#a-first-backward-error-result" title="Link to this heading">#</a></h2>
-<p>The following theorem provides a backward error result for the basic LU decomposition. We will give the statement and then discuss its consequences. We will not provide the proof here.</p>
+<p>The following theorem provides a backward error result for the basic LU decomposition. We will give the statement and
+then discuss its consequences. We will not provide the proof here.</p>
 <section id="backward-error-of-the-lu-decomposition">
 <h3>Backward error of the LU decomposition<a class="headerlink" href="#backward-error-of-the-lu-decomposition" title="Link to this heading">#</a></h3>
-<p>Let <span class="math notranslate nohighlight">\(A = LU\)</span> be the LU decomposition of a nonsingular matrix <span class="math notranslate nohighlight">\(A\in\mathbb{R}^{n\times n}\)</span>., and <span class="math notranslate nohighlight">\(\tilde{L}, \tilde{U}\)</span> the computed LU factors by Gaussian elimination in floating
+<p>Let <span class="math notranslate nohighlight">\(A = LU\)</span> be the LU decomposition of a nonsingular matrix <span class="math notranslate nohighlight">\(A\in\mathbb{R}^{n\times n}\)</span>., and <span class="math notranslate nohighlight">\(\tilde{L}, \tilde{U}\)</span>
+the computed LU factors by Gaussian elimination in floating
 point arithmetic. The computed factors <span class="math notranslate nohighlight">\(\tilde{L}\)</span> and <span class="math notranslate nohighlight">\(\tilde{U}\)</span> satisfy</p>
 <div class="math notranslate nohighlight">
 \[
@@ -425,7 +431,9 @@ point arithmetic. The computed factors <span class="math notranslate nohighlight
 \[
 \frac{\|\Delta A\|}{\|L\|\cdot \|U\|} = \mathcal{O}(\epsilon_{mach}).
 \]</div>
-<p>We might naively think that this shows the LU decomposition is backward stable. However, for a backward stability result, we would require that <span class="math notranslate nohighlight">\(\| \Delta A \| / \|A\| = \mathcal{O}(\epsilon_{mach})\)</span>. But instead we have <span class="math notranslate nohighlight">\(\|L\|\cdot \|U\|\)</span> in the denominator.</p>
+<p>We might naively think that this shows the LU decomposition is backward stable. However, for a backward stability
+result, we would require that <span class="math notranslate nohighlight">\(\| \Delta A \| / \|A\| = \mathcal{O}(\epsilon_{mach})\)</span>. But instead we have <span class="math notranslate nohighlight">\(\|L\|\cdot
+\|U\|\)</span> in the denominator.</p>
 <p>So the question of backward stability of the <span class="math notranslate nohighlight">\(LU\)</span> decomposition is reduced to the problem of when we have that</p>
 <div class="math notranslate nohighlight">
 \[
@@ -438,7 +446,7 @@ point arithmetic. The computed factors <span class="math notranslate nohighlight
 <p>Let</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-A_{\epsilon} = 
+A_{\epsilon} =
 \begin{bmatrix}
 \epsilon &amp; 1\\
 1 &amp; 1
@@ -458,14 +466,15 @@ A_{\epsilon} =
 \end{bmatrix}
 \end{split}\]</div>
 <p>In this example <span class="math notranslate nohighlight">\(\|A\|\approx 1\)</span> (depending on the norm) but <span class="math notranslate nohighlight">\(\|L\|\cdot \|U\|\approx \mathcal{O}(\epsilon^{-2})\)</span>.</p>
-<p>The norms of <span class="math notranslate nohighlight">\(L\)</span> and <span class="math notranslate nohighlight">\(U\)</span> can differ wildly from the norm of <span class="math notranslate nohighlight">\(A\)</span>. But there is an easy fix in this example. We can swap the first and second rows of <span class="math notranslate nohighlight">\(A\)</span> to obtain</p>
+<p>The norms of <span class="math notranslate nohighlight">\(L\)</span> and <span class="math notranslate nohighlight">\(U\)</span> can differ wildly from the norm of <span class="math notranslate nohighlight">\(A\)</span>. But there is an easy fix in this example. We can swap
+the first and second rows of <span class="math notranslate nohighlight">\(A\)</span> to obtain</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{bmatrix}
 1 &amp; 1\\
 \epsilon &amp; 1
 \end{bmatrix}
-= 
+=
 \begin{bmatrix}
 1 &amp; 0\\
 \epsilon &amp; 1
@@ -489,7 +498,8 @@ a_{21} &amp; a_{22} &amp; a_{23}\\
 a_{31} &amp; a_{32} &amp; a_{33}
 \end{bmatrix}.
 \end{split}\]</div>
-<p>Assume that <span class="math notranslate nohighlight">\(a_{31}\)</span> is the element with the largest magnitude in the first column. We then exchange the third and the first row to get</p>
+<p>Assume that <span class="math notranslate nohighlight">\(a_{31}\)</span> is the element with the largest magnitude in the first column. We then exchange the third and the
+first row to get</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 P_1A = \begin{bmatrix}
@@ -507,7 +517,8 @@ P_1 = \begin{bmatrix}
 1 &amp; 0 &amp; 0
 \end{bmatrix}.
 \end{split}\]</div>
-<p>We now proceed with the LU decomposition as normal to zero out the elements in the first column. We then obtain a matrix with the structure</p>
+<p>We now proceed with the LU decomposition as normal to zero out the elements in the first column. We then obtain a matrix
+with the structure</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{bmatrix}
@@ -516,17 +527,21 @@ x &amp; x &amp; x\\
 0 &amp; x &amp; x &amp;
 \end{bmatrix}.
 \end{split}\]</div>
-<p>Before we proceed with the LU decomposition we swap the second and third row if the element at position <span class="math notranslate nohighlight">\((3, 2)\)</span> is larger by magnitude than the entry at position at <span class="math notranslate nohighlight">\((2, 2)\)</span>.</p>
-<p>This pivoting strategy guarantees that we have <span class="math notranslate nohighlight">\(|\ell_{i, j}|\leq 1\)</span> for all <span class="math notranslate nohighlight">\(i, j\)</span>. However, we now have a decomposition not of <span class="math notranslate nohighlight">\(A\)</span> but of <span class="math notranslate nohighlight">\(PA\)</span> in the form</p>
+<p>Before we proceed with the LU decomposition we swap the second and third row if the element at position <span class="math notranslate nohighlight">\((3, 2)\)</span> is
+larger by magnitude than the entry at position at <span class="math notranslate nohighlight">\((2, 2)\)</span>.</p>
+<p>This pivoting strategy guarantees that we have <span class="math notranslate nohighlight">\(|\ell_{i, j}|\leq 1\)</span> for all <span class="math notranslate nohighlight">\(i, j\)</span>. However, we now have a
+decomposition not of <span class="math notranslate nohighlight">\(A\)</span> but of <span class="math notranslate nohighlight">\(PA\)</span> in the form</p>
 <div class="math notranslate nohighlight">
 \[
 PA = LU,
 \]</div>
-<p>where <span class="math notranslate nohighlight">\(P\)</span> is a permutation matrix that swaps the rows of <span class="math notranslate nohighlight">\(A\)</span> around. Note that we do not <span class="math notranslate nohighlight">\(P\)</span> in advance. The correct permutation of the rows of <span class="math notranslate nohighlight">\(A\)</span> is determined by progressing through the LU decomposition.</p>
+<p>where <span class="math notranslate nohighlight">\(P\)</span> is a permutation matrix that swaps the rows of <span class="math notranslate nohighlight">\(A\)</span> around. Note that we do not <span class="math notranslate nohighlight">\(P\)</span> in advance. The correct
+permutation of the rows of <span class="math notranslate nohighlight">\(A\)</span> is determined by progressing through the LU decomposition.</p>
 </section>
 <section id="growth-factors">
 <h2>Growth factors<a class="headerlink" href="#growth-factors" title="Link to this heading">#</a></h2>
-<p>Let us consider how pivoting influences the size of the factors in the LU decomposition. As already stated we have <span class="math notranslate nohighlight">\(\ell_{i, j}| \leq 1\)</span> with pivoting. Hence, <span class="math notranslate nohighlight">\(\|L\| \approx 1\)</span> and</p>
+<p>Let us consider how pivoting influences the size of the factors in the LU decomposition. As already stated we have
+<span class="math notranslate nohighlight">\(\ell_{i, j}| \leq 1\)</span> with pivoting. Hence, <span class="math notranslate nohighlight">\(\|L\| \approx 1\)</span> and</p>
 <div class="math notranslate nohighlight">
 \[
 \|L\|\cdot \|U\| \approx \|U\|
@@ -552,9 +567,11 @@ PA = LU,
 \[
 \frac{\|\Delta A\|}{\|A\|}= \mathcal{O}(\rho\epsilon_{mach}).
 \]</div>
-<p><strong>Note that the notation <span class="math notranslate nohighlight">\(\mathcal{O}(\rho\epsilon_{mach})\)</span> is a bit misleading since the <span class="math notranslate nohighlight">\(O\)</span>-notation absorbs constants. Nevertheless, this is done to emphasise the importance of the factor <span class="math notranslate nohighlight">\(\rho\)</span></strong>.</p>
+<p><strong>Note that the notation <span class="math notranslate nohighlight">\(\mathcal{O}(\rho\epsilon_{mach})\)</span> is a bit misleading since the <span class="math notranslate nohighlight">\(O\)</span>-notation absorbs
+constants. Nevertheless, this is done to emphasise the importance of the factor <span class="math notranslate nohighlight">\(\rho\)</span></strong>.</p>
 <p>It follows that the LU decomposition with pivoting is backward stable if <span class="math notranslate nohighlight">\(\rho\)</span> is small.</p>
-<p>For most matrices, this is the case but not for all matrices, and we will get to know examples where <span class="math notranslate nohighlight">\(\rho\)</span> can grow exponentially but also see that this almost never happens in practice.</p>
+<p>For most matrices, this is the case but not for all matrices, and we will get to know examples where <span class="math notranslate nohighlight">\(\rho\)</span> can grow
+exponentially but also see that this almost never happens in practice.</p>
 </section>
 </section>
 

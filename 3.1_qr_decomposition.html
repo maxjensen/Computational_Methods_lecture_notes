@@ -211,8 +211,8 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Interpolation and quadrature</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="4.1_interpolation_and_quadrature.html">Introduction to interpolation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="4.2_quadrature.html">Numerical quadrature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.1_interpolation.html">Introduction to interpolation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.2_quadrature.html">Introduction to quadrature</a></li>
 <li class="toctree-l1"><a class="reference internal" href="4.3_stable_quadrature_schemes.html">Stable quadrature schemes</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Eigenvalue problems</span></p>
@@ -432,7 +432,7 @@ document.write(`
 </section>
 <section id="qr-decomposition-via-gram-schmidt-orthogonalisation">
 <h2>QR Decomposition via Gram-Schmidt Orthogonalisation<a class="headerlink" href="#qr-decomposition-via-gram-schmidt-orthogonalisation" title="Link to this heading">#</a></h2>
-<p>Consider a matrix <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span>  with <span class="math notranslate nohighlight">\(m \geq n\)</span>. The aim is to orthogonalise the columns of <span class="math notranslate nohighlight">\(A\)</span>. This process is achieved through the Gram-Schmidt orthogonalisation method.</p>
+<p>Consider a matrix <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span> with <span class="math notranslate nohighlight">\(m \geq n\)</span>. The aim is to orthogonalise the columns of <span class="math notranslate nohighlight">\(A\)</span>. This process is achieved through the Gram-Schmidt orthogonalisation method.</p>
 <div class="proof algorithm admonition" id="algorithm-0">
 <p class="admonition-title"><span class="caption-number">Algorithm 1 </span> (Gram-Schmidt Orthogonalisation)</p>
 <section class="algorithm-content" id="proof-content">
@@ -476,13 +476,13 @@ document.write(`
 <li><p><span class="math notranslate nohighlight">\(R\)</span> is an upper triangular matrix defined as:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-    R = \begin{bmatrix}
-    \|\tilde{q}_1\|_2 &amp; \langle a_2, q_1 \rangle &amp; \ldots &amp; \langle a_n, q_1 \rangle \\
-                      &amp; \|\tilde{q}_2\|_2        &amp; \ddots &amp; \vdots \\
-                      &amp;                          &amp; \ddots &amp; \langle a_n, q_{n-1} \rangle \\
-                      &amp;                          &amp;        &amp; \|\tilde{q}_n\|_2
-    \end{bmatrix}
-    \end{split}\]</div>
+      R = \begin{bmatrix}
+      \|\tilde{q}_1\|_2 &amp; \langle a_2, q_1 \rangle &amp; \ldots &amp; \langle a_n, q_1 \rangle \\
+      &amp; \|\tilde{q}_2\|_2 &amp; \ddots &amp; \vdots \\
+      &amp; &amp; \ddots &amp; \langle a_n, q_{n-1} \rangle \\
+      &amp; &amp; &amp; \|\tilde{q}_n\|_2
+      \end{bmatrix}
+      \end{split}\]</div>
 </li>
 </ul>
 </li>
@@ -503,10 +503,10 @@ document.write(`
 <li><p>Left-multiplying by <span class="math notranslate nohighlight">\(Q^T\)</span> (since <span class="math notranslate nohighlight">\(Q\)</span> is orthogonal, <span class="math notranslate nohighlight">\(Q^TQ = I\)</span>): <span class="math notranslate nohighlight">\(Q^TQRx = Q^Tb\)</span>.</p></li>
 <li><p>Simplifying (as <span class="math notranslate nohighlight">\(Q^TQ = I\)</span>): <span class="math notranslate nohighlight">\(Rx = Q^Tb\)</span>.</p></li>
 </ol>
-<p>The last equation, <span class="math notranslate nohighlight">\(Rx = Q^Tb\)</span>, represents an upper triangular system. This can be efficiently solved by backward substitution, starting from the last equation and substituting backwards to find all unknowns.</p>
+<p>The last equation, <span class="math notranslate nohighlight">\(Rx = Q^Tb\)</span>, represents an upper triangular system. This can be efficiently solved by backward substitution, starting from the previous equation and substituting backwards to find all unknowns.</p>
 <ul class="simple">
 <li><p><strong>Backward Stability</strong>: Solving linear systems via QR decomposition is known to be backward stable. Backward stability refers to the property where the computed solution is the exact solution to a slightly perturbed version of the original problem. This stability is particularly beneficial when dealing with ill-conditioned matrices or when high precision is required.</p></li>
-<li><p><strong>Comparison with LU Decomposition</strong>: Despite its stability, the QR decomposition method for solving linear systems is not as commonly used as the LU decomposition in practice. This is primarily due to its computational cost. The QR decomposition typically requires about twice as many operations as the LU decomposition, making it less efficient for large-scale problems.</p></li>
+<li><p><strong>Comparison with LU Decomposition</strong>: Despite its stability, the QR decomposition method for solving linear systems is less commonly used than the LU decomposition in practice. This is primarily due to its computational cost. The QR decomposition typically requires about twice as many operations as the LU decomposition, making it less efficient for large-scale problems.</p></li>
 </ul>
 </section>
 <section id="reduced-vs-full-qr-decomposition">
@@ -516,7 +516,7 @@ document.write(`
 \[\begin{split}
 A = \begin{bmatrix}Q &amp; Q^{\bot}\end{bmatrix}\begin{bmatrix}R\\ 0\end{bmatrix} =: \tilde{R}\tilde{Q}.
 \end{split}\]</div>
-<p>The QR decomposition <span class="math notranslate nohighlight">\(A = \tilde{Q}\tilde{R}\)</span> is called full QR decomposition. It is rarely used in practical computation as the columns of <span class="math notranslate nohighlight">\(Q^{\bot}\)</span> are usually not required. But it is important theoretically, as <span class="math notranslate nohighlight">\(Q^{\bot}\)</span> contains information about the range of <span class="math notranslate nohighlight">\(A\)</span> and its orthogonal complement.</p>
+<p>The QR decomposition <span class="math notranslate nohighlight">\(A = \tilde{Q}\tilde{R}\)</span> is called full QR decomposition. It is rarely used in practical computation as the columns of <span class="math notranslate nohighlight">\(Q^{\bot}\)</span> are usually not required. However, it is essential theoretically, as <span class="math notranslate nohighlight">\(Q^{\bot}\)</span> contains information about the range of <span class="math notranslate nohighlight">\(A\)</span> and its orthogonal complement.</p>
 </section>
 <section id="python-skills">
 <h2>Python skills<a class="headerlink" href="#python-skills" title="Link to this heading">#</a></h2>
@@ -635,7 +635,7 @@ A = \begin{bmatrix}Q &amp; Q^{\bot}\end{bmatrix}\begin{bmatrix}R\\ 0\end{bmatrix
 </div>
 </details><div class="tip admonition">
 <p class="admonition-title"><strong>Question</strong></p>
-<p>A matrix <span class="math notranslate nohighlight">\(A\)</span> is called tridiagonal if on its diagonal and first off-diagonals contain non-zero entries: <span class="math notranslate nohighlight">\(a_{ij} = 0\)</span> if <span class="math notranslate nohighlight">\(|i - j| \geq 2\)</span>. Show that if <span class="math notranslate nohighlight">\(A\)</span> is tridiagonal, then <span class="math notranslate nohighlight">\(R\)</span> of its <span class="math notranslate nohighlight">\(QR\)</span> factorisation is nonzero only on the diagonal and the first two upper off-diagonals.</p>
+<p>A matrix <span class="math notranslate nohighlight">\(A\)</span> is called tridiagonal if on its diagonal and first off-diagonals contain nonzero entries: <span class="math notranslate nohighlight">\(a_{ij} = 0\)</span> if <span class="math notranslate nohighlight">\(|i - j| \geq 2\)</span>. Show that if <span class="math notranslate nohighlight">\(A\)</span> is tridiagonal, then <span class="math notranslate nohighlight">\(R\)</span> of its <span class="math notranslate nohighlight">\(QR\)</span> factorisation is nonzero only on the diagonal and the first two upper off-diagonals.</p>
 </div>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
@@ -658,7 +658,7 @@ A = \begin{bmatrix}Q &amp; Q^{\bot}\end{bmatrix}\begin{bmatrix}R\\ 0\end{bmatrix
 <ul>
 <li><p class="sd-card-text">The result trivially holds for the first three columns because of the triangularity of <span class="math notranslate nohighlight">\(R\)</span>. Thus, let <span class="math notranslate nohighlight">\(j \geq 4\)</span>.</p></li>
 <li><p class="sd-card-text">We know that the first <span class="math notranslate nohighlight">\(j - 2\)</span> entries of the <span class="math notranslate nohighlight">\(j\)</span>th column of <span class="math notranslate nohighlight">\(a_j\)</span> vanish because of the tridiagonal structure.</p></li>
-<li><p class="sd-card-text">We that <span class="math notranslate nohighlight">\(\mathrm{span}(a_1, \ldots, a_i) = \mathrm{span}(q_1, \ldots, q_i)\)</span> owing to the construction of the Gram-Schmid method. Because of the tridiagonal structure, only the <span class="math notranslate nohighlight">\((i+1)\)</span>th elements of <span class="math notranslate nohighlight">\(q_k\)</span>, <span class="math notranslate nohighlight">\(k \leq i\)</span>, can be non-zero.</p></li>
+<li><p class="sd-card-text">We that <span class="math notranslate nohighlight">\(\mathrm{span}(a_1, \ldots, a_i) = \mathrm{span}(q_1, \ldots, q_i)\)</span> owing to the construction of the Gram-Schmid method. Because of the tridiagonal structure, only the <span class="math notranslate nohighlight">\((i+1)\)</span>th elements of <span class="math notranslate nohighlight">\(q_k\)</span>, <span class="math notranslate nohighlight">\(k \leq i\)</span>, can be nonzero.</p></li>
 <li><p class="sd-card-text">Therefore if <span class="math notranslate nohighlight">\(j + 2 \geq i\)</span></p>
 <div class="math notranslate nohighlight">
 \[
@@ -756,7 +756,7 @@ P^2 = uu^Tuu^T = uu^T
 </div>
 </details><div class="tip admonition">
 <p class="admonition-title"><strong>Question</strong></p>
-<p>In the following, we define two different ways of orthogonalising a set of vectors.</p>
+<p>In the following, we define two different ways of orthogonalising vectors.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>  
   
 <span class="k">def</span> <span class="nf">gram_schmidt</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>  
@@ -792,7 +792,7 @@ P^2 = uu^Tuu^T = uu^T
     <span class="k">return</span> <span class="n">Q</span>
 </pre></div>
 </div>
-<p>Describe the difference between the two formulations and convince yourself that they are algebraically equivalent. Can you numerically demonstrate that the modified formulation is more accurate in floating point arithmetic?</p>
+<p>Describe the difference between the two formulations and convince yourself that they are algebraically equivalent. How can one numerically demonstrate that the modified formulation is more accurate in floating point arithmetic?</p>
 </div>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
@@ -847,19 +847,19 @@ QR Decomposition with Householder Transformations<div class="sd-summary-down doc
 \[
 H x = \left(x_o - 2 \frac{v^T x_o}{v^Tv} v\right) + \left(x_c - 2 \frac{v^T x_c}{v^Tv} v\right) = x_o - x_c,
 \]</div>
-<p class="sd-card-text">meaning that geometrically Householder transformation is a reflection of <span class="math notranslate nohighlight">\(x\)</span> in the hyperplane which is perpendicular to <span class="math notranslate nohighlight">\(v\)</span>.</p>
+<p class="sd-card-text">meaning that geometrically, Householder transformation is a reflection of <span class="math notranslate nohighlight">\(x\)</span> in the hyperplane, which is perpendicular to <span class="math notranslate nohighlight">\(v\)</span>.</p>
 <h4 class="rubric" id="application-in-qr-decomposition">Application in QR Decomposition</h4>
 <p class="sd-card-text">As with the Gram-Schmidt method above, the goal is to transform a given matrix <span class="math notranslate nohighlight">\(A\)</span> into an upper triangular matrix <span class="math notranslate nohighlight">\(R\)</span> using orthogonal transformations. This is achieved iteratively, column by column, using Householder matrices.</p>
 <p class="sd-card-text"><strong>Step-by-Step Process</strong>:</p>
 <ol class="arabic simple">
-<li><p class="sd-card-text"><strong>Target Vector</strong>: Consider the first column of <span class="math notranslate nohighlight">\(A\)</span>. Let’s denote this column as <span class="math notranslate nohighlight">\(x\)</span>. We want to transform <span class="math notranslate nohighlight">\(x\)</span> into a new vector <span class="math notranslate nohighlight">\(x'\)</span> with the same norm as <span class="math notranslate nohighlight">\(x\)</span> but all components are zero except for the first component.</p></li>
+<li><p class="sd-card-text"><strong>Target Vector</strong>: Consider the first column of <span class="math notranslate nohighlight">\(A\)</span>. Let us denote this column as <span class="math notranslate nohighlight">\(x\)</span>. We want to transform <span class="math notranslate nohighlight">\(x\)</span> into a new vector <span class="math notranslate nohighlight">\(x'\)</span> with the same norm as <span class="math notranslate nohighlight">\(x\)</span>, but all components are zero except for the first component.</p></li>
 <li><p class="sd-card-text"><strong>Constructing <span class="math notranslate nohighlight">\(v\)</span></strong>: To create the Householder matrix <span class="math notranslate nohighlight">\(H\)</span>, we first need to construct the vector <span class="math notranslate nohighlight">\(v\)</span>. This is done by taking <span class="math notranslate nohighlight">\(v = x - \|x\|e_1\)</span>, where <span class="math notranslate nohighlight">\(e_1\)</span> is the first unit vector. With <span class="math notranslate nohighlight">\(v\)</span> determined, we form the Householder matrix <span class="math notranslate nohighlight">\(H = I - 2 \frac{vv^T}{v^Tv}\)</span>.</p></li>
 <li><p class="sd-card-text"><strong>Applying <span class="math notranslate nohighlight">\(H\)</span></strong>: Multiply <span class="math notranslate nohighlight">\(H\)</span> by <span class="math notranslate nohighlight">\(A\)</span> (i.e., <span class="math notranslate nohighlight">\(HA\)</span>) to reflect the first column of <span class="math notranslate nohighlight">\(A\)</span> about the plane orthogonal to <span class="math notranslate nohighlight">\(v\)</span>. This operation zeros out all elements below the diagonal in the first column; see Lecture 10 of <span id="id1">[<a class="reference internal" href="bibliography.html#id2" title="Lloyd N. Trefethen and David Bau, III. Numerical linear algebra. Society for Industrial and Applied Mathematics (SIAM), Philadelphia, PA, 1997. ISBN 0-89871-361-7. URL: https://ucl.primo.exlibrisgroup.com/permalink/44UCL_INST/155jbua/alma990010608020204761, doi:10.1137/1.9780898719574.">Trefethen and Bau, 1997</a>]</span>.</p></li>
 <li><p class="sd-card-text"><strong>Iterative Process</strong>: Repeat the process for the submatrix of <span class="math notranslate nohighlight">\(A\)</span> excluding the already zeroed elements. Each step involves constructing a new Householder matrix to introduce zeros in the subsequent column below the diagonal.</p></li>
 </ol>
 <h4 class="rubric" id="comparing-with-the-gram-schmidt-method">Comparing with the Gram-Schmidt method</h4>
 <ul class="simple">
-<li><p class="sd-card-text"><strong>Numerical Stability</strong>: Householder transformations are generally more numerically stable than both the classical (and modified) Gram-Schmidt processes.</p></li>
+<li><p class="sd-card-text"><strong>Numerical Stability</strong>: Householder transformations are generally more numerically stable than the classical (and modified) Gram-Schmidt processes.</p></li>
 <li><p class="sd-card-text"><strong>Efficiency in Large Matrices</strong>: For large matrices, the increased stability of Householder transformations often outweighs its higher computational complexity.</p></li>
 <li><p class="sd-card-text"><strong>Ease of Understanding</strong>: The Gram-Schmidt process is often easier to understand and implement.</p></li>
 </ul>

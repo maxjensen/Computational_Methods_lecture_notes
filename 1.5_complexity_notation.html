@@ -211,8 +211,8 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Interpolation and quadrature</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="4.1_interpolation_and_quadrature.html">Introduction to interpolation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="4.2_quadrature.html">Numerical quadrature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.1_interpolation.html">Introduction to interpolation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.2_quadrature.html">Introduction to quadrature</a></li>
 <li class="toctree-l1"><a class="reference internal" href="4.3_stable_quadrature_schemes.html">Stable quadrature schemes</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Eigenvalue problems</span></p>
@@ -406,10 +406,13 @@ document.write(`
 \[
 p(n) = 3n^3 + 5n^2 + 1.
 \]</div>
-<p>If we are only interested in the asymptotic behaviour for large <span class="math notranslate nohighlight">\(n\)</span> then only the cubic term of <span class="math notranslate nohighlight">\(p\)</span> is relevant. Moreover, if we only want to express that the polynomial is growing cubically, the <span class="math notranslate nohighlight">\(3\)</span> in front of <span class="math notranslate nohighlight">\(n^3\)</span> is irrelevant. A convenient notation to express this is the <span class="math notranslate nohighlight">\(\mathcal{O}\)</span>-notation.</p>
+<p>If we are only interested in the asymptotic behaviour for large <span class="math notranslate nohighlight">\(n\)</span> then only the cubic term of <span class="math notranslate nohighlight">\(p\)</span> is relevant.
+Moreover, if we only want to express that the polynomial is growing cubically, the <span class="math notranslate nohighlight">\(3\)</span> in front of <span class="math notranslate nohighlight">\(n^3\)</span> is irrelevant.
+A convenient notation to express this is the <span class="math notranslate nohighlight">\(\mathcal{O}\)</span>-notation.</p>
 <section id="definition-of-mathcal-o-notation">
 <h2>Definition of <span class="math notranslate nohighlight">\(\mathcal{O}\)</span>-notation<a class="headerlink" href="#definition-of-mathcal-o-notation" title="Link to this heading">#</a></h2>
-<p>Let <span class="math notranslate nohighlight">\(g(n)\)</span> and <span class="math notranslate nohighlight">\(f(n)\)</span> be two given functions for <span class="math notranslate nohighlight">\(n\in\mathbb{N}\)</span>. If there exists <span class="math notranslate nohighlight">\(n_0 \in \mathbb{N}\)</span> and a constant <span class="math notranslate nohighlight">\(C&gt; 0\)</span> such that</p>
+<p>Let <span class="math notranslate nohighlight">\(g(n)\)</span> and <span class="math notranslate nohighlight">\(f(n)\)</span> be two given functions for <span class="math notranslate nohighlight">\(n\in\mathbb{N}\)</span>. If there exists <span class="math notranslate nohighlight">\(n_0 \in \mathbb{N}\)</span> and a constant
+<span class="math notranslate nohighlight">\(C&gt; 0\)</span> such that</p>
 <div class="math notranslate nohighlight">
 \[
 |g(n)| \leq Cf(n)
@@ -426,7 +429,9 @@ p(n) = 3n^3 + 5n^2 + 1.
 \[
 p(n) = \mathcal{O}(n^3).
 \]</div>
-<p>At the same time, we have that <span class="math notranslate nohighlight">\(p(n) = \mathcal{O}(5n^3)\)</span>. However, we usually do not express constants inside the <span class="math notranslate nohighlight">\(\mathcal{O}\)</span>-notation unless we want to emphasise their importance, since the definition of the <span class="math notranslate nohighlight">\(\mathcal{O}\)</span>-notation is independent of constant factors.</p>
+<p>At the same time, we have that <span class="math notranslate nohighlight">\(p(n) = \mathcal{O}(5n^3)\)</span>. However, we usually do not express constants inside the
+<span class="math notranslate nohighlight">\(\mathcal{O}\)</span>-notation unless we want to emphasise their importance, since the definition of the <span class="math notranslate nohighlight">\(\mathcal{O}\)</span>-notation
+is independent of constant factors.</p>
 <p>For small <span class="math notranslate nohighlight">\(x\)</span> a typical example of the <span class="math notranslate nohighlight">\(\mathcal{O}\)</span>-notation is in Taylor’s theorem. For example, we have that</p>
 <div class="math notranslate nohighlight">
 \[

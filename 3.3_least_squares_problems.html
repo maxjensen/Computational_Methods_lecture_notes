@@ -71,7 +71,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = '3.3_least_squares_problems';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Introduction to interpolation" href="4.1_interpolation_and_quadrature.html" />
+    <link rel="next" title="Introduction to interpolation" href="4.1_interpolation.html" />
     <link rel="prev" title="The Singular Value Decomposition" href="3.2_singular_value_decomposition.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -211,8 +211,8 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Interpolation and quadrature</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="4.1_interpolation_and_quadrature.html">Introduction to interpolation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="4.2_quadrature.html">Numerical quadrature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.1_interpolation.html">Introduction to interpolation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.2_quadrature.html">Introduction to quadrature</a></li>
 <li class="toctree-l1"><a class="reference internal" href="4.3_stable_quadrature_schemes.html">Stable quadrature schemes</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Eigenvalue problems</span></p>
@@ -500,9 +500,10 @@ A = \begin{bmatrix} Q_1 &amp; Q_2 \end{bmatrix}\begin{bmatrix} R \\ 0 \end{bmatr
 <p>where <span class="math notranslate nohighlight">\(Q_1\)</span> and <span class="math notranslate nohighlight">\(Q_2\)</span> are orthogonal matrices, and <span class="math notranslate nohighlight">\(R\)</span> is an upper triangular matrix. Substituting this decomposition into the least-squares problem, we get:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-\|Ax - b\|_2 = \left\|\begin{bmatrix} Q_1 &amp; Q_2 \end{bmatrix}\begin{bmatrix} R \\ 0 \end{bmatrix}x - b\right\|_2 = \left\|\begin{bmatrix} R \\ 0 \end{bmatrix}x - \begin{bmatrix} Q_1^Tb \\ Q_2^Tb \end{bmatrix}\right\|_2
+\|Ax - b\|_2 = \left\|\begin{bmatrix} Q_1 &amp; Q_2 \end{bmatrix}\begin{bmatrix} R \\ 0 \end{bmatrix}x - b\right\|_2 =
+\left\|\begin{bmatrix} R \\ 0 \end{bmatrix}x - \begin{bmatrix} Q_1^Tb \\ Q_2^Tb \end{bmatrix}\right\|_2
 \end{split}\]</div>
-<p>Here, we observe that only the first block-row is influenced by the choice of <span class="math notranslate nohighlight">\(x\)</span>. In the second block-row, <span class="math notranslate nohighlight">\(x\)</span> is multiplied by zero, meaning no choice of <span class="math notranslate nohighlight">\(x\)</span> will reduce the contribution from this part. Therefore, the minimiser of the least squares problem is found by solving:</p>
+<p>Here, we observe that the choice of <span class="math notranslate nohighlight">\(x\)</span> influences only the first block-row. In the second block row, <span class="math notranslate nohighlight">\(x\)</span> is multiplied by zero, meaning no choice of <span class="math notranslate nohighlight">\(x\)</span> will reduce the contribution from this part. Therefore, the minimiser of the least squares problem is found by solving:</p>
 <div class="math notranslate nohighlight">
 \[
 Rx = Q_1^Tb.
@@ -510,9 +511,10 @@ Rx = Q_1^Tb.
 <p>Returning to the question of the <span class="math notranslate nohighlight">\(2\)</span>-norm condition number:</p>
 <div class="math notranslate nohighlight">
 \[
-\kappa_{rel}(R) = \kappa_{rel}(Q^T A) = \| Q^T A \|_2 \, \| (Q^T A)^{-1} \|_2 \leq \| Q^T \|_2 \, \| A \|_2 \, \| A^{-1} \|_2 \, \| Q \|_2 = \kappa_{rel}(A),
+\kappa_{rel}(R) = \kappa_{rel}(Q^T A) = \| Q^T A \|_2 \, \| (Q^T A)^{-1} \|_2 \leq \| Q^T \|_2 \, \| A \|_2 \, \|
+A^{-1} \|_2 \, \| Q \|_2 = \kappa_{rel}(A),
 \]</div>
-<p>where we use the submultiplicativity of the matrix <span class="math notranslate nohighlight">\(2\)</span>-norm and that <span class="math notranslate nohighlight">\(\| Q \|_2  = 1\)</span> and <span class="math notranslate nohighlight">\(Q^T = Q^{-1}\)</span>.</p>
+<p>where we use the submultiplicativity of the matrix <span class="math notranslate nohighlight">\(2\)</span>-norm and that <span class="math notranslate nohighlight">\(\| Q \|_2 = 1\)</span> and <span class="math notranslate nohighlight">\(Q^T = Q^{-1}\)</span>.</p>
 <p>Consequently, the <span class="math notranslate nohighlight">\(QR\)</span> decomposition approach effectively circumvents the condition number squaring issue associated with the normal equation method.</p>
 </section>
 <section id="solving-least-squares-problems-with-the-svd">
@@ -525,7 +527,8 @@ Rx = Q_1^Tb.
 <p>Let <span class="math notranslate nohighlight">\(y=V^Tx\)</span> and factorise out <span class="math notranslate nohighlight">\(U\)</span> to obtain</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-\|Ax - b\|_2 = \left\|\begin{bmatrix}\tilde{\Sigma}\\ 0\end{bmatrix}y - \begin{bmatrix}U_1^Tb\\ U_2^Tb\end{bmatrix}\right\|_2.
+\|Ax - b\|_2 = \left\|\begin{bmatrix}\tilde{\Sigma}\\ 0\end{bmatrix}y - \begin{bmatrix}U_1^Tb\\
+U_2^Tb\end{bmatrix}\right\|_2.
 \end{split}\]</div>
 <p>Hence, <span class="math notranslate nohighlight">\(y = \tilde{\Sigma}^{-1}U_1^Tb\)</span> and therefore</p>
 <div class="math notranslate nohighlight">
@@ -542,7 +545,7 @@ x = V\tilde{\Sigma}^{-1}U_1^Tb = V\begin{bmatrix}\tilde{\Sigma}^{-1} &amp; 0\end
 A^{\dagger} := V\begin{bmatrix}\tilde{\Sigma}^{-1} &amp; 0\end{bmatrix}U^T.
 \]</div>
 </section>
-</div><p>The pseudo-inverse of <span class="math notranslate nohighlight">\(A\)</span> is a generalisation of the inverse of <span class="math notranslate nohighlight">\(A\)</span>. In the same way that <span class="math notranslate nohighlight">\(A^{-1}b\)</span> solves the linear system <span class="math notranslate nohighlight">\(Ax=b\)</span> for a square matrix <span class="math notranslate nohighlight">\(A\)</span>, the pseudo-inverse <span class="math notranslate nohighlight">\(A^{\dagger}\)</span> applied to <span class="math notranslate nohighlight">\(b\)</span> solves the least-squares minimisation problem  <span class="math notranslate nohighlight">\(\|Ax-b\|_2\)</span> for rectangular <span class="math notranslate nohighlight">\(A\)</span>.</p>
+</div><p>The pseudo-inverse of <span class="math notranslate nohighlight">\(A\)</span> is a generalisation of the inverse of <span class="math notranslate nohighlight">\(A\)</span>. In the same way that <span class="math notranslate nohighlight">\(A^{-1}b\)</span> solves the linear system <span class="math notranslate nohighlight">\(Ax=b\)</span> for a square matrix <span class="math notranslate nohighlight">\(A\)</span>, the pseudo-inverse <span class="math notranslate nohighlight">\(A^{\dagger}\)</span> applied to <span class="math notranslate nohighlight">\(b\)</span> solves the least-squares minimisation problem <span class="math notranslate nohighlight">\(\|Ax-b\|_2\)</span> for rectangular <span class="math notranslate nohighlight">\(A\)</span>.</p>
 </section>
 <section id="python-skills">
 <h2>Python skills<a class="headerlink" href="#python-skills" title="Link to this heading">#</a></h2>
@@ -571,18 +574,18 @@ A^{\dagger} := V\begin{bmatrix}\tilde{\Sigma}^{-1} &amp; 0\end{bmatrix}U^T.
 </section>
 <section id="solving-a-least-squares-problem-with-svd">
 <h3>Solving a least-squares problem with SVD<a class="headerlink" href="#solving-a-least-squares-problem-with-svd" title="Link to this heading">#</a></h3>
-<p>Here is a problem which solved with the SVD.</p>
+<p>Here is a problem that is solved with the SVD.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="c1"># Step 1: Define A and b</span>
-<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="c1"># A random 5x3 matrix</span>
-<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="c1"># A random vector of length 5</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>  <span class="c1"># A random 5x3 matrix</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>  <span class="c1"># A random vector of length 5</span>
 
 <span class="c1"># Step 2: Perform SVD</span>
 <span class="n">U</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">VT</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
 
-<span class="c1"># Step 3: Compute the pseudoinverse</span>
-<span class="n">Sigma_inv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">sigma</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">))))</span>
+<span class="c1"># Step 3: Compute the pseudo-inverse</span>
+<span class="n">Sigma_inv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">sigma</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">))))</span>
 <span class="n">A_pseudo_inverse</span> <span class="o">=</span> <span class="n">VT</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">Sigma_inv</span> <span class="o">@</span> <span class="n">U</span><span class="o">.</span><span class="n">T</span>
 
 <span class="c1"># Step 4: Solve for x</span>
@@ -630,7 +633,7 @@ A^{\dagger} := V\begin{bmatrix}\tilde{\Sigma}^{-1} &amp; 0\end{bmatrix}U^T.
 \[\begin{split}
 \mathbf{A}^T\mathbf{b} = \begin{bmatrix} 1 &amp; 1 &amp; 1\\ 1 &amp; 2 &amp; 3 \end{bmatrix} \begin{bmatrix} 2 \\ 3 \\ 5 \end{bmatrix} = \begin{bmatrix} 10\\ 23 \end{bmatrix}.
 \end{split}\]</div>
-<p class="sd-card-text">Thus the minimiser solves</p>
+<p class="sd-card-text">Thus, the minimiser solves</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{bmatrix} 3 &amp; 6 \\ 6 &amp; 14 \end{bmatrix} \begin{bmatrix} c \\ m \end{bmatrix} = \begin{bmatrix} 10\\ 23 \end{bmatrix},
@@ -667,7 +670,7 @@ A^{\dagger} := V\begin{bmatrix}\tilde{\Sigma}^{-1} &amp; 0\end{bmatrix}U^T.
 </div>
 </details><div class="tip admonition">
 <p class="admonition-title"><strong>Question</strong></p>
-<p>Let <span class="math notranslate nohighlight">\(A\in\mathbb{R}^{m\times n}\)</span> with <span class="math notranslate nohighlight">\(m\geq n\)</span> and <span class="math notranslate nohighlight">\(\text{rank}(A)=n\)</span> and <span class="math notranslate nohighlight">\(b\in\mathbb{R}^m\)</span>. How would should you approach the following least-squares problem with the SVD? Find <span class="math notranslate nohighlight">\(\hat{x}\in\mathbb{R}^n\)</span>, such that</p>
+<p>Let <span class="math notranslate nohighlight">\(A\in\mathbb{R}^{m\times n}\)</span> with <span class="math notranslate nohighlight">\(m\geq n\)</span> and <span class="math notranslate nohighlight">\(\text{rank}(A)=n\)</span> and <span class="math notranslate nohighlight">\(b\in\mathbb{R}^m\)</span>. How should one approach the following least-squares problem with the SVD? Find <span class="math notranslate nohighlight">\(\hat{x}\in\mathbb{R}^n\)</span>, such that</p>
 <div class="math notranslate nohighlight">
 \[
 \|A\hat{x}-b\|_2 = \min_{x\in\mathbb{R}^n}\|Ax-b\|_2.
@@ -682,12 +685,12 @@ A^{\dagger} := V\begin{bmatrix}\tilde{\Sigma}^{-1} &amp; 0\end{bmatrix}U^T.
 </summary><div class="sd-summary-content sd-card-body docutils">
 <p class="sd-card-text">The SVD of <span class="math notranslate nohighlight">\(A\)</span> is given as <span class="math notranslate nohighlight">\(A=U\Sigma V^T\)</span>, where <span class="math notranslate nohighlight">\(U\in\mathbb{R}^{m\times m}\)</span> and <span class="math notranslate nohighlight">\(V\in\mathbb{R}^{n\times n}\)</span> are orthogonal
 matrices and <span class="math notranslate nohighlight">\(\Sigma \in\mathbb{R}^{m\times n}\)</span> is a diagonal matrix with the nonzero singular values <span class="math notranslate nohighlight">\(\sigma_1\geq\sigma_2\geq\dots\geq\sigma_n &gt;0\)</span> in decreasing order on the diagonal of the matrix, using that <span class="math notranslate nohighlight">\(A\)</span> has full rank.</p>
-<p class="sd-card-text">Substituting into the least-squares problem we have</p>
+<p class="sd-card-text">Substituting into the least-squares problem, we have</p>
 <div class="math notranslate nohighlight">
 \[
 \|Ax-b\|_2 = \|U\Sigma V^Tx - b\|_2 = \|\Sigma y - \hat{b}\|_2
 \]</div>
-<p class="sd-card-text">for <span class="math notranslate nohighlight">\(y=V^Tx\)</span> and <span class="math notranslate nohighlight">\(\hat{b} = U^Tb\)</span>. By minimizing the above expression we find <span class="math notranslate nohighlight">\(y_j\)</span> as <span class="math notranslate nohighlight">\(y_j = \hat{b}_j/\sigma_j\)</span>. This is equivalent to <span class="math notranslate nohighlight">\(x = A^{\dagger} b\)</span>.</p>
+<p class="sd-card-text">for <span class="math notranslate nohighlight">\(y=V^Tx\)</span> and <span class="math notranslate nohighlight">\(\hat{b} = U^Tb\)</span>. We find <span class="math notranslate nohighlight">\(y_j\)</span> as <span class="math notranslate nohighlight">\(y_j = \hat{b}_j/\sigma_j\)</span> by minimising the above expression. This is equivalent to <span class="math notranslate nohighlight">\(x = A^{\dagger} b\)</span>.</p>
 </div>
 </details><div class="tip admonition">
 <p class="admonition-title"><strong>Question</strong></p>
@@ -715,7 +718,7 @@ Show that the solution of this least-squares problem is identical to the solutio
 \[\begin{split}
 \min_{x\in\mathbb{R}^n}\left\|\begin{bmatrix}A\\L\end{bmatrix} \, \begin{bmatrix}x\\x\end{bmatrix} -\begin{bmatrix}b\\ 0\end{bmatrix}\right\|_2.
 \end{split}\]</div>
-<p class="sd-card-text">Applying the normal equation to this problem we arrive at</p>
+<p class="sd-card-text">Applying the normal equation to this problem, we arrive at</p>
 <div class="math notranslate nohighlight">
 \[
 (A^TA+L^TL)x = A^Tb.
@@ -746,8 +749,8 @@ Show that the solution of this least-squares problem is identical to the solutio
 \[
 \|\Sigma y\|_2^2 = \sum_{j}\sigma_j^2y_j^2 \geq \sigma_n\sum_jy_j^2 = \sigma_n.
 \]</div>
-<p class="sd-card-text">This inequality becomes an equality for <span class="math notranslate nohighlight">\(y\)</span> chosen to be the unit vector <span class="math notranslate nohighlight">\(e_n\)</span>. Hence, for <span class="math notranslate nohighlight">\(\Sigma\)</span> diagonal the result follows and therefore for arbitrary <span class="math notranslate nohighlight">\(A\in\mathbb{R}^{m\times n}\)</span>.</p>
-<p class="sd-card-text"><em>Remark:</em> Notice the symmetry between smallest and largest singular value. By maximising we obtain the largest singular value and by minimising the smallest.</p>
+<p class="sd-card-text">This inequality becomes an equality for <span class="math notranslate nohighlight">\(y\)</span> chosen as the unit vector <span class="math notranslate nohighlight">\(e_n\)</span>. Hence, for <span class="math notranslate nohighlight">\(\Sigma\)</span> diagonal, the result follows and therefore for arbitrary <span class="math notranslate nohighlight">\(A\in\mathbb{R}^{m\times n}\)</span>.</p>
+<p class="sd-card-text"><em>Remark:</em> Notice the symmetry between the smallest and largest singular value. By maximising, we obtain the largest singular value and minimising the smallest.</p>
 </div>
 </details><div class="tip admonition">
 <p class="admonition-title"><strong>Question</strong></p>
@@ -762,7 +765,7 @@ of <span class="math notranslate nohighlight">\(R\)</span>.</p>
 <div class="sd-summary-up docutils">
 <svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
 </summary><div class="sd-summary-content sd-card-body docutils">
-<p class="sd-card-text">We use the full QR decomposition, that is let</p>
+<p class="sd-card-text">We use the full QR decomposition; that is, let</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 A = \begin{bmatrix}Q &amp; Q^{\bot}\end{bmatrix}\begin{bmatrix}R\\ 0\end{bmatrix}.
@@ -772,7 +775,7 @@ A = \begin{bmatrix}Q &amp; Q^{\bot}\end{bmatrix}\begin{bmatrix}R\\ 0\end{bmatrix
 \[\begin{split}
 A = \begin{bmatrix}Q &amp; Q^{\bot}\end{bmatrix}\begin{bmatrix}U &amp; 0 \\ 0 &amp; I\end{bmatrix}\begin{bmatrix}\Sigma \\ 0\end{bmatrix}V^T.
 \end{split}\]</div>
-<p class="sd-card-text">We see that this is the singular value decomposition of <span class="math notranslate nohighlight">\(A\)</span> with singular values contained in <span class="math notranslate nohighlight">\(\Sigma\)</span>.</p>
+<p class="sd-card-text">This is the singular value decomposition of <span class="math notranslate nohighlight">\(A\)</span> with singular values contained in <span class="math notranslate nohighlight">\(\Sigma\)</span>.</p>
 </div>
 </details></section>
 <section id="optional-material">
@@ -792,7 +795,7 @@ Principles of orthogonal approximation<div class="sd-summary-down docutils">
 \[
 s : V \times V \to \mathbb{K}
 \]</div>
-<p class="sd-card-text">is called scalar product if the following conditions hold:</p>
+<p class="sd-card-text">is called a scalar product if the following conditions hold:</p>
 <ol class="arabic">
 <li><p class="sd-card-text">conjugate symmetry:</p>
 <div class="math notranslate nohighlight">
@@ -815,10 +818,10 @@ s : V \times V \to \mathbb{K}
 </ol>
 <p class="sd-card-text">The positivity condition is meaningful because conjugate symmetry ensures that <span class="math notranslate nohighlight">\(s(v,v) = \overline{s(v,v)}\)</span> is real-valued.</p>
 </section>
-</div><p class="sd-card-text">Often, one denotes scalar products with angle brackets: <span class="math notranslate nohighlight">\(s(v,w) = \langle v, w \rangle\)</span>. Scalar products are also called inner products, and vector spaces, which are equipped with a scalar product, are called inner product spaces.</p>
+</div><p class="sd-card-text">Often, one denotes scalar products with angle brackets: <span class="math notranslate nohighlight">\(s(v,w) = \langle v, w \rangle\)</span>. Scalar products are also called inner products, and vector spaces equipped with a scalar product are called inner product spaces.</p>
 <div class="prf-theorem admonition">
 <p class="admonition-title">Fact: Interpolation error bound</p>
-<p class="sd-card-text">Let <span class="math notranslate nohighlight">\((V, \langle \cdot, \cdot \rangle)\)</span> be an inner product space. Then the mapping <span class="math notranslate nohighlight">\(v \mapsto \sqrt{\langle v, v \rangle}\)</span> defines a norm.</p>
+<p class="sd-card-text">Let <span class="math notranslate nohighlight">\((V, \langle \cdot, \cdot \rangle)\)</span> be an inner product space. Then, the mapping <span class="math notranslate nohighlight">\(v \mapsto \sqrt{\langle v, v \rangle}\)</span> defines a norm.</p>
 </div>
 <div class="proof example admonition" id="example-3">
 <p class="admonition-title"><span class="caption-number">Example 1 </span></p>
@@ -840,7 +843,7 @@ s : V \times V \to \mathbb{K}
 \[
 \| v \|_{\Omega,\gamma} := \| v \|_{L^2_\gamma(\Omega, \mathbb{K}^m)} := \Bigl( \int_\Omega | v(x)|^2 \, \gamma(x) dx \Bigr)^{1/2}
 \]</div>
-<p class="sd-card-text">is finite is denoted <span class="math notranslate nohighlight">\(L^2_\gamma(\Omega, \mathbb{K}^m)\)</span>. It is a vector space which is closed under pointwise addition and scalar multiplication. It is equipped with the scalar product</p>
+<p class="sd-card-text">is finite is denoted <span class="math notranslate nohighlight">\(L^2_\gamma(\Omega, \mathbb{K}^m)\)</span>. It is a vector space closed under pointwise addition and scalar multiplication. It is equipped with a scalar product.</p>
 <div class="math notranslate nohighlight">
 \[
 \langle \cdot, \cdot \rangle_{\Omega,\gamma} : \; L^2_\gamma(\Omega, \mathbb{K}^m) \times L^2_\gamma(\Omega, \mathbb{K}^m) \to \mathbb{K}, \; (v,w) \mapsto \int_\Omega v(x) \, \overline{w(x)} \, \gamma(x) dx.
@@ -862,7 +865,7 @@ s : V \times V \to \mathbb{K}
 \[
  \{ p_0, p_1, \ldots, p_k \},
 \]</div>
-<p class="sd-card-text">i.e. each element <span class="math notranslate nohighlight">\(q\)</span> can be written as linear combination</p>
+<p class="sd-card-text">i.e. each element <span class="math notranslate nohighlight">\(q\)</span> can be written as a linear combination</p>
 <div class="math notranslate nohighlight">
 \[
  q = \sum_{j=0}^k x_j \, p_j
@@ -882,7 +885,7 @@ s : V \times V \to \mathbb{K}
 \[
  \sum_{j=0}^k \hat{x}_j \langle  p_j, p_\ell \rangle =  \langle v, p_\ell \rangle.
 \]</div>
-<p class="sd-card-text">Hence the best approximation can be computed by solving</p>
+<p class="sd-card-text">Hence, the best approximation can be computed by solving</p>
 <div class="math notranslate nohighlight">
 \[
 A x = b
@@ -895,7 +898,7 @@ A x = b
 <div class="proof example admonition" id="example-4">
 <p class="admonition-title"><span class="caption-number">Example 2 </span></p>
 <section class="example-content" id="proof-content">
-<p class="sd-card-text">Let <span class="math notranslate nohighlight">\(\Omega = (-1,1)^2\)</span> be non-empty, open and <span class="math notranslate nohighlight">\(V = L^2(\Omega, \mathbb{R})\)</span>. Let <span class="math notranslate nohighlight">\(P = \mathcal{P}_{1,2}\)</span> be the space of <span class="math notranslate nohighlight">\(2\)</span>-variate polynomials with degree less than or equal to <span class="math notranslate nohighlight">\(1\)</span>. The space <span class="math notranslate nohighlight">\(\mathcal{P}_{1,2}\)</span> has the basis</p>
+<p class="sd-card-text">Let <span class="math notranslate nohighlight">\(\Omega = (-1,1)^2\)</span> be non-empty, open and <span class="math notranslate nohighlight">\(V = L^2(\Omega, \mathbb{R})\)</span>. Let <span class="math notranslate nohighlight">\(P = \mathcal{P}_{1,2}\)</span> be the space of <span class="math notranslate nohighlight">\(2\)</span>-variate polynomials with degrees less than or equal to <span class="math notranslate nohighlight">\(1\)</span>. The space <span class="math notranslate nohighlight">\(\mathcal{P}_{1,2}\)</span> has the basis</p>
 <div class="math notranslate nohighlight">
 \[
 p_{00}(t_1,t_2) = 1, \qquad p_{10}(t_1,t_2) = t_1, \qquad p_{01}(t_1,t_2) = t_2.
@@ -905,7 +908,7 @@ p_{00}(t_1,t_2) = 1, \qquad p_{10}(t_1,t_2) = t_1, \qquad p_{01}(t_1,t_2) = t_2.
 \[
 q(t_1,t_2) = x_{00} + x_{10} \, t_1 + x_{01} \, t_2 \qquad \forall \, (t_1,t_2) \in \Omega.
 \]</div>
-<p class="sd-card-text">The double index notation is convenient to <span class="math notranslate nohighlight">\(2\)</span>-variate functions; however, one could equally well also denote the basis by <span class="math notranslate nohighlight">\(p_0\)</span>, <span class="math notranslate nohighlight">\(p_1\)</span>, <span class="math notranslate nohighlight">\(p_2\)</span> and the coefficients by <span class="math notranslate nohighlight">\(x_0\)</span>, <span class="math notranslate nohighlight">\(x_1\)</span>, <span class="math notranslate nohighlight">\(x_2\)</span>. In the double index notation the first index marks the degree in <span class="math notranslate nohighlight">\(t_1\)</span> and the second the degree in <span class="math notranslate nohighlight">\(t_2\)</span>.</p>
+<p class="sd-card-text">The double index notation is convenient to <span class="math notranslate nohighlight">\(2\)</span>-variate functions; however, one could equally well also denote the basis by <span class="math notranslate nohighlight">\(p_0\)</span>, <span class="math notranslate nohighlight">\(p_1\)</span>, <span class="math notranslate nohighlight">\(p_2\)</span> and the coefficients by <span class="math notranslate nohighlight">\(x_0\)</span>, <span class="math notranslate nohighlight">\(x_1\)</span>, <span class="math notranslate nohighlight">\(x_2\)</span>. In the double index notation, the first index marks the degree in <span class="math notranslate nohighlight">\(t_1\)</span> and the second in <span class="math notranslate nohighlight">\(t_2\)</span>.</p>
 <p class="sd-card-text">The best approximation to <span class="math notranslate nohighlight">\(v \in L^2(\Omega)\)</span> can be computed by solving a <span class="math notranslate nohighlight">\(3 \times 3\)</span> linear system. Using also double indices for the matrix entries, one has</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -989,9 +992,9 @@ p_{20}(t_1,t_2) &amp;= t_1^2, &amp;p_{21}(t_1,t_2) &amp;= t_1^2 \, t_2, &amp; p_
 \langle p_{00}, p_{20} \rangle_{\Omega} = \int_\Omega 1 \cdot t_1^2 dt = \frac{4}{3}
 \]</div>
 <p class="sd-card-text">implies that orthogonality is lost and that the matrix <span class="math notranslate nohighlight">\(A\)</span>, implementing <span class="math notranslate nohighlight">\(L^2\)</span> approximation in <span class="math notranslate nohighlight">\(\mathcal{Q}_{2,2}\)</span> with <span class="math notranslate nohighlight">\(p_{00}, \ldots, p_{22}\)</span> as underlying basis, has off-diagonal entries.</p>
-<p class="sd-card-text">One can already observe in the 1-dimensional case that the basis of the approximation space <span class="math notranslate nohighlight">\(P\)</span> needs to be chosen carefully. For instance, if <span class="math notranslate nohighlight">\(P = \mathcal{P}_n\)</span> with basis <span class="math notranslate nohighlight">\(1, t, t^2, \ldots, t^n\)</span>, then the resulting matrix <span class="math notranslate nohighlight">\(A\)</span> is badly conditioned for larger and even moderate values of <span class="math notranslate nohighlight">\(n\)</span>. Yet, the `more orthogonal’ the basis functions are the better conditioned the linear system is. In the ideal case, the basis is orthonormal, implying that <span class="math notranslate nohighlight">\(A = I\)</span>.</p>
-<p class="sd-card-text">There are different options to obtain an orthonormal basis in multi-variate space. One can use the Gram-Schmidt method, which works for all (finite-dimensional) inner product spaces. For instance, one can start with the above <span class="math notranslate nohighlight">\(p_{00}, \ldots, p_{22}\)</span> to generate an orthonormal basis of <span class="math notranslate nohighlight">\(\mathcal{Q}_{2,2}\)</span> with this method.</p>
-<p class="sd-card-text">However, it is often more economical to assemble the multivariate basis from an orthonormal <span class="math notranslate nohighlight">\(1\)</span>-variate basis. Let <span class="math notranslate nohighlight">\(p_\alpha, p_\beta\)</span> be orthogonal functions in <span class="math notranslate nohighlight">\(L^2_\gamma((a,b),\mathbb{K}^m)\)</span>. Then the functions</p>
+<p class="sd-card-text">One can already observe in the 1-dimensional case that the basis of the approximation space <span class="math notranslate nohighlight">\(P\)</span> needs to be chosen carefully. For instance, if <span class="math notranslate nohighlight">\(P = \mathcal{P}_n\)</span> with basis <span class="math notranslate nohighlight">\(1, t, t^2, \ldots, t^n\)</span>, then the resulting matrix <span class="math notranslate nohighlight">\(A\)</span> is poorly conditioned for larger and even moderate values of <span class="math notranslate nohighlight">\(n\)</span>. However, the `more orthogonal’ the basis functions are, the better conditioned the linear system is. In the ideal case, the basis is orthonormal, implying that <span class="math notranslate nohighlight">\(A = I\)</span>.</p>
+<p class="sd-card-text">There are different options to obtain an orthonormal basis in multivariate space. One can use the Gram-Schmidt method, which works for all (finite-dimensional) inner product spaces. For instance, one can start with the above <span class="math notranslate nohighlight">\(p_{00}, \ldots, p_{22}\)</span> to generate an orthonormal basis of <span class="math notranslate nohighlight">\(\mathcal{Q}_{2,2}\)</span> with this method.</p>
+<p class="sd-card-text">However, assembling the multivariate basis from an orthonormal <span class="math notranslate nohighlight">\(1\)</span>-variate basis is often more economical. Let <span class="math notranslate nohighlight">\(p_\alpha, p_\beta\)</span> be orthogonal functions in <span class="math notranslate nohighlight">\(L^2_\gamma((a,b),\mathbb{K}^m)\)</span>. Then the functions</p>
 <div class="math notranslate nohighlight">
 \[
 \begin{align}
@@ -1009,33 +1012,33 @@ p_\alpha(t_1) \, p_\alpha(t_2), \quad p_\alpha(t_1) \, p_\beta(t_2), \quad p_\be
 \end{align}
 \end{split}\]</div>
 <p class="sd-card-text">with <span class="math notranslate nohighlight">\(i, j, k, \ell \in \{ \alpha, \beta \}\)</span>. In particular, if <span class="math notranslate nohighlight">\(p_\alpha\)</span> and <span class="math notranslate nohighlight">\(p_\beta\)</span> are orthonormal, then the products <span class="math notranslate nohighlight">\(p_\alpha \cdot p_\beta\)</span> are orthonormal.</p>
-<p class="sd-card-text">Let’s use this argument to construct an orthogonal basis of <span class="math notranslate nohighlight">\(\mathcal{Q}_{2,2}\)</span>. Functions in <span class="math notranslate nohighlight">\(\mathcal{Q}_{2,2}\)</span> have the form</p>
+<p class="sd-card-text">Let us use this argument to construct an orthogonal basis of <span class="math notranslate nohighlight">\(\mathcal{Q}_{2,2}\)</span>. Functions in <span class="math notranslate nohighlight">\(\mathcal{Q}_{2,2}\)</span> have the form</p>
 <div class="math notranslate nohighlight">
 \[
 \begin{align}
 p(t_1, t_2) = \sum_{j=0}^2 \sum_{k=0}^2 \alpha_{jk} t_1^j t_2^k.
 \end{align}
 \]</div>
-<p class="sd-card-text">Recall that the <span class="math notranslate nohighlight">\(t_1^j t_2^k\)</span> are a basis of <span class="math notranslate nohighlight">\(\mathcal{Q}_{2,2}\)</span>. Even without the proof that they are in fact a basis (which was omitted) one can directly conclude that <span class="math notranslate nohighlight">\(\mathcal{Q}_{2,2}\)</span> spanned by the <span class="math notranslate nohighlight">\(9\)</span> functions <span class="math notranslate nohighlight">\(t_1^j t_2^k\)</span>, which means that <span class="math notranslate nohighlight">\(\mathcal{Q}_{2,2}\)</span> can at most be <span class="math notranslate nohighlight">\(9\)</span> dimensional.</p>
+<p class="sd-card-text">Recall that the <span class="math notranslate nohighlight">\(t_1^j t_2^k\)</span> are a basis of <span class="math notranslate nohighlight">\(\mathcal{Q}_{2,2}\)</span>. Even without the proof that they are, in fact, a basis (which was omitted), one can directly conclude that <span class="math notranslate nohighlight">\(\mathcal{Q}_{2,2}\)</span> spanned by the <span class="math notranslate nohighlight">\(9\)</span> functions <span class="math notranslate nohighlight">\(t_1^j t_2^k\)</span>, which means that <span class="math notranslate nohighlight">\(\mathcal{Q}_{2,2}\)</span> can at most be <span class="math notranslate nohighlight">\(9\)</span> dimensional.</p>
 <p class="sd-card-text">We leave it as an exercise to check that the so-called Legendre polynomials</p>
 <div class="math notranslate nohighlight">
 \[
- L_0(t) = 1, \quad L_1(t) = t, \quad L_2(t) = \frac{3}{2} t^2 - \frac{1}{2}
+L_0(t) = 1, \quad L_1(t) = t, \quad L_2(t) = \frac{3}{2} t^2 - \frac{1}{2}
 \]</div>
 <p class="sd-card-text">are orthogonal in <span class="math notranslate nohighlight">\(L^2((-1,1), \mathbb{R})\)</span>. Consequently, the functions</p>
 <div class="math notranslate nohighlight">
 \[
- p_{jk}(t_1, t_2) := L_j(t_1) \cdot L_k(t_2), \qquad j,k \in \{ 0, 1, 2 \},
+p_{jk}(t_1, t_2) := L_j(t_1) \cdot L_k(t_2), \qquad j,k \in \{ 0, 1, 2 \},
 \]</div>
 <p class="sd-card-text">are orthogonal in <span class="math notranslate nohighlight">\(L^2((-1,1)^2, \mathbb{R})\)</span>.</p>
 <div class="prf-theorem admonition">
 <p class="admonition-title">Fact: Independence of orthogonal vectors</p>
 <p class="sd-card-text">Mutually orthogonal vectors in an inner product space <span class="math notranslate nohighlight">\((V, \langle \cdot, \cdot \rangle)\)</span> are linearly independent.</p>
 </div>
-<p class="sd-card-text">Thus the <span class="math notranslate nohighlight">\(p_{jk}\)</span> are linearly independent. Moreover, the <span class="math notranslate nohighlight">\(p_{jk}\)</span> belong to <span class="math notranslate nohighlight">\(\mathcal{Q}_{2,2}\)</span>. For instance,</p>
+<p class="sd-card-text">Thus, the <span class="math notranslate nohighlight">\(p_{jk}\)</span> are linearly independent. Moreover, the <span class="math notranslate nohighlight">\(p_{jk}\)</span> belong to <span class="math notranslate nohighlight">\(\mathcal{Q}_{2,2}\)</span>. For instance,</p>
 <div class="math notranslate nohighlight">
 \[
- p_{1,2} = t_1 \cdot \Bigl( \frac{3}{2} t_2^2 - \frac{1}{2} \Bigr) = \alpha_{1,2} t_1 \, t_2^2 + \alpha_{0,0} t_1^0 t_2^0
+p_{1,2} = t_1 \cdot \Bigl( \frac{3}{2} t_2^2 - \frac{1}{2} \Bigr) = \alpha_{1,2} t_1 \, t_2^2 + \alpha_{0,0} t_1^0 t_2^0
 \]</div>
 <p class="sd-card-text">has the structure a linear combination in the original span with <span class="math notranslate nohighlight">\(\alpha_{1,2} = \frac{3}{2}\)</span> and <span class="math notranslate nohighlight">\(\alpha_{0,0} = -\frac{1}{2}\)</span>.</p>
 <div class="prf-theorem admonition">
@@ -1049,13 +1052,13 @@ p(t_1, t_2) = \sum_{j=0}^2 \sum_{k=0}^2 \alpha_{jk} t_1^j t_2^k.
 <p class="sd-card-text">Let <span class="math notranslate nohighlight">\(V = L^2((-1,1)^2, \mathbb{R})\)</span>. Compute the best approximation <span class="math notranslate nohighlight">\(p\)</span> to</p>
 <div class="math notranslate nohighlight">
 \[
- v(t_1, t_2) = \sin(\pi t_1) \, \cos(\pi t_2)
+v(t_1, t_2) = \sin(\pi t_1) \, \cos(\pi t_2)
 \]</div>
 <p class="sd-card-text">in <span class="math notranslate nohighlight">\(P = \mathcal{Q}_{2,2}\)</span>.</p>
 <p class="sd-card-text">We use the Legendre product basis for the computation. Then the coefficients <span class="math notranslate nohighlight">\(\hat{x}_{jk}\)</span> in</p>
 <div class="math notranslate nohighlight">
 \[
- p(t_1, t_2) = \sum_{j=0}^2 \sum_{k=0}^2 \hat{x}_{jk} p_{jk}(t_1, t_2) = \sum_{j=0}^2 \sum_{k=0}^2 \hat{x}_{jk} L_j(t_1) \cdot L_k(t_2)
+p(t_1, t_2) = \sum_{j=0}^2 \sum_{k=0}^2 \hat{x}_{jk} p_{jk}(t_1, t_2) = \sum_{j=0}^2 \sum_{k=0}^2 \hat{x}_{jk} L_j(t_1) \cdot L_k(t_2)
 \]</div>
 <p class="sd-card-text">are given by</p>
 <div class="math notranslate nohighlight">
@@ -1075,7 +1078,7 @@ p(t_1, t_2) = \sum_{j=0}^2 \sum_{k=0}^2 \alpha_{jk} t_1^j t_2^k.
 \int_{-1}^1 \sin(\pi t_1) \, L_2(t_1) dt_1 &amp;= 0,&amp; \int_{-1}^1 \cos(\pi t_2) \, L_2(t_2) dt_2 &amp;= - \frac{6}{\pi^2}.
 \end{align*}
 \end{split}\]</div>
-<p class="sd-card-text">Therefore the system of equations turns into</p>
+<p class="sd-card-text">Therefore, the system of equations turns into</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \langle p_{jk}, p_{jk} \rangle_{(-1,1)^2} \, \hat{x}_{jk} =
@@ -1136,7 +1139,7 @@ p(t_1, t_2) = \frac{15}{4} \Bigl( - \frac{12}{\pi^3} \Bigr) \; t_1 \; \Bigl( \fr
       </div>
     </a>
     <a class="right-next"
-       href="4.1_interpolation_and_quadrature.html"
+       href="4.1_interpolation.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
