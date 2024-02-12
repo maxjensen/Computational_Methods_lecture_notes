@@ -387,7 +387,12 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#composite-quadratures">Composite Quadratures</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gauss-quadratures">Gauss Quadratures</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-quadratures">Gaussian Quadratures</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#composite-newton-cotes-quadrature-rules">Composite Newton-Cotes quadrature rules</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-quadrature">Gaussian quadrature</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#self-check-questions">Self-check questions</a></li>
 </ul>
             </nav>
@@ -404,7 +409,7 @@ document.write(`
 <h1>Stable Quadrature Schemes<a class="headerlink" href="#stable-quadrature-schemes" title="Link to this heading">#</a></h1>
 <section id="composite-quadratures">
 <h2>Composite Quadratures<a class="headerlink" href="#composite-quadratures" title="Link to this heading">#</a></h2>
-<p>When (one thinks that) <span class="math notranslate nohighlight">\(f\)</span> is not very smooth, a better approximation to <span class="math notranslate nohighlight">\(\mathcal{I}(f)\)</span> may be obtained by subdividing <span class="math notranslate nohighlight">\([a,b]\)</span> into <span class="math notranslate nohighlight">\(m\)</span> subintervals <span class="math notranslate nohighlight">\(\{[x_{i-1},x_i]\}_{i=1}^m\)</span>, each of equal length <span class="math notranslate nohighlight">\(h:=(b-a)/m\)</span> and apply an interpolatory quadrature formula of small degree <span class="math notranslate nohighlight">\(n\)</span> in each subinterval <span class="math notranslate nohighlight">\([x_{i-1},x_i]\)</span>.</p>
+<p>When dealing with functions <span class="math notranslate nohighlight">\(f\)</span> that may lack smoothness, it can be advantageous to divide the integration interval <span class="math notranslate nohighlight">\([a,b]\)</span> into <span class="math notranslate nohighlight">\(m\)</span> smaller, equally sized subintervals <span class="math notranslate nohighlight">\(\{[x_{i-1},x_i]\}_{i=1}^m\)</span>. Each subinterval has a length of <span class="math notranslate nohighlight">\(h:=(b-a)/m\)</span>. Within each subinterval, we apply a low-degree interpolatory quadrature formula.</p>
 <p>For example, using the trapezium rule on <span class="math notranslate nohighlight">\([x_{i-1},x_i]\)</span>, we find</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -412,20 +417,17 @@ document.write(`
    \mathcal{C}_{1,m}(f) &amp;= \frac{b-a}m\, \Bigl[ \Bigl( \frac{1}{2} f(x_0) + \frac{1}{2} f(x_1) \Bigr)
 	+ \Bigl(\frac{1}{2} f(x_1) + \frac{1}{2} f(x_2) \Bigr) + \cdots
 	+ \Bigl( \frac{1}{2} f(x_{m-1}) + \frac{1}{2} f(x_m) \Bigr) \Bigr] \notag\\
-   &amp;= h\, \Bigl[ \frac{1}{2} f(x_0) + f(x_1) + f(x_2) + \cdots
-	+ f(x_{m-1}) + \frac{1}{2} f(x_m) \Bigr].
+   &amp;= h \Bigl[ \frac{1}{2} f(x_0) + \sum_{i=1}^{m-1} f(x_i) + \frac{1}{2} f(x_m) \Bigr].
 \end{align}
 \end{split}\]</div>
-<p>This scheme involves <span class="math notranslate nohighlight">\(m+1\)</span> evaluations of <span class="math notranslate nohighlight">\(f\)</span>. To use Simpson’s rule in <span class="math notranslate nohighlight">\([x_{i-1},x_i]\)</span>, we need to introduce the extra
-node <span class="math notranslate nohighlight">\(x_{i-1/2}:=(x_{i-1}+x_i)/2\)</span>. The resulting scheme is</p>
+<p>This scheme involves <span class="math notranslate nohighlight">\(m+1\)</span> evaluations of <span class="math notranslate nohighlight">\(f\)</span>. To use Simpson’s rule, we introduce an additional midpoint node <span class="math notranslate nohighlight">\(x_{i-1/2}:=(x_{i-1}+x_i)/2\)</span> in each subinterval. The composite Simpson’s rule is then given by:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{align}
    \mathcal{C}_{2,m}(f) &amp;= \frac{b-a}{m} \, \Bigl[ \frac{1}{6} f(x_0) + \frac{2}{3} f(x_{1/2}) + \frac{1}{6} f(x_1)
 	+ \frac{1}{6} f(x_1) + \frac{2}{3} f(x_{3/2}) + \frac{1}{6} f(x_2)\\
 	&amp; \phantom{= \frac{b-a}{m} \, \Bigl[} + \cdots + \frac{1}{6} f(x_{m-1}) + \frac{2}{3} f(x_{m-1/2}) + \frac{1}{6} f(x_m)\Bigr]\\
-	&amp;= h\, \Bigl[  \frac{1}{6} f(x_0) + \frac{2}{3} f(x_{1/2}) + \frac{1}{3} f(x_1) + \frac{2}{3} f(x_{3/2})\\
-	&amp;\phantom{= \frac{b-a}{m} \, \Bigl[}  + \cdots + \frac{1}{3} f(x_{m-1}) + \frac{2}{3} f(x_{m-1/2}) + \frac{1}{6} f(x_m) \Bigr],
+	&amp;= \frac{h}{6} \Bigl[ f(x_0) + 4 \sum_{i=1}^{m} f(x_{i-1/2}) + 2 \sum_{i=1}^{m-1} f(x_i) + f(x_m) \Bigr].
 \end{align}
 \end{split}\]</div>
 <p>It involves <span class="math notranslate nohighlight">\(2m+1\)</span> evaluations of <span class="math notranslate nohighlight">\(f\)</span>.</p>
@@ -440,36 +442,104 @@ node <span class="math notranslate nohighlight">\(x_{i-1/2}:=(x_{i-1}+x_i)/2\)</
 \bigl|\mathcal{I}(f)-\mathcal{C}_{1,m}(f)\bigr|	\le \frac{mh^3}{12}\,\max_i\Bigl\{\max_{\xi\in[x_{i-1},x_i]}\,|f''(\xi)|\Bigr\} = (b-a)\,\frac{h^2}{12}\,\max_{\xi\in[a,b]}\,|f''(\xi)|.
 \]</div>
 </section>
-<section id="gauss-quadratures">
-<h2>Gauss Quadratures<a class="headerlink" href="#gauss-quadratures" title="Link to this heading">#</a></h2>
-<p>It is clear that the degree of exactness of an interpolatory quadrature <span class="math notranslate nohighlight">\(\mathcal{Q}_n(f)\)</span> is at least <span class="math notranslate nohighlight">\(n\)</span>.
-By considering <span class="math notranslate nohighlight">\(f(x)=(x-x_0)^2\cdots(x-x_n)^2\)</span>, we find that the degree of exactness of any interpolatory quadrature is
-no more than <span class="math notranslate nohighlight">\(2n+1\)</span>. Gauss showed that by judicious choice of the nodes <span class="math notranslate nohighlight">\(\{x_k\}\)</span>, one could indeed obtain a quadrature exact for all <span class="math notranslate nohighlight">\(f \in \mathcal{P}_{2n+1}\)</span>. The resulting Gauss quadrature rests on the following</p>
+<section id="gaussian-quadratures">
+<h2>Gaussian Quadratures<a class="headerlink" href="#gaussian-quadratures" title="Link to this heading">#</a></h2>
+<p>The degree of exactness of an interpolatory quadrature <span class="math notranslate nohighlight">\(\mathcal{Q}_n(f)\)</span> is at least <span class="math notranslate nohighlight">\(n\)</span>. By considering <span class="math notranslate nohighlight">\(f(x)=(x-x_0)^2\cdots(x-x_n)^2\)</span>, we find that the degree of exactness of any interpolatory quadrature is no more than <span class="math notranslate nohighlight">\(2n+1\)</span>. Gauss showed that by judicious choice of the nodes <span class="math notranslate nohighlight">\(\{x_k\}\)</span>, one can indeed obtain a quadrature exact for all <span class="math notranslate nohighlight">\(f \in \mathcal{P}_{2n+1}\)</span>. The resulting Gaussian quadrature rests on the following:</p>
 <div class="prf-theorem admonition">
-<p class="admonition-title">Fact: Gauss quadrature</p>
+<p class="admonition-title">Fact: Gaussian quadrature</p>
 <p>The interpolatory formula</p>
 <div class="math notranslate nohighlight">
 \[
 \mathcal{G}_n(f) := (b-a) \sum_{k=0}^n \sigma_k f(x_k)
 \]</div>
-<p>has degree of exactness <span class="math notranslate nohighlight">\(2n+1\)</span> if and only if <span class="math notranslate nohighlight">\(\{x_k\}\)</span> is chosen such that <span class="math notranslate nohighlight">\(\hat p(x) := (x-x_0) \cdots (x-x_n)\)</span> satisfies</p>
+<p>achieves a degree of exactness of <span class="math notranslate nohighlight">\(2n+1\)</span> if and only if the nodes <span class="math notranslate nohighlight">\(\{x_k\}\)</span> are chosen such that the polynomial</p>
 <div class="math notranslate nohighlight">
 \[
-\int_a^b \hat p(x) \, p(x) \, dx = 0 \qquad \forall \, p \in \mathcal{P}_n.
-\]</div>
+\hat p(x) := (x-x_0) \cdots (x-x_n)\]</div>
+<p>satisfies <span class="math notranslate nohighlight">\(\int_a^b \hat p(x) p(x) dx = 0\)</span> for all <span class="math notranslate nohighlight">\(p \in \mathcal{P}_n\)</span>.</p>
 </div>
-<p>Thus, the nodes <span class="math notranslate nohighlight">\(\{x_k\}_{k=0}^n\)</span> are the roots of a polynomial <span class="math notranslate nohighlight">\(\phi_{n+1} \in \mathcal{P}_{n+1}\)</span> which is in the orthogonal complement of <span class="math notranslate nohighlight">\(\mathcal{P}_n\)</span> in <span class="math notranslate nohighlight">\(\mathcal{P}_{n+1}\)</span> with respect to the inner product <span class="math notranslate nohighlight">\(\langle p, q \rangle = \int_a^b p(x) \, q(x) \, dx\)</span>.</p>
-<p>Once the nodes are determined, the coefficients can be computed as usual. Unlike the coefficients <span class="math notranslate nohighlight">\(\sigma_k\)</span> of a general quadrature formula,  Gauss quadrature weights are always positive, as can be seen by considering <span class="math notranslate nohighlight">\(\bar p_k(x)=\hat p(x)^2/(x-x_k)^2 \in \mathcal{P}_{2n}\)</span>: Due to the degree of exactness <span class="math notranslate nohighlight">\(2n+1\)</span> and <span class="math notranslate nohighlight">\(\bar p_k(x_j) = \delta_{jk}\)</span>,</p>
+<p>Thus, the nodes <span class="math notranslate nohighlight">\(\{x_k\}_{k=0}^n\)</span> are the roots of a polynomial <span class="math notranslate nohighlight">\(\phi_{n+1} \in \mathcal{P}_{n+1}\)</span> which is in the orthogonal complement relative to the <span class="math notranslate nohighlight">\((n+1)\)</span>-dimensional space <span class="math notranslate nohighlight">\(\mathcal{P}_n\)</span> within the <span class="math notranslate nohighlight">\((n+2)\)</span>-dimensional space <span class="math notranslate nohighlight">\(\mathcal{P}_{n+1}\)</span> with respect to the inner product <span class="math notranslate nohighlight">\(\langle p, q \rangle = \int_a^b p(x) \, q(x) \, dx\)</span>.  The orthogonal complement is <span class="math notranslate nohighlight">\(1\)</span>-dimensional, so the Gaussian quadrature nodes are <em>unique</em>. The proof of existence requires to show that the roots of the polynomial <span class="math notranslate nohighlight">\(\phi_{n+1}\)</span> are real, of multiplicity <span class="math notranslate nohighlight">\(1\)</span>, and within <span class="math notranslate nohighlight">\([a,b]\)</span>.</p>
+<p>Once the nodes are determined, the coefficients can be computed as usual. They are also unique. Unlike the coefficients <span class="math notranslate nohighlight">\(\sigma_k\)</span> of a general quadrature formula, Gaussian quadrature weights are always positive. This can be illustrated by considering <span class="math notranslate nohighlight">\(\bar p_k(x)=\hat p(x)^2/(x-x_k)^2 \in \mathcal{P}_{2n}\)</span>. With the degree of exactness of  <span class="math notranslate nohighlight">\(2n+1\)</span> and <span class="math notranslate nohighlight">\(\bar p_k(x_j) = \delta_{jk}\)</span>, we find that:</p>
 <div class="math notranslate nohighlight">
 \[
-0 &lt; \mathcal{I}(p_k) = \mathcal{Q}(p_k) = \sigma_k.
+0 &lt; \mathcal{I}(\bar p_k) = \mathcal{Q}(\bar p_k) = \sigma_k.
 \]</div>
+</section>
+<section id="python-skills">
+<h2>Python skills<a class="headerlink" href="#python-skills" title="Link to this heading">#</a></h2>
+<section id="composite-newton-cotes-quadrature-rules">
+<h3>Composite Newton-Cotes quadrature rules<a class="headerlink" href="#composite-newton-cotes-quadrature-rules" title="Link to this heading">#</a></h3>
+<p>Scipy provides an implementation of the composite trapezoidal and Simpson’s rules, Numpy only has the former.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">integrate</span>
+
+<span class="c1"># Define a function to integrate</span>
+<span class="k">def</span> <span class="nf">my_function</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">**</span> <span class="mi">2</span>
+
+<span class="c1"># Define the interval</span>
+<span class="n">a</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># Lower limit</span>
+<span class="n">b</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># Upper limit</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">100</span>  <span class="c1"># Number of sample points</span>
+
+<span class="c1"># Generate sample points</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">my_function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="c1"># Trapezoidal Rule</span>
+<span class="n">trapz_result_np</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">trapz</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="n">trapz_result_scipy</span> <span class="o">=</span> <span class="n">integrate</span><span class="o">.</span><span class="n">trapz</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+
+<span class="c1"># Simpson&#39;s Rule</span>
+<span class="n">simps_result</span> <span class="o">=</span> <span class="n">integrate</span><span class="o">.</span><span class="n">simps</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+
+<span class="c1"># Display the results</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Trapezoidal Rule (numpy):&quot;</span><span class="p">,</span> <span class="n">trapz_result_np</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Trapezoidal Rule (scipy):&quot;</span><span class="p">,</span> <span class="n">trapz_result_scipy</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Simpson&#39;s Rule:&quot;</span><span class="p">,</span> <span class="n">simps_result</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="gaussian-quadrature">
+<h3>Gaussian quadrature<a class="headerlink" href="#gaussian-quadrature" title="Link to this heading">#</a></h3>
+<p>The code below compares exact integration with SciPy’s Gaussian quadrature implementation <code class="docutils literal notranslate"><span class="pre">integrate.quad</span></code>, which uses an adaptive composite formula. In addition, the Gaussian quadrature function <code class="docutils literal notranslate"><span class="pre">integrate.fixed_quad</span></code> with a specified number of quadrature points is evaluated.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">scipy.integrate</span> <span class="k">as</span> <span class="nn">integrate</span>
+
+<span class="c1"># Define a function to integrate and its exact integral</span>
+<span class="k">def</span> <span class="nf">my_function</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="mi">9</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">**</span><span class="n">p</span>
+
+<span class="k">def</span> <span class="nf">integral_of_my_function</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">):</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="mi">9</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">b</span><span class="o">**</span><span class="p">(</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="n">a</span><span class="o">**</span><span class="p">(</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Define the interval</span>
+<span class="n">a</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># Lower limit</span>
+<span class="n">b</span> <span class="o">=</span> <span class="mi">5</span>  <span class="c1"># Upper limit</span>
+
+<span class="c1"># Using exact integration formula</span>
+<span class="n">result_exact</span> <span class="o">=</span> <span class="n">integral_of_my_function</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Exact integration:&quot;</span><span class="p">,</span> <span class="n">result_exact</span><span class="p">)</span>
+
+<span class="c1"># Using scipy.integrate.quad, which uses an (adaptive) composite Gaussian quadrature</span>
+<span class="n">result_quad</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">integrate</span><span class="o">.</span><span class="n">quad</span><span class="p">(</span><span class="n">my_function</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Gaussian Quadrature (scipy.integrate.quad):&quot;</span><span class="p">,</span> <span class="n">result_quad</span><span class="p">)</span>
+
+<span class="c1"># Using scipy.integrate.fixed_quad with different orders</span>
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]:</span>  <span class="c1"># Different number of quadrature points</span>
+    <span class="n">result_fixed_quad</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">integrate</span><span class="o">.</span><span class="n">fixed_quad</span><span class="p">(</span><span class="n">my_function</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Gaussian Quadrature of order </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2"> (fixed_quad):&quot;</span><span class="p">,</span> <span class="n">result_fixed_quad</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
 </section>
 <section id="self-check-questions">
 <h2>Self-check questions<a class="headerlink" href="#self-check-questions" title="Link to this heading">#</a></h2>
 <div class="tip admonition">
 <p class="admonition-title"><strong>Question</strong></p>
-<p>Show</p>
+<p>Show, for <span class="math notranslate nohighlight">\(f \in C^3[a,b]\)</span>,</p>
 <div class="math notranslate nohighlight">
 \[
 \bigl|\mathcal{I}(f)-\mathcal{C}_{2,m}(f)\bigr| \le (b-a)\,\frac{h^3}{192}\,\max_{\xi\in[a,b]}\,|f'''(\xi)|.
@@ -494,7 +564,7 @@ no more than <span class="math notranslate nohighlight">\(2n+1\)</span>. Gauss s
 \]</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p class="sd-card-text">When <span class="math notranslate nohighlight">\(f\)</span> is smooth enough, we could actually prove with a more sophisticated argument taking the symmetry of the nodes into account that:</p>
+<p class="sd-card-text">When <span class="math notranslate nohighlight">\(f\)</span> is smooth enough, we could actually prove with a more sophisticated argument taking the symmetry of the nodes into account that</p>
 <div class="math notranslate nohighlight">
 \[
 \bigl|\mathcal{I}(f)-\mathcal{C}_{2,m}(f)\bigr| = (b-a)\,\frac{h^4}{2880}\,\max_{\xi\in[a,b]}\,|f^{(4)}(\xi)|.
@@ -634,7 +704,12 @@ no more than <span class="math notranslate nohighlight">\(2n+1\)</span>. Gauss s
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#composite-quadratures">Composite Quadratures</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gauss-quadratures">Gauss Quadratures</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-quadratures">Gaussian Quadratures</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#composite-newton-cotes-quadrature-rules">Composite Newton-Cotes quadrature rules</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-quadrature">Gaussian quadrature</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#self-check-questions">Self-check questions</a></li>
 </ul>
   </nav></div>

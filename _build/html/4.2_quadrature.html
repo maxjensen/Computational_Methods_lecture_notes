@@ -386,9 +386,12 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpolatory-quadratures">Interpolatory Quadratures</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#error-bound">Error bound</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#runge-phenomenon">Runge phenomenon</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpolatory-quadratures">Interpolatory Quadratures</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#error-bound">Error bound</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#runge-phenomenon">Runge phenomenon</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#self-check-questions">Self-check questions</a></li>
 </ul>
             </nav>
@@ -411,22 +414,22 @@ document.write(`
 <p>on the interval <span class="math notranslate nohighlight">\([a,b] \subset \mathbb{R}\)</span>, using a method known as <em>quadrature</em>. A <em>quadrature formula</em> is an approximation of the form</p>
 <div class="math notranslate nohighlight">
 \[
-\mathcal{Q}(f) := \sum_{k=0}^m \sigma_k f(x_k),
+\mathcal{Q}_n(f) := \sum_{k=0}^n \sigma_k f(x_k),
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(\{x_k\}\)</span> are called <em>nodes</em>, and <span class="math notranslate nohighlight">\(\sigma_k\)</span> are corresponding <em>weights</em> or <em>coefficients</em>. The choice of nodes and coefficients is crucial for the accuracy of the approximation. Importantly, quadrature formulas share a key property with integrals: linearity. This means</p>
 <div class="math notranslate nohighlight">
 \[
-\mathcal{Q}(\alpha f + \beta g) = \alpha \mathcal{Q}(f) + \beta \mathcal{Q}(g) \quad \text{for all } \alpha, \beta \in \mathbb{R}.
+\mathcal{Q}_n(\alpha f + \beta g) = \alpha \mathcal{Q}_n(f) + \beta \mathcal{Q}_n(g) \quad \forall \, \alpha, \beta \in \mathbb{R}.
 \]</div>
-<p>The <em>degree of exactness</em> of a quadrature formula <span class="math notranslate nohighlight">\(\mathcal{Q}\)</span> is defined as the highest degree <span class="math notranslate nohighlight">\(r\)</span> for which it exactly integrates all polynomials up to degree <span class="math notranslate nohighlight">\(r\)</span>, but not for degree <span class="math notranslate nohighlight">\(r+1\)</span>. Formally,</p>
+<p>The <em>degree of exactness</em> of a quadrature formula <span class="math notranslate nohighlight">\(\mathcal{Q}_n\)</span> is defined as the highest degree <span class="math notranslate nohighlight">\(r\)</span> for which it exactly integrates all polynomials up to degree <span class="math notranslate nohighlight">\(r\)</span>, but not for degree <span class="math notranslate nohighlight">\(r+1\)</span>. Formally,</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{aligned}
-   \mathcal{Q}(x^j) &amp; = \mathcal{I}(x^j) \quad \text{for } j = 0, \ldots, r,\\
-   \mathcal{Q}(x^{r+1}) &amp; \neq \mathcal{I}(x^{r+1}).
+   \mathcal{Q}_n(x^j) &amp; = \mathcal{I}(x^j) \quad \text{for } j = 0, \ldots, r,\\
+   \mathcal{Q}_n(x^{r+1}) &amp; \neq \mathcal{I}(x^{r+1}).
 \end{aligned}
 \end{split}\]</div>
-<p>Therefore, a quadrature formula <span class="math notranslate nohighlight">\(\mathcal{Q}\)</span> with a degree of exactness <span class="math notranslate nohighlight">\(r\)</span> perfectly approximates the integral of any polynomial in <span class="math notranslate nohighlight">\(\mathcal{P}_r\)</span>, the set of all polynomials of degree up to <span class="math notranslate nohighlight">\(r\)</span>.</p>
+<p>Therefore, a quadrature formula <span class="math notranslate nohighlight">\(\mathcal{Q}_n\)</span> with a degree of exactness <span class="math notranslate nohighlight">\(r\)</span> perfectly approximates the integral of any polynomial in <span class="math notranslate nohighlight">\(\mathcal{P}_r\)</span>, the set of all polynomials of degree up to <span class="math notranslate nohighlight">\(r\)</span>.</p>
 <section id="interpolatory-quadratures">
 <h2>Interpolatory Quadratures<a class="headerlink" href="#interpolatory-quadratures" title="Link to this heading">#</a></h2>
 <p>Interpolatory quadrature involves approximating a function <span class="math notranslate nohighlight">\(f\)</span> by a polynomial <span class="math notranslate nohighlight">\(p\)</span> that interpolates <span class="math notranslate nohighlight">\(f\)</span> at given nodes <span class="math notranslate nohighlight">\(\{x_k\}\)</span>, and then integrating this polynomial. Utilising Lagrange interpolation, <span class="math notranslate nohighlight">\(p(x)\)</span> is expressed as</p>
@@ -439,15 +442,15 @@ p(x) = \sum_{k=0}^n f(x_k) L_k(x), \quad \text{where } L_k(x) = \prod_{l\ne k} \
 \[
 \mathcal{Q}_n(f) := \int_a^b p(x) dx = \sum_{k=0}^n f(x_k) \int_a^b L_k(x) dx,
 \]</div>
-<p>with the weights <span class="math notranslate nohighlight">\(\sigma_k = \int_a^b L_k(x) dx\)</span>. Hence, the interpolatory quadrature formula becomes</p>
+<p>with the weights</p>
 <div class="math notranslate nohighlight">
 \[
-\mathcal{Q}_n(f) = \sum_{k=0}^n \sigma_k f(x_k).
+\sigma_k = \int_a^b L_k(x) dx.
 \]</div>
-<p>The degree of exactness of <span class="math notranslate nohighlight">\(\mathcal{Q}_n\)</span> is at least <span class="math notranslate nohighlight">\(n\)</span>, and it holds that</p>
+<p>Hence, the interpolatory quadrature formula becomes <span class="math notranslate nohighlight">\(\mathcal{Q}_n(f) = \sum_{k=0}^n \sigma_k f(x_k)\)</span>. The degree of exactness of <span class="math notranslate nohighlight">\(\mathcal{Q}_n\)</span> is at least <span class="math notranslate nohighlight">\(n\)</span>, and it for <span class="math notranslate nohighlight">\(n \geq 0\)</span> holds that</p>
 <div class="math notranslate nohighlight">
 \[
-\sum_{k=0}^n \sigma_k = 1 \quad \text{if } n \ge 0 \text{ and } \mathcal{Q}_n(1) = \mathcal{I}(1).
+\sum_{k=0}^n \sigma_k = 1, \qquad\mathcal{Q}_n(1) = \mathcal{I}(1).
 \]</div>
 <p>In the case of equidistant nodes, we obtain the <em>Newton-Cotes formulas</em>, and if these nodes include the endpoints <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span>, the formulas are termed <em>closed</em> Newton-Cotes formulas.</p>
 <div class="proof example admonition" id="example-0">
@@ -472,14 +475,13 @@ p(x) = \sum_{k=0}^n f(x_k) L_k(x), \quad \text{where } L_k(x) = \prod_{l\ne k} \
 </li>
 </ul>
 </section>
-</div></section>
-<section id="error-bound">
-<h2>Error bound<a class="headerlink" href="#error-bound" title="Link to this heading">#</a></h2>
+</div><section id="error-bound">
+<h3>Error bound<a class="headerlink" href="#error-bound" title="Link to this heading">#</a></h3>
 <p>Using the <a class="reference internal" href="4.1_interpolation.html"><span class="std std-doc">interpolation error bound</span></a>, we obtain</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{aligned}
-   |\mathcal{Q}(f)-\mathcal{Q}_n(f)| &amp;= |\mathcal{Q}(f)-\mathcal{Q}_n(p)| = |\mathcal{Q}(f)-\mathcal{Q}(p)| = |\mathcal{Q}(f-p)|\\
+   |\mathcal{I}(f)-\mathcal{Q}_n(f)| &amp;= |\mathcal{I}(f)-\mathcal{Q}_n(p)| = |\mathcal{I}(f)-\mathcal{I}(p)| = |\mathcal{I}(f-p)|\\
 	&amp;= \Bigl| \int_a^b \frac{\omega_{n+1}(x)}{(n+1)!}\,f^{(n+1)}(\xi(x)) dx \Bigr|\\
 	&amp;\le \frac1{(n+1)!}\,\max_{\xi\in[a,b]} |f^{(n+1)}(\xi)| \,\int_a^b |\omega_{n+1}(x)| dx.
 \end{aligned}
@@ -487,13 +489,36 @@ p(x) = \sum_{k=0}^n f(x_k) L_k(x), \quad \text{where } L_k(x) = \prod_{l\ne k} \
 <p>This error bound suggests that the accuracy of <span class="math notranslate nohighlight">\(\mathcal{Q}_n\)</span> is limited <em>both</em> by the differentiability of <span class="math notranslate nohighlight">\(f\)</span>, which is usually out of our control as numerical analysts, and by the size of <span class="math notranslate nohighlight">\(|\omega_{n+1}|\)</span>, which depends on the choice of the nodes <span class="math notranslate nohighlight">\(\{x_k\}\)</span> and thus may be improved. We will address these two issues in the next section.</p>
 </section>
 <section id="runge-phenomenon">
-<h2>Runge phenomenon<a class="headerlink" href="#runge-phenomenon" title="Link to this heading">#</a></h2>
+<h3>Runge phenomenon<a class="headerlink" href="#runge-phenomenon" title="Link to this heading">#</a></h3>
 <p>Even when <span class="math notranslate nohighlight">\(|\omega_{n+1}|\)</span> is bounded, and when <span class="math notranslate nohighlight">\(f\)</span> is smooth, interpolatory quadrature may still suffer from Runge’s phenomenon. We find negative values for some coefficients <span class="math notranslate nohighlight">\(\sigma_k^{(n)}\)</span> even for moderate values of <span class="math notranslate nohighlight">\(n\)</span>, 8 in the case of closed Newton-Cotes formulas. In fact, one can prove that, for the closed Newton-Cotes formulas,</p>
 <div class="math notranslate nohighlight">
 \[
 \sum_{k=0}^n \bigl|\sigma_k^{(n)}\bigr| \to \infty \qquad n \to \infty.
 \]</div>
 <p>This makes this quadrature vulnerable to round-off errors for large <span class="math notranslate nohighlight">\(n\)</span>.</p>
+</section>
+</section>
+<section id="python-skills">
+<h2>Python skills<a class="headerlink" href="#python-skills" title="Link to this heading">#</a></h2>
+<p>Here is an implementation of the trapezoidal and Simpson’s rule in Python.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">trapezoidal_rule</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">b</span> <span class="o">-</span> <span class="n">a</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">+</span> <span class="n">f</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">simpsons_rule</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">b</span> <span class="o">-</span> <span class="n">a</span><span class="p">)</span> <span class="o">/</span> <span class="mi">6</span> <span class="o">*</span> <span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">f</span><span class="p">((</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">f</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
+
+<span class="c1"># Example usage</span>
+<span class="c1"># Define a function to integrate</span>
+<span class="k">def</span> <span class="nf">my_function</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">**</span> <span class="mi">2</span>
+
+<span class="c1"># Apply the quadrature rules</span>
+<span class="n">a</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># Lower limit</span>
+<span class="n">b</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># Upper limit</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Trapezoidal Rule:&quot;</span><span class="p">,</span> <span class="n">trapezoidal_rule</span><span class="p">(</span><span class="n">my_function</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Simpson&#39;s Rule:&quot;</span><span class="p">,</span> <span class="n">simpsons_rule</span><span class="p">(</span><span class="n">my_function</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>
+</pre></div>
+</div>
 </section>
 <section id="self-check-questions">
 <h2>Self-check questions<a class="headerlink" href="#self-check-questions" title="Link to this heading">#</a></h2>
@@ -512,7 +537,7 @@ p(x) = \sum_{k=0}^n f(x_k) L_k(x), \quad \text{where } L_k(x) = \prod_{l\ne k} \
 </div>
 </details><div class="tip admonition">
 <p class="admonition-title"><strong>Question</strong></p>
-<p>Q</p>
+<p>The quadrature rule <span class="math notranslate nohighlight">\(\mathcal{Q}\)</span> has a negative weight <span class="math notranslate nohighlight">\(\sigma_k\)</span>. Show that there exists a non-negative function <span class="math notranslate nohighlight">\(g\)</span> such <span class="math notranslate nohighlight">\(\mathcal{Q}(g) &lt; 0\)</span>. This means that the quadrature rule assigns to the non-negative function a negative estimate of its integral</p>
 </div>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
@@ -525,7 +550,12 @@ p(x) = \sum_{k=0}^n f(x_k) L_k(x), \quad \text{where } L_k(x) = \prod_{l\ne k} \
 </div>
 </details><div class="tip admonition">
 <p class="admonition-title"><strong>Question</strong></p>
-<p>Q</p>
+<p>For a family <span class="math notranslate nohighlight">\(\mathcal{Q}_n\)</span> of quadrature methods (interpolatory or otherwise) one observes</p>
+<div class="math notranslate nohighlight">
+\[
+\sum_{k=0}^n \bigl|\sigma_k^{(n)}\bigr| \to \infty \qquad n \to \infty.
+\]</div>
+<p>Why does the relative forward error, observed over the set of continuous functions, grow unboundedly as <span class="math notranslate nohighlight">\(n \to \infty\)</span>?</p>
 </div>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
@@ -534,7 +564,19 @@ p(x) = \sum_{k=0}^n f(x_k) L_k(x), \quad \text{where } L_k(x) = \prod_{l\ne k} \
 <div class="sd-summary-up docutils">
 <svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
 </summary><div class="sd-summary-content sd-card-body docutils">
-<p class="sd-card-text">A</p>
+<p class="sd-card-text">Let <span class="math notranslate nohighlight">\(x_i^{(n)}\)</span> be the <span class="math notranslate nohighlight">\(i\)</span>th node of <span class="math notranslate nohighlight">\(\mathcal{Q}_n\)</span>. We define <span class="math notranslate nohighlight">\(g^{(n)} : [a,b] \to \mathbb{R}\)</span> to be <span class="math notranslate nohighlight">\(\text{sign}(\sigma_k^{(n)})\)</span> at nodes <span class="math notranslate nohighlight">\(x_i^{(n)}\)</span>, and on the restrictions <span class="math notranslate nohighlight">\([x_i^{(n)}, x_{i+1}^{(n)}]\)</span> between nodes be the linear interpolant of those values.</p>
+<p class="sd-card-text">Then</p>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{Q}_n(g^{(n)}) = \sum_{k=0}^n \sigma_k^{(n)} g^{(n)}(x_k) = \sum_{k=0}^n | \sigma_k | \to \infty \qquad n \to \infty.
+\]</div>
+<p class="sd-card-text">However, <span class="math notranslate nohighlight">\(|\mathcal{I}(g^{(n)})| \leq (b-a)\)</span>. In the notation of the Foundation chapter on the forward error, the exact operator is <span class="math notranslate nohighlight">\(f: C[a,b] \to \mathbb{R}, g \mapsto \mathcal{I}(g)\)</span>, while the <span class="math notranslate nohighlight">\(n\)</span>th quadrature approximation is <span class="math notranslate nohighlight">\(\tilde{f}_n: C[a,b] \to \mathbb{R}, g \mapsto \mathcal{Q}_n(g)\)</span>.</p>
+<p class="sd-card-text">Thus, we established that the largest relative forward error, observed over the set of continuous functions, diverges as <span class="math notranslate nohighlight">\(n \to \infty\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+\sup_{g \in C[a,b]} \frac{| f(g) - \tilde{f}_n(g) |}{\| g \|_\infty} \geq \frac{| f(g^{(n)}) - \tilde{f}_n(g^{(n)}) |}{\| g^{(n)} \|_\infty} \to \infty.
+\]</div>
+<p class="sd-card-text">Here <span class="math notranslate nohighlight">\(\| g^{(n)} \|_\infty = \max_{x \in [a,b]} |g^{(n)}| = 1\)</span> denotes the maximum norm of <span class="math notranslate nohighlight">\(g^{(n)}\)</span>.</p>
 </div>
 </details><div class="tip admonition">
 <p class="admonition-title"><strong>Question</strong></p>
@@ -642,9 +684,12 @@ p(x) = \sum_{k=0}^n f(x_k) L_k(x), \quad \text{where } L_k(x) = \prod_{l\ne k} \
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpolatory-quadratures">Interpolatory Quadratures</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#error-bound">Error bound</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#runge-phenomenon">Runge phenomenon</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpolatory-quadratures">Interpolatory Quadratures</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#error-bound">Error bound</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#runge-phenomenon">Runge phenomenon</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#self-check-questions">Self-check questions</a></li>
 </ul>
   </nav></div>
