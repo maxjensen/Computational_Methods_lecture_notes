@@ -196,26 +196,26 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="1.5_complexity_notation.html">A quick survey of asymptotic notation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.6_numpy_and_data_layouts.html">Memory layout and Numpy arrays</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition and its numerical stability</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition and its Numerical Stability</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="2.1_lu_decomposition.html">Solving linear system with the LU Decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.2_lu_backward_error.html">Backward error of the LU decomposition and pivoting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.3_lu_backward_error_examples.html">Backward error of the LU decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.4_python_lu_decomposition.html">Implementing the LU decomposition in Python</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Orthogonal decompositions</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Orthogonal Decompositions</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="3.1_qr_decomposition.html">The QR Decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3.2_singular_value_decomposition.html">The Singular Value Decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3.3_least_squares_problems.html">Least Squares Problems</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Interpolation and quadrature</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Interpolation and Quadrature</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Polynomial Interpolation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="4.2_quadrature.html">Introduction to Quadrature</a></li>
 <li class="toctree-l1"><a class="reference internal" href="4.3_stable_quadrature_schemes.html">Stable Quadrature Schemes</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Eigenvalue problems</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Eigenvalue Problems</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="5.1_complex_vector_spaces.html">Complex vector spaces</a></li>
 <li class="toctree-l1"><a class="reference internal" href="5.2_eigenvalues_basic_properties.html">Basic properties of eigenvalue problems</a></li>
@@ -427,13 +427,13 @@ y_j = \delta_{ij},
 \[  
 L_j(x)= \prod_{i=0,i \neq j}^n \frac{(x-x_i)}{(x_j-x_i)}.  
 \]</div>
-<p>because <span class="math notranslate nohighlight">\(\text{deg}(L_j)=n\)</span> and <span class="math notranslate nohighlight">\(L_j\)</span> interpolates <span class="math notranslate nohighlight">\(y_j = \delta_{ij}\)</span> at <span class="math notranslate nohighlight">\(x_j\)</span>. The functions <span class="math notranslate nohighlight">\(L_k\)</span> are called <em>Lagrange interpolation polynomials</em>.</p>
+<p>because <span class="math notranslate nohighlight">\(\text{deg}(L_j)=n\)</span> and <span class="math notranslate nohighlight">\(L_j\)</span> interpolates <span class="math notranslate nohighlight">\(y_j = \delta_{ij}\)</span> at <span class="math notranslate nohighlight">\(x_j\)</span>. The functions <span class="math notranslate nohighlight">\(L_k\)</span> are called <em>Lagrange basis polynomials</em>.</p>
 <p>The solution to the original interpolation problem is now constructed as</p>
 <div class="math notranslate nohighlight">
 \[  
 p_n(x)= \sum_{j=0}^n y_j L_j(x).  
 \]</div>
-<p>The above form of the interpolation polynomial is called <em>Lagrange interpolation formula</em>. We still need to prove uniqueness.</p>
+<p>We refer to <span class="math notranslate nohighlight">\(p\)</span>, when written in this form, as the <em>Lagrange interpolation polynomial</em>. We still need to prove the uniqueness.</p>
 <div class="proof theorem admonition" id="theorem-0">
 <p class="admonition-title"><span class="caption-number">Theorem 4 </span> (Existence and uniqueness of interpolating polynomial)</p>
 <section class="theorem-content" id="proof-content">
@@ -447,22 +447,23 @@ p_n(x)= \sum_{j=0}^n y_j L_j(x).
 \[
 \omega_{n+1}(x) := \prod_{j = 0}^n (x - x_j).
 \]</div>
-<div class="prf-theorem admonition">
-<p class="admonition-title">Fact: Interpolation error bound</p>
+<div class="proof theorem admonition" id="theorem-1">
+<p class="admonition-title"><span class="caption-number">Theorem 5 </span> (Interpolation error bound)</p>
+<section class="theorem-content" id="proof-content">
 <p>Suppose <span class="math notranslate nohighlight">\(f \in C^{n+1}[a,b]\)</span> and <span class="math notranslate nohighlight">\(a \le x_0 &lt; \ldots &lt; x_n \le b\)</span>. Let <span class="math notranslate nohighlight">\(p \in \mathcal{P}_n\)</span> such that <span class="math notranslate nohighlight">\(p(x_i) = f(x_i)\)</span> for <span class="math notranslate nohighlight">\(i \in \{ 0, \dots, n\}\)</span>. Then for every <span class="math notranslate nohighlight">\(x \in [a,b]\)</span> there is a <span class="math notranslate nohighlight">\(\xi \in [a,b]\)</span>, depending on <span class="math notranslate nohighlight">\(x\)</span>, such that</p>
 <div class="math notranslate nohighlight">
 \[
 f(x) - p(x) = \frac{\omega_{n+1}(x) f^{(n+1)}(\xi)}{(n+1)!}.
 \]</div>
-</div>
-<p>One disadvantage of the above interpolation error bound is that the result only applies to <span class="math notranslate nohighlight">\(f \in C^{n+1}[a,b]\)</span>. The celebrated Weierstrass approximation theorem shows that control on higher-order derivatives is not necessary for the approximation by polynomials.</p>
+</section>
+</div><p>The proof is given in the optional materials section. One disadvantage of the above interpolation error bound is that the result only applies to <span class="math notranslate nohighlight">\(f \in C^{n+1}[a,b]\)</span>. The celebrated Weierstrass approximation theorem shows that control on higher-order derivatives is not necessary for the approximation by polynomials.</p>
 <div class="prf-theorem admonition">
 <p class="admonition-title">Fact: Weierstrass approximation theorem</p>
 <p>Given <span class="math notranslate nohighlight">\(f \in C[a,b]\)</span> and <span class="math notranslate nohighlight">\(\epsilon &gt; 0\)</span>, there exists an <span class="math notranslate nohighlight">\(n \in \mathbb{N}\)</span> and <span class="math notranslate nohighlight">\(p \in \mathcal{P}_n\)</span> such that <span class="math notranslate nohighlight">\(\| f - p \|_\infty &lt; \epsilon\)</span>.</p>
 </div>
 <p>Here <span class="math notranslate nohighlight">\(\| g \|_\infty = \max_{x \in [a,b]} |g(x)|\)</span> denotes the <span class="math notranslate nohighlight">\(\infty\)</span>-norm on <span class="math notranslate nohighlight">\(C[a,b]\)</span>.</p>
 <p>The <span class="math notranslate nohighlight">\(p\)</span> of the Weierstrass approximation theorem has to be selected with much care, and an unrefined interpolation method will generally not provide polynomials which approximate arbitrarily well. This is mainly due to the Runge phenomenon.</p>
-<div class="proof example admonition" id="example-1">
+<div class="proof example admonition" id="example-2">
 <p class="admonition-title"><span class="caption-number">Example 4 </span></p>
 <section class="example-content" id="proof-content">
 <p>Unless very smooth functions such as <span class="math notranslate nohighlight">\(\cos\)</span> are interpolated (recall that <span class="math notranslate nohighlight">\(\| \cos^{(n)} \|_\infty = 1\)</span> for all <span class="math notranslate nohighlight">\(n\)</span>th derivatives <span class="math notranslate nohighlight">\(\cos^{(n)}\)</span>, <span class="math notranslate nohighlight">\(n \in \mathbb{N}\)</span>), one observes that interpolating polynomials of high-order exhibit strong oscillations near the interval ends. This behaviour is known as the Runge phenomenon.</p>
@@ -601,8 +602,8 @@ Matplotlib code<div class="sd-summary-down docutils">
 \tilde{x}_i = \cos \Bigl( \frac{2 i + 1}{2 n} \pi \Bigr), \qquad i \in \{ 0, \ldots, n\}.
 \]</div>
 <p>(Note: Some texts define <span class="math notranslate nohighlight">\(i\)</span> to start from <span class="math notranslate nohighlight">\(1\)</span> in the definition of Chebyshev nodes and adjust <span class="math notranslate nohighlight">\(n\)</span> accordingly. This is only a notational difference.)</p>
-<div class="proof theorem admonition" id="theorem-2">
-<p class="admonition-title"><span class="caption-number">Theorem 5 </span></p>
+<div class="proof theorem admonition" id="theorem-3">
+<p class="admonition-title"><span class="caption-number">Theorem 6 </span></p>
 <section class="theorem-content" id="proof-content">
 <p>Consider <span class="math notranslate nohighlight">\(n+1\)</span> arbitrary, pairwise distinct nodes <span class="math notranslate nohighlight">\(x_0, x_1, \ldots, x_n\)</span> in <span class="math notranslate nohighlight">\([-1,1]\)</span> with error polynomial <span class="math notranslate nohighlight">\(\omega_{n+1}\)</span>. Then</p>
 <div class="math notranslate nohighlight">
@@ -649,7 +650,7 @@ Matplotlib code<div class="sd-summary-down docutils">
 </pre></div>
 </div>
 </div>
-</details><div class="proof example admonition" id="example-3">
+</details><div class="proof example admonition" id="example-4">
 <p class="admonition-title"><span class="caption-number">Example 5 </span></p>
 <section class="example-content" id="proof-content">
 <p>Here the same functions as above are interpolated again, this time using Chebychev nodes. The difference is striking, with a fairly good approximation even in the discontinuous example of the sign function.</p>
@@ -865,7 +866,7 @@ P(x) &amp; = 1 \cdot \frac{(x - 2)(x - 3)}{2} - 3(x - 1)(x - 3) + 2 \cdot \frac{
 </div>
 </details><div class="tip admonition">
 <p class="admonition-title"><strong>Question</strong></p>
-<p>Suppose that the interpolation nodes are arranged symmetrically around the origina: for each node <span class="math notranslate nohighlight">\(x_j\)</span>, the node <span class="math notranslate nohighlight">\(-x_j\)</span> also exists in the set of nodes.</p>
+<p>Suppose that the interpolation nodes are arranged symmetrically around the origin: for each node <span class="math notranslate nohighlight">\(x_j\)</span>, the node <span class="math notranslate nohighlight">\(-x_j\)</span> also exists in the set of nodes.</p>
 <p>Prove that the Lagrange interpolant <span class="math notranslate nohighlight">\(p\)</span> of an odd function is odd.</p>
 </div>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
@@ -891,12 +892,38 @@ p(-x) = \sum_{j=0}^{n} f(x_j) L_j(-x) = \sum_{j=0}^{n} f(- x_{j'}) L_{j'}(x) = -
 <h2>Optional material<a class="headerlink" href="#optional-material" title="Link to this heading">#</a></h2>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
-Chebychev Interpolation<div class="sd-summary-down docutils">
+Proof of the interpolation error bound<div class="sd-summary-down docutils">
 <svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
 <div class="sd-summary-up docutils">
 <svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
 </summary><div class="sd-summary-content sd-card-body docutils">
-<div class="proof definition admonition" id="definition-4">
+<p class="sd-card-text">Recall Rolle’s theorem from the appendix.</p>
+<div class="proof admonition" id="proof">
+<p class="sd-card-text">Proof. For any <span class="math notranslate nohighlight">\(x = x_i\)</span>, where <span class="math notranslate nohighlight">\(x_i\)</span> is one of the interpolation points, the error formula holds trivially since <span class="math notranslate nohighlight">\(f(x_i) = p(x_i)\)</span> and <span class="math notranslate nohighlight">\(\omega_{n+1}(x_i) = 0\)</span>.</p>
+<p class="sd-card-text">For <span class="math notranslate nohighlight">\(x \notin \{x_0, \ldots, x_n\}\)</span>, consider the auxiliary function defined on <span class="math notranslate nohighlight">\([a, b]\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+\psi(x') := f(x') - p(x') - C \omega_{n+1}(x'),
+\]</div>
+<p class="sd-card-text">where <span class="math notranslate nohighlight">\(C\)</span> is a constant chosen such that <span class="math notranslate nohighlight">\(\psi(x) = 0\)</span>.</p>
+<p class="sd-card-text">The function <span class="math notranslate nohighlight">\(\psi\)</span> has at least <span class="math notranslate nohighlight">\(n+2\)</span> distinct zeros: <span class="math notranslate nohighlight">\(x_0, \ldots, x_n\)</span>, and <span class="math notranslate nohighlight">\(x\)</span>. By applying Rolle’s Theorem successively, we find that <span class="math notranslate nohighlight">\(\psi'\)</span> has at least <span class="math notranslate nohighlight">\(n+1\)</span> distinct zeros, <span class="math notranslate nohighlight">\(\psi''\)</span> has at least <span class="math notranslate nohighlight">\(n\)</span> zeros, and so on, up to <span class="math notranslate nohighlight">\(\psi^{(n+1)}\)</span>, which must have at least one zero <span class="math notranslate nohighlight">\(\xi\)</span> in the interval <span class="math notranslate nohighlight">\([a, b]\)</span>.</p>
+<p class="sd-card-text">Since <span class="math notranslate nohighlight">\(p\)</span> is a polynomial of degree at most <span class="math notranslate nohighlight">\(n\)</span>, its <span class="math notranslate nohighlight">\((n+1)\)</span>th derivative is identically zero, i.e., <span class="math notranslate nohighlight">\(p^{(n+1)} \equiv 0\)</span>. For <span class="math notranslate nohighlight">\(\omega_{n+1}\)</span>, a polynomial of degree <span class="math notranslate nohighlight">\(n+1\)</span> with leading coefficient <span class="math notranslate nohighlight">\(1\)</span>, its <span class="math notranslate nohighlight">\((n+1)\)</span>th derivative is constant: <span class="math notranslate nohighlight">\(\omega_{n+1}^{(n+1)} = (n+1)!\)</span>.</p>
+<p class="sd-card-text">Thus, at the root <span class="math notranslate nohighlight">\(\xi\)</span>, we have <span class="math notranslate nohighlight">\(0 = \psi^{(n+1)}(\xi) = f^{(n+1)}(\xi) - C (n+1)!\)</span>, leading to:</p>
+<div class="math notranslate nohighlight">
+\[
+C = \frac{f^{(n+1)}(\xi)}{(n+1)!}.
+\]</div>
+<p class="sd-card-text">Substituting this value back into the definition of <span class="math notranslate nohighlight">\(\psi\)</span> completes the proof.</p>
+</div>
+</div>
+</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+Chebychev interpolation<div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<div class="proof definition admonition" id="definition-5">
 <p class="admonition-title"><span class="caption-number">Definition 3 </span></p>
 <section class="definition-content" id="proof-content">
 <p class="sd-card-text"><em>Chebychev polynomials of first kind</em> are defined by the recursive formula</p>
@@ -906,8 +933,8 @@ T_0(x) = 1, \quad T_1(x) = x, \quad T_{n+1}(x) = 2 x T_n(x) - T_{n-1}(x).
 \]</div>
 </section>
 </div><p class="sd-card-text">Chebychev polynomials are considered on the reference interval <span class="math notranslate nohighlight">\([-1,1]\)</span> with only few exceptions. We shall use the terms Chebychev polynomial of the first kind and Chebychev polynomial synonymously.</p>
-<div class="proof theorem admonition" id="theorem-5">
-<p class="admonition-title"><span class="caption-number">Theorem 6 </span></p>
+<div class="proof theorem admonition" id="theorem-6">
+<p class="admonition-title"><span class="caption-number">Theorem 7 </span></p>
 <section class="theorem-content" id="proof-content">
 <p class="sd-card-text">For <span class="math notranslate nohighlight">\(n \in \mathbb{N}\)</span> and <span class="math notranslate nohighlight">\(x \in [-1,1]\)</span> the identity <span class="math notranslate nohighlight">\(T_n(x) = \cos(n \arccos x)\)</span> holds.</p>
 </section>
@@ -934,8 +961,8 @@ T_{n+1}(x) &amp;= 2 x T_n(x) - T_{n-1}(x) = 2 \cos \theta \cos(n \theta) - \cos(
 \tilde{y}_i = \cos \Bigl( \frac{i \pi}{n} \Bigr), \qquad i \in \{ 0, \ldots, n\},
 \]</div>
 <p class="sd-card-text">with <span class="math notranslate nohighlight">\(T_n(\tilde{y}_i) = (-1)^i\)</span>. The roots <span class="math notranslate nohighlight">\(\tilde{x}_i\)</span> are called Chebychev nodes. The below theorem states that the <span class="math notranslate nohighlight">\(\tilde{x}_i\)</span> are the best nodes to minimise the oscillations of the error polynomial.</p>
-<div class="proof theorem admonition" id="theorem-6">
-<p class="admonition-title"><span class="caption-number">Theorem 7 </span></p>
+<div class="proof theorem admonition" id="theorem-7">
+<p class="admonition-title"><span class="caption-number">Theorem 8 </span></p>
 <section class="theorem-content" id="proof-content">
 <p class="sd-card-text">Suppose <span class="math notranslate nohighlight">\(p \in \mathcal{P}_n\)</span> interpolates <span class="math notranslate nohighlight">\(f \in C^{(n+1)}[a,b]\)</span> at the Chebychev nodes <span class="math notranslate nohighlight">\(\tilde{x}_0, \ldots, \tilde{x}_n\)</span>. Let <span class="math notranslate nohighlight">\(\tilde{\omega}_{n+1}\)</span> be the error polynomial corresponding to these nodes. Then</p>
 <div class="math notranslate nohighlight">

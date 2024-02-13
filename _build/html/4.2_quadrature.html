@@ -196,26 +196,26 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="1.5_complexity_notation.html">A quick survey of asymptotic notation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.6_numpy_and_data_layouts.html">Memory layout and Numpy arrays</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition and its numerical stability</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition and its Numerical Stability</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="2.1_lu_decomposition.html">Solving linear system with the LU Decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.2_lu_backward_error.html">Backward error of the LU decomposition and pivoting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.3_lu_backward_error_examples.html">Backward error of the LU decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.4_python_lu_decomposition.html">Implementing the LU decomposition in Python</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Orthogonal decompositions</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Orthogonal Decompositions</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="3.1_qr_decomposition.html">The QR Decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3.2_singular_value_decomposition.html">The Singular Value Decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3.3_least_squares_problems.html">Least Squares Problems</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Interpolation and quadrature</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Interpolation and Quadrature</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="4.1_interpolation.html">Polynomial Interpolation</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Introduction to Quadrature</a></li>
 <li class="toctree-l1"><a class="reference internal" href="4.3_stable_quadrature_schemes.html">Stable Quadrature Schemes</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Eigenvalue problems</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Eigenvalue Problems</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="5.1_complex_vector_spaces.html">Complex vector spaces</a></li>
 <li class="toctree-l1"><a class="reference internal" href="5.2_eigenvalues_basic_properties.html">Basic properties of eigenvalue problems</a></li>
@@ -524,7 +524,7 @@ p(x) = \sum_{k=0}^n f(x_k) L_k(x), \quad \text{where } L_k(x) = \prod_{l\ne k} \
 <h2>Self-check questions<a class="headerlink" href="#self-check-questions" title="Link to this heading">#</a></h2>
 <div class="tip admonition">
 <p class="admonition-title"><strong>Question</strong></p>
-<p>Show that if the domain is symmetric (<span class="math notranslate nohighlight">\(a = -b\)</span>) and the nodes are symmetric (<span class="math notranslate nohighlight">\(x_{n-k}=-x_k\)</span>), then <span class="math notranslate nohighlight">\(\sigma_{n-k}=\sigma_k\)</span>.</p>
+<p>Calculate the weights and nodes for the closed Newton-Cotes formula with <span class="math notranslate nohighlight">\(n = 3\)</span>.</p>
 </div>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
@@ -533,11 +533,25 @@ p(x) = \sum_{k=0}^n f(x_k) L_k(x), \quad \text{where } L_k(x) = \prod_{l\ne k} \
 <div class="sd-summary-up docutils">
 <svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
 </summary><div class="sd-summary-content sd-card-body docutils">
-<p class="sd-card-text">A change of variable argument shows that …</p>
+<p class="sd-card-text">The nodes are <span class="math notranslate nohighlight">\(x_0 = a\)</span>, <span class="math notranslate nohighlight">\(x_1 = a + h\)</span>, <span class="math notranslate nohighlight">\(x_2 = a + 2h\)</span> and <span class="math notranslate nohighlight">\(x_3 = b\)</span>.</p>
+<p class="sd-card-text">The weights are determined with the integration of the Lagrange interpolating polynomial:</p>
+<ul class="simple">
+<li><p class="sd-card-text"><span class="math notranslate nohighlight">\(\sigma_0 = \sigma_3 = 3h/8\)</span></p></li>
+<li><p class="sd-card-text"><span class="math notranslate nohighlight">\(\sigma_1 = \sigma_2 = 9h/8\)</span></p></li>
+</ul>
+<p class="sd-card-text">Thus, the integral approximation over the interval <span class="math notranslate nohighlight">\([a, b]\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\int_a^b f(x) \, dx &amp; \approx \frac{3h}{8} [f(x_0) + 3f(x_1) + 3f(x_2) + f(x_3)]\\
+&amp; = \frac{b - a}{8} [f(a) + 3f(a + h) + 3f(a + 2h) + f(b)].
+\end{align}
+\end{split}\]</div>
+<p class="sd-card-text">The rule is known as Simpson’s 3/8 Rule.</p>
 </div>
 </details><div class="tip admonition">
 <p class="admonition-title"><strong>Question</strong></p>
-<p>The quadrature rule <span class="math notranslate nohighlight">\(\mathcal{Q}\)</span> has a negative weight <span class="math notranslate nohighlight">\(\sigma_k\)</span>. Show that there exists a non-negative function <span class="math notranslate nohighlight">\(g\)</span> such <span class="math notranslate nohighlight">\(\mathcal{Q}(g) &lt; 0\)</span>. This means that the quadrature rule assigns to the non-negative function a negative estimate of its integral</p>
+<p>A quadrature rule <span class="math notranslate nohighlight">\(\mathcal{Q}\)</span> has a negative weight <span class="math notranslate nohighlight">\(\sigma_k\)</span>. Show that there exists a non-negative function <span class="math notranslate nohighlight">\(g\)</span> such <span class="math notranslate nohighlight">\(\mathcal{Q}(g) &lt; 0\)</span>. This means that the quadrature rule assigns to the non-negative function a negative estimate of its integral</p>
 </div>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
@@ -546,7 +560,12 @@ p(x) = \sum_{k=0}^n f(x_k) L_k(x), \quad \text{where } L_k(x) = \prod_{l\ne k} \
 <div class="sd-summary-up docutils">
 <svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
 </summary><div class="sd-summary-content sd-card-body docutils">
-<p class="sd-card-text">A</p>
+<p class="sd-card-text">Let <span class="math notranslate nohighlight">\(x_i\)</span> be the <span class="math notranslate nohighlight">\(i\)</span>th node of <span class="math notranslate nohighlight">\(\mathcal{Q}\)</span>. We define <span class="math notranslate nohighlight">\(g : [a,b] \to \mathbb{R}\)</span> to be <span class="math notranslate nohighlight">\(\delta_{ik}\)</span> at nodes <span class="math notranslate nohighlight">\(x_i\)</span>, and on the restrictions <span class="math notranslate nohighlight">\([x_i, x_{i+1}]\)</span> between nodes be the linear interpolant of those values.</p>
+<p class="sd-card-text">Then <span class="math notranslate nohighlight">\(g\)</span> is non-negative; however,</p>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{Q}(g) = \sigma_k &lt; 0.
+\]</div>
 </div>
 </details><div class="tip admonition">
 <p class="admonition-title"><strong>Question</strong></p>
@@ -580,7 +599,11 @@ p(x) = \sum_{k=0}^n f(x_k) L_k(x), \quad \text{where } L_k(x) = \prod_{l\ne k} \
 </div>
 </details><div class="tip admonition">
 <p class="admonition-title"><strong>Question</strong></p>
-<p>Q</p>
+<p>Given a set of nodes <span class="math notranslate nohighlight">\(a \leq x_0 &lt; x_1 &lt; \cdots &lt; x_n \leq b\)</span>, demonstrate that there exist unique real numbers <span class="math notranslate nohighlight">\(a_0, a_1, \ldots, a_n\)</span> such that for every polynomial <span class="math notranslate nohighlight">\(p\)</span> in <span class="math notranslate nohighlight">\(\mathcal{P}_n\)</span> the following equality holds:</p>
+<div class="math notranslate nohighlight">
+\[
+\sum_{k = 0}^n a_k \, p(x_k) = \int_a^b p(x) \, dx.
+\]</div>
 </div>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
@@ -589,33 +612,33 @@ p(x) = \sum_{k=0}^n f(x_k) L_k(x), \quad \text{where } L_k(x) = \prod_{l\ne k} \
 <div class="sd-summary-up docutils">
 <svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
 </summary><div class="sd-summary-content sd-card-body docutils">
-<p class="sd-card-text">A</p>
-</div>
-</details><div class="tip admonition">
-<p class="admonition-title"><strong>Question</strong></p>
-<p>Q</p>
-</div>
-<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
-<summary class="sd-summary-title sd-card-header">
-<strong>Answer</strong><div class="sd-summary-down docutils">
-<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
-<div class="sd-summary-up docutils">
-<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
-</summary><div class="sd-summary-content sd-card-body docutils">
-<p class="sd-card-text">A</p>
-</div>
-</details><div class="tip admonition">
-<p class="admonition-title"><strong>Question</strong></p>
-<p>Q</p>
-</div>
-<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
-<summary class="sd-summary-title sd-card-header">
-<strong>Answer</strong><div class="sd-summary-down docutils">
-<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
-<div class="sd-summary-up docutils">
-<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
-</summary><div class="sd-summary-content sd-card-body docutils">
-<p class="sd-card-text">A</p>
+<p class="sd-card-text">The existence of the coefficients follows directly from the results about interpolatory quadrature formulas. For completeness, we summarise that the Lagrange basis polynomials</p>
+<div class="math notranslate nohighlight">
+\[
+L_k(x) = \prod_{l\ne k} \frac{x-x_l}{x_k-x_l}
+\]</div>
+<p class="sd-card-text">constitute a basis for <span class="math notranslate nohighlight">\(\mathcal{P}_n\)</span>. Any polynomial <span class="math notranslate nohighlight">\(p\)</span> in <span class="math notranslate nohighlight">\(\mathcal{P}_n\)</span> can be represented as a linear combination of these basis polynomials:</p>
+<div class="math notranslate nohighlight">
+\[
+p = \sum_{k = 0}^n p(x_k) \, L_k(x).
+\]</div>
+<p class="sd-card-text">By integrating both sides over the interval <span class="math notranslate nohighlight">\([a, b]\)</span>, we get:</p>
+<div class="math notranslate nohighlight">
+\[
+\int_a^b p(x) \, dx = \sum_{k = 0}^n p(x_k) \int_a^b L_k(x) \, dx.
+\]</div>
+<p class="sd-card-text">The coefficients <span class="math notranslate nohighlight">\(a_k\)</span> can then be defined as:</p>
+<div class="math notranslate nohighlight">
+\[
+a_k := \int_a^b L_k(x) \, dx.
+\]</div>
+<p class="sd-card-text">This definition ensures the existence of coefficients that satisfy the given relationship for all <span class="math notranslate nohighlight">\(p\)</span> in <span class="math notranslate nohighlight">\(\mathcal{P}_n\)</span>.</p>
+<p class="sd-card-text">To prove the uniqueness of the coefficients <span class="math notranslate nohighlight">\(a_0, a_1, \ldots, a_n\)</span>, assume that another set of coefficients satisfies the question’s condition. Now the property of the Lagrange basis polynomials, <span class="math notranslate nohighlight">\(L_k(x_j) = \delta_{kj}\)</span> leads to:</p>
+<div class="math notranslate nohighlight">
+\[
+\int_a^b L_k(x) \, dx = \sum_{j = 0}^n a_j \, L_k(x_j) = a_k.
+\]</div>
+<p class="sd-card-text">This implies that any other set of coefficients satisfying the condition must be identical to the <span class="math notranslate nohighlight">\(a_k\)</span>’s defined above, proving their uniqueness.</p>
 </div>
 </details></section>
 </section>
