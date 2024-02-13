@@ -449,23 +449,23 @@ document.write(`
 <div class="proof theorem admonition" id="theorem-0">
 <p class="admonition-title"><span class="caption-number">Theorem 9 </span> (Gaussian quadrature)</p>
 <section class="theorem-content" id="proof-content">
-<p>The interpolatory quadrature formula <span class="math notranslate nohighlight">\(\mathcal{G}_n\)</span> achieves a degree of exactness <span class="math notranslate nohighlight">\(2n+1\)</span> if and only if its nodes <span class="math notranslate nohighlight">\(x_0, \ldots, x_n\)</span> are such that the polynomial</p>
+<p>The interpolatory quadrature formula <span class="math notranslate nohighlight">\(\mathcal{Q}_n\)</span> achieves a degree of exactness <span class="math notranslate nohighlight">\(2n+1\)</span> if and only if its nodes <span class="math notranslate nohighlight">\(x_0, \ldots, x_n\)</span> are such that the polynomial</p>
 <div class="math notranslate nohighlight">
 \[
 \tilde{p}(x) = \prod_{i=0}^n (x - x_i),
 \]</div>
-<p>meets the orthogonality condition <span class="math notranslate nohighlight">\(\langle \tilde{p}, p \rangle = 0 \quad \forall \, p \in \mathcal{P}_k\)</span>.</p>
+<p>meets the condition <span class="math notranslate nohighlight">\(\int_a^b \tilde{p}(x) \, p(x) \, dx = 0\)</span> for all <span class="math notranslate nohighlight">\(p \in \mathcal{P}_k\)</span>.</p>
 </section>
-</div><p>Thus, the nodes <span class="math notranslate nohighlight">\(\{x_k\}_{k=0}^n\)</span> are the roots of a polynomial <span class="math notranslate nohighlight">\(\phi_{n+1} \in \mathcal{P}_{n+1}\)</span> which is in the orthogonal complement relative to the <span class="math notranslate nohighlight">\((n+1)\)</span>-dimensional space <span class="math notranslate nohighlight">\(\mathcal{P}_n\)</span> within the <span class="math notranslate nohighlight">\((n+2)\)</span>-dimensional space <span class="math notranslate nohighlight">\(\mathcal{P}_{n+1}\)</span> with respect to the inner product <span class="math notranslate nohighlight">\(\langle p, q \rangle = \int_a^b p(x) \, q(x) \, dx\)</span>.  A proof of the theorem is given in the optional materials section.</p>
+</div><p>Thus, the nodes <span class="math notranslate nohighlight">\(\{x_k\}_{k=0}^n\)</span> are the roots of a polynomial <span class="math notranslate nohighlight">\(\tilde{p} \in \mathcal{P}_{n+1}\)</span> which is in the orthogonal complement relative to the <span class="math notranslate nohighlight">\((n+1)\)</span>-dimensional space <span class="math notranslate nohighlight">\(\mathcal{P}_n\)</span> within the <span class="math notranslate nohighlight">\((n+2)\)</span>-dimensional space <span class="math notranslate nohighlight">\(\mathcal{P}_{n+1}\)</span> with respect to the inner product <span class="math notranslate nohighlight">\(\langle p, q \rangle = \int_a^b p(x) \, q(x) \, dx\)</span>.  A proof of the theorem is given in the optional materials section.</p>
 <div class="proof definition admonition" id="definition-1">
 <p class="admonition-title"><span class="caption-number">Definition 4 </span></p>
 <section class="definition-content" id="proof-content">
 <p>An interpolatory quadrature method that achieves a degree of exactness <span class="math notranslate nohighlight">\(2n+1\)</span> is termed a <em>Gaussian quadrature method</em>.</p>
 </section>
-</div><p>Once the nodes are determined, the coefficients can be computed as usual. Unlike the coefficients <span class="math notranslate nohighlight">\(\sigma_k\)</span> of a general quadrature formula, Gaussian quadrature weights are always positive. This can be illustrated by considering <span class="math notranslate nohighlight">\(\bar p_k(x)=\hat p(x)^2/(x-x_k)^2 \in \mathcal{P}_{2n}\)</span>. With the degree of exactness of  <span class="math notranslate nohighlight">\(2n+1\)</span> and <span class="math notranslate nohighlight">\(\bar p_k(x_j) = \delta_{jk}\)</span>, we find that:</p>
+</div><p>Once the nodes are determined, the coefficients can be computed as usual. Unlike the coefficients <span class="math notranslate nohighlight">\(\sigma_k\)</span> of a general quadrature formula, Gaussian quadrature weights are always positive. This can be illustrated by considering <span class="math notranslate nohighlight">\(\bar p_k(x) = \tilde{p}(x)^2/(x-x_k)^2 \in \mathcal{P}_{2n}\)</span>. With the degree of exactness of  <span class="math notranslate nohighlight">\(2n+1\)</span> and <span class="math notranslate nohighlight">\(\bar p_k(x_j) = \delta_{jk}\)</span>, we find that:</p>
 <div class="math notranslate nohighlight">
 \[
-0 &lt; \mathcal{I}(\bar p_k) = \mathcal{Q}(\bar p_k) = \sigma_k.
+0 &lt; \mathcal{I}(\bar p_k) = \mathcal{Q}_n(\bar p_k) = \sigma_k.
 \]</div>
 </section>
 <section id="python-skills">
@@ -623,10 +623,8 @@ document.write(`
 <p class="admonition-title"><strong>Question</strong></p>
 <p>Let <span class="math notranslate nohighlight">\([a,b] = [-1,1]\)</span>.</p>
 <ol class="arabic simple">
-<li><p>Given the nodes <span class="math notranslate nohighlight">\(\{t_k\}=\bigl\{1/2,\bigl(1\pm\sqrt{3/5}\bigr)/2\bigr\}\)</span>,
-compute the coefficients <span class="math notranslate nohighlight">\(\{\sigma_k\}\)</span> of the interpolatory quadrature formula.</p></li>
-<li><p>Use your result to compute the interpolatory quadrature <span class="math notranslate nohighlight">\(\mathcal{Q}_2'(f)\)</span>
-for <span class="math notranslate nohighlight">\(f(x)=\exp(-x^2)\)</span> and compare with the results of the above methods.</p></li>
+<li><p>Given the nodes <span class="math notranslate nohighlight">\(\{t_k\}=\bigl\{1/2,\bigl(1\pm\sqrt{3/5}\bigr)/2\bigr\}\)</span>, compute the coefficients <span class="math notranslate nohighlight">\(\{\sigma_k\}\)</span> of the interpolatory quadrature formula.</p></li>
+<li><p>Use your result to compute the interpolatory quadrature <span class="math notranslate nohighlight">\(\mathcal{Q}_2'(f)\)</span> for <span class="math notranslate nohighlight">\(f(x)=\exp(-x^2)\)</span> and compare with the results of the methods of the previous question.</p></li>
 </ol>
 </div>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
@@ -775,225 +773,6 @@ Theory of Gaussian quadrature<div class="sd-summary-down docutils">
 <div class="sd-summary-up docutils">
 <svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
 </summary><div class="sd-summary-content sd-card-body docutils">
-<p class="sd-card-text">We consider the more general integration problem</p>
-<div class="math notranslate nohighlight">
-\[
-\mathcal{I}(f) := \int_a^b f(x) \, \gamma(x) \, dx, \qquad f \in C[a,b]
-\]</div>
-<p class="sd-card-text">What is the relevance of <span class="math notranslate nohighlight">\(\gamma\)</span>?</p>
-<ol class="arabic simple">
-<li><p class="sd-card-text">In applications, one often has to integrate functions <span class="math notranslate nohighlight">\(g(x)\)</span> which can be described as the product of a function <span class="math notranslate nohighlight">\(\gamma\)</span> which one can easily integrate exactly and a function <span class="math notranslate nohighlight">\(f\)</span> which is hard to integrate but smooth: <span class="math notranslate nohighlight">\(g = f \cdot \gamma\)</span>. Then a widely used approach is to approximate <span class="math notranslate nohighlight">\(f\)</span> by a polynomial <span class="math notranslate nohighlight">\(p\)</span> and to integrate <span class="math notranslate nohighlight">\(p\cdot \gamma\)</span> instead.</p></li>
-<li><p class="sd-card-text">We shall now allow unbounded integration domains, i.e. <span class="math notranslate nohighlight">\(a \in [\infty, \infty)\)</span> and <span class="math notranslate nohighlight">\(b \in (-\infty, \infty]\)</span>. Then <span class="math notranslate nohighlight">\(\gamma\)</span> is chosen such that <span class="math notranslate nohighlight">\(p \cdot \gamma\)</span> is integrable for <span class="math notranslate nohighlight">\(p \in \mathcal{P}_n\)</span>.</p></li>
-</ol>
-<p class="sd-card-text">At first reading, it is recommended to think of the special case <span class="math notranslate nohighlight">\(\gamma \equiv 1\)</span> and <span class="math notranslate nohighlight">\(a, b \in \mathbb{R}\)</span>.</p>
-<h3 class="rubric" id="preparation-for-gaussian-quadrature">Preparation for Gaussian Quadrature</h3>
-<p class="sd-card-text">It is convenient to expose the dependence on the integration interval directly in the quadrature formula:</p>
-<div class="math notranslate nohighlight">
-\[
-\mathcal{G}_n(f) = (b-a) \sum_{k=0}^n \sigma_k f(x_k).
-\]</div>
-<p class="sd-card-text">Then the quadrature weights and nodes that are determined for a reference interval can be easily transferred to general intervals <span class="math notranslate nohighlight">\([a,b]\)</span>.</p>
-<p class="sd-card-text">When examining Newton-Cotes formulas we did not use that we can freely choose the nodes <span class="math notranslate nohighlight">\(x_k\)</span>.</p>
-<p class="sd-card-text">We shall now see that one can construct much better quadrature formulas by systematically searching for the best locations for the nodes. Recall that we already showed that the degree of a quadrature formula <span class="math notranslate nohighlight">\(\mathcal{G}_n\)</span> with <span class="math notranslate nohighlight">\(n+1\)</span> nodes is at most <span class="math notranslate nohighlight">\(2n + 1\)</span>.</p>
-<p class="sd-card-text">We will find out that one can construct quadrature methods with a degree of exactness <span class="math notranslate nohighlight">\(2 n + 1\)</span>. The mathematical tool which allows us to construct such methods is the scalar product</p>
-<div class="math notranslate nohighlight">
-\[
-\langle f,g \rangle_{a,b,\gamma} = \int_a^b f(x) g(x) \, \gamma(x) \, dx.
-\]</div>
-<p class="sd-card-text">The definition of a scalar product was given in the optional materials section of the least squares approximation chapter. Convince yourself that <span class="math notranslate nohighlight">\(\langle \cdot, \cdot \rangle_{a,b,\gamma}\)</span> is indeed a scalar product. Here <span class="math notranslate nohighlight">\(\gamma\)</span> an integration weight, meaning that for our purposes that <span class="math notranslate nohighlight">\(\gamma\)</span> is piecewise continuous, integrable and positive. Typical examples are <span class="math notranslate nohighlight">\(\gamma = 1\)</span>, <span class="math notranslate nohighlight">\(a,b \in \mathbb{R}\)</span> and <span class="math notranslate nohighlight">\(\gamma = 1/t\)</span>, <span class="math notranslate nohighlight">\(a=0\)</span>, <span class="math notranslate nohighlight">\(b=\infty\)</span> and <span class="math notranslate nohighlight">\(\gamma = 1/\sqrt{1-t^2}\)</span>, <span class="math notranslate nohighlight">\(a=-1\)</span>, <span class="math notranslate nohighlight">\(b=1\)</span>.</p>
-<p class="sd-card-text">Our analysis aims to show that the best quadrature nodes coincide with the roots of orthogonal polynomials. First we need to establish two results about orthogonal polynomials.</p>
-<div class="proof theorem admonition" id="theorem-2">
-<p class="admonition-title"><span class="caption-number">Theorem 10 </span></p>
-<section class="theorem-content" id="proof-content">
-<p class="sd-card-text">Let <span class="math notranslate nohighlight">\(\tilde{p} \in \mathcal{P}_{k+1}\)</span>, <span class="math notranslate nohighlight">\(k \ge 0\)</span>, and</p>
-<div class="math notranslate nohighlight" id="equation-orthcond">
-<span class="eqno">(1)<a class="headerlink" href="#equation-orthcond" title="Link to this equation">#</a></span>\[\langle \tilde{p}, p \rangle = 0 \qquad \forall \, p \in \mathcal{P}_k.\]</div>
-<p class="sd-card-text">Then either <span class="math notranslate nohighlight">\(\tilde{p} = 0\)</span> or <span class="math notranslate nohighlight">\(\tilde{p}\)</span> has exactly <span class="math notranslate nohighlight">\(k+1\)</span> distinct roots in the open interval <span class="math notranslate nohighlight">\((a,b)\)</span>.</p>
-</section>
-</div><div class="proof admonition" id="proof">
-<p class="sd-card-text">Proof. Suppose that <span class="math notranslate nohighlight">\(\tilde{p} \neq 0\)</span>. Let <span class="math notranslate nohighlight">\(\xi_0, \xi_1, \ldots, \xi_\ell\)</span> be the roots of <span class="math notranslate nohighlight">\(\tilde{p}\)</span> at which <span class="math notranslate nohighlight">\(\tilde{p}\)</span> changes its sign. Let</p>
-<div class="math notranslate nohighlight">
-\[
-s(x) := \prod_{j=0}^\ell (x - \xi_j)
-\]</div>
-<p class="sd-card-text">if such roots exist. Otherwise we set <span class="math notranslate nohighlight">\(s(x) = 1\)</span>. The polynomial <span class="math notranslate nohighlight">\(s\)</span> changes its sign exactly at the <span class="math notranslate nohighlight">\(\xi_0, \xi_1, \ldots, \xi_\ell\)</span> as well. The reason is that at each <span class="math notranslate nohighlight">\(\xi_i\)</span>, <span class="math notranslate nohighlight">\(0 \le i \le \ell\)</span>, exactly one factor in the product form of <span class="math notranslate nohighlight">\(s(x)\)</span> changes its sign. Therefore, the product <span class="math notranslate nohighlight">\(\tilde{p} \cdot s\)</span> has no sign changes at all. Thus</p>
-<div class="math notranslate nohighlight">
-\[
-\langle \tilde{p}, s \rangle_{a,b,\gamma} \neq 0.
-\]</div>
-<p class="sd-card-text">By <a class="reference internal" href="#equation-orthcond">(1)</a>, the degree of <span class="math notranslate nohighlight">\(s\)</span> is larger than <span class="math notranslate nohighlight">\(k\)</span>. In other words <span class="math notranslate nohighlight">\(\ell &gt; k\)</span>, which means that <span class="math notranslate nohighlight">\(\tilde{p}\)</span> has more than <span class="math notranslate nohighlight">\(k\)</span> sign changes in <span class="math notranslate nohighlight">\((a,b)\)</span>. However, because <span class="math notranslate nohighlight">\(\tilde{p} \in \mathcal{P}_{k+1}\)</span> has at most <span class="math notranslate nohighlight">\(k+1\)</span> sign changes.</p>
-</div>
-<p class="sd-card-text">It will become apparent that the roots of <span class="math notranslate nohighlight">\(\tilde{p}\)</span> are the best possible quadrature nodes. However, wait. Do we know if there is only one polynomial which satisfies <a class="reference internal" href="#equation-orthcond">(1)</a>. Different polynomials satisfying <a class="reference internal" href="#equation-orthcond">(1)</a> could have different roots. The next theorem ensures that this is not a problem. It says that condition <a class="reference internal" href="#equation-orthcond">(1)</a> determines the polynomial <span class="math notranslate nohighlight">\(\tilde{p}\)</span> up to a multiplicative factor. And polynomials which only differ by a multiplicative factor have the same roots (unless one of them is <span class="math notranslate nohighlight">\(0\)</span>). (We could also argue as in the main text that <span class="math notranslate nohighlight">\(\tilde{p}\)</span> is in the <span class="math notranslate nohighlight">\(1\)</span>-dimensional orthogonal complement of <span class="math notranslate nohighlight">\(\mathcal{P}_n\)</span> within <span class="math notranslate nohighlight">\(\mathcal{P}_{n+1}\)</span>; however, the less abstract proof below may be illuminating.)</p>
-<div class="proof theorem admonition" id="theorem-3">
-<p class="admonition-title"><span class="caption-number">Theorem 11 </span></p>
-<section class="theorem-content" id="proof-content">
-<p class="sd-card-text">Suppose <span class="math notranslate nohighlight">\(\tilde{p}, \bar{p} \in \mathcal{P}_{k+1} \setminus \{ 0 \}\)</span> satisfy <a class="reference internal" href="#equation-orthcond">(1)</a>. Then there is an <span class="math notranslate nohighlight">\(\alpha \in \mathbb{R}\)</span> such that <span class="math notranslate nohighlight">\(\bar{p} = \alpha \, \tilde{p}\)</span> and <span class="math notranslate nohighlight">\(\alpha \neq 0\)</span>.</p>
-</section>
-</div><div class="proof admonition" id="proof">
-<p class="sd-card-text">Proof. Let</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\tilde{p}(x) &amp;=&amp; \tilde{a}_0 + \tilde{a}_1 x + \ldots \tilde{a}_{k+1} x^{k+1},\\
-\bar{p}(x) &amp;=&amp; \bar{a}_0 + \bar{a}_1 x + \ldots \bar{a}_{k+1} x^{k+1}.
-\end{split}\]</div>
-<p class="sd-card-text">The coefficient <span class="math notranslate nohighlight">\(\tilde{a}_{k+1} \neq 0\)</span>, because otherwise <span class="math notranslate nohighlight">\(\tilde{p} \in \mathcal{P}_k\)</span>. However then from <a class="reference internal" href="#equation-orthcond">(1)</a> it follows <span class="math notranslate nohighlight">\(\langle \tilde{p}, \tilde{p} \rangle = 0\)</span> implying that <span class="math notranslate nohighlight">\(\| \tilde{p} \| = 0\)</span> which is not possible because it was assumed that <span class="math notranslate nohighlight">\( \tilde{p} \neq 0\)</span>. Therefore we may set <span class="math notranslate nohighlight">\(\alpha = \bar{a}_{k+1} / \tilde{a}_{k+1}\)</span>.</p>
-<p class="sd-card-text">Let <span class="math notranslate nohighlight">\(\Delta p = \alpha \tilde{p} - \bar{p}\)</span>. Because of the choice of <span class="math notranslate nohighlight">\(\alpha\)</span> the difference <span class="math notranslate nohighlight">\(\Delta p\)</span> belongs to <span class="math notranslate nohighlight">\(\mathcal{P}_k\)</span>, that is the highest-order coefficient cancels out. With <a class="reference internal" href="#equation-orthcond">(1)</a> we conclude</p>
-<div class="math notranslate nohighlight">
-\[
-\| \Delta p \|^2 = \langle \Delta p, \Delta p \rangle = \langle \alpha \tilde{p} - \bar{p}, \Delta
-p \rangle = \alpha \langle \tilde{p}, \Delta p \rangle - \langle \bar{p}, \Delta p \rangle = 0.
-\]</div>
-<p class="sd-card-text">Therefore <span class="math notranslate nohighlight">\(\| \Delta p \| = 0\)</span>. This implies that <span class="math notranslate nohighlight">\(\bar{p} = \alpha \, \tilde{p}\)</span>.</p>
-</div>
-<div class="proof example admonition" id="example-4">
-<p class="admonition-title"><span class="caption-number">Example 7 </span></p>
-<section class="example-content" id="proof-content">
-<p class="sd-card-text">With the Gram-Schmidt method we compute an orthonormal basis of <span class="math notranslate nohighlight">\(\mathcal{P}_2\)</span> with respect to the scalar product:</p>
-<div class="math notranslate nohighlight">
-\[
-\langle f,g \rangle_{-1,1,\gamma} = \int_{-1}^1 f(x) g(x) \, dx, \qquad \gamma = 1.
-\]</div>
-<p class="sd-card-text">The basis functions are:</p>
-<div class="math notranslate nohighlight">
-\[
-q_0 = \textstyle \frac{1}{\sqrt{2}},\qquad q_1 = \sqrt{\textstyle\frac{3}{2}} t,\qquad q_2 =
-\sqrt{\textstyle\frac{45}{8}} (t^2 - \textstyle\frac{1}{3}).
-\]</div>
-<p class="sd-card-text">The polynomial <span class="math notranslate nohighlight">\(q_2\)</span> satisfies <a class="reference internal" href="#equation-orthcond">(1)</a> for <span class="math notranslate nohighlight">\(k=1\)</span>: Every polynomial <span class="math notranslate nohighlight">\(p\)</span> in <span class="math notranslate nohighlight">\(\mathcal{P}_1\)</span> can be written as a linear combination of <span class="math notranslate nohighlight">\(q_0\)</span> and <span class="math notranslate nohighlight">\(q_1\)</span>:</p>
-<div class="math notranslate nohighlight">
-\[
-p = \alpha q_0 + \beta q_1, \qquad \alpha, \beta \in \mathbb{R}.
-\]</div>
-<p class="sd-card-text">Noting that <span class="math notranslate nohighlight">\(q_0, q_1\)</span> and <span class="math notranslate nohighlight">\(q_2\)</span> are orthogonal with respect to each other we find</p>
-<div class="math notranslate nohighlight">
-\[
-\langle q_2, p \rangle = \langle q_2, \alpha q_0 + \beta q_1 \rangle = \alpha \langle q_2,  q_0
-\rangle + \beta \langle q_2, q_1 \rangle = 0.
-\]</div>
-<p class="sd-card-text">(In the same spirit one can examine the case <span class="math notranslate nohighlight">\(k=0\)</span>: One finds that <span class="math notranslate nohighlight">\(q_1\)</span> satisfies <a class="reference internal" href="#equation-orthcond">(1)</a> for all <span class="math notranslate nohighlight">\(p \in \mathcal{P}_0\)</span>.)</p>
-<p class="sd-card-text">As predicted by the theorem above, <span class="math notranslate nohighlight">\(q_2\)</span> has two distinct roots in the interval <span class="math notranslate nohighlight">\((-1,1)\)</span>. They are</p>
-<div class="math notranslate nohighlight">
-\[
-\pm \frac{1}{\sqrt{3}} \approx \pm 0.5774.
-\]</div>
-<p class="sd-card-text">All other quadratic polynomials which satisfy <a class="reference internal" href="#equation-orthcond">(1)</a> with <span class="math notranslate nohighlight">\(k = 1\)</span> have, according to the last theorem, the form</p>
-<div class="math notranslate nohighlight">
-\[
-\delta (t^2 - 1/3)
-\]</div>
-<p class="sd-card-text">for some <span class="math notranslate nohighlight">\(\delta \in \mathbb{R}\)</span>.</p>
-</section>
-</div><p class="sd-card-text">We now come to the main theorem on Gauss quadrature. We may decide that the nodes of our favourite quadrature method are the roots of <span class="math notranslate nohighlight">\(\tilde{p}\)</span>.</p>
-<div class="proof theorem admonition" id="theorem-5">
-<p class="admonition-title"><span class="caption-number">Theorem 12 </span></p>
-<section class="theorem-content" id="proof-content">
-<p class="sd-card-text">Let <span class="math notranslate nohighlight">\(\gamma\)</span> be an integration weight. The interpolatory quadrature formula <span class="math notranslate nohighlight">\(\mathcal{G}_n\)</span> has the degree of exactness <span class="math notranslate nohighlight">\(2n+1\)</span> with respect to <span class="math notranslate nohighlight">\(\gamma\)</span> if and only if the nodes <span class="math notranslate nohighlight">\(x_0, \ldots, x_n\)</span> of <span class="math notranslate nohighlight">\(\mathcal{G}_n\)</span> are chosen such that</p>
-<div class="math notranslate nohighlight">
-\[
-\tilde{p}(x) = \prod_{i=0}^n (x - x_i)
-\]</div>
-<p class="sd-card-text">satisfies <a class="reference internal" href="#equation-orthcond">(1)</a>.</p>
-</section>
-</div><div class="proof admonition" id="proof">
-<p class="sd-card-text">Proof. a) Let <span class="math notranslate nohighlight">\(\mathcal{G}_n\)</span> have the degree of exactness <span class="math notranslate nohighlight">\(2n+1\)</span> with respect to <span class="math notranslate nohighlight">\(\gamma\)</span>. We need to show that then <a class="reference internal" href="#equation-orthcond">(1)</a> is satisfied. One observes</p>
-<div class="math notranslate nohighlight">
-\[
-\mathcal{G}_n (f) = \int_a^b f(x) \cdot \gamma(x) \, dx
-\]</div>
-<p class="sd-card-text">for all <span class="math notranslate nohighlight">\(f \in \mathcal{P}_{2n+1}\)</span>. This is in particular true for all <span class="math notranslate nohighlight">\(f := \tilde{p} \cdot p \in \mathcal{P}_{2n+1}\)</span> with <span class="math notranslate nohighlight">\(p \in \mathcal{P}_{n}\)</span>. This means</p>
-<div class="math notranslate nohighlight">
-\[
-\int_a^b \tilde{p}(x) \, p(x) \, \gamma(x) \, dx = \mathcal{G}_n (\tilde{p} \cdot p)=
-\sum_{i=0}^n \sigma_k (\underbrace{\tilde{p}(x_k)}_{=0} \cdot p(x_k)) = 0
-\]</div>
-<p class="sd-card-text">for all <span class="math notranslate nohighlight">\(p \in \mathcal{P}_{n}\)</span>. But this condition is precisely <a class="reference internal" href="#equation-orthcond">(1)</a>.</p>
-<p class="sd-card-text">b) Now suppose <a class="reference internal" href="#equation-orthcond">(1)</a> holds. We have to show that <span class="math notranslate nohighlight">\(\mathcal{G}_n\)</span> has the degree of exactness <span class="math notranslate nohighlight">\(2n +1\)</span>. Let <span class="math notranslate nohighlight">\(f \in \mathcal{P}_{2n+1}\)</span>. Then <span class="math notranslate nohighlight">\(f\)</span> can be divided by <span class="math notranslate nohighlight">\(\tilde{p}\)</span>, giving</p>
-<div class="math notranslate nohighlight">
-\[
-f = \tilde{p} \cdot p + r
-\]</div>
-<p class="sd-card-text">where <span class="math notranslate nohighlight">\(p, r \in \mathcal{P}_k\)</span>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p class="sd-card-text">We used here polynomial division: Given general <span class="math notranslate nohighlight">\(p_1 \in \mathcal{P}_\ell\)</span> and <span class="math notranslate nohighlight">\(p_2 \in \mathcal{P}_j \setminus \{ 0 \}\)</span> with <span class="math notranslate nohighlight">\(j \le \ell\)</span>, there are uniquely determined polynomials <span class="math notranslate nohighlight">\(q\)</span> and <span class="math notranslate nohighlight">\(r\)</span> such that <span class="math notranslate nohighlight">\(p_1 = q p_2 + r\)</span> and such that the degree of <span class="math notranslate nohighlight">\(r\)</span> is less then <span class="math notranslate nohighlight">\(j\)</span>. Moreover, the degree of <span class="math notranslate nohighlight">\(q\)</span> plus <span class="math notranslate nohighlight">\(j\)</span> must be equal to <span class="math notranslate nohighlight">\(\ell\)</span>.</p>
-</div>
-<p class="sd-card-text">Because <a class="reference internal" href="#equation-orthcond">(1)</a> holds, one observes</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{eqnarray*}
-\int_a^b f(x) \, \gamma(x) \, dx &amp;=&amp; \int_a^b (\tilde{p}(x) \cdot p(x) + r(x)) \, \gamma(x) \, dx\\
-&amp;=&amp; \underbrace{\int_a^b \tilde{p}(x) \cdot p(x) \, \gamma(x) \, dx}_{=0} + \int_a^b r(x) \, \gamma(x) \, dx\\
-&amp;=&amp; \int_a^b r(x) \, \gamma(x) \, dx.
-\end{eqnarray*}
-\end{split}\]</div>
-<p class="sd-card-text">On the other hand</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{eqnarray*}
-\mathcal{G}_n(f) &amp;=&amp; (b-a) \sum_{i=0}^n \sigma_k f(x_k) = (b-a) \sum_{i=0}^n \sigma_k
-(\underbrace{\tilde{p}(x_k)}_{=0} \cdot p(x_k) + r(x_k))\\
-&amp; = &amp; (b-a) \sum_{i=0}^n \sigma_k r(x_k) = \mathcal{G}_n(r).
-\end{eqnarray*}
-\end{split}\]</div>
-<p class="sd-card-text">Because <span class="math notranslate nohighlight">\(\mathcal{G}_n\)</span> is an interpolatory quadrature formula it integrates <span class="math notranslate nohighlight">\(r\)</span> exactly, i.e.</p>
-<div class="math notranslate nohighlight">
-\[
-\mathcal{G}_n(r) = \int_a^b r(x) \cdot \gamma(x) \, dx.
-\]</div>
-<p class="sd-card-text">In conclusion</p>
-<div class="math notranslate nohighlight">
-\[
-\int_a^b f(x) \, \gamma(x) \, dx = \int_a^b r(x) \, \gamma(x) \, dx = \mathcal{G}_n(r) =
-\mathcal{G}_n(f).
-\]</div>
-<p class="sd-card-text">and <span class="math notranslate nohighlight">\(\mathcal{G}_n\)</span> has the degree of exactness <span class="math notranslate nohighlight">\(2n+1\)</span>.</p>
-</div>
-<p class="sd-card-text">A method with degree of exactness <span class="math notranslate nohighlight">\(2n+1\)</span> is called Gaussian quadrature method.</p>
-<p class="sd-card-text">We finished the theory of Gauss quadrature. Let us now see what this means in practice.</p>
-<div class="tip admonition">
-<p class="admonition-title">Task</p>
-<p class="sd-card-text">Given a fixed number of nodes <span class="math notranslate nohighlight">\(n+1\)</span> and a positive, piecewise continuous,
-integration weight <span class="math notranslate nohighlight">\(\gamma\)</span>, find the quadrature formula <span class="math notranslate nohighlight">\(\mathcal{G}_n\)</span> with the degree of exactness <span class="math notranslate nohighlight">\(2n +
-1\)</span> with respect to <span class="math notranslate nohighlight">\(\gamma\)</span>.</p>
-</div>
-<p class="sd-card-text"><strong>Motivation for this Task</strong> Due to the high degree of exactness <span class="math notranslate nohighlight">\(2n + 1\)</span> with respect to <span class="math notranslate nohighlight">\(\gamma\)</span> this quadrature formula tends to give the best approximation to integrals of the type</p>
-<div class="math notranslate nohighlight">
-\[
-\int_a^b f(x) \, \gamma(x) \, dx
-\]</div>
-<p class="sd-card-text">where <span class="math notranslate nohighlight">\(f\)</span> is a smooth function. (Ideally <span class="math notranslate nohighlight">\(f\)</span> has infinitely many bounded derivatives. Generally, the less smooth <span class="math notranslate nohighlight">\(f\)</span> is the larger the quadrature error becomes).</p>
-<p class="sd-card-text"><strong>Solution</strong> The following steps have to carried out to construct <span class="math notranslate nohighlight">\(\mathcal{G}_n\)</span>:</p>
-<ol class="arabic">
-<li><p class="sd-card-text">In order to find the nodes of <span class="math notranslate nohighlight">\(\mathcal{G}_n\)</span> a polynomial <span class="math notranslate nohighlight">\(\tilde{p}\)</span> has to be selected which satisfies <a class="reference internal" href="#equation-orthcond">(1)</a>. Unless a suitable orthogonal basis of <span class="math notranslate nohighlight">\(\mathcal{P}_{n+1}\)</span> is already known, this polynomial is obtained  with the Gram-Schmidt method: Start with the basis <span class="math notranslate nohighlight">\(\{1, x, x^2, \ldots, x^n, x^{n+1} \}\)</span> of <span class="math notranslate nohighlight">\(\mathcal{P}_{n+1}\)</span>. The Gram-Schmidt method produces an orthonormal basis <span class="math notranslate nohighlight">\(\{ q_0, q_1, \ldots, q_n, q_{n+1} \}\)</span> of <span class="math notranslate nohighlight">\(\mathcal{P}_{n+1}\)</span>. The function <span class="math notranslate nohighlight">\(q_{n+1}\)</span> satisfies <a class="reference internal" href="#equation-orthcond">(1)</a>.</p>
-<p class="sd-card-text">Reason: <span class="math notranslate nohighlight">\(\{ q_0, q_1, \ldots, q_n\}\)</span> is a basis of <span class="math notranslate nohighlight">\(\mathcal{P}_n\)</span>. Hence every <span class="math notranslate nohighlight">\(p \in \mathcal{P}_n\)</span> can be written as <span class="math notranslate nohighlight">\(p = \sum_{i=0}^n \alpha_i q_i\)</span> for some <span class="math notranslate nohighlight">\(\alpha_i \in \mathbb{R}\)</span>. Therefore</p>
-<div class="math notranslate nohighlight">
-\[
-   \langle q_{n+1}, p \rangle = \langle q_{n+1}, \sum_{i=0}^n \alpha_i q_i \rangle = \sum_{i=0}^n \alpha_i \underbrace{\langle q_{n+1}, q_i \rangle}_{=0} = 0,
-   \]</div>
-<p class="sd-card-text">proving <a class="reference internal" href="#equation-orthcond">(1)</a>.</p>
-</li>
-<li><p class="sd-card-text">Find the roots of <span class="math notranslate nohighlight">\(q_{n+1}\)</span>. They are the nodes of <span class="math notranslate nohighlight">\(\mathcal{G}_n\)</span>.</p></li>
-<li><p class="sd-card-text">Calculate the weights of <span class="math notranslate nohighlight">\(\mathcal{G}_n\)</span> with the formula</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-   \begin{eqnarray*}
-   \sigma_{k} &amp;=&amp; \frac{1}{b-a} \int_a^b \prod_{m=0, \atop m \neq k}^n \frac{x-x_m}{x_k - x_m} \,
-   \gamma(x) \, dx\\
-   &amp;=&amp; \int_0^1 \prod_{m=0, \atop m \neq k}^n \frac{t-t_m}{t_k - t_m} \, \, \gamma((b-a)t+a) \, dt,
-   \end{eqnarray*}
-   \end{split}\]</div>
-<p class="sd-card-text">where <span class="math notranslate nohighlight">\(t_m := (x_m - a)/(b-a)\)</span>.</p>
-</li>
-</ol>
-<p class="sd-card-text">Finding the roots of <span class="math notranslate nohighlight">\(q_{n+1}\)</span> can be a difficult task if <span class="math notranslate nohighlight">\(n\)</span> is large. There are special techniques to find roots of orthogonal polynomials, like recursion relationships. We will not cover them here, however most books on Gauss quadrature devote quite some time on this topic.</p>
-</div>
-</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
-<summary class="sd-summary-title sd-card-header">
-Theory of Gaussian quadrature<div class="sd-summary-down docutils">
-<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
-<div class="sd-summary-up docutils">
-<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
-</summary><div class="sd-summary-content sd-card-body docutils">
 <p class="sd-card-text">Gaussian quadrature is an advanced numerical method for evaluating integrals, particularly useful when dealing with functions that are difficult to integrate analytically. The general approach of Gaussian quadrature is based on the concept of weighted integrals, where the integration problem is defined as:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -1011,17 +790,17 @@ Theory of Gaussian quadrature<div class="sd-summary-down docutils">
 <p class="sd-card-text">As before, we consider a quadrature formula of the form</p>
 <div class="math notranslate nohighlight">
 \[
-\mathcal{G}_n(f) = \sum_{k=0}^n \sigma_k f(x_k).
+\mathcal{Q}_n(f) = \sum_{k=0}^n \sigma_k f(x_k).
 \]</div>
 <p class="sd-card-text">In contrast to Newton-Cotes formulas, Gaussian quadrature benefits from the flexibility of choosing the nodes <span class="math notranslate nohighlight">\(x_k\)</span>. It is possible to significantly enhance the accuracy of the quadrature formula by optimising the node locations. We aim to achieve a quadrature method with a degree of exactness of <span class="math notranslate nohighlight">\(2n + 1\)</span>. This is facilitated by the concept of the scalar product:</p>
 <div class="math notranslate nohighlight">
 \[
-\langle f,g \rangle_{a,b,\gamma} = \int_a^b f(x) g(x) \, \gamma(x) \, dx,
+\langle f,g \rangle = \int_a^b f(x) g(x) \, \gamma(x) \, dx,
 \]</div>
-<p class="sd-card-text">This function <span class="math notranslate nohighlight">\(\gamma\)</span> is the same as the weight above and assumed to be piecewise continuous, integrable, and positive. Moreover, we assume that <span class="math notranslate nohighlight">\(\langle p, p \rangle_{a,b,\gamma}\)</span> is finite for all <span class="math notranslate nohighlight">\(p \in \mathcal{P}_n\)</span>. Common examples include <span class="math notranslate nohighlight">\(\gamma = 1\)</span> for <span class="math notranslate nohighlight">\(a,b \in \mathbb{R}\)</span>, <span class="math notranslate nohighlight">\(\gamma = 1/t\)</span> for <span class="math notranslate nohighlight">\(a=0\)</span>, <span class="math notranslate nohighlight">\(b=\infty\)</span>, and <span class="math notranslate nohighlight">\(\gamma = 1/\sqrt{1-t^2}\)</span> for <span class="math notranslate nohighlight">\(a=-1\)</span>, <span class="math notranslate nohighlight">\(b=1\)</span>.</p>
+<p class="sd-card-text">This function <span class="math notranslate nohighlight">\(\gamma\)</span> is the same as the weight above and assumed to be piecewise continuous, integrable, and positive. Moreover, we assume that <span class="math notranslate nohighlight">\(\langle p, p \rangle\)</span> is finite for all <span class="math notranslate nohighlight">\(p \in \mathcal{P}_n\)</span>. Common examples include <span class="math notranslate nohighlight">\(\gamma = 1\)</span> for <span class="math notranslate nohighlight">\(a,b \in \mathbb{R}\)</span>, <span class="math notranslate nohighlight">\(\gamma = 1/t\)</span> for <span class="math notranslate nohighlight">\(a=0\)</span>, <span class="math notranslate nohighlight">\(b=\infty\)</span>, and <span class="math notranslate nohighlight">\(\gamma = 1/\sqrt{1-t^2}\)</span> for <span class="math notranslate nohighlight">\(a=-1\)</span>, <span class="math notranslate nohighlight">\(b=1\)</span>.</p>
 <p class="sd-card-text">Our focus is to demonstrate that the optimal quadrature nodes correspond to the roots of orthogonal polynomials. To understand this, we need to explore two key results about orthogonal polynomials.</p>
-<div class="proof theorem admonition" id="theorem-6">
-<p class="admonition-title"><span class="caption-number">Theorem 13 </span> (Roots of orthogonal polynomials)</p>
+<div class="proof theorem admonition" id="theorem-2">
+<p class="admonition-title"><span class="caption-number">Theorem 10 </span> (Roots of orthogonal polynomials)</p>
 <section class="theorem-content" id="proof-content">
 <p class="sd-card-text">For a polynomial <span class="math notranslate nohighlight">\(\tilde{p} \in \mathcal{P}_{k+1}\)</span>, if</p>
 <div class="math notranslate nohighlight">
@@ -1031,11 +810,11 @@ Theory of Gaussian quadrature<div class="sd-summary-down docutils">
 <p class="sd-card-text">then <span class="math notranslate nohighlight">\(\tilde{p}\)</span> either equals zero or has exactly <span class="math notranslate nohighlight">\(k+1\)</span> distinct roots in the open interval <span class="math notranslate nohighlight">\((a,b)\)</span>.</p>
 </section>
 </div><div class="proof admonition" id="proof">
-<p class="sd-card-text">Proof. Suppose <span class="math notranslate nohighlight">\(\tilde{p} \neq 0\)</span>. If <span class="math notranslate nohighlight">\(\tilde{p}\)</span> has roots <span class="math notranslate nohighlight">\(\xi_0, \xi_1, \ldots, \xi_\ell\)</span> where its sign changes, then construct a polynomial <span class="math notranslate nohighlight">\(s(x) = \prod_{j=0}^\ell (x - \xi_j)\)</span>. If no such roots exist, let <span class="math notranslate nohighlight">\(s(x) = 1\)</span>. The product <span class="math notranslate nohighlight">\(\tilde{p} \cdot s\)</span> does not change sign, implying <span class="math notranslate nohighlight">\(\langle \tilde{p}, s \rangle_{a,b,\gamma} \neq 0\)</span>. The degree of <span class="math notranslate nohighlight">\(s\)</span> is greater than <span class="math notranslate nohighlight">\(k\)</span>, so <span class="math notranslate nohighlight">\(\tilde{p}\)</span> has more than <span class="math notranslate nohighlight">\(k\)</span> sign changes. However, as a polynomial in <span class="math notranslate nohighlight">\(\mathcal{P}_{k+1}\)</span>, <span class="math notranslate nohighlight">\(\tilde{p}\)</span> can have at most <span class="math notranslate nohighlight">\(k+1\)</span> sign changes.</p>
+<p class="sd-card-text">Proof. Suppose <span class="math notranslate nohighlight">\(\tilde{p} \neq 0\)</span>. If <span class="math notranslate nohighlight">\(\tilde{p}\)</span> has roots <span class="math notranslate nohighlight">\(\xi_0, \xi_1, \ldots, \xi_\ell\)</span> where its sign changes, then construct a polynomial <span class="math notranslate nohighlight">\(s(x) = \prod_{j=0}^\ell (x - \xi_j)\)</span>. If no such roots exist, let <span class="math notranslate nohighlight">\(s(x) = 1\)</span>. The product <span class="math notranslate nohighlight">\(\tilde{p} \cdot s\)</span> does not change sign, implying <span class="math notranslate nohighlight">\(\langle \tilde{p}, s \rangle \neq 0\)</span>. The degree of <span class="math notranslate nohighlight">\(s\)</span> is greater than <span class="math notranslate nohighlight">\(k\)</span>, so <span class="math notranslate nohighlight">\(\tilde{p}\)</span> has more than <span class="math notranslate nohighlight">\(k\)</span> sign changes. However, as a polynomial in <span class="math notranslate nohighlight">\(\mathcal{P}_{k+1}\)</span>, <span class="math notranslate nohighlight">\(\tilde{p}\)</span> can have at most <span class="math notranslate nohighlight">\(k+1\)</span> sign changes.</p>
 </div>
 <p class="sd-card-text">This indicates that the roots of <span class="math notranslate nohighlight">\(\tilde{p}\)</span> are ideal candidates for quadrature nodes. However, a question arises: is there a unique polynomial that satisfies this condition? If different polynomials meet the criterion, they could have varying roots, affecting the choice of nodes. The following theorem addresses this concern.</p>
-<div class="proof theorem admonition" id="theorem-7">
-<p class="admonition-title"><span class="caption-number">Theorem 14 </span> (Uniqueness of the orthogonal polynomial)</p>
+<div class="proof theorem admonition" id="theorem-3">
+<p class="admonition-title"><span class="caption-number">Theorem 11 </span> (Uniqueness of the orthogonal polynomial)</p>
 <section class="theorem-content" id="proof-content">
 <p class="sd-card-text">For any two non-zero polynomials <span class="math notranslate nohighlight">\(\tilde{p}, \bar{p} \in \mathcal{P}_{k+1}\)</span> satisfying the condition</p>
 <div class="math notranslate nohighlight">
@@ -1053,13 +832,13 @@ p \rangle = \alpha \langle \tilde{p}, \Delta p \rangle - \langle \bar{p}, \Delta
 \]</div>
 <p class="sd-card-text">implying <span class="math notranslate nohighlight">\(\bar{p} = \alpha \, \tilde{p}\)</span>.</p>
 </div>
-<div class="proof example admonition" id="example-8">
-<p class="admonition-title"><span class="caption-number">Example 8 </span> (Orthonormal basis of <span class="math notranslate nohighlight">\(\mathcal{P}_2\)</span>)</p>
+<div class="proof example admonition" id="example-4">
+<p class="admonition-title"><span class="caption-number">Example 7 </span> (Orthonormal basis of <span class="math notranslate nohighlight">\(\mathcal{P}_2\)</span>)</p>
 <section class="example-content" id="proof-content">
 <p class="sd-card-text">Using the Gram-Schmidt method, we construct an orthonormal basis for <span class="math notranslate nohighlight">\(\mathcal{P}_2\)</span> with respect to the scalar product:</p>
 <div class="math notranslate nohighlight">
 \[
-\langle f,g \rangle_{-1,1,\gamma} = \int_{-1}^1 f(x) g(x) \, dx, \qquad \gamma = 1.
+\langle f,g \rangle = \int_{-1}^1 f(x) \, g(x) \, dx, \qquad \gamma = 1.
 \]</div>
 <p class="sd-card-text">The resulting basis functions are:</p>
 <div class="math notranslate nohighlight">
@@ -1069,45 +848,45 @@ q_0 = \frac{1}{\sqrt{2}},\quad q_1 = \sqrt{\frac{3}{2}} t,\quad q_2 = \sqrt{\fra
 <p class="sd-card-text">For <span class="math notranslate nohighlight">\(k=1\)</span>, <span class="math notranslate nohighlight">\(q_2\)</span> meets the orthogonality condition, as any polynomial <span class="math notranslate nohighlight">\(p \in \mathcal{P}_1\)</span> can be expressed as a linear combination of <span class="math notranslate nohighlight">\(q_0\)</span> and <span class="math notranslate nohighlight">\(q_1\)</span>, leading to <span class="math notranslate nohighlight">\(\langle q_2, p \rangle = 0\)</span>. The roots of <span class="math notranslate nohighlight">\(q_2\)</span> within <span class="math notranslate nohighlight">\((-1,1)\)</span> are <span class="math notranslate nohighlight">\(\pm \frac{1}{\sqrt{3}} \approx \pm 0.5774\)</span>. Other quadratic polynomials meeting this condition will be of the form <span class="math notranslate nohighlight">\(\delta (t^2 - 1/3)\)</span> for some <span class="math notranslate nohighlight">\(\delta \in \mathbb{R}\)</span>.</p>
 </section>
 </div><p class="sd-card-text">We now arrive at the central result.</p>
-<div class="proof theorem admonition" id="theorem-9">
-<p class="admonition-title"><span class="caption-number">Theorem 15 </span> (Main theorem on Gaussian quadrature)</p>
+<div class="proof theorem admonition" id="theorem-5">
+<p class="admonition-title"><span class="caption-number">Theorem 12 </span> (Main theorem on Gaussian quadrature)</p>
 <section class="theorem-content" id="proof-content">
-<p class="sd-card-text">For an integration weight <span class="math notranslate nohighlight">\(\gamma\)</span>, the interpolatory quadrature formula <span class="math notranslate nohighlight">\(\mathcal{G}_n\)</span> achieves a degree of exactness <span class="math notranslate nohighlight">\(2n+1\)</span> with respect to <span class="math notranslate nohighlight">\(\gamma\)</span> if and only if its nodes <span class="math notranslate nohighlight">\(x_0, \ldots, x_n\)</span> are such that the polynomial</p>
+<p class="sd-card-text">For an integration weight <span class="math notranslate nohighlight">\(\gamma\)</span>, the interpolatory quadrature formula <span class="math notranslate nohighlight">\(\mathcal{Q}_n\)</span> achieves a degree of exactness <span class="math notranslate nohighlight">\(2n+1\)</span> with respect to <span class="math notranslate nohighlight">\(\gamma\)</span> if and only if its nodes <span class="math notranslate nohighlight">\(x_0, \ldots, x_n\)</span> are such that the polynomial</p>
 <div class="math notranslate nohighlight">
 \[
 \tilde{p}(x) = \prod_{i=0}^n (x - x_i),
 \]</div>
-<p class="sd-card-text">meets the orthogonality condition <span class="math notranslate nohighlight">\(\langle \tilde{p}, p \rangle = 0 \quad \forall \, p \in \mathcal{P}_k\)</span>.</p>
+<p class="sd-card-text">meets the orthogonality condition <span class="math notranslate nohighlight">\(\langle \tilde{p}, p \rangle = 0\)</span> for all <span class="math notranslate nohighlight">\(p \in \mathcal{P}_k\)</span>.</p>
 </section>
 </div><div class="proof admonition" id="proof">
-<p class="sd-card-text">Proof. a) If <span class="math notranslate nohighlight">\(\mathcal{G}_n\)</span> has a degree of exactness <span class="math notranslate nohighlight">\(2n+1\)</span> with respect to <span class="math notranslate nohighlight">\(\gamma\)</span>, then for all <span class="math notranslate nohighlight">\(f = \tilde{p} \cdot p \in \mathcal{P}_{2n+1}\)</span> with <span class="math notranslate nohighlight">\(p \in \mathcal{P}_{n}\)</span>, it follows that</p>
+<p class="sd-card-text">Proof. a) If <span class="math notranslate nohighlight">\(\mathcal{Q}_n\)</span> has a degree of exactness <span class="math notranslate nohighlight">\(2n+1\)</span> with respect to <span class="math notranslate nohighlight">\(\gamma\)</span>, then for all <span class="math notranslate nohighlight">\(f = \tilde{p} \cdot p \in \mathcal{P}_{2n+1}\)</span> with <span class="math notranslate nohighlight">\(p \in \mathcal{P}_{n}\)</span>, it follows that</p>
 <div class="math notranslate nohighlight">
 \[
-\int_a^b \tilde{p}(x) \, p(x) \, \gamma(x) \, dx = \mathcal{G}_n (\tilde{p} \cdot p) = 0,
+\int_a^b \tilde{p}(x) \, p(x) \, \gamma(x) \, dx = \mathcal{Q}_n (\tilde{p} \cdot p) = 0,
 \]</div>
 <p class="sd-card-text">satisfying the orthogonality condition.</p>
-<p class="sd-card-text">b) Conversely, if the orthogonality condition holds, we show that <span class="math notranslate nohighlight">\(\mathcal{G}_n\)</span> has a degree of exactness <span class="math notranslate nohighlight">\(2n +1\)</span>. For any <span class="math notranslate nohighlight">\(f \in \mathcal{P}_{2n+1}\)</span>, polynomial division yields <span class="math notranslate nohighlight">\(f = \tilde{p} \cdot p + r\)</span> with <span class="math notranslate nohighlight">\(p, r \in \mathcal{P}_k\)</span>. Then</p>
+<p class="sd-card-text">b) Conversely, if the orthogonality condition holds, we show that <span class="math notranslate nohighlight">\(\mathcal{Q}_n\)</span> has a degree of exactness <span class="math notranslate nohighlight">\(2n +1\)</span>. For any <span class="math notranslate nohighlight">\(f \in \mathcal{P}_{2n+1}\)</span>, polynomial division yields <span class="math notranslate nohighlight">\(f = \tilde{p} \cdot p + r\)</span> with <span class="math notranslate nohighlight">\(p, r \in \mathcal{P}_k\)</span>. Then</p>
 <div class="math notranslate nohighlight">
 \[
-\int_a^b f(x) \, \gamma(x) \, dx = \int_a^b \tilde{p}(x) \cdot p(x) \, \gamma(x) \, dx + \int_a^b r(x) \, \gamma(x) \, dx = 0 + \int_a^b r(x) \, \gamma(x) \, dx.
+\int_a^b f(x) \, \gamma(x) \, dx = \int_a^b \tilde{p}(x) \, p(x) \, \gamma(x) \, dx + \int_a^b r(x) \, \gamma(x) \, dx = 0 + \int_a^b r(x) \, \gamma(x) \, dx.
 \]</div>
 <p class="sd-card-text">Similarly, because <span class="math notranslate nohighlight">\(\tilde{p}(x_k) = 0\)</span>,</p>
 <div class="math notranslate nohighlight">
 \[
-\mathcal{G}_n(f) = \sum_{i=0}^n \sigma_k \bigl( \tilde{p}(x_k) \cdot p(x_k) + r(x_k) \bigr) = \sum_{i=0}^n \sigma_k r(x_k) = \mathcal{G}_n(r),
+\mathcal{Q}_n(f) = \sum_{i=0}^n \sigma_k \bigl( \tilde{p}(x_k) \, p(x_k) + r(x_k) \bigr) = \sum_{i=0}^n \sigma_k r(x_k) = \mathcal{Q}_n(r),
 \]</div>
-<p class="sd-card-text">leading to the conclusion that <span class="math notranslate nohighlight">\(\mathcal{G}_n\)</span> integrates <span class="math notranslate nohighlight">\(f\)</span> exactly, proving its degree of exactness is <span class="math notranslate nohighlight">\(2n+1\)</span>.</p>
+<p class="sd-card-text">leading to the conclusion that <span class="math notranslate nohighlight">\(\mathcal{Q}_n\)</span> integrates <span class="math notranslate nohighlight">\(f\)</span> exactly, proving its degree of exactness is <span class="math notranslate nohighlight">\(2n+1\)</span>.</p>
 </div>
 <p class="sd-card-text">This concludes the theoretical foundation of Gaussian quadrature. Next, we explore its practical implementation.</p>
 <div class="tip admonition">
 <p class="admonition-title">Task</p>
-<p class="sd-card-text">Given a set number of nodes <span class="math notranslate nohighlight">\(n+1\)</span> and a positive, piecewise continuous integration weight <span class="math notranslate nohighlight">\(\gamma\)</span>, the objective is to find the quadrature formula <span class="math notranslate nohighlight">\(\mathcal{G}_n\)</span> with a degree of exactness <span class="math notranslate nohighlight">\(2n + 1\)</span> relative to <span class="math notranslate nohighlight">\(\gamma\)</span>.</p>
+<p class="sd-card-text">Given a set number of nodes <span class="math notranslate nohighlight">\(n+1\)</span> and a positive, piecewise continuous integration weight <span class="math notranslate nohighlight">\(\gamma\)</span>, the objective is to find the quadrature formula <span class="math notranslate nohighlight">\(\mathcal{Q}_n\)</span> with a degree of exactness <span class="math notranslate nohighlight">\(2n + 1\)</span> relative to <span class="math notranslate nohighlight">\(\gamma\)</span>.</p>
 </div>
-<p class="sd-card-text">To construct <span class="math notranslate nohighlight">\(\mathcal{G}_n\)</span>, follow these steps:</p>
+<p class="sd-card-text">To construct <span class="math notranslate nohighlight">\(\mathcal{Q}_n\)</span>, follow these steps:</p>
 <ol class="arabic simple">
 <li><p class="sd-card-text"><strong>Finding the Nodes</strong>: Select a polynomial <span class="math notranslate nohighlight">\(\tilde{p}\)</span> satisfying the orthogonality condition. If an orthogonal basis of <span class="math notranslate nohighlight">\(\mathcal{P}_{n+1}\)</span> is not known, use the Gram-Schmidt method starting with the basis <span class="math notranslate nohighlight">\(\{1, x, x^2, \ldots, x^n, x^{n+1}\}\)</span> of <span class="math notranslate nohighlight">\(\mathcal{P}_{n+1}\)</span>.</p></li>
-<li><p class="sd-card-text"><strong>Roots of <span class="math notranslate nohighlight">\(q_{n+1}\)</span></strong>: Determine the roots of <span class="math notranslate nohighlight">\(\tilde{p}\)</span>; these are the nodes of <span class="math notranslate nohighlight">\(\mathcal{G}_n\)</span>.</p></li>
-<li><p class="sd-card-text"><strong>Calculating Weights</strong>: Compute the weights of <span class="math notranslate nohighlight">\(\mathcal{G}_n\)</span> using the usual formula for interpolatory quadrature rules, involving the integration of a Lagrange basis polynomial.</p></li>
+<li><p class="sd-card-text"><strong>Roots of <span class="math notranslate nohighlight">\(q_{n+1}\)</span></strong>: Determine the roots of <span class="math notranslate nohighlight">\(\tilde{p}\)</span>; these are the nodes of <span class="math notranslate nohighlight">\(\mathcal{Q}_n\)</span>.</p></li>
+<li><p class="sd-card-text"><strong>Calculating Weights</strong>: Compute the weights of <span class="math notranslate nohighlight">\(\mathcal{Q}_n\)</span> using the usual formula for interpolatory quadrature rules, involving the integration of a Lagrange basis polynomial.</p></li>
 </ol>
 <div class="admonition note">
 <p class="admonition-title">Note</p>

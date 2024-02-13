@@ -148,6 +148,7 @@
   },
   "active": "be34097491d462e5",
   "lastOpenFiles": [
+    "_build/html/searchindex.js.tmp",
     "_build/html/_static/proof.css",
     "_build/html/_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css",
     "_build/html/objects.inv",
@@ -168,7 +169,6 @@
     "_build/html/genindex.html",
     "_build/html/_sources/week_9_self_check.ipynb",
     "_build/html/week_9_self_check.html",
-    "_build/html/_sources/week_8_self_check.ipynb",
     "_build/html/_sources/week_7_self_check.md",
     "_build/html/_sources/week_6_self_check.md",
     "_build/html/_sources/week_5_self_check.md",
