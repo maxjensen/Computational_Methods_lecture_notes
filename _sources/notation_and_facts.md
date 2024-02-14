@@ -4,7 +4,7 @@
 
 - $f \in C[a,b]$: $f$ is continuous on $[a,b]$.
 - $f \in C^n[a,b]$: $f$ is $n$ times continuously differentiable on $[a,b]$.
-- $f \in C^\infty{n+1}[a,b]$: $f$ is arbitrary times continuously differentiable on $[a,b]$.
+- $f \in C^\infty[a,b]$: $f$ is arbitrary times continuously differentiable on $[a,b]$.
 - $\mathcal{P}_n$: The set of polynomials of degree at most $n$.
 - $\delta_{ij}$: The Kronecker delta, equal to $1$ if $i=j$ and 0 otherwise.
 - $\mathbb{R}^n$: The $n$-dimensional real coordinate space.
@@ -16,17 +16,23 @@
 - $a_{i,:}$: The $i$-th row of matrix $A$.
 - $A^T$: The transpose of matrix $A$.
 - $I$: The identity matrix, sometimes $I_n$ to denote the size.
+- $\sigma_i$: The $i$-th singular value of matrix.
 - $\text{diag}(a_1, \ldots, a_n)$: A diagonal matrix with diagonal elements $a_1, \ldots, a_n \in \mathbb{R}$.
 - $\text{diag}(A)$: The diagonal of matrix $A$.
 - $\det(A)$: The determinant of matrix $A$.
 - $\text{rank}(A)$: The rank of matrix $A$.
 - $\text{ker}(A)$: The kernel (null space) of matrix $A$.
+- $\mathcal{Q}_n$: quadrature rule with $n+1$ nodes.
+- $\mathcal{I}$: Integral operator.
+- $\langle f, g \rangle$: The inner product of functions $f$ and $g$.
+- $L_k$: The $k$-th Lagrange basis polynomial.
  
 ## Facts
 
 - **Geometric series**: $\sum_{k=0}^n x^k = \frac{1-x^{n+1}}{1-x}$ for $x \neq 1$. Converges to $\frac{1}{1-x}$ if $|x| < 1$.
 - **Continuity and limits**: A function $f$ is continuous at a point $c$ if $\lim_{x \to c} f(x) = f(c)$.
 - **Boundeness of continuous functions**: A continuous function on a closed interval is bounded.
+- **Rolle's theorem**: If $f \in C[a,b]$ and differentiable on $(a,b)$, and $f(a) = f(b)$, then there exists a $c \in (a,b)$ such that $f'(c) = 0$.
 - **Mean value theorem**: If $f \in C[a,b]$ and differentiable on $(a,b)$, there exists a $\xi \in (a,b)$ such that $f'(c) = \frac{f(b) - f(a)}{b-a}$.
 - **Taylor's theorem**: For $f \in C^{n+1}[a,b]$ and $x_0, x \in [a,b]$, there's a $\xi$ between $x_0$ and $x$ with $f(x) = f(x_0) + f'(x_0)(x-x_0) + \frac{f''(x_0)}{2!}(x-x_0)^2 + \ldots + \frac{f^{(n)}(x_0)}{n!}(x-x_0)^n + \frac{f^{(n+1)}(\xi)}{(n+1)!}(x-x_0)^{n+1}.$
 - **Fundamental theorem of calculus:** If $f$ is continuous on $[a, b]$, then $\int_a^b f(x) dx = F(b) - F(a)$, where $f$ is the derivative of $F$.
@@ -48,3 +54,4 @@
 - **Geometric and algebraic multiplicity**: The geometric multiplicity of an eigenvalue is the dimension of the eigenspace. The algebraic multiplicity is the number of times the eigenvalue appears as a root of the characteristic polynomial.
 - **Backward and forward substitution:** is used to solve a system of linear equations where the matrix is triangular. Backward substitution is also known as back substitution or backward elimination.
 - **Gaussian elimination:** is a method for solving linear systems. It consists of applying row operations to transform the matrix into triangular form and then solving for the variables. Gaussian elimination is also known as row reduction.
+- **Polynomial division**: Given polynomials $f$ and $g$, there exist unique polynomials $q$ and $r$ such that $f = gq + r$ and $\text{deg}(r) < \text{deg}(g)$. $q$ is the quotient and $r$ is the remainder.

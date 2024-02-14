@@ -196,26 +196,26 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="1.5_complexity_notation.html">A quick survey of asymptotic notation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.6_numpy_and_data_layouts.html">Memory layout and Numpy arrays</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition and its numerical stability</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition and its Numerical Stability</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="2.1_lu_decomposition.html">Solving linear system with the LU Decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.2_lu_backward_error.html">Backward error of the LU decomposition and pivoting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.3_lu_backward_error_examples.html">Backward error of the LU decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.4_python_lu_decomposition.html">Implementing the LU decomposition in Python</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Orthogonal decompositions</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Orthogonal Decompositions</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="3.1_qr_decomposition.html">The QR Decomposition</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">The Singular Value Decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3.3_least_squares_problems.html">Least Squares Problems</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Interpolation and quadrature</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Interpolation and Quadrature</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="4.1_interpolation.html">Introduction to interpolation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="4.2_quadrature.html">Introduction to quadrature</a></li>
-<li class="toctree-l1"><a class="reference internal" href="4.3_stable_quadrature_schemes.html">Stable quadrature schemes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.1_interpolation.html">Polynomial Interpolation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.2_quadrature.html">Introduction to Quadrature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.3_stable_quadrature_schemes.html">Stable Quadrature Schemes</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Eigenvalue problems</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Eigenvalue Problems</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="5.1_complex_vector_spaces.html">Complex vector spaces</a></li>
 <li class="toctree-l1"><a class="reference internal" href="5.2_eigenvalues_basic_properties.html">Basic properties of eigenvalue problems</a></li>
@@ -481,8 +481,7 @@ A_\nu := \sum_{k=1}^\nu \sigma_k u_k v_k^T,
 <p>Building on this approach, the multiplication of rank-<span class="math notranslate nohighlight">\(\nu\)</span> approximations of two matrices <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> can be executed with a computational cost of <span class="math notranslate nohighlight">\(\mathcal{O}(n \cdot \nu^2)\)</span>:</p>
 <div class="math notranslate nohighlight">
 \[
-A_\nu \cdot \hat{A}_\nu = \sum_{k,\ell} (\sigma_k u_k v_k^T) (\hat{\sigma}_\ell \hat{u}_\ell \hat{v}_\ell^T) = \sum_
-{k,\ell} (\sigma_k \hat{\sigma}_\ell \langle v_k, \hat{u}_\ell\rangle) u_k \hat{v}^T_\ell.
+A_\nu \cdot \hat{A}_\nu = \sum_{k,\ell} (\sigma_k u_k v_k^T) (\hat{\sigma}_\ell \hat{u}_\ell \hat{v}_\ell^T) = \sum_{k,\ell} (\sigma_k \hat{\sigma}_\ell \langle v_k, \hat{u}_\ell\rangle) u_k \hat{v}^T_\ell.
 \]</div>
 <p>This method is particularly advantageous in applications where the singular values diminish rapidly in magnitude. In such scenarios, using a rank-<span class="math notranslate nohighlight">\(\nu\)</span> approximation yields substantial computational savings, often with only a moderate or negligible compromise in accuracy. This balance between efficiency and precision makes SVD a powerful tool in large-scale numerical computations.</p>
 </section>
@@ -491,8 +490,7 @@ A_\nu \cdot \hat{A}_\nu = \sum_{k,\ell} (\sigma_k u_k v_k^T) (\hat{\sigma}_\ell 
 <p>Above, we introduced the form of the SVD, which is known as the <em>full SVD</em> of <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span>:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-A = \begin{bmatrix} U_1 &amp; U_2 \end{bmatrix} \begin{bmatrix} \hat{\Sigma} &amp; 0 \\ 0 &amp; 0 \end{bmatrix} \begin{bmatrix}
-V_1 &amp; V_2 \end{bmatrix}^T,
+A = \begin{bmatrix} U_1 &amp; U_2 \end{bmatrix} \begin{bmatrix} \hat{\Sigma} &amp; 0 \\ 0 &amp; 0 \end{bmatrix} \begin{bmatrix} V_1 &amp; V_2 \end{bmatrix}^T,
 \end{split}\]</div>
 <p>where <span class="math notranslate nohighlight">\(U = \begin{bmatrix} U_1 &amp; U_2 \end{bmatrix} \in \mathbb{R}^{m \times m}\)</span> and <span class="math notranslate nohighlight">\(V = \begin{bmatrix} V_1 &amp; V_2 \end{bmatrix} \in \mathbb{R}^{n \times n}\)</span> are orthogonal matrices derived from the SVD. Here,</p>
 <div class="math notranslate nohighlight">
@@ -591,7 +589,7 @@ A =
 </div>
 </details><div class="tip admonition">
 <p class="admonition-title"><strong>Question</strong></p>
-<p>Explain why each of the insights listed after the theorem about the existence of the SVD holds.</p>
+<p>Explain why each of the insights listed above (just below the theorem about existence) of the SVD holds.</p>
 </div>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
@@ -718,9 +716,7 @@ singular values of <span class="math notranslate nohighlight">\(A\)</span>. The 
 \[\begin{split}
 A = \begin{bmatrix} Q &amp; Q^{\perp} \end{bmatrix} \begin{bmatrix} R \\ 0 \end{bmatrix},
 \end{split}\]</div>
-<p class="sd-card-text">where <span class="math notranslate nohighlight">\(Q^{\perp} \in \mathbb{R}^{m \times (m-n)}\)</span> is the orthogonal complement of <span class="math notranslate nohighlight">\(Q\)</span>.
-Now, let the singular value decomposition (SVD) of <span class="math notranslate nohighlight">\(R\)</span> be <span class="math notranslate nohighlight">\(R = U\Sigma V^T\)</span>, where <span class="math notranslate nohighlight">\(\Sigma\)</span>
-contains the singular values of <span class="math notranslate nohighlight">\(R\)</span>.</p>
+<p class="sd-card-text">where <span class="math notranslate nohighlight">\(Q^{\perp} \in \mathbb{R}^{m \times (m-n)}\)</span> is the orthogonal complement of <span class="math notranslate nohighlight">\(Q\)</span>. Now, let the singular value decomposition (SVD) of <span class="math notranslate nohighlight">\(R\)</span> be <span class="math notranslate nohighlight">\(R = U\Sigma V^T\)</span>, where <span class="math notranslate nohighlight">\(\Sigma\)</span> contains the singular values of <span class="math notranslate nohighlight">\(R\)</span>.</p>
 <p class="sd-card-text">Substituting the SVD of <span class="math notranslate nohighlight">\(R\)</span> into the QR decomposition, we get:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -737,6 +733,29 @@ A = \left( \begin{bmatrix} Q &amp; Q^{\perp} \end{bmatrix} \begin{bmatrix} U &am
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{bmatrix} Q &amp; Q^{\perp} \end{bmatrix} \begin{bmatrix} U &amp; 0 \\ 0 &amp; I \end{bmatrix}\end{split}\]</div>
 <p class="sd-card-text">is orthogonal. Thus, the matrix <span class="math notranslate nohighlight">\(A\)</span> has been expressed in a form that reveals its singular value decomposition, where the singular values are precisely those contained in <span class="math notranslate nohighlight">\(\Sigma\)</span>. Therefore, the singular values of <span class="math notranslate nohighlight">\(A\)</span> are identical to those of <span class="math notranslate nohighlight">\(R\)</span>.</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Find all SVDs of the identity matrix <span class="math notranslate nohighlight">\(I\)</span>.</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<strong>Answer</strong><div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Let <span class="math notranslate nohighlight">\(I = U\Sigma V^T\)</span> be an SVD of <span class="math notranslate nohighlight">\(I\)</span>.</p>
+<ol class="arabic">
+<li><p class="sd-card-text">To show that <span class="math notranslate nohighlight">\(\Sigma = I\)</span>, we observe that <span class="math notranslate nohighlight">\(1 = \| v_i \|_2 = \| (U\Sigma V^T) v_i \|_2 = \| \Sigma (V^T v_i) \|_2 = \sigma_i\)</span> for the <span class="math notranslate nohighlight">\(i\)</span>th column vector <span class="math notranslate nohighlight">\(v_i\)</span> of <span class="math notranslate nohighlight">\(V\)</span> and singular value <span class="math notranslate nohighlight">\(\sigma_i\)</span>. We used here that <span class="math notranslate nohighlight">\(V\)</span> and <span class="math notranslate nohighlight">\(U\)</span> are orthogonal matrices.</p></li>
+<li><p class="sd-card-text">We now turn our attention to <span class="math notranslate nohighlight">\(U\)</span> and <span class="math notranslate nohighlight">\(V\)</span>. Because of the first step, the SVD simplifies to <span class="math notranslate nohighlight">\(I = U V^T\)</span>, meaning that <span class="math notranslate nohighlight">\(V^T\)</span> is the inverse of <span class="math notranslate nohighlight">\(U\)</span>. As the inverse of an orthogonal matrix is its transpose, we conclude <span class="math notranslate nohighlight">\(U = V\)</span>. Because all orthogonal matrices <span class="math notranslate nohighlight">\(Q\)</span> satisfy <span class="math notranslate nohighlight">\(I = Q Q^T\)</span>, we deduce that the SVDs of <span class="math notranslate nohighlight">\(I\)</span> are precisely the factorisations of the form</p>
+<div class="math notranslate nohighlight">
+\[
+   I = Q I Q^T, \qquad Q \text{ orthogonal.}
+   \]</div>
+</li>
+</ol>
+<p class="sd-card-text">This example shows that the SVD of a matric is generally not unique.</p>
 </div>
 </details><div class="tip admonition">
 <p class="admonition-title"><strong>Question</strong></p>
@@ -820,7 +839,7 @@ Assume the SVD of <span class="math notranslate nohighlight">\(B\)</span> exists
 <p class="sd-card-text">we complete the inductive step.</p>
 </li>
 <li><p class="sd-card-text"><strong>Conclusion</strong>:
-For the case <span class="math notranslate nohighlight">\(m &gt; n\)</span>, the theorem is satisfied by a column vector, and for <span class="math notranslate nohighlight">\(m = n\)</span>, it is satisfied trivially. Hence, every matrix</p></li>
+Ultimately, the induction will reach a row or column vector, for which the existence of an SVD trivially holds.</p></li>
 </ol>
 </div>
 <p class="sd-card-text">The above proof does not inform us how to design an efficient numerical algorithm to construct the SVD of a matrix.</p>

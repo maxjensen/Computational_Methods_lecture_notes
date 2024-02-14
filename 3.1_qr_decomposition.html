@@ -196,26 +196,26 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="1.5_complexity_notation.html">A quick survey of asymptotic notation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.6_numpy_and_data_layouts.html">Memory layout and Numpy arrays</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition and its numerical stability</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition and its Numerical Stability</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="2.1_lu_decomposition.html">Solving linear system with the LU Decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.2_lu_backward_error.html">Backward error of the LU decomposition and pivoting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.3_lu_backward_error_examples.html">Backward error of the LU decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.4_python_lu_decomposition.html">Implementing the LU decomposition in Python</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Orthogonal decompositions</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Orthogonal Decompositions</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">The QR Decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3.2_singular_value_decomposition.html">The Singular Value Decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3.3_least_squares_problems.html">Least Squares Problems</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Interpolation and quadrature</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Interpolation and Quadrature</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="4.1_interpolation.html">Introduction to interpolation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="4.2_quadrature.html">Introduction to quadrature</a></li>
-<li class="toctree-l1"><a class="reference internal" href="4.3_stable_quadrature_schemes.html">Stable quadrature schemes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.1_interpolation.html">Polynomial Interpolation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.2_quadrature.html">Introduction to Quadrature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.3_stable_quadrature_schemes.html">Stable Quadrature Schemes</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Eigenvalue problems</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Eigenvalue Problems</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="5.1_complex_vector_spaces.html">Complex vector spaces</a></li>
 <li class="toctree-l1"><a class="reference internal" href="5.2_eigenvalues_basic_properties.html">Basic properties of eigenvalue problems</a></li>
@@ -824,6 +824,87 @@ P^2 = uu^Tuu^T = uu^T
 </pre></div>
 </div>
 </div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Equip the vector space <span class="math notranslate nohighlight">\(\mathcal{P}_3\)</span> of cubic polynomials</p>
+<div class="math notranslate nohighlight">
+\[
+\{ c_3 \, t^3 + c_2 \, t^2 + c_1 \, t + c_0 | \, (c_0, c_1, c_2, c_3) \in \mathbb{R}^4 \}
+\]</div>
+<p>with the scalar product</p>
+<div class="math notranslate nohighlight">
+\[
+(p, q ) = \int_a^b p(t) \, q(t) \, w(t) \, dt.
+\]</div>
+<p>Applying the Gram–Schmidt method to the basis <span class="math notranslate nohighlight">\(\{1, t, t^2, t^3\}\)</span>, compute orthogonal bases for <span class="math notranslate nohighlight">\(\mathcal{P}_3\)</span> in three cases:</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\((a,b) = (-1,1)\)</span> with <span class="math notranslate nohighlight">\(w(t)=1\)</span>;</p></li>
+<li><p><span class="math notranslate nohighlight">\((a,b) = (0,1)\)</span> with <span class="math notranslate nohighlight">\(w(t)=1\)</span>;</p></li>
+<li><p><span class="math notranslate nohighlight">\((a,b) = (0,1)\)</span> with <span class="math notranslate nohighlight">\(w(t)=\exp^{-t}\)</span>.</p></li>
+</ol>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<strong>Answer</strong><div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">In all cases, let <span class="math notranslate nohighlight">\(\phi_j(t)=t^j\)</span>.</p>
+<ol class="arabic">
+<li><p class="sd-card-text">Starting with <span class="math notranslate nohighlight">\(\hat{\phi}_0(t)=1\)</span>, we compute</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+   \begin{align*}
+   &amp;\hat{\phi}_1(t) = \phi_1(t) - \frac{(\hat{\phi}_0,\phi_1)}{(\hat{\phi}_0,\hat{\phi}_0)} = t - 0,\\
+   &amp;\hat{\phi}_2(t) = \phi_2(t) - \frac{(\hat{\phi}_1,\phi_2)}{(\hat{\phi}_1,\hat{\phi}_1)}\hat{\phi}_1(t)
+	- \frac{(\hat{\phi}_0,\phi_2)}{(\hat{\phi}_0,\hat{\phi}_0)}\hat{\phi}_0(t)
+	= t^2 - 0 - \frac13,\\
+   &amp;\hat{\phi}_3(t) = \phi_3(t) - \frac{(\hat{\phi}_2,\phi_3)}{(\hat{\phi}_2,\hat{\phi}_2)}\hat{\phi}_2(t)
+	- \frac{(\hat{\phi}_1,\phi_3)}{(\hat{\phi}_1,\hat{\phi}_1)}\hat{\phi}_1(t)
+	- \frac{(\hat{\phi}_0,\phi_3)}{(\hat{\phi}_0,\hat{\phi}_0)}\hat{\phi}_0(t)
+   = t^3 - 0 - \frac{3t}5 - 0.
+   \end{align*}
+   \end{split}\]</div>
+<p class="sd-card-text">One could reduce the amount of actual computation by noting that <span class="math notranslate nohighlight">\((f, g)=0\)</span> whenever the product <span class="math notranslate nohighlight">\(f \cdot g\)</span> is odd; using this, <span class="math notranslate nohighlight">\(\hat{\phi}_j\)</span> is odd for odd <span class="math notranslate nohighlight">\(j\)</span> and even for even <span class="math notranslate nohighlight">\(j\)</span>.</p>
+</li>
+<li><p class="sd-card-text">Starting with <span class="math notranslate nohighlight">\(\hat{\phi}_0(t)=1\)</span>, we compute</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+   \begin{align*}
+   \hat{\phi}_1(t) &amp; = \phi_1(t) - \frac{(\hat{\phi}_0,\phi_1)}{(\hat{\phi}_0,\hat{\phi}_0)} = t - \frac12,\\
+   \hat{\phi}_2(t) &amp; = \phi_2(t) - \frac{(\hat{\phi}_1,\phi_2)}{(\hat{\phi}_1,\hat{\phi}_1)}\hat{\phi}_1(t)
+	- \frac{(\hat{\phi}_0,\phi_2)}{(\hat{\phi}_0,\hat{\phi}_0)}\hat{\phi}_0(t)
+	= t^2 - 1\cdot\hat{\phi}_1(t) - \frac13\cdot\hat{\phi}_0(t) = t^2 - t + \frac16,\\
+   \hat{\phi}_3(t) &amp; = \phi_3(t) - \frac{(\hat{\phi}_2,\phi_3)}{(\hat{\phi}_2,\hat{\phi}_2)}\hat{\phi}_2(t)
+	- \frac{(\hat{\phi}_1,\phi_3)}{(\hat{\phi}_1,\hat{\phi}_1)}\hat{\phi}_1(t)
+	- \frac{(\hat{\phi}_0,\phi_3)}{(\hat{\phi}_0,\hat{\phi}_0)}\hat{\phi}_0(t)\\
+   &amp; = t^3 - \frac32\cdot\hat{\phi}_2(t) - \frac9{10}\cdot\hat{\phi}_1(t) - \frac14\cdot\hat{\phi}_0(t)
+	= t^3 - \frac{3t^2}2 + \frac{3t}5 - \frac1{20}.
+   \end{align*}
+   \end{split}\]</div>
+<p class="sd-card-text">No trick as in (a) is possible here.</p>
+</li>
+<li><p class="sd-card-text">Finally, starting with <span class="math notranslate nohighlight">\(\hat{\phi}_0(t)=1\)</span>, we compute:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+   \begin{align*}
+   \hat{\phi}_1(t) &amp; = \phi_1(t) - \frac{(\hat{\phi}_0,\phi_1)}{(\hat{\phi}_0,\hat{\phi}_0)} = t - \frac{\exp-2}{\exp-1} = t - 0.4180232931,\\
+   \hat{\phi}_2(t) &amp; = \phi_2(t) - \frac{(\hat{\phi}_1,\phi_2)}{(\hat{\phi}_1,\hat{\phi}_1)}\hat{\phi}_1(t)
+	- \frac{(\hat{\phi}_0,\phi_2)}{(\hat{\phi}_0,\hat{\phi}_0)}\hat{\phi}_0(t)\\
+	&amp; = t^2 - \frac{4\exp^2-13\exp+6}{\exp^2-3\exp+1}\,\hat{\phi}_1(t) - \frac{2\exp-5}{\exp-1}\,\hat{\phi}_0(t)
+	= t^2 - \frac{4\exp^2-13\exp+6}{\exp^2-3\exp+1}\,t + \frac{2\exp^2-8\exp+7}{\exp^2-3\exp+1}\\
+   &amp; = t^2 - 0.93317985227\,t + 0.1360210355\\
+   \hat{\phi}_3(t) &amp; = \phi_3(t) - \frac{(\hat{\phi}_2,\phi_3)}{(\hat{\phi}_2,\hat{\phi}_2)}\hat{\phi}_2(t)
+	- \frac{(\hat{\phi}_1,\phi_3)}{(\hat{\phi}_1,\hat{\phi}_1)}\hat{\phi}_1(t)
+	- \frac{(\hat{\phi}_0,\phi_3)}{(\hat{\phi}_0,\hat{\phi}_0)}\hat{\phi}_0(t)\\
+   &amp; = t^3 - \frac{36\exp^3-194\exp^2+279\exp-48}{4\exp^3-21\exp^2+29\exp-4}\,\hat{\phi}_2(t) - \frac{18\exp^2-61\exp+33}{\exp^2-3\exp+1}\,\hat{\phi}_1(t) - \frac{6\exp-16}{\exp-1}\,\hat{\phi}_0(t)\\
+   &amp; = t^3 - 1.435696868\,t^2 + 0.5378430946\,t - 0.040296542725.
+   \end{align*}
+   \end{split}\]</div>
+</li>
+</ol>
+</div>
 </details></section>
 <section id="optional-material">
 <h2>Optional material<a class="headerlink" href="#optional-material" title="Link to this heading">#</a></h2>
@@ -836,12 +917,12 @@ QR Decomposition with Householder Transformations<div class="sd-summary-down doc
 </summary><div class="sd-summary-content sd-card-body docutils">
 <p class="sd-card-text">While the Gram-Schmidt process is a common approach to obtain the QR decomposition of a matrix, the Householder transformation method provides a more stable and efficient alternative, especially for large matrices. In this section, we explore the QR decomposition using Householder transformations.</p>
 <h4 class="rubric" id="householder-transformations">Householder Transformations</h4>
-<p class="sd-card-text">Given a vector <span class="math notranslate nohighlight">\(v \in \mathbb{R}^n \setminus \{0\}\)</span>, the corresponding Householder transformation  <span class="math notranslate nohighlight">\(H\)</span> of order <span class="math notranslate nohighlight">\(n\)</span> is defined as:</p>
+<p class="sd-card-text">Given a vector <span class="math notranslate nohighlight">\(v \in \mathbb{R}^n \setminus \{0\}\)</span>, the corresponding Householder transformation <span class="math notranslate nohighlight">\(H\)</span> of order <span class="math notranslate nohighlight">\(n\)</span> is defined as:</p>
 <div class="math notranslate nohighlight">
 \[ H = I - 2 \frac{vv^T}{v^Tv}  \]</div>
 <p class="sd-card-text">Clearly,</p>
 <div class="math notranslate nohighlight">
-\[ H x = I - 2 \frac{v^T x}{v^Tv} v \]</div>
+\[ H x = x - 2 \frac{v^T x}{v^Tv} v \]</div>
 <p class="sd-card-text">Split <span class="math notranslate nohighlight">\(x = x_o + x_c\)</span> into the orthogonal and collinear part: <span class="math notranslate nohighlight">\(v^T x_o = 0\)</span> and <span class="math notranslate nohighlight">\(\alpha v^T = x_c\)</span> for some <span class="math notranslate nohighlight">\(\alpha \in \mathbb{R}\)</span>. Then</p>
 <div class="math notranslate nohighlight">
 \[

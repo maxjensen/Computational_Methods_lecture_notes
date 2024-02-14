@@ -196,26 +196,26 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="1.5_complexity_notation.html">A quick survey of asymptotic notation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.6_numpy_and_data_layouts.html">Memory layout and Numpy arrays</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition and its numerical stability</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition and its Numerical Stability</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="2.1_lu_decomposition.html">Solving linear system with the LU Decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.2_lu_backward_error.html">Backward error of the LU decomposition and pivoting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.3_lu_backward_error_examples.html">Backward error of the LU decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.4_python_lu_decomposition.html">Implementing the LU decomposition in Python</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Orthogonal decompositions</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Orthogonal Decompositions</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="3.1_qr_decomposition.html">The QR Decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3.2_singular_value_decomposition.html">The Singular Value Decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3.3_least_squares_problems.html">Least Squares Problems</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Interpolation and quadrature</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Interpolation and Quadrature</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="4.1_interpolation.html">Introduction to interpolation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="4.2_quadrature.html">Introduction to quadrature</a></li>
-<li class="toctree-l1"><a class="reference internal" href="4.3_stable_quadrature_schemes.html">Stable quadrature schemes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.1_interpolation.html">Polynomial Interpolation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.2_quadrature.html">Introduction to Quadrature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.3_stable_quadrature_schemes.html">Stable Quadrature Schemes</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Eigenvalue problems</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Eigenvalue Problems</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="5.1_complex_vector_spaces.html">Complex vector spaces</a></li>
 <li class="toctree-l1"><a class="reference internal" href="5.2_eigenvalues_basic_properties.html">Basic properties of eigenvalue problems</a></li>
@@ -406,7 +406,7 @@ document.write(`
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(f \in C[a,b]\)</span>: <span class="math notranslate nohighlight">\(f\)</span> is continuous on <span class="math notranslate nohighlight">\([a,b]\)</span>.</p></li>
 <li><p><span class="math notranslate nohighlight">\(f \in C^n[a,b]\)</span>: <span class="math notranslate nohighlight">\(f\)</span> is <span class="math notranslate nohighlight">\(n\)</span> times continuously differentiable on <span class="math notranslate nohighlight">\([a,b]\)</span>.</p></li>
-<li><p><span class="math notranslate nohighlight">\(f \in C^\infty{n+1}[a,b]\)</span>: <span class="math notranslate nohighlight">\(f\)</span> is arbitrary times continuously differentiable on <span class="math notranslate nohighlight">\([a,b]\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(f \in C^\infty[a,b]\)</span>: <span class="math notranslate nohighlight">\(f\)</span> is arbitrary times continuously differentiable on <span class="math notranslate nohighlight">\([a,b]\)</span>.</p></li>
 <li><p><span class="math notranslate nohighlight">\(\mathcal{P}_n\)</span>: The set of polynomials of degree at most <span class="math notranslate nohighlight">\(n\)</span>.</p></li>
 <li><p><span class="math notranslate nohighlight">\(\delta_{ij}\)</span>: The Kronecker delta, equal to <span class="math notranslate nohighlight">\(1\)</span> if <span class="math notranslate nohighlight">\(i=j\)</span> and 0 otherwise.</p></li>
 <li><p><span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>: The <span class="math notranslate nohighlight">\(n\)</span>-dimensional real coordinate space.</p></li>
@@ -418,11 +418,16 @@ document.write(`
 <li><p><span class="math notranslate nohighlight">\(a_{i,:}\)</span>: The <span class="math notranslate nohighlight">\(i\)</span>-th row of matrix <span class="math notranslate nohighlight">\(A\)</span>.</p></li>
 <li><p><span class="math notranslate nohighlight">\(A^T\)</span>: The transpose of matrix <span class="math notranslate nohighlight">\(A\)</span>.</p></li>
 <li><p><span class="math notranslate nohighlight">\(I\)</span>: The identity matrix, sometimes <span class="math notranslate nohighlight">\(I_n\)</span> to denote the size.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\sigma_i\)</span>: The <span class="math notranslate nohighlight">\(i\)</span>-th singular value of matrix.</p></li>
 <li><p><span class="math notranslate nohighlight">\(\text{diag}(a_1, \ldots, a_n)\)</span>: A diagonal matrix with diagonal elements <span class="math notranslate nohighlight">\(a_1, \ldots, a_n \in \mathbb{R}\)</span>.</p></li>
 <li><p><span class="math notranslate nohighlight">\(\text{diag}(A)\)</span>: The diagonal of matrix <span class="math notranslate nohighlight">\(A\)</span>.</p></li>
 <li><p><span class="math notranslate nohighlight">\(\det(A)\)</span>: The determinant of matrix <span class="math notranslate nohighlight">\(A\)</span>.</p></li>
 <li><p><span class="math notranslate nohighlight">\(\text{rank}(A)\)</span>: The rank of matrix <span class="math notranslate nohighlight">\(A\)</span>.</p></li>
 <li><p><span class="math notranslate nohighlight">\(\text{ker}(A)\)</span>: The kernel (null space) of matrix <span class="math notranslate nohighlight">\(A\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathcal{Q}_n\)</span>: quadrature rule with <span class="math notranslate nohighlight">\(n+1\)</span> nodes.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathcal{I}\)</span>: Integral operator.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\langle f, g \rangle\)</span>: The inner product of functions <span class="math notranslate nohighlight">\(f\)</span> and <span class="math notranslate nohighlight">\(g\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(L_k\)</span>: The <span class="math notranslate nohighlight">\(k\)</span>-th Lagrange basis polynomial.</p></li>
 </ul>
 </section>
 <section id="facts">
@@ -431,6 +436,7 @@ document.write(`
 <li><p><strong>Geometric series</strong>: <span class="math notranslate nohighlight">\(\sum_{k=0}^n x^k = \frac{1-x^{n+1}}{1-x}\)</span> for <span class="math notranslate nohighlight">\(x \neq 1\)</span>. Converges to <span class="math notranslate nohighlight">\(\frac{1}{1-x}\)</span> if <span class="math notranslate nohighlight">\(|x| &lt; 1\)</span>.</p></li>
 <li><p><strong>Continuity and limits</strong>: A function <span class="math notranslate nohighlight">\(f\)</span> is continuous at a point <span class="math notranslate nohighlight">\(c\)</span> if <span class="math notranslate nohighlight">\(\lim_{x \to c} f(x) = f(c)\)</span>.</p></li>
 <li><p><strong>Boundeness of continuous functions</strong>: A continuous function on a closed interval is bounded.</p></li>
+<li><p><strong>Rolle’s theorem</strong>: If <span class="math notranslate nohighlight">\(f \in C[a,b]\)</span> and differentiable on <span class="math notranslate nohighlight">\((a,b)\)</span>, and <span class="math notranslate nohighlight">\(f(a) = f(b)\)</span>, then there exists a <span class="math notranslate nohighlight">\(c \in (a,b)\)</span> such that <span class="math notranslate nohighlight">\(f'(c) = 0\)</span>.</p></li>
 <li><p><strong>Mean value theorem</strong>: If <span class="math notranslate nohighlight">\(f \in C[a,b]\)</span> and differentiable on <span class="math notranslate nohighlight">\((a,b)\)</span>, there exists a <span class="math notranslate nohighlight">\(\xi \in (a,b)\)</span> such that <span class="math notranslate nohighlight">\(f'(c) = \frac{f(b) - f(a)}{b-a}\)</span>.</p></li>
 <li><p><strong>Taylor’s theorem</strong>: For <span class="math notranslate nohighlight">\(f \in C^{n+1}[a,b]\)</span> and <span class="math notranslate nohighlight">\(x_0, x \in [a,b]\)</span>, there’s a <span class="math notranslate nohighlight">\(\xi\)</span> between <span class="math notranslate nohighlight">\(x_0\)</span> and <span class="math notranslate nohighlight">\(x\)</span> with <span class="math notranslate nohighlight">\(f(x) = f(x_0) + f'(x_0)(x-x_0) + \frac{f''(x_0)}{2!}(x-x_0)^2 + \ldots + \frac{f^{(n)}(x_0)}{n!}(x-x_0)^n + \frac{f^{(n+1)}(\xi)}{(n+1)!}(x-x_0)^{n+1}.\)</span></p></li>
 <li><p><strong>Fundamental theorem of calculus:</strong> If <span class="math notranslate nohighlight">\(f\)</span> is continuous on <span class="math notranslate nohighlight">\([a, b]\)</span>, then <span class="math notranslate nohighlight">\(\int_a^b f(x) dx = F(b) - F(a)\)</span>, where <span class="math notranslate nohighlight">\(f\)</span> is the derivative of <span class="math notranslate nohighlight">\(F\)</span>.</p></li>
@@ -452,6 +458,7 @@ document.write(`
 <li><p><strong>Geometric and algebraic multiplicity</strong>: The geometric multiplicity of an eigenvalue is the dimension of the eigenspace. The algebraic multiplicity is the number of times the eigenvalue appears as a root of the characteristic polynomial.</p></li>
 <li><p><strong>Backward and forward substitution:</strong> is used to solve a system of linear equations where the matrix is triangular. Backward substitution is also known as back substitution or backward elimination.</p></li>
 <li><p><strong>Gaussian elimination:</strong> is a method for solving linear systems. It consists of applying row operations to transform the matrix into triangular form and then solving for the variables. Gaussian elimination is also known as row reduction.</p></li>
+<li><p><strong>Polynomial division</strong>: Given polynomials <span class="math notranslate nohighlight">\(f\)</span> and <span class="math notranslate nohighlight">\(g\)</span>, there exist unique polynomials <span class="math notranslate nohighlight">\(q\)</span> and <span class="math notranslate nohighlight">\(r\)</span> such that <span class="math notranslate nohighlight">\(f = gq + r\)</span> and <span class="math notranslate nohighlight">\(\text{deg}(r) &lt; \text{deg}(g)\)</span>. <span class="math notranslate nohighlight">\(q\)</span> is the quotient and <span class="math notranslate nohighlight">\(r\)</span> is the remainder.</p></li>
 </ul>
 </section>
 </section>
