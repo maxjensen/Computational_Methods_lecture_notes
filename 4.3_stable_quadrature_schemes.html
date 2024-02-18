@@ -71,7 +71,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = '4.3_stable_quadrature_schemes';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Complex vector spaces" href="5.1_complex_vector_spaces.html" />
+    <link rel="next" title="Basic properties of eigenvalue problems" href="5.1_eigenvalues_basic_properties.html" />
     <link rel="prev" title="Introduction to Quadrature" href="4.2_quadrature.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -217,10 +217,8 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Eigenvalue Problems</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="5.1_complex_vector_spaces.html">Complex vector spaces</a></li>
-<li class="toctree-l1"><a class="reference internal" href="5.2_eigenvalues_basic_properties.html">Basic properties of eigenvalue problems</a></li>
-<li class="toctree-l1"><a class="reference internal" href="5.3_eigenvalues_perturbation_theory.html">Perturbation results for eigenvalue problems</a></li>
-<li class="toctree-l1"><a class="reference internal" href="5.4_computing_eigenvalues.html">Computing eigenvalues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.1_eigenvalues_basic_properties.html">Basic properties of eigenvalue problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.2_computing_eigenvalues.html">Computing eigenvalues</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Self Check Questions</span></p>
 <ul class="nav bd-sidenav">
@@ -454,7 +452,7 @@ document.write(`
 \[
 \tilde{p}(x) = \prod_{i=0}^n (x - x_i),
 \]</div>
-<p>meets the condition <span class="math notranslate nohighlight">\(\int_a^b \tilde{p}(x) \, p(x) \, dx = 0\)</span> for all <span class="math notranslate nohighlight">\(p \in \mathcal{P}_k\)</span>.</p>
+<p>meets the condition <span class="math notranslate nohighlight">\(\int_a^b \tilde{p}(x) \, p(x) \, dx = 0\)</span> for all <span class="math notranslate nohighlight">\(p \in \mathcal{P}_n\)</span>.</p>
 </section>
 </div><p>Thus, the nodes <span class="math notranslate nohighlight">\(\{x_k\}_{k=0}^n\)</span> are the roots of a polynomial <span class="math notranslate nohighlight">\(\tilde{p} \in \mathcal{P}_{n+1}\)</span> which is in the orthogonal complement relative to the <span class="math notranslate nohighlight">\((n+1)\)</span>-dimensional space <span class="math notranslate nohighlight">\(\mathcal{P}_n\)</span> within the <span class="math notranslate nohighlight">\((n+2)\)</span>-dimensional space <span class="math notranslate nohighlight">\(\mathcal{P}_{n+1}\)</span> with respect to the inner product <span class="math notranslate nohighlight">\(\langle p, q \rangle = \int_a^b p(x) \, q(x) \, dx\)</span>.  A proof of the theorem is given in the optional materials section.</p>
 <div class="proof definition admonition" id="definition-1">
@@ -800,29 +798,29 @@ Theory of Gaussian quadrature<div class="sd-summary-down docutils">
 <div class="proof theorem admonition" id="theorem-2">
 <p class="admonition-title"><span class="caption-number">Theorem 10 </span> (Roots of orthogonal polynomials)</p>
 <section class="theorem-content" id="proof-content">
-<p class="sd-card-text">For a polynomial <span class="math notranslate nohighlight">\(\tilde{p} \in \mathcal{P}_{k+1}\)</span>, if</p>
+<p class="sd-card-text">For a polynomial <span class="math notranslate nohighlight">\(\tilde{p} \in \mathcal{P}_{n+1}\)</span>, if</p>
 <div class="math notranslate nohighlight">
 \[
-\langle \tilde{p}, p \rangle = 0 \quad \forall \, p \in \mathcal{P}_k,
+\langle \tilde{p}, p \rangle = 0 \quad \forall \, p \in \mathcal{P}_n,
 \]</div>
-<p class="sd-card-text">then <span class="math notranslate nohighlight">\(\tilde{p}\)</span> either equals zero or has exactly <span class="math notranslate nohighlight">\(k+1\)</span> distinct roots in the open interval <span class="math notranslate nohighlight">\((a,b)\)</span>.</p>
+<p class="sd-card-text">then <span class="math notranslate nohighlight">\(\tilde{p}\)</span> either equals zero or has exactly <span class="math notranslate nohighlight">\(n+1\)</span> distinct roots in the open interval <span class="math notranslate nohighlight">\((a,b)\)</span>.</p>
 </section>
 </div><div class="proof admonition" id="proof">
-<p class="sd-card-text">Proof. Suppose <span class="math notranslate nohighlight">\(\tilde{p} \neq 0\)</span>. If <span class="math notranslate nohighlight">\(\tilde{p}\)</span> has roots <span class="math notranslate nohighlight">\(\xi_0, \xi_1, \ldots, \xi_\ell\)</span> where its sign changes, then construct a polynomial <span class="math notranslate nohighlight">\(s(x) = \prod_{j=0}^\ell (x - \xi_j)\)</span>. If no such roots exist, let <span class="math notranslate nohighlight">\(s(x) = 1\)</span>. The product <span class="math notranslate nohighlight">\(\tilde{p} \cdot s\)</span> does not change sign, implying <span class="math notranslate nohighlight">\(\langle \tilde{p}, s \rangle \neq 0\)</span>. The degree of <span class="math notranslate nohighlight">\(s\)</span> is greater than <span class="math notranslate nohighlight">\(k\)</span>, so <span class="math notranslate nohighlight">\(\tilde{p}\)</span> has more than <span class="math notranslate nohighlight">\(k\)</span> sign changes. However, as a polynomial in <span class="math notranslate nohighlight">\(\mathcal{P}_{k+1}\)</span>, <span class="math notranslate nohighlight">\(\tilde{p}\)</span> can have at most <span class="math notranslate nohighlight">\(k+1\)</span> sign changes.</p>
+<p class="sd-card-text">Proof. Suppose <span class="math notranslate nohighlight">\(\tilde{p} \neq 0\)</span>. If <span class="math notranslate nohighlight">\(\tilde{p}\)</span> has roots <span class="math notranslate nohighlight">\(\xi_0, \xi_1, \ldots, \xi_\ell\)</span> where its sign changes, then construct a polynomial <span class="math notranslate nohighlight">\(s(x) = \prod_{j=0}^\ell (x - \xi_j)\)</span>. If no such roots exist, let <span class="math notranslate nohighlight">\(s(x) = 1\)</span>. The product <span class="math notranslate nohighlight">\(\tilde{p} \cdot s\)</span> does not change sign, implying <span class="math notranslate nohighlight">\(\langle \tilde{p}, s \rangle \neq 0\)</span>. The degree of <span class="math notranslate nohighlight">\(s\)</span> is greater than <span class="math notranslate nohighlight">\(n\)</span>, so <span class="math notranslate nohighlight">\(\tilde{p}\)</span> has more than <span class="math notranslate nohighlight">\(n\)</span> sign changes. However, as a polynomial in <span class="math notranslate nohighlight">\(\mathcal{P}_{n+1}\)</span>, <span class="math notranslate nohighlight">\(\tilde{p}\)</span> can have at most <span class="math notranslate nohighlight">\(n+1\)</span> sign changes.</p>
 </div>
 <p class="sd-card-text">This indicates that the roots of <span class="math notranslate nohighlight">\(\tilde{p}\)</span> are ideal candidates for quadrature nodes. However, a question arises: is there a unique polynomial that satisfies this condition? If different polynomials meet the criterion, they could have varying roots, affecting the choice of nodes. The following theorem addresses this concern.</p>
 <div class="proof theorem admonition" id="theorem-3">
 <p class="admonition-title"><span class="caption-number">Theorem 11 </span> (Uniqueness of the orthogonal polynomial)</p>
 <section class="theorem-content" id="proof-content">
-<p class="sd-card-text">For any two non-zero polynomials <span class="math notranslate nohighlight">\(\tilde{p}, \bar{p} \in \mathcal{P}_{k+1}\)</span> satisfying the condition</p>
+<p class="sd-card-text">For any two non-zero polynomials <span class="math notranslate nohighlight">\(\tilde{p}, \bar{p} \in \mathcal{P}_{n+1}\)</span> satisfying the condition</p>
 <div class="math notranslate nohighlight">
 \[
-\langle \tilde{p}, p \rangle = 0 \quad \forall \, p \in \mathcal{P}_k,
+\langle \tilde{p}, p \rangle = 0 \quad \forall \, p \in \mathcal{P}_n,
 \]</div>
 <p class="sd-card-text">there exists a non-zero scalar <span class="math notranslate nohighlight">\(\alpha \in \mathbb{R}\)</span> such that <span class="math notranslate nohighlight">\(\bar{p} = \alpha \, \tilde{p}\)</span>.</p>
 </section>
 </div><div class="proof admonition" id="proof">
-<p class="sd-card-text">Proof. Consider the polynomial representations of <span class="math notranslate nohighlight">\(\tilde{p}(x)\)</span> and <span class="math notranslate nohighlight">\(\bar{p}(x)\)</span>. The coefficient <span class="math notranslate nohighlight">\(\tilde{a}_{k+1}\)</span> must be non-zero; otherwise, <span class="math notranslate nohighlight">\(\tilde{p}\)</span> would belong to <span class="math notranslate nohighlight">\(\mathcal{P}_k\)</span>. Setting <span class="math notranslate nohighlight">\(\alpha = \bar{a}_{k+1} / \tilde{a}_{k+1}\)</span>, we define <span class="math notranslate nohighlight">\(\Delta p = \alpha \tilde{p} - \bar{p}\)</span>. This difference falls within <span class="math notranslate nohighlight">\(\mathcal{P}_k\)</span>, and from our condition, it follows that</p>
+<p class="sd-card-text">Proof. Consider the polynomial representations of <span class="math notranslate nohighlight">\(\tilde{p}(x)\)</span> and <span class="math notranslate nohighlight">\(\bar{p}(x)\)</span>. The coefficient <span class="math notranslate nohighlight">\(\tilde{a}_{n+1}\)</span> must be non-zero; otherwise, <span class="math notranslate nohighlight">\(\tilde{p}\)</span> would belong to <span class="math notranslate nohighlight">\(\mathcal{P}_n\)</span>. Setting <span class="math notranslate nohighlight">\(\alpha = \bar{a}_{n+1} / \tilde{a}_{n+1}\)</span>, we define <span class="math notranslate nohighlight">\(\Delta p = \alpha \tilde{p} - \bar{p}\)</span>. This difference falls within <span class="math notranslate nohighlight">\(\mathcal{P}_n\)</span>, and from our condition, it follows that</p>
 <div class="math notranslate nohighlight">
 \[
 \| \Delta p \|^2 = \langle \Delta p, \Delta p \rangle = \langle \alpha \tilde{p} - \bar{p}, \Delta
@@ -854,7 +852,7 @@ q_0 = \frac{1}{\sqrt{2}},\quad q_1 = \sqrt{\frac{3}{2}} t,\quad q_2 = \sqrt{\fra
 \[
 \tilde{p}(x) = \prod_{i=0}^n (x - x_i),
 \]</div>
-<p class="sd-card-text">meets the orthogonality condition <span class="math notranslate nohighlight">\(\langle \tilde{p}, p \rangle = 0\)</span> for all <span class="math notranslate nohighlight">\(p \in \mathcal{P}_k\)</span>.</p>
+<p class="sd-card-text">meets the orthogonality condition <span class="math notranslate nohighlight">\(\langle \tilde{p}, p \rangle = 0\)</span> for all <span class="math notranslate nohighlight">\(p \in \mathcal{P}_n\)</span>.</p>
 </section>
 </div><div class="proof admonition" id="proof">
 <p class="sd-card-text">Proof. a) If <span class="math notranslate nohighlight">\(\mathcal{Q}_n\)</span> has a degree of exactness <span class="math notranslate nohighlight">\(2n+1\)</span> with respect to <span class="math notranslate nohighlight">\(\gamma\)</span>, then for all <span class="math notranslate nohighlight">\(f = \tilde{p} \cdot p \in \mathcal{P}_{2n+1}\)</span> with <span class="math notranslate nohighlight">\(p \in \mathcal{P}_{n}\)</span>, it follows that</p>
@@ -863,7 +861,7 @@ q_0 = \frac{1}{\sqrt{2}},\quad q_1 = \sqrt{\frac{3}{2}} t,\quad q_2 = \sqrt{\fra
 \int_a^b \tilde{p}(x) \, p(x) \, \gamma(x) \, dx = \mathcal{Q}_n (\tilde{p} \cdot p) = 0,
 \]</div>
 <p class="sd-card-text">satisfying the orthogonality condition.</p>
-<p class="sd-card-text">b) Conversely, if the orthogonality condition holds, we show that <span class="math notranslate nohighlight">\(\mathcal{Q}_n\)</span> has a degree of exactness <span class="math notranslate nohighlight">\(2n +1\)</span>. For any <span class="math notranslate nohighlight">\(f \in \mathcal{P}_{2n+1}\)</span>, polynomial division yields <span class="math notranslate nohighlight">\(f = \tilde{p} \cdot p + r\)</span> with <span class="math notranslate nohighlight">\(p, r \in \mathcal{P}_k\)</span>. Then</p>
+<p class="sd-card-text">b) Conversely, if the orthogonality condition holds, we show that <span class="math notranslate nohighlight">\(\mathcal{Q}_n\)</span> has a degree of exactness <span class="math notranslate nohighlight">\(2n +1\)</span>. For any <span class="math notranslate nohighlight">\(f \in \mathcal{P}_{2n+1}\)</span>, polynomial division yields <span class="math notranslate nohighlight">\(f = \tilde{p} \cdot p + r\)</span> with <span class="math notranslate nohighlight">\(p, r \in \mathcal{P}_n\)</span>. Then</p>
 <div class="math notranslate nohighlight">
 \[
 \int_a^b f(x) \, \gamma(x) \, dx = \int_a^b \tilde{p}(x) \, p(x) \, \gamma(x) \, dx + \int_a^b r(x) \, \gamma(x) \, dx = 0 + \int_a^b r(x) \, \gamma(x) \, dx.
@@ -934,11 +932,11 @@ q_0 = \frac{1}{\sqrt{2}},\quad q_1 = \sqrt{\frac{3}{2}} t,\quad q_2 = \sqrt{\fra
       </div>
     </a>
     <a class="right-next"
-       href="5.1_complex_vector_spaces.html"
+       href="5.1_eigenvalues_basic_properties.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Complex vector spaces</p>
+        <p class="prev-next-title">Basic properties of eigenvalue problems</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

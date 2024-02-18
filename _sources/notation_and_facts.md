@@ -10,11 +10,15 @@
 - $\mathbb{R}^n$: The $n$-dimensional real coordinate space.
 - $\mathbb{R}^{m \times n}$: The set of $m \times n$ real matrices.
 - $\mathbb{R}^+$: The set of positive real numbers.
+- $\mathbb{C}^n$: The $n$-dimensional complex coordinate space.
+- $i$: The imaginary unit, $i^2 = -1$.
+- $\overline{z}$: The complex conjugate z = x - i y$ of $z = x + i y$, where $x$ and $y$ are real numbers.
 - $e_i$: The $i$-th standard basis vector.
 - $a_{ij}$: The element in the $i$-th row and $j$-th column of matrix $A$.
 - $a_{:,j}$ or $a_j$: The $j$-th column of matrix $A$.
 - $a_{i,:}$: The $i$-th row of matrix $A$.
 - $A^T$: The transpose of matrix $A$.
+- $A^H$: The conjugate transpose of matrix $A$.
 - $I$: The identity matrix, sometimes $I_n$ to denote the size.
 - $\sigma_i$: The $i$-th singular value of matrix.
 - $\text{diag}(a_1, \ldots, a_n)$: A diagonal matrix with diagonal elements $a_1, \ldots, a_n \in \mathbb{R}$.
@@ -50,8 +54,17 @@
 - **Inverse**: A matrix $A$ is invertible if and only if its determinant is non-zero. The inverse of $A$ is $A^{-1}$ such that $AA^{-1} = A^{-1}A = I$
 - **Singularity**: A matrix is singular if it has no inverse, i.e., its determinant is zero.
 - **Regular matrix**: A matrix is regular if it is non-singular.
+- **Transpose**: The transpose of a matrix $A$ is a matrix $A^T$ such that the element in the $i$-th row and $j$-th column of $A^T$ is the element in the $j$-th row and $i$-th column of $A$.
+- **Conjugate transpose**: The conjugate transpose of a matrix $A$ is a matrix $A^*$ such that the element in the $i$-th row and $j$-th column of $A^H$ is the complex conjugate of the element in the $j$-th row and $i$-th column of $A$.
+- **Orthogonal matrix**: A matrix $Q$ is orthogonal if $Q^TQ = I$.
+- **Unitary matrix**: A matrix $U$ is unitary if $U^HU = I$, where $U^H$ is the conjugate transpose of $U$.
+- **Positive definite matrix**: A symmetric matrix $A$ is positive definite if $x^TAx > 0$ for all non-zero vectors $x$.
+- **Symmetric matrix**: A matrix $A$ is symmetric if $A = A^T$.
+- **Hermitian matrix**: A matrix $A$ is Hermitian if $A = A^H$, i.e., it is equal to its conjugate transpose.
+- **Diagonal matrix**: A matrix $A$ is diagonal if all its off-diagonal elements are zero.
 - **Diagonalisation**: A matrix $A$ is diagonalisable if it has $n$ linearly independent eigenvectors. It can be written as $A = X \Lambda X^{-1}$, where $\Lambda$ is a diagonal matrix of eigenvalues and $X$ is a matrix of eigenvectors.
 - **Geometric and algebraic multiplicity**: The geometric multiplicity of an eigenvalue is the dimension of the eigenspace. The algebraic multiplicity is the number of times the eigenvalue appears as a root of the characteristic polynomial.
 - **Backward and forward substitution:** is used to solve a system of linear equations where the matrix is triangular. Backward substitution is also known as back substitution or backward elimination.
 - **Gaussian elimination:** is a method for solving linear systems. It consists of applying row operations to transform the matrix into triangular form and then solving for the variables. Gaussian elimination is also known as row reduction.
 - **Polynomial division**: Given polynomials $f$ and $g$, there exist unique polynomials $q$ and $r$ such that $f = gq + r$ and $\text{deg}(r) < \text{deg}(g)$. $q$ is the quotient and $r$ is the remainder.
+- **Fundamental theorem of algebra**: Every polynomial that has a single variable, is of degree $n$, and has complex coefficients (excluding the zero polynomial), possesses precisely $n$ complex roots, when each root is counted according to its multiplicity.
