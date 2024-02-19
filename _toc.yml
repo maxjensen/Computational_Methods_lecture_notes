@@ -42,6 +42,6 @@ parts:
     - file: week_9_self_check.ipynb
 - caption: Back matter
   chapters:
-    - file: notation_and_facts
-    - file: programming_resources
-    - file: bibliography
+    - file: bm1_notation_and_facts
+    - file: bm2_programming_resources
+    - file: bm3_bibliography
