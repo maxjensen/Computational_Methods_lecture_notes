@@ -12,7 +12,7 @@
 - $\mathbb{R}^+$: The set of positive real numbers.
 - $\mathbb{C}^n$: The $n$-dimensional complex coordinate space.
 - $i$: The imaginary unit, $i^2 = -1$.
-- $\overline{z}$: The complex conjugate z = x - i y$ of $z = x + i y$, where $x$ and $y$ are real numbers.
+- $\overline{z}$: The complex conjugate $z = x - i y$ of $z = x + i y$, where $x$ and $y$ are real numbers.
 - $e_i$: The $i$-th standard basis vector.
 - $a_{ij}$: The element in the $i$-th row and $j$-th column of matrix $A$.
 - $a_{:,j}$ or $a_j$: The $j$-th column of matrix $A$.

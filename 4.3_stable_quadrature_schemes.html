@@ -32,9 +32,9 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=ca93fcec" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -235,6 +235,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Back matter</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="notation_and_facts.html">Notation and facts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="programming_resources.html">Programming resources</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bibliography.html">Bibliography</a></li>
 </ul>
 
@@ -465,6 +466,7 @@ document.write(`
 \[
 0 &lt; \mathcal{I}(\bar p_k) = \mathcal{Q}_n(\bar p_k) = \sigma_k.
 \]</div>
+<p>While we only scratch the surface of Gaussian quadrature, it’s close relationship to orthogonal polynomials makes it a fascinating topic for further study, e.g. see <span id="id1">[<a class="reference internal" href="bibliography.html#id3" title="Endre Süli and David F. Mayers. An introduction to numerical analysis. Cambridge University Press, Cambridge, 2003. ISBN 0-521-81026-4; 0-521-00794-1. URL: https://ucl.primo.exlibrisgroup.com/permalink/44UCL_INST/hd4h9s/alma990027325160204761, doi:10.1017/CBO9780511801181.">Süli and Mayers, 2003</a>]</span> and <span id="id2">[<a class="reference internal" href="bibliography.html#id4" title="Robert Plato. Concise numerical mathematics. Volume 57 of Graduate Studies in Mathematics. American Mathematical Society, Providence, RI, 2003. ISBN 0-8218-2953-X. Translated from the 2000 German original by Richard Le Borne and Sabine Le Borne. URL: https://ucl.primo.exlibrisgroup.com/permalink/44UCL_INST/155jbua/alma990010057180204761, doi:10.1090/gsm/057.">Plato, 2003</a>]</span> for more details.</p>
 </section>
 <section id="python-skills">
 <h2>Python skills<a class="headerlink" href="#python-skills" title="Link to this heading">#</a></h2>
@@ -886,7 +888,7 @@ q_0 = \frac{1}{\sqrt{2}},\quad q_1 = \sqrt{\frac{3}{2}} t,\quad q_2 = \sqrt{\fra
 </ol>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p class="sd-card-text">Finding roots of <span class="math notranslate nohighlight">\(\tilde{p}\)</span> for large <span class="math notranslate nohighlight">\(n\)</span> can be challenging. Special techniques for finding roots of orthogonal polynomials, such as recursion relationships, are available but beyond the scope of this discussion. Most literature on Gaussian quadrature delves into these techniques in detail.</p>
+<p class="sd-card-text">Finding roots of <span class="math notranslate nohighlight">\(\tilde{p}\)</span> for large <span class="math notranslate nohighlight">\(n\)</span> can be challenging. Special techniques for finding roots of orthogonal polynomials, such as recursion relationships, are available but beyond the scope of this discussion. Most literature on Gaussian quadrature delves into these techniques in detail; see <span id="id3">[<a class="reference internal" href="bibliography.html#id4" title="Robert Plato. Concise numerical mathematics. Volume 57 of Graduate Studies in Mathematics. American Mathematical Society, Providence, RI, 2003. ISBN 0-8218-2953-X. Translated from the 2000 German original by Richard Le Borne and Sabine Le Borne. URL: https://ucl.primo.exlibrisgroup.com/permalink/44UCL_INST/155jbua/alma990010057180204761, doi:10.1090/gsm/057.">Plato, 2003</a>]</span>.</p>
 </div>
 </div>
 </details></section>
