@@ -32,9 +32,9 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=ca93fcec" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -217,10 +217,8 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Eigenvalue Problems</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="5.1_complex_vector_spaces.html">Complex vector spaces</a></li>
-<li class="toctree-l1"><a class="reference internal" href="5.2_eigenvalues_basic_properties.html">Basic properties of eigenvalue problems</a></li>
-<li class="toctree-l1"><a class="reference internal" href="5.3_eigenvalues_perturbation_theory.html">Perturbation results for eigenvalue problems</a></li>
-<li class="toctree-l1"><a class="reference internal" href="5.4_computing_eigenvalues.html">Computing eigenvalues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.1_eigenvalues_basic_properties.html">Basic properties of eigenvalue problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.2_computing_eigenvalues.html">Computing eigenvalues</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Self Check Questions</span></p>
 <ul class="nav bd-sidenav">
@@ -237,6 +235,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Back matter</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="notation_and_facts.html">Notation and facts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="programming_resources.html">Programming resources</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bibliography.html">Bibliography</a></li>
 </ul>
 
@@ -848,7 +847,8 @@ L_0(x) = \frac{(x - x_1)(x - x_2)}{(x_0 - x_1)(x_0 - x_2)} = \frac{(x - 2)(x - 3
 \]</div>
 <p class="sd-card-text">and</p>
 <div class="math notranslate nohighlight">
-\[L_1(x) = \frac{(x - x_0)(x - x_2)}{(x_1 - x_0)(x_1 - x_2)} = \frac{(x - 1)(x - 3)}{(2 - 1)(2 - 3)} = -(x - 1)(x - 3)
+\[
+L_1(x) = \frac{(x - x_0)(x - x_2)}{(x_1 - x_0)(x_1 - x_2)} = \frac{(x - 1)(x - 3)}{(2 - 1)(2 - 3)} = -(x - 1)(x - 3)
 \]</div>
 <p class="sd-card-text">and</p>
 <div class="math notranslate nohighlight">
@@ -996,6 +996,37 @@ q(\tilde{y}_i) = \begin{cases}
 \end{split}\]</div>
 <p class="sd-card-text">By the intermediate value theorem, <span class="math notranslate nohighlight">\(q\)</span> has <span class="math notranslate nohighlight">\(n+1\)</span> roots. Thus <span class="math notranslate nohighlight">\(q = 0\)</span>.</p>
 </div>
+</div>
+</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+Barycentric interpolation<div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">In practical applications, Barycentric Interpolation, a variant of Lagrange interpolation, is often utilized due to its computational efficiency.</p>
+<p class="sd-card-text">Let us define the function <span class="math notranslate nohighlight">\(\ell(x) = \prod_{j=0}^n (x - x_j)\)</span>, and introduce weights <span class="math notranslate nohighlight">\(w_k = \left[\prod_{j=0, j\neq k}^n (x_k - x_j)\right]^{-1}\)</span>. With these definitions, the Lagrange basis polynomials can be expressed as:</p>
+<div class="math notranslate nohighlight">
+\[
+L_k(x) = \ell(x) \frac{w_k}{x - x_k},
+\]</div>
+<p class="sd-card-text">leading to the polynomial interpolation formula:</p>
+<div class="math notranslate nohighlight">
+\[
+p_n(x) = \ell(x) \sum_{k=0}^n \frac{w_k}{x - x_k} y_k.
+\]</div>
+<p class="sd-card-text">This expression is known as the first Barycentric form. It allows the efficient computation of <span class="math notranslate nohighlight">\(p_n(x)\)</span> in <span class="math notranslate nohighlight">\(\mathcal{O}(n)\)</span> operations, assuming the weights <span class="math notranslate nohighlight">\(w_k\)</span> are precomputed.</p>
+<p class="sd-card-text">An even more streamlined approach is possible by interpolating the constant function <span class="math notranslate nohighlight">\(1\)</span>, which results in:</p>
+<div class="math notranslate nohighlight">
+\[
+1 = \ell(x) \sum_{k=0}^n \frac{w_k}{x - x_k}.
+\]</div>
+<p class="sd-card-text">This leads to an alternative formulation of the polynomial:</p>
+<div class="math notranslate nohighlight">
+\[
+p_n(x) = \frac{\sum_{k=0}^n \frac{w_k}{x - x_k} y_k}{\sum_{k=0}^n \frac{w_k}{x - x_k}}.
+\]</div>
+<p class="sd-card-text">This expression is referred to as the second Barycentric form. It notably avoids the direct computation of <span class="math notranslate nohighlight">\(\ell(x)\)</span>, further simplifying the interpolation process.</p>
 </div>
 </details></section>
 </section>

@@ -2,7 +2,7 @@
 title: Computational Methods MATH0058 lecture notes
 author: Timo Betcke, Erik Burman, Max Jensen
 copyright: "2024"
-logo: logo.png
+logo: ./figures/logo.png
 sphinx:
   extra_extensions:
     - sphinx_proof
