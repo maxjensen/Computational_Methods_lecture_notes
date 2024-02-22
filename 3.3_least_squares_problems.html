@@ -518,7 +518,7 @@ A = U\Sigma V^T = \begin{bmatrix} U_1 &amp; U_2 \end{bmatrix} \begin{bmatrix} \h
 \[
 \|Ax-b\|_2 = \|U\Sigma V^Tx - b\|_2.
 \]</div>
-<p>Let <span class="math notranslate nohighlight">\([y_1, y_2] = [V_1^T x, V_2^T x]\)</span> and factorise out <span class="math notranslate nohighlight">\(U\)</span> to obtain</p>
+<p>Let <span class="math notranslate nohighlight">\([y_1, y_2]^T = [V_1^T x, V_2^T x]^T\)</span> and factorise out <span class="math notranslate nohighlight">\(U\)</span> to obtain</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \|Ax - b\|_2 = \left\|\begin{bmatrix} \hat{\Sigma} &amp; 0 \\ 0 &amp; 0 \end{bmatrix} \begin{bmatrix} y_1\\ y_2 \end{bmatrix} - \begin{bmatrix}U_1^Tb\\
@@ -536,8 +536,9 @@ U_2^Tb\end{bmatrix}\right\|_2.
 <p>Let <span class="math notranslate nohighlight">\(U \Sigma V^T\)</span> be an SVD of <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span> and <span class="math notranslate nohighlight">\(m \geq n\)</span>. Then the pseudo-inverse of <span class="math notranslate nohighlight">\(A\)</span> is</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-A^{\dagger} := V \begin{bmatrix} \hat{\Sigma}^{-1} &amp; 0 \\ 0 &amp; 0 \end{bmatrix} U^T.
+A^{\dagger} := V \begin{bmatrix} \hat{\Sigma}^{-1} &amp; 0 \\ 0 &amp; 0 \end{bmatrix} U^T,
 \end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\hat{\Sigma} \in \mathbb{R}^{r \times r}\)</span> and <span class="math notranslate nohighlight">\(r = \text{rank}(A)\)</span>.</p>
 </section>
 </div><p>The pseudo-inverse of <span class="math notranslate nohighlight">\(A\)</span> is a generalisation of the inverse of <span class="math notranslate nohighlight">\(A\)</span>. In the same way that <span class="math notranslate nohighlight">\(A^{-1}b\)</span> solves the linear system <span class="math notranslate nohighlight">\(Ax=b\)</span> for a square matrix <span class="math notranslate nohighlight">\(A\)</span>, the pseudo-inverse <span class="math notranslate nohighlight">\(A^{\dagger}\)</span> applied to <span class="math notranslate nohighlight">\(b\)</span> solves the least-squares minimisation problem <span class="math notranslate nohighlight">\(\|Ax-b\|_2\)</span> for rectangular <span class="math notranslate nohighlight">\(A\)</span>.</p>
 </section>
