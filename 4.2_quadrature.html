@@ -234,9 +234,9 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Back matter</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="notation_and_facts.html">Notation and facts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="programming_resources.html">Programming resources</a></li>
-<li class="toctree-l1"><a class="reference internal" href="bibliography.html">Bibliography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bm1_notation_and_facts.html">Notation and facts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bm2_programming_resources.html">Programming resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bm3_bibliography.html">Bibliography</a></li>
 </ul>
 
     </div>
@@ -494,7 +494,7 @@ p(x) = \sum_{k=0}^n f(x_k) L_k(x), \quad \text{where } L_k(x) = \prod_{l\ne k} \
 \[
 \sum_{k=0}^n \bigl|\sigma_k^{(n)}\bigr| \to \infty \qquad n \to \infty.
 \]</div>
-<p>This makes this quadrature vulnerable to round-off errors for large <span class="math notranslate nohighlight">\(n\)</span>.</p>
+<p>This makes Newton-Cotes formulas vulnerable to instability for large <span class="math notranslate nohighlight">\(n\)</span>.</p>
 </section>
 </section>
 <section id="python-skills">
@@ -550,7 +550,7 @@ p(x) = \sum_{k=0}^n f(x_k) L_k(x), \quad \text{where } L_k(x) = \prod_{l\ne k} \
 </div>
 </details><div class="tip admonition">
 <p class="admonition-title"><strong>Question</strong></p>
-<p>A quadrature rule <span class="math notranslate nohighlight">\(\mathcal{Q}\)</span> has a negative weight <span class="math notranslate nohighlight">\(\sigma_k\)</span>. Show that there exists a non-negative function <span class="math notranslate nohighlight">\(g\)</span> such <span class="math notranslate nohighlight">\(\mathcal{Q}(g) &lt; 0\)</span>. This means that the quadrature rule assigns to the non-negative function a negative estimate of its integral</p>
+<p>A quadrature rule <span class="math notranslate nohighlight">\(\mathcal{Q}\)</span> has a negative weight <span class="math notranslate nohighlight">\(\sigma_k\)</span>. Show that there exists a non-negative function <span class="math notranslate nohighlight">\(g\)</span> such <span class="math notranslate nohighlight">\(\mathcal{Q}(g) &lt; 0\)</span>. This means that the quadrature rule assigns a negative estimate of the integral to the non-negative function.</p>
 </div>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">

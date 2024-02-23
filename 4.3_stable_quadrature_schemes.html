@@ -234,9 +234,9 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Back matter</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="notation_and_facts.html">Notation and facts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="programming_resources.html">Programming resources</a></li>
-<li class="toctree-l1"><a class="reference internal" href="bibliography.html">Bibliography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bm1_notation_and_facts.html">Notation and facts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bm2_programming_resources.html">Programming resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bm3_bibliography.html">Bibliography</a></li>
 </ul>
 
     </div>
@@ -461,12 +461,13 @@ document.write(`
 <section class="definition-content" id="proof-content">
 <p>An interpolatory quadrature method that achieves a degree of exactness <span class="math notranslate nohighlight">\(2n+1\)</span> is termed a <em>Gaussian quadrature method</em>.</p>
 </section>
-</div><p>Once the nodes are determined, the coefficients can be computed as usual. Unlike the coefficients <span class="math notranslate nohighlight">\(\sigma_k\)</span> of a general quadrature formula, Gaussian quadrature weights are always positive. This can be illustrated by considering <span class="math notranslate nohighlight">\(\bar p_k(x) = \tilde{p}(x)^2/(x-x_k)^2 \in \mathcal{P}_{2n}\)</span>. With the degree of exactness of  <span class="math notranslate nohighlight">\(2n+1\)</span> and <span class="math notranslate nohighlight">\(\bar p_k(x_j) = \delta_{jk}\)</span>, we find that:</p>
+</div><p>Once the nodes are determined, the coefficients can be computed as usual. Gaussian quadrature weights are always positive, unlike the coefficients <span class="math notranslate nohighlight">\(\sigma_k\)</span> of a general quadrature formula. This can be illustrated by considering <span class="math notranslate nohighlight">\(\bar p_k(x) = \tilde{p}(x)^2/(x-x_k)^2 \in \mathcal{P}_{2n}\)</span>. With the degree of exactness of  <span class="math notranslate nohighlight">\(2n+1\)</span> and <span class="math notranslate nohighlight">\(\bar p_k(x_j) = \delta_{jk}\)</span>, we find that:</p>
 <div class="math notranslate nohighlight">
 \[
 0 &lt; \mathcal{I}(\bar p_k) = \mathcal{Q}_n(\bar p_k) = \sigma_k.
 \]</div>
-<p>While we only scratch the surface of Gaussian quadrature, it’s close relationship to orthogonal polynomials makes it a fascinating topic for further study, e.g. see <span id="id1">[<a class="reference internal" href="bibliography.html#id3" title="Endre Süli and David F. Mayers. An introduction to numerical analysis. Cambridge University Press, Cambridge, 2003. ISBN 0-521-81026-4; 0-521-00794-1. URL: https://ucl.primo.exlibrisgroup.com/permalink/44UCL_INST/hd4h9s/alma990027325160204761, doi:10.1017/CBO9780511801181.">Süli and Mayers, 2003</a>]</span> and <span id="id2">[<a class="reference internal" href="bibliography.html#id4" title="Robert Plato. Concise numerical mathematics. Volume 57 of Graduate Studies in Mathematics. American Mathematical Society, Providence, RI, 2003. ISBN 0-8218-2953-X. Translated from the 2000 German original by Richard Le Borne and Sabine Le Borne. URL: https://ucl.primo.exlibrisgroup.com/permalink/44UCL_INST/155jbua/alma990010057180204761, doi:10.1090/gsm/057.">Plato, 2003</a>]</span> for more details.</p>
+<p>In summary, Gaussian quadrature combines two crucial properties: stability and speed of convergence.</p>
+<p>While we only scratch the surface of Gaussian quadrature, it’s close relationship to orthogonal polynomials makes it a fascinating topic for further study, e.g. see <span id="id1">[<a class="reference internal" href="bm3_bibliography.html#id3" title="Endre Süli and David F. Mayers. An introduction to numerical analysis. Cambridge University Press, 2003. URL: https://ucl.primo.exlibrisgroup.com/permalink/44UCL_INST/hd4h9s/alma990027325160204761.">Süli and Mayers, 2003</a>]</span> and <span id="id2">[<a class="reference internal" href="bm3_bibliography.html#id4" title="Robert Plato. Concise numerical mathematics. Volume 57. American Mathematical Society, 2003. URL: https://ucl.primo.exlibrisgroup.com/permalink/44UCL_INST/155jbua/alma990010057180204761.">Plato, 2003</a>]</span> for more details.</p>
 </section>
 <section id="python-skills">
 <h2>Python skills<a class="headerlink" href="#python-skills" title="Link to this heading">#</a></h2>
@@ -796,7 +797,7 @@ Theory of Gaussian quadrature<div class="sd-summary-down docutils">
 \langle f,g \rangle = \int_a^b f(x) g(x) \, \gamma(x) \, dx,
 \]</div>
 <p class="sd-card-text">This function <span class="math notranslate nohighlight">\(\gamma\)</span> is the same as the weight above and assumed to be piecewise continuous, integrable, and positive. Moreover, we assume that <span class="math notranslate nohighlight">\(\langle p, p \rangle\)</span> is finite for all <span class="math notranslate nohighlight">\(p \in \mathcal{P}_n\)</span>. Common examples include <span class="math notranslate nohighlight">\(\gamma = 1\)</span> for <span class="math notranslate nohighlight">\(a,b \in \mathbb{R}\)</span>, <span class="math notranslate nohighlight">\(\gamma = 1/t\)</span> for <span class="math notranslate nohighlight">\(a=0\)</span>, <span class="math notranslate nohighlight">\(b=\infty\)</span>, and <span class="math notranslate nohighlight">\(\gamma = 1/\sqrt{1-t^2}\)</span> for <span class="math notranslate nohighlight">\(a=-1\)</span>, <span class="math notranslate nohighlight">\(b=1\)</span>.</p>
-<p class="sd-card-text">Our focus is to demonstrate that the optimal quadrature nodes correspond to the roots of orthogonal polynomials. To understand this, we need to explore two key results about orthogonal polynomials.</p>
+<p class="sd-card-text">Our focus is to demonstrate that the optimal quadrature nodes correspond to the roots of orthogonal polynomials. To understand this, we must explore two key results about orthogonal polynomials.</p>
 <div class="proof theorem admonition" id="theorem-2">
 <p class="admonition-title"><span class="caption-number">Theorem 10 </span> (Roots of orthogonal polynomials)</p>
 <section class="theorem-content" id="proof-content">
@@ -888,7 +889,7 @@ q_0 = \frac{1}{\sqrt{2}},\quad q_1 = \sqrt{\frac{3}{2}} t,\quad q_2 = \sqrt{\fra
 </ol>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p class="sd-card-text">Finding roots of <span class="math notranslate nohighlight">\(\tilde{p}\)</span> for large <span class="math notranslate nohighlight">\(n\)</span> can be challenging. Special techniques for finding roots of orthogonal polynomials, such as recursion relationships, are available but beyond the scope of this discussion. Most literature on Gaussian quadrature delves into these techniques in detail; see <span id="id3">[<a class="reference internal" href="bibliography.html#id4" title="Robert Plato. Concise numerical mathematics. Volume 57 of Graduate Studies in Mathematics. American Mathematical Society, Providence, RI, 2003. ISBN 0-8218-2953-X. Translated from the 2000 German original by Richard Le Borne and Sabine Le Borne. URL: https://ucl.primo.exlibrisgroup.com/permalink/44UCL_INST/155jbua/alma990010057180204761, doi:10.1090/gsm/057.">Plato, 2003</a>]</span>.</p>
+<p class="sd-card-text">Finding roots of <span class="math notranslate nohighlight">\(\tilde{p}\)</span> for large <span class="math notranslate nohighlight">\(n\)</span> can be challenging. Special techniques for finding roots of orthogonal polynomials, such as recursion relationships, are available but beyond the scope of this discussion. Most literature on Gaussian quadrature delves into these techniques in detail; see <span id="id3">[<a class="reference internal" href="bm3_bibliography.html#id4" title="Robert Plato. Concise numerical mathematics. Volume 57. American Mathematical Society, 2003. URL: https://ucl.primo.exlibrisgroup.com/permalink/44UCL_INST/155jbua/alma990010057180204761.">Plato, 2003</a>]</span>.</p>
 </div>
 </div>
 </details></section>
