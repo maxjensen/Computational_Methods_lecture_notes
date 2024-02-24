@@ -234,9 +234,9 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Back matter</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="notation_and_facts.html">Notation and facts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="programming_resources.html">Programming resources</a></li>
-<li class="toctree-l1"><a class="reference internal" href="bibliography.html">Bibliography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bm1_notation_and_facts.html">Notation and facts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bm2_programming_resources.html">Programming resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bm3_bibliography.html">Bibliography</a></li>
 </ul>
 
     </div>
@@ -797,14 +797,14 @@ Perturbation results for eigenvalue problems<div class="sd-summary-down docutils
 \end{align*}
 \end{split}\]</div>
 <p class="sd-card-text">Here, we used that <span class="math notranslate nohighlight">\(y^H \, \delta A \, \delta x - \delta \lambda \, y^H \, \delta x\)</span> are higher-order terms and, for the last equality, that <span class="math notranslate nohighlight">\(\delta A\)</span> may be chosen to reflect <span class="math notranslate nohighlight">\(x\)</span> such that <span class="math notranslate nohighlight">\(\delta A \, x\)</span> is collinear to <span class="math notranslate nohighlight">\(y\)</span>. We find that <span class="math notranslate nohighlight">\(\kappa_{abs}(\lambda)\)</span> approaches infinity as <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> approach orthogonal directions.</p>
-<p class="sd-card-text">We now turn our attention to a multiple eigenvalue. Let’s assume for simplicity that its algebraic and geometric multiplicities are equal. This situation gives rise to two right eigenvectors, <span class="math notranslate nohighlight">\(x_1\)</span> and <span class="math notranslate nohighlight">\(x_2\)</span>, as well as two left eigenvectors, <span class="math notranslate nohighlight">\(y_1\)</span> and <span class="math notranslate nohighlight">\(y_2\)</span>. Furthermore, any non-zero linear blend of <span class="math notranslate nohighlight">\(\alpha_1 x_1 + \alpha_2 x_2\)</span> forms a right eigenvector, and a similar combination can be made with <span class="math notranslate nohighlight">\(y_1\)</span> and <span class="math notranslate nohighlight">\(y_2\)</span> for left eigenvectors.</p>
+<p class="sd-card-text">We now turn our attention to a multiple eigenvalue. Let’s assume for simplicity that its algebraic and geometric multiplicities are equal. This situation gives rise to two right eigenvectors, <span class="math notranslate nohighlight">\(x_1\)</span> and <span class="math notranslate nohighlight">\(x_2\)</span>, as well as two left eigenvectors, <span class="math notranslate nohighlight">\(y_1\)</span> and <span class="math notranslate nohighlight">\(y_2\)</span>. Furthermore, any non-zero linear blend of <span class="math notranslate nohighlight">\(\alpha_1 x_1 + \alpha_2 x_2\)</span> forms a right eigenvector and a similar combination can be made with <span class="math notranslate nohighlight">\(y_1\)</span> and <span class="math notranslate nohighlight">\(y_2\)</span> for left eigenvectors.</p>
 <p class="sd-card-text">We can determine the orthogonal relationship by solving:</p>
 <div class="math notranslate nohighlight">
 \[
 y_1^H(x_1 - \alpha x_2) = 0,
 \]</div>
 <p class="sd-card-text">leading to <span class="math notranslate nohighlight">\(y_1 \bot (x_1 - \frac{y_1^H x_1}{y_1^H x_2}x_2)\)</span>. Therefore, in the presence of multiple eigenvalues, an orthogonal pair of left and right eigenvectors exists, indicating that multiple eigenvalues are unstable to perturbations. This is also reflected in the observation that if we have a polynomial with a multiple root, then a small arbitrary perturbation in the coefficients will turn a multiple root into several simple roots, qualitatively changing the nature of the eigensystem.</p>
-<p class="sd-card-text">For a more comprehensive and formal discussion on the perturbations of eigensystems, particularly in cases of multiple eigenvalues and their projections onto corresponding eigenvector subspaces, refer to Chapter 2 of <span id="id2">[<a class="reference internal" href="bibliography.html#id6" title="Tosio Kato. Perturbation theory for linear operators. Volume Band 132 of Die Grundlehren der mathematischen Wissenschaften. Springer-Verlag New York, Inc., New York, 1966. URL: https://ucl.primo.exlibrisgroup.com/permalink/44UCL_INST/155jbua/alma990002502430204761.">Kato, 1966</a>]</span>.</p>
+<p class="sd-card-text">For a more comprehensive and formal discussion on the perturbations of eigensystems, particularly in cases of multiple eigenvalues and their projections onto corresponding eigenvector subspaces, see Chapter 2 of <span id="id2">[<a class="reference internal" href="bm3_bibliography.html#id6" title="Tosio Kato. Perturbation theory for linear operators. Volume 132 of Die Grundlehren der mathematischen Wissenschaften. Springer, 1966. URL: https://ucl.primo.exlibrisgroup.com/permalink/44UCL_INST/155jbua/alma990002502430204761.">Kato, 1966</a>]</span>.</p>
 <p class="sd-card-text">We conclude with a statement of the Bauer-Fike Theorem.</p>
 <div class="prf-theorem admonition">
 <p class="admonition-title">Fact: Bauer-Fike Theorem</p>

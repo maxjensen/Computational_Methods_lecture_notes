@@ -234,9 +234,9 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Back matter</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="notation_and_facts.html">Notation and facts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="programming_resources.html">Programming resources</a></li>
-<li class="toctree-l1"><a class="reference internal" href="bibliography.html">Bibliography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bm1_notation_and_facts.html">Notation and facts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bm2_programming_resources.html">Programming resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bm3_bibliography.html">Bibliography</a></li>
 </ul>
 
     </div>
@@ -432,11 +432,11 @@ L_j(x)= \prod_{i=0,i \neq j}^n \frac{(x-x_i)}{(x_j-x_i)}.
 \[  
 p_n(x)= \sum_{j=0}^n y_j L_j(x).  
 \]</div>
-<p>We refer to <span class="math notranslate nohighlight">\(p\)</span>, when written in this form, as the <em>Lagrange interpolation polynomial</em>. We still need to prove the uniqueness.</p>
+<p>We refer to <span class="math notranslate nohighlight">\(p\)</span>, when written in this form, as the <em>Lagrange interpolation polynomial</em>. We still need to prove uniqueness.</p>
 <div class="proof theorem admonition" id="theorem-0">
 <p class="admonition-title"><span class="caption-number">Theorem 4 </span> (Existence and uniqueness of interpolating polynomial)</p>
 <section class="theorem-content" id="proof-content">
-<p>Given <span class="math notranslate nohighlight">\(\{ (x_i,y_i) \}_{i=0}^n\)</span> with <span class="math notranslate nohighlight">\(x_i &lt; x_{i+1}\)</span>, there exists a unique <span class="math notranslate nohighlight">\(p_n \in \mathcal{P}_n\)</span> such that <span class="math notranslate nohighlight">\(p_n(x_i) = y_i\)</span>.</p>
+<p>Given <span class="math notranslate nohighlight">\(\{ (x_i,y_i) \}_{i=0}^n\)</span> with <span class="math notranslate nohighlight">\(x_i &lt; x_{i+1}\)</span>, there exists a unique <span class="math notranslate nohighlight">\(p_n \in \mathcal{P}_n\)</span> such that <span class="math notranslate nohighlight">\(p_n(x_i) = y_i\)</span> for all <span class="math notranslate nohighlight">\(i = 0, \ldots, n\)</span>.</p>
 </section>
 </div><div class="proof admonition" id="proof">
 <p>Proof. Let <span class="math notranslate nohighlight">\(q_n(x)\)</span> be another polynomial of degree at most <span class="math notranslate nohighlight">\(n\)</span> that satisfies <span class="math notranslate nohighlight">\(q_n(x_j)=y_j\)</span>. Let <span class="math notranslate nohighlight">\(w_n:=p_n-q_n\)</span>. We then have <span class="math notranslate nohighlight">\(w(x_j)=0\)</span>, <span class="math notranslate nohighlight">\(j=0,\dots,n\)</span>. Hence, <span class="math notranslate nohighlight">\(w_n\)</span> is a polynomial of maximum degree <span class="math notranslate nohighlight">\(n\)</span> with <span class="math notranslate nohighlight">\(n+1\)</span> distinct zeros. However, since a nontrivial polynomial of degree <span class="math notranslate nohighlight">\(n\)</span> can have at most <span class="math notranslate nohighlight">\(n\)</span> zeros, it follows that <span class="math notranslate nohighlight">\(w\equiv 0\)</span>, showing that <span class="math notranslate nohighlight">\(p_n\)</span> is the unique interpolation polynomial.</p>
@@ -607,8 +607,9 @@ Matplotlib code<div class="sd-summary-down docutils">
 <p>Consider <span class="math notranslate nohighlight">\(n+1\)</span> arbitrary, pairwise distinct nodes <span class="math notranslate nohighlight">\(x_0, x_1, \ldots, x_n\)</span> in <span class="math notranslate nohighlight">\([-1,1]\)</span> with error polynomial <span class="math notranslate nohighlight">\(\omega_{n+1}\)</span>. Then</p>
 <div class="math notranslate nohighlight">
 \[
-\| \tilde{\omega}_{n+1} \|_\infty \le \| \omega_{n+1} \|_\infty.
+\| \tilde{\omega}_{n+1} \|_\infty \le \| \omega_{n+1} \|_\infty,
 \]</div>
+<p><span class="math notranslate nohighlight">\(\tilde{\omega}_{n+1}\)</span> is the error polynomial of the Chebyshev nodes.</p>
 </section>
 </div><p>The proof is given in the optional materials section. Important for us is that Chebychev nodes address the issue of Runge’s phenomenon successfully, as illustrated in the following example.</p>
 <p>The trick here is that Chebychev nodes have a finer spacing near the interval boundary, preventing the error polynomial’s strong oscillations.</p>
@@ -932,7 +933,7 @@ Chebychev interpolation<div class="sd-summary-down docutils">
 T_0(x) = 1, \quad T_1(x) = x, \quad T_{n+1}(x) = 2 x T_n(x) - T_{n-1}(x).
 \]</div>
 </section>
-</div><p class="sd-card-text">Chebychev polynomials are considered on the reference interval <span class="math notranslate nohighlight">\([-1,1]\)</span> with only few exceptions. We shall use the terms Chebychev polynomial of the first kind and Chebychev polynomial synonymously.</p>
+</div><p class="sd-card-text">Chebychev polynomials are considered on the reference interval <span class="math notranslate nohighlight">\([-1,1]\)</span> with only a few exceptions. We shall use the terms Chebychev polynomial of the first kind and Chebychev polynomial synonymously.</p>
 <div class="proof theorem admonition" id="theorem-6">
 <p class="admonition-title"><span class="caption-number">Theorem 7 </span></p>
 <section class="theorem-content" id="proof-content">

@@ -9,3 +9,7 @@ As your gateway into this realm, we'll delve into the essentials of numerical li
 These foundational concepts are not only intellectually enriching but also serve as the cornerstone for advanced numerical methodologies. The methodologies are instrumental in diverse fields, including data science and the solution of complex Partial Differential Equations (PDEs). Prepare to engage with these topics deeply, enhancing also your understanding and application in various scientific and technological contexts.
 
 We hope you enjoy this module and find it as fascinating as we do!
+
+[Notation and facts](bm1_notation_and_facts.md)  
+[Programming resources](bm2_programming_resources.md)  
+[Bibliography](bm3_bibliography.md)

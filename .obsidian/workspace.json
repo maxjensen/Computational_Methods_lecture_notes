@@ -14,12 +14,25 @@
               "type": "markdown",
               "state": {
                 "file": "4.1_interpolation.md",
-                "mode": "preview",
-                "source": false
+                "mode": "source",
+                "source": true
+              }
+            }
+          },
+          {
+            "id": "b1523a2c2731d3fd",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "3.1_qr_decomposition.md",
+                "mode": "source",
+                "source": true
               }
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -85,7 +98,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "4.1_interpolation.md",
+                "file": "3.1_qr_decomposition.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +115,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "4.1_interpolation.md",
+                "file": "3.1_qr_decomposition.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +138,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "4.1_interpolation.md"
+                "file": "3.1_qr_decomposition.md"
               }
             }
           },
@@ -156,8 +169,15 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "4cad9f9b7db14dab",
+  "active": "b1523a2c2731d3fd",
   "lastOpenFiles": [
+    "3.2_singular_value_decomposition.md",
+    "3.3_least_squares_problems.md",
+    "4.1_interpolation.md",
+    "4.2_quadrature.md",
+    "4.3_stable_quadrature_schemes.md",
+    "5.1_eigenvalues_basic_properties.md",
+    "3.1_qr_decomposition.md",
     "_build/html/_sources/bm3_bibliography.md",
     "_build/html/bm3_bibliography.html",
     "_build/html/_sources/bm2_programming_resources.md",
@@ -196,13 +216,6 @@
     "_build/html/_sources/index.md",
     "_build/html/_sources/bibliography.md",
     "_build/html/_sources/5.2_computing_eigenvalues.md",
-    "_build/html/_sources/5.1_eigenvalues_basic_properties.md",
-    "_build/html/_sources/4.3_stable_quadrature_schemes.md",
-    "_build/html/_sources/4.2_quadrature.md",
-    "_build/html/_sources/4.1_interpolation.md",
-    "_build/html/_sources/3.3_least_squares_problems.md",
-    "_build/html/_sources/3.2_singular_value_decomposition.md",
-    "_build/html/_sources/3.1_qr_decomposition.md",
-    "_build/html/_sources/2.2_lu_backward_error.md"
+    "_build/html/_sources/5.1_eigenvalues_basic_properties.md"
   ]
 }
