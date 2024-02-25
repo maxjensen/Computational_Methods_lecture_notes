@@ -25,7 +25,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "3.1_qr_decomposition.md",
+                "file": "2.1_lu_decomposition.md",
                 "mode": "source",
                 "source": true
               }
@@ -98,7 +98,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "3.1_qr_decomposition.md",
+                "file": "2.1_lu_decomposition.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -115,7 +115,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "3.1_qr_decomposition.md",
+                "file": "2.1_lu_decomposition.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -138,7 +138,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "3.1_qr_decomposition.md"
+                "file": "2.1_lu_decomposition.md"
               }
             }
           },
@@ -171,13 +171,13 @@
   },
   "active": "b1523a2c2731d3fd",
   "lastOpenFiles": [
+    "3.1_qr_decomposition.md",
     "3.2_singular_value_decomposition.md",
     "3.3_least_squares_problems.md",
     "4.1_interpolation.md",
     "4.2_quadrature.md",
     "4.3_stable_quadrature_schemes.md",
     "5.1_eigenvalues_basic_properties.md",
-    "3.1_qr_decomposition.md",
     "_build/html/_sources/bm3_bibliography.md",
     "_build/html/bm3_bibliography.html",
     "_build/html/_sources/bm2_programming_resources.md",
