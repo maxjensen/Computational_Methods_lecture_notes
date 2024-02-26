@@ -32,9 +32,9 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=ca93fcec" />
     <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -777,44 +777,30 @@ Show that the solution of this least-squares problem is identical to the solutio
 <div class="sd-summary-up docutils">
 <svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
 </summary><div class="sd-summary-content sd-card-body docutils">
-<p class="sd-card-text">The modified least-squares problem is identical to</p>
+<p class="sd-card-text">The vector <span class="math notranslate nohighlight">\(\hat{x}\)</span> minimises the least-squares problem if and only if for all <span class="math notranslate nohighlight">\(\epsilon\in\mathbb{R}^n\)</span>:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-\min_{x\in\mathbb{R}^n}\left\|\begin{bmatrix}A\\L\end{bmatrix} \, \begin{bmatrix}x\\x\end{bmatrix} -\begin{bmatrix}b\\ 0\end{bmatrix}\right\|_2.
+\begin{aligned}
+\|A\hat{x} -b \|_2^2 + \| L \hat{x}\|_2^2 
+&amp; \leq \|A(\hat{x} + \epsilon) - b\|_2^2 + \| L (\hat{x} + \epsilon) \|_2^2\\
+&amp; = \left[A(\hat{x} + \epsilon) - b\right]^T\left[A(\hat{x} + \epsilon) - b\right] + [L (\hat{x} + \epsilon)]^T [L (\hat{x} + \epsilon)]\\
+&amp;= \|A\hat{x} -b \|_2^2+2 \epsilon^T(A^TA\hat{x} - A^Tb) + \epsilon^TA^TA\epsilon + 
+\|L\hat{x} \|_2^2+2 \epsilon^T(L^TL\hat{x}) + \epsilon^TL^T L \epsilon\\
+&amp;= \|A\hat{x} -b \|_2^2 + \|L\hat{x} \|_2^2 + 2 \epsilon^T((A^TA + L^TL) \hat{x} - A^Tb) + \epsilon^T(A^TA + L^T L) \epsilon
+\end{aligned}
 \end{split}\]</div>
-<p class="sd-card-text">Applying the normal equation to this problem, we arrive at</p>
+<p class="sd-card-text"><em>Step 1:</em> Suppose that <span class="math notranslate nohighlight">\(\hat{x}\)</span> does not satisfy the generalised normal equation <span class="math notranslate nohighlight">\((A^TA+L^TL)x = A^Tb.\)</span>. Then <span class="math notranslate nohighlight">\(\| (A^TA + L^TL) \hat{x} - A^Tb \|_2 &gt; 0\)</span>. Suppose that <span class="math notranslate nohighlight">\(\hat{x}\)</span> minimises the least-squares problem. With <span class="math notranslate nohighlight">\(\epsilon := \delta ((A^TA + L^TL) \hat{x} - A^Tb)\)</span>, <span class="math notranslate nohighlight">\(\delta \in \mathbb{R}\)</span>, the above implies</p>
 <div class="math notranslate nohighlight">
 \[
-(A^TA+L^TL)x = A^Tb.
+0 \leq 2 \delta \, \| (A^TA + L^TL) \hat{x} - A^Tb \|_2^2 + \delta^2 \, \| (A + L) ((A^TA + L^TL) \hat{x} - A^Tb) \|_2^2 =: \Phi(\delta) \qquad \forall \delta \in \mathbb{R}.
 \]</div>
-</div>
-</details><div class="tip admonition">
-<p class="admonition-title"><strong>Question</strong></p>
-<p>Let <span class="math notranslate nohighlight">\(A\in\mathbb{R}^{m\times n}\)</span> with <span class="math notranslate nohighlight">\(m\geq n\)</span>. Show that the smallest singular value <span class="math notranslate nohighlight">\(\sigma_n\)</span> of <span class="math notranslate nohighlight">\(A\)</span> satisfies</p>
+<p class="sd-card-text">This is a contradiction because <span class="math notranslate nohighlight">\(\Phi(\delta) &lt; 0\)</span> for small negative <span class="math notranslate nohighlight">\(\delta\)</span>.</p>
+<p class="sd-card-text"><em>Step 2:</em> Suppose that <span class="math notranslate nohighlight">\(\hat{x}\)</span> satisfies the generalised normal equation. Then, by the above,</p>
 <div class="math notranslate nohighlight">
 \[
-\sigma_n = \min_{x\in\mathbb{R}^n} \frac{\|Ax\|_2}{\|x\|_2}.
+\|\|A(\hat{x} + \epsilon) - b\|_2^2 + \| L (\hat{x} + \epsilon) \|_2^2 = \|A\hat{x} -b \|_2^2 + \|L\hat{x} \|_2^2 + \epsilon^T(A^TA + L^T L) \epsilon \geq \|A\hat{x} -b \|_2^2 + \|L\hat{x} \|_2^2,
 \]</div>
-</div>
-<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
-<summary class="sd-summary-title sd-card-header">
-<strong>Answer</strong><div class="sd-summary-down docutils">
-<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
-<div class="sd-summary-up docutils">
-<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
-</summary><div class="sd-summary-content sd-card-body docutils">
-<p class="sd-card-text">Using the SVD <span class="math notranslate nohighlight">\(A = U\Sigma V^T\)</span> we can replace <span class="math notranslate nohighlight">\(A\)</span> by the diagonal matrix <span class="math notranslate nohighlight">\(\Sigma\)</span> since the 2-norm is invariant under orthogonal transformations:</p>
-<div class="math notranslate nohighlight">
-\[
-\min_{x\in\mathbb{R}^n} \frac{\|Ax\|_2}{\|x\|_2} = \min_{x\in\mathbb{R}^n} \frac{\|U \Sigma V^T x\|_2}{\|x\|_2} = \min_{y \in \mathbb{R}^n} \frac{\|U \Sigma V^T V y \|_2}{\| V y \|_2} = \min_{y \in \mathbb{R}^n} \frac{\|\Sigma y \|_2}{\| y \|_2}.
-\]</div>
-<p class="sd-card-text">Let now <span class="math notranslate nohighlight">\(y\)</span> be given with <span class="math notranslate nohighlight">\(\|y\|_2=1\)</span>. We have</p>
-<div class="math notranslate nohighlight">
-\[
-\|\Sigma y\|_2^2 = \sum_{j}\sigma_j^2y_j^2 \geq \sigma_n\sum_jy_j^2 = \sigma_n.
-\]</div>
-<p class="sd-card-text">This inequality becomes an equality for <span class="math notranslate nohighlight">\(y\)</span> chosen as the unit vector <span class="math notranslate nohighlight">\(e_n\)</span>. Hence, for <span class="math notranslate nohighlight">\(\Sigma\)</span> diagonal, the result follows and therefore for arbitrary <span class="math notranslate nohighlight">\(A\in\mathbb{R}^{m\times n}\)</span>.</p>
-<p class="sd-card-text"><em>Remark:</em> Notice the symmetry between the smallest and largest singular value. By maximising, we obtain the largest singular value and minimising the smallest.</p>
+<p class="sd-card-text">ensuring that <span class="math notranslate nohighlight">\(\hat{x}\)</span> is a minimiser.</p>
 </div>
 </details><div class="tip admonition">
 <p class="admonition-title"><strong>Question</strong></p>

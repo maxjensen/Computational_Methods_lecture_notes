@@ -55,7 +55,7 @@
 - **Singularity**: A matrix is singular if it has no inverse, i.e., its determinant is zero.
 - **Regular matrix**: A matrix is regular if it is non-singular.
 - **Transpose**: The transpose of a matrix $A$ is a matrix $A^T$ such that the element in the $i$-th row and $j$-th column of $A^T$ is the element in the $j$-th row and $i$-th column of $A$.
-- **Conjugate transpose**: The conjugate transpose of a matrix $A$ is a matrix $A^*$ such that the element in the $i$-th row and $j$-th column of $A^H$ is the complex conjugate of the element in the $j$-th row and $i$-th column of $A$.
+- **Conjugate transpose**: The conjugate transpose of a matrix $A$ is a matrix $A^H$ such that the element in the $i$-th row and $j$-th column of $A^H$ is the complex conjugate of the element in the $j$-th row and $i$-th column of $A$.
 - **Orthogonal matrix**: A matrix $Q$ is orthogonal if $Q^TQ = I$.
 - **Unitary matrix**: A matrix $U$ is unitary if $U^HU = I$, where $U^H$ is the conjugate transpose of $U$.
 - **Positive definite matrix**: A symmetric matrix $A$ is positive definite if $x^TAx > 0$ for all non-zero vectors $x$.
