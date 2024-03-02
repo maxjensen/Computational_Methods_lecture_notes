@@ -32,9 +32,9 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=ca93fcec" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -228,7 +228,8 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="bm1_notation_and_facts.html">Notation and facts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bm2_programming_resources.html">Programming resources</a></li>
-<li class="toctree-l1"><a class="reference internal" href="bm3_bibliography.html">Bibliography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bm3_markdown.html">Introduction to Markdown</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bm4_bibliography.html">Bibliography</a></li>
 </ul>
 
     </div>
@@ -455,7 +456,7 @@ f(x) - p(x) = \frac{\omega_{n+1}(x) f^{(n+1)}(\xi)}{(n+1)!}.
 <p>Here <span class="math notranslate nohighlight">\(\| g \|_\infty = \max_{x \in [a,b]} |g(x)|\)</span> denotes the <span class="math notranslate nohighlight">\(\infty\)</span>-norm on <span class="math notranslate nohighlight">\(C[a,b]\)</span>.</p>
 <p>The <span class="math notranslate nohighlight">\(p\)</span> of the Weierstrass approximation theorem has to be selected with much care, and an unrefined interpolation method will generally not provide polynomials which approximate arbitrarily well. This is mainly due to the Runge phenomenon.</p>
 <div class="proof example admonition" id="example-2">
-<p class="admonition-title"><span class="caption-number">Example 4 </span></p>
+<p class="admonition-title"><span class="caption-number">Example 4 </span> (Interpolation with uniformly distributed nodes)</p>
 <section class="example-content" id="proof-content">
 <p>Unless very smooth functions such as <span class="math notranslate nohighlight">\(\cos\)</span> are interpolated (recall that <span class="math notranslate nohighlight">\(\| \cos^{(n)} \|_\infty = 1\)</span> for all <span class="math notranslate nohighlight">\(n\)</span>th derivatives <span class="math notranslate nohighlight">\(\cos^{(n)}\)</span>, <span class="math notranslate nohighlight">\(n \in \mathbb{N}\)</span>), one observes that interpolating polynomials of high-order exhibit strong oscillations near the interval ends. This behaviour is known as the Runge phenomenon.</p>
 <p>Click through the tabs to see:</p>
@@ -548,7 +549,7 @@ sign(x)</label><div class="sd-tab-content docutils">
 <li><p>the error polynomial <span class="math notranslate nohighlight">\(\omega_{n+1}(x)\)</span>, which measures how well the nodes are chosen;</p></li>
 <li><p>the derivative <span class="math notranslate nohighlight">\(f^{(n+1)}(\xi)\)</span>, which measures how difficult it is to approximate <span class="math notranslate nohighlight">\(f\)</span>.</p></li>
 </ul>
-<p>The error polynomial attains its largest values near the domain boundaries.</p>
+<p>The following plot illustrates how the error polynomial attains its largest values near the domain boundaries.</p>
 <p><img alt="error_polynomial" src="_images/error_polynomial.png" /></p>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
@@ -643,9 +644,9 @@ Matplotlib code<div class="sd-summary-down docutils">
 </div>
 </div>
 </details><div class="proof example admonition" id="example-4">
-<p class="admonition-title"><span class="caption-number">Example 5 </span></p>
+<p class="admonition-title"><span class="caption-number">Example 5 </span> (Interpolation with Chebychev nodes)</p>
 <section class="example-content" id="proof-content">
-<p>Here the same functions as above are interpolated again, this time using Chebychev nodes. The difference is striking, with a fairly good approximation even in the discontinuous example of the sign function.</p>
+<p>Here, the same functions as above are interpolated again, this time using Chebychev nodes. The difference is striking, with a fairly good approximation even in the discontinuous example of the sign function.</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-4" name="sd-tab-set-1" type="radio">
 </input><label class="sd-tab-label" for="sd-tab-item-4">
