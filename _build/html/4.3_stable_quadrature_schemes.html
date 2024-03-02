@@ -54,18 +54,10 @@
     <script src="_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="_static/design-tabs.js?v=36754332"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="_static/sphinx-thebe.js?v=afe5de03"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '4.3_stable_quadrature_schemes';</script>
@@ -236,7 +228,8 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="bm1_notation_and_facts.html">Notation and facts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bm2_programming_resources.html">Programming resources</a></li>
-<li class="toctree-l1"><a class="reference internal" href="bm3_bibliography.html">Bibliography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bm3_markdown.html">Introduction to Markdown</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bm4_bibliography.html">Bibliography</a></li>
 </ul>
 
     </div>
@@ -467,7 +460,7 @@ document.write(`
 0 &lt; \mathcal{I}(\bar p_k) = \mathcal{Q}_n(\bar p_k) = \sigma_k.
 \]</div>
 <p>In summary, Gaussian quadrature combines two crucial properties: stability and speed of convergence.</p>
-<p>While we only scratch the surface of Gaussian quadrature, it’s close relationship to orthogonal polynomials makes it a fascinating topic for further study, e.g. see <span id="id1">[<a class="reference internal" href="bm3_bibliography.html#id3" title="Endre Süli and David F. Mayers. An introduction to numerical analysis. Cambridge University Press, 2003. URL: https://ucl.primo.exlibrisgroup.com/permalink/44UCL_INST/hd4h9s/alma990027325160204761.">Süli and Mayers, 2003</a>]</span> and <span id="id2">[<a class="reference internal" href="bm3_bibliography.html#id4" title="Robert Plato. Concise numerical mathematics. Volume 57. American Mathematical Society, 2003. URL: https://ucl.primo.exlibrisgroup.com/permalink/44UCL_INST/155jbua/alma990010057180204761.">Plato, 2003</a>]</span> for more details.</p>
+<p>While we only scratch the surface of Gaussian quadrature, it’s close relationship to orthogonal polynomials makes it a fascinating topic for further study, e.g. see <span id="id1">[<a class="reference internal" href="bm4_bibliography.html#id3" title="Endre Süli and David F. Mayers. An introduction to numerical analysis. Cambridge University Press, 2003. URL: https://ucl.primo.exlibrisgroup.com/permalink/44UCL_INST/hd4h9s/alma990027325160204761.">Süli and Mayers, 2003</a>]</span> and <span id="id2">[<a class="reference internal" href="bm4_bibliography.html#id4" title="Robert Plato. Concise numerical mathematics. Volume 57. American Mathematical Society, 2003. URL: https://ucl.primo.exlibrisgroup.com/permalink/44UCL_INST/155jbua/alma990010057180204761.">Plato, 2003</a>]</span> for more details.</p>
 </section>
 <section id="python-skills">
 <h2>Python skills<a class="headerlink" href="#python-skills" title="Link to this heading">#</a></h2>
@@ -507,8 +500,7 @@ document.write(`
 <section id="gaussian-quadrature">
 <h3>Gaussian quadrature<a class="headerlink" href="#gaussian-quadrature" title="Link to this heading">#</a></h3>
 <p>The code below compares exact integration with SciPy’s Gaussian quadrature implementation <code class="docutils literal notranslate"><span class="pre">integrate.quad</span></code>, which uses an adaptive composite formula. In addition, the Gaussian quadrature function <code class="docutils literal notranslate"><span class="pre">integrate.fixed_quad</span></code> with a specified number of quadrature points is evaluated.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">scipy.integrate</span> <span class="k">as</span> <span class="nn">integrate</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy.integrate</span> <span class="k">as</span> <span class="nn">integrate</span>
 
 <span class="c1"># Define a function to integrate and its exact integral</span>
 <span class="k">def</span> <span class="nf">my_function</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
@@ -889,7 +881,7 @@ q_0 = \frac{1}{\sqrt{2}},\quad q_1 = \sqrt{\frac{3}{2}} t,\quad q_2 = \sqrt{\fra
 </ol>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p class="sd-card-text">Finding roots of <span class="math notranslate nohighlight">\(\tilde{p}\)</span> for large <span class="math notranslate nohighlight">\(n\)</span> can be challenging. Special techniques for finding roots of orthogonal polynomials, such as recursion relationships, are available but beyond the scope of this discussion. Most literature on Gaussian quadrature delves into these techniques in detail; see <span id="id3">[<a class="reference internal" href="bm3_bibliography.html#id4" title="Robert Plato. Concise numerical mathematics. Volume 57. American Mathematical Society, 2003. URL: https://ucl.primo.exlibrisgroup.com/permalink/44UCL_INST/155jbua/alma990010057180204761.">Plato, 2003</a>]</span>.</p>
+<p class="sd-card-text">Finding roots of <span class="math notranslate nohighlight">\(\tilde{p}\)</span> for large <span class="math notranslate nohighlight">\(n\)</span> can be challenging. Special techniques for finding roots of orthogonal polynomials, such as recursion relationships, are available but beyond the scope of this discussion. Most literature on Gaussian quadrature delves into these techniques in detail; see <span id="id3">[<a class="reference internal" href="bm4_bibliography.html#id4" title="Robert Plato. Concise numerical mathematics. Volume 57. American Mathematical Society, 2003. URL: https://ucl.primo.exlibrisgroup.com/permalink/44UCL_INST/155jbua/alma990010057180204761.">Plato, 2003</a>]</span>.</p>
 </div>
 </div>
 </details></section>

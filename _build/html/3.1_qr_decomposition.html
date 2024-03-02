@@ -54,18 +54,10 @@
     <script src="_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="_static/design-tabs.js?v=36754332"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="_static/sphinx-thebe.js?v=afe5de03"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '3.1_qr_decomposition';</script>
@@ -236,7 +228,8 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="bm1_notation_and_facts.html">Notation and facts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bm2_programming_resources.html">Programming resources</a></li>
-<li class="toctree-l1"><a class="reference internal" href="bm3_bibliography.html">Bibliography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bm3_markdown.html">Introduction to Markdown</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bm4_bibliography.html">Bibliography</a></li>
 </ul>
 
     </div>
@@ -934,7 +927,7 @@ H x = \left(x_o - 2 \frac{v^T x_o}{v^Tv} v\right) + \left(x_c - 2 \frac{v^T x_c}
 <ol class="arabic simple">
 <li><p class="sd-card-text"><strong>Target Vector</strong>: Consider the first column of <span class="math notranslate nohighlight">\(A\)</span>. Let us denote this column as <span class="math notranslate nohighlight">\(x\)</span>. We want to transform <span class="math notranslate nohighlight">\(x\)</span> into a new vector <span class="math notranslate nohighlight">\(x'\)</span> with the same norm as <span class="math notranslate nohighlight">\(x\)</span>, but all components are zero except for the first component.</p></li>
 <li><p class="sd-card-text"><strong>Constructing <span class="math notranslate nohighlight">\(v\)</span></strong>: To create the Householder matrix <span class="math notranslate nohighlight">\(H\)</span>, we first need to construct the vector <span class="math notranslate nohighlight">\(v\)</span>. This is done by taking <span class="math notranslate nohighlight">\(v = x - \|x\|e_1\)</span>, where <span class="math notranslate nohighlight">\(e_1\)</span> is the first unit vector. With <span class="math notranslate nohighlight">\(v\)</span> determined, we form the Householder matrix <span class="math notranslate nohighlight">\(H = I - 2 \frac{vv^T}{v^Tv}\)</span>.</p></li>
-<li><p class="sd-card-text"><strong>Applying <span class="math notranslate nohighlight">\(H\)</span></strong>: Multiply <span class="math notranslate nohighlight">\(H\)</span> by <span class="math notranslate nohighlight">\(A\)</span> (i.e., <span class="math notranslate nohighlight">\(HA\)</span>) to reflect the first column of <span class="math notranslate nohighlight">\(A\)</span> about the plane orthogonal to <span class="math notranslate nohighlight">\(v\)</span>. This operation zeros out all elements below the diagonal in the first column; see Lecture 10 of <span id="id1">[<a class="reference internal" href="bm3_bibliography.html#id2" title="Lloyd N. Trefethen and David Bau, III. Numerical linear algebra. SIAM, 1997. URL: https://ucl.primo.exlibrisgroup.com/permalink/44UCL_INST/155jbua/alma990010608020204761.">Trefethen and Bau, 1997</a>]</span>.</p></li>
+<li><p class="sd-card-text"><strong>Applying <span class="math notranslate nohighlight">\(H\)</span></strong>: Multiply <span class="math notranslate nohighlight">\(H\)</span> by <span class="math notranslate nohighlight">\(A\)</span> (i.e., <span class="math notranslate nohighlight">\(HA\)</span>) to reflect the first column of <span class="math notranslate nohighlight">\(A\)</span> about the plane orthogonal to <span class="math notranslate nohighlight">\(v\)</span>. This operation zeros out all elements below the diagonal in the first column; see Lecture 10 of <span id="id1">[<a class="reference internal" href="bm4_bibliography.html#id2" title="Lloyd N. Trefethen and David Bau, III. Numerical linear algebra. SIAM, 1997. URL: https://ucl.primo.exlibrisgroup.com/permalink/44UCL_INST/155jbua/alma990010608020204761.">Trefethen and Bau, 1997</a>]</span>.</p></li>
 <li><p class="sd-card-text"><strong>Iterative Process</strong>: Repeat the process for the submatrix of <span class="math notranslate nohighlight">\(A\)</span> excluding the already zeroed elements. Each step involves constructing a new Householder matrix to introduce zeros in the subsequent column below the diagonal.</p></li>
 </ol>
 <h4 class="rubric" id="comparing-with-the-gram-schmidt-method">Comparing with the Gram-Schmidt method</h4>

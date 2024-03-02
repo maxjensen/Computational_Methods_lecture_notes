@@ -44,4 +44,5 @@ parts:
   chapters:
     - file: bm1_notation_and_facts
     - file: bm2_programming_resources
-    - file: bm3_bibliography
+    - file: bm3_markdown
+    - file: bm4_bibliography

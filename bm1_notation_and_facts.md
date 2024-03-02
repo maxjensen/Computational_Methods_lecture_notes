@@ -35,7 +35,7 @@
 
 - **Geometric series**: $\sum_{k=0}^n x^k = \frac{1-x^{n+1}}{1-x}$ for $x \neq 1$. Converges to $\frac{1}{1-x}$ if $|x| < 1$.
 - **Continuity and limits**: A function $f$ is continuous at a point $c$ if $\lim_{x \to c} f(x) = f(c)$.
-- **Boundeness of continuous functions**: A continuous function on a closed interval is bounded.
+- **Boundedness of continuous functions**: A continuous function on a closed interval is bounded.
 - **Rolle's theorem**: If $f \in C[a,b]$ and differentiable on $(a,b)$, and $f(a) = f(b)$, then there exists a $c \in (a,b)$ such that $f'(c) = 0$.
 - **Mean value theorem**: If $f \in C[a,b]$ and differentiable on $(a,b)$, there exists a $\xi \in (a,b)$ such that $f'(c) = \frac{f(b) - f(a)}{b-a}$.
 - **Taylor's theorem**: For $f \in C^{n+1}[a,b]$ and $x_0, x \in [a,b]$, there's a $\xi$ between $x_0$ and $x$ with $f(x) = f(x_0) + f'(x_0)(x-x_0) + \frac{f''(x_0)}{2!}(x-x_0)^2 + \ldots + \frac{f^{(n)}(x_0)}{n!}(x-x_0)^n + \frac{f^{(n+1)}(\xi)}{(n+1)!}(x-x_0)^{n+1}.$
@@ -67,4 +67,5 @@
 - **Backward and forward substitution:** is used to solve a system of linear equations where the matrix is triangular. Backward substitution is also known as back substitution or backward elimination.
 - **Gaussian elimination:** is a method for solving linear systems. It consists of applying row operations to transform the matrix into triangular form and then solving for the variables. Gaussian elimination is also known as row reduction.
 - **Polynomial division**: Given polynomials $f$ and $g$, there exist unique polynomials $q$ and $r$ such that $f = gq + r$ and $\text{deg}(r) < \text{deg}(g)$. $q$ is the quotient and $r$ is the remainder.
-- **Fundamental theorem of algebra**: Every polynomial that has a single variable, is of degree $n$, and has complex coefficients (excluding the zero polynomial), possesses precisely $n$ complex roots, when each root is counted according to its multiplicity.
+- **Fundamental theorem of algebra**: Every polynomial that has a single variable, is of degree $n$, and has complex coefficients (excluding the zero polynomial), possesses precisely $n$ complex roots when each root is counted according to its multiplicity.
+- **Abel–Ruffini theorem**: There is no general solution in radicals to polynomial equations of degree five or higher with arbitrary coefficients. Informally, the theorem says that for equations involving polynomials of degree five or higher, one can't find a one-size-fits-all formula to solve them using just the basic arithmetic operations and root extractions.

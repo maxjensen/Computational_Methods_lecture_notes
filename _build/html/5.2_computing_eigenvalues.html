@@ -54,18 +54,10 @@
     <script src="_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="_static/design-tabs.js?v=36754332"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="_static/sphinx-thebe.js?v=afe5de03"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '5.2_computing_eigenvalues';</script>
@@ -236,7 +228,8 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="bm1_notation_and_facts.html">Notation and facts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bm2_programming_resources.html">Programming resources</a></li>
-<li class="toctree-l1"><a class="reference internal" href="bm3_bibliography.html">Bibliography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bm3_markdown.html">Introduction to Markdown</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bm4_bibliography.html">Bibliography</a></li>
 </ul>
 
     </div>
@@ -386,6 +379,16 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-power-method">The power method</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inverse-iteration">Inverse Iteration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rayleigh-quotient-iteration">Rayleigh quotient iteration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subspace-iteration">Subspace iteration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-qr-iteration">The QR iteration</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#convergence-of-the-subspace-iteration">Convergence of the subspace iteration</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">The QR iteration</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#accelerating-the-qr-iteration-in-practice">Accelerating the QR iteration in practice</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#numerical-investigation-of-qr-iteration-steps">Numerical investigation of QR iteration steps</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -399,53 +402,560 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="computing-eigenvalues">
 <h1>Computing eigenvalues<a class="headerlink" href="#computing-eigenvalues" title="Link to this heading">#</a></h1>
-<p>From Abel’s theorem it follows that we cannot generally compute eigenvalues in closed from for matrices with dimension larger than 4. Hence, we need iterative methods to compute eigenvalues. The most fundamental method to compute eigenvalues is the power method.</p>
+<p>From <a class="reference internal" href="bm1_notation_and_facts.html"><span class="std std-doc">Abel–Ruffini theorem</span></a>, it follows that we cannot generally compute eigenvalues in closed form for matrices with dimensions larger than 4. Hence, we need iterative methods to compute eigenvalues. The most fundamental method to compute eigenvalues is the power method.</p>
 <section id="the-power-method">
 <h2>The power method<a class="headerlink" href="#the-power-method" title="Link to this heading">#</a></h2>
 <p>Let <span class="math notranslate nohighlight">\(A\in\mathbb{C}^{n\times n}\)</span> be a given diagonalizable matrix and let <span class="math notranslate nohighlight">\(q^{(0)}\)</span> be a starting vector with <span class="math notranslate nohighlight">\(\|q^{(0)}\|_2=1\)</span></p>
-<p><strong>Algorithm: Power Method</strong></p>
-<p>for <span class="math notranslate nohighlight">\(k=1,2,\dots\)</span></p>
-<p><span class="math notranslate nohighlight">\(\quad z^{(k)} = Aq^{(k-1)}\)</span></p>
-<p><span class="math notranslate nohighlight">\(\quad q^{(k)} = z^{(k)}/\|z^{(k)}\|_2\)</span></p>
-<p><span class="math notranslate nohighlight">\(\quad \lambda^{(k)} = \left[q^{(k)}\right]^HAq^{(k)}\)</span></p>
-<p>end</p>
-<p>The analysis of the algorithm is very simple. The normalisation step is only done for numerical purposes to keep the numbers bounded and avoid overflow. The important step is successive multiplication with a vector. Let <span class="math notranslate nohighlight">\(A\)</span> be diagonalizable and denote the eigenpairs by <span class="math notranslate nohighlight">\((\lambda_j, x_j)\)</span>. We expand the starting vector <span class="math notranslate nohighlight">\(q^{(0)}\)</span> in the basis of eigenvectors as <span class="math notranslate nohighlight">\(q^{(0)} = \sum_{j}\alpha_jx_j\)</span> for some coefficients <span class="math notranslate nohighlight">\(\alpha_j\)</span>. We obtain</p>
+<div class="proof algorithm admonition" id="algorithm-0">
+<p class="admonition-title"><span class="caption-number">Algorithm 2 </span> (Power Method)</p>
+<section class="algorithm-content" id="proof-content">
+<p><strong>Inputs</strong> <span class="math notranslate nohighlight">\(A\in\mathbb{C}^{n\times n}\)</span>, <span class="math notranslate nohighlight">\(q^{(0)} \in\mathbb{C}^n\)</span></p>
+<p><strong>Outputs</strong> <span class="math notranslate nohighlight">\(q^{(\infty)} \in\mathbb{C}^n\)</span>, <span class="math notranslate nohighlight">\(\lambda^{(\infty)} \in\mathbb{C}\)</span></p>
+<ul class="simple">
+<li><p>For <span class="math notranslate nohighlight">\(k \in \mathbb{N} \setminus \{0\}\)</span>:</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(z^{(k)} = Aq^{(k-1)}\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(q^{(k)} = z^{(k)}/\|z^{(k)}\|_2\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\lambda^{(k)} = (q^{(k)})^HAq^{(k)}\)</span></p></li>
+</ul>
+</li>
+</ul>
+</section>
+</div><p>The analysis of the algorithm is very simple, with normalisation solely for numerical stability to prevent overflow. The crux lies in iterative vector multiplication. Assuming <span class="math notranslate nohighlight">\(A\)</span> is diagonalizable with eigenpairs <span class="math notranslate nohighlight">\((\lambda_j, x_j)\)</span>, the initial vector <span class="math notranslate nohighlight">\(q^{(0)}\)</span> is expressed as a linear combination of eigenvectors, <span class="math notranslate nohighlight">\(q^{(0)} = \sum_{j}\alpha_jx_j\)</span>. This leads to:</p>
 <div class="math notranslate nohighlight">
 \[  
 A^{k}q^{(0)} = \sum_{j=1}^n\alpha_j\lambda_j^kx_j = \alpha_1\lambda_1^{k}\left(x_1+\sum_{j=2}^n\frac{\alpha_j}{\alpha_1}\left(\frac{\lambda_j}{\lambda_1}\right)^kx_j\right).  
 \]</div>
-<p>It follows that the power method converges if <span class="math notranslate nohighlight">\(|\lambda_1| &gt; |\lambda_2|\)</span>. The error is of the order<br />
-<span class="math notranslate nohighlight">\(\mathcal{O}\left(\left|\frac{\lambda_2}{\lambda_1}\right|^k\right)\)</span>.</p>
-<p>The following code implements the power method.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>  
-  
+<p>Let <span class="math notranslate nohighlight">\(\lambda_1\)</span> be the largest  (in absolute value) and <span class="math notranslate nohighlight">\(\lambda_2\)</span> be the second-largest eigenvalue. Then, the power method successfully converges to the eigenvector <span class="math notranslate nohighlight">\(q_1\)</span> associated with <span class="math notranslate nohighlight">\(\lambda_1\)</span> when <span class="math notranslate nohighlight">\(|\lambda_1| &gt; |\lambda_j|\)</span>, <span class="math notranslate nohighlight">\(j &gt; 1\)</span>, with the convergence rate and error magnitude order given by <span class="math notranslate nohighlight">\(\mathcal{O}\bigl(\left|\lambda_2 / \lambda_1\right|^k\bigr)\)</span>.</p>
+<p>The approximation of the eigenvalue relies on the perturbation result for <span class="math notranslate nohighlight">\(q^{(j)} = q_1 + \epsilon\)</span></p>
+<div class="math notranslate nohighlight">
+\[
+(q_1 + \epsilon)^H A (q_1 + \epsilon) \to q_1^H A q_1 = \lambda_1 \| q_1 \|_2^2 = \lambda_1
+\]</div>
+<p>as <span class="math notranslate nohighlight">\(\| \epsilon \| \to 0\)</span>. We set</p>
+<div class="math notranslate nohighlight">
+\[
+R(A,x) := \frac{x^H A x}{x^H x},
+\]</div>
+<p>called the Rayleigh quotient of <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(x\)</span>. In practice, one needs to terminate the <code class="docutils literal notranslate"><span class="pre">for</span></code> loop of the power iteration after a prescribed number of iterations or through some criterion indicating the quality of the eigenvalue or eigenvector approximation. In fact, <span class="math notranslate nohighlight">\(\lambda^{(k)} = (q^{(k)})^HAq^{(k)}\)</span> may be taken out of the <code class="docutils literal notranslate"><span class="pre">for</span></code> loop and computed only with the final <span class="math notranslate nohighlight">\(q^{(k)}\)</span>.</p>
+<div class="proof example admonition" id="example-1">
+<p class="admonition-title"><span class="caption-number">Example 8 </span></p>
+<section class="example-content" id="proof-content">
+<p>Consider the simple diagonal matrix</p>
+<div class="math notranslate nohighlight">
+\[
+A = I_n + (\lambda_1 - 1) \, e_1 \otimes e_1 = \text{diag}(\lambda_1, 1, \ldots, 1)
+\]</div>
+<p>for <span class="math notranslate nohighlight">\(\lambda_1 = 1.1, 1.5, 2.0, 4.0, 8.0\)</span>. The following plot verifies that the rate of convergence depends strongly on the ratio of the largest and second-largest eigenvalue.</p>
+<p><img alt="power_method" src="_images/power_method.png" /></p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+Python code<div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="k">def</span> <span class="nf">power_method</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">q0</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Evaluates k steps of the power iteration with starting vector q0 for the matrix A, returning a vector of eigenvalue iterates.&quot;&quot;&quot;</span>
+    <span class="n">lambda_iterates</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="n">q0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="n">A</span> <span class="o">@</span> <span class="n">q</span>  <span class="c1"># Simplified matrix-vector multiplication</span>
+        <span class="n">q</span> <span class="o">=</span> <span class="n">z</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>  <span class="c1"># Normalizing q</span>
+        <span class="n">lambda_iterates</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vdot</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">A</span> <span class="o">@</span> <span class="n">q</span><span class="p">)</span>  <span class="c1"># Using vdot for complex conjugate dot product</span>
+
+    <span class="k">return</span> <span class="n">lambda_iterates</span>
+
+<span class="c1"># Parameters and initial setup</span>
+<span class="n">n</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="n">q0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>  <span class="c1"># Complex starting vector</span>
+
+<span class="c1"># Compute eigenvalues and plot</span>
+<span class="n">lambda_max</span> <span class="o">=</span>  <span class="p">[</span><span class="mf">1.1</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">]</span>
+<span class="n">s</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">lambda_max</span><span class="p">)</span>
+<span class="n">lambda_iterates</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">k</span><span class="p">,</span><span class="n">s</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+  <span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">lambda_max</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+  <span class="n">lambda_iterates</span><span class="p">[:,</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">power_method</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">q0</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+  <span class="n">plt</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">lambda_iterates</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">30</span><span class="p">,</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">lambda_iterates</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">i</span><span class="p">]),</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;λ_1 = </span><span class="si">{</span><span class="n">lambda_max</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$|\lambda_1^{(k)} - \lambda_1^{(j)}|$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Iteration $j$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details></section>
+</div><div class="proof example admonition" id="example-2">
+<p class="admonition-title"><span class="caption-number">Example 9 </span></p>
+<section class="example-content" id="proof-content">
+<p>We now investigate a more complex example with a random matrix whose entries a drawn from a uniform distribution on <span class="math notranslate nohighlight">\([0,1]\)</span></p>
+<p><img alt="power_method" src="_images/power_method_random.png" /></p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+Python code<div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="k">def</span> <span class="nf">power_method</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">q0</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Evaluates k steps of the power iteration with starting vector q0 for the matrix A, returning a vector of eigenvalue iterates.&quot;&quot;&quot;</span>
+    <span class="n">lambda_iterates</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="n">q0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="n">A</span> <span class="o">@</span> <span class="n">q</span>  <span class="c1"># Simplified matrix-vector multiplication</span>
+        <span class="n">q</span> <span class="o">=</span> <span class="n">z</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>  <span class="c1"># Normalizing q</span>
+        <span class="n">lambda_iterates</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vdot</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">A</span> <span class="o">@</span> <span class="n">q</span><span class="p">)</span>  <span class="c1"># Using vdot for complex conjugate dot product</span>
+
+    <span class="k">return</span> <span class="n">lambda_iterates</span>
+
+<span class="c1"># Parameters and initial setup</span>
+<span class="n">n</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">rand</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
+<span class="n">q0</span> <span class="o">=</span> <span class="n">randn</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">randn</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+
+<span class="c1"># Compute eigenvalues and plot</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+  <span class="n">lambda_iterates</span> <span class="o">=</span> <span class="n">power_method</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">q0</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+  <span class="n">plt</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">lambda_iterates</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">30</span><span class="p">]</span> <span class="o">-</span> <span class="n">lambda_iterates</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$|\lambda_1^{(k)} - \lambda_1^{(j)}|$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Iteration $j$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details><p>The convergence is very fast. We have the first eigenvalue to machine precision in about ten iterations. Why the fast convergence? Let’s plot the eigenvalues of the matrix.</p>
+<p><img alt="uniform_random_eigenvalues" src="_images/uniform_random_eigenvalues.png" /></p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+Python code<div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy.linalg</span>
+
+<span class="n">eigvals</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigvals</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">eigvals</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">imag</span><span class="p">(</span><span class="n">eigvals</span><span class="p">),</span> <span class="s1">&#39;kx&#39;</span><span class="p">,</span><span class="n">markersize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</details><p>The largest eigenvalue of a random matrix with entries uniformly distributed in <span class="math notranslate nohighlight">\([0, 1]\)</span> is typically around 50, distinct from the cluster of other eigenvalues near the origin. Replacing all matrix entries with their average value of <span class="math notranslate nohighlight">\(0.5\)</span> results in a single eigenvalue of exactly <span class="math notranslate nohighlight">\(50\)</span>, with the corresponding eigenvector being <span class="math notranslate nohighlight">\([1, \dots, 1]^T\)</span>. This illustrates how random matrices can exhibit surprisingly non-random behaviour.</p>
+<p>If we replace <span class="math notranslate nohighlight">\(A\)</span>’s elements with normally distributed random numbers, all eigenvalues are clustered around <span class="math notranslate nohighlight">\(0\)</span>, and the power method won’t exhibit good convergence.</p>
+<p><img alt="power_method" src="_images/power_method_shifted_random.png" /></p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+Python code<div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="k">def</span> <span class="nf">power_method</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">q0</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Evaluates k steps of the power iteration with starting vector q0 for the matrix A, returning a vector of eigenvalue iterates.&quot;&quot;&quot;</span>
+    <span class="n">lambda_iterates</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="n">q0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="n">A</span> <span class="o">@</span> <span class="n">q</span>  <span class="c1"># Simplified matrix-vector multiplication</span>
+        <span class="n">q</span> <span class="o">=</span> <span class="n">z</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>  <span class="c1"># Normalizing q</span>
+        <span class="n">lambda_iterates</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vdot</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">A</span> <span class="o">@</span> <span class="n">q</span><span class="p">)</span>  <span class="c1"># Using vdot for complex conjugate dot product</span>
+
+    <span class="k">return</span> <span class="n">lambda_iterates</span>
+
+<span class="c1"># Parameters and initial setup</span>
+<span class="n">n</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">A</span> <span class="o">=</span> <span class="n">randn</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
+<span class="n">q0</span> <span class="o">=</span> <span class="n">randn</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">randn</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+
+<span class="c1"># Compute eigenvalues and plot</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+  <span class="n">lambda_iterates</span> <span class="o">=</span> <span class="n">power_method</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">q0</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+  <span class="n">plt</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">lambda_iterates</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">30</span><span class="p">]</span> <span class="o">-</span> <span class="n">lambda_iterates</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$|\lambda_1^{(k)} - \lambda_1^{(j)}|$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Iteration $j$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details><p>Thinking about the expected behaviours of numerical linear algebra algorithms for random matrices is useful because it allows us to predict the expected behaviour of the algorithms.</p>
+</section>
+</div></section>
+<section id="inverse-iteration">
+<h2>Inverse Iteration<a class="headerlink" href="#inverse-iteration" title="Link to this heading">#</a></h2>
+<p>The principle idea of inverse iteration is to transform the spectrum of the matrix <span class="math notranslate nohighlight">\(A\)</span> to accelerate the eigenvalue convergence.</p>
+<p>Let <span class="math notranslate nohighlight">\(Ax=\lambda x\)</span>. Then we have <span class="math notranslate nohighlight">\((A-\sigma I)^{-1}x=(\lambda-\sigma)^{-1}x\)</span>. The biggest eigenvalue is now the one that is closest to <span class="math notranslate nohighlight">\(\sigma\)</span>, and we can expect that the power method to <span class="math notranslate nohighlight">\((A-\sigma I)^{-1}\)</span> in place of <span class="math notranslate nohighlight">\(A\)</span> will converge fast to the eigenvalue close to <span class="math notranslate nohighlight">\(\sigma\)</span>.</p>
+<div class="proof algorithm admonition" id="algorithm-3">
+<p class="admonition-title"><span class="caption-number">Algorithm 3 </span> (Inverse Iteration)</p>
+<section class="algorithm-content" id="proof-content">
+<p><strong>Inputs</strong> <span class="math notranslate nohighlight">\(A\in\mathbb{C}^{n\times n}\)</span>, <span class="math notranslate nohighlight">\(z^{(0)} \in\mathbb{C}^n\)</span>, <span class="math notranslate nohighlight">\(\sigma \in\mathbb{C}\)</span></p>
+<p><strong>Outputs</strong> <span class="math notranslate nohighlight">\(q^{(\infty)} \in\mathbb{C}^n\)</span>, <span class="math notranslate nohighlight">\(\lambda^{(\infty)} \in\mathbb{C}\)</span></p>
+<ul class="simple">
+<li><p>For <span class="math notranslate nohighlight">\(k \in \mathbb{N}\)</span>:</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(q^{(k)} = z^{(k)}/\|z^{(k)}\|_2\)</span></p></li>
+<li><p>Solve <span class="math notranslate nohighlight">\((A-\sigma I) z^{(k+1)} = q^{(k)}\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\lambda^{(k+1)} = (q^{(k+1)})^HAq^{(k+1)}\)</span></p></li>
+</ul>
+</li>
+</ul>
+</section>
+</div><div class="proof example admonition" id="example-4">
+<p class="admonition-title"><span class="caption-number">Example 10 </span></p>
+<section class="example-content" id="proof-content">
+<p>We revisit the first example above and consider the matrix <span class="math notranslate nohighlight">\(A = \text{diag}(\lambda_1, 1, \ldots, 1)\)</span> for <span class="math notranslate nohighlight">\(\lambda_1 = 1.1, 1.5, 2.0, 4.0, 8.0\)</span>. The following plot uses the inverse iteration with <span class="math notranslate nohighlight">\(\sigma = 1.1 \, \lambda_1\)</span>, illustrating a situation where the eigenvalue of interest is not within a 10% tolerance.</p>
+<p><img alt="power_method" src="_images/inverse_iteration.png" /></p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+Python code<div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">scipy.linalg</span> <span class="kn">import</span> <span class="n">lu</span><span class="p">,</span> <span class="n">solve_triangular</span>
+
+<span class="k">def</span> <span class="nf">inverse_iteration</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">q0</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+    <span class="n">lambda_iterates</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">P</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">U</span> <span class="o">=</span> <span class="n">lu</span><span class="p">(</span><span class="n">A</span> <span class="o">-</span> <span class="n">sigma</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">A</span><span class="o">.</span><span class="n">dtype</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">applyMat</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">solve_triangular</span><span class="p">(</span><span class="n">U</span><span class="p">,</span> <span class="n">solve_triangular</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">x</span><span class="p">),</span> <span class="n">lower</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+        
+    <span class="n">z</span> <span class="o">=</span> <span class="n">applyMat</span><span class="p">(</span><span class="n">q0</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
+        <span class="n">q</span> <span class="o">=</span> <span class="n">z</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="n">applyMat</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+        <span class="n">lambda_iterates</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">q</span><span class="o">.</span><span class="n">conj</span><span class="p">(),</span> <span class="n">z</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">lambda_iterates</span>
+
+<span class="c1"># Parameters and initial setup</span>
+<span class="n">n</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="n">q0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>  <span class="c1"># Complex starting vector</span>
+
+<span class="c1"># Compute eigenvalues and plot</span>
+<span class="n">lambda_max</span> <span class="o">=</span>  <span class="p">[</span><span class="mf">1.1</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">]</span>
+<span class="n">s</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">lambda_max</span><span class="p">)</span>
+<span class="n">lambda_iterates</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">k</span><span class="p">,</span><span class="n">s</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+  <span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">lambda_max</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+  <span class="n">lambda_iterates</span><span class="p">[:,</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">inverse_iteration</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">q0</span><span class="p">,</span> <span class="mf">1.1</span> <span class="o">*</span> <span class="n">lambda_max</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">k</span><span class="p">)</span>
+  <span class="n">plt</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">lambda_iterates</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">30</span><span class="p">,</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">lambda_iterates</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">i</span><span class="p">]),</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;λ_1 = </span><span class="si">{</span><span class="n">lambda_max</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$|\lambda_1^{(k)} - \lambda_1^{(j)}|$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Iteration $j$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details></section>
+</div></section>
+<section id="rayleigh-quotient-iteration">
+<h2>Rayleigh quotient iteration<a class="headerlink" href="#rayleigh-quotient-iteration" title="Link to this heading">#</a></h2>
+<p>For symmetric eigenvalue problems, one can combine the inverse iteration with evaluating the Rayleigh quotient. The idea is that instead of the fixed value <span class="math notranslate nohighlight">\(\sigma\)</span> in each step, we use as a shift the value of the Rayleigh quotient. The resulting algorithm is called Rayleigh quotient iteration. Its convergence is even cubic.</p>
+<div class="proof algorithm admonition" id="algorithm-5">
+<p class="admonition-title"><span class="caption-number">Algorithm 4 </span> (Rayleigh Quotient Iteration)</p>
+<section class="algorithm-content" id="proof-content">
+<p><strong>Inputs</strong> <span class="math notranslate nohighlight">\(A\in\mathbb{C}^{n\times n}\)</span>, <span class="math notranslate nohighlight">\(z^{(0)} \in\mathbb{C}^n\)</span>, <span class="math notranslate nohighlight">\(\sigma \in\mathbb{C}\)</span></p>
+<p><strong>Outputs</strong> <span class="math notranslate nohighlight">\(q^{(\infty)} \in\mathbb{C}^n\)</span>, <span class="math notranslate nohighlight">\(\lambda^{(\infty)} \in\mathbb{C}\)</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\lambda_\sigma^{(0)} = 0\)</span></p></li>
+<li><p>For <span class="math notranslate nohighlight">\(k \in \mathbb{N}\)</span>:</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(q^{(k)} = z^{(k)}/\|z^{(k)}\|_2\)</span></p></li>
+<li><p>Solve <span class="math notranslate nohighlight">\((A-\lambda^{(k)} I) z^{(k+1)} = q^{(k)}\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\lambda^{(k+1)} = (q^{(k+1)})^HAq^{(k+1)}\)</span></p></li>
+</ul>
+</li>
+</ul>
+</section>
+</div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>  
   
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>  
 <span class="kn">from</span> <span class="nn">numpy.random</span> <span class="kn">import</span> <span class="n">rand</span><span class="p">,</span><span class="n">randn</span>  
 <span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>  
-<span class="kn">from</span> <span class="nn">scipy.linalg</span> <span class="kn">import</span> <span class="n">eigvals</span><span class="p">,</span><span class="n">qr</span>  
-<span class="k">def</span> <span class="nf">power_method</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">q0</span><span class="p">,</span><span class="n">k</span><span class="p">):</span>  
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Evaluates k steps of the power iteration with starting vector q0 for the matrix A. Returns a vector with eigenvalue  </span>
-<span class="sd">       iterates \lambda_j.    &quot;&quot;&quot;</span>    <span class="n">lambda_iterates</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>  
+<span class="kn">from</span> <span class="nn">scipy.linalg</span> <span class="kn">import</span> <span class="n">eigvals</span><span class="p">,</span><span class="n">lu</span><span class="p">,</span><span class="n">solve_triangular</span>  
+<span class="k">def</span> <span class="nf">rayleigh_quotient_iteration</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">q0</span><span class="p">,</span><span class="n">k</span><span class="p">,</span><span class="n">sigma</span><span class="p">):</span>  
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Evaluates k steps of the Rayleigh quotient iteration. Returns a vector with eigenvalue  </span>
+<span class="sd">       iterates \lambda_j. sigma is an initial shift.    &quot;&quot;&quot;</span>    <span class="n">lambda_iterates</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>  
       
-    <span class="n">q</span> <span class="o">=</span> <span class="n">q0</span>  
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>  
-        <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">q</span><span class="p">)</span>  
+    <span class="n">P</span><span class="p">,</span><span class="n">L</span><span class="p">,</span><span class="n">U</span> <span class="o">=</span> <span class="n">lu</span><span class="p">(</span><span class="n">A</span><span class="o">-</span><span class="n">sigma</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="n">A</span><span class="o">.</span><span class="n">dtype</span><span class="p">))</span>  
+      
+    <span class="n">q</span> <span class="o">=</span> <span class="n">solve_triangular</span><span class="p">(</span><span class="n">U</span><span class="p">,</span><span class="n">solve_triangular</span><span class="p">(</span><span class="n">L</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">P</span><span class="p">,</span><span class="n">q0</span><span class="p">),</span><span class="n">lower</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>  
+      
+    <span class="n">q</span> <span class="o">=</span> <span class="n">q</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">q0</span><span class="p">)</span>  
+      
+    <span class="n">lambda_iterates</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">q</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">q</span><span class="p">))</span>  
+      
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>  
+          
+        <span class="n">P</span><span class="p">,</span><span class="n">L</span><span class="p">,</span><span class="n">U</span> <span class="o">=</span> <span class="n">lu</span><span class="p">(</span><span class="n">A</span><span class="o">-</span><span class="n">lambda_iterates</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="n">A</span><span class="o">.</span><span class="n">dtype</span><span class="p">))</span>  
+        <span class="n">z</span> <span class="o">=</span> <span class="n">solve_triangular</span><span class="p">(</span><span class="n">U</span><span class="p">,</span><span class="n">solve_triangular</span><span class="p">(</span><span class="n">L</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">P</span><span class="p">,</span><span class="n">q</span><span class="p">),</span><span class="n">lower</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>  
         <span class="n">q</span> <span class="o">=</span> <span class="n">z</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>  
-        <span class="n">lambda_iterates</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">conjugate</span><span class="p">(</span><span class="n">q</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">q</span><span class="p">))</span>  
+        <span class="n">lambda_iterates</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">q</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">q</span><span class="p">))</span>  
           
     <span class="k">return</span> <span class="n">lambda_iterates</span>  
   
 <span class="n">n</span> <span class="o">=</span> <span class="mi">100</span>  
 <span class="n">k</span> <span class="o">=</span> <span class="mi">30</span>  
-<span class="n">A</span> <span class="o">=</span> <span class="n">rand</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>  
-<span class="n">q0</span> <span class="o">=</span> <span class="n">randn</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">randn</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>  
+<span class="n">A</span> <span class="o">=</span> <span class="n">randn</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>  
+<span class="n">A</span> <span class="o">=</span> <span class="mf">.5</span><span class="o">*</span><span class="p">(</span><span class="n">A</span><span class="o">+</span><span class="n">A</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>  
+<span class="n">q0</span> <span class="o">=</span> <span class="n">rand</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>  
   
-<span class="n">lambda_iterates</span> <span class="o">=</span> <span class="n">power_method</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">q0</span><span class="p">,</span><span class="n">k</span><span class="p">)</span>  
+<span class="n">lambda_iterates</span> <span class="o">=</span> <span class="n">rayleigh_quotient_iteration</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">q0</span><span class="p">,</span><span class="n">k</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>  
 <span class="n">plt</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">lambda_iterates</span><span class="o">-</span><span class="n">lambda_iterates</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>  
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;\lambda_j-\lambda_1&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;\lambda_j-\lambda&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
+</section>
+<section id="subspace-iteration">
+<h2>Subspace iteration<a class="headerlink" href="#subspace-iteration" title="Link to this heading">#</a></h2>
+<p>So far we are always only targeting one eigenvalue. This can be overcome by the subspace iteration, which computes a partial Schur decomposition and is a generalization of the inverse iteration.</p>
+<p>Here, <span class="math notranslate nohighlight">\(Q^{(0)}\in\mathbb{C}^{n\times m}\)</span> is a matrix with <span class="math notranslate nohighlight">\(m\)</span> columns, satisfying <span class="math notranslate nohighlight">\(\left[Q^{(0)}\right]^H Q^{(0)} = I\)</span>. The following algorithm converges to an upper triangular <span class="math notranslate nohighlight">\(k\times k\)</span> matrix.</p>
+<p><em><strong>Algorithm (Subspace Iteration)</strong></em></p>
+<p>for <span class="math notranslate nohighlight">\(k=1,2,\dots\)</span></p>
+<p><span class="math notranslate nohighlight">\(\quad Z^{(k)} = AQ^{(k-1)}\)</span></p>
+<p><span class="math notranslate nohighlight">\(\quad Q^{(k)}R = Z^{(k)}\)</span> (QR decomposition)</p>
+<p><span class="math notranslate nohighlight">\(\quad A^{(k)} = [Q^{(k)}]^HAQ^{(k)}\)</span></p>
+<p>end</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>  
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>  
+<span class="kn">from</span> <span class="nn">numpy.random</span> <span class="kn">import</span> <span class="n">rand</span><span class="p">,</span> <span class="n">randn</span>  
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>  
+<span class="kn">from</span> <span class="nn">scipy.linalg</span> <span class="kn">import</span> <span class="n">qr</span>  
+<span class="k">def</span> <span class="nf">subspace_iteration</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">k</span><span class="p">,</span><span class="n">m</span><span class="p">):</span>  
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Evaluates k steps of the subspace iteration for the matrix A to find the largest m eigenvalues.  </span>
+<span class="sd">       Return a vector of errors computed via the Frobenius norm.    &quot;&quot;&quot;</span>        <span class="n">Z0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">m</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">m</span><span class="p">)</span>  
+    <span class="n">Q</span><span class="p">,</span><span class="n">R</span> <span class="o">=</span> <span class="n">qr</span><span class="p">(</span><span class="n">Z0</span><span class="p">,</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;economic&#39;</span><span class="p">)</span>  
+      
+    <span class="n">error</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>  
+      
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>  
+        <span class="n">Z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">Q</span><span class="p">)</span>  
+        <span class="n">Q</span><span class="p">,</span><span class="n">R</span> <span class="o">=</span> <span class="n">qr</span><span class="p">(</span><span class="n">Z</span><span class="p">,</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;economic&#39;</span><span class="p">)</span>  
+        <span class="n">Lambda</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">conjugate</span><span class="p">(</span><span class="n">Q</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">Q</span><span class="p">))</span>  
+        <span class="n">error</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">tril</span><span class="p">(</span><span class="n">Lambda</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>  
+          
+    <span class="k">return</span> <span class="n">error</span>  
+  
+<span class="n">n</span> <span class="o">=</span> <span class="mi">50</span>  
+<span class="n">k</span> <span class="o">=</span> <span class="mi">40</span>  
+<span class="n">m</span> <span class="o">=</span> <span class="mi">2</span>  
+<span class="n">A</span> <span class="o">=</span> <span class="n">rand</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>  
+  
+<span class="n">error</span> <span class="o">=</span> <span class="n">subspace_iteration</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">k</span><span class="p">,</span><span class="n">m</span><span class="p">)</span>  
+<span class="n">plt</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>  
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The above plot shows the size of the strictly lower triangular part of <span class="math notranslate nohighlight">\(A^{(k)}\)</span>. As it converges to zero, the elements on the diagonal converge to eigenvalues of <span class="math notranslate nohighlight">\(A\)</span>.</p>
+</section>
+<section id="the-qr-iteration">
+<h2>The QR iteration<a class="headerlink" href="#the-qr-iteration" title="Link to this heading">#</a></h2>
+<p>The QR iteration for eigenvalue computations derives from subspace iteration and is the work-horse of modern eigenvalue solvers for dense matrices.</p>
+<section id="convergence-of-the-subspace-iteration">
+<h3>Convergence of the subspace iteration<a class="headerlink" href="#convergence-of-the-subspace-iteration" title="Link to this heading">#</a></h3>
+<p>Before we can understand the QR iteration, let us check on the subspace iteration again.</p>
+<p>Let <span class="math notranslate nohighlight">\(S\subset\mathbb{C}^n\)</span> be a subspace of dimension <span class="math notranslate nohighlight">\(k\)</span>. Then, the subspace iteration produces subspaces</p>
+<div class="math notranslate nohighlight">
+\[  
+S_m = A^{m}S.  
+\]</div>
+<p>Denote by <span class="math notranslate nohighlight">\(Q^{(0)} = \begin{bmatrix}q_0^{(0)} &amp; q_1^{(0)} &amp; \dots &amp; q_k^{(0)}\end{bmatrix}\)</span> a unitary basis of <span class="math notranslate nohighlight">\(S\)</span>, and let <span class="math notranslate nohighlight">\(Q^{(m)}R^{(m)}\)</span> be the QR decomposition of <span class="math notranslate nohighlight">\(A^mQ^{(0)}\)</span>. To test convergence, we compute</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}  
+\left[Q^{(m)}\right]^HAQ^{(m)} = \begin{bmatrix}B_{11} &amp; B_{12}\\  
+                                   B_{21} &amp; B_{22}  
+                     \end{bmatrix}  
+\end{split}\]</div>
+<p>for some matrices <span class="math notranslate nohighlight">\(B_{ij}\)</span>, <span class="math notranslate nohighlight">\(i, j=1,2\)</span>.</p>
+<p>The subspace iteration also converges to an invariant subspace for each <span class="math notranslate nohighlight">\(j\leq k\)</span>. Hence, we have a sequence of approximate invariant subspaces for <span class="math notranslate nohighlight">\(j\leq k\)</span> that all converge to invariant subspaces. It follows that</p>
+<div class="math notranslate nohighlight">
+\[  
+\left[Q^{(m)}\right]^HAQ^{(m)}\rightarrow R  
+\]</div>
+<p>with <span class="math notranslate nohighlight">\(R\)</span> upper triangular. The upper triangularity of <span class="math notranslate nohighlight">\(R\)</span> follows from the property of nested invariant subspaces that we are converging to.</p>
+<p>We can now ask what happens if we increase the basis vectors <span class="math notranslate nohighlight">\(k\)</span>. We always converge to an upper triangular matrix. In particular, there is no reason not to choose <span class="math notranslate nohighlight">\(k=n\)</span>, that is, to iterate on the whole vector space. We call this simultaneous iteration, and it follows that also, in this case, we converge to an upper triangular matrix.</p>
+</section>
+<section id="id1">
+<h3>The QR iteration<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<p>Let <span class="math notranslate nohighlight">\(A^{(1)} = A\)</span>. The basic form of the algorithm is exceedingly simple. Let <span class="math notranslate nohighlight">\(A^{(m)}\)</span> be our current iterate. Compute the QR decomposition <span class="math notranslate nohighlight">\(A^{(m)} = Q_mR_m\)</span> and let <span class="math notranslate nohighlight">\(A^{(m+1)} = R_mQ_m\)</span> (note that we use subscripts to distinguish from the QR factors in the simultaneous iteration, which have superscripts). That’s it. In each step, we compute a QR decomposition and multiply the factors in reverse order again. Why does this work? The magic lies in understanding the connection with subspace iteration.</p>
+<p>In the QR iteration, we have</p>
+<div class="math notranslate nohighlight">
+\[  
+A^{(m+1)} = Q_m^HA^{(m)}Q_m.  
+\]</div>
+<p>This looks just like the testing from the simultaneous iteration, and with a little bit of algebra, one can show that simultaneous iteration with <span class="math notranslate nohighlight">\(Q^{(0)} = I\)</span> produces the same sequence <span class="math notranslate nohighlight">\(A^{(m)}\)</span>.</p>
+<p>Let’s demonstrate this. The QR iteration gives us</p>
+<div class="math notranslate nohighlight">
+\[  
+A = Q_1R_1.  
+\]</div>
+<p>We hence have</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}  
+\begin{aligned}  
+A^2 &amp;= Q_1R_1Q_1R_1\\  
+    &amp;= Q_1A^{(2)}R_1\\  
+    &amp;= Q_1Q_2R_2R_1.  
+\end{aligned}  
+\end{split}\]</div>
+<p>In the next step, we have</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}  
+\begin{aligned}  
+A^3 &amp;= Q_1R_1Q_1R_1Q_1R_1\\  
+    &amp;= Q_1Q_2R_2Q_2R_2R_1\\  
+    &amp;= Q_1Q_2Q_3R_3R_2R_1.  
+\end{aligned}  
+\end{split}\]</div>
+<p>Every time we have used that <span class="math notranslate nohighlight">\(Q_kR_k = R_{k-1}Q_{k-1}\)</span>.</p>
+<p>Continuing this, it is easy to see that</p>
+<div class="math notranslate nohighlight">
+\[  
+A^m = Q_1\dots Q_mR_m \dots R_1 = Q^{(m)}R^{(m)},  
+\]</div>
+<p>where the <span class="math notranslate nohighlight">\(Q^{(m)}\)</span> and <span class="math notranslate nohighlight">\(R^{(m)}\)</span> are the QR factors from applying <span class="math notranslate nohighlight">\(m\)</span> steps of simultaneous iteration with <span class="math notranslate nohighlight">\(Q^{(0)}=I\)</span> as start basis.</p>
+<p>Let us now do the testing step of the simultaneous iteration. We have</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}  
+\begin{aligned}  
+\left[Q^{(m)}\right]^HAQ^{(m)} &amp;= Q_m^H\dots Q_1^HAQ_1\dots Q_m\\  
+                               &amp;= Q_m^H\dots Q_2^H A^{(2)}Q_2\dots Q_m\\  
+                               &amp;= Q_m^H\dots Q_3^HA^{(3)}Q_3\dots Q_m\\  
+                               &amp;= \dots\\  
+                               &amp;= A^{(m+1)}  
+\end{aligned}.  
+\end{split}\]</div>
+<p>Hence, the iterates <span class="math notranslate nohighlight">\(A^{(m)}\)</span> from the QR iteration and the testing procedure <span class="math notranslate nohighlight">\(\left[Q^{(m)}\right]^HAQ^{(m)}\)</span> from the simultaneous iteration are related by</p>
+<div class="math notranslate nohighlight">
+\[  
+A^{(m+1)} = \left[Q^{(m)}\right]^HAQ^{(m)}.  
+\]</div>
+<p>We know that the products <span class="math notranslate nohighlight">\(\left[Q^{(m)}\right]^HAQ^{(m)}\)</span> converge to an upper triangular matrix by virtue of convergence of nested invariant subspaces. It follows, therefore, that the QR iteration also converges to an upper triangular matrix, from which we can read off the eigenvalues of <span class="math notranslate nohighlight">\(A\)</span>.</p>
+</section>
+<section id="accelerating-the-qr-iteration-in-practice">
+<h3>Accelerating the QR iteration in practice<a class="headerlink" href="#accelerating-the-qr-iteration-in-practice" title="Link to this heading">#</a></h3>
+<p>The basic form of the QR iteration has some problems.</p>
+<ul class="simple">
+<li><p>Computing the QR decomposition in each step is rather expensive.</p></li>
+<li><p>Convergence can be extremely slow.</p></li>
+<li><p>It is not suitable for finding complex eigenvalues of real matrices. We cannot converge in real arithmetic to an upper triangular matrix with complex entries.</p></li>
+</ul>
+<p>All three problems can be overcome.</p>
+<ul class="simple">
+<li><p>To make a QR iteration step cheaper, we preprocess the matrix <span class="math notranslate nohighlight">\(A\)</span> by an orthogonal transformation to the so-called upper Hessenberg form. This is a matrix whose upper triangular and first lower diagonal are nonzero. This transformation can easily be achieved in <span class="math notranslate nohighlight">\(O(n^3)\)</span> operations in a finite number of steps (i.e. it is not an iterative process). A QR iteration step preserves the upper Hessenberg form and can be very cheaply implemented.</p></li>
+<li><p>To speed up convergence, we can use a shifting strategy that can be shown to be equivalent to inverse iteration.</p></li>
+<li><p>To find complex eigenvalues, one uses a double-shift strategy that ends up not with an upper triangular matrix <span class="math notranslate nohighlight">\(R\)</span> but with a block upper triangular matrix, where the complex eigenvalues are computed from 2x2 real blocks on the diagonal.</p></li>
+</ul>
+<p>The following computational section demonstrates the upper Hessenberg form and shift strategies. We will not go into details about double shifts for complex eigenvalues.</p>
+</section>
+<section id="numerical-investigation-of-qr-iteration-steps">
+<h3>Numerical investigation of QR iteration steps<a class="headerlink" href="#numerical-investigation-of-qr-iteration-steps" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>  
+<span class="kn">from</span> <span class="nn">scipy.linalg</span> <span class="kn">import</span> <span class="n">qr</span><span class="p">,</span> <span class="n">hessenberg</span>  
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>  
+<span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+</pre></div>
+</div>
+<p>We start with some random matrix <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rand</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  
+<span class="n">n</span> <span class="o">=</span> <span class="mi">10</span>  
+<span class="n">A</span>  <span class="o">=</span> <span class="n">rand</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">rand</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Let us first transform the matrix to upper Hessenberg form. This can be implemented as a similarity transformation that does not change the eigenvalues.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">H</span> <span class="o">=</span> <span class="n">hessenberg</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>  
+<span class="n">plt</span><span class="o">.</span><span class="n">spy</span><span class="p">(</span><span class="n">H</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We see that the matrix and its first lower diagonal are nonzero. Upper Hessenberg structures are preserved by a QR iteration step. Let’s check this.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Q</span><span class="p">,</span> <span class="n">R</span> <span class="o">=</span> <span class="n">qr</span><span class="p">(</span><span class="n">H</span><span class="p">)</span>  
+<span class="n">H2</span> <span class="o">=</span> <span class="n">R</span> <span class="o">@</span> <span class="n">Q</span>  
+<span class="n">plt</span><span class="o">.</span><span class="n">spy</span><span class="p">(</span><span class="n">H2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This structure preservation can be used to implement a QR iteration step in a highly efficient manner. We will not go into technical details about this here.</p>
+<p>Let us now run a couple of iterations of the QR iteration, and let’s see how quickly the second to last element in the last row of <span class="math notranslate nohighlight">\(H\)</span> converges to zero. If it is zero, the bottom last diagonal element is a wanted eigenvalue (convince yourself that this is true).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nsteps</span> <span class="o">=</span> <span class="mi">300</span>  
+  
+<span class="n">H</span> <span class="o">=</span> <span class="n">hessenberg</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>  
+  
+<span class="n">residuals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">nsteps</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float64&#39;</span><span class="p">)</span>  
+  
+<span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nsteps</span><span class="p">):</span>  
+    <span class="n">Q</span><span class="p">,</span> <span class="n">R</span> <span class="o">=</span> <span class="n">qr</span><span class="p">(</span><span class="n">H</span><span class="p">)</span>  
+    <span class="n">H</span> <span class="o">=</span> <span class="n">R</span> <span class="o">@</span> <span class="n">Q</span>  
+    <span class="n">residuals</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">H</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">])</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">H</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>  
+      
+<span class="n">plt</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="n">residuals</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The convergence is extremely slow. We can speed this up with a shift strategy. The idea is to modify the QR iteration step so that it reads</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}  
+\begin{aligned}  
+A^{(m)} -\alpha I &amp;= Q_mR_m\\  
+A^{(m+1)} &amp;= R_mQ_m + \alpha I.  
+\end{aligned}  
+\end{split}\]</div>
+<p>Hence, we subtract the shift and do the QR decomposition, and then when we compute <span class="math notranslate nohighlight">\(R_mQ_m\)</span> we add the shift back in.</p>
+<p>One can show that a QR step is equivalent to inverse iteration applied to the last vector in the simultaneous iteration. Hence, by applying the shift, we perform a shifted inverse iteration. What shall we use as shift?</p>
+<p>We achieve quadratic convergence if we use the bottom right element of the Hessenberg matrix in each step as shift. This is similar to the Rayleigh quotient method for symmetric problems, where we adapted the shift in each step.</p>
+<p>The following implements the shift strategy.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nsteps</span> <span class="o">=</span> <span class="mi">7</span>  
+  
+<span class="n">H</span> <span class="o">=</span> <span class="n">hessenberg</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>  
+  
+<span class="n">residuals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">nsteps</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float64&#39;</span><span class="p">)</span>  
+  
+<span class="n">ident</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>  
+  
+<span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nsteps</span><span class="p">):</span>  
+    <span class="n">shift</span> <span class="o">=</span> <span class="n">H</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>  
+    <span class="n">Q</span><span class="p">,</span> <span class="n">R</span> <span class="o">=</span> <span class="n">qr</span><span class="p">(</span><span class="n">H</span> <span class="o">-</span> <span class="n">shift</span> <span class="o">*</span> <span class="n">ident</span><span class="p">)</span>  
+    <span class="n">H</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">Q</span><span class="p">)</span> <span class="o">+</span> <span class="n">shift</span> <span class="o">*</span> <span class="n">ident</span>  
+    <span class="n">residual</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">H</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">])</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">H</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>  
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Residual: </span><span class="si">{</span><span class="n">residual</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  
+    <span class="n">residuals</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">residual</span>  
+      
+<span class="n">plt</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="n">residuals</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We have converged in 7 iterations. Let us now reduce the matrix and continue with the next smaller matrix.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nsteps</span> <span class="o">=</span> <span class="mi">3</span>  
+  
+<span class="n">H_reduced</span> <span class="o">=</span> <span class="n">H</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="c1"># Copy H over to preserve the original matrix  </span>
+  
+<span class="n">residuals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">nsteps</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float64&#39;</span><span class="p">)</span>  
+  
+<span class="n">ident</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>  
+  
+<span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nsteps</span><span class="p">):</span>  
+    <span class="n">shift</span> <span class="o">=</span> <span class="n">H_reduced</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>  
+    <span class="n">Q</span><span class="p">,</span> <span class="n">R</span> <span class="o">=</span> <span class="n">qr</span><span class="p">(</span><span class="n">H_reduced</span> <span class="o">-</span> <span class="n">shift</span> <span class="o">*</span> <span class="n">ident</span><span class="p">)</span>  
+    <span class="n">H_reduced</span> <span class="o">=</span> <span class="n">R</span> <span class="o">@</span> <span class="n">Q</span> <span class="o">+</span> <span class="n">shift</span> <span class="o">*</span> <span class="n">ident</span>  
+    <span class="n">residual</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">H_reduced</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">])</span> <span class="o">/</span> <span class="nb">abs</span><span class="p">(</span><span class="n">H_reduced</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>  
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Residual: </span><span class="si">{</span><span class="n">residual</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  
+    <span class="n">residuals</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">residual</span>  
+      
+<span class="n">plt</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="n">residuals</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We have now converged in 3 iterations. In practice, with more sophisticated shift variants and good deflation strategies, the QR iteration typically takes only 2 to 3 iterations per eigenvalue, where each iteration has a quadratic cost. Hence, the overall algorithm converges usually in cubic time. Therefore, even though the QR iteration is an iterative algorithm, we speak of a method with cubic complexity since this holds in almost all cases.</p>
+</section>
 </section>
 </section>
 
@@ -514,6 +1024,16 @@ A^{k}q^{(0)} = \sum_{j=1}^n\alpha_j\lambda_j^kx_j = \alpha_1\lambda_1^{k}\left(x
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-power-method">The power method</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inverse-iteration">Inverse Iteration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rayleigh-quotient-iteration">Rayleigh quotient iteration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subspace-iteration">Subspace iteration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-qr-iteration">The QR iteration</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#convergence-of-the-subspace-iteration">Convergence of the subspace iteration</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">The QR iteration</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#accelerating-the-qr-iteration-in-practice">Accelerating the QR iteration in practice</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#numerical-investigation-of-qr-iteration-steps">Numerical investigation of QR iteration steps</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 
