@@ -29,6 +29,7 @@ parts:
   chapters:
     - file: 5.1_eigenvalues_basic_properties
     - file: 5.2_computing_eigenvalues
+    - file: 5.3_computing_eigenspaces
 - caption: Self Check Questions
   chapters:
     - file: week_1_self_check

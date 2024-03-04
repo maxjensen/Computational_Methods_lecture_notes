@@ -25,7 +25,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "bm3_markdown.md",
+                "file": "5.2_computing_eigenvalues.md",
                 "mode": "source",
                 "source": true
               }
@@ -110,7 +110,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "bm3_markdown.md",
+                "file": "5.2_computing_eigenvalues.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -127,7 +127,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "bm3_markdown.md",
+                "file": "5.2_computing_eigenvalues.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -150,7 +150,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "bm3_markdown.md"
+                "file": "5.2_computing_eigenvalues.md"
               }
             }
           },
@@ -183,23 +183,27 @@
   },
   "active": "95c65ac2061da25a",
   "lastOpenFiles": [
+    "_build/html/_images/Rayleigh_iteration.png",
+    "figures/Rayleigh_iteration.png",
+    "5.3_computing_eigenspaces.md",
+    "4.3_stable_quadrature_schemes.md",
+    "5.2_computing_eigenvalues.md",
+    "bm1_notation_and_facts.md",
     "bm2_programming_resources.md",
-    "index.md",
-    "bm3_markdown.md",
+    "5.1_eigenvalues_basic_properties.md",
     "_build/html/_static/proof.css",
     "_build/html/_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css",
     "_build/html/objects.inv",
     "_build/html/searchindex.js",
-    "_build/html/_images/7accb6bdbf8e97149a380e345adc4302c23794fec932b967ee6c9834300bb2cc.png",
-    "_build/html/_images/27f29bd7939aa8895a95c9e64095125d5c0b8eccf8fece9d2f0fe90eeb5cd426.png",
-    "_build/html/_images/0ca2703cf0c2c4a894a8149c2c4a60aadda3cbacaef886b51458fd423e7ce2ae.png",
-    "_build/html/_images/0e1b3a430b8675ed1b7e13f551ccf23a53f31095ed50bde1db7ec640959fe464.png",
-    "_build/html/_images/dda8444885b398171e883c2935913da9785267e5282b66b2e8b313aab89c8924.png",
-    "_build/html/_images/55a8d10acfba89871cfc1d03c3a94984bfde190e676666b45eca92b844ef77d8.png",
-    "_build/html/_images/ec5789c83b94a1ab5da0a0107da430e6249c5d25cc5db1c1e994a02d76240b16.png",
-    "_build/html/_images/98d1e100174bc2ff4950692d737957490a20d559d18832fa29fe2de199c99b28.png",
-    "_build/html/_images/bf1e4e48bbd0762eb41af28804ac5d10dc612b02be6c12800050f285e2da45d3.png",
-    "_build/html/_images/17d5880d7db4d8b15b47a6dbdb6dad102b8b1d3f08d1b3e1b1a5f594e51dd303.png",
+    "_build/html/_images/uniform_random_eigenvalues.png",
+    "_build/html/_images/sign.png",
+    "_build/html/_images/power_method_shifted_random.png",
+    "_build/html/_images/power_method_random.png",
+    "_build/html/_images/power_method.png",
+    "_build/html/_images/orth_approx.jpg",
+    "_build/html/_images/inverse_iteration.png",
+    "_build/html/_images/growth_factors.png",
+    "_build/html/_images/fraction.png",
     "_build/html/_images",
     "_build/html/search.html",
     "_build/html/prf-prf.html",
@@ -217,17 +221,13 @@
     "_build/html/_sources/bm3_markdown.md",
     "_build/html/_sources/bm2_programming_resources.md",
     "_build/html/_sources/bm1_notation_and_facts.md",
+    "_build/html/_sources/5.3_computing_eigenspaces.md",
     "_build/html/_sources/5.2_computing_eigenvalues.md",
     "_build/html/_sources/5.1_eigenvalues_basic_properties.md",
     "_build/html/_sources/4.3_stable_quadrature_schemes.md",
     "_build/html/_sources/4.2_quadrature.md",
     "_build/html/_sources/4.1_interpolation.md",
     "_build/html/_sources/3.3_least_squares_problems.md",
-    "_build/html/_sources/3.2_singular_value_decomposition.md",
-    "_build/html/_sources/3.1_qr_decomposition.md",
-    "_build/html/_sources/2.2_lu_backward_error.md",
-    "_build/html/_sources/2.1_lu_decomposition.md",
-    "_build/html/_sources/1.5_complexity_notation.md",
-    "_build/html/_sources/1.4_linear_system_error.md"
+    "_build/html/_sources/3.2_singular_value_decomposition.md"
   ]
 }

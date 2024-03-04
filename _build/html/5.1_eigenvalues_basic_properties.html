@@ -32,9 +32,9 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=ca93fcec" />
     <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -211,6 +211,7 @@
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Basic properties of eigenvalue problems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="5.2_computing_eigenvalues.html">Computing eigenvalues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.3_computing_eigenspaces.html">Computing eigenspaces</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Self Check Questions</span></p>
 <ul class="nav bd-sidenav">
@@ -227,8 +228,8 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Back matter</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="bm1_notation_and_facts.html">Notation and facts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="bm2_programming_resources.html">Programming resources</a></li>
-<li class="toctree-l1"><a class="reference internal" href="bm3_markdown.html">Introduction to Markdown</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bm2_programming_resources.html">Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bm3_markdown.html">Markdown and LaTeX</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bm4_bibliography.html">Bibliography</a></li>
 </ul>
 
@@ -379,14 +380,11 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#complex-vector-spaces">Complex vector spaces</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definition-and-motivation-of-eigenvalue-problems">Definition and motivation of eigenvalue problems</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#characteristic-polynomials-algebraic-and-geometric-multiplicities">Characteristic polynomials, algebraic and geometric multiplicities</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eigenvalue-decomposition">Eigenvalue decomposition</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-schur-decomposition">The Schur decomposition</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#complex-numbers">Complex numbers</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Eigenvalue decomposition</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#schur-decomposition">Schur decomposition</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#self-check-questions">Self-check questions</a></li>
@@ -404,7 +402,17 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="basic-properties-of-eigenvalue-problems">
 <h1>Basic properties of eigenvalue problems<a class="headerlink" href="#basic-properties-of-eigenvalue-problems" title="Link to this heading">#</a></h1>
-<p>Eigenvalues are often complex, making it essential to consider eigenvalue problems within the setting of complex vector spaces.  The following section briefly outlines key distinctions in handling complex spaces.</p>
+<p>Eigenvalues are often complex, making it essential to consider eigenvalue problems within the setting of complex vector spaces.</p>
+<div class="proof definition admonition" id="definition-0">
+<p class="admonition-title"><span class="caption-number">Definition 5 </span></p>
+<section class="definition-content" id="proof-content">
+<p>Consider a matrix <span class="math notranslate nohighlight">\(A\)</span> in <span class="math notranslate nohighlight">\(\mathbb{C}^{n \times n}\)</span>. An <em>eigenvalue problem</em> is formulated to find a nonzero vector <span class="math notranslate nohighlight">\(x \in \mathbb{C}^n\)</span>, called <em>eigenvector</em>, and a scalar <span class="math notranslate nohighlight">\(\lambda \in \mathbb{C}\)</span>, called <em>eigenvalue</em>, such that:</p>
+<div class="math notranslate nohighlight">
+\[
+A x = \lambda x.
+\]</div>
+</section>
+</div><p>The following section briefly outlines key distinctions in handling complex spaces.</p>
 <section id="complex-vector-spaces">
 <h2>Complex vector spaces<a class="headerlink" href="#complex-vector-spaces" title="Link to this heading">#</a></h2>
 <p>For complex spaces, the Euclidean inner product is defined as:</p>
@@ -418,37 +426,18 @@ document.write(`
 \[
 \langle Ax, y \rangle = \langle x, A^H y \rangle.
 \]</div>
-<div class="proof definition admonition" id="definition-0">
-<p class="admonition-title"><span class="caption-number">Definition 5 </span> (Hermitian matrix)</p>
+<div class="proof definition admonition" id="definition-1">
+<p class="admonition-title"><span class="caption-number">Definition 6 </span> (Hermitian matrix)</p>
 <section class="definition-content" id="proof-content">
 <p>A matrix is <em>Hermitian</em> (or <em>self-adjoint</em>) if <span class="math notranslate nohighlight">\(A^H = A\)</span>.</p>
 </section>
 </div><p>Consequently, the diagonal elements of a Hermitian matrix are real-valued. Reflecting the altered inner product definition, the concept of orthogonal matrices in complex spaces changes to unitary matrices.</p>
-<div class="proof definition admonition" id="definition-1">
-<p class="admonition-title"><span class="caption-number">Definition 6 </span> (Unitary matrix)</p>
+<div class="proof definition admonition" id="definition-2">
+<p class="admonition-title"><span class="caption-number">Definition 7 </span> (Unitary matrix)</p>
 <section class="definition-content" id="proof-content">
 <p>A matrix <span class="math notranslate nohighlight">\(Q \in \mathbb{C}^{n \times n}\)</span> is <em>unitary</em> if <span class="math notranslate nohighlight">\(Q^H Q = I\)</span>.</p>
 </section>
 </div><p>All unitary matrices satisfy <span class="math notranslate nohighlight">\(|\det(Q)| = 1\)</span>.</p>
-</section>
-<section id="definition-and-motivation-of-eigenvalue-problems">
-<h2>Definition and motivation of eigenvalue problems<a class="headerlink" href="#definition-and-motivation-of-eigenvalue-problems" title="Link to this heading">#</a></h2>
-<p>Consider a matrix <span class="math notranslate nohighlight">\(A\)</span> in <span class="math notranslate nohighlight">\(\mathbb{C}^{n \times n}\)</span>. An <em>eigenvalue problem</em> is formulated to find a nonzero vector <span class="math notranslate nohighlight">\(x \in \mathbb{C}^n\)</span>, called <em>eigenvector</em>, and a scalar <span class="math notranslate nohighlight">\(\lambda \in \mathbb{C}\)</span>, called <em>eigenvalue</em>, such that:</p>
-<div class="math notranslate nohighlight">
-\[
-A x = \lambda x.
-\]</div>
-<p>Eigenvalue problems are fundamentally important in various fields, including the study of differential equations. For instance, consider solving the ordinary differential equation (ODE):</p>
-<div class="math notranslate nohighlight">
-\[
-y' = Ay,
-\]</div>
-<p>where <span class="math notranslate nohighlight">\(A \in \mathbb{C}^{n \times n}\)</span> and <span class="math notranslate nohighlight">\(y(0) = y_0\)</span>. If <span class="math notranslate nohighlight">\(y_0\)</span> is an eigenvector of <span class="math notranslate nohighlight">\(A\)</span> with eigenvalue <span class="math notranslate nohighlight">\(\lambda\)</span>, then the solution of the ODE is given by <span class="math notranslate nohighlight">\(y(t) = y_0 e^{\lambda t}\)</span>:</p>
-<div class="math notranslate nohighlight">
-\[
-y'(t) = \lambda y_0 e^{\lambda t} = A y_0 e^{\lambda t} = A y(t).
-\]</div>
-<p>This perspective emphasises eigenvalues as not merely properties of matrices but as fundamental characteristics of dynamical systems governed by the matrix <span class="math notranslate nohighlight">\(A\)</span>. This view contrasts singular values, which are more about the mapping attributes of a matrix <span class="math notranslate nohighlight">\(A\)</span>.</p>
 </section>
 <section id="characteristic-polynomials-algebraic-and-geometric-multiplicities">
 <h2>Characteristic polynomials, algebraic and geometric multiplicities<a class="headerlink" href="#characteristic-polynomials-algebraic-and-geometric-multiplicities" title="Link to this heading">#</a></h2>
@@ -462,8 +451,8 @@ y'(t) = \lambda y_0 e^{\lambda t} = A y_0 e^{\lambda t} = A y(t).
 \[
 \det(\lambda I - A) = 0.
 \]</div>
-<div class="proof definition admonition" id="definition-2">
-<p class="admonition-title"><span class="caption-number">Definition 7 </span></p>
+<div class="proof definition admonition" id="definition-3">
+<p class="admonition-title"><span class="caption-number">Definition 8 </span></p>
 <section class="definition-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(A \in \mathbb{C}^{n \times n}\)</span>. We define the <em>characteristic polynomial</em> of <span class="math notranslate nohighlight">\(A\)</span> as</p>
 <div class="math notranslate nohighlight">
@@ -477,7 +466,7 @@ p(\lambda) := \det(\lambda I - A).
 p(\lambda) = \prod_j (\lambda - \lambda_j)^{\alpha_j},
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(\alpha_j\)</span> is the algebraic multiplicity of the <span class="math notranslate nohighlight">\(j\)</span>th root. According to the fundamental theorem of algebra, <span class="math notranslate nohighlight">\(n = \sum_j \alpha_j\)</span>, meaning an <span class="math notranslate nohighlight">\(n \times n\)</span> matrix has <span class="math notranslate nohighlight">\(n\)</span> eigenvalues, including multiplicities.</p>
-<p>The geometric multiplicity <span class="math notranslate nohighlight">\(\beta_j\)</span> of an eigenvalue <span class="math notranslate nohighlight">\(\lambda_j\)</span> is the dimension of the kernel of <span class="math notranslate nohighlight">\(\lambda_j I - A\)</span>. If  <span class="math notranslate nohighlight">\(\beta_j = 1\)</span> then <span class="math notranslate nohighlight">\(\lambda_j\)</span> is a  simple eigenvalue. Generally, <span class="math notranslate nohighlight">\(\beta_j \leq \alpha_j\)</span>. The relationship between algebraic and geometric multiplicities is further explored through the concept of Jordan normal form, which is briefly described in the optional material.</p>
+<p>The geometric multiplicity <span class="math notranslate nohighlight">\(\beta_j\)</span> of an eigenvalue <span class="math notranslate nohighlight">\(\lambda_j\)</span> is the dimension of the kernel of <span class="math notranslate nohighlight">\(\lambda_j I - A\)</span>. If  <span class="math notranslate nohighlight">\(\beta_j = 1\)</span> then <span class="math notranslate nohighlight">\(\lambda_j\)</span> is a  simple eigenvalue. Generally, <span class="math notranslate nohighlight">\(\beta_j \leq \alpha_j\)</span>. The relationship between algebraic and geometric multiplicities can be further explored through the concept of Jordan normal form, which is briefly described in the optional material.</p>
 </section>
 <section id="eigenvalue-decomposition">
 <h2>Eigenvalue decomposition<a class="headerlink" href="#eigenvalue-decomposition" title="Link to this heading">#</a></h2>
@@ -487,33 +476,6 @@ p(\lambda) = \prod_j (\lambda - \lambda_j)^{\alpha_j},
 A = X\Lambda X^{-1},
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(X \in \mathbb{C}^{n \times n}\)</span> is a nonsingular matrix with columns <span class="math notranslate nohighlight">\(x_j\)</span> comprising eigenvectors of <span class="math notranslate nohighlight">\(A\)</span>, and <span class="math notranslate nohighlight">\(\Lambda\)</span> is a diagonal matrix with diagonal entries being the corresponding eigenvalues <span class="math notranslate nohighlight">\(\lambda_j\)</span>.</p>
-</section>
-<section id="the-schur-decomposition">
-<h2>The Schur decomposition<a class="headerlink" href="#the-schur-decomposition" title="Link to this heading">#</a></h2>
-<p>The eigenvalue decomposition <span class="math notranslate nohighlight">\(A = X\Lambda X^{-1}\)</span> is not always suitable for computational purposes. It might not exist, requiring a Jordan normal form instead. In floating point arithmetic, even though small machine perturbations usually ensure diagonalizability, the proximity to a Jordan form can introduce instabilities. Additionally, the eigenvector matrix <span class="math notranslate nohighlight">\(X\)</span> might be ill-conditioned, making its inverse computationally unreliable.</p>
-<p>For practical computations, the Schur decomposition of <span class="math notranslate nohighlight">\(A\)</span> is more robust.</p>
-<div class="proof theorem admonition" id="theorem-3">
-<p class="admonition-title"><span class="caption-number">Theorem 13 </span> (Existence of the Schur decomposition)</p>
-<section class="theorem-content" id="proof-content">
-<p>Every complex matrix <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{n \times n}\)</span> has a Schur decomposition</p>
-<div class="math notranslate nohighlight">
-\[
-A = Q R Q^H
-\]</div>
-<p>with unitary <span class="math notranslate nohighlight">\(Q\in\mathbb{C}^{n\times n}\)</span> and upper triangular <span class="math notranslate nohighlight">\(R\in\mathbb{C}^{n\times n}\)</span>.</p>
-</section>
-</div><p>The proof is given in the optional material section below. Let’s explore some key properties of the Schur decomposition:</p>
-<ul>
-<li><p><strong>Eigenvalues</strong>: The eigenvalues of <span class="math notranslate nohighlight">\(A\)</span> are the diagonal elements of <span class="math notranslate nohighlight">\(R\)</span>. This is evident from the equation <span class="math notranslate nohighlight">\(\det(\lambda I - A) = \det Q \det Q^H \det(\lambda I - R)\)</span> and expanding the determinant of <span class="math notranslate nohighlight">\(\lambda I - R\)</span> along its diagonal.</p></li>
-<li><p><strong>Hermitian Matrices</strong>: For Hermitian <span class="math notranslate nohighlight">\(A\)</span>, the Schur decomposition coincides with the eigenvalue decomposition. Since <span class="math notranslate nohighlight">\(A = A^H\)</span>, it implies <span class="math notranslate nohighlight">\(R = R^H\)</span>, which means <span class="math notranslate nohighlight">\(R\)</span> is diagonal. The first column of <span class="math notranslate nohighlight">\(Q\)</span> corresponds to the eigenvector for the eigenvalue <span class="math notranslate nohighlight">\(r_{11}\)</span> in <span class="math notranslate nohighlight">\(R\)</span>.</p></li>
-<li><p><strong>Invariant Subspaces</strong>: Consider <span class="math notranslate nohighlight">\(R_k\)</span>, the upper left <span class="math notranslate nohighlight">\(k \times k\)</span> principal submatrix of <span class="math notranslate nohighlight">\(R\)</span>, and <span class="math notranslate nohighlight">\(Q_k \in \mathbb{C}^{n \times k}\)</span>, the matrix of the first <span class="math notranslate nohighlight">\(k\)</span> columns of <span class="math notranslate nohighlight">\(Q\)</span>. It holds that <span class="math notranslate nohighlight">\(AQ_k = Q_kR_k\)</span>. This implies that for any vector <span class="math notranslate nohighlight">\(v\)</span> in the span of <span class="math notranslate nohighlight">\(\{q_1, \ldots, q_k\}\)</span>, <span class="math notranslate nohighlight">\(Av\)</span> is also in this span:</p>
-<div class="math notranslate nohighlight">
-\[
-    v\in \text{span}\{q_1, \dots, q_k\} \implies Av\in \text{span}\{q_1, \dots, q_k\}.
-    \]</div>
-<p>We say that the subspace is invariant under <span class="math notranslate nohighlight">\(A\)</span>. The Schur decomposition thus reveals a sequence of enlarging invariant subspaces.</p>
-</li>
-</ul>
 </section>
 <section id="python-skills">
 <h2>Python skills<a class="headerlink" href="#python-skills" title="Link to this heading">#</a></h2>
@@ -572,32 +534,6 @@ A = Q R Q^H
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Reconstructed A from its eigenvalue decomposition:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">A_reconstructed</span><span class="p">)</span>
 <span class="k">else</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;A cannot be diagonalized with a full set of eigenvectors.&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</section>
-<section id="schur-decomposition">
-<h3>Schur decomposition<a class="headerlink" href="#schur-decomposition" title="Link to this heading">#</a></h3>
-<p>Here is an analogous example of the Schur decomposition.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">scipy.linalg</span>
-
-<span class="c1"># Creating a random 4x4 matrix</span>
-<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
-
-<span class="c1"># Performing the Schur decomposition</span>
-<span class="n">R</span><span class="p">,</span> <span class="n">Q</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">schur</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
-
-<span class="c1"># Verifying the decomposition: A = QRQ^H</span>
-<span class="n">A_reconstructed</span> <span class="o">=</span> <span class="n">Q</span> <span class="o">@</span> <span class="n">R</span> <span class="o">@</span> <span class="n">Q</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
-
-<span class="c1"># Display results</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Original Matrix A:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">A</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Unitary Matrix Q:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">Q</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Upper Triangular Matrix R:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">R</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Reconstructed Matrix (QRQ^H):</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">A_reconstructed</span><span class="p">)</span>
-
-<span class="c1"># Check if the reconstruction is close to the original</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Is the reconstruction close to the original? &quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">A_reconstructed</span><span class="p">))</span>
 </pre></div>
 </div>
 </section>
@@ -706,31 +642,22 @@ A = \begin{bmatrix}
 <h2>Optional material<a class="headerlink" href="#optional-material" title="Link to this heading">#</a></h2>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
-Existence of the Schur decomposition<div class="sd-summary-down docutils">
+Eigenvalues and ordinary differential equations<div class="sd-summary-down docutils">
 <svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
 <div class="sd-summary-up docutils">
 <svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
 </summary><div class="sd-summary-content sd-card-body docutils">
-<p class="sd-card-text">The proof of the Schur decomposition’s existence is surprisingly straightforward.</p>
-<div class="proof admonition" id="proof">
-<p class="sd-card-text">Proof. Let <span class="math notranslate nohighlight">\(\lambda\)</span> be an eigenvalue of <span class="math notranslate nohighlight">\(A\)</span> with a corresponding eigenvector <span class="math notranslate nohighlight">\(x\)</span> of unit norm. Construct <span class="math notranslate nohighlight">\(Q\)</span> as:</p>
+<p class="sd-card-text">Eigenvalue problems are fundamentally important in various fields, including the study of differential equations. For instance, consider solving the ordinary differential equation (ODE):</p>
 <div class="math notranslate nohighlight">
 \[
-Q = \begin{bmatrix}x &amp; \hat{Q}\end{bmatrix},
+y' = Ay,
 \]</div>
-<p class="sd-card-text">where <span class="math notranslate nohighlight">\(\hat{Q}\)</span> has orthogonal columns forming a basis of <span class="math notranslate nohighlight">\(\text{span}\{x\}^\bot\)</span>. Calculating <span class="math notranslate nohighlight">\(Q^HAQ\)</span> yields:</p>
+<p class="sd-card-text">where <span class="math notranslate nohighlight">\(A \in \mathbb{C}^{n \times n}\)</span> and <span class="math notranslate nohighlight">\(y(0) = y_0\)</span>. If <span class="math notranslate nohighlight">\(y_0\)</span> is an eigenvector of <span class="math notranslate nohighlight">\(A\)</span> with eigenvalue <span class="math notranslate nohighlight">\(\lambda\)</span>, then the solution of the ODE is given by <span class="math notranslate nohighlight">\(y(t) = y_0 e^{\lambda t}\)</span>:</p>
 <div class="math notranslate nohighlight">
-\[\begin{split}
-Q^HAQ = \begin{bmatrix}\lambda &amp; w \\ 0 &amp; \tilde{A}\end{bmatrix},
-\end{split}\]</div>
-<p class="sd-card-text">with <span class="math notranslate nohighlight">\(\tilde{A}\)</span> being an <span class="math notranslate nohighlight">\((n-1)\)</span>-dimensional matrix. By induction, assume <span class="math notranslate nohighlight">\(\tilde{A}\)</span> has a Schur decomposition <span class="math notranslate nohighlight">\(\tilde{A} = \tilde{Q}\tilde{R}\tilde{Q}^H\)</span>.</p>
-<p class="sd-card-text">Then,</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-A = Q\begin{bmatrix}1 &amp; \\ &amp; \tilde{Q}\end{bmatrix}\begin{bmatrix}\lambda &amp; w \\ &amp; \tilde{R}\end{bmatrix}\begin{bmatrix}1 &amp; \\ &amp; \tilde{Q}^H\end{bmatrix}Q^H
-\end{split}\]</div>
-<p class="sd-card-text">is the Schur decomposition of <span class="math notranslate nohighlight">\(A\)</span>. The base case of the induction, for a scalar matrix <span class="math notranslate nohighlight">\(\alpha\)</span>, is trivially <span class="math notranslate nohighlight">\(\alpha = 1 \cdot \alpha \cdot 1\)</span>.</p>
-</div>
+\[
+y'(t) = \lambda y_0 e^{\lambda t} = A y_0 e^{\lambda t} = A y(t).
+\]</div>
+<p class="sd-card-text">This perspective emphasises eigenvalues as not merely properties of matrices but as fundamental characteristics of dynamical systems governed by the matrix <span class="math notranslate nohighlight">\(A\)</span>. This view contrasts singular values, which are more about the mapping attributes of a matrix <span class="math notranslate nohighlight">\(A\)</span>.</p>
 </div>
 </details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
@@ -882,14 +809,11 @@ y_1^H(x_1 - \alpha x_2) = 0,
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#complex-vector-spaces">Complex vector spaces</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definition-and-motivation-of-eigenvalue-problems">Definition and motivation of eigenvalue problems</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#characteristic-polynomials-algebraic-and-geometric-multiplicities">Characteristic polynomials, algebraic and geometric multiplicities</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eigenvalue-decomposition">Eigenvalue decomposition</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-schur-decomposition">The Schur decomposition</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#complex-numbers">Complex numbers</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Eigenvalue decomposition</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#schur-decomposition">Schur decomposition</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#self-check-questions">Self-check questions</a></li>
