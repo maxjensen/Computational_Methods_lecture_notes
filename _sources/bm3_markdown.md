@@ -10,7 +10,6 @@ The following provides a quick reference to the most commonly used Markdown synt
 
 Text can be emphasised as follows:
 - `*Italic* and **Bold**` becomes *Italic* and **Bold**
-- `~~Scratched Text~~` becomes ~~Scratched Text~~
 
 To quote test, use `>`. For example,
 ```
