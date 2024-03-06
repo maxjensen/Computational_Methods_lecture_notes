@@ -586,9 +586,9 @@ p(x) = \sum_{k=0}^n f(x_k) L_k(x), \quad \text{where } L_k(x) = \prod_{l\ne k} \
 <p class="sd-card-text">Thus, we established that the largest relative forward error, observed over the set of continuous functions, diverges as <span class="math notranslate nohighlight">\(n \to \infty\)</span>:</p>
 <div class="math notranslate nohighlight">
 \[
-\sup_{g \in C[a,b]} \frac{| f(g) - \tilde{f}_n(g) |}{\| g \|_\infty} \geq \frac{| f(g^{(n)}) - \tilde{f}_n(g^{(n)}) |}{\| g^{(n)} \|_\infty} \to \infty.
+\sup_{g \in C[a,b]} \frac{| f(g) - \tilde{f}_n(g) |}{|f(g)|} \geq \frac{| f(g^{(n)}) - \tilde{f}_n(g^{(n)}) |}{|f(g^{(n)})|}  \to \infty,
 \]</div>
-<p class="sd-card-text">Here <span class="math notranslate nohighlight">\(\| g^{(n)} \|_\infty = \max_{x \in [a,b]} |g^{(n)}| = 1\)</span> denotes the maximum norm of <span class="math notranslate nohighlight">\(g^{(n)}\)</span>.</p>
+<p class="sd-card-text">using <span class="math notranslate nohighlight">\(0 &lt; f(g^{(n)}) \leq b - a\)</span>.</p>
 </div>
 </details><div class="tip admonition">
 <p class="admonition-title"><strong>Question</strong></p>
