@@ -428,37 +428,47 @@ document.write(`
 <p>Error bounds for these methods can be obtained directly from those of the underlying methods. For <span class="math notranslate nohighlight">\(\mathcal{C}_{1,m}\)</span> we have, in the subinterval <span class="math notranslate nohighlight">\([x_{i-1},x_i]\)</span>,</p>
 <div class="math notranslate nohighlight">
 \[
-\bigl|\mathcal{I}(f)-\mathcal{I}_1(f)\bigr| \le \frac{1}{2!}\,\max_{\xi\in[x_{i-1},x_i]}\,|f''(\xi)| \,\int_{x_{i-1}}^{x_i} |\omega_2(x)| dx = \frac{h^3}{12}\,\max_{\xi\in[x_{i-1},x_i]}\,|f''(\xi)|,
+\Bigl| \int_{x_{i-1}}^{x_i} f(x) dx - \tfrac{h}{2} (f(x_{i-1}) + f(x_i)) \Bigr| \le \frac{1}{2!}\,\max_{\xi\in[x_{i-1},x_i]}\,|f''(\xi)| \,\int_{x_{i-1}}^{x_i} |\omega_2(x)| dx = \frac{h^3}{12}\,\max_{\xi\in[x_{i-1},x_i]}\,|f''(\xi)|,
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(\omega_2(x)=(x-x_{i-1})(x-x_i)\)</span>. Adding these up, we have in <span class="math notranslate nohighlight">\([a,b]=[x_0,x_m]\)</span>,</p>
 <div class="math notranslate nohighlight">
 \[
-\bigl|\mathcal{I}(f)-\mathcal{C}_{1,m}(f)\bigr|	\le \frac{mh^3}{12}\,\max_i\Bigl\{\max_{\xi\in[x_{i-1},x_i]}\,|f''(\xi)|\Bigr\} = (b-a)\,\frac{h^2}{12}\,\max_{\xi\in[a,b]}\,|f''(\xi)|.
+\bigl|\mathcal{I}(f)-\mathcal{C}_{1,m}(f)\bigr|	\le \frac{mh^3}{12}\,\max_i\Bigl\{\max_{\xi\in[x_{i-1},x_i]}\,|f''(\xi)|\Bigr\} \leq (b-a)\,\frac{h^2}{12}\,\max_{\xi\in[a,b]}\,|f''(\xi)|.
 \]</div>
 </section>
 <section id="gaussian-quadratures">
 <h2>Gaussian Quadratures<a class="headerlink" href="#gaussian-quadratures" title="Link to this heading">#</a></h2>
-<p>The degree of exactness of an interpolatory quadrature <span class="math notranslate nohighlight">\(\mathcal{Q}_n(f)\)</span> is at least <span class="math notranslate nohighlight">\(n\)</span>. By considering <span class="math notranslate nohighlight">\(f(x)=(x-x_0)^2\cdots(x-x_n)^2\)</span>, we find that the degree of exactness of any interpolatory quadrature is no more than <span class="math notranslate nohighlight">\(2n+1\)</span>. Gauss showed that by judicious choice of the nodes <span class="math notranslate nohighlight">\(\{x_k\}\)</span>, one can indeed obtain a quadrature exact for all <span class="math notranslate nohighlight">\(f \in \mathcal{P}_{2n+1}\)</span>. The resulting Gaussian quadrature rests on the following:</p>
+<p>The degree of exactness of an interpolatory quadrature <span class="math notranslate nohighlight">\(\mathcal{Q}_n\)</span> is at least <span class="math notranslate nohighlight">\(n\)</span>. By considering <span class="math notranslate nohighlight">\(f(x)=(x-x_0)^2\cdots(x-x_n)^2\)</span>, we find that the degree of exactness of any interpolatory quadrature is no more than <span class="math notranslate nohighlight">\(2n+1\)</span>. Gauss showed that by judicious choice of the nodes <span class="math notranslate nohighlight">\(\{x_k\}\)</span>, one can indeed obtain a quadrature exact for all <span class="math notranslate nohighlight">\(f \in \mathcal{P}_{2n+1}\)</span>. The resulting Gaussian quadrature rests on the following:</p>
 <div class="proof theorem admonition" id="theorem-0">
 <p class="admonition-title"><span class="caption-number">Theorem 9 </span> (Gaussian quadrature)</p>
 <section class="theorem-content" id="proof-content">
 <p>The interpolatory quadrature formula <span class="math notranslate nohighlight">\(\mathcal{Q}_n\)</span> achieves a degree of exactness <span class="math notranslate nohighlight">\(2n+1\)</span> if and only if its nodes <span class="math notranslate nohighlight">\(x_0, \ldots, x_n\)</span> are such that the polynomial</p>
 <div class="math notranslate nohighlight">
 \[
-\tilde{p}(x) = \prod_{i=0}^n (x - x_i),
+\omega_{n+1}(x) = \prod_{i=0}^n (x - x_i),
 \]</div>
-<p>meets the condition <span class="math notranslate nohighlight">\(\int_a^b \tilde{p}(x) \, p(x) \, dx = 0\)</span> for all <span class="math notranslate nohighlight">\(p \in \mathcal{P}_n\)</span>.</p>
+<p>meets the condition <span class="math notranslate nohighlight">\(\int_a^b \omega_{n+1}(x) \, p(x) \, dx = 0\)</span> for all <span class="math notranslate nohighlight">\(p \in \mathcal{P}_n\)</span>.</p>
 </section>
-</div><p>Thus, the nodes <span class="math notranslate nohighlight">\(\{x_k\}_{k=0}^n\)</span> are the roots of a polynomial <span class="math notranslate nohighlight">\(\tilde{p} \in \mathcal{P}_{n+1}\)</span> which is in the orthogonal complement relative to the <span class="math notranslate nohighlight">\((n+1)\)</span>-dimensional space <span class="math notranslate nohighlight">\(\mathcal{P}_n\)</span> within the <span class="math notranslate nohighlight">\((n+2)\)</span>-dimensional space <span class="math notranslate nohighlight">\(\mathcal{P}_{n+1}\)</span> with respect to the inner product <span class="math notranslate nohighlight">\(\langle p, q \rangle = \int_a^b p(x) \, q(x) \, dx\)</span>.  A proof of the theorem is given in the optional materials section.</p>
+</div><p>Thus, the nodes <span class="math notranslate nohighlight">\(\{x_k\}_{k=0}^n\)</span> are chosen so that the error polynomial <span class="math notranslate nohighlight">\(\omega_{n+1} \in \mathcal{P}_{n+1}\)</span> is in the orthogonal complement relative to the <span class="math notranslate nohighlight">\((n+1)\)</span>-dimensional space <span class="math notranslate nohighlight">\(\mathcal{P}_n\)</span> within the <span class="math notranslate nohighlight">\((n+2)\)</span>-dimensional space <span class="math notranslate nohighlight">\(\mathcal{P}_{n+1}\)</span> with respect to the inner product <span class="math notranslate nohighlight">\(\langle p, q \rangle = \int_a^b p(x) \, q(x) \, dx\)</span>. A proof of the theorem is given in the optional materials section.</p>
 <div class="proof definition admonition" id="definition-1">
 <p class="admonition-title"><span class="caption-number">Definition 4 </span></p>
 <section class="definition-content" id="proof-content">
 <p>An interpolatory quadrature method that achieves a degree of exactness <span class="math notranslate nohighlight">\(2n+1\)</span> is termed a <em>Gaussian quadrature method</em>.</p>
 </section>
-</div><p>Once the nodes are determined, the coefficients can be computed as usual. Gaussian quadrature weights are always positive, unlike the coefficients <span class="math notranslate nohighlight">\(\sigma_k\)</span> of a general quadrature formula. This can be illustrated by considering <span class="math notranslate nohighlight">\(\bar p_k(x) = \tilde{p}(x)^2/(x-x_k)^2 \in \mathcal{P}_{2n}\)</span>. With the degree of exactness of  <span class="math notranslate nohighlight">\(2n+1\)</span> and <span class="math notranslate nohighlight">\(\bar p_k(x_j) = \delta_{jk}\)</span>, we find that:</p>
+</div><p>In short,</p>
 <div class="math notranslate nohighlight">
 \[
-0 &lt; \mathcal{I}(\bar p_k) = \mathcal{Q}_n(\bar p_k) = \sigma_k.
+\mathcal{Q}_n \text{ Gaussian} \qquad \Leftrightarrow \qquad \langle \omega_{n+1}, p \rangle = 0 \quad \forall \, p \in \mathcal{P}_n.
+\]</div>
+<p>Once the nodes are determined, the coefficients can be computed as usual. Gaussian quadrature weights are always positive, unlike the coefficients <span class="math notranslate nohighlight">\(\sigma_k\)</span> of a general quadrature formula. This can be illustrated by considering</p>
+<div class="math notranslate nohighlight">
+\[
+L_k^2(x) = \prod_{i = 0 \atop i \neq k}^n \frac{(x-x_i)^2}{(x_k-x_j)^2} \in \mathcal{P}_{2n}.
+\]</div>
+<p>With the degree of exactness of  <span class="math notranslate nohighlight">\(2n+1\)</span> and <span class="math notranslate nohighlight">\(L_k^2(x_j) = \delta_{jk}\)</span>, we find that:</p>
+<div class="math notranslate nohighlight">
+\[
+0 &lt; \mathcal{I}(L_k^2) = \mathcal{Q}_n(L_k^2) = \sigma_k.
 \]</div>
 <p>In summary, Gaussian quadrature combines two crucial properties: stability and speed of convergence.</p>
 <p>While we only scratch the surface of Gaussian quadrature, it’s close relationship to orthogonal polynomials makes it a fascinating topic for further study, e.g. see <span id="id1">[<a class="reference internal" href="bm4_bibliography.html#id3" title="Endre Süli and David F. Mayers. An introduction to numerical analysis. Cambridge University Press, 2003. URL: https://ucl.primo.exlibrisgroup.com/permalink/44UCL_INST/hd4h9s/alma990027325160204761.">Süli and Mayers, 2003</a>]</span> and <span id="id2">[<a class="reference internal" href="bm4_bibliography.html#id4" title="Robert Plato. Concise numerical mathematics. Volume 57. American Mathematical Society, 2003. URL: https://ucl.primo.exlibrisgroup.com/permalink/44UCL_INST/155jbua/alma990010057180204761.">Plato, 2003</a>]</span> for more details.</p>
