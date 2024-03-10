@@ -633,6 +633,88 @@ a_k := \int_a^b L_k(x) \, dx.
 \]</div>
 <p class="sd-card-text">This implies that any other set of coefficients satisfying the condition must be identical to the <span class="math notranslate nohighlight">\(a_k\)</span>’s defined above, proving their uniqueness.</p>
 </div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>a) Suppose the interpolatory quadrature formula <span class="math notranslate nohighlight">\(\mathcal{Q}_1\)</span> has the nodes <span class="math notranslate nohighlight">\(1/4\)</span> and <span class="math notranslate nohighlight">\(2/3\)</span> and the integration domain <span class="math notranslate nohighlight">\([0,1]\)</span>. Compute the weights of <span class="math notranslate nohighlight">\(\mathcal{Q}_1\)</span>.</p>
+<p>b) Calculate <span class="math notranslate nohighlight">\(\mathcal{Q}_1(- \ln)\)</span> to approximate the integral</p>
+<div class="math notranslate nohighlight">
+\[
+- \int_0^1 \ln x \, dx.
+\]</div>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<strong>Answer</strong><div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">a) The weights of <span class="math notranslate nohighlight">\(\mathcal{Q}_1\)</span> are given by</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{eqnarray*}
+\sigma_k = \int_0^1 \prod_{m=0, \atop m \neq k}^n \frac{x-x_m}{x_k - x_m} \, dx.
+\end{eqnarray*}
+\]</div>
+<p class="sd-card-text">Hence</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{eqnarray*}
+\sigma_0 &amp;=&amp; \int_0^1 \frac{x-2/3}{1/4 - 2/3} \, dx = 2/5,\\
+\sigma_1 &amp;=&amp; \int_0^1 \frac{x-1/4}{2/3 - 1/4} \, dx = 3/5.
+\end{eqnarray*}
+\end{split}\]</div>
+<p class="sd-card-text">b) In general, <span class="math notranslate nohighlight">\(\mathcal{Q}_1(f) = \sigma_0 f(x_0) + \sigma_1 f(x_1)\)</span>. Here</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{eqnarray*}
+\mathcal{Q}_1(- \ln) &amp;=&amp; - \frac{2}{5} \ln (1/4) - \frac{3}{5} \ln (2/3) \approx 0.79779680931285.
+\end{eqnarray*}
+\]</div>
+<p class="sd-card-text"><em>Note:</em> The exact integral is</p>
+<div class="math notranslate nohighlight">
+\[
+\int_0^1 - \ln(x) dx = x - x \ln x\big|_{x \to 0}^1 = 1.
+\]</div>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Using <span class="math notranslate nohighlight">\(\int_0^1 \frac{1}{\sqrt{x}} \, dx = 2\)</span> and Simpson’s rule, find the approximate value of</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{eqnarray*}
+\int_0^1 \frac{1}{\sqrt{\sin x}} \, dx. \qquad (*)
+\end{eqnarray*}
+\]</div>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<strong>Answer</strong><div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">We cannot use Simpson’s rule directly to integrate <span class="math notranslate nohighlight">\((*)\)</span> numerically. The reason is that <span class="math notranslate nohighlight">\(1/\sqrt{\sin x}\)</span> diverges at the node <span class="math notranslate nohighlight">\(x_0 = 0\)</span>. However, we can reformulate the problem as follows:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{eqnarray*}
+\int_0^1 \frac{1}{\sqrt{\sin x}} \, dx &amp;=&amp; \int_0^1 \frac{1}{\sqrt{x}} \, dx + \int_0^1
+\frac{1}{\sqrt{\sin x}} - \frac{1}{\sqrt{x}} \, dx\\
+&amp;=&amp; 2 + \int_0^1 \frac{1}{\sqrt{\sin x}} - \frac{1}{\sqrt{x}} \, dx.
+\end{eqnarray*}
+\end{split}\]</div>
+<p class="sd-card-text">The function <span class="math notranslate nohighlight">\(\frac{1}{\sqrt{\sin x}} - \frac{1}{\sqrt{x}}\)</span> is continuous and bounded on <span class="math notranslate nohighlight">\([0,1]\)</span> so that Simpson’s rule can be applied:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{eqnarray*}
+\mathcal{Q}_2(\frac{1}{\sqrt{\sin x}} - \frac{1}{\sqrt{x}}) &amp;=&amp; (1-0) \Bigl( \frac{1}{6} \cdot 0 +
+\frac{2}{3} \cdot \Bigl(\frac{1}{\sqrt{\sin x}} - \frac{1}{\sqrt{x}} \Bigr) + \frac{1}{6} \cdot
+\Bigl( \frac{1}{\sqrt{\sin x}} - \frac{1}{\sqrt{x}} \Bigr) \Bigr)\\
+&amp;\approx&amp; 0.03504029268746660.
+\end{eqnarray*}
+\end{split}\]</div>
+<p class="sd-card-text">This gives the approximate value <span class="math notranslate nohighlight">\(2.03504029268746660\)</span>. The exact integral is <span class="math notranslate nohighlight">\(2.034805319207\ldots\)</span></p>
+</div>
 </details></section>
 </section>
 
