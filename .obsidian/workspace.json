@@ -4,47 +4,18 @@
     "type": "split",
     "children": [
       {
-        "id": "f2d12819ce4b3959",
+        "id": "6766b020870fa1bb",
         "type": "tabs",
         "children": [
           {
-            "id": "4cad9f9b7db14dab",
+            "id": "026eb8a959c80022",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "bm4_bibliography.md",
-                "mode": "source",
-                "source": true
-              }
-            }
-          },
-          {
-            "id": "95c65ac2061da25a",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "5.2_computing_eigenvalues.md",
-                "mode": "source",
-                "source": true
-              }
-            }
-          },
-          {
-            "id": "1481bbc31cbaf881",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "bm1_notation_and_facts.md",
-                "mode": "source",
-                "source": true
-              }
+              "type": "empty",
+              "state": {}
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -110,7 +81,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "5.2_computing_eigenvalues.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -127,7 +97,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "5.2_computing_eigenvalues.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -149,9 +118,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "5.2_computing_eigenvalues.md"
-              }
+              "state": {}
             }
           },
           {
@@ -181,35 +148,36 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "95c65ac2061da25a",
+  "active": "026eb8a959c80022",
   "lastOpenFiles": [
-    "_build/html/_images/Rayleigh_iteration.png",
-    "figures/Rayleigh_iteration.png",
-    "5.3_computing_eigenspaces.md",
-    "4.3_stable_quadrature_schemes.md",
     "5.2_computing_eigenvalues.md",
+    "5.3_computing_eigenspaces.md",
+    "_build/html/_images/eigenvalue_comparison.png",
+    "figures/eigenvalue_comparison.png",
+    "4.3_stable_quadrature_schemes.md",
+    "_build/html/_images/Rayleigh_iteration_safeguard.png",
+    "figures/Rayleigh_iteration_safeguard.png",
+    "_build/html/_images/Rayleigh_iteration_less_acurate.png",
+    "figures/Rayleigh_iteration_less_acurate.png",
+    "scratch_b.py",
+    "_build/html/_images/Rayleigh_iteration_Wilkinson.png",
+    "figures/Rayleigh_iteration_Wilkinson.png",
+    "_build/html/_images/inverse_iteration_Wilkinson.png",
+    "figures/inverse_iteration_Wilkinson.png",
+    "5.1_eigenvalues_basic_properties.md",
+    "4.2_quadrature.md",
+    "3.1_qr_decomposition.md",
     "bm1_notation_and_facts.md",
     "bm2_programming_resources.md",
-    "5.1_eigenvalues_basic_properties.md",
     "_build/html/_static/proof.css",
     "_build/html/_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css",
     "_build/html/objects.inv",
     "_build/html/searchindex.js",
-    "_build/html/_images/uniform_random_eigenvalues.png",
-    "_build/html/_images/sign.png",
-    "_build/html/_images/power_method_shifted_random.png",
-    "_build/html/_images/power_method_random.png",
-    "_build/html/_images/power_method.png",
-    "_build/html/_images/orth_approx.jpg",
-    "_build/html/_images/inverse_iteration.png",
-    "_build/html/_images/growth_factors.png",
-    "_build/html/_images/fraction.png",
     "_build/html/_images",
     "_build/html/search.html",
     "_build/html/prf-prf.html",
     "_build/html/genindex.html",
     "_build/html/_sources/week_9_self_check.ipynb",
-    "_build/html/week_9_self_check.html",
     "_build/html/_sources/week_7_self_check.md",
     "_build/html/_sources/week_6_self_check.md",
     "_build/html/_sources/week_5_self_check.md",
@@ -226,8 +194,6 @@
     "_build/html/_sources/5.1_eigenvalues_basic_properties.md",
     "_build/html/_sources/4.3_stable_quadrature_schemes.md",
     "_build/html/_sources/4.2_quadrature.md",
-    "_build/html/_sources/4.1_interpolation.md",
-    "_build/html/_sources/3.3_least_squares_problems.md",
-    "_build/html/_sources/3.2_singular_value_decomposition.md"
+    "_build/html/_sources/4.1_interpolation.md"
   ]
 }

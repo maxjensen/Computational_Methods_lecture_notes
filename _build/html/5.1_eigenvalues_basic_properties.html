@@ -382,6 +382,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#complex-vector-spaces">Complex vector spaces</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#characteristic-polynomials-algebraic-and-geometric-multiplicities">Characteristic polynomials, algebraic and geometric multiplicities</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eigenvalue-decomposition">Eigenvalue decomposition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-companion-matrix">The companion matrix</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#complex-numbers">Complex numbers</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Eigenvalue decomposition</a></li>
@@ -418,10 +419,10 @@ A x = \lambda x.
 <p>For complex spaces, the Euclidean inner product is defined as:</p>
 <div class="math notranslate nohighlight">
 \[
-\langle x, y \rangle = \overline{y}^T x = \sum_j x_j \overline{y_j}.
+\langle x, y \rangle = x^T \, \overline{y} = \sum_j x_j \, \overline{y}_j.
 \]</div>
 <p>This requires taking the complex conjugate of <span class="math notranslate nohighlight">\(y\)</span> in the inner product calculation. The 2-norm of a vector is hence <span class="math notranslate nohighlight">\(\|x\|_2 = \langle x, x \rangle^{1/2}\)</span>.</p>
-<p>In complex spaces, the counterpart to transposed matrices is the conjugate transpose <span class="math notranslate nohighlight">\(A^H := \overline{A}^T\)</span>. With this, the following relation holds:</p>
+<p>In complex spaces, the counterpart to transposed matrices is the conjugate transpose <span class="math notranslate nohighlight">\(A^H := \bar{A}^T\)</span>. With this, the following relation holds:</p>
 <div class="math notranslate nohighlight">
 \[
 \langle Ax, y \rangle = \langle x, A^H y \rangle.
@@ -476,6 +477,27 @@ p(\lambda) = \prod_j (\lambda - \lambda_j)^{\alpha_j},
 A = X\Lambda X^{-1},
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(X \in \mathbb{C}^{n \times n}\)</span> is a nonsingular matrix with columns <span class="math notranslate nohighlight">\(x_j\)</span> comprising eigenvectors of <span class="math notranslate nohighlight">\(A\)</span>, and <span class="math notranslate nohighlight">\(\Lambda\)</span> is a diagonal matrix with diagonal entries being the corresponding eigenvalues <span class="math notranslate nohighlight">\(\lambda_j\)</span>.</p>
+</section>
+<section id="the-companion-matrix">
+<h2>The companion matrix<a class="headerlink" href="#the-companion-matrix" title="Link to this heading">#</a></h2>
+<p>The companion matrix of a polynomial <span class="math notranslate nohighlight">\(p\)</span> is a special square matrix whose characteristic polynomial is <span class="math notranslate nohighlight">\(p\)</span>. Thus, the companion matrix’s eigenvalues are the polynomial’s roots. This makes companion matrices useful in numerical algebra for finding polynomial roots.</p>
+<p>Given the polynomial</p>
+<div class="math notranslate nohighlight">
+\[
+p(x) = x^n + a_{n-1}x^{n-1} + \cdots + a_2x^2 + a_1x + a_0
+\]</div>
+<p>of degree <span class="math notranslate nohighlight">\(n\)</span> with leading coefficient <span class="math notranslate nohighlight">\(a_n = 1\)</span>, the companion matrix <span class="math notranslate nohighlight">\(C\)</span> of <span class="math notranslate nohighlight">\(p(x)\)</span> is an <span class="math notranslate nohighlight">\(n \times n\)</span> matrix defined as:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+C = \begin{pmatrix}
+0 &amp; 0 &amp; \cdots &amp; 0 &amp; -a_0 \\
+1 &amp; 0 &amp; \cdots &amp; 0 &amp; -a_1 \\
+0 &amp; 1 &amp; \cdots &amp; 0 &amp; -a_2 \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots &amp; \vdots \\
+0 &amp; 0 &amp; \cdots &amp; 1 &amp; -a_{n-1}
+\end{pmatrix}.
+\end{split}\]</div>
+<p>One can check that <span class="math notranslate nohighlight">\(\det(x I - C) = p(x)\)</span>.</p>
 </section>
 <section id="python-skills">
 <h2>Python skills<a class="headerlink" href="#python-skills" title="Link to this heading">#</a></h2>
@@ -811,6 +833,7 @@ y_1^H(x_1 - \alpha x_2) = 0,
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#complex-vector-spaces">Complex vector spaces</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#characteristic-polynomials-algebraic-and-geometric-multiplicities">Characteristic polynomials, algebraic and geometric multiplicities</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eigenvalue-decomposition">Eigenvalue decomposition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-companion-matrix">The companion matrix</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#complex-numbers">Complex numbers</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Eigenvalue decomposition</a></li>
