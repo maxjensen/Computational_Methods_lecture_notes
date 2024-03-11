@@ -382,6 +382,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-power-method">The power method</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inverse-iteration">Inverse Iteration</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rayleigh-quotient-iteration">Rayleigh quotient iteration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a></li>
 </ul>
             </nav>
         </div>
@@ -414,7 +415,7 @@ document.write(`
 </li>
 </ul>
 </section>
-</div><p>The analysis of the algorithm is very simple, with normalisation solely for numerical stability to prevent overflow. The crux lies in iterative vector multiplication. Assuming <span class="math notranslate nohighlight">\(A\)</span> is diagonalizable with eigenpairs <span class="math notranslate nohighlight">\((\lambda_j, x_j)\)</span>, the initial vector <span class="math notranslate nohighlight">\(q^{(0)}\)</span> is expressed as a linear combination of eigenvectors, <span class="math notranslate nohighlight">\(q^{(0)} = \sum_{j}\alpha_jx_j\)</span>. This leads to:</p>
+</div><p>The analysis of the algorithm is very simple, with normalisation solely for numerical stability to prevent overflow. The crux lies in iterative vector multiplication. Assuming (for simplicity) <span class="math notranslate nohighlight">\(A\)</span> is diagonalizable with eigenpairs <span class="math notranslate nohighlight">\((\lambda_j, x_j)\)</span>, the initial vector <span class="math notranslate nohighlight">\(q^{(0)}\)</span> is expressed as a linear combination of eigenvectors, <span class="math notranslate nohighlight">\(q^{(0)} = \sum_{j}\alpha_jx_j\)</span>. This leads to:</p>
 <div class="math notranslate nohighlight">
 \[  
 A^{k}q^{(0)} = \sum_{j=1}^n\alpha_j\lambda_j^kx_j = \alpha_1\lambda_1^{k}\left(x_1+\sum_{j=2}^n\frac{\alpha_j}{\alpha_1}\left(\frac{\lambda_j}{\lambda_1}\right)^kx_j\right).  
@@ -463,7 +464,7 @@ Python code<div class="sd-summary-down docutils">
     <span class="k">return</span> <span class="n">lambda_iterates</span>
 
 <span class="c1"># Parameters and initial setup</span>
-<span class="n">n</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span>
+<span class="n">n</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">30</span>
 <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
 <span class="n">q0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>  <span class="c1"># Complex starting vector</span>
 
@@ -474,8 +475,83 @@ Python code<div class="sd-summary-down docutils">
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
   <span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">lambda_max</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
   <span class="n">lambda_iterates</span><span class="p">[:,</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">power_method</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">q0</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
-  <span class="n">plt</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">lambda_iterates</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">30</span><span class="p">,</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">lambda_iterates</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">i</span><span class="p">]),</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;λ_1 = </span><span class="si">{</span><span class="n">lambda_max</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$|\lambda_1^{(k)} - \lambda_1^{(j)}|$&#39;</span><span class="p">)</span>
+  <span class="n">plt</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">lambda_iterates</span><span class="p">[:,</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">lambda_max</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;λ_1 = </span><span class="si">{</span><span class="n">lambda_max</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$|\lambda_1^{(k)} - \lambda_1|$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Iteration $j$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details></section>
+</div><div class="proof example admonition" id="example-2">
+<p class="admonition-title"><span class="caption-number">Example 9 </span></p>
+<section class="example-content" id="proof-content">
+<p>Consider the Wilkinson polynomial <span class="math notranslate nohighlight">\(P_n(z) = \prod_{j=1}^n (z-j)\)</span> and its companion matrix <span class="math notranslate nohighlight">\(C_n\)</span>, <span class="math notranslate nohighlight">\(n \in \mathbb{N}\)</span>. Clearly, the eigenvalues of <span class="math notranslate nohighlight">\(C_n\)</span> are <span class="math notranslate nohighlight">\(\{1, \ldots, n\}\)</span>.</p>
+<p><img alt="power_method_Wilkinson" src="_images/power_method_Wilkinson.png" /></p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+Python code<div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">power_method</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">q0</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Evaluates k steps of the power iteration with starting vector q0 for the matrix A, returning a vector of eigenvalue iterates.&quot;&quot;&quot;</span>
+    <span class="n">lambda_iterates</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="n">q0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="n">A</span> <span class="o">@</span> <span class="n">q</span>  <span class="c1"># Simplified matrix-vector multiplication</span>
+        <span class="n">q</span> <span class="o">=</span> <span class="n">z</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>  <span class="c1"># Normalizing q</span>
+        <span class="n">lambda_iterates</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vdot</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">A</span> <span class="o">@</span> <span class="n">q</span><span class="p">)</span>  <span class="c1"># Using vdot for complex conjugate dot product</span>
+    <span class="k">return</span> <span class="n">lambda_iterates</span>
+
+<span class="k">def</span> <span class="nf">companion_matrix</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate the companion matrix for a given polynomial represented by its coefficients.&quot;&quot;&quot;</span>
+    <span class="c1"># normalise the leading coefficient</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">a</span> <span class="o">/</span> <span class="n">a</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
+    <span class="c1"># Set the last column of C to be the negated coefficients (except the leading one)</span>
+    <span class="n">C</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">a</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+    <span class="c1"># Set the subdiagonal elements to 1</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">fill_diagonal</span><span class="p">(</span><span class="n">C</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">C</span>
+
+<span class="k">def</span> <span class="nf">wilkinson_polynomial_coefficients</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate the coefficients of the Wilkinson polynomial of degree n&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">poly_multiply</span><span class="p">(</span><span class="n">poly1</span><span class="p">,</span> <span class="n">poly2</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Multiply two polynomials represented as lists of coefficients.&quot;&quot;&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">poly1</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">poly2</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">coef1</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">poly1</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">coef2</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">poly2</span><span class="p">):</span>
+                <span class="n">result</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="n">j</span><span class="p">]</span> <span class="o">+=</span> <span class="n">coef1</span> <span class="o">*</span> <span class="n">coef2</span>
+        <span class="k">return</span> <span class="n">result</span>
+    <span class="c1"># Start with the polynomial x - 1</span>
+    <span class="n">poly</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="c1"># Multiply the current polynomial by x - i using integer arithmetic</span>
+        <span class="n">poly</span> <span class="o">=</span> <span class="n">poly_multiply</span><span class="p">(</span><span class="n">poly</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="n">i</span><span class="p">])</span>
+    <span class="n">poly</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">poly</span>
+
+<span class="c1"># Compute eigenvalues and plot</span>
+<span class="n">k</span> <span class="o">=</span> <span class="mi">200</span>
+<span class="n">i_max</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">lambda_iterates</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">k</span><span class="p">,</span> <span class="n">i_max</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">i_max</span><span class="p">):</span>
+    <span class="c1"># Parameters and initial setup</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="mi">5</span> <span class="o">*</span> <span class="n">i</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">companion_matrix</span><span class="p">(</span><span class="n">wilkinson_polynomial_coefficients</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+    <span class="n">q0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>  <span class="c1"># Complex starting vector</span>
+    <span class="n">lambda_iterates</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">power_method</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">q0</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">lambda_iterates</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">n</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;n = </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$|\lambda_1^{(k)} - \lambda_1|$&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Iteration $j$&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
@@ -488,7 +564,7 @@ Python code<div class="sd-summary-down docutils">
 <h2>Inverse Iteration<a class="headerlink" href="#inverse-iteration" title="Link to this heading">#</a></h2>
 <p>The principle idea of inverse iteration is to transform the spectrum of the matrix <span class="math notranslate nohighlight">\(A\)</span> to accelerate the eigenvalue convergence.</p>
 <p>Let <span class="math notranslate nohighlight">\(Ax=\lambda x\)</span>. Then we have <span class="math notranslate nohighlight">\((A-\sigma I)^{-1}x=(\lambda-\sigma)^{-1}x\)</span>. The biggest eigenvalue is now the one that is closest to <span class="math notranslate nohighlight">\(\sigma\)</span>, and we can expect that the power method to <span class="math notranslate nohighlight">\((A-\sigma I)^{-1}\)</span> in place of <span class="math notranslate nohighlight">\(A\)</span> will converge fast to the eigenvalue close to <span class="math notranslate nohighlight">\(\sigma\)</span>.</p>
-<div class="proof algorithm admonition" id="algorithm-2">
+<div class="proof algorithm admonition" id="algorithm-3">
 <p class="admonition-title"><span class="caption-number">Algorithm 3 </span> (Inverse Iteration)</p>
 <section class="algorithm-content" id="proof-content">
 <p><strong>Inputs</strong> <span class="math notranslate nohighlight">\(A\in\mathbb{C}^{n\times n}\)</span>, <span class="math notranslate nohighlight">\(z^{(0)} \in\mathbb{C}^n\)</span>, <span class="math notranslate nohighlight">\(\sigma \in\mathbb{C}\)</span></p>
@@ -503,11 +579,65 @@ Python code<div class="sd-summary-down docutils">
 </li>
 </ul>
 </section>
-</div><div class="proof example admonition" id="example-3">
-<p class="admonition-title"><span class="caption-number">Example 9 </span></p>
+</div><div class="proof example admonition" id="example-4">
+<p class="admonition-title"><span class="caption-number">Example 10 </span></p>
 <section class="example-content" id="proof-content">
-<p>We revisit the first example above and consider the matrix <span class="math notranslate nohighlight">\(A = \text{diag}(\lambda_1, 1, \ldots, 1)\)</span> for <span class="math notranslate nohighlight">\(\lambda_1 = 1.1, 1.5, 2.0, 4.0, 8.0\)</span>. The following plot uses the inverse iteration with <span class="math notranslate nohighlight">\(\sigma = 1.1 \, \lambda_1\)</span>, illustrating a situation where the eigenvalue of interest is known within a 10% tolerance.</p>
-<p><img alt="power_method" src="_images/inverse_iteration.png" /></p>
+<p>We revisit the first example above and consider again the matrix <span class="math notranslate nohighlight">\(A = \text{diag}(\lambda_1, 1, \ldots, 1)\)</span> for <span class="math notranslate nohighlight">\(\lambda_1\)</span> and <span class="math notranslate nohighlight">\(n\)</span> a above. The following plot uses the inverse iteration with <span class="math notranslate nohighlight">\(\sigma = 1.1 \, \lambda_1\)</span>, illustrating a situation where the eigenvalue of interest is known within a 10% tolerance.</p>
+<p><img alt="inverse_iteration" src="_images/inverse_iteration.png" /></p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+Python code<div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>  
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>  
+<span class="kn">from</span> <span class="nn">scipy.linalg</span> <span class="kn">import</span> <span class="n">lu</span><span class="p">,</span> <span class="n">solve_triangular</span>  
+
+<span class="k">def</span> <span class="nf">inverse_iteration</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">q0</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>  
+    <span class="n">lambda_iterates</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>  
+    <span class="n">n</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  
+    <span class="n">P</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">U</span> <span class="o">=</span> <span class="n">lu</span><span class="p">(</span><span class="n">A</span> <span class="o">-</span> <span class="n">sigma</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">A</span><span class="o">.</span><span class="n">dtype</span><span class="p">))</span>  
+  
+    <span class="k">def</span> <span class="nf">applyMat</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>  
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Computes (A - sigma I)^{-1} x = (PLU)^{-1} x = U^{-1} L^{-1} P^T x&quot;&quot;&quot;</span>  
+        <span class="k">return</span> <span class="n">solve_triangular</span><span class="p">(</span><span class="n">U</span><span class="p">,</span> <span class="n">solve_triangular</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">x</span><span class="p">),</span> <span class="n">lower</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>  
+  
+    <span class="n">z</span> <span class="o">=</span> <span class="n">applyMat</span><span class="p">(</span><span class="n">q0</span><span class="p">)</span>  
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>  
+        <span class="n">q</span> <span class="o">=</span> <span class="n">z</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>  
+        <span class="n">z</span> <span class="o">=</span> <span class="n">applyMat</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>  <span class="c1"># (A - sigma I)^{-1} q  </span>
+        <span class="n">lambda_iterates</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vdot</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">A</span> <span class="o">@</span> <span class="n">q</span><span class="p">)</span> 
+  
+    <span class="k">return</span> <span class="n">lambda_iterates</span>  
+   
+<span class="c1"># Parameters and initial setup  </span>
+<span class="n">n</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">30</span>  
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>  
+<span class="n">q0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>  <span class="c1"># Complex starting vector  </span>
+  
+<span class="c1"># Compute eigenvalues and plot  </span>
+<span class="n">lambda_max</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.1</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">]</span>  
+<span class="n">s</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">lambda_max</span><span class="p">)</span>  
+<span class="n">lambda_iterates</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">k</span><span class="p">,</span> <span class="n">s</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>  
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>  
+    <span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">lambda_max</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>  
+    <span class="n">lambda_iterates</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">inverse_iteration</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">q0</span><span class="p">,</span> <span class="mf">1.1</span> <span class="o">*</span> <span class="n">lambda_max</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">k</span><span class="p">)</span>  
+    <span class="n">plt</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">lambda_iterates</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">lambda_max</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;λ_1 = </span><span class="si">{</span><span class="n">lambda_max</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$|\lambda_1^{(k)} - \lambda_1|$&#39;</span><span class="p">)</span>  
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Iteration $j$&#39;</span><span class="p">)</span>  
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>  
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details></section>
+</div><div class="proof example admonition" id="example-5">
+<p class="admonition-title"><span class="caption-number">Example 11 </span></p>
+<section class="example-content" id="proof-content">
+<p>In this example, we investigate how the choice of <span class="math notranslate nohighlight">\(\sigma\)</span> impacts the performance of the inverse iteration. The matrix is the companion matrix of the Wilkinson polynomial for <span class="math notranslate nohighlight">\(n = 20\)</span> and <span class="math notranslate nohighlight">\(\sigma = n+1, \ldots, n+6\)</span>.</p>
+<p><img alt="inverse_iteration_Wilkinson" src="_images/inverse_iteration_Wilkinson.png" /></p>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
 Python code<div class="sd-summary-down docutils">
@@ -517,50 +647,80 @@ Python code<div class="sd-summary-down docutils">
 </summary><div class="sd-summary-content sd-card-body docutils">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">scipy.linalg</span> <span class="kn">import</span> <span class="n">lu</span><span class="p">,</span> <span class="n">solve_triangular</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">inverse_iteration</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">q0</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
-    <span class="n">lambda_iterates</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
-    <span class="n">n</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">P</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">U</span> <span class="o">=</span> <span class="n">lu</span><span class="p">(</span><span class="n">A</span> <span class="o">-</span> <span class="n">sigma</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">A</span><span class="o">.</span><span class="n">dtype</span><span class="p">))</span>
-
-    <span class="k">def</span> <span class="nf">applyMat</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">solve_triangular</span><span class="p">(</span><span class="n">U</span><span class="p">,</span> <span class="n">solve_triangular</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">x</span><span class="p">),</span> <span class="n">lower</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
-        
-    <span class="n">z</span> <span class="o">=</span> <span class="n">applyMat</span><span class="p">(</span><span class="n">q0</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
-        <span class="n">q</span> <span class="o">=</span> <span class="n">z</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
-        <span class="n">z</span> <span class="o">=</span> <span class="n">applyMat</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
-        <span class="n">lambda_iterates</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">q</span><span class="o">.</span><span class="n">conj</span><span class="p">(),</span> <span class="n">z</span><span class="p">)</span>
-    
+<span class="k">def</span> <span class="nf">inverse_iteration</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">q0</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>  
+    <span class="n">lambda_iterates</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>  
+    <span class="n">n</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  
+    <span class="n">P</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">U</span> <span class="o">=</span> <span class="n">lu</span><span class="p">(</span><span class="n">A</span> <span class="o">-</span> <span class="n">sigma</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">A</span><span class="o">.</span><span class="n">dtype</span><span class="p">))</span>  
+  
+    <span class="k">def</span> <span class="nf">applyMat</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>  
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Computes (A - sigma I)^{-1} x = (PLU)^{-1} x = U^{-1} L^{-1} P^T x&quot;&quot;&quot;</span>  
+        <span class="k">return</span> <span class="n">solve_triangular</span><span class="p">(</span><span class="n">U</span><span class="p">,</span> <span class="n">solve_triangular</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">x</span><span class="p">),</span> <span class="n">lower</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>  
+  
+    <span class="n">z</span> <span class="o">=</span> <span class="n">applyMat</span><span class="p">(</span><span class="n">q0</span><span class="p">)</span>  
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>  
+        <span class="n">q</span> <span class="o">=</span> <span class="n">z</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>  
+        <span class="n">z</span> <span class="o">=</span> <span class="n">applyMat</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>  <span class="c1"># (A - sigma I)^{-1} q  </span>
+        <span class="n">lambda_iterates</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vdot</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">A</span> <span class="o">@</span> <span class="n">q</span><span class="p">)</span>  
+  
     <span class="k">return</span> <span class="n">lambda_iterates</span>
 
-<span class="c1"># Parameters and initial setup</span>
-<span class="n">n</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span>
-<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
-<span class="n">q0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>  <span class="c1"># Complex starting vector</span>
+<span class="k">def</span> <span class="nf">companion_matrix</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate the companion matrix for a given polynomial represented by its coefficients.&quot;&quot;&quot;</span>
+    <span class="c1"># normalise the leading coefficient</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">a</span> <span class="o">/</span> <span class="n">a</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
+    <span class="c1"># Set the last column of C to be the negated coefficients (except the leading one)</span>
+    <span class="n">C</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">a</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+    <span class="c1"># Set the subdiagonal elements to 1</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">fill_diagonal</span><span class="p">(</span><span class="n">C</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">C</span>
+
+<span class="k">def</span> <span class="nf">wilkinson_polynomial_coefficients</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate the coefficients of the Wilkinson polynomial of degree n&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">poly_multiply</span><span class="p">(</span><span class="n">poly1</span><span class="p">,</span> <span class="n">poly2</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Multiply two polynomials represented as lists of coefficients.&quot;&quot;&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">poly1</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">poly2</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">coef1</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">poly1</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">coef2</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">poly2</span><span class="p">):</span>
+                <span class="n">result</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="n">j</span><span class="p">]</span> <span class="o">+=</span> <span class="n">coef1</span> <span class="o">*</span> <span class="n">coef2</span>
+        <span class="k">return</span> <span class="n">result</span>
+    <span class="c1"># Start with the polynomial x - 1</span>
+    <span class="n">poly</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="c1"># Multiply the current polynomial by x - i using integer arithmetic</span>
+        <span class="n">poly</span> <span class="o">=</span> <span class="n">poly_multiply</span><span class="p">(</span><span class="n">poly</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="n">i</span><span class="p">])</span>
+    <span class="n">poly</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">poly</span>
 
 <span class="c1"># Compute eigenvalues and plot</span>
-<span class="n">lambda_max</span> <span class="o">=</span>  <span class="p">[</span><span class="mf">1.1</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">]</span>
-<span class="n">s</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">lambda_max</span><span class="p">)</span>
-<span class="n">lambda_iterates</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">k</span><span class="p">,</span><span class="n">s</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
-  <span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">lambda_max</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-  <span class="n">lambda_iterates</span><span class="p">[:,</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">inverse_iteration</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">q0</span><span class="p">,</span> <span class="mf">1.1</span> <span class="o">*</span> <span class="n">lambda_max</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">k</span><span class="p">)</span>
-  <span class="n">plt</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">lambda_iterates</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">30</span><span class="p">,</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">lambda_iterates</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">i</span><span class="p">]),</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;λ_1 = </span><span class="si">{</span><span class="n">lambda_max</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$|\lambda_1^{(k)} - \lambda_1^{(j)}|$&#39;</span><span class="p">)</span>
+<span class="n">k</span> <span class="o">=</span> <span class="mi">200</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="n">i_max</span> <span class="o">=</span> <span class="mi">7</span>
+<span class="n">lambda_iterates</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">k</span><span class="p">,</span> <span class="n">i_max</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">i_max</span><span class="p">):</span>
+    <span class="c1"># Parameters and initial setup</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">companion_matrix</span><span class="p">(</span><span class="n">wilkinson_polynomial_coefficients</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+    <span class="n">q0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>  <span class="c1"># Complex starting vector</span>
+    <span class="n">lambda_iterates</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">inverse_iteration</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">q0</span><span class="p">,</span> <span class="n">n</span> <span class="o">+</span> <span class="n">i</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">lambda_iterates</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">n</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;σ = </span><span class="si">{</span><span class="n">n</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$|\lambda_1^{(k)} - \lambda_1|$&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Iteration $j$&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
-</details></section>
+</details><p>Note the scale of the vertical axis. While the convergence is rapid with a good choice of <span class="math notranslate nohighlight">\(\sigma\)</span>, it is apparent that rounding errors and stability issues are more pronounced than in the case of the power iteration where convergence to an error below <span class="math notranslate nohighlight">\(10^{-12}\)</span> occurs.</p>
+</section>
 </div></section>
 <section id="rayleigh-quotient-iteration">
 <h2>Rayleigh quotient iteration<a class="headerlink" href="#rayleigh-quotient-iteration" title="Link to this heading">#</a></h2>
 <p>One can combine the inverse iteration with evaluating the Rayleigh quotient. The idea is that instead of the fixed value <span class="math notranslate nohighlight">\(\sigma\)</span> in each step, we use as a shift the value of the Rayleigh quotient. The resulting algorithm is called Rayleigh quotient iteration. For symmetric problems this approach is most effective: the convergence is even cubic.</p>
-<div class="proof algorithm admonition" id="algorithm-4">
+<div class="proof algorithm admonition" id="algorithm-6">
 <p class="admonition-title"><span class="caption-number">Algorithm 4 </span> (Rayleigh Quotient Iteration)</p>
 <section class="algorithm-content" id="proof-content">
 <p><strong>Inputs</strong> <span class="math notranslate nohighlight">\(A\in\mathbb{C}^{n\times n}\)</span>, <span class="math notranslate nohighlight">\(z^{(0)} \in\mathbb{C}^n\)</span>, <span class="math notranslate nohighlight">\(\sigma \in\mathbb{C}\)</span></p>
@@ -576,11 +736,35 @@ Python code<div class="sd-summary-down docutils">
 </li>
 </ul>
 </section>
-</div><div class="proof example admonition" id="example-5">
-<p class="admonition-title"><span class="caption-number">Example 10 </span></p>
+</div><p>While for the inverse iteration, the LU or QR decomposition of <span class="math notranslate nohighlight">\(A - \sigma I\)</span> only needs to be computed once, the Rayleigh quotient iteration requires a new decomposition in each iteration or an algorithm for the solution of linear systems that does not rely on a matrix decomposition.</p>
+<div class="proof example admonition" id="example-7">
+<p class="admonition-title"><span class="caption-number">Example 12 </span></p>
 <section class="example-content" id="proof-content">
-<p>We revisit the example above and consider the matrix <span class="math notranslate nohighlight">\(A = \text{diag}(\lambda_1, 1, \ldots, 1)\)</span> for <span class="math notranslate nohighlight">\(\lambda_1 = 1.1, 1.5, 2.0, 4.0, 8.0\)</span>. The following plot starts the inverse iteration with <span class="math notranslate nohighlight">\(\sigma = 1.1 \, \lambda_1\)</span>, illustrating a situation where the eigenvalue of interest is known within a 10% tolerance.</p>
-<p><img alt="power_method" src="_images/Rayleigh_iteration.png" /></p>
+<p>We revisit the example with the matrix <span class="math notranslate nohighlight">\(A = \text{diag}(\lambda_1, 1, \ldots, 1)\)</span> for <span class="math notranslate nohighlight">\(\lambda_1 = 1.1, 1.5, 2.0, 4.0, 8.0\)</span> and <span class="math notranslate nohighlight">\(n = 100\)</span> once more. The following plot starts the inverse iteration with <span class="math notranslate nohighlight">\(\sigma = 1.0001 \, \lambda_1\)</span>, illustrating a situation where a very good estimate of the eigenvalue of interest is known.</p>
+<p><img alt="Rayleigh_iteration" src="_images/Rayleigh_iteration.png" /></p>
+<p>The convergence is rapid. However, with an initial <span class="math notranslate nohighlight">\(\sigma = 1.01 \, \lambda_1\)</span> convergence happens instead to <span class="math notranslate nohighlight">\(\lambda_2 = 1\)</span>.</p>
+<p><img alt="Rayleigh_iteration_less_acurate" src="_images/Rayleigh_iteration_less_acurate.png" /></p>
+<p>The problem can be addressed by rejecting updates of <span class="math notranslate nohighlight">\(\sigma\)</span>, which differ too significantly from the previous estimate.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">rayleigh_quotient_iteration</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+    <span class="n">lambda_iterates</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
+        <span class="n">q</span> <span class="o">=</span> <span class="n">z</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">A</span> <span class="o">-</span> <span class="n">sigma</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">),</span> <span class="n">q</span><span class="p">)</span>
+            <span class="n">lambda_iterates</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vdot</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">A</span> <span class="o">@</span> <span class="n">q</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">lambda_iterates</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">sigma</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">0.1</span> <span class="o">*</span> <span class="n">sigma</span><span class="p">:</span>
+              <span class="n">sigma</span> <span class="o">=</span> <span class="n">lambda_iterates</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">break</span>
+
+    <span class="k">return</span> <span class="n">lambda_iterates</span>
+</pre></div>
+</div>
+<p>With the line <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">np.abs(lambda_iterates[i]</span> <span class="pre">-</span> <span class="pre">sigma)</span> <span class="pre">&lt;</span> <span class="pre">0.1</span> <span class="pre">*</span> <span class="pre">sigma:</span></code>, it is ensured that <span class="math notranslate nohighlight">\(\sigma\)</span> is only modified if the change is by less than 10%. The resulting method still converges fast with an initial guess <span class="math notranslate nohighlight">\(\sigma = 1.1 \, \lambda_1\)</span>.</p>
+<p><img alt="Rayleigh_iteration_safeguard" src="_images/Rayleigh_iteration_safeguard.png" /></p>
+<p>Clearly, the stability and convergence analysis of the Rayleigh quotient iteration deserves attention.</p>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
 Python code<div class="sd-summary-down docutils">
@@ -597,15 +781,19 @@ Python code<div class="sd-summary-down docutils">
 
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
         <span class="n">q</span> <span class="o">=</span> <span class="n">z</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
-        <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">A</span> <span class="o">-</span> <span class="n">sigma</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">A</span><span class="o">.</span><span class="n">dtype</span><span class="p">),</span> <span class="n">q</span><span class="p">)</span>
-        <span class="n">lambda_iterates</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vdot</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">A</span> <span class="o">@</span> <span class="n">q</span><span class="p">)</span>
-        <span class="n">sigma</span> <span class="o">=</span> <span class="n">lambda_iterates</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">A</span> <span class="o">-</span> <span class="n">sigma</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">),</span> <span class="n">q</span><span class="p">)</span>
+            <span class="n">lambda_iterates</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vdot</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">A</span> <span class="o">@</span> <span class="n">q</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">lambda_iterates</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">sigma</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">0.1</span> <span class="o">*</span> <span class="n">sigma</span><span class="p">:</span>
+              <span class="n">sigma</span> <span class="o">=</span> <span class="n">lambda_iterates</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">break</span>
 
     <span class="k">return</span> <span class="n">lambda_iterates</span>
 
 <span class="c1"># Parameters and initial setup</span>
-<span class="n">n</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span>
-<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="n">n</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">20</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
 <span class="n">q0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>  <span class="c1"># Complex starting vector</span>
 
 <span class="c1"># Compute eigenvalues and plot</span>
@@ -615,8 +803,9 @@ Python code<div class="sd-summary-down docutils">
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
   <span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">lambda_max</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
   <span class="n">lambda_iterates</span><span class="p">[:,</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">rayleigh_quotient_iteration</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">q0</span><span class="p">,</span> <span class="mf">1.1</span> <span class="o">*</span> <span class="n">lambda_max</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">k</span><span class="p">)</span>
-  <span class="n">plt</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">lambda_iterates</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">30</span><span class="p">,</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">lambda_iterates</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">i</span><span class="p">]),</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;λ_1 = </span><span class="si">{</span><span class="n">lambda_max</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$|\lambda_1^{(k)} - \lambda_1^{(j)}|$&#39;</span><span class="p">)</span>
+  <span class="n">plt</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">lambda_iterates</span><span class="p">[:,</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">lambda_max</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;λ_1 = </span><span class="si">{</span><span class="n">lambda_max</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="n">lambda_iterates</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">i</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$|\lambda_1^{(k)} - \lambda_1|$&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Iteration $j$&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
@@ -625,6 +814,82 @@ Python code<div class="sd-summary-down docutils">
 </div>
 </details></section>
 </div></section>
+<section id="python-skills">
+<h2>Python skills<a class="headerlink" href="#python-skills" title="Link to this heading">#</a></h2>
+<p>The following code implements the three methods and applies to the matrix <span class="math notranslate nohighlight">\(A = \text{diag}(1, 2, \ldots, 100)\)</span>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="k">def</span> <span class="nf">power_method</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">q0</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+    <span class="n">lambda_iterates</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="n">q0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="n">A</span> <span class="o">@</span> <span class="n">q</span> 
+        <span class="n">q</span> <span class="o">=</span> <span class="n">z</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+        <span class="n">lambda_iterates</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vdot</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">A</span> <span class="o">@</span> <span class="n">q</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">lambda_iterates</span>
+
+<span class="k">def</span> <span class="nf">inverse_iteration</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">q0</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>  
+    <span class="n">lambda_iterates</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>  
+    <span class="n">n</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  
+    <span class="n">P</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">U</span> <span class="o">=</span> <span class="n">lu</span><span class="p">(</span><span class="n">A</span> <span class="o">-</span> <span class="n">sigma</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">A</span><span class="o">.</span><span class="n">dtype</span><span class="p">))</span>  
+  
+    <span class="k">def</span> <span class="nf">applyMat</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>  
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Computes (A - sigma I)^{-1} x = (PLU)^{-1} x = U^{-1} L^{-1} P^T x&quot;&quot;&quot;</span>  
+        <span class="k">return</span> <span class="n">solve_triangular</span><span class="p">(</span><span class="n">U</span><span class="p">,</span> <span class="n">solve_triangular</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">x</span><span class="p">),</span> <span class="n">lower</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>  
+  
+    <span class="n">z</span> <span class="o">=</span> <span class="n">applyMat</span><span class="p">(</span><span class="n">q0</span><span class="p">)</span>  
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>  
+        <span class="n">q</span> <span class="o">=</span> <span class="n">z</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>  
+        <span class="n">z</span> <span class="o">=</span> <span class="n">applyMat</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>  <span class="c1"># (A - sigma I)^{-1} q  </span>
+        <span class="n">lambda_iterates</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vdot</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">A</span> <span class="o">@</span> <span class="n">q</span><span class="p">)</span>  
+  
+    <span class="k">return</span> <span class="n">lambda_iterates</span>
+
+<span class="k">def</span> <span class="nf">rayleigh_quotient_iteration</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+    <span class="n">lambda_iterates</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
+        <span class="n">q</span> <span class="o">=</span> <span class="n">z</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">A</span> <span class="o">-</span> <span class="n">sigma</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">),</span> <span class="n">q</span><span class="p">)</span>
+            <span class="n">lambda_iterates</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vdot</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">A</span> <span class="o">@</span> <span class="n">q</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">lambda_iterates</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">sigma</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">0.001</span> <span class="o">*</span> <span class="n">sigma</span><span class="p">:</span>
+              <span class="n">sigma</span> <span class="o">=</span> <span class="n">lambda_iterates</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+              <span class="n">sigma</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">+</span> <span class="mf">0.001</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">lambda_iterates</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">sigma</span><span class="p">))</span> <span class="o">*</span> <span class="n">sigma</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">break</span>
+
+    <span class="k">return</span> <span class="n">lambda_iterates</span>
+
+<span class="c1"># Parameters and initial setup</span>
+<span class="n">n</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">400</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="mf">1.0</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">))</span>
+<span class="n">q0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+
+<span class="c1"># Compute eigenvalues and plot</span>
+<span class="n">lambda_iterates</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">k</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
+<span class="n">lambda_iterates</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">power_method</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">q0</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+<span class="n">lambda_iterates</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">inverse_iteration</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">q0</span><span class="p">,</span> <span class="mf">1.8</span> <span class="o">*</span> <span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+<span class="n">lambda_iterates</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">rayleigh_quotient_iteration</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">q0</span><span class="p">,</span> <span class="mf">1.8</span> <span class="o">*</span> <span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">lambda_iterates</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">n</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Power&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">lambda_iterates</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">n</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Inverse&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">lambda_iterates</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">n</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Rayleigh&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">lambda_iterates</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">lambda_iterates</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">lambda_iterates</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$|\lambda_1^{(k)} - \lambda_1|$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Iteration $j$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The resulting plot is</p>
+<p><img alt="eigenvalue_comparison" src="_images/eigenvalue_comparison.png" /></p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -694,6 +959,7 @@ Python code<div class="sd-summary-down docutils">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-power-method">The power method</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inverse-iteration">Inverse Iteration</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rayleigh-quotient-iteration">Rayleigh quotient iteration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a></li>
 </ul>
   </nav></div>
 
