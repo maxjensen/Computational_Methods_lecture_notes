@@ -400,7 +400,7 @@ document.write(`
 <p>From <a class="reference internal" href="bm1_notation_and_facts.html"><span class="std std-doc">Abel–Ruffini theorem</span></a>, it follows that for equations involving polynomials of degree five or higher, one can’t find a one-size-fits-all formula to solve them using just the basic arithmetic operations and root extractions. Since we can phrase the eigenvalue problem as finding the roots of the characteristic polynomial (and every polynomial is the characteristic polynomial of some matrix), we cannot generally compute eigenvalues in closed form for matrices with dimensions larger than 4. Hence, we need iterative methods to compute eigenvalues. The most fundamental method to compute eigenvalues is the power method.</p>
 <section id="the-power-method">
 <h2>The power method<a class="headerlink" href="#the-power-method" title="Link to this heading">#</a></h2>
-<p>Let <span class="math notranslate nohighlight">\(A\in\mathbb{C}^{n\times n}\)</span> be a given diagonalisable matrix.</p>
+<p>The task is to compute the largest eigenvalue of a given diagonalisable matrix <span class="math notranslate nohighlight">\(A\in\mathbb{C}^{n\times n}\)</span>.</p>
 <div class="proof algorithm admonition" id="algorithm-0">
 <p class="admonition-title"><span class="caption-number">Algorithm 2 </span> (Power Method)</p>
 <section class="algorithm-content" id="proof-content">
@@ -416,12 +416,12 @@ document.write(`
 </li>
 </ul>
 </section>
-</div><p>The analysis of the algorithm is very simple. Assuming <span class="math notranslate nohighlight">\(A\)</span> has the eigenpairs <span class="math notranslate nohighlight">\((\lambda_j, x_j)\)</span> with <span class="math notranslate nohighlight">\(\| x_j \|_2 =1\)</span>, the initial vector <span class="math notranslate nohighlight">\(q^{(0)}\)</span> is expressed as a linear combination of eigenvectors, <span class="math notranslate nohighlight">\(q^{(0)} = \sum_{j}\alpha_jx_j\)</span>. This leads to:</p>
+</div><p>The analysis of the algorithm is very simple. Assuming <span class="math notranslate nohighlight">\(A\)</span> has the eigenpairs <span class="math notranslate nohighlight">\((\lambda_j, x_j)\)</span> with <span class="math notranslate nohighlight">\(\| x_j \|_2 =1\)</span>, the initial vector <span class="math notranslate nohighlight">\(q^{(0)}\)</span> is expressed as a linear combination of eigenvectors, <span class="math notranslate nohighlight">\(q^{(0)} = \sum_{j}\alpha_jx_j\)</span>. If  <span class="math notranslate nohighlight">\(\alpha_1 \neq 0\)</span>, this leads to:</p>
 <div class="math notranslate nohighlight">
 \[  
 A^{k} q^{(0)} = \sum_{j=1}^n\alpha_j\lambda_j^kx_j = \alpha_1\lambda_1^{k}\left(x_1+\sum_{j=2}^n\frac{\alpha_j}{\alpha_1}\left(\frac{\lambda_j}{\lambda_1}\right)^kx_j\right).  
 \]</div>
-<p>Therefore, when <span class="math notranslate nohighlight">\(|\lambda_1| &gt; |\lambda_j|\)</span>, <span class="math notranslate nohighlight">\(j &gt; 1\)</span>,</p>
+<p>Therefore, when <span class="math notranslate nohighlight">\(|\lambda_1| &gt; |\lambda_j|\)</span> for <span class="math notranslate nohighlight">\(j &gt; 1\)</span>,</p>
 <div class="math notranslate nohighlight">
 \[
 q^{(k)} = \frac{A^{k} q^{(0)}}{\| A^{k} q^{(0)} \|} \to \frac{\alpha_1 \lambda_1^{k} x_1}{\| \alpha_1  \lambda_1^{k} x_1 \|} \qquad \text{as } k \to \infty.
