@@ -383,6 +383,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inverse-iteration">Inverse Iteration</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rayleigh-quotient-iteration">Rayleigh quotient iteration</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#self-check-questions">Self-check questions</a></li>
 </ul>
             </nav>
         </div>
@@ -819,6 +820,7 @@ Python code<div class="sd-summary-down docutils">
 <p>The following code implements the three methods and applies to the matrix <span class="math notranslate nohighlight">\(A = \text{diag}(1, 2, \ldots, 100)\)</span>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">scipy.linalg</span> <span class="kn">import</span> <span class="n">lu</span><span class="p">,</span> <span class="n">solve_triangular</span>
 
 <span class="k">def</span> <span class="nf">power_method</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">q0</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
     <span class="n">lambda_iterates</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
@@ -890,6 +892,77 @@ Python code<div class="sd-summary-down docutils">
 <p>The resulting plot is</p>
 <p><img alt="eigenvalue_comparison" src="_images/eigenvalue_comparison.png" /></p>
 </section>
+<section id="self-check-questions">
+<h2>Self-check questions<a class="headerlink" href="#self-check-questions" title="Link to this heading">#</a></h2>
+<div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Consider a symmetric matrix <span class="math notranslate nohighlight">\(B\)</span> defined as follows:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+A = \begin{pmatrix} 3 &amp; 2 \\ 2 &amp; 6 \end{pmatrix}
+\end{split}\]</div>
+<p>The eigenvalues of <span class="math notranslate nohighlight">\(B\)</span> are <span class="math notranslate nohighlight">\(\lambda_1 = 7\)</span> and <span class="math notranslate nohighlight">\(\lambda_2 = 2\)</span>. The following code computes the power iteration to find the largest eigenvalue.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="k">def</span> <span class="nf">power_method</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">q0</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+    <span class="n">lambda_iterates</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="n">q0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="n">A</span> <span class="o">@</span> <span class="n">q</span>
+        <span class="n">q</span> <span class="o">=</span> <span class="n">z</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+        <span class="n">lambda_iterates</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vdot</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">A</span> <span class="o">@</span> <span class="n">q</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">lambda_iterates</span>
+
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">]])</span>
+<span class="n">q0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">power_method</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">q0</span><span class="p">,</span> <span class="mi">20</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>The output of the code is</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mf">2.</span><span class="o">+</span><span class="mf">0.</span><span class="n">j</span> <span class="mf">2.</span><span class="o">+</span><span class="mf">0.</span><span class="n">j</span> <span class="mf">2.</span><span class="o">+</span><span class="mf">0.</span><span class="n">j</span> <span class="mf">2.</span><span class="o">+</span><span class="mf">0.</span><span class="n">j</span> <span class="mf">2.</span><span class="o">+</span><span class="mf">0.</span><span class="n">j</span> <span class="mf">2.</span><span class="o">+</span><span class="mf">0.</span><span class="n">j</span> <span class="mf">2.</span><span class="o">+</span><span class="mf">0.</span><span class="n">j</span> <span class="mf">2.</span><span class="o">+</span><span class="mf">0.</span><span class="n">j</span> <span class="mf">2.</span><span class="o">+</span><span class="mf">0.</span><span class="n">j</span> <span class="mf">2.</span><span class="o">+</span><span class="mf">0.</span><span class="n">j</span>
+ <span class="mf">2.</span><span class="o">+</span><span class="mf">0.</span><span class="n">j</span> <span class="mf">2.</span><span class="o">+</span><span class="mf">0.</span><span class="n">j</span> <span class="mf">2.</span><span class="o">+</span><span class="mf">0.</span><span class="n">j</span> <span class="mf">2.</span><span class="o">+</span><span class="mf">0.</span><span class="n">j</span> <span class="mf">2.</span><span class="o">+</span><span class="mf">0.</span><span class="n">j</span> <span class="mf">2.</span><span class="o">+</span><span class="mf">0.</span><span class="n">j</span> <span class="mf">2.</span><span class="o">+</span><span class="mf">0.</span><span class="n">j</span> <span class="mf">2.</span><span class="o">+</span><span class="mf">0.</span><span class="n">j</span> <span class="mf">2.</span><span class="o">+</span><span class="mf">0.</span><span class="n">j</span> <span class="mf">2.</span><span class="o">+</span><span class="mf">0.</span><span class="n">j</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Explain why the Rayleigh quotients of the power iteration do not converge to <span class="math notranslate nohighlight">\(7\)</span>.</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<strong>Answer</strong><div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">d</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>d</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<strong>Answer</strong><div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">d</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>d</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<strong>Answer</strong><div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">d</p>
+</div>
+</details></section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -960,6 +1033,7 @@ Python code<div class="sd-summary-down docutils">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inverse-iteration">Inverse Iteration</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rayleigh-quotient-iteration">Rayleigh quotient iteration</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#self-check-questions">Self-check questions</a></li>
 </ul>
   </nav></div>
 
