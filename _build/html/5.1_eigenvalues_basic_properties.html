@@ -407,7 +407,7 @@ document.write(`
 <div class="proof definition admonition" id="definition-0">
 <p class="admonition-title"><span class="caption-number">Definition 5 </span></p>
 <section class="definition-content" id="proof-content">
-<p>Consider a matrix <span class="math notranslate nohighlight">\(A\)</span> in <span class="math notranslate nohighlight">\(\mathbb{C}^{n \times n}\)</span>. An <em>eigenvalue problem</em> is formulated to find a nonzero vector <span class="math notranslate nohighlight">\(x \in \mathbb{C}^n\)</span>, called <em>eigenvector</em>, and a scalar <span class="math notranslate nohighlight">\(\lambda \in \mathbb{C}\)</span>, called <em>eigenvalue</em>, such that:</p>
+<p>Consider a matrix <span class="math notranslate nohighlight">\(A\)</span> in <span class="math notranslate nohighlight">\(\mathbb{C}^{n \times n}\)</span>. An <em>eigenvalue problem</em> is the task to find a nonzero vector <span class="math notranslate nohighlight">\(x \in \mathbb{C}^n\)</span>, called <em>eigenvector</em>, and a scalar <span class="math notranslate nohighlight">\(\lambda \in \mathbb{C}\)</span>, called <em>eigenvalue</em>, such that:</p>
 <div class="math notranslate nohighlight">
 \[
 A x = \lambda x.
@@ -421,7 +421,7 @@ A x = \lambda x.
 \[
 \langle x, y \rangle = x^T \, \overline{y} = \sum_j x_j \, \overline{y}_j.
 \]</div>
-<p>This requires taking the complex conjugate of <span class="math notranslate nohighlight">\(y\)</span> in the inner product calculation. The 2-norm of a vector is hence <span class="math notranslate nohighlight">\(\|x\|_2 = \langle x, x \rangle^{1/2}\)</span>.</p>
+<p>It requires taking the complex conjugate of <span class="math notranslate nohighlight">\(y\)</span> in the inner product calculation. The 2-norm of a vector is <span class="math notranslate nohighlight">\(\|x\|_2 = \langle x, x \rangle^{1/2}\)</span>.</p>
 <p>In complex spaces, the counterpart to transposed matrices is the conjugate transpose <span class="math notranslate nohighlight">\(A^H := \bar{A}^T\)</span>. With this, the following relation holds:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -471,12 +471,12 @@ p(\lambda) = \prod_j (\lambda - \lambda_j)^{\alpha_j},
 </section>
 <section id="eigenvalue-decomposition">
 <h2>Eigenvalue decomposition<a class="headerlink" href="#eigenvalue-decomposition" title="Link to this heading">#</a></h2>
-<p>If for all <span class="math notranslate nohighlight">\(j\)</span>, the algebraic and geometric multiplicities are equal (<span class="math notranslate nohighlight">\(\alpha_j = \beta_j\)</span>), the matrix <span class="math notranslate nohighlight">\(A\)</span> admits an eigenvalue decomposition:</p>
+<p>If for all <span class="math notranslate nohighlight">\(j\)</span>, the algebraic and geometric multiplicities are equal (<span class="math notranslate nohighlight">\(\alpha_j = \beta_j\)</span>), the matrix <span class="math notranslate nohighlight">\(A\)</span> admits an eigenvalue decomposition</p>
 <div class="math notranslate nohighlight">
 \[
 A = X\Lambda X^{-1},
 \]</div>
-<p>where <span class="math notranslate nohighlight">\(X \in \mathbb{C}^{n \times n}\)</span> is a nonsingular matrix with columns <span class="math notranslate nohighlight">\(x_j\)</span> comprising eigenvectors of <span class="math notranslate nohighlight">\(A\)</span>, and <span class="math notranslate nohighlight">\(\Lambda\)</span> is a diagonal matrix with diagonal entries being the corresponding eigenvalues <span class="math notranslate nohighlight">\(\lambda_j\)</span>.</p>
+<p>where <span class="math notranslate nohighlight">\(X \in \mathbb{C}^{n \times n}\)</span> is a nonsingular matrix with columns <span class="math notranslate nohighlight">\(x_j\)</span> comprising eigenvectors of <span class="math notranslate nohighlight">\(A\)</span>, and <span class="math notranslate nohighlight">\(\Lambda\)</span> is a diagonal matrix with diagonal entries being the corresponding eigenvalues <span class="math notranslate nohighlight">\(\lambda_j\)</span>. Hermitian matrices have a basis of orthonormal eigenvectors.</p>
 </section>
 <section id="the-companion-matrix">
 <h2>The companion matrix<a class="headerlink" href="#the-companion-matrix" title="Link to this heading">#</a></h2>
@@ -564,35 +564,6 @@ C = \begin{pmatrix}
 <h2>Self-check questions<a class="headerlink" href="#self-check-questions" title="Link to this heading">#</a></h2>
 <div class="tip admonition">
 <p class="admonition-title"><strong>Question</strong></p>
-<p>Show that for a Hermitian matrix <span class="math notranslate nohighlight">\(A \in \mathbb{C}^{n\times n}\)</span> we have</p>
-<div class="math notranslate nohighlight">
-\[
-x^H A x \in\mathbb{R} \qquad \forall \, x\in\mathbb{C}^{n}.
-\]</div>
-<p>A Hermitian matrix is called positive definite if</p>
-<div class="math notranslate nohighlight">
-\[
-x^H A x &gt; 0 \qquad \forall \, x\in\mathbb{C}^{n} \setminus \{0\}.
-\]</div>
-<p>Show that if a Hermitian matrix <span class="math notranslate nohighlight">\(A\)</span> is positive definite, then all eigenvalues of <span class="math notranslate nohighlight">\(A\)</span> are real and positive</p>
-</div>
-<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
-<summary class="sd-summary-title sd-card-header">
-<strong>Answer</strong><div class="sd-summary-down docutils">
-<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
-<div class="sd-summary-up docutils">
-<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
-</summary><div class="sd-summary-content sd-card-body docutils">
-<p class="sd-card-text">Using that <span class="math notranslate nohighlight">\(A\)</span> is Hermitian (<span class="math notranslate nohighlight">\(A=A^H\)</span>) and that <span class="math notranslate nohighlight">\(x^HAx = x^HAx^T \in \mathbb{C}\)</span>, we find</p>
-<div class="math notranslate nohighlight">
-\[
-\overline{x^HAx} = \left(x^HAx\right)^T  = x^HA^Hx = x^HAx.
-\]</div>
-<p class="sd-card-text">Therefore <span class="math notranslate nohighlight">\(x^H A x \in \mathbb{R}\)</span> for all <span class="math notranslate nohighlight">\(x \in \mathbb{C}^n\)</span>.</p>
-<p class="sd-card-text">Let <span class="math notranslate nohighlight">\(\lambda_j\)</span> be an eigenvalue with associated eigenvector <span class="math notranslate nohighlight">\(x_j\)</span> and <span class="math notranslate nohighlight">\(\|x_j\|_2 = 1\)</span>. For <span class="math notranslate nohighlight">\(A\)</span> positive definite, we have that <span class="math notranslate nohighlight">\(\lambda_j = x_j^H A x_j &gt; 0\)</span>.</p>
-</div>
-</details><div class="tip admonition">
-<p class="admonition-title"><strong>Question</strong></p>
 <p>Show that all unitary matrices <span class="math notranslate nohighlight">\(Q\)</span> satisfy <span class="math notranslate nohighlight">\(|\det(Q)| = 1\)</span>.</p>
 </div>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
@@ -620,7 +591,7 @@ A = \begin{bmatrix}
 0 &amp; 0 &amp; 3
 \end{bmatrix}.
 \end{split}\]</div>
-<p>Determine the eigenvalues and eigenvectors of matrix ( A ).</p>
+<p>Determine the eigenvalues and eigenvectors of <span class="math notranslate nohighlight">\(A\)</span>.</p>
 <p>Compute the algebraic and geometric multiplicities of each eigenvalue.</p>
 <p>Can <span class="math notranslate nohighlight">\(A\)</span> be decomposed as <span class="math notranslate nohighlight">\(A = X \Lambda X^{-1}\)</span> where <span class="math notranslate nohighlight">\(\Lambda\)</span> is a diagonal matrix and <span class="math notranslate nohighlight">\(X\)</span> non-singular? Explain why or why not.</p>
 </div>

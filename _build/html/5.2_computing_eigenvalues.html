@@ -383,6 +383,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inverse-iteration">Inverse Iteration</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rayleigh-quotient-iteration">Rayleigh quotient iteration</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#self-check-questions">Self-check questions</a></li>
 </ul>
             </nav>
         </div>
@@ -399,39 +400,49 @@ document.write(`
 <p>From <a class="reference internal" href="bm1_notation_and_facts.html"><span class="std std-doc">Abel–Ruffini theorem</span></a>, it follows that for equations involving polynomials of degree five or higher, one can’t find a one-size-fits-all formula to solve them using just the basic arithmetic operations and root extractions. Since we can phrase the eigenvalue problem as finding the roots of the characteristic polynomial (and every polynomial is the characteristic polynomial of some matrix), we cannot generally compute eigenvalues in closed form for matrices with dimensions larger than 4. Hence, we need iterative methods to compute eigenvalues. The most fundamental method to compute eigenvalues is the power method.</p>
 <section id="the-power-method">
 <h2>The power method<a class="headerlink" href="#the-power-method" title="Link to this heading">#</a></h2>
-<p>Let <span class="math notranslate nohighlight">\(A\in\mathbb{C}^{n\times n}\)</span> be a given diagonalizable matrix and let <span class="math notranslate nohighlight">\(q^{(0)}\)</span> be a starting vector with <span class="math notranslate nohighlight">\(\|q^{(0)}\|_2=1\)</span></p>
+<p>The task is to compute the largest eigenvalue of a given diagonalisable matrix <span class="math notranslate nohighlight">\(A\in\mathbb{C}^{n\times n}\)</span>.</p>
 <div class="proof algorithm admonition" id="algorithm-0">
 <p class="admonition-title"><span class="caption-number">Algorithm 2 </span> (Power Method)</p>
 <section class="algorithm-content" id="proof-content">
-<p><strong>Inputs</strong> <span class="math notranslate nohighlight">\(A\in\mathbb{C}^{n\times n}\)</span>, <span class="math notranslate nohighlight">\(q^{(0)} \in\mathbb{C}^n\)</span></p>
-<p><strong>Outputs</strong> <span class="math notranslate nohighlight">\(q^{(\infty)} \in\mathbb{C}^n\)</span>, <span class="math notranslate nohighlight">\(\lambda^{(\infty)} \in\mathbb{C}\)</span></p>
+<p><strong>Inputs</strong> <span class="math notranslate nohighlight">\(A\in\mathbb{C}^{n\times n}\)</span> diagonalisable, <span class="math notranslate nohighlight">\(z^{(0)} \in\mathbb{C}^n \setminus \{ 0 \}\)</span></p>
+<p><strong>Outputs</strong> <span class="math notranslate nohighlight">\(\{q^{(k)}\}_{k \in \mathbb{N}} \subset \mathbb{C}^n\)</span>, <span class="math notranslate nohighlight">\(\{\lambda^{(k)}\}_{k \in \mathbb{N}} \subset \mathbb{C}\)</span></p>
 <ul class="simple">
 <li><p>For <span class="math notranslate nohighlight">\(k \in \mathbb{N} \setminus \{0\}\)</span>:</p>
 <ul>
-<li><p><span class="math notranslate nohighlight">\(z^{(k)} = Aq^{(k-1)}\)</span></p></li>
 <li><p><span class="math notranslate nohighlight">\(q^{(k)} = z^{(k)}/\|z^{(k)}\|_2\)</span></p></li>
 <li><p><span class="math notranslate nohighlight">\(\lambda^{(k)} = (q^{(k)})^HAq^{(k)}\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(z^{(k+1)} = A q^{(k)}\)</span></p></li>
 </ul>
 </li>
 </ul>
 </section>
-</div><p>The analysis of the algorithm is very simple, with normalisation solely for numerical stability to prevent overflow. The crux lies in iterative vector multiplication. Assuming (for simplicity) <span class="math notranslate nohighlight">\(A\)</span> is diagonalizable with eigenpairs <span class="math notranslate nohighlight">\((\lambda_j, x_j)\)</span>, the initial vector <span class="math notranslate nohighlight">\(q^{(0)}\)</span> is expressed as a linear combination of eigenvectors, <span class="math notranslate nohighlight">\(q^{(0)} = \sum_{j}\alpha_jx_j\)</span>. This leads to:</p>
+</div><p>The analysis of the algorithm is very simple. Assuming <span class="math notranslate nohighlight">\(A\)</span> has the eigenpairs <span class="math notranslate nohighlight">\((\lambda_j, x_j)\)</span> with <span class="math notranslate nohighlight">\(\| x_j \|_2 =1\)</span>, the initial vector <span class="math notranslate nohighlight">\(q^{(0)}\)</span> is expressed as a linear combination of eigenvectors, <span class="math notranslate nohighlight">\(q^{(0)} = \sum_{j}\alpha_jx_j\)</span>. If  <span class="math notranslate nohighlight">\(\alpha_1 \neq 0\)</span>, this leads to:</p>
 <div class="math notranslate nohighlight">
 \[  
-A^{k}q^{(0)} = \sum_{j=1}^n\alpha_j\lambda_j^kx_j = \alpha_1\lambda_1^{k}\left(x_1+\sum_{j=2}^n\frac{\alpha_j}{\alpha_1}\left(\frac{\lambda_j}{\lambda_1}\right)^kx_j\right).  
+A^{k} q^{(0)} = \sum_{j=1}^n\alpha_j\lambda_j^kx_j = \alpha_1\lambda_1^{k}\left(x_1+\sum_{j=2}^n\frac{\alpha_j}{\alpha_1}\left(\frac{\lambda_j}{\lambda_1}\right)^kx_j\right).  
 \]</div>
-<p>Let <span class="math notranslate nohighlight">\(\lambda_1\)</span> be the largest  (in absolute value) and <span class="math notranslate nohighlight">\(\lambda_2\)</span> be the second-largest eigenvalue. Then, the power method successfully converges to the eigenvector <span class="math notranslate nohighlight">\(q_1\)</span> associated with <span class="math notranslate nohighlight">\(\lambda_1\)</span> when <span class="math notranslate nohighlight">\(|\lambda_1| &gt; |\lambda_j|\)</span>, <span class="math notranslate nohighlight">\(j &gt; 1\)</span>, with the convergence rate and error magnitude order given by <span class="math notranslate nohighlight">\(\mathcal{O}\bigl(\left|\lambda_2 / \lambda_1\right|^k\bigr)\)</span>.</p>
-<p>The approximation of the eigenvalue relies on the perturbation result for <span class="math notranslate nohighlight">\(q^{(j)} = q_1 + \epsilon\)</span></p>
+<p>Therefore, when <span class="math notranslate nohighlight">\(|\lambda_1| &gt; |\lambda_j|\)</span> for <span class="math notranslate nohighlight">\(j &gt; 1\)</span>,</p>
 <div class="math notranslate nohighlight">
 \[
-(q_1 + \epsilon)^H A (q_1 + \epsilon) \to q_1^H A q_1 = \lambda_1 \| q_1 \|_2^2 = \lambda_1
+q^{(k)} = \frac{A^{k} q^{(0)}}{\| A^{k} q^{(0)} \|} \to \frac{\alpha_1 \lambda_1^{k} x_1}{\| \alpha_1  \lambda_1^{k} x_1 \|} \qquad \text{as } k \to \infty.
+\]</div>
+<p>Consequently, with</p>
+<div class="math notranslate nohighlight">
+\[
+\tilde{q}^{(k)} := \frac{|\alpha_1|}{\alpha_1} \, \left( \frac{|\lambda_1|}{\lambda_1} \right)^k \, q^{(k)} \to x_1 \qquad \text{as } k \to \infty,
+\]</div>
+<p>the power method successfully converges to the eigenvector <span class="math notranslate nohighlight">\(x_1\)</span>  with the convergence rate and error magnitude order given by <span class="math notranslate nohighlight">\(\mathcal{O}\bigl(\left|\lambda_2 / \lambda_1\right|^k\bigr)\)</span>.</p>
+<p>The approximation of the eigenvalue relies on the perturbation result for <span class="math notranslate nohighlight">\(\tilde{q}^{(k)} = x_1 + \epsilon\)</span></p>
+<div class="math notranslate nohighlight">
+\[
+(x_1 + \epsilon)^H A (x_1 + \epsilon) \to x_1^H A x_1 = \lambda_1 \| x_1 \|_2^2 = \lambda_1
 \]</div>
 <p>as <span class="math notranslate nohighlight">\(\| \epsilon \| \to 0\)</span>. We set</p>
 <div class="math notranslate nohighlight">
 \[
 R(A,x) := \frac{x^H A x}{x^H x},
 \]</div>
-<p>called the Rayleigh quotient of <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(x\)</span>. In practice, one needs to terminate the <code class="docutils literal notranslate"><span class="pre">for</span></code> loop of the power iteration after a prescribed number of iterations or through some criterion indicating the quality of the eigenvalue or eigenvector approximation. In fact, <span class="math notranslate nohighlight">\(\lambda^{(k)} = (q^{(k)})^HAq^{(k)}\)</span> may be taken out of the <code class="docutils literal notranslate"><span class="pre">for</span></code> loop and computed only with the final <span class="math notranslate nohighlight">\(q^{(k)}\)</span>.</p>
+<p>called the <em>Rayleigh quotient</em> of <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(x\)</span>. In practice, one needs to terminate the <code class="docutils literal notranslate"><span class="pre">for</span></code> loop of the power iteration after a prescribed number of iterations or through some criterion indicating the quality of the eigenvalue or eigenvector approximation. In fact, <span class="math notranslate nohighlight">\(\lambda^{(k)} = (q^{(k)})^HAq^{(k)}\)</span> may be taken out of the <code class="docutils literal notranslate"><span class="pre">for</span></code> loop and computed only with the final <span class="math notranslate nohighlight">\(q^{(k)}\)</span>.</p>
 <div class="proof example admonition" id="example-1">
 <p class="admonition-title"><span class="caption-number">Example 8 </span></p>
 <section class="example-content" id="proof-content">
@@ -562,19 +573,19 @@ Python code<div class="sd-summary-down docutils">
 </div></section>
 <section id="inverse-iteration">
 <h2>Inverse Iteration<a class="headerlink" href="#inverse-iteration" title="Link to this heading">#</a></h2>
-<p>The principle idea of inverse iteration is to transform the spectrum of the matrix <span class="math notranslate nohighlight">\(A\)</span> to accelerate the eigenvalue convergence.</p>
-<p>Let <span class="math notranslate nohighlight">\(Ax=\lambda x\)</span>. Then we have <span class="math notranslate nohighlight">\((A-\sigma I)^{-1}x=(\lambda-\sigma)^{-1}x\)</span>. The biggest eigenvalue is now the one that is closest to <span class="math notranslate nohighlight">\(\sigma\)</span>, and we can expect that the power method to <span class="math notranslate nohighlight">\((A-\sigma I)^{-1}\)</span> in place of <span class="math notranslate nohighlight">\(A\)</span> will converge fast to the eigenvalue close to <span class="math notranslate nohighlight">\(\sigma\)</span>.</p>
+<p>The principle idea of inverse iteration is to transform the spectrum of the matrix <span class="math notranslate nohighlight">\(A\)</span> to accelerate the convergence to eigenvalues.</p>
+<p>Let <span class="math notranslate nohighlight">\(A x=\lambda x\)</span> and <span class="math notranslate nohighlight">\(\sigma \in \mathbb{C}\)</span> not be an eigenvalue. Then we have <span class="math notranslate nohighlight">\((A-\sigma I)^{-1}x=(\lambda-\sigma)^{-1}x\)</span>. The largest eigenvalue of <span class="math notranslate nohighlight">\((A-\sigma I)^{-1}\)</span> is the one that is closest to <span class="math notranslate nohighlight">\(\sigma\)</span>, and we can expect that the power method to <span class="math notranslate nohighlight">\((A-\sigma I)^{-1}\)</span> in place of <span class="math notranslate nohighlight">\(A\)</span> will converge fast to the eigenvalue close to <span class="math notranslate nohighlight">\(\sigma\)</span>.</p>
 <div class="proof algorithm admonition" id="algorithm-3">
 <p class="admonition-title"><span class="caption-number">Algorithm 3 </span> (Inverse Iteration)</p>
 <section class="algorithm-content" id="proof-content">
-<p><strong>Inputs</strong> <span class="math notranslate nohighlight">\(A\in\mathbb{C}^{n\times n}\)</span>, <span class="math notranslate nohighlight">\(z^{(0)} \in\mathbb{C}^n\)</span>, <span class="math notranslate nohighlight">\(\sigma \in\mathbb{C}\)</span></p>
-<p><strong>Outputs</strong> <span class="math notranslate nohighlight">\(q^{(\infty)} \in\mathbb{C}^n\)</span>, <span class="math notranslate nohighlight">\(\lambda^{(\infty)} \in\mathbb{C}\)</span></p>
+<p><strong>Inputs</strong> <span class="math notranslate nohighlight">\(A\in\mathbb{C}^{n\times n}\)</span> diagonalisable, <span class="math notranslate nohighlight">\(z^{(0)} \in\mathbb{C}^n \setminus \{ 0 \}\)</span>, <span class="math notranslate nohighlight">\(\sigma \in\mathbb{C}\)</span> not eigenvalue of <span class="math notranslate nohighlight">\(A\)</span></p>
+<p><strong>Outputs</strong> <span class="math notranslate nohighlight">\(\{q^{(k)}\}_{k \in \mathbb{N}} \subset \mathbb{C}^n\)</span>, <span class="math notranslate nohighlight">\(\{\lambda^{(k)}\}_{k \in \mathbb{N}} \subset \mathbb{C}\)</span></p>
 <ul class="simple">
 <li><p>For <span class="math notranslate nohighlight">\(k \in \mathbb{N}\)</span>:</p>
 <ul>
 <li><p><span class="math notranslate nohighlight">\(q^{(k)} = z^{(k)}/\|z^{(k)}\|_2\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\lambda^{(k)} = (q^{(k)})^HAq^{(k)}\)</span></p></li>
 <li><p>Solve <span class="math notranslate nohighlight">\((A-\sigma I) z^{(k+1)} = q^{(k)}\)</span></p></li>
-<li><p><span class="math notranslate nohighlight">\(\lambda^{(k+1)} = (q^{(k+1)})^HAq^{(k+1)}\)</span></p></li>
 </ul>
 </li>
 </ul>
@@ -582,7 +593,7 @@ Python code<div class="sd-summary-down docutils">
 </div><div class="proof example admonition" id="example-4">
 <p class="admonition-title"><span class="caption-number">Example 10 </span></p>
 <section class="example-content" id="proof-content">
-<p>We revisit the first example above and consider again the matrix <span class="math notranslate nohighlight">\(A = \text{diag}(\lambda_1, 1, \ldots, 1)\)</span> for <span class="math notranslate nohighlight">\(\lambda_1\)</span> and <span class="math notranslate nohighlight">\(n\)</span> a above. The following plot uses the inverse iteration with <span class="math notranslate nohighlight">\(\sigma = 1.1 \, \lambda_1\)</span>, illustrating a situation where the eigenvalue of interest is known within a 10% tolerance.</p>
+<p>We revisit the first example above and consider again the matrix <span class="math notranslate nohighlight">\(A = \text{diag}(\lambda_1, 1, \ldots, 1)\)</span> for <span class="math notranslate nohighlight">\(\lambda_1\)</span> and <span class="math notranslate nohighlight">\(n\)</span> as above. The following plot uses the inverse iteration with <span class="math notranslate nohighlight">\(\sigma = 1.1 \, \lambda_1\)</span>, illustrating a situation where the eigenvalue of interest is known within a 10% tolerance.</p>
 <p><img alt="inverse_iteration" src="_images/inverse_iteration.png" /></p>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
@@ -719,19 +730,19 @@ Python code<div class="sd-summary-down docutils">
 </div></section>
 <section id="rayleigh-quotient-iteration">
 <h2>Rayleigh quotient iteration<a class="headerlink" href="#rayleigh-quotient-iteration" title="Link to this heading">#</a></h2>
-<p>One can combine the inverse iteration with evaluating the Rayleigh quotient. The idea is that instead of the fixed value <span class="math notranslate nohighlight">\(\sigma\)</span> in each step, we use as a shift the value of the Rayleigh quotient. The resulting algorithm is called Rayleigh quotient iteration. For symmetric problems this approach is most effective: the convergence is even cubic.</p>
+<p>One can combine the inverse iteration with evaluating the Rayleigh quotient. The idea is that instead of the fixed value <span class="math notranslate nohighlight">\(\sigma\)</span> in each step, we use as a shift the value of the Rayleigh quotient. The resulting algorithm is called Rayleigh quotient iteration. For symmetric problems, this approach is most effective: the convergence is even cubic.</p>
 <div class="proof algorithm admonition" id="algorithm-6">
 <p class="admonition-title"><span class="caption-number">Algorithm 4 </span> (Rayleigh Quotient Iteration)</p>
 <section class="algorithm-content" id="proof-content">
-<p><strong>Inputs</strong> <span class="math notranslate nohighlight">\(A\in\mathbb{C}^{n\times n}\)</span>, <span class="math notranslate nohighlight">\(z^{(0)} \in\mathbb{C}^n\)</span>, <span class="math notranslate nohighlight">\(\sigma \in\mathbb{C}\)</span></p>
-<p><strong>Outputs</strong> <span class="math notranslate nohighlight">\(q^{(\infty)} \in\mathbb{C}^n\)</span>, <span class="math notranslate nohighlight">\(\lambda^{(\infty)} \in\mathbb{C}\)</span></p>
+<p><strong>Inputs</strong> <span class="math notranslate nohighlight">\(A\in\mathbb{C}^{n\times n}\)</span> diagonalisable, <span class="math notranslate nohighlight">\(z^{(0)} \in\mathbb{C}^n \setminus \{ 0 \}\)</span>, <span class="math notranslate nohighlight">\(\sigma \in\mathbb{C}\)</span> not eigenvalue of <span class="math notranslate nohighlight">\(A\)</span></p>
+<p><strong>Outputs</strong> <span class="math notranslate nohighlight">\(\{q^{(k)}\}_{k \in \mathbb{N}} \subset \mathbb{C}^n\)</span>, <span class="math notranslate nohighlight">\(\{\lambda^{(k)}\}_{k \in \mathbb{N}} \subset \mathbb{C}\)</span></p>
 <ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(\lambda_\sigma^{(0)} = 0\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\lambda^{(0)} = \sigma\)</span></p></li>
 <li><p>For <span class="math notranslate nohighlight">\(k \in \mathbb{N}\)</span>:</p>
 <ul>
 <li><p><span class="math notranslate nohighlight">\(q^{(k)} = z^{(k)}/\|z^{(k)}\|_2\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\lambda^{(k)} = (q^{(k)})^HAq^{(k)}\)</span></p></li>
 <li><p>Solve <span class="math notranslate nohighlight">\((A-\lambda^{(k)} I) z^{(k+1)} = q^{(k)}\)</span></p></li>
-<li><p><span class="math notranslate nohighlight">\(\lambda^{(k+1)} = (q^{(k+1)})^HAq^{(k+1)}\)</span></p></li>
 </ul>
 </li>
 </ul>
@@ -762,7 +773,7 @@ Python code<div class="sd-summary-down docutils">
     <span class="k">return</span> <span class="n">lambda_iterates</span>
 </pre></div>
 </div>
-<p>With the line <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">np.abs(lambda_iterates[i]</span> <span class="pre">-</span> <span class="pre">sigma)</span> <span class="pre">&lt;</span> <span class="pre">0.1</span> <span class="pre">*</span> <span class="pre">sigma:</span></code>, it is ensured that <span class="math notranslate nohighlight">\(\sigma\)</span> is only modified if the change is by less than 10%. The <code class="docutils literal notranslate"><span class="pre">try</span></code> and <code class="docutils literal notranslate"><span class="pre">except</span></code> structure allows the execution of the code within the <code class="docutils literal notranslate"><span class="pre">try</span></code> block and in case of an (almost) singular <span class="math notranslate nohighlight">\(A - \sigma I\)</span>, to break the <code class="docutils literal notranslate"><span class="pre">for</span></code> loop without terminating the entire code execution. The resulting method still converges fast with an initial guess <span class="math notranslate nohighlight">\(\sigma = 1.1 \, \lambda_1\)</span>.</p>
+<p>With the line <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">np.abs(lambda_iterates[i]</span> <span class="pre">-</span> <span class="pre">sigma)</span> <span class="pre">&lt;</span> <span class="pre">0.1</span> <span class="pre">*</span> <span class="pre">sigma:</span></code>, it is ensured that <span class="math notranslate nohighlight">\(\sigma\)</span> is only modified if the change is by less than 10%. The <code class="docutils literal notranslate"><span class="pre">try</span></code> and <code class="docutils literal notranslate"><span class="pre">except</span></code> structure allows the execution of the code within the <code class="docutils literal notranslate"><span class="pre">try</span></code> block and in case of an (almost) singular <span class="math notranslate nohighlight">\(A - \sigma I\)</span>, to break the <code class="docutils literal notranslate"><span class="pre">for</span></code> loop without terminating the entire code execution. The <code class="docutils literal notranslate"><span class="pre">break</span></code> keyword ends the <code class="docutils literal notranslate"><span class="pre">for</span></code> (or <code class="docutils literal notranslate"><span class="pre">while</span></code>) loop. The resulting method still converges fast with an initial guess <span class="math notranslate nohighlight">\(\sigma = 1.1 \, \lambda_1\)</span> – understanding convergence as reaching nearly machine accuracy.</p>
 <p><img alt="Rayleigh_iteration_safeguard" src="_images/Rayleigh_iteration_safeguard.png" /></p>
 <p>Clearly, the stability and convergence analysis of the Rayleigh quotient iteration deserves attention.</p>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
@@ -819,6 +830,7 @@ Python code<div class="sd-summary-down docutils">
 <p>The following code implements the three methods and applies to the matrix <span class="math notranslate nohighlight">\(A = \text{diag}(1, 2, \ldots, 100)\)</span>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">scipy.linalg</span> <span class="kn">import</span> <span class="n">lu</span><span class="p">,</span> <span class="n">solve_triangular</span>
 
 <span class="k">def</span> <span class="nf">power_method</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">q0</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
     <span class="n">lambda_iterates</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
@@ -890,6 +902,90 @@ Python code<div class="sd-summary-down docutils">
 <p>The resulting plot is</p>
 <p><img alt="eigenvalue_comparison" src="_images/eigenvalue_comparison.png" /></p>
 </section>
+<section id="self-check-questions">
+<h2>Self-check questions<a class="headerlink" href="#self-check-questions" title="Link to this heading">#</a></h2>
+<div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Consider a symmetric matrix <span class="math notranslate nohighlight">\(B\)</span> defined as follows:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+A = \begin{pmatrix} 3 &amp; 2 \\ 2 &amp; 6 \end{pmatrix}
+\end{split}\]</div>
+<p>The eigenvalues of <span class="math notranslate nohighlight">\(B\)</span> are <span class="math notranslate nohighlight">\(\lambda_1 = 7\)</span> and <span class="math notranslate nohighlight">\(\lambda_2 = 2\)</span>. The following code computes the power iteration to find the largest eigenvalue.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="k">def</span> <span class="nf">power_method</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">q0</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+    <span class="n">lambda_iterates</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="n">q0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="n">A</span> <span class="o">@</span> <span class="n">q</span>
+        <span class="n">q</span> <span class="o">=</span> <span class="n">z</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+        <span class="n">lambda_iterates</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vdot</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">A</span> <span class="o">@</span> <span class="n">q</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">lambda_iterates</span>
+
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">]])</span>
+<span class="n">q0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">power_method</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">q0</span><span class="p">,</span> <span class="mi">20</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>The output of the code is</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mf">2.</span><span class="o">+</span><span class="mf">0.</span><span class="n">j</span> <span class="mf">2.</span><span class="o">+</span><span class="mf">0.</span><span class="n">j</span> <span class="mf">2.</span><span class="o">+</span><span class="mf">0.</span><span class="n">j</span> <span class="mf">2.</span><span class="o">+</span><span class="mf">0.</span><span class="n">j</span> <span class="mf">2.</span><span class="o">+</span><span class="mf">0.</span><span class="n">j</span> <span class="mf">2.</span><span class="o">+</span><span class="mf">0.</span><span class="n">j</span> <span class="mf">2.</span><span class="o">+</span><span class="mf">0.</span><span class="n">j</span> <span class="mf">2.</span><span class="o">+</span><span class="mf">0.</span><span class="n">j</span> <span class="mf">2.</span><span class="o">+</span><span class="mf">0.</span><span class="n">j</span> <span class="mf">2.</span><span class="o">+</span><span class="mf">0.</span><span class="n">j</span>
+ <span class="mf">2.</span><span class="o">+</span><span class="mf">0.</span><span class="n">j</span> <span class="mf">2.</span><span class="o">+</span><span class="mf">0.</span><span class="n">j</span> <span class="mf">2.</span><span class="o">+</span><span class="mf">0.</span><span class="n">j</span> <span class="mf">2.</span><span class="o">+</span><span class="mf">0.</span><span class="n">j</span> <span class="mf">2.</span><span class="o">+</span><span class="mf">0.</span><span class="n">j</span> <span class="mf">2.</span><span class="o">+</span><span class="mf">0.</span><span class="n">j</span> <span class="mf">2.</span><span class="o">+</span><span class="mf">0.</span><span class="n">j</span> <span class="mf">2.</span><span class="o">+</span><span class="mf">0.</span><span class="n">j</span> <span class="mf">2.</span><span class="o">+</span><span class="mf">0.</span><span class="n">j</span> <span class="mf">2.</span><span class="o">+</span><span class="mf">0.</span><span class="n">j</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Explain why the Rayleigh quotients of the power iteration do not converge to <span class="math notranslate nohighlight">\(7\)</span>.</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<strong>Answer</strong><div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">The start vector <span class="math notranslate nohighlight">\(q^{(0)}\)</span> of the power iteration is an eigenvector of <span class="math notranslate nohighlight">\(\lambda_2\)</span>. Therefore, in the first iteration of the <code class="docutils literal notranslate"><span class="pre">for</span></code> loop, the computations yield</p>
+<div class="math notranslate nohighlight">
+\[
+z \gets  A \cdot q^{(0)} = 2 q^{(0)}, \qquad q \gets  q^{(0)} / \| q^{(0)} \|, \qquad \lambda^{(1)} \gets q^T \, A \, q = 2.
+\]</div>
+<p class="sd-card-text">In all the subsequent iterations, <span class="math notranslate nohighlight">\(z \gets 2 q\)</span>, <span class="math notranslate nohighlight">\(q \gets q\)</span>, <span class="math notranslate nohighlight">\(\lambda^{(i)} \gets 2\)</span>.</p>
+<p class="sd-card-text">More generally, the exercise illustrates the following: Suppose <span class="math notranslate nohighlight">\(A\)</span> has a basis of eigenvectors <span class="math notranslate nohighlight">\(x_1, \ldots, x_n\)</span>, ordered by the magnitude of the respective eigenvalues. Then, for the power iteration to converge to <span class="math notranslate nohighlight">\(x_1\)</span>, it is necessary that <span class="math notranslate nohighlight">\(\alpha_1 \neq 0\)</span> in the linear combination</p>
+<div class="math notranslate nohighlight">
+\[
+q^{(0)} = \sum_{j = 1}^n \alpha_j x_j.
+\]</div>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Suppose <span class="math notranslate nohighlight">\(A\)</span> has a basis of orthonormal eigenvectors <span class="math notranslate nohighlight">\(x_1, \ldots, x_n\)</span>, ordered by the magnitude of the respective eigenvalues <span class="math notranslate nohighlight">\(\lambda_i\)</span>. Suppose that <span class="math notranslate nohighlight">\(\alpha_j \neq 0\)</span> in the linear combination</p>
+<div class="math notranslate nohighlight">
+\[
+q^{(0)} = \sum_{j = 1}^n \alpha_j x_j
+\]</div>
+<p>of the start vector <span class="math notranslate nohighlight">\(q^{(0)}\)</span> of the power iteration. Also, suppose the eigenvalue <span class="math notranslate nohighlight">\(\lambda_1\)</span> is simple.</p>
+<p>Explain why the power iteration, when applied to <span class="math notranslate nohighlight">\(A - \lambda_1 x_1^T x_1\)</span>, generates a sequence of Rayleigh quotients that converge to <span class="math notranslate nohighlight">\(\lambda_2\)</span>, not <span class="math notranslate nohighlight">\(\lambda_1\)</span>.</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<strong>Answer</strong><div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">The power iteration yields</p>
+<div class="math notranslate nohighlight">
+\[
+(A - \lambda_1 x_1^T x_1)^k q^{(0)} = (\alpha_1\lambda_1^k x_1 - \alpha_1\lambda_1^k x_1) + \sum_{j=2}^n\alpha_j\lambda_j^k x_j = \alpha_2\lambda_2^k \left(x_2+\sum_{j \geq 3}\frac{\alpha_j}{\alpha_2}\left(\frac{\lambda_j}{\lambda_2}\right)^k x_j\right).
+\]</div>
+<p class="sd-card-text">Therefore, it follows that</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{|\alpha_2|}{\alpha_2} \, \left( \frac{|\lambda_2|}{\lambda_2} \right)^k  q^{(k)} \to x_2
+\]</div>
+<p class="sd-card-text">as <span class="math notranslate nohighlight">\(k \to \infty\)</span>, while the Rayleigh coefficient converges to <span class="math notranslate nohighlight">\(\lambda_2\)</span>.</p>
+</div>
+</details></section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -960,6 +1056,7 @@ Python code<div class="sd-summary-down docutils">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inverse-iteration">Inverse Iteration</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rayleigh-quotient-iteration">Rayleigh quotient iteration</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#self-check-questions">Self-check questions</a></li>
 </ul>
   </nav></div>
 
