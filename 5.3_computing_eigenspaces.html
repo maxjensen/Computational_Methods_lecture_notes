@@ -406,18 +406,11 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="computing-eigenspaces">
 <h1>Computing eigenspaces<a class="headerlink" href="#computing-eigenspaces" title="Link to this heading">#</a></h1>
-<p>Reflecting the altered inner product definition, the concept of orthogonal matrices in complex spaces changes to unitary matrices.</p>
-<div class="proof definition admonition" id="definition-0">
-<p class="admonition-title"><span class="caption-number">Definition 8 </span> (Unitary matrix)</p>
-<section class="definition-content" id="proof-content">
-<p>A matrix <span class="math notranslate nohighlight">\(Q \in \mathbb{C}^{n \times n}\)</span> is <em>unitary</em> if <span class="math notranslate nohighlight">\(Q^H Q = I\)</span>.</p>
-</section>
-</div><p>All unitary matrices satisfy <span class="math notranslate nohighlight">\(|\det(Q)| = 1\)</span>.</p>
 <section id="the-schur-decomposition">
 <h2>The Schur decomposition<a class="headerlink" href="#the-schur-decomposition" title="Link to this heading">#</a></h2>
 <p>The eigenvalue decomposition <span class="math notranslate nohighlight">\(A = X\Lambda X^{-1}\)</span> is not always suitable for computational purposes. It might not exist, requiring a Jordan normal form instead. Even though small machine perturbations usually ensure diagonalizability in floating point arithmetic, the proximity to a Jordan form can introduce instabilities. The eigenvector matrix <span class="math notranslate nohighlight">\(X\)</span> might also be ill-conditioned, making its inverse computationally unreliable.</p>
 <p>For practical computations, the Schur decomposition of <span class="math notranslate nohighlight">\(A\)</span> is more robust.</p>
-<div class="proof theorem admonition" id="theorem-1">
+<div class="proof theorem admonition" id="theorem-0">
 <p class="admonition-title"><span class="caption-number">Theorem 13 </span> (Existence of the Schur decomposition)</p>
 <section class="theorem-content" id="proof-content">
 <p>Every complex matrix <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{n \times n}\)</span> has a Schur decomposition</p>
