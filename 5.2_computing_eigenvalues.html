@@ -958,12 +958,12 @@ q^{(0)} = \sum_{j = 1}^n \alpha_j x_j.
 </div>
 </details><div class="tip admonition">
 <p class="admonition-title"><strong>Question</strong></p>
-<p>Suppose <span class="math notranslate nohighlight">\(A\)</span> has a basis of orthonormal eigenvectors <span class="math notranslate nohighlight">\(v_1, \ldots, v_n\)</span>, ordered by the magnitude of the respective eigenvalues <span class="math notranslate nohighlight">\(\lambda_i\)</span>. Suppose that <span class="math notranslate nohighlight">\(\alpha_i \neq 0\)</span> in the linear combination</p>
+<p>Suppose <span class="math notranslate nohighlight">\(A\)</span> has a basis of orthonormal eigenvectors <span class="math notranslate nohighlight">\(x_1, \ldots, x_n\)</span>, ordered by the magnitude of the respective eigenvalues <span class="math notranslate nohighlight">\(\lambda_i\)</span>. Suppose that <span class="math notranslate nohighlight">\(\alpha_j \neq 0\)</span> in the linear combination</p>
 <div class="math notranslate nohighlight">
 \[
 q^{(0)} = \sum_{j = 1}^n \alpha_j x_j
 \]</div>
-<p>of the start vector <span class="math notranslate nohighlight">\(q^{(0)}\)</span> of the power iteration. Also, the eigenvalue <span class="math notranslate nohighlight">\(\lambda_1\)</span> is simple.</p>
+<p>of the start vector <span class="math notranslate nohighlight">\(q^{(0)}\)</span> of the power iteration. Also, suppose the eigenvalue <span class="math notranslate nohighlight">\(\lambda_1\)</span> is simple.</p>
 <p>Explain why the power iteration, when applied to <span class="math notranslate nohighlight">\(A - \lambda_1 x_1^T x_1\)</span>, generates a sequence of Rayleigh quotients that converge to <span class="math notranslate nohighlight">\(\lambda_2\)</span>, not <span class="math notranslate nohighlight">\(\lambda_1\)</span>.</p>
 </div>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
@@ -978,7 +978,12 @@ q^{(0)} = \sum_{j = 1}^n \alpha_j x_j
 \[
 (A - \lambda_1 x_1^T x_1)^i q^{(0)} = (\alpha_1\lambda_1^i x_1 - \alpha_1\lambda_1^i x_1) + \sum_{j=2}^n\alpha_j\lambda_j^i x_j = \alpha_2\lambda_2^{i}\left(x_2+\sum_{j \geq 3}\frac{\alpha_j}{\alpha_2}\left(\frac{\lambda_j}{\lambda_2}\right)^i x_j\right).
 \]</div>
-<p class="sd-card-text">Therefore, it follows that <span class="math notranslate nohighlight">\(q^{(i)} \to x_2\)</span> as <span class="math notranslate nohighlight">\(i \to \infty\)</span>, while the Rayleigh coefficient converges to <span class="math notranslate nohighlight">\(\lambda_2\)</span>.</p>
+<p class="sd-card-text">Therefore, it follows that</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{|\alpha_2|}{\alpha_2} \, \left( \frac{|\lambda_2|}{\lambda_2} \right)^k  q^{(i)} \to x_2
+\]</div>
+<p class="sd-card-text">as <span class="math notranslate nohighlight">\(i \to \infty\)</span>, while the Rayleigh coefficient converges to <span class="math notranslate nohighlight">\(\lambda_2\)</span>.</p>
 </div>
 </details></section>
 </section>
