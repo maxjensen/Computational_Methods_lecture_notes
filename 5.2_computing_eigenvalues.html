@@ -944,7 +944,7 @@ A = \begin{pmatrix} 3 &amp; 2 \\ 2 &amp; 6 \end{pmatrix}
 \begin{align*}
 q^{(k)} &amp; \gets z^{(k)} / \| z^{(k)} \| = [2, -1]^T / \sqrt{5},\\
 \lambda^{(k)} &amp; \gets (q^{(k)})^T \, A \, q^{(k)} = 2,\\
-z^{(k+1)} &amp; \gets A \cdot q^{(k)} = 2 \, q^{(k)} = [2, -1]^T / \sqrt{20}.
+z^{(k+1)} &amp; \gets A \cdot q^{(k)} = 2 \, q^{(k)} = 2 \, [2, -1]^T / \sqrt{5}.
 \end{align*}
 \end{split}\]</div>
 <p class="sd-card-text">More generally, the exercise illustrates the following: Suppose <span class="math notranslate nohighlight">\(A\)</span> has a basis of eigenvectors <span class="math notranslate nohighlight">\(x_1, \ldots, x_n\)</span>, ordered by the magnitude of the respective eigenvalues. Then, for the power iteration to converge to <span class="math notranslate nohighlight">\(x_1\)</span>, it is necessary that <span class="math notranslate nohighlight">\(\alpha_1 \neq 0\)</span> in the linear combination</p>
