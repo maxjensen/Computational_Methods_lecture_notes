@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "5.1_eigenvalues_basic_properties.md",
+                "file": "5.2_computing_eigenvalues.md",
                 "mode": "source",
                 "source": true
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "5.1_eigenvalues_basic_properties.md",
+                "file": "5.2_computing_eigenvalues.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "5.1_eigenvalues_basic_properties.md",
+                "file": "5.2_computing_eigenvalues.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "5.1_eigenvalues_basic_properties.md"
+                "file": "5.2_computing_eigenvalues.md"
               }
             }
           },
@@ -158,8 +158,8 @@
   },
   "active": "026eb8a959c80022",
   "lastOpenFiles": [
-    "5.2_computing_eigenvalues.md",
     "5.1_eigenvalues_basic_properties.md",
+    "5.2_computing_eigenvalues.md",
     "5.3_computing_eigenspaces.md",
     "_build/html/_images/eigenvalue_comparison.png",
     "figures/eigenvalue_comparison.png",

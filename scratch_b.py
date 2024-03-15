@@ -1,61 +1,68 @@
-import numpy as np
 import matplotlib.pyplot as plt
-np.random.seed(1)
+import numpy as np
+from scipy.linalg import lu, solve_triangular
 
-def power_method(A, q0, k):
-    """Evaluates k steps of the power iteration with starting vector q0 for the matrix A, returning a vector of eigenvalue iterates."""
+def power_method(A, z, k):
     lambda_iterates = np.zeros(k, dtype=np.complex128)
-    q = q0
     for i in range(k):
-        z = A @ q  # Simplified matrix-vector multiplication
-        q = z / np.linalg.norm(z)  # Normalizing q
-        lambda_iterates[i] = np.vdot(q, A @ q)  # Using vdot for complex conjugate dot product
+        q = z / np.linalg.norm(z)
+        lambda_iterates[i] = np.vdot(q, A @ q)
+        z = A @ q
     return lambda_iterates
 
-def companion_matrix(a):
-    """Generate the companion matrix for a given polynomial represented by its coefficients."""
-    # normalise the leading coefficient
-    a = np.complex128(a)
-    a = a / a[-1]
-    n = len(a) - 1
-    C = np.zeros((n, n), dtype=np.complex128)
-    # Set the last column of C to be the negated coefficients (except the leading one)
-    C[:, -1] = -np.array(a[:-1])
-    # Set the subdiagonal elements to 1
-    np.fill_diagonal(C[1:], 1)
-    return C
+def inverse_iteration(A, z, sigma, k):
+    lambda_iterates = np.zeros(k, dtype=np.complex128)
+    n = A.shape[0]
+    P, L, U = lu(A - sigma * np.eye(n, dtype=A.dtype))
 
-def wilkinson_polynomial_coefficients(n):
-    """Generate the coefficients of the Wilkinson polynomial of degree n"""
-    def poly_multiply(poly1, poly2):
-        """Multiply two polynomials represented as lists of coefficients."""
-        result = [0] * (len(poly1) + len(poly2) - 1)
-        for i, coef1 in enumerate(poly1):
-            for j, coef2 in enumerate(poly2):
-                result[i + j] += coef1 * coef2
-        return result
-    # Start with the polynomial x - 1
-    poly = [1, -1]
-    for i in range(2, n + 1):
-    # Multiply the current polynomial by x - i using integer arithmetic
-        poly = poly_multiply(poly, [1, -i])
-    return poly
+    def applyMat(x):
+        """Computes (A - sigma I)^{-1} x = (PLU)^{-1} x = U^{-1} L^{-1} P^T x"""
+        return solve_triangular(U, solve_triangular(L, np.dot(P, x), lower=True))
+
+    for i in range(k):
+        q = z / np.linalg.norm(z)
+        lambda_iterates[i] = np.vdot(q, A @ q)
+        z = applyMat(q)  # (A - sigma I)^{-1} q
+
+    return lambda_iterates
+
+def rayleigh_quotient_iteration(A, z, sigma, k):
+    lambda_iterates = np.zeros(k, dtype=np.complex128)
+    n = A.shape[0]
+
+    lambda_iterates[0] = sigma
+    q = z / np.linalg.norm(z)
+    for i in range(k):
+        try:
+            z = np.linalg.solve(A - sigma * np.eye(n, dtype=np.complex128), q)
+        except:
+            break
+        q = z / np.linalg.norm(z)
+        lambda_iterates[i] = np.vdot(q, A @ q)
+        if np.abs(lambda_iterates[i] - sigma) < 0.001 * sigma:
+            sigma = lambda_iterates[i]
+        else:
+            sigma = (1.0 + 0.001 * np.sign(lambda_iterates[i] - sigma)) * sigma
+
+    return lambda_iterates
+
+# Parameters and initial setup
+n, k = 100, 400
+A = np.diag(1.0 + np.arange(n, dtype=np.complex128))
+z = np.ones(n)
 
 # Compute eigenvalues and plot
-k = 200
-i_max = 2
-lambda_iterates = np.zeros((k, i_max), dtype=np.complex128)
-for i in range(1, i_max):
-    # Parameters and initial setup
-    n = 5 * i
-    A = companion_matrix(wilkinson_polynomial_coefficients(n))
-    q0 = np.random.rand(n) + 1j * np.ones(n)  # Complex starting vector
-    lambda_iterates[:, i] = power_method(A, q0, k)
-    plt.semilogy(np.abs(lambda_iterates[:, i] - n), label=f"n = {n}")
-    print(f"lambda_{i} = {lambda_iterates[-1, i]}")
+lambda_iterates = np.zeros((k, 3), dtype=np.complex128)
+lambda_iterates[:, 0] = power_method(A, z, k)
+lambda_iterates[:, 1] = inverse_iteration(A, z, 1.8 * n, k)
+lambda_iterates[:, 2] = rayleigh_quotient_iteration(A, z, 1.8 * n, k)
+plt.semilogy(np.abs(lambda_iterates[:, 0] - n), label=f"Power")
+plt.semilogy(np.abs(lambda_iterates[:, 1] - n), label=f"Inverse")
+plt.semilogy(np.abs(lambda_iterates[:, 2] - n), label=f"Rayleigh")
+print(lambda_iterates[-1, 0])
+print(lambda_iterates[-1, 1])
+print(lambda_iterates[-1, 2])
 plt.ylabel('$|\lambda_1^{(k)} - \lambda_1|$')
 plt.xlabel('Iteration $j$')
 plt.legend()
 plt.show()
-
-print(np.linalg.eig(A)[0])
