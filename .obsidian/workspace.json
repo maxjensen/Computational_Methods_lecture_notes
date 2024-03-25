@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_build/html/_sources/4.1_interpolation.md",
+                "file": "5.1_eigenvalues_basic_properties.md",
                 "mode": "source",
                 "source": false
               }
@@ -65,8 +65,7 @@
               "state": {}
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -86,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "_build/html/_sources/4.1_interpolation.md",
+                "file": "5.1_eigenvalues_basic_properties.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -103,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "_build/html/_sources/4.1_interpolation.md",
+                "file": "5.1_eigenvalues_basic_properties.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -126,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "_build/html/_sources/4.1_interpolation.md"
+                "file": "5.1_eigenvalues_basic_properties.md"
               }
             }
           },
@@ -143,7 +142,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -158,6 +158,9 @@
   },
   "active": "026eb8a959c80022",
   "lastOpenFiles": [
+    "5.2_computing_eigenvalues.md",
+    "5.3_computing_eigenspaces.md",
+    "_build/html/_sources/4.1_interpolation.md",
     "figures/byte_array.png",
     "figures/growth_factors.png",
     "figures/abs.png",
@@ -167,11 +170,8 @@
     "figures/Rayleigh_iteration.png",
     "figures/power_method_shifted_random.png",
     "figures/power_method_random.png",
-    "5.2_computing_eigenvalues.md",
     "5.1_eigenvalues_basic_properties.md",
-    "5.3_computing_eigenspaces.md",
     "_build/html/_images/eigenvalue_comparison.png",
-    "figures/eigenvalue_comparison.png",
     "4.3_stable_quadrature_schemes.md",
     "scratch_b.py",
     "4.2_quadrature.md",
@@ -202,7 +202,6 @@
     "_build/html/_sources/5.2_computing_eigenvalues.md",
     "_build/html/_sources/5.1_eigenvalues_basic_properties.md",
     "_build/html/_sources/4.3_stable_quadrature_schemes.md",
-    "_build/html/_sources/4.2_quadrature.md",
-    "_build/html/_sources/4.1_interpolation.md"
+    "_build/html/_sources/4.2_quadrature.md"
   ]
 }
