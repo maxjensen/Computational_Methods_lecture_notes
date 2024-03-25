@@ -399,7 +399,7 @@ document.write(`
 <section id="memory-layouts">
 <h2>Memory layouts<a class="headerlink" href="#memory-layouts" title="Link to this heading">#</a></h2>
 <p>We can imagine memory as a linear collection of consecutive memory addresses (each one representing one byte).</p>
-<p><img alt="Byte array in memory" src="figures/byte_array.png" /></p>
+<p><img alt="Byte array in memory" src="_images/byte_array.png" /></p>
 <p>The key to efficient data representations is to order data spatially local in memory. This means the data we want to work on next should be as close to our current data as possible. The reason is that memory accesses in modern computers are extremely expensive compared to actual computations. To alleviate this problem, all modern CPUs rely on sophisticated caches that try to read data from the memory ahead of time. This works only if the next pieces of data are close to the data that we are currently working on.</p>
 <p>Standard Python list types do not guarantee this locality. List elements can be at very different memory addresses, making standard lists and other base Python types unsuitable for numerical operations. We require a buffer type that guarantees us a chunk of consecutive addresses in the system memory.</p>
 <p>What happens if we have a matrix? Consider a 2 x 2 matrix</p>
