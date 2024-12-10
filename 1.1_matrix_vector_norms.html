@@ -363,7 +363,7 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#measuring-success">Measuring success</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#measuring-distances">Measuring distances</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#frequently-used-vector-norms">Frequently used vector norms</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#norm-equivalence">Norm equivalence</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-norms">Matrix norms</a></li>
@@ -388,12 +388,12 @@
                   
   <section class="tex2jax_ignore mathjax_ignore" id="matrix-and-vector-norms">
 <h1>Matrix and vector norms<a class="headerlink" href="#matrix-and-vector-norms" title="Link to this heading">#</a></h1>
-<section id="measuring-success">
-<h2>Measuring success<a class="headerlink" href="#measuring-success" title="Link to this heading">#</a></h2>
-<p>Much of computational mathematics is about the question how to approximate the infinite by the finite. More precisely, many of the problems we face in computational mathematics fall into one of the following categories:</p>
-<p><strong>Infinite-dimensional problems:</strong> When solving an ordinary differential equation, we pose an equation whose solution belongs to an infinite-dimensional space such as the vector space <span class="math notranslate nohighlight">\(C^1([a,b])\)</span> of continuously differentiable functions. In other words, the problem has, in general, an infinite number of degrees of freedom. Indeed, while for special ODEs mathematical theory is available that allows to find the analytic solution, for challenging real-world problems it is often not possible to say more about the solution than some general statements about its regularity. On a computer we can only save a finite number of degrees of freedom. Therefore, we expect an approximation error between the numerical and exact solution.</p>
-<p><strong>Infinite sets:</strong> Related to the above, even a finite dimensional vector space such as the real number line <span class="math notranslate nohighlight">\(\mathbb{R}\)</span> is an infinite set, which on a computer we need to represent through a finite set. This leads to the concept of floating-point numbers we shall discuss soon, and again an approximation error.</p>
-<p><strong>Iterative problems:</strong> The solution to many mathematical problems can be written as the limit of a sequence, where each sequence element can be computed in finitely many steps. For example, think of a <a class="reference external" href="https://en.wikipedia.org/wiki/Riemann_integral">Riemann integral</a> as the limit of increasingly refined Riemann sums or the root of a function as the limit of a <a class="reference external" href="https://en.wikipedia.org/wiki/Newton%27s_method">Newton iteration</a>. A computer can calculate the value of each sequence element in finite (but increasing) time. How large is the error, i.e. the difference between computed element and the limit?</p>
+<section id="measuring-distances">
+<h2>Measuring distances<a class="headerlink" href="#measuring-distances" title="Link to this heading">#</a></h2>
+<p>Much of computational mathematics is about the question of how to approximate the infinite by the finite. More precisely, many of the problems we face in computational mathematics fall into one of the following categories:</p>
+<p><strong>Infinite-dimensional problems:</strong> When solving an ordinary differential equation, we pose an equation whose solution belongs to an infinite-dimensional space such as the vector space <span class="math notranslate nohighlight">\(C^1([a,b])\)</span> of continuously differentiable functions. In other words, the problem has, in general, an infinite number of degrees of freedom. Indeed, while for special ODEs mathematical theory is available that allows us to find the analytic solution, for challenging real-world problems it is often not possible to say more about the solution than some general statements about its regularity. On a computer, we can only save a finite number of degrees of freedom. Therefore, we expect an approximation error between the numerical and exact solution.</p>
+<p><strong>Infinite sets:</strong> Related to the above, even a finite-dimensional vector space such as the real number line <span class="math notranslate nohighlight">\(\mathbb{R}\)</span> is an infinite set, which on a computer we need to represent through a finite set. This leads to the concept of floating-point numbers we shall discuss soon, and again an approximation error.</p>
+<p><strong>Iterative problems:</strong> The solution to many mathematical problems can be written as the limit of a sequence, where each sequence element can be computed in finitely many steps. For example, think of a <a class="reference external" href="https://en.wikipedia.org/wiki/Riemann_integral">Riemann integral</a> as the limit of increasingly refined Riemann sums or the root of a function as the limit of a <a class="reference external" href="https://en.wikipedia.org/wiki/Newton%27s_method">Newton iteration</a>. A computer can calculate the value of each sequence element in finite (but increasing) time. How large is the error, i.e. the difference between the computed element and the limit?</p>
 <p>If the objects of interest (such as an error) are from a vector space, often the most suitable concept to measure their size is that of a norm.</p>
 <div class="proof definition admonition" id="definition-0">
 <p class="admonition-title"><span class="caption-number">Definition 1 </span> (Norm axioms)</p>
@@ -411,7 +411,7 @@
 \[
 0 = \rho(0) = \rho(x - x) \leq \rho(x) + \rho(-1 \cdot x) = 2 \rho(x)
 \]</div>
-<p>and therefore <span class="math notranslate nohighlight">\(\rho(x) \geq 0\)</span> for all <span class="math notranslate nohighlight">\(x\in V\)</span>. Hence, a norm is always nonnegative.</p>
+<p>and therefore <span class="math notranslate nohighlight">\(\rho(x) \geq 0\)</span> for all $x\in V. Hence, a norm is always nonnegative.</p>
 <p>The first and third norm axioms are usually easy to prove. The difficult one is the second one, the triangle inequality.</p>
 </section>
 <section id="frequently-used-vector-norms">
@@ -697,7 +697,7 @@ A^TA = \begin{bmatrix}4 &amp; 6\\ 6 &amp; 10\end{bmatrix},
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#measuring-success">Measuring success</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#measuring-distances">Measuring distances</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#frequently-used-vector-norms">Frequently used vector norms</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#norm-equivalence">Norm equivalence</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-norms">Matrix norms</a></li>
