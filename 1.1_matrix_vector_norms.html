@@ -66,7 +66,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = '1.1_matrix_vector_norms';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Floating Point Arithmetic" href="1.2_floating_point_arithmetic.html" />
+    <link rel="next" title="Floating point arithmetic" href="1.2_floating_point_arithmetic.html" />
     <link rel="prev" title="Welcome!" href="index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -174,8 +174,8 @@
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Fundamentals</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Matrix and vector norms</a></li>
-<li class="toctree-l1"><a class="reference internal" href="1.2_floating_point_arithmetic.html">Floating Point Arithmetic</a></li>
-<li class="toctree-l1"><a class="reference internal" href="1.3_error_analysis.html">Principles of backward error analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_floating_point_arithmetic.html">Floating point arithmetic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.3_error_analysis.html">Principles of Backward Error Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.4_linear_system_error.html">Backward error and condition number of linear systems of equations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.5_complexity_notation.html">A quick survey of asymptotic notation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.6_numpy_and_data_layouts.html">Memory layout and Numpy arrays</a></li>
@@ -368,6 +368,7 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#norm-equivalence">Norm equivalence</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-norms">Matrix norms</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submultiplicativity">Submultiplicativity</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#relative-and-absolute-errors">Relative and absolute errors</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#defining-vectors-and-matrices-with-numpy">Defining Vectors and Matrices with NumPy</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#computing-vector-norms">Computing Vector Norms</a></li>
@@ -491,6 +492,10 @@ C_1\|x\|_a\leq \|x\|_b\leq C_2\|x\|_a
 \|A \cdot B\|\leq \|A\|\cdot \|B\|.
 \]</div>
 <p>This property is called <strong>submultiplicativity</strong>. We have just proved it for any vector-induced matrix norm.</p>
+</section>
+<section id="relative-and-absolute-errors">
+<h2>Relative and absolute errors<a class="headerlink" href="#relative-and-absolute-errors" title="Link to this heading">#</a></h2>
+<p>Let <span class="math notranslate nohighlight">\(V\)</span> be a real vector space such as <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span> or <span class="math notranslate nohighlight">\(\mathbb{R}^{m \times n}\)</span>. Let <span class="math notranslate nohighlight">\(x \in V\)</span> be a quantity of interest and <span class="math notranslate nohighlight">\(\tilde{x} \in V\)</span> be its approximation. Given a norm <span class="math notranslate nohighlight">\(\| \cdot \|\)</span> of <span class="math notranslate nohighlight">\(V\)</span>, we call <span class="math notranslate nohighlight">\(\| x - \tilde{x} \|\)</span> the absolute error of the approximation (with respect to <span class="math notranslate nohighlight">\(\| \cdot \|\)</span>). If <span class="math notranslate nohighlight">\(x \neq 0\)</span> then <span class="math notranslate nohighlight">\(\| x - \tilde{x} \| / \| x \|\)</span> is the relative error.</p>
 </section>
 <section id="python-skills">
 <h2>Python skills<a class="headerlink" href="#python-skills" title="Link to this heading">#</a></h2>
@@ -672,7 +677,7 @@ A^TA = \begin{bmatrix}4 &amp; 6\\ 6 &amp; 10\end{bmatrix},
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Floating Point Arithmetic</p>
+        <p class="prev-next-title">Floating point arithmetic</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -698,6 +703,7 @@ A^TA = \begin{bmatrix}4 &amp; 6\\ 6 &amp; 10\end{bmatrix},
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#norm-equivalence">Norm equivalence</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-norms">Matrix norms</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submultiplicativity">Submultiplicativity</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#relative-and-absolute-errors">Relative and absolute errors</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#defining-vectors-and-matrices-with-numpy">Defining Vectors and Matrices with NumPy</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#computing-vector-norms">Computing Vector Norms</a></li>
