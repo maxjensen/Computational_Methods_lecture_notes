@@ -176,8 +176,8 @@
 <li class="toctree-l1"><a class="reference internal" href="1.1_matrix_vector_norms.html">Matrix and vector norms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.2_floating_point_arithmetic.html">Floating point arithmetic</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.3_error_analysis.html">Principles of Backward Error Analysis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="1.4_linear_system_error.html">Backward error and condition number of linear systems of equations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="1.5_complexity_notation.html">A quick survey of asymptotic notation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.4_linear_system_error.html">Error of linear systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_complexity_notation.html">A brief survey of asymptotic notation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.6_numpy_and_data_layouts.html">Memory layout and Numpy arrays</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition and its Numerical Stability</span></p>
@@ -435,7 +435,7 @@
 </section>
 </div><p>Thus, the nodes <span class="math notranslate nohighlight">\(\{x_k\}_{k=0}^n\)</span> are chosen so that the error polynomial <span class="math notranslate nohighlight">\(\omega_{n+1} \in \mathcal{P}_{n+1}\)</span> is in the orthogonal complement relative to the <span class="math notranslate nohighlight">\((n+1)\)</span>-dimensional space <span class="math notranslate nohighlight">\(\mathcal{P}_n\)</span> within the <span class="math notranslate nohighlight">\((n+2)\)</span>-dimensional space <span class="math notranslate nohighlight">\(\mathcal{P}_{n+1}\)</span> with respect to the inner product <span class="math notranslate nohighlight">\(\langle p, q \rangle = \int_a^b p(x) \, q(x) \, dx\)</span>. A proof of the theorem is given in the optional materials section.</p>
 <div class="proof definition admonition" id="definition-1">
-<p class="admonition-title"><span class="caption-number">Definition 6 </span></p>
+<p class="admonition-title"><span class="caption-number">Definition 8 </span></p>
 <section class="definition-content" id="proof-content">
 <p>An interpolatory quadrature method that achieves a degree of exactness <span class="math notranslate nohighlight">\(2n+1\)</span> is termed a <em>Gaussian quadrature method</em>.</p>
 </section>
@@ -791,7 +791,7 @@ p \rangle = \alpha \langle \tilde{p}, \Delta p \rangle - \langle \bar{p}, \Delta
 <p class="sd-card-text">implying <span class="math notranslate nohighlight">\(\bar{p} = \alpha \, \tilde{p}\)</span>.</p>
 </div>
 <div class="proof example admonition" id="example-4">
-<p class="admonition-title"><span class="caption-number">Example 11 </span> (Orthonormal basis of <span class="math notranslate nohighlight">\(\mathcal{P}_2\)</span>)</p>
+<p class="admonition-title"><span class="caption-number">Example 13 </span> (Orthonormal basis of <span class="math notranslate nohighlight">\(\mathcal{P}_2\)</span>)</p>
 <section class="example-content" id="proof-content">
 <p class="sd-card-text">Using the Gram-Schmidt method, we construct an orthonormal basis for <span class="math notranslate nohighlight">\(\mathcal{P}_2\)</span> with respect to the scalar product:</p>
 <div class="math notranslate nohighlight">

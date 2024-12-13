@@ -177,8 +177,9 @@
 <li class="toctree-l1"><a class="reference internal" href="1.2_floating_point_arithmetic.html">Floating point arithmetic</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Principles of Backward Error Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.4_linear_system_error.html">Error of linear systems</a></li>
-<li class="toctree-l1"><a class="reference internal" href="1.5_complexity_notation.html">A quick survey of asymptotic notation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_complexity_notation.html">A brief survey of asymptotic notation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.6_numpy_and_data_layouts.html">Memory layout and Numpy arrays</a></li>
+
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition and its Numerical Stability</span></p>
 <ul class="nav bd-sidenav">
@@ -381,7 +382,7 @@
   <section class="tex2jax_ignore mathjax_ignore" id="principles-of-backward-error-analysis">
 <h1>Principles of Backward Error Analysis<a class="headerlink" href="#principles-of-backward-error-analysis" title="Link to this heading">#</a></h1>
 <p>Modern error analysis traces its origins to the seminal work of <a class="reference external" href="https://en.wikipedia.org/wiki/James_H._Wilkinson">James Hardy Wilkinson</a>. It distinguishes between forward error, which is the error in the result of an algorithm, and backward error, which is a measure of perturbation in the input data.</p>
-<p>In the following, we denote by <span class="math notranslate nohighlight">\(f: X \rightarrow Y\)</span> a function that maps data from an input space <span class="math notranslate nohighlight">\(X\)</span> to an output space <span class="math notranslate nohighlight">\(Y\)</span>. Correspondingly, we define a function <span class="math notranslate nohighlight">\(\tilde{f}: X \to Y\)</span>, which represents an approximate evaluation of <span class="math notranslate nohighlight">\(f\)</span>. Consider, for example, the solution of the non-singular linear system of equations</p>
+<p>In the following, we denote by <span class="math notranslate nohighlight">\(f: X \rightarrow Y\)</span> a function that maps data from an input space <span class="math notranslate nohighlight">\(X\)</span> to an output space <span class="math notranslate nohighlight">\(Y\)</span>. We assume that both <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are finite dimensional real vector spaces. Correspondingly, we define a function <span class="math notranslate nohighlight">\(\tilde{f}: X \to Y\)</span>, which represents an approximate evaluation of <span class="math notranslate nohighlight">\(f\)</span>. Consider, for example, the solution of the non-singular linear system of equations</p>
 <div class="math notranslate nohighlight">
 \[
 Ay = b
@@ -425,7 +426,7 @@ E_{rel} := \frac{\|y - \tilde{y}\|}{\|y\|}
 <section class="example-content" id="proof-content">
 <p>In the second example, we reverse the roles of <span class="math notranslate nohighlight">\(f\)</span> and <span class="math notranslate nohighlight">\(\tilde{f}\)</span>. Let <span class="math notranslate nohighlight">\(f(x) = x\)</span> and <span class="math notranslate nohighlight">\(\tilde{f} = x^2 + x\)</span>. Given <span class="math notranslate nohighlight">\(\tilde{y} = 1\)</span>, there are two possible inputs: <span class="math notranslate nohighlight">\(- \frac{1}{2} \pm \frac{\sqrt{5}}{2}\)</span>. Re-reading the question in the box above clarifies that we assume the choice of input is given: suppose it is the positive input <span class="math notranslate nohighlight">\(x = - \frac{1}{2} + \frac{\sqrt{5}}{2}\)</span>. Now, with <span class="math notranslate nohighlight">\(\tilde{x} = 1\)</span>, the perturbation is <span class="math notranslate nohighlight">\(\Delta x_1 := \tilde{x} - x = 1 - (- \frac{1}{2} + \frac{\sqrt{5}}{2})\)</span>.</p>
 </section>
-</div><p>The previous examples show how a potential lack of bijectivity of <span class="math notranslate nohighlight">\(f\)</span> makes the backward error concept more complex than that of the forward error and that there may be many possible <span class="math notranslate nohighlight">\(\Delta x\)</span> satisfying <span class="math notranslate nohighlight">\(\tilde{y} = f(x + \Delta x)\)</span>. We wish to find the smallest perturbation <span class="math notranslate nohighlight">\(\Delta x\)</span>, meaning it is obtained by solving a minimisation problem.</p>
+</div><p>The previous examples show how a potential lack of bijectivity of <span class="math notranslate nohighlight">\(f\)</span> makes the backward error concept more complex than that of the forward error and that there may be many possible <span class="math notranslate nohighlight">\(\Delta x\)</span> satisfying <span class="math notranslate nohighlight">\(\tilde{y} = f(x + \Delta x)\)</span>. We wish to find a smallest perturbation <span class="math notranslate nohighlight">\(\Delta x\)</span>, meaning it is obtained by solving a minimisation problem.</p>
 <p>Formally, the absolute backward error of <span class="math notranslate nohighlight">\(f\)</span> at <span class="math notranslate nohighlight">\(\tilde{y}\)</span> with input <span class="math notranslate nohighlight">\(x \in \tilde{f}^{-1}(\tilde{y})\)</span> is therefore defined as</p>
 <div class="math notranslate nohighlight">
 \[
@@ -470,14 +471,12 @@ E_{rel} := \frac{\|y - \tilde{y}\|}{\|y\|}
 \[
 \kappa_{rel}(x) := \lim_{\delta\rightarrow 0} \sup_{\|\Delta x\|\leq \delta}\left(\frac{\|\Delta f\|}{\|f\|} \Bigl/ \frac{\|\Delta x\|}{\|x\|}\right)
 \]</div>
-<p>with <span class="math notranslate nohighlight">\(\Delta f = f(x) - f(\tilde{x})\)</span> being the perturbation in the output data. Hence, it measures the largest possible ratio of relative output error with respect to relative input error under small perturbations. If <span class="math notranslate nohighlight">\(f\)</span> is differentiable, you can show (a good exercise!)</p>
+<p>with <span class="math notranslate nohighlight">\(\Delta f = f(x) - f(\tilde{x})\)</span> being the perturbation in the output data. Hence, it measures the largest possible ratio of relative output error with respect to relative input error under small perturbations. If <span class="math notranslate nohighlight">\(f\)</span> is differentiable, you can show (self-check question)</p>
 <div class="math notranslate nohighlight">
 \[
-\kappa_{rel}(x) = 
-%\frac{\| x \|}{\| f(x) \|} \lim_{\delta\rightarrow 0} \sup_{\|\Delta x\|\leq \delta} \frac{\| f(x + \Delta x) - f(x) \|}{\| \Delta x\|} = 
-\frac{\| x \|}{\|f(x) \|}\| f'(x) \|.
+\kappa_{rel}(x) = \frac{\| x \|}{\|f(x) \|}\| f'(x) \|.
 \]</div>
-<p>From the definition of the condition number, you can show for differentiable <span class="math notranslate nohighlight">\(f\)</span> that (another good exercise!)</p>
+<p>From the definition of the condition number, you can show for differentiable <span class="math notranslate nohighlight">\(f\)</span> that (self-check question)</p>
 <div class="math notranslate nohighlight">
 \[
 \frac{\|\Delta f\|}{\|f\|} \leq \kappa_{rel}(x)\cdot \frac{\|\Delta x\|}{\|x\|} + \text{higher-order terms}
@@ -575,6 +574,75 @@ and $\kappa(A)\rightarrow\infty$ as $\epsilon\rightarrow 0$. The reason is simpl
 \end{aligned}
 \end{split}\]</div>
 <p class="sd-card-text">The condition number is large if <span class="math notranslate nohighlight">\(x_1 \approx x_2\)</span>. This reflects the issue of cancellation errors. Consider two numbers <span class="math notranslate nohighlight">\(x_1\)</span> and <span class="math notranslate nohighlight">\(x_2\)</span> that agree to the first 5 digits and each of them is accurate to 7 digits. The difference between the two numbers will only be accurate to 2 digits since the first 5 correct digits cancel each other out.</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Let <span class="math notranslate nohighlight">\(f\)</span> be differentiable. Show that</p>
+<div class="math notranslate nohighlight">
+\[
+\kappa_{rel}(x) = \frac{\| x \|}{\|f(x) \|}\| f'(x) \|.
+\]</div>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">The term on the right-hand side under the lim sup resembles a difference quotient (note the change from <span class="math notranslate nohighlight">\(\leq\)</span> to <span class="math notranslate nohighlight">\(=\)</span> in the second step):</p>
+<div class="math notranslate nohighlight">
+\[
+\kappa_{rel}(x) = 
+\frac{\| x \|}{\| f(x) \|} \lim_{\delta\rightarrow 0} \sup_{\|\Delta x\|\leq \delta} \frac{\| f(x + \Delta x) - f(x) \|}{\| \Delta x\|} = \frac{\| x \|}{\| f(x) \|} \lim_{\delta\rightarrow 0} \sup_{\|\Delta x\| = \delta} \frac{\| f(x + \Delta x) - f(x) \|}{\| \Delta x\|}
+\]</div>
+<p class="sd-card-text">Because <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are finite-dimensional real vector spaces, we may identify them as <span class="math notranslate nohighlight">\(X = \mathbb{R}^n\)</span> and <span class="math notranslate nohighlight">\(X = \mathbb{R}^m\)</span>. Because <span class="math notranslate nohighlight">\(f\)</span> is differentiable at <span class="math notranslate nohighlight">\(x\)</span> there is a function <span class="math notranslate nohighlight">\(h: \mathbb{R}^n \to \mathbb{R}^{m \times n}\)</span> with <span class="math notranslate nohighlight">\(\lim_{\| \Delta x \| \to 0} h(x + \Delta x) = 0\)</span> such that</p>
+<div class="math notranslate nohighlight">
+\[
+f(x + \Delta x) = f(x) + f'(x) \cdot \Delta x + h(x + \Delta x) \cdot \Delta x.
+\]</div>
+<p class="sd-card-text">Hence, using the triangle inequality,</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\| f(x + \Delta x) - f(x) \|}{\| \Delta x\|} = \frac{\| f'(x) \cdot \Delta x + h(x + \Delta x) \cdot \Delta x \|}{\| \Delta x\|} \leq \frac{\| f'(x) \cdot \Delta x \|}{\| \Delta x\|} + \| h(x + \Delta x) \|.
+\]</div>
+<p class="sd-card-text">Owing to the Cauchy-Scharz inequality, the supremum of <span class="math notranslate nohighlight">\(\| f'(x) \cdot \Delta x \|\)</span> with maximum <span class="math notranslate nohighlight">\(\| f'(x) \|\)</span> among all <span class="math notranslate nohighlight">\(\|\Delta x\| = \delta\)</span> is attained for <span class="math notranslate nohighlight">\(\Delta x\)</span> collinear to <span class="math notranslate nohighlight">\(f'(x)\)</span>. We deduce</p>
+<div class="math notranslate nohighlight">
+\[
+\lim_{\delta\rightarrow 0} \sup_{\|\Delta x\|\leq \delta} \frac{\| f(x + \Delta x) - f(x) \|}{\| \Delta x\|} = \| f'(x) \|.
+\]</div>
+<p class="sd-card-text">Now the result follows.</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Let <span class="math notranslate nohighlight">\(f\)</span> be differentiable. Furthermore <span class="math notranslate nohighlight">\(\| x \| \neq 0\)</span> and <span class="math notranslate nohighlight">\(\| f(x) \| \neq 0\)</span>. Show that</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\|\Delta f\|}{\|f\|} \leq \kappa_{rel}(x)\cdot \frac{\|\Delta x\|}{\|x\|} + \text{higher-order terms}
+\]</div>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">We multiple and divide by an auxiary term:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\|\Delta f\|}{\|f\|} \leq \Bigl( \frac{\|\Delta f\|}{\|f\|} \Big/ \frac{\|\Delta x\|}{\|x\|} \Bigr) \frac{\|\Delta x\|}{\|x\|} \leq \frac{\|\Delta x\|}{\|x\|} \sup_{
+    \| \Delta \tilde{x} \| \leq \| \Delta x \|} \Bigl( \frac{\| f(x + \Delta \tilde{x}) - f(x) \|}{\| f(x) \|} \Big/ \frac{\|\Delta \tilde{x}\|}{\|x\|} \Bigr) 
+\]</div>
+<p class="sd-card-text">Because <span class="math notranslate nohighlight">\(\| f(x) \| \neq 0\)</span> and <span class="math notranslate nohighlight">\(f\)</span> is differentiable, we may use the arguments of the previous self-check question to show that the function</p>
+<div class="math notranslate nohighlight">
+\[
+g(\Delta x) := \sup_{
+    \| \Delta \tilde{x} \| \leq \| \Delta x \|} \Bigl( \frac{\| f(x + \Delta \tilde{x}) - f(x) \|}{\| f(x) \|} \Big/ \frac{\|\Delta \tilde{x}\|}{\|x\|} \Bigr)
+\]</div>
+<p class="sd-card-text">has the continuous extension</p>
+<div class="math notranslate nohighlight">
+\[
+g(0) \geq \frac{\| x \|}{\|f(x) \|}\| f'(x) \| = \kappa_{rel}
+\]</div>
+<p class="sd-card-text">at <span class="math notranslate nohighlight">\(\Delta x = 0\)</span>, meaning that there is a function <span class="math notranslate nohighlight">\(\tilde{h}: \mathbb{R}^n \to \mathbb{R}\)</span> with <span class="math notranslate nohighlight">\(\lim_{\| \Delta x \| \to 0} \tilde{h}(\Delta x) = 0\)</span> such that</p>
+<div class="math notranslate nohighlight">
+\[ 
+g(\Delta x) = \kappa_{rel} + \tilde{h}(\Delta x).
+\]</div>
+<p class="sd-card-text">Now the result follows directly.</p>
 </div>
 </details></section>
 </section>

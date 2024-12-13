@@ -174,10 +174,10 @@
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Fundamentals</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="1.1_matrix_vector_norms.html">Matrix and vector norms</a></li>
-<li class="toctree-l1"><a class="reference internal" href="1.2_floating_point_arithmetic.html">Floating Point Arithmetic</a></li>
-<li class="toctree-l1"><a class="reference internal" href="1.3_error_analysis.html">Principles of backward error analysis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="1.4_linear_system_error.html">Backward error and condition number of linear systems of equations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="1.5_complexity_notation.html">A quick survey of asymptotic notation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_floating_point_arithmetic.html">Floating point arithmetic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.3_error_analysis.html">Principles of Backward Error Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.4_linear_system_error.html">Error of linear systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_complexity_notation.html">A brief survey of asymptotic notation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.6_numpy_and_data_layouts.html">Memory layout and Numpy arrays</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition and its Numerical Stability</span></p>
@@ -389,7 +389,7 @@
 <h1>Basic properties of eigenvalue problems<a class="headerlink" href="#basic-properties-of-eigenvalue-problems" title="Link to this heading">#</a></h1>
 <p>Eigenvalues are often complex, making it essential to consider eigenvalue problems within the setting of complex vector spaces.</p>
 <div class="proof definition admonition" id="definition-0">
-<p class="admonition-title"><span class="caption-number">Definition 7 </span></p>
+<p class="admonition-title"><span class="caption-number">Definition 9 </span></p>
 <section class="definition-content" id="proof-content">
 <p>Consider a matrix <span class="math notranslate nohighlight">\(A\)</span> in <span class="math notranslate nohighlight">\(\mathbb{C}^{n \times n}\)</span>. An <em>eigenvalue problem</em> is the task to find a nonzero vector <span class="math notranslate nohighlight">\(x \in \mathbb{C}^n\)</span>, called <em>eigenvector</em>, and a scalar <span class="math notranslate nohighlight">\(\lambda \in \mathbb{C}\)</span>, called <em>eigenvalue</em>, such that:</p>
 <div class="math notranslate nohighlight">
@@ -412,13 +412,13 @@ A x = \lambda x.
 \langle Ax, y \rangle = \langle x, A^H y \rangle.
 \]</div>
 <div class="proof definition admonition" id="definition-1">
-<p class="admonition-title"><span class="caption-number">Definition 8 </span> (Hermitian matrix)</p>
+<p class="admonition-title"><span class="caption-number">Definition 10 </span> (Hermitian matrix)</p>
 <section class="definition-content" id="proof-content">
 <p>A matrix is <em>Hermitian</em> (or <em>self-adjoint</em>) if <span class="math notranslate nohighlight">\(A^H = A\)</span>.</p>
 </section>
 </div><p>Consequently, the diagonal elements of a Hermitian matrix are real-valued. Reflecting the altered inner product definition, the concept of orthogonal matrices in complex spaces changes to unitary matrices.</p>
 <div class="proof definition admonition" id="definition-2">
-<p class="admonition-title"><span class="caption-number">Definition 9 </span> (Unitary matrix)</p>
+<p class="admonition-title"><span class="caption-number">Definition 11 </span> (Unitary matrix)</p>
 <section class="definition-content" id="proof-content">
 <p>A matrix <span class="math notranslate nohighlight">\(Q \in \mathbb{C}^{n \times n}\)</span> is <em>unitary</em> if <span class="math notranslate nohighlight">\(Q^H Q = I\)</span>.</p>
 </section>
@@ -437,7 +437,7 @@ A x = \lambda x.
 \det(\lambda I - A) = 0.
 \]</div>
 <div class="proof definition admonition" id="definition-3">
-<p class="admonition-title"><span class="caption-number">Definition 10 </span></p>
+<p class="admonition-title"><span class="caption-number">Definition 12 </span></p>
 <section class="definition-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(A \in \mathbb{C}^{n \times n}\)</span>. We define the <em>characteristic polynomial</em> of <span class="math notranslate nohighlight">\(A\)</span> as</p>
 <div class="math notranslate nohighlight">

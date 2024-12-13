@@ -63,11 +63,9 @@
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = '1.6_numpy_and_data_layouts';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '1.6_numpy_and_data_layouts.orig';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Solving linear system with the LU Decomposition" href="2.1_lu_decomposition.html" />
-    <link rel="prev" title="A brief survey of asymptotic notation" href="1.5_complexity_notation.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -118,6 +116,8 @@
     <div class="bd-container__inner bd-page-width">
       
       
+      
+        
       
       <dialog id="pst-primary-sidebar-modal"></dialog>
       <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
@@ -172,13 +172,13 @@
             </li>
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Fundamentals</span></p>
-<ul class="current nav bd-sidenav">
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="1.1_matrix_vector_norms.html">Matrix and vector norms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.2_floating_point_arithmetic.html">Floating point arithmetic</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.3_error_analysis.html">Principles of Backward Error Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.4_linear_system_error.html">Error of linear systems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.5_complexity_notation.html">A brief survey of asymptotic notation</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Memory layout and Numpy arrays</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_numpy_and_data_layouts.html">Memory layout and Numpy arrays</a></li>
 
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition and its Numerical Stability</span></p>
@@ -278,7 +278,7 @@
       
       
       
-      <li><a href="_sources/1.6_numpy_and_data_layouts.md" target="_blank"
+      <li><a href="_sources/1.6_numpy_and_data_layouts.orig.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -288,7 +288,7 @@
 <span class="btn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="btn__text-container">.md</span>
+<span class="btn__text-container">.ipynb</span>
 </a>
 </li>
       
@@ -364,25 +364,11 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Memory layout and Numpy arrays</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#memory-layouts">Memory layouts</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#numpy-to-the-rescue">Numpy to the rescue</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#blas-and-lapack">BLAS and Lapack</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started-in-numpy">Getting started in Numpy</a></li>
 </ul>
-</li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-arrays">Creating Arrays</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#accessing-array-properties">Accessing Array Properties</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#accessing-elements">Accessing Elements</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modifying-arrays">Modifying Arrays</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-with-numpy-and-matplotlib">Plotting with Numpy and Matplotlib</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-operations">Matrix Operations</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-linear-systems">Solving Linear Systems</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-resources">Further Resources</a></li>
-</ul>
-</li>
-</ul>
-
             </nav>
         </div>
     </div>
@@ -397,171 +383,242 @@
 <h1>Memory layout and Numpy arrays<a class="headerlink" href="#memory-layout-and-numpy-arrays" title="Link to this heading">#</a></h1>
 <section id="memory-layouts">
 <h2>Memory layouts<a class="headerlink" href="#memory-layouts" title="Link to this heading">#</a></h2>
-<p>We can imagine memory as a linear collection of consecutive memory addresses, each representing one byte.</p>
+<p>We can imagine memory as a linear collection of consecutive memory addresses (each one representing one byte).</p>
 <p><img alt="Byte array in memory" src="_images/byte_array.png" /></p>
-<p>The key to efficient data representation is to order data spatially local in memory. This means the data we want to work on next should be as close to our current data as possible. The reason is that memory accesses in modern computers are extremely expensive compared to actual computations. To alleviate this problem, all modern CPUs rely on sophisticated caches that try to read data from memory ahead of time. This works only if the next pieces of data are close to the data that we are currently working on.</p>
+<p>The key to efficient data representations is to order data spatially local in memory. This means the data we want to work on next should be as close to our current data as possible. The reason is that memory accesses in modern computers are extremely expensive compared to actual computations. To alleviate this problem, all modern CPUs rely on sophisticated caches that try to read data from the memory ahead of time. This works only if the next pieces of data are close to the data that we are currently working on.</p>
 <p>Standard Python list types do not guarantee this locality. List elements can be at very different memory addresses, making standard lists and other base Python types unsuitable for numerical operations. We require a buffer type that guarantees us a chunk of consecutive addresses in the system memory.</p>
-<p>What happens if we have a matrix? Consider a 2 x 2 matrix:</p>
+<p>What happens if we have a matrix? Consider a 2 x 2 matrix</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 A = \begin{bmatrix} 1 &amp; 2\\ 3 &amp; 4\end{bmatrix}
 \end{split}\]</div>
-<p>We have two ways of ordering this matrix across the memory band:</p>
+<p>We have two ways of ordering this matrix across the memory band.</p>
 <ul class="simple">
-<li><p><strong>C-Style ordering:</strong> This aligns the matrix row by row in memory. Hence, our memory buffer will have four elements that read:</p></li>
+<li><p><strong>C-Style ordering:</strong> This aligns the matrix row by row in memory. Hence, our memory buffer will have four elements that read</p></li>
 </ul>
 <div class="math notranslate nohighlight">
 \[
 1, 2, 3, 4
 \]</div>
 <ul class="simple">
-<li><p><strong>Fortran-Style ordering:</strong> This aligns the matrix column by column in memory. Our memory buffer will now have four elements that read:</p></li>
+<li><p><strong>Fortran Style ordering:</strong> This aligns the matrix column by column in memory. Our memory buffer will now have four elements that read</p></li>
 </ul>
 <div class="math notranslate nohighlight">
 \[
 1, 3, 2, 4
 \]</div>
-<p>Both memory layout styles are used across scientific computing, and it is important to know the assumed layout in a given numerical library. Ignoring data layouts leads to inefficiency if code has to translate on the fly between the layouts, or even bugs if a library ignores the layout differences.</p>
+<p>Both memory layout styles are used across scientific computing, and it is important to know the assumed layout in a given numerical library. Ignoring data layouts leads to inefficiency if code has to translate on the fly between the layouts or even bugs if a library ignores the layout differences.</p>
 </section>
 <section id="numpy-to-the-rescue">
 <h2>Numpy to the rescue<a class="headerlink" href="#numpy-to-the-rescue" title="Link to this heading">#</a></h2>
-<p><a class="reference external" href="https://numpy.org/">Numpy</a> addresses these issues by providing an array type that reserves consecutive chunks of memory and allows the user to transparently map data onto this memory, either using C-style ordering (default) or Fortran-style ordering (optional). Numpy also ensures that operations between arrays of different orderings are executed correctly (although it is best to avoid this). Numpy has long established itself as the de facto standard for array types in Python. Indeed, many other libraries have adopted the Numpy syntax and conventions to ensure their data types interoperate seamlessly with Numpy.</p>
-<p><strong>Numpy is a major reason for the significant success of Python.</strong></p>
-<p>Recently, an associated <a class="reference external" href="https://www.nature.com/articles/s41586-020-2649-2">Numpy paper</a> was published in Nature, which is quite rare for a software library and demonstrates how fundamental Numpy has become to any science that relies on data processing. Most of these operations are implemented by calling natively into accelerated BLAS/Lapack functions.</p>
+<p><a class="reference external" href="https://numpy.org/">Numpy</a> solves all these problems by providing an array type that reserves consecutive chunks of memory and allows the user to transparently map data onto this chunk of memory, either using C-style ordering (default) or Fortran-style ordering (optional). Numpy also guarantees that operations between arrays of different orderings are executed correctly (although we should avoid this). Numpy has long established itself as the de facto standard for array types in Python. Indeed, many other libraries have taken over the Numpy syntax and conventions to make their data types interoperate nicely with Numpy.</p>
+<p><strong>Numpy is a major reason for the large success of Python.</strong></p>
+<p>Very recently, an associated <a class="reference external" href="https://www.nature.com/articles/s41586-020-2649-2">Numpy paper</a> was published in Nature, something very rare for a software library and demonstrating how fundamental Numpy has become to any kind of science that relies on data processing. Most of these operations are implemented by calling natively into accelerated BLAS/Lapack functions.</p>
 </section>
 <section id="blas-and-lapack">
 <h2>BLAS and Lapack<a class="headerlink" href="#blas-and-lapack" title="Link to this heading">#</a></h2>
-<p><a class="reference external" href="http://www.netlib.org/blas/">BLAS (Basic Linear Algebra Subroutines)</a> defines a set of interfaces to standard linear algebra functions. There are three BLAS variants: Level 1, 2, and 3.</p>
+<p><a class="reference external" href="http://www.netlib.org/blas/">BLAS (Basic Linear Algebra Subroutines)</a> defines a set of interfaces to standard linear algebra functions. There are three BLAS variants, Level 1, 2, and 3.</p>
 <ul class="simple">
-<li><p>BLAS Level 1 defines functions that require <span class="math notranslate nohighlight">\(O(n)\)</span> computational complexity (<span class="math notranslate nohighlight">\(n\)</span> is the number of elements), such as vector addition, multiplication with scalars, or dot products.</p></li>
+<li><p>BLAS Level 1 defines functions that require <span class="math notranslate nohighlight">\(O(n)\)</span> computational complexity (<span class="math notranslate nohighlight">\(n\)</span> is the number of elements), such as vector addition, multiplication with scalars or dot products.</p></li>
 <li><p>BLAS Level 2 defines functions that require <span class="math notranslate nohighlight">\(O(n^2)\)</span> computational complexity, such as matrix-vector products or triangular solves.</p></li>
 <li><p>BLAS Level 3 defines functions that require <span class="math notranslate nohighlight">\(O(n^3)\)</span> computational complexity, of which the most important one is the matrix-matrix product.</p></li>
 </ul>
-<p>A reference BLAS implementation exists from <a class="reference external" href="http://www.netlib.org">http://www.netlib.org</a>. However, this should never be used in practice. The key to fast BLAS operations is implementations that optimally use the CPU cache architecture to minimise data transfer delays. Several BLAS libraries exist that are optimised for modern CPUs and not only exploit caching but also SIMD acceleration and multi-core processing. Examples of such libraries are <a class="reference external" href="https://software.intel.com/content/www/us/en/develop/tools/math-kernel-library.html">Intel MKL</a>, <a class="reference external" href="https://www.openblas.net/">OpenBLAS</a>, or <a class="reference external" href="https://github.com/flame/blis">BLIS</a>.</p>
-<p><a class="reference external" href="http://netlib.org/lapack">Lapack</a> is a library of advanced linear algebra functions such as linear system solves, eigenvalue problems, singular values, least-squares problems, etc., using BLAS. Lapack routines are highly optimised to use matrix-matrix Level-3 BLAS operations whenever possible. The reason is memory efficiency. The ratio of computational complexity to memory complexity for matrix-matrix products is <span class="math notranslate nohighlight">\(O(n^3)\)</span> to <span class="math notranslate nohighlight">\(O(n^2)\)</span>. Hence, for larger problems, we have far more operations than memory accesses, which is desirable as memory accesses are slow.</p>
-<p>Numpy links against available BLAS and Lapack libraries to ensure the most efficient implementations of linear algebra operations. If Numpy is installed from conda-forge, then by default, the OpenBLAS library is used. Alternatively, one can also use Intel MKL.</p>
+<p>A reference BLAS implementation exists from <a class="reference external" href="http://www.netlib.org">http://www.netlib.org</a>. However, this should never be used in practice. The key to fast BLAS operations are implementations that optimally use the CPU Cache architecture to minimise data transfer delays. Several BLAS libraries exist that are optimised for modern CPUs and do not only exploit caching but also SIMD acceleration and multi-core processing. Examples of such libraries are <a class="reference external" href="https://software.intel.com/content/www/us/en/develop/tools/math-kernel-library.html">Intel MKL</a>, <a class="reference external" href="https://www.openblas.net/">Openblas</a> or <a class="reference external" href="https://github.com/flame/blis">BLIS</a>.</p>
+<p><a class="reference external" href="http://netlib.org/lapack">Lapack</a> is a library of advanced linear algebra functions such as linear system solves, eigenvalue problems, singular values, least-squares problems, etc., using BLAS. Lapack routines are highly optimised to use matrix-matrix Level-3 BLAS operations whenever possible. The reason is memory efficiency. The ratio of computational complexity to memory complexity for matrix-matrix products is <span class="math notranslate nohighlight">\(O(n^3)\)</span> to <span class="math notranslate nohighlight">\(O(n^2)\)</span>. Hence, for larger problems, we have far more operations than memory accesses, which is what we want as memory accesses are slow.</p>
+<p>Numpy links against available BLAS and Lapack libraries to ensure the most efficient implementations of linear algebra operations. If Numpy is installed from conda-forge, then by default, the Openblas library is used. Alternatively, one can also use Intel MKL.</p>
 </section>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="python-skills">
-<h1>Python skills<a class="headerlink" href="#python-skills" title="Link to this heading">#</a></h1>
-<p>We already know that Numpy is a fundamental library for scientific computing in Python. Here’s a quick introduction to its basic features and functionality. To use Numpy, import it as follows:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<section id="getting-started-in-numpy">
+<h2>Getting started in Numpy<a class="headerlink" href="#getting-started-in-numpy" title="Link to this heading">#</a></h2>
+<p>To get started we import Numpy.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 </pre></div>
 </div>
-<section id="creating-arrays">
-<h2>Creating Arrays<a class="headerlink" href="#creating-arrays" title="Link to this heading">#</a></h2>
-<p>The basic data type in Numpy is the array. Here are some examples of how to create arrays:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># A double-precision array with three entries</span>
-<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">3.5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mf">18.1</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float64&#39;</span><span class="p">)</span>
-
-<span class="c1"># Random array with 10 components</span>
-<span class="n">a_random</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-
-<span class="c1"># A 10x10 matrix of ones, stored as double precision</span>
-<span class="n">a_ones</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float64&#39;</span><span class="p">)</span>
-
-<span class="c1"># A complex 3D tensor with all entries set to zero</span>
-<span class="n">a_zeros</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;complex128&#39;</span><span class="p">)</span>
-
-<span class="c1"># An uninitialized byte array that can store 50 bytes</span>
-<span class="n">a_empty</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;byte&#39;</span><span class="p">)</span>
-
-<span class="c1"># The first 50 integers, starting at 0</span>
-<span class="n">a_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+</div>
+</div>
+<p>The basic data type in Numpy is the array. The following creates a double precision array with three entries.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">3.5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mf">18.1</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float64&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-</section>
-<section id="accessing-array-properties">
-<h2>Accessing Array Properties<a class="headerlink" href="#accessing-array-properties" title="Link to this heading">#</a></h2>
-<p>You can easily access the shape of an array:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">a_range</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>  <span class="c1"># (50,)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">a_zeros</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>  <span class="c1"># (10, 10, 10)</span>
+</div>
+</div>
+<p>The parameter <code class="docutils literal notranslate"><span class="pre">dtype=&quot;float64&quot;</span></code> is not necessary here as Numpy automatically recognizes that the list contains two floating point numbers and, therefore, uses a 64-bit floating point number (double precision) as the default type. To use single precision, use <code class="docutils literal notranslate"><span class="pre">dtype=float32</span></code>. A list of available types can be found <a class="reference external" href="https://numpy.org/devdocs/user/basics.types.html">here</a>.</p>
+<p>Below are some ways to create an array with Numpy.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a_random</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="c1"># A random array with 10 components</span>
+<span class="n">a_ones</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float64&#39;</span><span class="p">)</span> <span class="c1"># A 10x10 matrix of ones, stored as double precision (float64) type</span>
+<span class="n">a_zeros</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(((</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)),</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;complex128&#39;</span><span class="p">)</span> <span class="c1"># A complex three dim. Tensor with all entries set to zero.</span>
+<span class="n">a_empty</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;byte&#39;</span><span class="p">)</span> <span class="c1"># An unitialized byte array that can store 50 bytes.</span>
+<span class="n">a_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span> <span class="c1"># The first 50 integers, starting at 0.</span>
 </pre></div>
 </div>
-</section>
-<section id="accessing-elements">
-<h2>Accessing Elements<a class="headerlink" href="#accessing-elements" title="Link to this heading">#</a></h2>
-<p>Accessing elements of arrays is straightforward:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Access the first element</span>
-<span class="n">a_random</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-
-<span class="c1"># Access the first two elements</span>
-<span class="n">a_random</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
-
-<span class="c1"># Access the last two elements</span>
-<span class="n">a_random</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:]</span>
-
-<span class="c1"># Access a submatrix (third to fifth column in the first three rows)</span>
-<span class="n">a_ones</span><span class="p">[:</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span>
-
-<span class="c1"># Access an element in a multidimensional array</span>
-<span class="n">a_zeros</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+</div>
+</div>
+<p>We can easily access the shape of an array</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">a_range</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a_zeros</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 </pre></div>
 </div>
-</section>
-<section id="modifying-arrays">
-<h2>Modifying Arrays<a class="headerlink" href="#modifying-arrays" title="Link to this heading">#</a></h2>
-<p>You can also modify elements of arrays:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set a specific element</span>
-<span class="n">a_ones</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span>
-
-<span class="c1"># Set a column to a range of values</span>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(50,)
+(10, 10, 10)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Accessing elements is easy.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a_random</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># Element 0</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.46208866937120263
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a_random</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span> <span class="c1"># The first two elements </span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.46208867, 0.16579052])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a_random</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:]</span> <span class="c1"># The last two elements</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.06180413, 0.03400804])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a_ones</span><span class="p">[:</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span> <span class="c1"># The third to fifth column in the first three rows</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[1., 1., 1.],
+       [1., 1., 1.],
+       [1., 1., 1.]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a_zeros</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="c1"># The element with indices (3, 2, 1)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0j
+</pre></div>
+</div>
+</div>
+</div>
+<p>Assigning elements works similarly.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a_ones</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span>
 <span class="n">a_ones</span><span class="p">[:,</span> <span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-
-<span class="c1"># Set an entire row to a specific value</span>
-<span class="n">a_ones</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">a_ones</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span> <span class="c1"># This sets the whole of row 8 to the entry 10</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a_ones</span><span class="p">)</span>
 </pre></div>
 </div>
-</section>
-<section id="plotting-with-numpy-and-matplotlib">
-<h2>Plotting with Numpy and Matplotlib<a class="headerlink" href="#plotting-with-numpy-and-matplotlib" title="Link to this heading">#</a></h2>
-<p>Together with Matplotlib, you can easily plot data:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[ 1.  1.  1.  1.  0.  1.  1.  1.  1.  1.]
+ [ 1.  1.  1.  1.  1.  1.  1.  1.  1.  1.]
+ [ 1.  1.  1.  1.  2.  1.  1.  1.  1.  1.]
+ [ 1.  1.  1. 10.  3.  1.  1.  1.  1.  1.]
+ [ 1.  1.  1.  1.  4.  1.  1.  1.  1.  1.]
+ [ 1.  1.  1.  1.  5.  1.  1.  1.  1.  1.]
+ [ 1.  1.  1.  1.  6.  1.  1.  1.  1.  1.]
+ [ 1.  1.  1.  1.  7.  1.  1.  1.  1.  1.]
+ [10. 10. 10. 10. 10. 10. 10. 10. 10. 10.]
+ [ 1.  1.  1.  1.  9.  1.  1.  1.  1.  1.]]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Together with Matplotlib we can easily plot data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 
 <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10000</span><span class="p">)</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
-
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;exp(-x^2)&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-</section>
-<section id="matrix-operations">
-<h2>Matrix Operations<a class="headerlink" href="#matrix-operations" title="Link to this heading">#</a></h2>
-<p>Matrix and vector operations in Numpy include:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Generate random matrices</span>
-<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/ad1ae1894a57f02e325c84a253d44c1de0d76032b99fef5e592f5abd26d13447.png" src="_images/ad1ae1894a57f02e325c84a253d44c1de0d76032b99fef5e592f5abd26d13447.png" />
+</div>
+</div>
+<p>Matrix/Matrix and Matrix/vector products in Numpy are executed as follows:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
 <span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
 
-<span class="c1"># Matrix/matrix product</span>
-<span class="n">C</span> <span class="o">=</span> <span class="n">A</span> <span class="o">@</span> <span class="n">B</span>
-
-<span class="c1"># Componentwise product</span>
-<span class="n">C_elementwise</span> <span class="o">=</span> <span class="n">A</span> <span class="o">*</span> <span class="n">B</span>
+<span class="n">C</span> <span class="o">=</span> <span class="n">A</span> <span class="o">@</span> <span class="n">B</span> <span class="c1"># Product of the matrices A and B</span>
 </pre></div>
 </div>
-</section>
-<section id="solving-linear-systems">
-<h2>Solving Linear Systems<a class="headerlink" href="#solving-linear-systems" title="Link to this heading">#</a></h2>
-<p>Numpy can solve linear systems of equations:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+</div>
+</div>
+<p>Note that the componentwise product of two matrices is written as <code class="docutils literal notranslate"><span class="pre">C</span> <span class="pre">=</span> <span class="pre">A</span> <span class="pre">*</span> <span class="pre">B</span></code> and has nothing to do with the matrix/matrix product.</p>
+<p>Numpy can also solve Linear systems of equations and perform other higher order matrix operations.
+To solve a linear system of equations, the following can be used.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
 <span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
-
-<span class="c1"># Solve Ax = b</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
-
-<span class="c1"># Compute the relative residual</span>
-<span class="n">residual</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">b</span> <span class="o">-</span> <span class="n">A</span> <span class="o">@</span> <span class="n">x</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">A</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can easily compute the relative residual of this solve as</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">residual</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">b</span> <span class="o">-</span> <span class="n">A</span> <span class="o">@</span> <span class="n">x</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">A</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">residual</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>This computation demonstrates solving a system with accuracy close to machine precision.</p>
-</section>
-<section id="further-resources">
-<h2>Further Resources<a class="headerlink" href="#further-resources" title="Link to this heading">#</a></h2>
-<p>For a more comprehensive introduction, refer to the <a class="reference external" href="https://numpy.org/doc/stable/user/index.html">Numpy user guide</a>.</p>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.5403302073625195e-16
+</pre></div>
+</div>
+</div>
+</div>
+<p>The system was solved with an accuracy close to machine precision.</p>
+<p>This was just a small sample of Numpy functions. For a more comprehensive introduction check out the <a class="reference external" href="https://numpy.org/devdocs/user/index.html">Numpy user guide</a></p>
 </section>
 </section>
 
@@ -595,24 +652,6 @@ A = \begin{bmatrix} 1 &amp; 2\\ 3 &amp; 4\end{bmatrix}
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
-    <a class="left-prev"
-       href="1.5_complexity_notation.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">A brief survey of asymptotic notation</p>
-      </div>
-    </a>
-    <a class="right-next"
-       href="2.1_lu_decomposition.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Solving linear system with the LU Decomposition</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
 </div>
                 </footer>
               
@@ -630,25 +669,11 @@ A = \begin{bmatrix} 1 &amp; 2\\ 3 &amp; 4\end{bmatrix}
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Memory layout and Numpy arrays</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#memory-layouts">Memory layouts</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#numpy-to-the-rescue">Numpy to the rescue</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#blas-and-lapack">BLAS and Lapack</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started-in-numpy">Getting started in Numpy</a></li>
 </ul>
-</li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-arrays">Creating Arrays</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#accessing-array-properties">Accessing Array Properties</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#accessing-elements">Accessing Elements</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modifying-arrays">Modifying Arrays</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-with-numpy-and-matplotlib">Plotting with Numpy and Matplotlib</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-operations">Matrix Operations</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-linear-systems">Solving Linear Systems</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-resources">Further Resources</a></li>
-</ul>
-</li>
-</ul>
-
   </nav></div>
 
 </div></div>
