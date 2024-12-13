@@ -8,52 +8,55 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Floating Point Arithmetic &#8212; Computational Methods MATH0058 lecture notes</title>
+    <title>Floating point arithmetic &#8212; Computational Methods MATH0058 lecture notes</title>
   
   
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-
-  
-  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+  <link href="_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=ca93fcec" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=b4b7a797" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
-  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
 
     <script src="_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="_static/copybutton.js?v=f281be69"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="_static/design-tabs.js?v=36754332"></script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
@@ -63,10 +66,11 @@
     <script>DOCUMENTATION_OPTIONS.pagename = '1.2_floating_point_arithmetic';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Principles of backward error analysis" href="1.3_error_analysis.html" />
+    <link rel="next" title="Principles of Backward Error Analysis" href="1.3_error_analysis.html" />
     <link rel="prev" title="Matrix and vector norms" href="1.1_matrix_vector_norms.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -74,31 +78,16 @@
 
   
   
-  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
   
   <div id="pst-scroll-pixel-helper"></div>
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>
-    Back to top
-  </button>
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="search.html"
       method="get">
@@ -106,7 +95,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search this book..."
          aria-label="Search this book..."
          autocomplete="off"
@@ -114,10 +102,15 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
     </header>
   
 
@@ -126,7 +119,8 @@
       
       
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -141,6 +135,8 @@
         <div class="sidebar-primary-item">
 
   
+    
+  
 
 <a class="navbar-brand logo" href="index.html">
   
@@ -154,21 +150,17 @@
     
     
     <img src="_static/logo.png" class="logo__image only-light" alt="Computational Methods MATH0058 lecture notes - Home"/>
-    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Computational Methods MATH0058 lecture notes - Home"/>`);</script>
+    <img src="_static/logo.png" class="logo__image only-dark pst-js-only" alt="Computational Methods MATH0058 lecture notes - Home"/>
   
   
 </a></div>
         <div class="sidebar-primary-item">
 
- <script>
- document.write(`
-   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
@@ -182,8 +174,8 @@
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Fundamentals</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="1.1_matrix_vector_norms.html">Matrix and vector norms</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Floating Point Arithmetic</a></li>
-<li class="toctree-l1"><a class="reference internal" href="1.3_error_analysis.html">Principles of backward error analysis</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Floating point arithmetic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.3_error_analysis.html">Principles of Backward Error Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.4_linear_system_error.html">Backward error and condition number of linear systems of equations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.5_complexity_notation.html">A quick survey of asymptotic notation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.6_numpy_and_data_layouts.html">Memory layout and Numpy arrays</a></li>
@@ -246,7 +238,7 @@
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
 
@@ -255,14 +247,14 @@
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</label></div>
+</button></div>
       
     </div>
   
@@ -285,7 +277,7 @@
       
       
       
-      <li><a href="_sources/1.2_floating_point_arithmetic.ipynb" target="_blank"
+      <li><a href="_sources/1.2_floating_point_arithmetic.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -295,7 +287,7 @@
 <span class="btn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="btn__text-container">.ipynb</span>
+<span class="btn__text-container">.md</span>
 </a>
 </li>
       
@@ -338,27 +330,19 @@
 
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
-  </button>
-`);
-</script>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-  </button>
-`);
-</script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</label>
+</button>
 </div></div>
       
     </div>
@@ -369,7 +353,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Floating Point Arithmetic</h1>
+    <h1>Floating point arithmetic</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -379,16 +363,16 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#floating-point-types-in-python">Floating point types in Python</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-what-are-the-values-for-single-precision-arithmetic">Task: What are the values for single precision arithmetic?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definition-of-floating-point-numbers">Definition of Floating Point Numbers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ieee-754">IEEE 754</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Floating Point Arithmetic</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python Skills</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#floating-point-data-types-in-numpy">Floating Point Data Types in Numpy</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#querying-floating-point-properties">Querying Floating Point Properties</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#special-floating-point-values">Special Floating Point Values</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definition-of-floating-point-numbers">Definition of floating point numbers</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#approximating-numbers-in-floating-point-arithmetic">Approximating numbers in floating point arithmetic</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fundamental-axiom-of-floating-point-arithmetic">Fundamental Axiom of Floating Point Arithmetic</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#special-symbols-in-floating-point-arithmetic">Special symbols in floating point arithmetic</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#self-check-questions">Self-check Questions</a></li>
 </ul>
             </nav>
         </div>
@@ -401,228 +385,235 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="floating-point-arithmetic">
-<h1>Floating Point Arithmetic<a class="headerlink" href="#floating-point-arithmetic" title="Link to this heading">#</a></h1>
-<p>In the following, we learn how computers represent floating-point numbers. Consider, for example, the number <span class="math notranslate nohighlight">\(1/3 = 0.33333...\)</span>. Computers only have a finite amount of memory. We could try to work directly with fractional expressions such as <span class="math notranslate nohighlight">\(1/3\)</span> and keep track of nominators and denominators. But it turns out that the number of digits on both nominator and denominator tends to grow enormously as a computation progresses, making this approach infeasible.</p>
-<p>On the other hand, if we want to store the sequence of digits <span class="math notranslate nohighlight">\(0.33333...\)</span>, we have to cut off at some point, as computers only have a finite amount of memory. Hence, we are introducing a small error. This cut-off and the resulting error are rigorously defined in the IEEE 754 standard, which describes how to represent floating point numbers on modern computers. This allows us to prove rigorous theorems that consider that computers only support finite precision arithmetic.</p>
-<p>The two most common types of floating point numbers are IEEE double precision and IEEE single precision. The former gives us around 15 digits of accuracy. The latter has around 7 digits of accuracy. For almost all purposes, this is more than enough. Take, for example, the gravitational constant <span class="math notranslate nohighlight">\(G\)</span>. It is known to around <span class="math notranslate nohighlight">\(4\)</span> digits of accuracy, only a fraction of the number of digits we have available in modern computers.</p>
-<p>For most numerical calculations, double precision is preferred. The reason is that in some computations, errors might accumulate, leading to a loss of accuracy. In double precision, we have much more headroom for this than in single precision.</p>
-<p>However, not all applications need such precision. For example, many machine learning applications use the half-precision type, which is even less accurate than single precision but can be evaluated extremely efficiently on dedicated hardware (e.g., tensor cores on modern machine learning accelerators).</p>
-<section id="floating-point-types-in-python">
-<h2>Floating point types in Python<a class="headerlink" href="#floating-point-types-in-python" title="Link to this heading">#</a></h2>
-<p>The Numpy module defines convenient ways to query the properties of floating point numbers.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span> <span class="c1"># import the numpy extension module</span>
-                   <span class="c1"># and call it np as short form</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>The data type names in <code class="docutils literal notranslate"><span class="pre">Numpy</span></code> for floating point types are:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">IEEE</span> <span class="pre">double</span> <span class="pre">precision</span></code>: np.float, np.double, np.float64</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">IEEE</span> <span class="pre">single</span> <span class="pre">precision</span></code>: np.single, np.float32</p></li>
-</ul>
-<p>Let us query some properties of these numbers:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">double_precision_info</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>The biggest and smallest (by absolute value) normalized floating point numbers are</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">double_precision_info</span><span class="o">.</span><span class="n">max</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.7976931348623157e+308
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">double_precision_info</span><span class="o">.</span><span class="n">tiny</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2.2250738585072014e-308
-</pre></div>
-</div>
-</div>
-</div>
-<p>Floating point numbers can not be arbitrarily close to each other. There is a smallest relative distance, which we define shortly. It is given as</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">double_precision_info</span><span class="o">.</span><span class="n">eps</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2.220446049250313e-16
-</pre></div>
-</div>
-</div>
-</div>
-<p>This leads to a limited precision of floating point numbers. The approximate relative precision is</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">double_precision_info</span><span class="o">.</span><span class="n">precision</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>15
-</pre></div>
-</div>
-</div>
-</div>
-<section id="task-what-are-the-values-for-single-precision-arithmetic">
-<h3>Task: What are the values for single precision arithmetic?<a class="headerlink" href="#task-what-are-the-values-for-single-precision-arithmetic" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">single_precision_info</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">([</span><span class="n">single_precision_info</span><span class="o">.</span><span class="n">max</span><span class="p">,</span>
-       <span class="n">single_precision_info</span><span class="o">.</span><span class="n">tiny</span><span class="p">,</span>
-       <span class="n">single_precision_info</span><span class="o">.</span><span class="n">eps</span><span class="p">,</span>
-       <span class="n">single_precision_info</span><span class="o">.</span><span class="n">precision</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[3.4028235e+38, 1.1754944e-38, 1.1920929e-07, 6]
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-</section>
+<h1>Floating point arithmetic<a class="headerlink" href="#floating-point-arithmetic" title="Link to this heading">#</a></h1>
+<p>In the following, we explore how computers represent numbers. Integers are the simplest to understand. A computer can only represent a finite range of integers, for example, some implementations can store integers between <span class="math notranslate nohighlight">\(-2^{63} = -9223372036854775808\)</span> and <span class="math notranslate nohighlight">\(2^{63}-1 = 9223372036854775807\)</span>.</p>
+<p>Next, consider rational numbers such as <span class="math notranslate nohighlight">\(1/3 = 0.33333\ldots\)</span>. One might attempt to work directly with fractional expressions like <span class="math notranslate nohighlight">\(1/3\)</span> and keep track of numerators and denominators. However, the number of digits in both the numerator and denominator tends to grow significantly as computations progress, making this approach impractical in most cases. Real numbers such as <span class="math notranslate nohighlight">\(\pi\)</span> or <span class="math notranslate nohighlight">\(e\)</span> pose an even greater challenge because they cannot be represented as fractions of integers.</p>
+<p>The solution for <span class="math notranslate nohighlight">\(\mathbb{Q}\)</span> and <span class="math notranslate nohighlight">\(\mathbb{R}\)</span> is the same: we must truncate their representation after a finite number of digits, thereby introducing a small error. Complex numbers, in terms of their storage in computer memory, are treated like two real numbers.</p>
 <section id="definition-of-floating-point-numbers">
-<h2>Definition of floating point numbers<a class="headerlink" href="#definition-of-floating-point-numbers" title="Link to this heading">#</a></h2>
-<p>We use the following model for floating point numbers. For more details, see, e.g. the recommended lecture book by Trefethen and Bau.</p>
-<p>The set of floating point numbers is defined as follows:</p>
+<h2>Definition of Floating Point Numbers<a class="headerlink" href="#definition-of-floating-point-numbers" title="Link to this heading">#</a></h2>
+<p>The basic idea behind floating point numbers is to define a finite subset of <span class="math notranslate nohighlight">\(\mathbb{Q}\)</span> that has a finer spacing for small numbers, allowing computations to account for small quantities, while employing a wider spacing for large numbers, thus covering a large range between the smallest and largest represented numbers.</p>
+<div class="proof definition admonition" id="definition-0">
+<p class="admonition-title"><span class="caption-number">Definition 2 </span></p>
+<section class="definition-content" id="proof-content">
+<p>We call <span class="math notranslate nohighlight">\(\mathcal{F}\)</span> a set of floating point numbers if</p>
 <div class="math notranslate nohighlight">
 \[
-\mathcal{F} = \left\{(-1)^s\cdot b^e \cdot \frac{m}{b^{p-1}} :\right. \left. s = 0,1; e_{min}\leq e \leq e_{max}; b^{p-1}\leq m\leq b^{p}-1\right\}.
+\mathcal{F} = \{ 0 \} \cup \left\{(-1)^s\cdot b^e \cdot \frac{m}{b^{p-1}} :\right. \left. s \in \{ 0,1\}; e_{min}\leq e \leq e_{max}; b^{p-1}\leq m\leq b^{p}-1\right\}.
 \]</div>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">IEEE</span> <span class="pre">double</span> <span class="pre">precision</span></code>: <span class="math notranslate nohighlight">\(e_{min} = -1022, e_{max} = 1023, p = 53\)</span></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">IEEE</span> <span class="pre">single</span> <span class="pre">precision</span></code>: <span class="math notranslate nohighlight">\(e_{min} = -126, e_{max} = 127, p = 24\)</span></p></li>
-</ul>
-<p>Typically, b = 2. For the mantissa we have:</p>
+<p>for some <span class="math notranslate nohighlight">\(b, p \in \{2, 3, 4, \ldots\}\)</span> and <span class="math notranslate nohighlight">\(e_\min, e_\max \in \mathbb{Z}\)</span> with <span class="math notranslate nohighlight">\(e_\min &lt; e_\max\)</span>.</p>
+</section>
+</div><p>The above rigorous definition of floating point numbers allows us to prove theorems that consider that computers only support finite precision arithmetic.</p>
+<p>The definition already indicates how the numbers of <span class="math notranslate nohighlight">\(\mathcal{F}\)</span> are best represented in the base-<span class="math notranslate nohighlight">\(b\)</span> numerical system. Most commonly, we look at binary numbers, i.e., base <span class="math notranslate nohighlight">\(b = 2\)</span>, and sometimes at decimal numbers, i.e., base <span class="math notranslate nohighlight">\(b = 10\)</span>. The factor <span class="math notranslate nohighlight">\((-1)^s\)</span> determines the sign of the number. The factor <span class="math notranslate nohighlight">\(b^e\)</span> determines the position of the leading digit. The final factor <span class="math notranslate nohighlight">\(\frac{m}{b^{p-1}}\)</span> takes values between <span class="math notranslate nohighlight">\(1 = b^{p-1} / b^{p-1}\)</span> and <span class="math notranslate nohighlight">\((b^{p}-1) / b^{p-1} = b - 1 / b^{p-1}\)</span>. For large <span class="math notranslate nohighlight">\(p\)</span>, we find <span class="math notranslate nohighlight">\(b \approx (b^{p}-1) / b^{p-1}\)</span>. Thus, varying the mantissa <span class="math notranslate nohighlight">\(m\)</span> allows us to approximate different numbers, whose leading digit is in the same position:</p>
 <div class="math notranslate nohighlight">
 \[
 \frac{m}{b^{p-1}} = 1, 1+b^{1-p}, 1+2b^{1-p}, \dots, b-b^{1-p}
 \]</div>
-<p><span class="math notranslate nohighlight">\(\rightarrow\)</span> Distance of neighbouring floats is <span class="math notranslate nohighlight">\(2^e b^{1-p}\)</span>.</p>
-<p><span class="math notranslate nohighlight">\(\epsilon_{rel} = b^{1-p}\)</span> is smallest number such that
-$<span class="math notranslate nohighlight">\(
-1 + \epsilon_{rel} \neq 1.
-\)</span>$</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span> <span class="o">+</span> <span class="n">double_precision_info</span><span class="o">.</span><span class="n">eps</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.0000000000000002
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span> <span class="o">+</span> <span class="mf">.25</span> <span class="o">*</span> <span class="n">double_precision_info</span><span class="o">.</span><span class="n">eps</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.0
-</pre></div>
-</div>
-</div>
+<div class="proof example admonition" id="example-1">
+<p class="admonition-title"><span class="caption-number">Example 1 </span></p>
+<section class="example-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(b = 2\)</span>, <span class="math notranslate nohighlight">\(p = 2\)</span>, <span class="math notranslate nohighlight">\(e_\min = -1\)</span> and <span class="math notranslate nohighlight">\(e_\max = 1\)</span>. It follows that <span class="math notranslate nohighlight">\(b^{p-1} = 2\)</span> and <span class="math notranslate nohighlight">\(b^p - 1 = 3\)</span>. Then <span class="math notranslate nohighlight">\(\mathcal{F}\)</span> consists of <span class="math notranslate nohighlight">\(0\)</span> and the numbers enumerated in the following table:</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id3">
+<caption><span class="caption-number">Table 1 </span><span class="caption-text">Non-zero Floating Point Numbers</span><a class="headerlink" href="#id3" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p><span class="math notranslate nohighlight">\(s\)</span></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(e\)</span></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(m\)</span></p></th>
+<th class="head"><p>Value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>-1</p></td>
+<td><p>2</p></td>
+<td><p><span class="math notranslate nohighlight">\(2^{-1} \cdot \frac{2}{2^1} = 0.5\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>0</p></td>
+<td><p>-1</p></td>
+<td><p>3</p></td>
+<td><p><span class="math notranslate nohighlight">\(2^{-1} \cdot \frac{3}{2^1} = 0.75\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>2</p></td>
+<td><p><span class="math notranslate nohighlight">\(2^0 \cdot \frac{2}{2^1} = 1\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>3</p></td>
+<td><p><span class="math notranslate nohighlight">\(2^0 \cdot \frac{3}{2^1} = 1.5\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>1</p></td>
+<td><p>2</p></td>
+<td><p><span class="math notranslate nohighlight">\(2^1 \cdot \frac{2}{2^1} = 2\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>0</p></td>
+<td><p>1</p></td>
+<td><p>3</p></td>
+<td><p><span class="math notranslate nohighlight">\(2^1 \cdot \frac{3}{2^1} = 3\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>-1</p></td>
+<td><p>2</p></td>
+<td><p><span class="math notranslate nohighlight">\(-2^{-1} \cdot \frac{2}{2^1} = -0.5\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>-1</p></td>
+<td><p>3</p></td>
+<td><p><span class="math notranslate nohighlight">\(-2^{-1} \cdot \frac{3}{2^1} = -0.75\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>0</p></td>
+<td><p>2</p></td>
+<td><p><span class="math notranslate nohighlight">\(-2^0 \cdot \frac{2}{2^1} = -1\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>0</p></td>
+<td><p>3</p></td>
+<td><p><span class="math notranslate nohighlight">\(-2^0 \cdot \frac{3}{2^1} = -1.5\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>2</p></td>
+<td><p><span class="math notranslate nohighlight">\(-2^1 \cdot \frac{2}{2^1} = -2\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>3</p></td>
+<td><p><span class="math notranslate nohighlight">\(-2^1 \cdot \frac{3}{2^1} = -3\)</span></p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </section>
-<section id="approximating-numbers-in-floating-point-arithmetic">
-<h2>Approximating numbers in floating point arithmetic<a class="headerlink" href="#approximating-numbers-in-floating-point-arithmetic" title="Link to this heading">#</a></h2>
-<p>Let <span class="math notranslate nohighlight">\(x\in\mathbb{R}\)</span>, <span class="math notranslate nohighlight">\(b^{e_{min}}\leq x &lt; b^{e_{max}+1}\)</span>. Define <span class="math notranslate nohighlight">\(\epsilon_{mach}:=\frac{1}{2}b^{1-p}\)</span></p>
-<p>There exists <span class="math notranslate nohighlight">\(x'\in \mathcal{F}\)</span> such that <span class="math notranslate nohighlight">\(|x-x'|\leq\epsilon_{mach}|x|\)</span>.</p>
-<p><strong><span class="math notranslate nohighlight">\(\epsilon_{mach}\)</span> is relative distance to the next floating point number in <span class="math notranslate nohighlight">\(\mathcal{F}\)</span>.</strong></p>
+</div><p>A graphical representation (<a class="reference external" href="https://en.wikipedia.org/wiki/Floating-point_arithmetic">Source Wikipedia</a>) of a floating point set is</p>
+<p><img alt="Floating point precision" src="_images/FloatingPointPrecision.png" /></p>
+<p>Often we call abreviate floating point numbers as floats.</p>
+</section>
+<section id="ieee-754">
+<h2>IEEE 754<a class="headerlink" href="#ieee-754" title="Link to this heading">#</a></h2>
+<p>The previous example is not practical because that <span class="math notranslate nohighlight">\(\mathcal{F}\)</span> is far too small. Instead, the most widely used floating point sets are defined in the <a class="reference external" href="https://ieeexplore.ieee.org/document/8766229">IEEE 754 standard</a>.</p>
+<p>The two most common types of floating-point numbers are IEEE double precision and IEEE single precision. The former provides around 15 digits of accuracy, while the latter offers around 7 digits of accuracy.</p>
+<ul class="simple">
+<li><p><strong>IEEE double precision:</strong> <span class="math notranslate nohighlight">\(e_{min} = -1022, e_{max} = 1023, p = 53\)</span>, <span class="math notranslate nohighlight">\(b = 2\)</span></p></li>
+<li><p><strong>IEEE single precision:</strong> <span class="math notranslate nohighlight">\(e_{min} = -126, e_{max} = 127, p = 24\)</span>, <span class="math notranslate nohighlight">\(b = 2\)</span></p></li>
+</ul>
+<p>For almost all purposes, this is more than sufficient. Take, for example, the gravitational constant <span class="math notranslate nohighlight">\(G\)</span>. It is known to around 4 digits of accuracy, only a fraction of the number of digits available in modern computers.</p>
+<p>For most numerical calculations, double precision is preferred. The reason is that in some computations, errors might accumulate, leading to a loss of accuracy. In double precision, we have much more headroom for this than in single precision.</p>
+<p>However, not all applications require such precision. For example, many machine learning applications use the half-precision type, which is even less accurate than single precision but can be evaluated extremely efficiently on dedicated hardware, e.g., tensor cores on modern machine learning accelerators.</p>
+</section>
+<section id="id1">
+<h2>Floating Point Arithmetic<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<p>The distance between neighbouring floats with same leading digit is <span class="math notranslate nohighlight">\(2^e b^{1-p}\)</span>. Let <span class="math notranslate nohighlight">\(x \in [b^{e_{min}}, b^{e_{max}+1}]\)</span>, i.e. be a real number between the smallest and largest float. Define <span class="math notranslate nohighlight">\(\epsilon_{mach} := \frac{1}{2} b^{1-p}\)</span>. There exists <span class="math notranslate nohighlight">\(x' \in \mathcal{F}\)</span> such that <span class="math notranslate nohighlight">\(|x - x'| \leq \epsilon_{mach} |x|\)</span>. <strong>In words, <span class="math notranslate nohighlight">\(\epsilon_{mach}\)</span> is the relative distance to the next floating point number in <span class="math notranslate nohighlight">\(\mathcal{F}\)</span>.</strong></p>
 <p>Define the projection</p>
 <div class="math notranslate nohighlight">
 \[
-fl:fl(x)\rightarrow x',
+fl: x \rightarrow fl(x),
 \]</div>
-<p>where <span class="math notranslate nohighlight">\(x'\)</span> is the closest floating point number in <span class="math notranslate nohighlight">\(\mathcal{F}\)</span>.</p>
-<p>It follows that <span class="math notranslate nohighlight">\(fl(x)=x*(1+\epsilon)\)</span> for some <span class="math notranslate nohighlight">\(|\epsilon|\leq \epsilon_{mach}\)</span>.</p>
-<section id="fundamental-axiom-of-floating-point-arithmetic">
-<h3>Fundamental Axiom of Floating Point Arithmetic<a class="headerlink" href="#fundamental-axiom-of-floating-point-arithmetic" title="Link to this heading">#</a></h3>
+<p>where <span class="math notranslate nohighlight">\(fl(x)\)</span> is the closest floating point number in <span class="math notranslate nohighlight">\(\mathcal{F}\)</span>. If there are two floating point numbers of equal distance choose the one with smaller absolute value. It follows that <span class="math notranslate nohighlight">\(fl(x) = x \cdot (1 + \epsilon)\)</span> for some <span class="math notranslate nohighlight">\(|\epsilon| \leq \epsilon_{mach}\)</span>.</p>
+<div class="proof theorem admonition" id="theorem-2">
+<p class="admonition-title"><span class="caption-number">Theorem 2 </span> (Fundamental Theorem of Floating Point Arithmetic)</p>
+<section class="theorem-content" id="proof-content">
 <p>Define <span class="math notranslate nohighlight">\(x\odot y = fl(x \cdot y)\)</span>, where <span class="math notranslate nohighlight">\(\cdot\)</span> is one of <span class="math notranslate nohighlight">\(+,-,\times,\div\)</span>. Then for all <span class="math notranslate nohighlight">\(x,y\in\mathcal{F}\)</span> there exists <span class="math notranslate nohighlight">\(\epsilon\)</span> with <span class="math notranslate nohighlight">\(|\epsilon| \leq \epsilon_{mach}\)</span> such that</p>
 <div class="math notranslate nohighlight">
 \[ 
 x\odot y = (x \cdot y)(1+\epsilon).
 \]</div>
-<p>Most modern architectures guarantee this property.</p>
 </section>
+</div><p>Most modern computer architectures follow the mathematical assumptions on floating point set to guarantee the Fundamental Theorem. For additional details we refer to the recommended lecture book <span id="id2">[<a class="reference internal" href="bm4_bibliography.html#id2" title="Lloyd N. Trefethen and David Bau, III. Numerical linear algebra. SIAM, 1997. URL: https://ucl.primo.exlibrisgroup.com/permalink/44UCL_INST/155jbua/alma990010608020204761.">Trefethen and Bau, 1997</a>]</span>.</p>
 </section>
-<section id="special-symbols-in-floating-point-arithmetic">
-<h2>Special symbols in floating point arithmetic<a class="headerlink" href="#special-symbols-in-floating-point-arithmetic" title="Link to this heading">#</a></h2>
-<p>In addition to numbers, several other important symbols are defined in the floating point standard. The most important are:</p>
+<section id="python-skills">
+<h2>Python Skills<a class="headerlink" href="#python-skills" title="Link to this heading">#</a></h2>
+<p>The Numpy module provides convenient tools to query the properties of floating point numbers. First, import Numpy as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>  <span class="c1"># Import the numpy extension module and alias it as np</span>
+</pre></div>
+</div>
+<section id="floating-point-data-types-in-numpy">
+<h3>Floating Point Data Types in Numpy<a class="headerlink" href="#floating-point-data-types-in-numpy" title="Link to this heading">#</a></h3>
+<p>Numpy defines the following data types for floating point numbers:</p>
 <ul class="simple">
-<li><p>NaN: Not a number</p></li>
-<li><p><span class="math notranslate nohighlight">\(\pm\)</span> inf</p></li>
+<li><p><strong>IEEE double precision</strong>: <code class="docutils literal notranslate"><span class="pre">np.float</span></code>, <code class="docutils literal notranslate"><span class="pre">np.double</span></code>, <code class="docutils literal notranslate"><span class="pre">np.float64</span></code></p></li>
+<li><p><strong>IEEE single precision</strong>: <code class="docutils literal notranslate"><span class="pre">np.single</span></code>, <code class="docutils literal notranslate"><span class="pre">np.float32</span></code></p></li>
 </ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span>
-<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>nan
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_7918/3058898986.py:3: RuntimeWarning: invalid value encountered in double_scalars
-  b = np.float64(0) / np.float64(0)
-</pre></div>
-</div>
-</div>
-</div>
-<p>Above, we have explicitly converted the zeros in the division <span class="math notranslate nohighlight">\(0/0\)</span> to use the corresponding Numpy type. The reason is that Python itself is not fully IEEE 754 compliant. According to the standard, the division <span class="math notranslate nohighlight">\(0 / 0\)</span> is valid and has <em>nan</em> as a result. But let’s consider what Python is doing.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span>
-<span class="n">b</span> <span class="o">=</span> <span class="mf">0.</span> <span class="o">/</span> <span class="mf">0.</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ZeroDivisionError</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_7918</span><span class="o">/</span><span class="mf">617932585.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span>
-<span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">b</span> <span class="o">=</span> <span class="mf">0.</span> <span class="o">/</span> <span class="mf">0.</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="nb">print</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
-
-<span class="ne">ZeroDivisionError</span>: float division by zero
-</pre></div>
-</div>
-</div>
-</div>
-<p>Instead of the result <em>nan</em>, Python returns a runtime error. This may be useful for specific applications but not for numerics and is not IEEE 754 compliant. This is one of many reasons why the <code class="docutils literal notranslate"><span class="pre">Numpy</span></code> module is so important for numerical computations for Python.</p>
 </section>
+<section id="querying-floating-point-properties">
+<h3>Querying Floating Point Properties<a class="headerlink" href="#querying-floating-point-properties" title="Link to this heading">#</a></h3>
+<p>Use <code class="docutils literal notranslate"><span class="pre">np.finfo</span></code> to query floating point properties. For example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">double_precision_info</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Key properties of double precision floating point numbers:</p>
+<ul class="simple">
+<li><p><strong>Maximum value</strong>: <code class="docutils literal notranslate"><span class="pre">double_precision_info.max</span></code></p></li>
+<li><p><strong>Smallest (absolute) normalized value</strong>: <code class="docutils literal notranslate"><span class="pre">double_precision_info.tiny</span></code></p></li>
+<li><p><strong>Smallest relative difference (machine epsilon)</strong>: <code class="docutils literal notranslate"><span class="pre">double_precision_info.eps</span></code></p></li>
+<li><p><strong>Approximate relative precision</strong>: <code class="docutils literal notranslate"><span class="pre">double_precision_info.precision</span></code></p></li>
+</ul>
+<p>Illustrative examples:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span> <span class="o">+</span> <span class="n">double_precision_info</span><span class="o">.</span><span class="n">eps</span>  <span class="c1"># Just larger than 1</span>
+<span class="mi">1</span> <span class="o">+</span> <span class="mf">0.25</span> <span class="o">*</span> <span class="n">double_precision_info</span><span class="o">.</span><span class="n">eps</span>  <span class="c1"># Slightly closer to 1</span>
+</pre></div>
+</div>
+</section>
+<section id="special-floating-point-values">
+<h3>Special Floating Point Values<a class="headerlink" href="#special-floating-point-values" title="Link to this heading">#</a></h3>
+<p>The floating point standard also defines:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">NaN</span></code>: Not a number</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">inf</span></code>: Infinity</p></li>
+</ul>
+<p>Examples:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># Produces NaN</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>  <span class="c1"># Output: nan</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><strong>Note</strong>: Numpy adheres to the IEEE 754 standard, so operations like division by zero return <code class="docutils literal notranslate"><span class="pre">NaN</span></code> rather than raising an error.</p>
+</div></blockquote>
+<p>Python itself is not fully IEEE 754 compliant. Consider:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span>
+<span class="n">b</span> <span class="o">=</span> <span class="mf">0.</span> <span class="o">/</span> <span class="mf">0.</span>  <span class="c1"># Raises ZeroDivisionError in Python</span>
+</pre></div>
+</div>
+<p>This behaviour is one reason why Numpy is critical for numerical computations in Python, as it adheres more closely to the IEEE 754 standard.</p>
+</section>
+</section>
+<section id="self-check-questions">
+<h2>Self-check Questions<a class="headerlink" href="#self-check-questions" title="Link to this heading">#</a></h2>
+<div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Explain the meaning of <span class="math notranslate nohighlight">\(\epsilon_{mach}\)</span>.</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text"><span class="math notranslate nohighlight">\(\epsilon_{mach}\)</span>, known as machine epsilon, is defined as:</p>
+<div class="math notranslate nohighlight">
+\[
+\epsilon_{mach} = \frac{1}{2}b^{1-p},
+\]</div>
+<p class="sd-card-text">where <span class="math notranslate nohighlight">\(b\)</span> is the base and <span class="math notranslate nohighlight">\(p\)</span> is the precision. It represents half the distance from 1 to the next floating point number and quantifies the maximum relative error between a real number <span class="math notranslate nohighlight">\(x\)</span> and its closest floating point representation <span class="math notranslate nohighlight">\(x'\)</span>. Mathematically:</p>
+<div class="math notranslate nohighlight">
+\[
+|x - x'| \leq |x| \epsilon_{mach}.
+\]</div>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Why do double precision numbers give you around 15 digits of accuracy?</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">In double precision, we have:</p>
+<div class="math notranslate nohighlight">
+\[
+\epsilon_{mach} = 2^{-53} \approx 1.11 \times 10^{-16}.
+\]</div>
+<p class="sd-card-text">This means the relative error when mapping a real number to its floating point representation is accurate to approximately 15 significant digits.</p>
+</div>
+</details></section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -652,7 +643,7 @@ x\odot y = (x \cdot y)(1+\epsilon).
               
               
               
-                <footer class="prev-next-footer">
+                <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
     <a class="left-prev"
@@ -669,7 +660,7 @@ x\odot y = (x \cdot y)(1+\epsilon).
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Principles of backward error analysis</p>
+        <p class="prev-next-title">Principles of Backward Error Analysis</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -680,7 +671,8 @@ x\odot y = (x \cdot y)(1+\epsilon).
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -689,16 +681,16 @@ x\odot y = (x \cdot y)(1+\epsilon).
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#floating-point-types-in-python">Floating point types in Python</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-what-are-the-values-for-single-precision-arithmetic">Task: What are the values for single precision arithmetic?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definition-of-floating-point-numbers">Definition of Floating Point Numbers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ieee-754">IEEE 754</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Floating Point Arithmetic</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python Skills</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#floating-point-data-types-in-numpy">Floating Point Data Types in Numpy</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#querying-floating-point-properties">Querying Floating Point Properties</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#special-floating-point-values">Special Floating Point Values</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definition-of-floating-point-numbers">Definition of floating point numbers</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#approximating-numbers-in-floating-point-arithmetic">Approximating numbers in floating point arithmetic</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fundamental-axiom-of-floating-point-arithmetic">Fundamental Axiom of Floating Point Arithmetic</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#special-symbols-in-floating-point-arithmetic">Special symbols in floating point arithmetic</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#self-check-questions">Self-check Questions</a></li>
 </ul>
   </nav></div>
 
@@ -747,8 +739,8 @@ By Timo Betcke, Erik Burman, Max Jensen
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+  <script defer src="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
 
   <footer class="bd-footer">
   </footer>
