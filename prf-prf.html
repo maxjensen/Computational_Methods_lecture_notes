@@ -180,10 +180,9 @@
 <li class="toctree-l1"><a class="reference internal" href="1.1_matrix_vector_norms.html">Matrix and vector norms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.2_floating_point_arithmetic.html">Floating point arithmetic</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.3_error_analysis.html">Principles of Backward Error Analysis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="1.4_linear_system_error.html">Error of linear systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.4_linear_system_error.html">The condition number of linear systems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.5_complexity_notation.html">A brief survey of asymptotic notation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.6_numpy_and_data_layouts.html">Memory layout and Numpy arrays</a></li>
-
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition and its Numerical Stability</span></p>
 <ul class="nav bd-sidenav">
@@ -341,6 +340,7 @@
    <a href="#cap-example-4"><strong>example-4</strong></a> | 
    <a href="#cap-example-5"><strong>example-5</strong></a> | 
    <a href="#cap-example-7"><strong>example-7</strong></a> | 
+   <a href="#cap-lemma-0"><strong>lemma-0</strong></a> | 
    <a href="#cap-theorem-0"><strong>theorem-0</strong></a> | 
    <a href="#cap-theorem-1"><strong>theorem-1</strong></a> | 
    <a href="#cap-theorem-2"><strong>theorem-2</strong></a> | 
@@ -381,7 +381,7 @@
      <tr>
        <td></td>
        <td>
-       <a href="1.5_complexity_notation.html#definition-0"><code class="xref">definition-0</code></a> <em>(1.5_complexity_notation)</em></td><td>
+       <a href="1.1_matrix_vector_norms.html#definition-0"><code class="xref">definition-0</code></a> <em>(1.1_matrix_vector_norms)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-definition-1"><td></td><td>
@@ -389,7 +389,7 @@
      <tr>
        <td></td>
        <td>
-       <a href="1.5_complexity_notation.html#definition-1"><code class="xref">definition-1</code></a> <em>(1.5_complexity_notation)</em></td><td>
+       <a href="5.1_eigenvalues_basic_properties.html#definition-1"><code class="xref">definition-1</code></a> <em>(5.1_eigenvalues_basic_properties)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-definition-2"><td></td><td>
@@ -421,7 +421,7 @@
      <tr>
        <td></td>
        <td>
-       <a href="1.3_error_analysis.html#example-0"><code class="xref">example-0</code></a> <em>(1.3_error_analysis)</em></td><td>
+       <a href="4.2_quadrature.html#example-0"><code class="xref">example-0</code></a> <em>(4.2_quadrature)</em></td><td>
        <em>example</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-example-1"><td></td><td>
@@ -429,7 +429,7 @@
      <tr>
        <td></td>
        <td>
-       <a href="1.3_error_analysis.html#example-1"><code class="xref">example-1</code></a> <em>(1.3_error_analysis)</em></td><td>
+       <a href="5.2_computing_eigenvalues.html#example-1"><code class="xref">example-1</code></a> <em>(5.2_computing_eigenvalues)</em></td><td>
        <em>example</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-example-2"><td></td><td>
@@ -437,7 +437,7 @@
      <tr>
        <td></td>
        <td>
-       <a href="1.3_error_analysis.html#example-2"><code class="xref">example-2</code></a> <em>(1.3_error_analysis)</em></td><td>
+       <a href="5.2_computing_eigenvalues.html#example-2"><code class="xref">example-2</code></a> <em>(5.2_computing_eigenvalues)</em></td><td>
        <em>example</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-example-3"><td></td><td>
@@ -445,7 +445,7 @@
      <tr>
        <td></td>
        <td>
-       <a href="1.5_complexity_notation.html#example-3"><code class="xref">example-3</code></a> <em>(1.5_complexity_notation)</em></td><td>
+       <a href="3.3_least_squares_problems.html#example-3"><code class="xref">example-3</code></a> <em>(3.3_least_squares_problems)</em></td><td>
        <em>example</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-example-4"><td></td><td>
@@ -472,6 +472,14 @@
        <a href="5.2_computing_eigenvalues.html#example-7"><code class="xref">example-7</code></a> <em>(5.2_computing_eigenvalues)</em></td><td>
        <em>example</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-lemma-0"><td></td><td>
+       <strong>lemma-0</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="1.4_linear_system_error.html#lemma-0"><code class="xref">lemma-0</code></a> <em>(1.4_linear_system_error)</em></td><td>
+       <em>lemma</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-theorem-0"><td></td><td>
        <strong>theorem-0</strong></td><td></td></tr>
      <tr>
@@ -493,7 +501,7 @@
      <tr>
        <td></td>
        <td>
-       <a href="1.2_floating_point_arithmetic.html#theorem-2"><code class="xref">theorem-2</code></a> <em>(1.2_floating_point_arithmetic)</em></td><td>
+       <a href="4.3_stable_quadrature_schemes.html#theorem-2"><code class="xref">theorem-2</code></a> <em>(4.3_stable_quadrature_schemes)</em></td><td>
        <em>theorem</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-theorem-3"><td></td><td>
