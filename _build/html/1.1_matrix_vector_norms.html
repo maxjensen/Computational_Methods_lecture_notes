@@ -176,8 +176,8 @@
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Matrix and vector norms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.2_floating_point_arithmetic.html">Floating point arithmetic</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.3_error_analysis.html">Principles of Backward Error Analysis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="1.4_linear_system_error.html">Backward error and condition number of linear systems of equations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="1.5_complexity_notation.html">A quick survey of asymptotic notation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.4_linear_system_error.html">The condition number of linear systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_complexity_notation.html">A brief survey of asymptotic notation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.6_numpy_and_data_layouts.html">Memory layout and Numpy arrays</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition and its Numerical Stability</span></p>
@@ -410,8 +410,9 @@
 </div><p>From these axioms, it immediately follows that</p>
 <div class="math notranslate nohighlight">
 \[
-0 = \rho(0) = \rho(x - x) \leq \rho(x) + \rho(-1 \cdot x) = 2 \rho(x)
+0 = \rho(0) = \rho(x - x) \leq 2 \rho(x)
 \]</div>
+<!-- \rho(x) + \rho(-1 \cdot x) = -->
 <p>and therefore <span class="math notranslate nohighlight">\(\rho(x) \geq 0\)</span> for all <span class="math notranslate nohighlight">\(x \in V\)</span>. Hence, a norm is always non-negative.</p>
 <p>The first and third norm axioms are usually straightforward to prove. The challenging one is the second axiom, the triangle inequality.</p>
 </section>
@@ -476,12 +477,14 @@ C_1\|x\|_a\leq \|x\|_b\leq C_2\|x\|_a
 </section>
 <section id="submultiplicativity">
 <h2>Submultiplicativity<a class="headerlink" href="#submultiplicativity" title="Link to this heading">#</a></h2>
-<p>Let <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span> and <span class="math notranslate nohighlight">\(B \in \mathbb{R}^{n \times k}\)</span> with a corresponding vector-induced matrix norm <span class="math notranslate nohighlight">\(\|\cdot\|\)</span>. For any <span class="math notranslate nohighlight">\(v \in \mathbb{R}^k\)</span>, it holds that</p>
-<div class="math notranslate nohighlight">
-\[
+<p>Let <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span> and <span class="math notranslate nohighlight">\(B \in \mathbb{R}^{n \times k}\)</span> with a corresponding vector-induced matrix norm <span class="math notranslate nohighlight">\(\|\cdot\|\)</span>. For any <span class="math notranslate nohighlight">\(v \in \mathbb{R}^k\)</span>, it holds <span class="math notranslate nohighlight">\(\| A w \| \leq \| A \| \, \| w \|\)</span>. Thus</p>
+<!--that
+
+$$
 \frac{\| B v \|}{\|v\|} \leq \max_{w \neq 0} \frac{\| B w \|}{\| w \|} = \| B \|
-\]</div>
-<p>and thus <span class="math notranslate nohighlight">\(\| B v \| \leq \| B \| \, \| v \|\)</span>. An analogous argument with <span class="math notranslate nohighlight">\(B v\)</span> in place of <span class="math notranslate nohighlight">\(v\)</span> gives</p>
+$$
+
+and thus $\| B v \| \leq \| B \| \, \| v \|$. An analogous argument with $B v$ in place of $v$ gives-->
 <div class="math notranslate nohighlight">
 \[
 \|ABv\| \leq \|A\|\cdot\|Bv\|\leq \|A\|\cdot \|B\| \cdot \|v\|

@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Error of linear systems &#8212; Computational Methods MATH0058 lecture notes</title>
+    <title>The condition number of linear systems &#8212; Computational Methods MATH0058 lecture notes</title>
   
   
   
@@ -66,7 +66,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = '1.4_linear_system_error';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="A quick survey of asymptotic notation" href="1.5_complexity_notation.html" />
+    <link rel="next" title="A brief survey of asymptotic notation" href="1.5_complexity_notation.html" />
     <link rel="prev" title="Principles of Backward Error Analysis" href="1.3_error_analysis.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -176,8 +176,8 @@
 <li class="toctree-l1"><a class="reference internal" href="1.1_matrix_vector_norms.html">Matrix and vector norms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.2_floating_point_arithmetic.html">Floating point arithmetic</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.3_error_analysis.html">Principles of Backward Error Analysis</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Error of linear systems</a></li>
-<li class="toctree-l1"><a class="reference internal" href="1.5_complexity_notation.html">A quick survey of asymptotic notation</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">The condition number of linear systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_complexity_notation.html">A brief survey of asymptotic notation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.6_numpy_and_data_layouts.html">Memory layout and Numpy arrays</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition and its Numerical Stability</span></p>
@@ -353,7 +353,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Error of linear systems</h1>
+    <h1>The condition number of linear systems</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -363,11 +363,8 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#backward-error">Backward error</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#condition-number">Condition Number</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lemma">Lemma</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#self-check-questions">Self-check questions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-material">Optional material</a></li>
 </ul>
             </nav>
         </div>
@@ -379,127 +376,174 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="error-of-linear-systems">
-<h1>Error of linear systems<a class="headerlink" href="#error-of-linear-systems" title="Link to this heading">#</a></h1>
-<p>We consider the linear system of equations <span class="math notranslate nohighlight">\(Ay = b\)</span> with <span class="math notranslate nohighlight">\(A\in\mathbb{R}^{n\times n}\)</span> and <span class="math notranslate nohighlight">\(b\in\mathbb{R}^n\)</span>. We assume
-that <span class="math notranslate nohighlight">\(A\)</span> is nonsingular.</p>
-<section id="backward-error">
-<h2>Backward error<a class="headerlink" href="#backward-error" title="Link to this heading">#</a></h2>
-<p>For this linear system of equations, the definition of the backward error is given as</p>
-<div class="math notranslate nohighlight">
-\[
-\eta(\tilde{y}) = \min \{\epsilon: (A+\Delta A)\tilde{y} = b + \Delta b, \|\Delta A\| \leq \epsilon \|A\|, \|\Delta
-b\|\leq \epsilon\|b\|\}.
-\]</div>
-<p>The backward error can be explicitly computed. The result goes back to Rigal and Gaches (1961). We do not show the full
-derivation here.</p>
-<div class="math notranslate nohighlight">
-\[
-\eta(\tilde{y}) = \frac{\|b - A\tilde{y}\|}{\|A\|\cdot \|\tilde{y}\| + \|b\|}
-\]</div>
-<p>The beauty of this result is that it only has computable quantities. The expression <span class="math notranslate nohighlight">\(r := b - A\tilde{y}\)</span> is called the
-residual of the linear system. It measures how close the left- and right-hand sides are. Residual expressions are
-typical in backward error results.</p>
-</section>
-<section id="condition-number">
-<h2>Condition Number<a class="headerlink" href="#condition-number" title="Link to this heading">#</a></h2>
-<p>To derive a precise expression for the condition number of the linear system we need a little helper Lemma</p>
-<section id="lemma">
-<h3>Lemma<a class="headerlink" href="#lemma" title="Link to this heading">#</a></h3>
-<p>Let <span class="math notranslate nohighlight">\(\|\cdot\|\)</span> be a submultiplicative matrix norm and <span class="math notranslate nohighlight">\(X\in\mathbb{R}^{n\times n}\)</span>. Then <span class="math notranslate nohighlight">\(\|X\| &lt; 1\)</span> implies that <span class="math notranslate nohighlight">\(I -
-X\)</span> is invertible, <span class="math notranslate nohighlight">\((I-X)^{-1} = \sum_{i=0}^{\infty}X^i\)</span> and <span class="math notranslate nohighlight">\(\|(I-X)^{-1}\| \leq \frac{1}{1-\|X\|}\)</span>.</p>
-<p><strong>Proof</strong></p>
-<p>We consider the partial sums</p>
-<div class="math notranslate nohighlight">
-\[
-S_n = \sum_{i=0}^{n}X^{i}
-\]</div>
-<p>By norm equivalence and submultiplicativity we have foreach matrix element <span class="math notranslate nohighlight">\((S_n)_{\ell, t}\)</span> that</p>
-<div class="math notranslate nohighlight">
-\[
-|(S_n)_{\ell, t}| \leq \sum_{i=0}^{n}\left|\left(X^i\right)_{\ell, t}\right|\leq \sum_{i=0}^n\max_{\ell, t}\left|\left(
-X^i\right)_{\ell, t}\right| \leq C\sum_{i=0}^{\infty}\|X^{i}\|\leq C\sum_{i=0}^\infty \|X\|^{i}= \frac{C}{1 - \|X\|}.
-\]</div>
-<p>for some <span class="math notranslate nohighlight">\(C&gt; 0\)</span>.</p>
-<p>Hence, every component of <span class="math notranslate nohighlight">\(S_n\)</span> is absolutely convergent and therefore the sum <span class="math notranslate nohighlight">\(S_n\)</span> converges with <span class="math notranslate nohighlight">\(X^{n}\rightarrow 0\)</span>
-as <span class="math notranslate nohighlight">\(n\rightarrow\infty\)</span>.</p>
-<p>For the inverse, we have</p>
-<div class="math notranslate nohighlight">
-\[
-(I - X)S_n = I - X^{n+1}
-\]</div>
-<p>and by taking limits, with <span class="math notranslate nohighlight">\(S := \sum_{i=0}^{\infty}X^{i}\)</span>, we have that</p>
-<div class="math notranslate nohighlight">
-\[
-(I-X)S = I.
-\]</div>
-<p>It follows that <span class="math notranslate nohighlight">\((I-X)\)</span> is nonsingular with <span class="math notranslate nohighlight">\((I-X)^{-1} = S\)</span>. The estimate</p>
-<div class="math notranslate nohighlight">
-\[
-\|(I-X)^{-1}\| \leq \frac{1}{1-\|X\|}
-\]</div>
-<p>follows from</p>
-<div class="math notranslate nohighlight">
-\[
-\|S\| \leq \sum_{i=0}^{\infty}\|X\|^{i} = \frac{1}{1-\|X\|}.
-\]</div>
-<p>We can now estimate the condition number of the linear system of equations <span class="math notranslate nohighlight">\(Ay=b\)</span>. Let <span class="math notranslate nohighlight">\(\Delta A\)</span> and <span class="math notranslate nohighlight">\(\Delta b\)</span> be
-perturbations in <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(b\)</span>, and let <span class="math notranslate nohighlight">\(\Delta y \)</span> satisfy</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="the-condition-number-of-linear-systems">
+<h1>The condition number of linear systems<a class="headerlink" href="#the-condition-number-of-linear-systems" title="Link to this heading">#</a></h1>
+<p>We now compute the condition number for linear systems of equations <span class="math notranslate nohighlight">\(Ay = b\)</span> with <span class="math notranslate nohighlight">\(A\in\mathbb{R}^{n\times n}\)</span> and <span class="math notranslate nohighlight">\(b\in\mathbb{R}^n\)</span>. We assume that <span class="math notranslate nohighlight">\(A\)</span> is non-singular and <span class="math notranslate nohighlight">\(b \neq 0\)</span>. We use <span class="math notranslate nohighlight">\(|\cdot|\)</span> to denote both the vector norm on <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span> and the induced matrix norm on <span class="math notranslate nohighlight">\(\mathbb{R}^{n\times n}\)</span>.</p>
+<p>We consider the following two problems:</p>
+<ol class="arabic simple">
+<li><p>Given a fixed <span class="math notranslate nohighlight">\(A\)</span>, what is the local relative condition number <span class="math notranslate nohighlight">\(\kappa_1(b)\)</span> of <span class="math notranslate nohighlight">\(f_1 : \mathbb{R}^n \to \mathbb{R}^n\)</span>, defined by <span class="math notranslate nohighlight">\(b \mapsto A^{-1} b\)</span>?</p></li>
+<li><p>Given a fixed <span class="math notranslate nohighlight">\(b\)</span>, what is the local relative condition number <span class="math notranslate nohighlight">\(\kappa_2(A)\)</span> of <span class="math notranslate nohighlight">\(f_2 : \mathbb{R}^{n \times n} \to \mathbb{R}^n\)</span>, defined by <span class="math notranslate nohighlight">\(A \mapsto A^{-1} b\)</span>?</p></li>
+</ol>
+<p>Conveniently, both questions can be answered with the same calculation. Let <span class="math notranslate nohighlight">\(\Delta A\)</span> and <span class="math notranslate nohighlight">\(\Delta b\)</span> be perturbations in <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(b\)</span>, and let <span class="math notranslate nohighlight">\(\Delta y\)</span> satisfy</p>
 <div class="math notranslate nohighlight">
 \[
 (A + \Delta A)(y + \Delta y) = b + \Delta b.
 \]</div>
-<p>Collecting terms and using that <span class="math notranslate nohighlight">\(Ay = b\)</span> results in</p>
+<p>Then</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{aligned}
 \Delta y &amp;= (A + \Delta A)^{-1}(-\Delta A y + \Delta b)\\
 &amp;= \left[A(I + A^{-1}\Delta A)\right]^{-1}(-\Delta A y + \Delta b)\\
 &amp;= \left(I + A^{-1}\Delta A\right)^{-1}A^{-1}(-\Delta Ay+\Delta b).
-\end{aligned}
+\end{aligned}.
 \end{split}\]</div>
-<p>Assuming that <span class="math notranslate nohighlight">\(\Delta A\)</span> is sufficiently small so that <span class="math notranslate nohighlight">\(\|A^{-1}\Delta A\| &lt; 1\)</span> we can
-apply the previous lemma and obtain</p>
+<p>To continue, we use the following lemma, whose proof is given in the optional materials. It is a direct generalisation of a well-known result for scalars (i.e. <span class="math notranslate nohighlight">\(n = 1\)</span> and the norm is the modulus) to the matrix setting.</p>
+<div class="proof lemma admonition" id="lemma-0">
+<p class="admonition-title"><span class="caption-number">Lemma 1 </span> (Matrix-valued von Neumann series)</p>
+<section class="lemma-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(\|\cdot\|\)</span> be a submultiplicative matrix norm, and let <span class="math notranslate nohighlight">\(X\in\mathbb{R}^{n\times n}\)</span> with <span class="math notranslate nohighlight">\(\|X\| &lt; 1\)</span>. Then <span class="math notranslate nohighlight">\(I - X\)</span> is invertible and</p>
+<div class="math notranslate nohighlight">
+\[
+(I - X)^{-1} = \sum_{i=0}^{\infty}X^i
+\]</div>
+<p>with</p>
+<div class="math notranslate nohighlight">
+\[
+\|(I - X)^{-1}\| \leq \frac{1}{1-\|X\|}.
+\]</div>
+</section>
+</div><p>Assuming that <span class="math notranslate nohighlight">\(\Delta A\)</span> is sufficiently small so that <span class="math notranslate nohighlight">\(\|A^{-1}\Delta A\| &lt; 1\)</span>, we conclude from the lemma that</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-\begin{aligned}
-\frac{\|\Delta y\|}{\|y\|} &amp;\leq \frac{\|A^{-1}\|}{1-\|A^{-1}\|\cdot \|\Delta A\|}\left(\|\Delta A\| + \frac{\|\Delta
-b\|}{\|y\|}\right)\\
-&amp;= \frac{\|A^{-1}\|\cdot \|A\|}{1-\|A^{-1}\| \cdot \|A\|\frac{\|\Delta A\|}{\|A\|}}\left(\frac{\|\Delta A\|}{\|A\|} +
-\frac{\|\Delta b\|}{\|b\|}\right),\end{aligned}
+\begin{align*}
+\frac{\|\Delta y\|}{\|y\|} &amp; \leq \frac{\|A^{-1}\|}{1-\|A^{-1}\|\cdot \|\Delta A\|}\left(\|\Delta A\| + \frac{\|\Delta b\|}{\|y\|}\right)\\
+&amp;\leq \frac{\|A^{-1}\|\cdot \|A\|}{1-\|A^{-1}\| \cdot \| \Delta A\|}\left(\frac{\|\Delta A\|}{\|A\|} +
+\frac{\|\Delta b\|}{\|b\|}\right),
+\end{align*}
 \end{split}\]</div>
-<p>where in the last equation, we have used that <span class="math notranslate nohighlight">\(\|b\| = \|Ay\| \leq \|A\|\cdot\|y\|\)</span>.</p>
-<p>By ignoring higher-order terms in <span class="math notranslate nohighlight">\(\|\Delta A\|\)</span> we obtain</p>
+<p>where in the last step we used that <span class="math notranslate nohighlight">\(\|b\| = \|Ay\| \leq \|A\|\cdot\|y\|\)</span>. To answer the first question above, let <span class="math notranslate nohighlight">\(\Delta A = 0\)</span>. Then <span class="math notranslate nohighlight">\(A\Delta y = \Delta b\)</span>, and thus</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+\kappa_1(b) = &amp; \lim_{\delta\rightarrow 0} \sup_{b,b+\Delta b \in \mathbb{R}^n \atop 0 &lt; \| \Delta b \| \leq \delta} \frac{\| f_1(b+\Delta b) - f_1(b) \|_{\mathbb{R}^n} / \| f_1(b) \|_{\mathbb{R}^n}}{\| \Delta b \|_{\mathbb{R}^n} / \| b \|_{\mathbb{R}^n}}
+= \lim_{\delta\rightarrow 0} \sup_{b,\Delta b \in \mathbb{R}^n \atop 0 &lt; \| \Delta b \| \leq \delta} \frac{\| \Delta y \|_{\mathbb{R}^n} / \| y \|_{\mathbb{R}^n}}{\| \Delta b \|_{\mathbb{R}^n} / \| b \|_{\mathbb{R}^n}}\\
+\leq &amp; \lim_{\delta\rightarrow 0} \sup_{b,\Delta b \in \mathbb{R}^n \atop 0 &lt; \| \Delta b \| \leq \delta} \frac{\|A^{-1}\|\cdot \|A\|}{1-\|A^{-1}\| \cdot \| \Delta A\|} \leq \|A^{-1}\|\cdot \|A\|.
+\end{align*}
+\end{split}\]</div>
+<!-- long
+$$
+\begin{align*}
+\kappa_1(b) = & \lim_{\delta\rightarrow 0} \sup_{b,b+\Delta b \in \mathbb{R}^n \atop 0 < \| \Delta b \| \leq \delta} \frac{\| f_1(b+\Delta b) - f_1(b) \|_{\mathbb{R}^n} / \| f_1(b) \|_{\mathbb{R}^n}}{\| \Delta b \|_{\mathbb{R}^n} / \| b \|_{\mathbb{R}^n}} = \lim_{\delta\rightarrow 0} \sup_{b,\Delta b \in \mathbb{R}^n \atop 0 < \| \Delta b \| \leq \delta} \frac{\| A^{-1} \Delta b \|_{\mathbb{R}^n} / \| A^{-1} b \|_{\mathbb{R}^n}}{\| \Delta b \|_{\mathbb{R}^n} / \| b \|_{\mathbb{R}^n}}\\
+= & \lim_{\delta\rightarrow 0} \sup_{b,\Delta b \in \mathbb{R}^n \atop 0 < \| \Delta b \| \leq \delta} \frac{\| \Delta y \|_{\mathbb{R}^n} / \| y \|_{\mathbb{R}^n}}{\| \Delta b \|_{\mathbb{R}^n} / \| b \|_{\mathbb{R}^n}} \leq \lim_{\delta\rightarrow 0} \sup_{b,\Delta b \in \mathbb{R}^n \atop 0 < \| \Delta b \| \leq \delta} \frac{\|A^{-1}\|\cdot \|A\|}{1-\|A^{-1}\| \cdot \| \Delta A\|} \frac{\| \Delta b \|_{\mathbb{R}^n} / \| b \|_{\mathbb{R}^n}}{\| \Delta b \|_{\mathbb{R}^n} / \| b \|_{\mathbb{R}^n}}\\
+\leq & \|A^{-1}\|\cdot \|A\|.
+\end{align*}
+$$
+-->
+<p>Similarly, to answer the second question, let <span class="math notranslate nohighlight">\(\Delta b = 0\)</span>. Then <span class="math notranslate nohighlight">\((A + \Delta A)\Delta y = \Delta A y\)</span>, and so</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+\kappa_2(A) = &amp; \lim_{\delta\rightarrow 0} \sup_{A,A+\Delta A \in \mathbb{R}^{n \times n} \atop 0 &lt; \| \Delta A \| \leq \delta} \frac{\| f_2(A+\Delta A) - f_2(A) \|_{\mathbb{R}^{n \times n}} / \| f_2(A) \|_{\mathbb{R}^{n \times n}}}{\| \Delta A \|_{\mathbb{R}^{n \times n}} / \| A \|_{\mathbb{R}^{n \times n}}} \\
+= &amp; \lim_{\delta\rightarrow 0} \sup_{A,A+\Delta A \in \mathbb{R}^{n \times n} \atop 0 &lt; \| \Delta A \| \leq \delta} \frac{\| \Delta y \|_{\mathbb{R}^{n \times n}} / \| y \|_{\mathbb{R}^{n \times n}}}{\| \Delta A \|_{\mathbb{R}^{n \times n}} / \| A \|_{\mathbb{R}^{n \times n}}} \leq \|A^{-1}\|\cdot \|A\|.
+\end{align*}
+\end{split}\]</div>
+<p>Therefore, both condition numbers <span class="math notranslate nohighlight">\(A \mapsto A^{-1}b\)</span> and <span class="math notranslate nohighlight">\(b \mapsto A^{-1}b\)</span> are bounded above by <span class="math notranslate nohighlight">\(\|A^{-1}\|\cdot \|A\|\)</span>. This bound is sharp, as recorded by the following fact.</p>
+<div class="admonition-fact-condition-number-of-linear-systems admonition">
+<p class="admonition-title">Fact: Condition number of linear systems</p>
+<p>Assume that <span class="math notranslate nohighlight">\(A\in\mathbb{R}^{n\times n}\)</span> is non-singular and <span class="math notranslate nohighlight">\(b\in\mathbb{R}^n\)</span> is non-zero. Then</p>
 <div class="math notranslate nohighlight">
 \[
-\frac{\|\Delta y\|}{\|y\|} \leq \|A^{-1}\|\cdot \|A\|\left(\frac{\|\Delta A\|}{\|A\|} + \frac{\|\Delta
-b\|}{\|b\|}\right).
+\kappa_1(b) = \kappa_2(A) = \|A^{-1}\|\cdot \|A\|.
 \]</div>
-<p>The left-hand side is the relative output perturbation. The right-hand side is the product of
-<span class="math notranslate nohighlight">\(\|A^{-1}\|\cdot \|A\|\)</span> and the relative input perturbation <span class="math notranslate nohighlight">\(\left(\frac{\|\Delta A\|}{\|A\|} + \frac{\|\Delta
-b\|}{\|b\|}\right)\)</span>. Hence, we have <span class="math notranslate nohighlight">\(\kappa_{rel}(A) = \|A^{-1}\|\|A\|\)</span> being the condition number of the linear system.
-This argument is not completely precise since one still needs to show that a perturbation actually exists so that the
-left-hand side and right-hand side are equal. But we leave this technical detail here out.</p>
-<p><strong>Note: Since we also allow perturbations in <span class="math notranslate nohighlight">\(b\)</span> we should formally write <span class="math notranslate nohighlight">\(\kappa_{rel}(A, b)\)</span> as
-condition number. But we see that the condition number only depends on <span class="math notranslate nohighlight">\(A\)</span> and not on <span class="math notranslate nohighlight">\(b\)</span>. Therefore, one simply writes
-<span class="math notranslate nohighlight">\(\kappa_{rel}(A)\)</span>.</strong></p>
-<p>Going back to our earlier equation, we hence have the precise estimate that</p>
+</div>
+<p>The condition number <span class="math notranslate nohighlight">\(\kappa_{rel}(A)\)</span> has an important interpretation. It measures how close the linear system is to being singular. More precisely,</p>
 <div class="math notranslate nohighlight">
 \[
-\frac{\|\Delta y\|}{\|y\|}\leq \frac{\kappa_{rel}(A)}{1-\kappa_{rel}(A)\frac{\|\Delta A\|}{\|A\|}}\left(\frac{\|\Delta
-A\|}{\|A\|} + \frac{\|\Delta b\|}{\|b\|}\right),
+\min\left\{\frac{\|\Delta A\|_2}{\|A\|_2}: A + \Delta A \text{ singular} \right\} = \frac{1}{\kappa_{rel}(A)}.
 \]</div>
-<p>which relates the relative forward error and the relative backward error in the linear system.</p>
-<p>The condition number <span class="math notranslate nohighlight">\(\kappa_{rel}(A)\)</span> has an important interpretation. It measures how far away from being singular a
-linear system is. More precisely,</p>
+<p>We do not prove this result here.</p>
+<section id="self-check-questions">
+<h2>Self-check questions<a class="headerlink" href="#self-check-questions" title="Link to this heading">#</a></h2>
+<div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Compute the <span class="math notranslate nohighlight">\(1-\)</span>norm condition number of</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+A = \begin{bmatrix}1 &amp; 1\\ 0 &amp; \epsilon\end{bmatrix}
+\end{split}\]</div>
+<p>as a function of <span class="math notranslate nohighlight">\(\epsilon\)</span>. What happens as <span class="math notranslate nohighlight">\(\epsilon\rightarrow 0\)</span>?</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">We have</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+A^{-1} = \begin{matrix}1 &amp; -\epsilon^{-1}\\ 0 &amp; \epsilon^{-1}\end{matrix}.
+\end{split}\]</div>
+<p class="sd-card-text">Hence,</p>
 <div class="math notranslate nohighlight">
 \[
-\min\left\{\frac{\|\Delta A\|_2}{\|A\|_2}: A + \Delta A~singular \right\} = \frac{1}{\kappa_{rel}(A)}.
+\kappa(A) = \|A\|_1\cdot \|A^{-1}\|_1 = (1+\epsilon) \cdot \frac{2}{\epsilon}.
 \]</div>
-<p>We are not going to prove this result here. Later in the term, we will derive tools that make
-the relationship between condition number and distance to singularity is immediately obvious.</p>
-</section>
-</section>
+<p class="sd-card-text">and <span class="math notranslate nohighlight">\(\kappa(A)\rightarrow\infty\)</span> as <span class="math notranslate nohighlight">\(\epsilon\rightarrow 0\)</span>. The reason is simple: For <span class="math notranslate nohighlight">\(\epsilon=0\)</span> the matrix is not invertible and we expect the condition number to become unbounded as we reach this limit case.</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong> (Sharp condition number)</p>
+<p>Let</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+   A = \left(\begin{array}{rr} 5 &amp;-18\\ -5 &amp;19\end{array}\right).
+\end{split}\]</div>
+<p>Compute local relative condition number <span class="math notranslate nohighlight">\(\kappa_1\)</span> and find vectors <span class="math notranslate nohighlight">\(b\)</span>, <span class="math notranslate nohighlight">\(\Delta b\)</span> such that <span class="math notranslate nohighlight">\(A(x+\Delta x)=b+\Delta b\)</span> and</p>
+<div class="math notranslate nohighlight">
+\[
+   \frac{\|\Delta x\|_1^{}}{\|x\|_1^{}} = \kappa_1 \frac{\|\Delta b\|_1^{}}{\|b\|_1^{}}.
+\]</div>
+<p>Here <span class="math notranslate nohighlight">\(\| \cdot \|_1^{}\)</span> denotes the <span class="math notranslate nohighlight">\(1\)</span>-norm. Normalise your vectors so that <span class="math notranslate nohighlight">\(\|x\|_1^{}=1\)</span> and <span class="math notranslate nohighlight">\(\|\Delta b\|_1^{}=0.01\)</span>.</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">We have <span class="math notranslate nohighlight">\(\|A\|_1^{}=\|A\|_\textrm{col}^{}=37\)</span> and</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+   A^{-1} = \left(\begin{array}{rr} \frac{19}{5} &amp; \frac{18}{5}\\ 1 &amp; 1\end{array}\right)
+   \qquad\Rightarrow\qquad
+   \|A^{-1}\|_1^{}=\|A^{-1}\|_\textrm{col}^{}=\frac{24}{5}
+   \quad\textrm{and}\quad
+   \kappa_1 = 177 \frac{3}{5}.
+\end{split}\]</div>
+<p class="sd-card-text">To satisfy <span class="math notranslate nohighlight">\(\|b\|_1^{}=\|A\|_1^{}\|x\|_1^{}\)</span>, we could take <span class="math notranslate nohighlight">\(x=(0,1)^t\)</span> which gives <span class="math notranslate nohighlight">\(b=(-18,19)^t\)</span>. And to satisfy <span class="math notranslate nohighlight">\(\| \Delta x\|_1^{}=\|A^{-1}\|_1^{}\|\Delta b\|_1^{}\)</span>, we could take <span class="math notranslate nohighlight">\(\Delta b=(0.01,0)^t\)</span>. By construction,</p>
+<div class="math notranslate nohighlight">
+\[
+   \frac{\|\Delta x\|_1^{}}{\|x\|_1^{}} = \kappa_1 \frac{\|\Delta b\|_1^{}}{\|b\|_1^{}}.
+\]</div>
+</div>
+</details></section>
+<section id="optional-material">
+<h2>Optional material<a class="headerlink" href="#optional-material" title="Link to this heading">#</a></h2>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Proof of the convergence lemma for the matrix-valued von Neumann series</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Here is the proof of the convergence lemma for matrix-valued von Neumann series.</p>
+<div class="proof admonition" id="proof">
+<p class="sd-card-text">Proof. Let <span class="math notranslate nohighlight">\(S_n = \sum_{i=0}^n X^i\)</span>. By norm equivalence and submultiplicativity we have for each matrix element <span class="math notranslate nohighlight">\((S_n)_{\ell, t}\)</span> that</p>
+<div class="math notranslate nohighlight">
+\[
+|(S_n)_{\ell, t}| \leq \sum_{i=0}^{n}\left|\left(X^i\right)_{\ell, t}\right|\leq \sum_{i=0}^n \underbrace{\max_{\ell, t}\left|\left(
+X^i\right)_{\ell, t}\right|}_{\text{this is a norm}} \leq C\sum_{i=0}^{\infty}\|X^{i}\|\leq C\sum_{i=0}^\infty \|X\|^{i}= \frac{C}{1 - \|X\|}.
+\]</div>
+<p class="sd-card-text">for some <span class="math notranslate nohighlight">\(C&gt; 0\)</span>. Hence, every component of <span class="math notranslate nohighlight">\(S_n\)</span> is absolutely convergent and therefore the sum <span class="math notranslate nohighlight">\(S_n\)</span> converges with <span class="math notranslate nohighlight">\(X^{n}\rightarrow 0\)</span> as <span class="math notranslate nohighlight">\(n\rightarrow\infty\)</span>. We conclude the <span class="math notranslate nohighlight">\(S := \sum_{i=0}^{\infty}X^{i}\)</span> exists.</p>
+<p class="sd-card-text">We find <span class="math notranslate nohighlight">\((I - X)S_n = \sum_{i = 0}^n X^i - \sum_{i = 1}^{n + 1} X^i = I - X^{n+1}\)</span>, cancelling common terms in the sums. Taking the limit as <span class="math notranslate nohighlight">\(n \to \infty\)</span> we have <span class="math notranslate nohighlight">\((I-X)S = I\)</span>,so <span class="math notranslate nohighlight">\((I-X)\)</span> is non-singular with <span class="math notranslate nohighlight">\((I-X)^{-1} = S\)</span>. Finally,</p>
+<div class="math notranslate nohighlight">
+\[
+\|(I-X)^{-1}\| = \|S\| \leq \sum_{i=0}^{\infty}\|X\|^{i} = \frac{1}{1-\|X\|}.
+\]</div>
+</div>
+</div>
+</details></section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -546,7 +590,7 @@ the relationship between condition number and distance to singularity is immedia
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">A quick survey of asymptotic notation</p>
+        <p class="prev-next-title">A brief survey of asymptotic notation</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -567,11 +611,8 @@ the relationship between condition number and distance to singularity is immedia
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#backward-error">Backward error</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#condition-number">Condition Number</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lemma">Lemma</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#self-check-questions">Self-check questions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-material">Optional material</a></li>
 </ul>
   </nav></div>
 
