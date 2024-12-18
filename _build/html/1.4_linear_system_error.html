@@ -470,7 +470,7 @@ $$
 <p>Compute the <span class="math notranslate nohighlight">\(1-\)</span>norm condition number of</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-A = \begin{bmatrix}1 &amp; 1\\ 0 &amp; \epsilon\end{bmatrix}
+A = \begin{pmatrix}1 &amp; 1\\ 0 &amp; \epsilon\end{pmatrix}
 \end{split}\]</div>
 <p>as a function of <span class="math notranslate nohighlight">\(\epsilon\)</span>. What happens as <span class="math notranslate nohighlight">\(\epsilon\rightarrow 0\)</span>?</p>
 </div>
@@ -480,7 +480,7 @@ A = \begin{bmatrix}1 &amp; 1\\ 0 &amp; \epsilon\end{bmatrix}
 <p class="sd-card-text">We have</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-A^{-1} = \begin{matrix}1 &amp; -\epsilon^{-1}\\ 0 &amp; \epsilon^{-1}\end{matrix}.
+A^{-1} = \begin{pmatrix}1 &amp; -\epsilon^{-1}\\ 0 &amp; \epsilon^{-1}\end{pmatrix}.
 \end{split}\]</div>
 <p class="sd-card-text">Hence,</p>
 <div class="math notranslate nohighlight">
@@ -540,7 +540,75 @@ A^{-1} =
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
 <span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
-<p class="sd-card-text">We have <span class="math notranslate nohighlight">\(\|A\|_1^{}=\|A\|_\textrm{col}=18\)</span> and <span class="math notranslate nohighlight">\(\|A^{-1}\|_1^{} = \frac{108}{234} = \frac6{13}\)</span>, so <span class="math notranslate nohighlight">\(\kappa_1(A) = 108/13\)</span>. In the derivation of the error formula, there are only two inequalities: <span class="math notranslate nohighlight">\(\|\Delta x\|_1^{}\le\|A^{-1}\|_1^{}\|\Delta b\|_1^{}\)</span> and <span class="math notranslate nohighlight">\(\|b\|_1^{}\le \|A\|_1^{}\,\|x\|_1^{}\)</span>.  We therefore choose <span class="math notranslate nohighlight">\(x\)</span> such that <span class="math notranslate nohighlight">\(\|b\|_1^{}=\|A\|_1^{}\,\|x\|_1^{}\)</span>, e.g., <span class="math notranslate nohighlight">\(x=(0,0,1)^t\)</span> which gives <span class="math notranslate nohighlight">\(b=(-7,2,-9)^t\)</span>, and <span class="math notranslate nohighlight">\(\Delta b\)</span> such that <span class="math notranslate nohighlight">\(\|\Delta x\|_1^{}=\|A^{-1}\|_1^{}\|\delta b\|_1^{}\)</span>, e.g., <span class="math notranslate nohighlight">\(\Delta b=(0,0,0.01)^t\)</span>.</p>
+<p class="sd-card-text">We have <span class="math notranslate nohighlight">\(\|A\|_1^{}=\|A\|_\textrm{col}=18\)</span> and <span class="math notranslate nohighlight">\(\|A^{-1}\|_1^{} = \frac{108}{234} = \frac6{13}\)</span>, so <span class="math notranslate nohighlight">\(\kappa_1(A) = 108/13\)</span>. In the derivation of the error formula, there are only two inequalities: <span class="math notranslate nohighlight">\(\|\Delta x\|_1^{}\le\|A^{-1}\|_1^{}\|\Delta b\|_1^{}\)</span> and <span class="math notranslate nohighlight">\(\|b\|_1^{}\le \|A\|_1^{}\,\|x\|_1^{}\)</span>.  We therefore choose <span class="math notranslate nohighlight">\(x\)</span> such that <span class="math notranslate nohighlight">\(\|b\|_1^{}=\|A\|_1^{}\,\|x\|_1^{}\)</span>, namely <span class="math notranslate nohighlight">\(x=(0,0,1)^t\)</span> which gives <span class="math notranslate nohighlight">\(b=(-7,2,-9)^t\)</span>, and <span class="math notranslate nohighlight">\(\Delta b\)</span> such that <span class="math notranslate nohighlight">\(\|\Delta x\|_1^{}=\|A^{-1}\|_1^{}\|\Delta b\|_1^{}\)</span>, e.g. <span class="math notranslate nohighlight">\(\Delta b=(0,0,0.01)^t\)</span>.</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Let</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+A = \begin{pmatrix}2 &amp; 1 \\ 1 &amp; 2\end{pmatrix}.
+\end{split}\]</div>
+<p>Compute <span class="math notranslate nohighlight">\(\kappa_1(A)\)</span>, <span class="math notranslate nohighlight">\(\kappa_\infty(A)\)</span>, <span class="math notranslate nohighlight">\(\kappa_2(A)\)</span>, which denote here the condition numbers with respect to the <span class="math notranslate nohighlight">\(1\)</span>-, <span class="math notranslate nohighlight">\(\infty\)</span>- and <span class="math notranslate nohighlight">\(2\)</span>-norm. Which is largest?</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">First compute <span class="math notranslate nohighlight">\(A^{-1}\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+A^{-1} = \frac{1}{3}\begin{pmatrix}2 &amp; -1 \\ -1 &amp; 2\end{pmatrix}.
+\end{split}\]</div>
+<p class="sd-card-text">For the <span class="math notranslate nohighlight">\(1\)</span>-norm and <span class="math notranslate nohighlight">\(\infty\)</span>-norm:</p>
+<div class="math notranslate nohighlight">
+\[
+\|A\|_1 = \|A\|_\infty = \max_{\textrm{row or col}} (2+1) = 3.
+\]</div>
+<p class="sd-card-text">Similarly,</p>
+<div class="math notranslate nohighlight">
+\[
+\|A^{-1}\|_1 = \|A^{-1}\|_\infty = 1.
+\]</div>
+<p class="sd-card-text">Thus,</p>
+<div class="math notranslate nohighlight">
+\[
+\kappa_1(A) = \kappa_\infty(A) = 3.
+\]</div>
+<p class="sd-card-text">For the <span class="math notranslate nohighlight">\(2\)</span>-norm, the eigenvalues of <span class="math notranslate nohighlight">\(A\)</span> are <span class="math notranslate nohighlight">\(3\)</span> and <span class="math notranslate nohighlight">\(1\)</span>, so</p>
+<div class="math notranslate nohighlight">
+\[
+\|A\|_2 = 3,\quad \|A^{-1}\|_2 = \frac{1}{1} = 1,
+\]</div>
+<p class="sd-card-text">hence</p>
+<div class="math notranslate nohighlight">
+\[
+\kappa_2(A) = 3.
+\]</div>
+<p class="sd-card-text">All three condition numbers coincide and equal <span class="math notranslate nohighlight">\(3\)</span> in this case.</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Consider</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+A = \begin{pmatrix}1 &amp; \tfrac{1}{2} \\[6pt] \tfrac{1}{2} &amp; 1\end{pmatrix}.
+\end{split}\]</div>
+<p>Its eigenvalues are <span class="math notranslate nohighlight">\(\lambda_{\max}=1.5\)</span> and <span class="math notranslate nohighlight">\(\lambda_{\min}=0.5\)</span>. Suppose we add a small perturbation <span class="math notranslate nohighlight">\(\Delta A\)</span> and consider no perturbation in <span class="math notranslate nohighlight">\(b\)</span> (i.e. <span class="math notranslate nohighlight">\(\Delta b=0\)</span>). Estimate, using the <span class="math notranslate nohighlight">\(2\)</span>-norm condition number, how large the relative perturbation <span class="math notranslate nohighlight">\(\frac{\|\Delta A\|_2}{\|A\|_2}\)</span> can be before <span class="math notranslate nohighlight">\(A+\Delta A\)</span> becomes close to singular.</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Since <span class="math notranslate nohighlight">\(\|A\|_2 = 1.5\)</span> and <span class="math notranslate nohighlight">\(\|A^{-1}\|_2 = 1/\lambda_{\min} = 2\)</span>, the condition number is</p>
+<div class="math notranslate nohighlight">
+\[
+\kappa_2(A) = \|A\|_2\|A^{-1}\|_2 = 1.5 \cdot 2 = 3.
+\]</div>
+<p class="sd-card-text">Recall</p>
+<div class="math notranslate nohighlight">
+\[
+\min\left\{\frac{\|\Delta A\|_2}{\|A\|_2} : A+\Delta A \text{ singular}\right\} = \frac{1}{\kappa_2(A)} = \frac{1}{3}.
+\]</div>
+<p class="sd-card-text">Hence, a relative perturbation of about <span class="math notranslate nohighlight">\(1/3\)</span> in norm is sufficient for <span class="math notranslate nohighlight">\(A+\Delta A\)</span> to become close to singular. Since <span class="math notranslate nohighlight">\(\|A\|_2=1.5\)</span>, this corresponds to <span class="math notranslate nohighlight">\(\|\Delta A\|_2 = 0.5\)</span>.</p>
 </div>
 </details></section>
 <section id="optional-material">

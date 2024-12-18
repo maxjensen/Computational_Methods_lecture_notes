@@ -1,7 +1,7 @@
-#  Markdown and LaTeX
+# Markdown and LaTeX
 
-Following the [Markdown and LaTeX introduction](https://ashki23.github.io/markdown-latex.html), Markdown allows you to write using an easy-to-read, easy-to-write plain text format containing text formatting, embedded graphics, source codes and LaTex formula. LaTeX is a high-quality typesetting system; it includes features designed to produce technical and scientific documentation. Basic knowledge about Markdown and LaTeX allows us to create high-quality documents and reports quickly. This tutorial provides a quick reference to use Markdown and LaTeX. This text is written in Markdown; you can see the original text by clicking on the download button on the top-right corner of this page.
-  
+Following the [Introduction to Markdown and LaTeX](https://ashki23.github.io/markdown-latex.html), Markdown allows you to write in a simple plain-text format that supports text formatting, embedded graphics, source code, and LaTeX formulas. LaTeX is a high-quality typesetting system; it includes features designed to produce technical and scientific documentation. A basic understanding of Markdown and LaTeX enables the quick creation of high-quality documents and reports. This tutorial provides a quick reference for using Markdown and LaTeX. This text is written in Markdown; you can view the original text by clicking the download button in the top-right corner of this page.
+
 **You need to submit your coursework on Crowdmark in Markdown.**
 
 The following provides a quick reference to the most commonly used Markdown syntax.
@@ -9,25 +9,29 @@ The following provides a quick reference to the most commonly used Markdown synt
 ### Emphasis
 
 Text can be emphasised as follows:
+
 - `*Italic* and **Bold**` becomes *Italic* and **Bold**
 
-To quote test, use `>`. For example,
+To quote text, use `>`. For example:
+
 ```
 > Imagination is more important than knowledge.
 >
 > Albert Einstein
 ```
+
 gives
 > Imagination is more important than knowledge.
 >
 > Albert Einstein
 
-For manual line break, use
+For a manual line break, use:
+
 - `<br />`
 
 ### Headers
 
-Lines containing headers and document titles begin with hashes. More hashes indicate a lower rank:
+Headers and document titles are defined by lines beginning with hashes. More hashes indicate lower-ranked headers:
 
 ```
 # H1
@@ -40,7 +44,7 @@ Lines containing headers and document titles begin with hashes. More hashes indi
 
 ### Lists
 
-Markdown recognises lists from dashes `-` and stars `*` as well as numbering, e.g. `1.`.
+Markdown supports lists using dashes (`-`), stars (`*`), or numbers, e.g.:
 
 ```
 - Item 1
@@ -55,10 +59,10 @@ turns into
 
 - Item 1
 - Item 2
-    - Item 2a (2 tabs)
-    - Item 2b
-        - Item 2b-1 (4 tabs)
-        - Item 2b-2
+  - Item 2a (2 tabs)
+  - Item 2b
+    - Item 2b-1 (4 tabs)
+    - Item 2b-2
 
 ```
 1. Item 1
@@ -78,15 +82,16 @@ turns into
 
 ### Links and images
 
-The name of a link is put into square brackets, followed by the address in paratheses. For example, `[UCL](https://www.ucl.ac.uk/)` turns into [UCL](https://www.ucl.ac.uk/).
+The name of a link is placed within square brackets, followed by the address in parentheses. For example: `[UCL](https://www.ucl.ac.uk/)` turns into [UCL](https://www.ucl.ac.uk/).
 
-If we want to link to an image and make it appear in the document, we let add an exclamation mark in front, giving the structure `![...](...)`. For example, `![logo](https://www.ucl.ac.uk/brand/sites/brand/files/styles/small_image/public/ucl-logo-white-on-black.jpg)` turns into
+To display an image in the document, add an exclamation mark in front, using the structure `![...](...)`. For example, `![logo](https://www.ucl.ac.uk/brand/sites/brand/files/styles/small_image/public/ucl-logo-white-on-black.jpg)` turns into
 
 ![logo](https://www.ucl.ac.uk/brand/sites/brand/files/styles/small_image/public/ucl-logo-white-on-black.jpg)
 
 ### Tables
 
-One can also add tables. For example
+You can also add tables. For example:
+
 ```
 1st Header|2nd Header|3rd Header
 ---|:---:|---:
@@ -94,6 +99,7 @@ col 1 is|left-aligned|1
 col 2 is|center-aligned|2
 col 3 is|right-aligned|3
 ```
+
 turns into
 
 1st Header|2nd Header|3rd Header
@@ -102,16 +108,17 @@ col 1 is|left-aligned|1
 col 2 is|center-aligned|2
 col 3 is|right-aligned|3
 
-
-
 ### Code blocks
 
-In Markdown, we can simply add plain code blocks to display (not evaluating) by inserting triple back quote i.e. ```. Double click on the text cell to understand the example:
+In Markdown, you can add plain code blocks (non-evaluating) using triple backticks (`\`\`\``). Double-click on the text cell to understand the example:
+
 ```
 import matplotlib.pyplot as plt
 import numpy as np
 ```
-One can add syntax highlighting by specifying the programming language behind the first set of ```:
+
+You can add syntax highlighting by specifying the programming language after the opening triple backticks:
+
 ```python
 import matplotlib.pyplot as plt
 import numpy as np
@@ -130,6 +137,7 @@ $$
 f(x) \ne g(x)
 $$
 ```
+
 gives
 
 ---
@@ -142,7 +150,8 @@ $$
 
 ### Symbols
 
-**Operators**
+#### Operators
+
 ```
 - $x + y$
 - $x - y$
@@ -151,6 +160,7 @@ $$
 - $\dfrac{x}{y}$
 - $\sqrt{x}$
 ```
+
 gives
 
 - $x + y$
@@ -160,7 +170,8 @@ gives
 - $\dfrac{x}{y}$
 - $\sqrt{x}$
 
-**Symbols**
+#### Mathematical symbols
+
 ```
 - $\pi \approx 3.14159$
 - $\pm \, 0.2$
@@ -182,6 +193,7 @@ gives
 - $a \Longrightarrow b$
 - $a \propto b$
 ```
+
 gives
 
 - $\pi \approx 3.14159$
@@ -204,7 +216,8 @@ gives
 - $a \Longrightarrow b$
 - $a \propto b$
 
-**Accents**
+#### Accents
+
 ```
 - $\bar a$
 - $\tilde a$
@@ -225,6 +238,7 @@ gives
 - $\{ \}$
 - $\_$
 ```
+
 gives
 
 - $\bar a$
@@ -246,13 +260,15 @@ gives
 - $\{ \}$
 - $\_$
 
-**Greek letters**
+#### Greek letters
+
 ```
 $$
 \alpha, \beta, \gamma, \delta, \epsilon, \pi,\\
 \Gamma,\Sigma,\Upsilon,\Pi,\Theta
 $$
 ```
+
 gives
 
 $$
@@ -384,7 +400,7 @@ $$
 $$
 
 $$
-x_n \rightarrow 0 \mbox{ as } n \rightarrow \infty
+x_n \rightarrow 0 \text{ as } n \rightarrow \infty
 $$
 
 $$
