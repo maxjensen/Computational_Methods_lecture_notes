@@ -34,9 +34,9 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=b4b7a797" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- So that users can add custom icons -->
@@ -175,14 +175,14 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="1.1_matrix_vector_norms.html">Matrix and vector norms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.2_floating_point_arithmetic.html">Floating point arithmetic</a></li>
-<li class="toctree-l1"><a class="reference internal" href="1.3_error_analysis.html">Principles of Backward Error Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.3_error_analysis.html">Backward Error Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.4_linear_system_error.html">The condition number of linear systems</a></li>
-<li class="toctree-l1"><a class="reference internal" href="1.5_complexity_notation.html">A brief survey of asymptotic notation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="1.6_numpy_and_data_layouts.html">Memory layout and Numpy arrays</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_complexity_notation.html">Asymptotic notation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_numpy_and_data_layouts.html">Memory layout and Numpy</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition and its Numerical Stability</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="2.1_lu_decomposition.html">Solving linear system with the LU Decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.1_lu_decomposition.html">LU Decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.2_lu_backward_error.html">Backward error of the LU decomposition and pivoting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.3_lu_backward_error_examples.html">Backward error of the LU decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.4_python_lu_decomposition.html">Implementing the LU decomposition in Python</a></li>
@@ -369,6 +369,7 @@
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-least-squares-problems-with-the-qr-decomposition">Solving least-squares problems with the QR decomposition</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-least-squares-problems-with-the-svd">Solving least-squares problems with the SVD</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#constraints">Constraints</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-a-least-squares-problem-with-qr-decomposition">Solving a least-squares problem with QR decomposition</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-a-least-squares-problem-with-svd">Solving a least-squares problem with SVD</a></li>
@@ -468,13 +469,13 @@ A^TA = V\Sigma^T\Sigma V^T \in \mathbb{R}^{n \times n},
 <p>We assume in this section that <span class="math notranslate nohighlight">\(m \ge n\)</span> and that <span class="math notranslate nohighlight">\(A\)</span> has a full rank. The full <span class="math notranslate nohighlight">\(QR\)</span> decomposition of <span class="math notranslate nohighlight">\(A\)</span> can be expressed as follows:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-A = \begin{bmatrix} Q_1 &amp; Q_2 \end{bmatrix}\begin{bmatrix} R \\ 0 \end{bmatrix},
+A = \begin{pmatrix} Q_1 &amp; Q_2 \end{pmatrix}\begin{pmatrix} R \\ 0 \end{pmatrix},
 \end{split}\]</div>
 <p>where <span class="math notranslate nohighlight">\(Q_1\)</span> and <span class="math notranslate nohighlight">\(Q_2\)</span> are orthogonal matrices, and <span class="math notranslate nohighlight">\(R\)</span> is an upper triangular matrix. Substituting this decomposition into the least-squares problem, we get:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-\|Ax - b\|_2 = \left\|\begin{bmatrix} Q_1 &amp; Q_2 \end{bmatrix}\begin{bmatrix} R \\ 0 \end{bmatrix}x - b\right\|_2 =
-\left\|\begin{bmatrix} R \\ 0 \end{bmatrix}x - \begin{bmatrix} Q_1^Tb \\ Q_2^Tb \end{bmatrix}\right\|_2
+\|Ax - b\|_2 = \left\|\begin{pmatrix} Q_1 &amp; Q_2 \end{pmatrix}\begin{pmatrix} R \\ 0 \end{pmatrix}x - b\right\|_2 =
+\left\|\begin{pmatrix} R \\ 0 \end{pmatrix}x - \begin{pmatrix} Q_1^Tb \\ Q_2^Tb \end{pmatrix}\right\|_2
 \end{split}\]</div>
 <p>Here, we observe that the choice of <span class="math notranslate nohighlight">\(x\)</span> influences only the first block-row. In the second block row, <span class="math notranslate nohighlight">\(x\)</span> is multiplied by zero, meaning no choice of <span class="math notranslate nohighlight">\(x\)</span> will reduce the contribution from this part. Therefore, the minimiser <span class="math notranslate nohighlight">\(\hat{x}\)</span> of the least squares problem is found by solving:</p>
 <div class="math notranslate nohighlight">
@@ -495,7 +496,7 @@ A^{-1} \|_2 \, \| Q \|_2 = \kappa_{rel}(A),
 <p>The SVD can also be used to solve least-squares problems. In this section, we assume that <span class="math notranslate nohighlight">\(m \ge n\)</span> but <strong>not</strong> that <span class="math notranslate nohighlight">\(A\)</span> has a full rank. The full SVD of <span class="math notranslate nohighlight">\(A\)</span> is</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}  
-A = U\Sigma V^T = \begin{bmatrix} U_1 &amp; U_2 \end{bmatrix} \begin{bmatrix} \hat{\Sigma} &amp; 0 \\ 0 &amp; 0 \end{bmatrix} \begin{bmatrix} V_1 &amp; V_2 \end{bmatrix}^T
+A = U\Sigma V^T = \begin{pmatrix} U_1 &amp; U_2 \end{pmatrix} \begin{pmatrix} \hat{\Sigma} &amp; 0 \\ 0 &amp; 0 \end{pmatrix} \begin{pmatrix} V_1 &amp; V_2 \end{pmatrix}^T
 \end{split}\]</div>
 <p>with <span class="math notranslate nohighlight">\(\hat{\Sigma}\)</span> as in <a class="reference internal" href="3.2_singular_value_decomposition.html"><span class="std std-doc">the previous chapter</span></a>. Substitute into the least-squares problem to obtain</p>
 <div class="math notranslate nohighlight">
@@ -505,13 +506,13 @@ A = U\Sigma V^T = \begin{bmatrix} U_1 &amp; U_2 \end{bmatrix} \begin{bmatrix} \h
 <p>Let <span class="math notranslate nohighlight">\([y_1, y_2]^T = [V_1^T x, V_2^T x]^T\)</span> and factorise out <span class="math notranslate nohighlight">\(U\)</span> to obtain</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-\|Ax - b\|_2 = \left\|\begin{bmatrix} \hat{\Sigma} &amp; 0 \\ 0 &amp; 0 \end{bmatrix} \begin{bmatrix} y_1\\ y_2 \end{bmatrix} - \begin{bmatrix}U_1^Tb\\
-U_2^Tb\end{bmatrix}\right\|_2.
+\|Ax - b\|_2 = \left\|\begin{pmatrix} \hat{\Sigma} &amp; 0 \\ 0 &amp; 0 \end{pmatrix} \begin{pmatrix} y_1\\ y_2 \end{pmatrix} - \begin{pmatrix}U_1^Tb\\
+U_2^Tb\end{pmatrix}\right\|_2.
 \end{split}\]</div>
 <p>The second block row as well as the choice of <span class="math notranslate nohighlight">\(y_2\)</span> do not affect the least-squares norm and, hence, <span class="math notranslate nohighlight">\(y_1 = \hat{\Sigma}^{-1} U_1^Tb\)</span> and therefore</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-\hat{x}= \begin{bmatrix} V_1 &amp; V_2 \end{bmatrix} \begin{bmatrix} \hat{\Sigma}^{-1} &amp; 0 \\ 0 &amp; 0 \end{bmatrix} \begin{bmatrix} U_1 &amp; U_2 \end{bmatrix}^T b
+\hat{x}= \begin{pmatrix} V_1 &amp; V_2 \end{pmatrix} \begin{pmatrix} \hat{\Sigma}^{-1} &amp; 0 \\ 0 &amp; 0 \end{pmatrix} \begin{pmatrix} U_1 &amp; U_2 \end{pmatrix}^T b
 \end{split}\]</div>
 <p>is a (possibly non-unique) minimiser of the least-squares problem. This leads to the important concept of a pseudo-inverse of a matrix.</p>
 <div class="proof definition admonition" id="definition-1">
@@ -520,11 +521,36 @@ U_2^Tb\end{bmatrix}\right\|_2.
 <p>Let <span class="math notranslate nohighlight">\(U \Sigma V^T\)</span> be an SVD of <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span> and <span class="math notranslate nohighlight">\(m \geq n\)</span>. Then the pseudo-inverse of <span class="math notranslate nohighlight">\(A\)</span> is</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-A^{\dagger} := V \begin{bmatrix} \hat{\Sigma}^{-1} &amp; 0 \\ 0 &amp; 0 \end{bmatrix} U^T,
+A^{\dagger} := V \begin{pmatrix} \hat{\Sigma}^{-1} &amp; 0 \\ 0 &amp; 0 \end{pmatrix} U^T,
 \end{split}\]</div>
 <p>where <span class="math notranslate nohighlight">\(\hat{\Sigma} \in \mathbb{R}^{r \times r}\)</span> and <span class="math notranslate nohighlight">\(r = \text{rank}(A)\)</span>.</p>
 </section>
 </div><p>The pseudo-inverse of <span class="math notranslate nohighlight">\(A\)</span> is a generalisation of the inverse of <span class="math notranslate nohighlight">\(A\)</span>. In the same way that <span class="math notranslate nohighlight">\(A^{-1}b\)</span> solves the linear system <span class="math notranslate nohighlight">\(Ax=b\)</span> for a square matrix <span class="math notranslate nohighlight">\(A\)</span>, the pseudo-inverse <span class="math notranslate nohighlight">\(A^{\dagger}\)</span> applied to <span class="math notranslate nohighlight">\(b\)</span> solves the least-squares minimisation problem <span class="math notranslate nohighlight">\(\|Ax-b\|_2\)</span> for rectangular <span class="math notranslate nohighlight">\(A\)</span>.</p>
+</section>
+<section id="constraints">
+<h2>Constraints<a class="headerlink" href="#constraints" title="Link to this heading">#</a></h2>
+<p>Least-squares problems often come with equality constraints or inequality constraints or a combination of the two. We shall briefly consider equality constraints here. Then the problem is formulated as</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{x} \in \text{arg}\min_{x \in \mathbb{R}^n \atop B x = d} \|Ax - b\|_2.
+\]</div>
+<p>Suppose that a (particular) solution <span class="math notranslate nohighlight">\(x_p\)</span> of <span class="math notranslate nohighlight">\(B x_p = d\)</span> exists and let <span class="math notranslate nohighlight">\(\{ y_1, \ldots, y_k \} \subset \mathbb{R}^n\)</span> be a basis of <span class="math notranslate nohighlight">\(\ker B\)</span>, so that solutions of <span class="math notranslate nohighlight">\(B x_p = d\)</span> take the general form</p>
+<div class="math notranslate nohighlight">
+\[
+x_p + \sum_{i = 1}^k \alpha_i y_i, \quad \alpha_1, \ldots, \alpha_k \in \mathbb{R}.
+\]</div>
+<p>Hence with</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{\alpha} \in \text{arg}\min_{\alpha \in \mathbb{R}^k} \Big\|A \Big(x_p + \sum_{i = 1}^k \alpha_i y_i \Big) - b \Big\|_2
+\]</div>
+<p>we have</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{x} = x_p + \sum_{i = 1}^k \hat{\alpha}_i y_i,
+\]</div>
+<p>meaning that we can reduce the constrained problem to an unconstrained one and apply the QR and SVD techniques outlined above. We note that alternative techniques exist to directly solve the constrained least-squares optimisation without the construction of a basis of the kernel.</p>
+<p>TODO: Rephrase section and add CVXopt example to Python skills section</p>
 </section>
 <section id="python-skills">
 <h2>Python skills<a class="headerlink" href="#python-skills" title="Link to this heading">#</a></h2>
@@ -592,26 +618,26 @@ A^{\dagger} := V \begin{bmatrix} \hat{\Sigma}^{-1} &amp; 0 \\ 0 &amp; 0 \end{bma
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \text{arg}\min_{(c,m) \in \mathbb{R}^2} \left\| 
-\begin{bmatrix} 1 &amp; 1\\ 1 &amp; 2\\ 1 &amp; 3 \end{bmatrix}
-\begin{bmatrix} c\\ m \end{bmatrix}
-- \begin{bmatrix} 2\\ 3\\ 5 \end{bmatrix}
+\begin{pmatrix} 1 &amp; 1\\ 1 &amp; 2\\ 1 &amp; 3 \end{pmatrix}
+\begin{pmatrix} c\\ m \end{pmatrix}
+- \begin{pmatrix} 2\\ 3\\ 5 \end{pmatrix}
 \right\|^2.
 \end{split}\]</div>
 <p class="sd-card-text">We learned three methods to proceed: solve the normal equation, the QR reformulation or the SVD reformulation. The two latter choices are preferable for bigger problems solved with a computer. However, for hand calculations of small problems, solving the original normal equation is often the most convenient approach.</p>
 <p class="sd-card-text">We have</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-\mathbf{A}^T\mathbf{A} = \begin{bmatrix} 1 &amp; 1 &amp; 1\\ 1 &amp; 2 &amp; 3  \end{bmatrix} \begin{bmatrix} 1 &amp; 1 \\ 1 &amp; 2 \\ 1 &amp; 3 \end{bmatrix} = \begin{bmatrix} 3 &amp; 6 \\ 6 &amp; 14 \end{bmatrix}
+\mathbf{A}^T\mathbf{A} = \begin{pmatrix} 1 &amp; 1 &amp; 1\\ 1 &amp; 2 &amp; 3  \end{pmatrix} \begin{pmatrix} 1 &amp; 1 \\ 1 &amp; 2 \\ 1 &amp; 3 \end{pmatrix} = \begin{pmatrix} 3 &amp; 6 \\ 6 &amp; 14 \end{pmatrix}
 \end{split}\]</div>
 <p class="sd-card-text">and</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-\mathbf{A}^T\mathbf{b} = \begin{bmatrix} 1 &amp; 1 &amp; 1\\ 1 &amp; 2 &amp; 3 \end{bmatrix} \begin{bmatrix} 2 \\ 3 \\ 5 \end{bmatrix} = \begin{bmatrix} 10\\ 23 \end{bmatrix}.
+\mathbf{A}^T\mathbf{b} = \begin{pmatrix} 1 &amp; 1 &amp; 1\\ 1 &amp; 2 &amp; 3 \end{pmatrix} \begin{pmatrix} 2 \\ 3 \\ 5 \end{pmatrix} = \begin{pmatrix} 10\\ 23 \end{pmatrix}.
 \end{split}\]</div>
 <p class="sd-card-text">Thus, the minimiser solves</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-\begin{bmatrix} 3 &amp; 6 \\ 6 &amp; 14 \end{bmatrix} \begin{bmatrix} c \\ m \end{bmatrix} = \begin{bmatrix} 10\\ 23 \end{bmatrix},
+\begin{pmatrix} 3 &amp; 6 \\ 6 &amp; 14 \end{pmatrix} \begin{pmatrix} c \\ m \end{pmatrix} = \begin{pmatrix} 10\\ 23 \end{pmatrix},
 \end{split}\]</div>
 <p class="sd-card-text">giving <span class="math notranslate nohighlight">\((\hat{c}, \hat{m}) = (1/3, 3/2)\)</span>.</p>
 <p class="sd-card-text"><em>Remark</em> One can plot an illustration of the calculation with Python.</p>
@@ -660,25 +686,25 @@ formulated as</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
    \text{arg}\min_{(a,b,c) \in \mathbb{R}^3} \left\| 
-   \begin{bmatrix} x_1^2 &amp; x_1 &amp; 1\\ x_2^2 &amp; x_2 &amp; 1\\ x_3^2 &amp; x_3 &amp; 1\\ x_4^2 &amp; x_4 &amp; 1\\ x_5^2 &amp; x_5 &amp; 1\end{bmatrix}
-   \begin{bmatrix} a\\ b\\ c \end{bmatrix}
-   - \begin{bmatrix} \exp(x_1)\\ \exp(x_2)\\ \exp(x_3)\\ \exp(x_4)\\ \exp(x_5) \end{bmatrix} \right\|^2.
+   \begin{pmatrix} x_1^2 &amp; x_1 &amp; 1\\ x_2^2 &amp; x_2 &amp; 1\\ x_3^2 &amp; x_3 &amp; 1\\ x_4^2 &amp; x_4 &amp; 1\\ x_5^2 &amp; x_5 &amp; 1\end{pmatrix}
+   \begin{pmatrix} a\\ b\\ c \end{pmatrix}
+   - \begin{pmatrix} \exp(x_1)\\ \exp(x_2)\\ \exp(x_3)\\ \exp(x_4)\\ \exp(x_5) \end{pmatrix} \right\|^2.
    \end{split}\]</div>
 <p class="sd-card-text">The normal equations in matrix form are:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-   \begin{bmatrix}
+   \begin{pmatrix}
    \sum_i x_i^4 &amp; \sum_i x_i^3 &amp; \sum_i x_i^2 \\
    \sum_i x_i^3 &amp; \sum_i x_i^2 &amp; \sum_i x_i \\
    \sum_i x_i^2 &amp; \sum_i x_i &amp; n
-   \end{bmatrix}
-   \begin{bmatrix} a \\ b \\ c \end{bmatrix} 
+   \end{pmatrix}
+   \begin{pmatrix} a \\ b \\ c \end{pmatrix} 
    =
-   \begin{bmatrix}
+   \begin{pmatrix}
    \sum_i (x_i^2 y_i) \\
    \sum_i (x_i y_i) \\
    \sum_i y_i
-   \end{bmatrix}
+   \end{pmatrix}
    \end{split}\]</div>
 <p class="sd-card-text">where <span class="math notranslate nohighlight">\(y_i = \exp(x_i)\)</span> and <span class="math notranslate nohighlight">\(n\)</span> is the number of data points. Therefore, the least-squares quadratic approximation is given by:</p>
 <div class="math notranslate nohighlight">
@@ -772,12 +798,12 @@ of <span class="math notranslate nohighlight">\(R\)</span>.</p>
 <p class="sd-card-text">We use the full QR decomposition; that is, let</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-A = \begin{bmatrix}Q &amp; Q^{\bot}\end{bmatrix}\begin{bmatrix}R\\ 0\end{bmatrix}.
+A = \begin{pmatrix}Q &amp; Q^{\bot}\end{pmatrix}\begin{pmatrix}R\\ 0\end{pmatrix}.
 \end{split}\]</div>
 <p class="sd-card-text">Let <span class="math notranslate nohighlight">\(R = U\Sigma V^T\)</span> be the SVD of <span class="math notranslate nohighlight">\(R\)</span>. Plugging into the above equation gives</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-A = \begin{bmatrix}Q &amp; Q^{\bot}\end{bmatrix}\begin{bmatrix}U &amp; 0 \\ 0 &amp; I\end{bmatrix}\begin{bmatrix}\Sigma \\ 0\end{bmatrix}V^T.
+A = \begin{pmatrix}Q &amp; Q^{\bot}\end{pmatrix}\begin{pmatrix}U &amp; 0 \\ 0 &amp; I\end{pmatrix}\begin{pmatrix}\Sigma \\ 0\end{pmatrix}V^T.
 \end{split}\]</div>
 <p class="sd-card-text">This is the singular value decomposition of <span class="math notranslate nohighlight">\(A\)</span> with singular values contained in <span class="math notranslate nohighlight">\(\Sigma\)</span>.</p>
 </div>
@@ -843,7 +869,7 @@ s : V \times V \to \mathbb{K}
 <p class="sd-card-text">Let <span class="math notranslate nohighlight">\((V, \langle \cdot, \cdot \rangle)\)</span> be an inner product space. Then, the mapping <span class="math notranslate nohighlight">\(v \mapsto \sqrt{\langle v, v \rangle}\)</span> defines a norm.</p>
 </div>
 <div class="proof example admonition" id="example-3">
-<p class="admonition-title"><span class="caption-number">Example 7 </span></p>
+<p class="admonition-title"><span class="caption-number">Example 3 </span></p>
 <section class="example-content" id="proof-content">
 <p class="sd-card-text">(a) Let <span class="math notranslate nohighlight">\(A\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^{n \times n}\)</span> be a symmetric, positive definite matrix. Then the mapping</p>
 <div class="math notranslate nohighlight">
@@ -915,7 +941,7 @@ A x = b
 <p class="sd-card-text">The matrix <span class="math notranslate nohighlight">\(A\)</span> is positive definite and therefore invertible.</p>
 </div>
 <div class="proof example admonition" id="example-4">
-<p class="admonition-title"><span class="caption-number">Example 8 </span></p>
+<p class="admonition-title"><span class="caption-number">Example 4 </span></p>
 <section class="example-content" id="proof-content">
 <p class="sd-card-text">Let <span class="math notranslate nohighlight">\(\Omega = (-1,1)^2\)</span> be non-empty, open and <span class="math notranslate nohighlight">\(V = L^2(\Omega, \mathbb{R})\)</span>. Let <span class="math notranslate nohighlight">\(P = \mathcal{P}_{1,2}\)</span> be the space of <span class="math notranslate nohighlight">\(2\)</span>-variate polynomials with degrees less than or equal to <span class="math notranslate nohighlight">\(1\)</span>. The space <span class="math notranslate nohighlight">\(\mathcal{P}_{1,2}\)</span> has the basis</p>
 <div class="math notranslate nohighlight">
@@ -1066,7 +1092,7 @@ p_{1,2} = t_1 \cdot \Bigl( \frac{3}{2} t_2^2 - \frac{1}{2} \Bigr) = \alpha_{1,2}
 </div>
 <p class="sd-card-text">Therefore the <span class="math notranslate nohighlight">\(p_{jk}\)</span> are a basis of <span class="math notranslate nohighlight">\(\mathcal{Q}_{2,2}\)</span>. The matrix <span class="math notranslate nohighlight">\(A\)</span> above is diagonal if the <span class="math notranslate nohighlight">\(p_{jk}\)</span> are orthogonal.</p>
 <div class="proof example admonition" id="example-5">
-<p class="admonition-title"><span class="caption-number">Example 9 </span></p>
+<p class="admonition-title"><span class="caption-number">Example 5 </span></p>
 <section class="example-content" id="proof-content">
 <p class="sd-card-text">Let <span class="math notranslate nohighlight">\(V = L^2((-1,1)^2, \mathbb{R})\)</span>. Compute the best approximation <span class="math notranslate nohighlight">\(p\)</span> to</p>
 <div class="math notranslate nohighlight">
@@ -1189,6 +1215,7 @@ p(t_1, t_2) = \frac{15}{4} \Bigl( - \frac{12}{\pi^3} \Bigr) \; t_1 \; \Bigl( \fr
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-least-squares-problems-with-the-qr-decomposition">Solving least-squares problems with the QR decomposition</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-least-squares-problems-with-the-svd">Solving least-squares problems with the SVD</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#constraints">Constraints</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-a-least-squares-problem-with-qr-decomposition">Solving a least-squares problem with QR decomposition</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-a-least-squares-problem-with-svd">Solving a least-squares problem with SVD</a></li>

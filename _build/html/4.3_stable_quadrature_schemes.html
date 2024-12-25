@@ -34,9 +34,9 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=b4b7a797" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- So that users can add custom icons -->
@@ -175,14 +175,14 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="1.1_matrix_vector_norms.html">Matrix and vector norms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.2_floating_point_arithmetic.html">Floating point arithmetic</a></li>
-<li class="toctree-l1"><a class="reference internal" href="1.3_error_analysis.html">Principles of Backward Error Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.3_error_analysis.html">Backward Error Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.4_linear_system_error.html">The condition number of linear systems</a></li>
-<li class="toctree-l1"><a class="reference internal" href="1.5_complexity_notation.html">A brief survey of asymptotic notation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="1.6_numpy_and_data_layouts.html">Memory layout and Numpy arrays</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_complexity_notation.html">Asymptotic notation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_numpy_and_data_layouts.html">Memory layout and Numpy</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition and its Numerical Stability</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="2.1_lu_decomposition.html">Solving linear system with the LU Decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.1_lu_decomposition.html">LU Decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.2_lu_backward_error.html">Backward error of the LU decomposition and pivoting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.3_lu_backward_error_examples.html">Backward error of the LU decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.4_python_lu_decomposition.html">Implementing the LU decomposition in Python</a></li>
@@ -393,8 +393,8 @@
 \[\begin{split}
 \begin{align}
    \mathcal{C}_{1,m}(f) &amp;= \frac{b-a}m\, \Bigl[ \Bigl( \frac{1}{2} f(x_0) + \frac{1}{2} f(x_1) \Bigr)
-	+ \Bigl(\frac{1}{2} f(x_1) + \frac{1}{2} f(x_2) \Bigr) + \cdots
-	+ \Bigl( \frac{1}{2} f(x_{m-1}) + \frac{1}{2} f(x_m) \Bigr) \Bigr] \notag\\
+   + \Bigl(\frac{1}{2} f(x_1) + \frac{1}{2} f(x_2) \Bigr) + \cdots
+   + \Bigl( \frac{1}{2} f(x_{m-1}) + \frac{1}{2} f(x_m) \Bigr) \Bigr] \notag\\
    &amp;= h \Bigl[ \frac{1}{2} f(x_0) + \sum_{i=1}^{m-1} f(x_i) + \frac{1}{2} f(x_m) \Bigr].
 \end{align}
 \end{split}\]</div>
@@ -403,9 +403,9 @@
 \[\begin{split}
 \begin{align}
    \mathcal{C}_{2,m}(f) &amp;= \frac{b-a}{m} \, \Bigl[ \frac{1}{6} f(x_0) + \frac{2}{3} f(x_{1/2}) + \frac{1}{6} f(x_1)
-	+ \frac{1}{6} f(x_1) + \frac{2}{3} f(x_{3/2}) + \frac{1}{6} f(x_2)\\
-	&amp; \phantom{= \frac{b-a}{m} \, \Bigl[} + \cdots + \frac{1}{6} f(x_{m-1}) + \frac{2}{3} f(x_{m-1/2}) + \frac{1}{6} f(x_m)\Bigr]\\
-	&amp;= \frac{h}{6} \Bigl[ f(x_0) + 4 \sum_{i=1}^{m} f(x_{i-1/2}) + 2 \sum_{i=1}^{m-1} f(x_i) + f(x_m) \Bigr].
+   + \frac{1}{6} f(x_1) + \frac{2}{3} f(x_{3/2}) + \frac{1}{6} f(x_2)\\
+   &amp; \phantom{= \frac{b-a}{m} \, \Bigl[} + \cdots + \frac{1}{6} f(x_{m-1}) + \frac{2}{3} f(x_{m-1/2}) + \frac{1}{6} f(x_m)\Bigr]\\
+   &amp;= \frac{h}{6} \Bigl[ f(x_0) + 4 \sum_{i=1}^{m} f(x_{i-1/2}) + 2 \sum_{i=1}^{m-1} f(x_i) + f(x_m) \Bigr].
 \end{align}
 \end{split}\]</div>
 <p>It involves <span class="math notranslate nohighlight">\(2m+1\)</span> evaluations of <span class="math notranslate nohighlight">\(f\)</span>.</p>
@@ -417,7 +417,7 @@
 <p>where <span class="math notranslate nohighlight">\(\omega_2(x)=(x-x_{i-1})(x-x_i)\)</span>. Adding these up, we have in <span class="math notranslate nohighlight">\([a,b]=[x_0,x_m]\)</span>,</p>
 <div class="math notranslate nohighlight">
 \[
-\bigl|\mathcal{I}(f)-\mathcal{C}_{1,m}(f)\bigr|	\le \frac{mh^3}{12}\,\max_i\Bigl\{\max_{\xi\in[x_{i-1},x_i]}\,|f''(\xi)|\Bigr\} \leq (b-a)\,\frac{h^2}{12}\,\max_{\xi\in[a,b]}\,|f''(\xi)|.
+\bigl|\mathcal{I}(f)-\mathcal{C}_{1,m}(f)\bigr| \le \frac{mh^3}{12}\,\max_i\Bigl\{\max_{\xi\in[x_{i-1},x_i]}\,|f''(\xi)|\Bigr\} \leq (b-a)\,\frac{h^2}{12}\,\max_{\xi\in[a,b]}\,|f''(\xi)|.
 \]</div>
 </section>
 <section id="gaussian-quadratures">
@@ -791,7 +791,7 @@ p \rangle = \alpha \langle \tilde{p}, \Delta p \rangle - \langle \bar{p}, \Delta
 <p class="sd-card-text">implying <span class="math notranslate nohighlight">\(\bar{p} = \alpha \, \tilde{p}\)</span>.</p>
 </div>
 <div class="proof example admonition" id="example-4">
-<p class="admonition-title"><span class="caption-number">Example 13 </span> (Orthonormal basis of <span class="math notranslate nohighlight">\(\mathcal{P}_2\)</span>)</p>
+<p class="admonition-title"><span class="caption-number">Example 9 </span> (Orthonormal basis of <span class="math notranslate nohighlight">\(\mathcal{P}_2\)</span>)</p>
 <section class="example-content" id="proof-content">
 <p class="sd-card-text">Using the Gram-Schmidt method, we construct an orthonormal basis for <span class="math notranslate nohighlight">\(\mathcal{P}_2\)</span> with respect to the scalar product:</p>
 <div class="math notranslate nohighlight">

@@ -175,14 +175,14 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="1.1_matrix_vector_norms.html">Matrix and vector norms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.2_floating_point_arithmetic.html">Floating point arithmetic</a></li>
-<li class="toctree-l1"><a class="reference internal" href="1.3_error_analysis.html">Principles of Backward Error Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.3_error_analysis.html">Backward Error Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.4_linear_system_error.html">The condition number of linear systems</a></li>
-<li class="toctree-l1"><a class="reference internal" href="1.5_complexity_notation.html">A brief survey of asymptotic notation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="1.6_numpy_and_data_layouts.html">Memory layout and Numpy arrays</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_complexity_notation.html">Asymptotic notation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_numpy_and_data_layouts.html">Memory layout and Numpy</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition and its Numerical Stability</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="2.1_lu_decomposition.html">Solving linear system with the LU Decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.1_lu_decomposition.html">LU Decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.2_lu_backward_error.html">Backward error of the LU decomposition and pivoting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.3_lu_backward_error_examples.html">Backward error of the LU decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.4_python_lu_decomposition.html">Implementing the LU decomposition in Python</a></li>
@@ -400,7 +400,7 @@ Show that the solution of this least-squares problem is identical to the solutio
 <p>The modified least-squares problem is identical to</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-\min_{x\in\mathbb{R}^n}\left\|\begin{bmatrix}A\\L\end{bmatrix}x-\begin{bmatrix}b\\ 0\end{bmatrix}\right\|_2.
+\min_{x\in\mathbb{R}^n}\left\|\begin{pmatrix}A\\L\end{pmatrix}x-\begin{pmatrix}b\\ 0\end{pmatrix}\right\|_2.
 \end{split}\]</div>
 <p>Applying the normal equation to this problem we arrive at</p>
 <div class="math notranslate nohighlight">
@@ -429,12 +429,12 @@ of <span class="math notranslate nohighlight">\(R\)</span>.</p>
 <p>We use the full QR decomposition, that is let</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-A = \begin{bmatrix}Q &amp; Q^{\bot}\end{bmatrix}\begin{bmatrix}R\\ 0\end{bmatrix}.
+A = \begin{pmatrix}Q &amp; Q^{\bot}\end{pmatrix}\begin{pmatrix}R\\ 0\end{pmatrix}.
 \end{split}\]</div>
 <p>Let <span class="math notranslate nohighlight">\(R = U\Sigma V^T\)</span> be the SVD of <span class="math notranslate nohighlight">\(R\)</span>. Plugging into the above equation gives</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-A = \begin{bmatrix}Q &amp; Q^{\bot}\end{bmatrix}\begin{bmatrix}U &amp; 0 \\ 0 &amp; I\end{bmatrix}\begin{bmatrix}\Sigma \\ 0\end{bmatrix}V^T.
+A = \begin{pmatrix}Q &amp; Q^{\bot}\end{pmatrix}\begin{pmatrix}U &amp; 0 \\ 0 &amp; I\end{pmatrix}\begin{pmatrix}\Sigma \\ 0\end{pmatrix}V^T.
 \end{split}\]</div>
 <p>We see that this is the singular value decomposition of <span class="math notranslate nohighlight">\(A\)</span> with singular values contained in <span class="math notranslate nohighlight">\(\Sigma\)</span>.</p>
 </section>

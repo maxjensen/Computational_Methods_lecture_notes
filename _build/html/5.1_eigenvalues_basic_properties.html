@@ -34,9 +34,9 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=b4b7a797" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- So that users can add custom icons -->
@@ -175,14 +175,14 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="1.1_matrix_vector_norms.html">Matrix and vector norms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.2_floating_point_arithmetic.html">Floating point arithmetic</a></li>
-<li class="toctree-l1"><a class="reference internal" href="1.3_error_analysis.html">Principles of Backward Error Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.3_error_analysis.html">Backward Error Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.4_linear_system_error.html">The condition number of linear systems</a></li>
-<li class="toctree-l1"><a class="reference internal" href="1.5_complexity_notation.html">A brief survey of asymptotic notation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="1.6_numpy_and_data_layouts.html">Memory layout and Numpy arrays</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_complexity_notation.html">Asymptotic notation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_numpy_and_data_layouts.html">Memory layout and Numpy</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition and its Numerical Stability</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="2.1_lu_decomposition.html">Solving linear system with the LU Decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.1_lu_decomposition.html">LU Decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.2_lu_backward_error.html">Backward error of the LU decomposition and pivoting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.3_lu_backward_error_examples.html">Backward error of the LU decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.4_python_lu_decomposition.html">Implementing the LU decomposition in Python</a></li>
@@ -369,7 +369,7 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-companion-matrix">The companion matrix</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#complex-numbers">Complex numbers</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Eigenvalue decomposition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eigenvalue-decomposition-with-python">Eigenvalue decomposition with Python</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#self-check-questions">Self-check questions</a></li>
@@ -516,8 +516,8 @@ C = \begin{pmatrix}
 </pre></div>
 </div>
 </section>
-<section id="id1">
-<h3>Eigenvalue decomposition<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<section id="eigenvalue-decomposition-with-python">
+<h3>Eigenvalue decomposition with Python<a class="headerlink" href="#eigenvalue-decomposition-with-python" title="Link to this heading">#</a></h3>
 <p>Shortly, we will be delving into constructing numerical methods to compute eigenvalues and eigenvectors. Here, we look at a simple example, which uses Numpy’s eigensystem solver as a black box.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
@@ -565,11 +565,11 @@ C = \begin{pmatrix}
 <p>Analyze the matrix <span class="math notranslate nohighlight">\(A\)</span> given by:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-A = \begin{bmatrix}
+A = \begin{pmatrix}
 3 &amp; 1 &amp; 0 \\
 0 &amp; 3 &amp; 1 \\
 0 &amp; 0 &amp; 3
-\end{bmatrix}.
+\end{pmatrix}.
 \end{split}\]</div>
 <p>Determine the eigenvalues and eigenvectors of <span class="math notranslate nohighlight">\(A\)</span>.</p>
 <p>Compute the algebraic and geometric multiplicities of each eigenvalue.</p>
@@ -582,7 +582,7 @@ A = \begin{bmatrix}
 <p class="sd-card-text">For <span class="math notranslate nohighlight">\(\lambda = 3\)</span>, the equation <span class="math notranslate nohighlight">\((A - \lambda I)x = 0\)</span> simplifies to</p>
 <div class="math notranslate nohighlight">
 \[\begin{split} 
-\begin{bmatrix} 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 1 \\ 0 &amp; 0 &amp; 0 \end{bmatrix}x = 0.
+\begin{pmatrix} 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 1 \\ 0 &amp; 0 &amp; 0 \end{pmatrix}x = 0.
 \end{split}\]</div>
 <p class="sd-card-text">The solution space is spanned by <span class="math notranslate nohighlight">\((1, 0, 0)^T\)</span>.</p>
 <p class="sd-card-text">The eigenvalue <span class="math notranslate nohighlight">\(\lambda = 3\)</span> appears three times on the diagonal of <span class="math notranslate nohighlight">\(A\)</span>, so its algebraic multiplicity is 3. The solution to the eigenvector equation yields only one linearly independent eigenvector, so the geometric multiplicity of <span class="math notranslate nohighlight">\(\lambda = 3\)</span> is <span class="math notranslate nohighlight">\(1\)</span>.</p>
@@ -629,13 +629,13 @@ y'(t) = \lambda y_0 e^{\lambda t} = A y_0 e^{\lambda t} = A y(t).
 <li><p class="sd-card-text"><strong>Structure</strong>: A matrix in Jordan normal form is a block diagonal matrix where each block is a Jordan block. A Jordan block is an upper triangular matrix of the form:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-   J = \begin{bmatrix}
+   J = \begin{pmatrix}
    \lambda &amp; 1 &amp; 0 &amp; \cdots &amp; 0 \\
    0 &amp; \lambda &amp; 1 &amp; \cdots &amp; 0 \\
    0 &amp; 0 &amp; \lambda &amp; \ddots &amp; \vdots \\
    \vdots &amp; \vdots &amp; \ddots &amp; \ddots &amp; 1 \\
    0 &amp; 0 &amp; \cdots &amp; 0 &amp; \lambda
-   \end{bmatrix}.
+   \end{pmatrix}.
    \end{split}\]</div>
 <p class="sd-card-text">Here, <span class="math notranslate nohighlight">\(\lambda\)</span> is an eigenvalue of the original matrix.</p>
 </li>
@@ -677,7 +677,7 @@ y'(t) = \lambda y_0 e^{\lambda t} = A y_0 e^{\lambda t} = A y(t).
 y_1^H(x_1 - \alpha x_2) = 0,
 \]</div>
 <p class="sd-card-text">leading to <span class="math notranslate nohighlight">\(y_1 \bot (x_1 - \frac{y_1^H x_1}{y_1^H x_2}x_2)\)</span>. Therefore, in the presence of multiple eigenvalues, an orthogonal pair of left and right eigenvectors exists, indicating that multiple eigenvalues are unstable to perturbations. This is also reflected in the observation that if we have a polynomial with a multiple root, then a small arbitrary perturbation in the coefficients will turn a multiple root into several simple roots, qualitatively changing the nature of the eigensystem.</p>
-<p class="sd-card-text">For a more comprehensive and formal discussion on the perturbations of eigensystems, particularly in cases of multiple eigenvalues and their projections onto corresponding eigenvector subspaces, see Chapter 2 of <span id="id2">[<a class="reference internal" href="bm4_bibliography.html#id6" title="Tosio Kato. Perturbation theory for linear operators. Volume 132 of Die Grundlehren der mathematischen Wissenschaften. Springer, 1966. URL: https://ucl.primo.exlibrisgroup.com/permalink/44UCL_INST/155jbua/alma990002502430204761.">Kato, 1966</a>]</span>.</p>
+<p class="sd-card-text">For a more comprehensive and formal discussion on the perturbations of eigensystems, particularly in cases of multiple eigenvalues and their projections onto corresponding eigenvector subspaces, see Chapter 2 of <span id="id1">[<a class="reference internal" href="bm4_bibliography.html#id6" title="Tosio Kato. Perturbation theory for linear operators. Volume 132 of Die Grundlehren der mathematischen Wissenschaften. Springer, 1966. URL: https://ucl.primo.exlibrisgroup.com/permalink/44UCL_INST/155jbua/alma990002502430204761.">Kato, 1966</a>]</span>.</p>
 <p class="sd-card-text">We conclude with a statement of the Bauer-Fike Theorem.</p>
 <div class="prf-theorem admonition">
 <p class="admonition-title">Fact: Bauer-Fike Theorem</p>
@@ -768,7 +768,7 @@ y_1^H(x_1 - \alpha x_2) = 0,
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-companion-matrix">The companion matrix</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#complex-numbers">Complex numbers</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Eigenvalue decomposition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eigenvalue-decomposition-with-python">Eigenvalue decomposition with Python</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#self-check-questions">Self-check questions</a></li>

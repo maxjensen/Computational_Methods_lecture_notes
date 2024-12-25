@@ -44,13 +44,13 @@ $$
 
 **Question 2:**
 
-Let $A = \begin{bmatrix}a & c\\0 & b\end{bmatrix}$ for real numbers $a, b, c$ and $a\neq b$. 
+Let $A = \begin{pmatrix}a & c\\0 & b\end{pmatrix}$ for real numbers $a, b, c$ and $a\neq b$. 
 Show that the condition numbers of the eigenvalues of $A$ asymptotically 
 grow like $|\frac{c}{b-a}|$ as $b\rightarrow a$.
 
 **Solution:**
 
-The eigenvalues are $\lambda_1 = a$ and $\lambda_2=b$ with corresponding right/left eigenvectors $x_1 = \begin{bmatrix}1 & 0\end{bmatrix}^T$, $y_1 = \begin{bmatrix}-1 & \frac{c}{b-a}\end{bmatrix}^T$, $x_2 = \begin{bmatrix}\frac{c}{a-b} & -1\end{bmatrix}^T$, $y_2 = \begin{bmatrix}0 & 1\end{bmatrix}^T$.
+The eigenvalues are $\lambda_1 = a$ and $\lambda_2=b$ with corresponding right/left eigenvectors $x_1 = \begin{pmatrix}1 & 0\end{pmatrix}^T$, $y_1 = \begin{pmatrix}-1 & \frac{c}{b-a}\end{pmatrix}^T$, $x_2 = \begin{pmatrix}\frac{c}{a-b} & -1\end{pmatrix}^T$, $y_2 = \begin{pmatrix}0 & 1\end{pmatrix}^T$.
 
 The condition number of an eigenvalue is given as $\kappa = \frac{\|x\|_2\|y\|_2}{|x^Hy|}$. We hence obtain for both eigenpairs that
 

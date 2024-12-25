@@ -44,7 +44,7 @@ $$
 The modified least-squares problem is identical to
 
 $$
-\min_{x\in\mathbb{R}^n}\left\|\begin{bmatrix}A\\L\end{bmatrix}x-\begin{bmatrix}b\\ 0\end{bmatrix}\right\|_2.
+\min_{x\in\mathbb{R}^n}\left\|\begin{pmatrix}A\\L\end{pmatrix}x-\begin{pmatrix}b\\ 0\end{pmatrix}\right\|_2.
 $$
 
 Applying the normal equation to this problem we arrive at
@@ -84,13 +84,13 @@ of $R$.
 We use the full QR decomposition, that is let 
 
 $$
-A = \begin{bmatrix}Q & Q^{\bot}\end{bmatrix}\begin{bmatrix}R\\ 0\end{bmatrix}.
+A = \begin{pmatrix}Q & Q^{\bot}\end{pmatrix}\begin{pmatrix}R\\ 0\end{pmatrix}.
 $$
 
 Let $R = U\Sigma V^T$ be the SVD of $R$. Plugging into the above equation gives
 
 $$
-A = \begin{bmatrix}Q & Q^{\bot}\end{bmatrix}\begin{bmatrix}U & 0 \\ 0 & I\end{bmatrix}\begin{bmatrix}\Sigma \\ 0\end{bmatrix}V^T.
+A = \begin{pmatrix}Q & Q^{\bot}\end{pmatrix}\begin{pmatrix}U & 0 \\ 0 & I\end{pmatrix}\begin{pmatrix}\Sigma \\ 0\end{pmatrix}V^T.
 $$
 
 We see that this is the singular value decomposition of $A$ with singular values contained in $\Sigma$.

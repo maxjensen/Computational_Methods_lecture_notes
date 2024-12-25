@@ -175,14 +175,14 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="1.1_matrix_vector_norms.html">Matrix and vector norms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.2_floating_point_arithmetic.html">Floating point arithmetic</a></li>
-<li class="toctree-l1"><a class="reference internal" href="1.3_error_analysis.html">Principles of Backward Error Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.3_error_analysis.html">Backward Error Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.4_linear_system_error.html">The condition number of linear systems</a></li>
-<li class="toctree-l1"><a class="reference internal" href="1.5_complexity_notation.html">A brief survey of asymptotic notation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="1.6_numpy_and_data_layouts.html">Memory layout and Numpy arrays</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_complexity_notation.html">Asymptotic notation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_numpy_and_data_layouts.html">Memory layout and Numpy</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition and its Numerical Stability</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="2.1_lu_decomposition.html">Solving linear system with the LU Decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.1_lu_decomposition.html">LU Decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.2_lu_backward_error.html">Backward error of the LU decomposition and pivoting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.3_lu_backward_error_examples.html">Backward error of the LU decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.4_python_lu_decomposition.html">Implementing the LU decomposition in Python</a></li>
@@ -394,12 +394,12 @@
 \]</div>
 <p>Let <span class="math notranslate nohighlight">\(\hat{i}\)</span> be the row index for which the upper bound is attained. By choosing <span class="math notranslate nohighlight">\(x_j = \text{sign}~a_{\hat{i}j}\)</span> we have that <span class="math notranslate nohighlight">\(\|Ax\|_{\infty} = \max_i \sum_{j}|a_{ij}|\)</span>, which confirms that the upper bound can be attained.</p>
 <p><strong>Question 2:</strong></p>
-<p>For the matrix <span class="math notranslate nohighlight">\(A = \begin{bmatrix} 2 &amp; 3 \\ 0 &amp; 1\end{bmatrix}\)</span> compute <span class="math notranslate nohighlight">\(\|A|_p\)</span> for <span class="math notranslate nohighlight">\(p=1, 2, \infty, F\)</span>.</p>
+<p>For the matrix <span class="math notranslate nohighlight">\(A = \begin{pmatrix} 2 &amp; 3 \\ 0 &amp; 1\end{pmatrix}\)</span> compute <span class="math notranslate nohighlight">\(\|A|_p\)</span> for <span class="math notranslate nohighlight">\(p=1, 2, \infty, F\)</span>.</p>
 <p><strong>Solution:</strong></p>
 <p>We have <span class="math notranslate nohighlight">\(\|A|_1 = 4\)</span>, <span class="math notranslate nohighlight">\(\|A|_{\infty} = 5\)</span>, <span class="math notranslate nohighlight">\(\|A|_F = \sqrt{14}\)</span>. For <span class="math notranslate nohighlight">\(\|A\|_2\)</span> we compute the eigenvalues of</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-A^TA = \begin{bmatrix}4 &amp; 6\\ 6 &amp; 10\end{bmatrix},
+A^TA = \begin{pmatrix}4 &amp; 6\\ 6 &amp; 10\end{pmatrix},
 \end{split}\]</div>
 <p>giving us <span class="math notranslate nohighlight">\(\lambda_{1, 2} = 7 \pm 3\sqrt{5}\)</span>. Hence, <span class="math notranslate nohighlight">\(\|A\|_2 = \sqrt{7 + 3\sqrt{5}}\)</span>.</p>
 <p><strong>Question 3:</strong></p>

@@ -4,12 +4,12 @@ parts:
 - caption: Fundamentals
   chapters:
     - file: 1.1_matrix_vector_norms
-    - file: 1.2_floating_point_arithmetic.ipynb
+    - file: 1.2_floating_point_arithmetic
     - file: 1.3_error_analysis
     - file: 1.4_linear_system_error
     - file: 1.5_complexity_notation.md
-    - file: 1.6_numpy_and_data_layouts.ipynb
-- caption: LU Decomposition and its Numerical Stability
+    - file: 1.6_numpy_and_data_layouts
+- caption: LU Decomposition
   chapters:
     - file: 2.1_lu_decomposition.md
     - file: 2.2_lu_backward_error.md

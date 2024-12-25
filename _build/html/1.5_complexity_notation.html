@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>A brief survey of asymptotic notation &#8212; Computational Methods MATH0058 lecture notes</title>
+    <title>Asymptotic notation &#8212; Computational Methods MATH0058 lecture notes</title>
   
   
   
@@ -66,7 +66,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = '1.5_complexity_notation';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Memory layout and Numpy arrays" href="1.6_numpy_and_data_layouts.html" />
+    <link rel="next" title="Memory layout and Numpy" href="1.6_numpy_and_data_layouts.html" />
     <link rel="prev" title="The condition number of linear systems" href="1.4_linear_system_error.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -175,14 +175,14 @@
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="1.1_matrix_vector_norms.html">Matrix and vector norms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.2_floating_point_arithmetic.html">Floating point arithmetic</a></li>
-<li class="toctree-l1"><a class="reference internal" href="1.3_error_analysis.html">Principles of Backward Error Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.3_error_analysis.html">Backward Error Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.4_linear_system_error.html">The condition number of linear systems</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">A brief survey of asymptotic notation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="1.6_numpy_and_data_layouts.html">Memory layout and Numpy arrays</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Asymptotic notation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_numpy_and_data_layouts.html">Memory layout and Numpy</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition and its Numerical Stability</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="2.1_lu_decomposition.html">Solving linear system with the LU Decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.1_lu_decomposition.html">LU Decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.2_lu_backward_error.html">Backward error of the LU decomposition and pivoting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.3_lu_backward_error_examples.html">Backward error of the LU decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.4_python_lu_decomposition.html">Implementing the LU decomposition in Python</a></li>
@@ -353,7 +353,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>A brief survey of asymptotic notation</h1>
+    <h1>Asymptotic notation</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -376,8 +376,8 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="a-brief-survey-of-asymptotic-notation">
-<h1>A brief survey of asymptotic notation<a class="headerlink" href="#a-brief-survey-of-asymptotic-notation" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="asymptotic-notation">
+<h1>Asymptotic notation<a class="headerlink" href="#asymptotic-notation" title="Link to this heading">#</a></h1>
 <p>Throughout this module, we focus on the leading-order complexity of functions. Consider the polynomial</p>
 <div class="math notranslate nohighlight">
 \[
@@ -406,27 +406,28 @@ p(n) = 3n^3 + 5n^2 + 1.
 <p>for all <span class="math notranslate nohighlight">\(x \in B_\delta(y) := \{ x \in \mathbb{X} : | x - y | \leq \delta \} \)</span>, we write <span class="math notranslate nohighlight">\(g(x) = \mathcal{O}(f(x))\)</span> as <span class="math notranslate nohighlight">\(x \to y\)</span>.</p>
 </section>
 </div><p>In most cases cases <span class="math notranslate nohighlight">\(f\)</span> is chosen so that <span class="math notranslate nohighlight">\(f(x) \to 0\)</span> as <span class="math notranslate nohighlight">\(x \to \infty\)</span> (resp. <span class="math notranslate nohighlight">\(x \to y\)</span>).</p>
-<div class="proof example admonition" id="example-2">
-<p class="admonition-title"><span class="caption-number">Example 5 </span> (Highest-order coefficient)</p>
-<section class="example-content" id="proof-content">
-<p>For the polynomial above, we have</p>
-<div class="math notranslate nohighlight">
-\[
+<!--
+```{prf:example} Highest-order coefficient
+For the polynomial above, we have
+
+$$
 p(n) = \mathcal{O}(n^3).
-\]</div>
-<p>We might also write <span class="math notranslate nohighlight">\(p(n) = \mathcal{O}(5n^3)\)</span>, but the constant factor 5 is usually omitted since <span class="math notranslate nohighlight">\(\mathcal{O}\)</span>-notation ignores multiplicative constants unless they are of particular interest.</p>
-</section>
-</div><div class="proof example admonition" id="example-3">
-<p class="admonition-title"><span class="caption-number">Example 6 </span> (Highest-order coefficient)</p>
-<section class="example-content" id="proof-content">
-<p>Many examples arise from Taylor’s theorem. For instance, as <span class="math notranslate nohighlight">\(x \rightarrow 0\)</span>,</p>
-<div class="math notranslate nohighlight">
-\[
+$$
+
+We might also write $p(n) = \mathcal{O}(5n^3)$, but the constant factor 5 is usually omitted since $\mathcal{O}$-notation ignores multiplicative constants unless they are of particular interest.
+```
+
+```{prf:example} Highest-order coefficient
+Many examples arise from Taylor’s theorem. For instance, as $x \rightarrow 0$,
+
+$$
 e^{x} = 1 + x + \mathcal{O}(x^2),
-\]</div>
-<p>meaning the remainder term is on the order of <span class="math notranslate nohighlight">\(x^2\)</span>.</p>
-</section>
-</div><section id="python-skills">
+$$
+
+meaning the remainder term is on the order of $x^2$.
+```
+-->
+<section id="python-skills">
 <h2>Python skills<a class="headerlink" href="#python-skills" title="Link to this heading">#</a></h2>
 <p>Below is a simple Python demonstration that illustrates the concept of dominant terms and how we might empirically observe the difference in growth rates. While <span class="math notranslate nohighlight">\(\mathcal{O}\)</span>-notation is a mathematical concept, this code can give an intuitive feel for how, as input sizes grow, one term outpaces another.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">time</span>
@@ -537,7 +538,7 @@ e^{x} = 1 + x + \mathcal{O}(x^2),
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Memory layout and Numpy arrays</p>
+        <p class="prev-next-title">Memory layout and Numpy</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

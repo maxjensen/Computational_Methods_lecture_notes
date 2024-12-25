@@ -175,14 +175,14 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="1.1_matrix_vector_norms.html">Matrix and vector norms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.2_floating_point_arithmetic.html">Floating point arithmetic</a></li>
-<li class="toctree-l1"><a class="reference internal" href="1.3_error_analysis.html">Principles of Backward Error Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.3_error_analysis.html">Backward Error Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.4_linear_system_error.html">The condition number of linear systems</a></li>
-<li class="toctree-l1"><a class="reference internal" href="1.5_complexity_notation.html">A brief survey of asymptotic notation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="1.6_numpy_and_data_layouts.html">Memory layout and Numpy arrays</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_complexity_notation.html">Asymptotic notation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_numpy_and_data_layouts.html">Memory layout and Numpy</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition and its Numerical Stability</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="2.1_lu_decomposition.html">Solving linear system with the LU Decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.1_lu_decomposition.html">LU Decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.2_lu_backward_error.html">Backward error of the LU decomposition and pivoting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.3_lu_backward_error_examples.html">Backward error of the LU decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.4_python_lu_decomposition.html">Implementing the LU decomposition in Python</a></li>
@@ -652,12 +652,12 @@ A^{k}q^{(0)} = \sum_{j=1}^n\alpha_j\lambda_j^kx_j = \alpha_1\lambda_1^{k}\left(x
 \[
 S_m = A^{m}S.
 \]</div>
-<p>Denote by <span class="math notranslate nohighlight">\(Q^{(0)} = \begin{bmatrix}q_0^{(0)} &amp; q_1^{(0)} &amp; \dots &amp; q_k^{(0)}\end{bmatrix}\)</span> a unitary basis of <span class="math notranslate nohighlight">\(S\)</span>, and let <span class="math notranslate nohighlight">\(Q^{(m)}R^{(m)}\)</span> be the QR decomposition of <span class="math notranslate nohighlight">\(A^mQ^{(0)}\)</span>. To test convergence we compute</p>
+<p>Denote by <span class="math notranslate nohighlight">\(Q^{(0)} = \begin{pmatrix}q_0^{(0)} &amp; q_1^{(0)} &amp; \dots &amp; q_k^{(0)}\end{pmatrix}\)</span> a unitary basis of <span class="math notranslate nohighlight">\(S\)</span>, and let <span class="math notranslate nohighlight">\(Q^{(m)}R^{(m)}\)</span> be the QR decomposition of <span class="math notranslate nohighlight">\(A^mQ^{(0)}\)</span>. To test convergence we compute</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-\left[Q^{(m)}\right]^HAQ^{(m)} = \begin{bmatrix}B_{11} &amp; B_{12}\\
+\left[Q^{(m)}\right]^HAQ^{(m)} = \begin{pmatrix}B_{11} &amp; B_{12}\\
                                    B_{21} &amp; B_{22}
-                     \end{bmatrix}
+                     \end{pmatrix}
 \end{split}\]</div>
 <p>for some matrices <span class="math notranslate nohighlight">\(B_{ij}\)</span>, <span class="math notranslate nohighlight">\(i, j=1,2\)</span>.</p>
 <p>The subspace iteration converges to an invariant subspace also for each <span class="math notranslate nohighlight">\(j\leq k\)</span>. Hence, we have a sequence of approximate invariant subspaces for <span class="math notranslate nohighlight">\(j\leq k\)</span> that all converge to invariant subspaces. It follows that</p>
