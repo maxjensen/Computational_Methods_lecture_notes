@@ -613,6 +613,106 @@ x\odot y = (x \cdot y)(1+\epsilon).
 \]</div>
 <p class="sd-card-text">This means the relative error when mapping a real number to its floating point representation is accurate to approximately 15 significant digits.</p>
 </div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Consider a floating point system with base <span class="math notranslate nohighlight">\(b=2\)</span>, precision <span class="math notranslate nohighlight">\(p=5\)</span>, <span class="math notranslate nohighlight">\(e_{\min}=-6\)</span>, and <span class="math notranslate nohighlight">\(e_{\max}=6\)</span>.</p>
+<ol class="arabic">
+<li><p>Determine the machine epsilon <span class="math notranslate nohighlight">\(\epsilon_{mach}\)</span> for this system.</p></li>
+<li><p>Show that any real number <span class="math notranslate nohighlight">\(x\)</span> (within the representable range) can be approximated by a floating point number <span class="math notranslate nohighlight">\(fl(x)\)</span> such that:</p>
+<div class="math notranslate nohighlight">
+\[
+   |x - fl(x)| \leq \epsilon_{mach} |x|.
+   \]</div>
+</li>
+</ol>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<ol class="arabic">
+<li><p class="sd-card-text">By definition, <span class="math notranslate nohighlight">\(\epsilon_{mach} = \tfrac{1}{2} b^{1 - p}\)</span>. Since <span class="math notranslate nohighlight">\(b=2\)</span> and <span class="math notranslate nohighlight">\(p=5\)</span>, we have</p>
+<div class="math notranslate nohighlight">
+\[
+   \epsilon_{mach} = \tfrac{1}{2} \cdot 2^{1-5} = \tfrac{1}{2} \cdot 2^{-4} = 2^{-5} = \frac{1}{32}.
+   \]</div>
+</li>
+<li><p class="sd-card-text">For any real number <span class="math notranslate nohighlight">\(x\)</span> in the representable range, the floating point number <span class="math notranslate nohighlight">\(fl(x)\)</span> is chosen as a closest number in the given floating point set. By definition of the rounding rule,</p>
+<div class="math notranslate nohighlight">
+\[
+   |x - fl(x)| \leq \tfrac{1}{2}\text{(spacing at scale of }x).
+   \]</div>
+<p class="sd-card-text">Since the spacing around a number <span class="math notranslate nohighlight">\(x\)</span> is proportional to <span class="math notranslate nohighlight">\(|x| b^{1-p}\)</span>, we have</p>
+<div class="math notranslate nohighlight">
+\[
+   |x - fl(x)| \leq \epsilon_{mach} |x|.
+   \]</div>
+<p class="sd-card-text">This shows that the relative error in representing <span class="math notranslate nohighlight">\(x\)</span> as <span class="math notranslate nohighlight">\(fl(x)\)</span> is bounded by <span class="math notranslate nohighlight">\(\epsilon_{mach}\)</span>.</p>
+</li>
+</ol>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Consider floating point arithmetic in base <span class="math notranslate nohighlight">\(b\)</span> with precision <span class="math notranslate nohighlight">\(p\)</span>. Assume <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> are floating point numbers that do not differ too drastically in magnitude. Show that the computed sum <span class="math notranslate nohighlight">\(fl(x \oplus y)\)</span> satisfies</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{|(x+y)-fl(x \oplus y)|}{|x+y|} \leq \epsilon_{mach}
+\]</div>
+<p>and discuss the limitations of this error bound when <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> differ by orders of magnitude (catastrophic cancellation).</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">By the Fundamental Theorem of Floating Point Arithmetic, any floating point operation on representable numbers <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> can be written as</p>
+<div class="math notranslate nohighlight">
+\[
+x \oplus y = (x+y)(1+\epsilon),
+\]</div>
+<p class="sd-card-text">with <span class="math notranslate nohighlight">\(|\epsilon| \leq \epsilon_{mach}\)</span>. Thus, for addition,</p>
+<div class="math notranslate nohighlight">
+\[
+|fl(x \oplus y) - (x+y)| = |(x+y)\epsilon| \leq \epsilon_{mach}|x+y|.
+\]</div>
+<p class="sd-card-text">Hence,</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{|(x+y)-fl(x \oplus y)|}{|x+y|}\leq \epsilon_{mach}.
+\]</div>
+<p class="sd-card-text">This ensures that addition of two numbers of similar magnitude is highly accurate. However, when one number is much larger than the other, or when <span class="math notranslate nohighlight">\(x \approx -y\)</span> causing nearly complete cancellation, the relative error bound with respect to the smaller or nearly cancelling parts of the sum can be large, leading to loss of significant digits (catastrophic cancellation). While the overall bound still holds in an absolute sense, it may not be meaningful for assessing accuracy in such scenarios.</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Consider a floating point system with base <span class="math notranslate nohighlight">\(b=10\)</span>, precision <span class="math notranslate nohighlight">\(p=3\)</span>, and exponent range <span class="math notranslate nohighlight">\(e_{\min}=-2\)</span>, <span class="math notranslate nohighlight">\(e_{\max}=2\)</span>. Given a real number <span class="math notranslate nohighlight">\(x=1.23456\)</span>, determine its floating point representation <span class="math notranslate nohighlight">\(fl(x)\)</span> and estimate the relative error <span class="math notranslate nohighlight">\(\frac{|x-fl(x)|}{|x|}\)</span>. Compare your computed relative error with <span class="math notranslate nohighlight">\(\epsilon_{mach}\)</span>.</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<ol class="arabic">
+<li><p class="sd-card-text"><strong>Floating Point Representation:</strong> With <span class="math notranslate nohighlight">\(p=3\)</span>, we keep three significant digits. Normalise <span class="math notranslate nohighlight">\(x\)</span> to the form <span class="math notranslate nohighlight">\(d_1.d_2d_3 \times 10^{e}\)</span>: Since <span class="math notranslate nohighlight">\(x=1.23456\)</span>, we look at the first three digits and round if needed. The fourth digit is a 4, which does not round the third digit up. Thus,</p>
+<div class="math notranslate nohighlight">
+\[
+   fl(x) = 1.23 \times 10^{0}.
+   \]</div>
+</li>
+<li><p class="sd-card-text"><strong>Machine Epsilon:</strong> By definition,</p>
+<div class="math notranslate nohighlight">
+\[
+   \epsilon_{mach} = \frac{1}{2}b^{1-p} = \frac{1}{2}\times 10^{1-3} = \frac{1}{2}\times 10^{-2} = 0.005.
+   \]</div>
+</li>
+<li><p class="sd-card-text"><strong>Relative Error:</strong> The actual difference is</p>
+<div class="math notranslate nohighlight">
+\[
+   |x - fl(x)| = |1.23456 - 1.23| = 0.00456.
+   \]</div>
+<p class="sd-card-text">Therefore,</p>
+<div class="math notranslate nohighlight">
+\[
+   \frac{|x - fl(x)|}{|x|} = \frac{0.00456}{1.23456} \approx 0.00369.
+   \]</div>
+<p class="sd-card-text">This is less than <span class="math notranslate nohighlight">\(\epsilon_{mach} = 0.005\)</span>, confirming that the error bound provided by machine epsilon accurately describes the worst-case relative rounding error near this scale.</p>
+</li>
+</ol>
+</div>
 </details></section>
 </section>
 

@@ -34,9 +34,9 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=b4b7a797" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- So that users can add custom icons -->
@@ -369,6 +369,7 @@
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-least-squares-problems-with-the-qr-decomposition">Solving least-squares problems with the QR decomposition</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-least-squares-problems-with-the-svd">Solving least-squares problems with the SVD</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#constraints">Constraints</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-a-least-squares-problem-with-qr-decomposition">Solving a least-squares problem with QR decomposition</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-a-least-squares-problem-with-svd">Solving a least-squares problem with SVD</a></li>
@@ -525,6 +526,31 @@ A^{\dagger} := V \begin{bmatrix} \hat{\Sigma}^{-1} &amp; 0 \\ 0 &amp; 0 \end{bma
 <p>where <span class="math notranslate nohighlight">\(\hat{\Sigma} \in \mathbb{R}^{r \times r}\)</span> and <span class="math notranslate nohighlight">\(r = \text{rank}(A)\)</span>.</p>
 </section>
 </div><p>The pseudo-inverse of <span class="math notranslate nohighlight">\(A\)</span> is a generalisation of the inverse of <span class="math notranslate nohighlight">\(A\)</span>. In the same way that <span class="math notranslate nohighlight">\(A^{-1}b\)</span> solves the linear system <span class="math notranslate nohighlight">\(Ax=b\)</span> for a square matrix <span class="math notranslate nohighlight">\(A\)</span>, the pseudo-inverse <span class="math notranslate nohighlight">\(A^{\dagger}\)</span> applied to <span class="math notranslate nohighlight">\(b\)</span> solves the least-squares minimisation problem <span class="math notranslate nohighlight">\(\|Ax-b\|_2\)</span> for rectangular <span class="math notranslate nohighlight">\(A\)</span>.</p>
+</section>
+<section id="constraints">
+<h2>Constraints<a class="headerlink" href="#constraints" title="Link to this heading">#</a></h2>
+<p>Least-squares problems often come with equality constraints or inequality constraints or a combination of the two. We shall briefly consider equality constraints here. Then the problem is formulated as</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{x} \in \text{arg}\min_{x \in \mathbb{R}^n \atop B x = d} \|Ax - b\|_2.
+\]</div>
+<p>Suppose that a (particular) solution <span class="math notranslate nohighlight">\(x_p\)</span> of <span class="math notranslate nohighlight">\(B x_p = d\)</span> exists and let <span class="math notranslate nohighlight">\(\{ y_1, \ldots, y_k \} \subset \mathbb{R}^n\)</span> be a basis of <span class="math notranslate nohighlight">\(\ker B\)</span>, so that solutions of <span class="math notranslate nohighlight">\(B x_p = d\)</span> take the general form</p>
+<div class="math notranslate nohighlight">
+\[
+x_p + \sum_{i = 1}^k \alpha_i y_i, \quad \alpha_1, \ldots, \alpha_k \in \mathbb{R}.
+\]</div>
+<p>Hence with</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{\alpha} \in \text{arg}\min_{\alpha \in \mathbb{R}^k} \Big\|A \Big(x_p + \sum_{i = 1}^k \alpha_i y_i \Big) - b \Big\|_2
+\]</div>
+<p>we have</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{x} = x_p + \sum_{i = 1}^k \hat{\alpha}_i y_i,
+\]</div>
+<p>meaning that we can reduce the constrained problem to an unconstrained one and apply the QR and SVD techniques outlined above. We note that alternative techniques exist to directly solve the constrained least-squares optimisation without the construction of a basis of the kernel.</p>
+<p>TODO: Rephrase section and add CVXopt example to Python skills section</p>
 </section>
 <section id="python-skills">
 <h2>Python skills<a class="headerlink" href="#python-skills" title="Link to this heading">#</a></h2>
@@ -843,7 +869,7 @@ s : V \times V \to \mathbb{K}
 <p class="sd-card-text">Let <span class="math notranslate nohighlight">\((V, \langle \cdot, \cdot \rangle)\)</span> be an inner product space. Then, the mapping <span class="math notranslate nohighlight">\(v \mapsto \sqrt{\langle v, v \rangle}\)</span> defines a norm.</p>
 </div>
 <div class="proof example admonition" id="example-3">
-<p class="admonition-title"><span class="caption-number">Example 7 </span></p>
+<p class="admonition-title"><span class="caption-number">Example 8 </span></p>
 <section class="example-content" id="proof-content">
 <p class="sd-card-text">(a) Let <span class="math notranslate nohighlight">\(A\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^{n \times n}\)</span> be a symmetric, positive definite matrix. Then the mapping</p>
 <div class="math notranslate nohighlight">
@@ -915,7 +941,7 @@ A x = b
 <p class="sd-card-text">The matrix <span class="math notranslate nohighlight">\(A\)</span> is positive definite and therefore invertible.</p>
 </div>
 <div class="proof example admonition" id="example-4">
-<p class="admonition-title"><span class="caption-number">Example 8 </span></p>
+<p class="admonition-title"><span class="caption-number">Example 9 </span></p>
 <section class="example-content" id="proof-content">
 <p class="sd-card-text">Let <span class="math notranslate nohighlight">\(\Omega = (-1,1)^2\)</span> be non-empty, open and <span class="math notranslate nohighlight">\(V = L^2(\Omega, \mathbb{R})\)</span>. Let <span class="math notranslate nohighlight">\(P = \mathcal{P}_{1,2}\)</span> be the space of <span class="math notranslate nohighlight">\(2\)</span>-variate polynomials with degrees less than or equal to <span class="math notranslate nohighlight">\(1\)</span>. The space <span class="math notranslate nohighlight">\(\mathcal{P}_{1,2}\)</span> has the basis</p>
 <div class="math notranslate nohighlight">
@@ -1066,7 +1092,7 @@ p_{1,2} = t_1 \cdot \Bigl( \frac{3}{2} t_2^2 - \frac{1}{2} \Bigr) = \alpha_{1,2}
 </div>
 <p class="sd-card-text">Therefore the <span class="math notranslate nohighlight">\(p_{jk}\)</span> are a basis of <span class="math notranslate nohighlight">\(\mathcal{Q}_{2,2}\)</span>. The matrix <span class="math notranslate nohighlight">\(A\)</span> above is diagonal if the <span class="math notranslate nohighlight">\(p_{jk}\)</span> are orthogonal.</p>
 <div class="proof example admonition" id="example-5">
-<p class="admonition-title"><span class="caption-number">Example 9 </span></p>
+<p class="admonition-title"><span class="caption-number">Example 10 </span></p>
 <section class="example-content" id="proof-content">
 <p class="sd-card-text">Let <span class="math notranslate nohighlight">\(V = L^2((-1,1)^2, \mathbb{R})\)</span>. Compute the best approximation <span class="math notranslate nohighlight">\(p\)</span> to</p>
 <div class="math notranslate nohighlight">
@@ -1189,6 +1215,7 @@ p(t_1, t_2) = \frac{15}{4} \Bigl( - \frac{12}{\pi^3} \Bigr) \; t_1 \; \Bigl( \fr
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-least-squares-problems-with-the-qr-decomposition">Solving least-squares problems with the QR decomposition</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-least-squares-problems-with-the-svd">Solving least-squares problems with the SVD</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#constraints">Constraints</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-a-least-squares-problem-with-qr-decomposition">Solving a least-squares problem with QR decomposition</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-a-least-squares-problem-with-svd">Solving a least-squares problem with SVD</a></li>

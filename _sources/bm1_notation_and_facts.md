@@ -30,7 +30,7 @@
 - $\mathcal{I}$: Integral operator.
 - $\langle f, g \rangle$: The inner product of functions $f$ and $g$.
 - $L_k$: The $k$-th Lagrange basis polynomial.
- 
+
 ## Facts
 
 - **Geometric series**: $\sum_{k=0}^n x^k = \frac{1-x^{n+1}}{1-x}$ for $x \neq 1$. Converges to $\frac{1}{1-x}$ if $|x| < 1$.
@@ -40,7 +40,7 @@
 - **Mean value theorem**: If $f \in C[a,b]$ and differentiable on $(a,b)$, there exists a $\xi \in (a,b)$ such that $f'(c) = \frac{f(b) - f(a)}{b-a}$.
 - **Taylor's theorem**: For $f \in C^{n+1}[a,b]$ and $x_0, x \in [a,b]$, there's a $\xi$ between $x_0$ and $x$ with $f(x) = f(x_0) + f'(x_0)(x-x_0) + \frac{f''(x_0)}{2!}(x-x_0)^2 + \ldots + \frac{f^{(n)}(x_0)}{n!}(x-x_0)^n + \frac{f^{(n+1)}(\xi)}{(n+1)!}(x-x_0)^{n+1}.$
 - **Fundamental theorem of calculus:** If $f$ is continuous on $[a, b]$, then $\int_a^b f(x) dx = F(b) - F(a)$, where $f$ is the derivative of $F$.
-- **Scalar product of vectors**: The scalar product of vectors $x$ and $y$ is $x^Ty$.
+- **Scalar product of vectors**: The canonical scalar product of vectors $x$ and $y$ is $x^Ty$.
 - **Outer product:** The outer product of two vectors $x$ and $y$, denoted as $x \otimes y$, is a matrix where the element in the $i$-th row and $j$-th column is given by $x_i y_j$. Thus, $x \otimes y = xy^T$.
 - **Orthogonality**: Two vectors are orthogonal if their scalar product is zero.
 - **Orthogonal complement**: The orthogonal complement of a subspace $V$ in $\mathbb{R}^n$ is the set of all vectors in $\mathbb{R}^n$ orthogonal to every vector in $V$.
@@ -48,7 +48,7 @@
 - **Basis and dimension**: A basis of a vector space is a linearly independent set of vectors that spans the space. The number of vectors in a basis is the dimension of the space.
 - **Rank of a matrix**: The rank of a matrix is the maximum number of linearly independent rows or columns.
 - **Eigenvectors and eigenvalues**: For square matrix $A$, $v \neq 0$ is an eigenvector if $Av = \lambda v$ for some scalar $\lambda$ (the eigenvalue).
-- **Characteristic polynomial**: The characteristic polynomial of matrix $A$ is $\det(A - \lambda I)$. Its roots are the eigenvalues of $A$.
+- **Characteristic polynomial**: The characteristic polynomial of the matrix $A$ is $\det(A - \lambda I)$. Its roots are the eigenvalues of $A$.
 - **Eigenvalues of triangular matrix**: Eigenvalues of a triangular matrix are its diagonal elements.
 - **Determinant and eigenvalues**: The determinant of a matrix $A$ is the product of its eigenvalues.
 - **Inverse**: A matrix $A$ is invertible if and only if its determinant is non-zero. The inverse of $A$ is $A^{-1}$ such that $AA^{-1} = A^{-1}A = I$

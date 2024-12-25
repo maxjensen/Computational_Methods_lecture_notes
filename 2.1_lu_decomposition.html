@@ -34,9 +34,9 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=b4b7a797" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- So that users can add custom icons -->
@@ -364,14 +364,11 @@
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-idea">Basic idea</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-an-upper-triangular-system-of-equations">Solving an upper triangular system of equations</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deriving-the-lu-decomposition">Deriving the LU Decomposition</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-review-of-gaussian-elimination">A review of Gaussian elimination</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#formalising-gaussian-elimination">Formalising Gaussian elimination</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-an-upper-triangular-system">Solving an upper triangular system</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deriving-the-lu-decomposition">Deriving the LU Decomposition</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-complete-algorithm">The complete algorithm</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cost-of-the-lu-decomposition">Cost of the LU Decomposition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cost-of-lu-decomposition">Cost of LU Decomposition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#self-check-questions">Self-check Questions</a></li>
 </ul>
             </nav>
         </div>
@@ -387,8 +384,7 @@
 <h1>Solving linear system with the LU Decomposition<a class="headerlink" href="#solving-linear-system-with-the-lu-decomposition" title="Link to this heading">#</a></h1>
 <p>Solving linear systems of equations is among the most fundamental operations in a computer. Many problems (even
 nonlinear ones) eventually reduce to sequences of linear system solves.</p>
-<p>Most students learn about Gaussian elimination in their first Calculus modules. The LU decomposition is simply a more
-organised way to perform Gaussian elimination.</p>
+<p>Most students learn about <a class="reference external" href="https://en.wikipedia.org/wiki/Gaussian_elimination">Gaussian elimination</a>, which is also known as row reduction, in school. The LU decomposition is simply a more organised way to perform Gaussian elimination.</p>
 <section id="basic-idea">
 <h2>Basic idea<a class="headerlink" href="#basic-idea" title="Link to this heading">#</a></h2>
 <p>We consider the linear system of equations</p>
@@ -396,95 +392,93 @@ organised way to perform Gaussian elimination.</p>
 \[
 Ax = b
 \]</div>
-<p>with <span class="math notranslate nohighlight">\(A\in\mathbb{R}^{n\times n}\)</span>. LU Decomposition works in the same way for complex matrices. So this is not a
-restriction. We also have <span class="math notranslate nohighlight">\(x, b\in\mathbb{R}^n\)</span>. Throughout we assume that <span class="math notranslate nohighlight">\(A\)</span> is nonsingular.</p>
-<p>Many techniques in Numerical Linear Algebra are based on finding suitable decompositions of matrices into products of
-simpler matrices. The same applies to the LU Decomposition.</p>
-<p>Let</p>
+<p>with <span class="math notranslate nohighlight">\(A\in\mathbb{R}^{n\times n}\)</span>. Throughout, assume that <span class="math notranslate nohighlight">\(A\)</span> is nonsingular. The LU decomposition applies similarly to complex matrices.</p>
+<p>Many techniques in numerical linear algebra rely on factoring a matrix into products of simpler matrices. The LU decomposition is one such factorisation:</p>
 <div class="math notranslate nohighlight">
 \[
 A = LU
 \]</div>
-<p>be a decomposition of <span class="math notranslate nohighlight">\(A\)</span> into the product of two matrices <span class="math notranslate nohighlight">\(L\)</span> and <span class="math notranslate nohighlight">\(U\)</span>.</p>
-<p>We obtain the new system</p>
+<p>be a decomposition of <span class="math notranslate nohighlight">\(A\)</span> into the product of two matrices <span class="math notranslate nohighlight">\(L\)</span> and <span class="math notranslate nohighlight">\(U\)</span>. Substituting this into the system gives</p>
 <div class="math notranslate nohighlight">
 \[
 LUx = b
 \]</div>
-<p>To solve this system we now have to solve two matrix problems,
-namely</p>
+<p>To solve this system we now have to solve two matrix problems:</p>
 <div class="math notranslate nohighlight">
 \[
-Ly = b
+Ly = b, \qquad Ux = y.
 \]</div>
-<p>and</p>
-<div class="math notranslate nohighlight">
-\[
-Ux = y.
-\]</div>
-<p>This seems cumbersome. Instead of one linear system. We now have two. However, the trick is to choose a decomposition
+<p>This seems cumbersome. Instead of one linear system, we now have two. However, the trick is to choose a decomposition
 that makes solving linear systems with <span class="math notranslate nohighlight">\(L\)</span> and <span class="math notranslate nohighlight">\(U\)</span> particularly easy.</p>
-<p>In the LU decomposition, <span class="math notranslate nohighlight">\(L\)</span> will be a lower triangular matrix; that is, nonzero elements are only on the diagonal and
-below the diagonal. <span class="math notranslate nohighlight">\(U\)</span> will correspondingly be an upper triangular matrix.</p>
+<p>In LU decomposition, <span class="math notranslate nohighlight">\(L\)</span> is a lower triangular matrix, meaning its nonzero elements are confined to the diagonal and the entries below it. Similarly, <span class="math notranslate nohighlight">\(U\)</span> is an upper triangular matrix, where nonzero elements appear on the diagonal and above it.</p>
 </section>
-<section id="solving-an-upper-triangular-system-of-equations">
-<h2>Solving an upper triangular system of equations<a class="headerlink" href="#solving-an-upper-triangular-system-of-equations" title="Link to this heading">#</a></h2>
-<p>Assume we have upper triangular <span class="math notranslate nohighlight">\(U\)</span>. We want to solve <span class="math notranslate nohighlight">\(Ux = y\)</span>. The equations are</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{aligned}
-u_{n,n}x_n &amp;= y_n\\
-u_{n-1,n-1}x_{n-1} + u_{n-1, x}x_n &amp;= y_{n-1}\\
-\dots &amp;= \dots\\
-\sum_{j=i}^n u_{i, j}x_j &amp;= y_i.
-\end{aligned}
-\end{split}\]</div>
-<p>Hence, we start by solving for <span class="math notranslate nohighlight">\(x_n\)</span> to obtain <span class="math notranslate nohighlight">\(x_n = y_n / u_{n, n}\)</span> and then work our way up so that for <span class="math notranslate nohighlight">\(x_i\)</span> we have</p>
+<section id="solving-an-upper-triangular-system">
+<h2>Solving an upper triangular system<a class="headerlink" href="#solving-an-upper-triangular-system" title="Link to this heading">#</a></h2>
+<p>Consider an upper triangular system <span class="math notranslate nohighlight">\(U x = y\)</span>. Its equations can be written as</p>
 <div class="math notranslate nohighlight">
 \[
-x_i = \frac{y_i - \sum_{j=i + 1}^n u_{i, j}x_j}{u_{i, i}}.
+\sum_{j=i}^n u_{i,j} x_j = y_i,
 \]</div>
+<p>for <span class="math notranslate nohighlight">\(i = n, n-1, \dots, 1\)</span>. This leads to the well-known back-substitution procedure:</p>
+<ul>
+<li><p>First, find <span class="math notranslate nohighlight">\(x_n = y_n / u_{n,n}\)</span>.</p></li>
+<li><p>Then, for each  i  from  n-1  down to 1,</p>
+<div class="math notranslate nohighlight">
+\[
+  x_i = \frac{y_i - \sum_{j=i+1}^n u_{i,j} x_j}{u_{i,i}}.
+  \]</div>
+</li>
+</ul>
+<p>The following fact ensures that there is no division by zero in the back-substitution procedure if <span class="math notranslate nohighlight">\(U\)</span> is invertible.</p>
+<div class="admonition-fact-invertible-triangular-systems admonition">
+<p class="admonition-title">Fact: Invertible triangular systems</p>
+<p>A triangular matrix is invertible if and only if its diagonal elements are non-zero.</p>
+</div>
 <p>What is the cost of this triangular solve? We count the number of additions, subtractions, multiplications, and
 divisions.</p>
-<p>To obtain <span class="math notranslate nohighlight">\(x_i\)</span>, we have <span class="math notranslate nohighlight">\(n-i\)</span> multiplications, <span class="math notranslate nohighlight">\(n-i-1\)</span> additions, one subtraction (apart from the expression for <span class="math notranslate nohighlight">\(x_n\)</span>)
-and one division. Hence, the overall number <span class="math notranslate nohighlight">\(ops\)</span> of operations is</p>
+<ul>
+<li><p>For each <span class="math notranslate nohighlight">\(i\)</span>, there are <span class="math notranslate nohighlight">\(n - i\)</span> multiplications and <span class="math notranslate nohighlight">\(n - i - 1\)</span> additions, plus one subtraction and one division.</p></li>
+<li><p>Hence, the overall number <span class="math notranslate nohighlight">\(ops\)</span> of operations is</p>
 <div class="math notranslate nohighlight">
 \[
-ops = \sum_{i=1}^n [(n-i) + (n-i-1) + 1 + 1] = \sum_{i=1}^n [2 (n-i) + 1] = n^2.
-\]</div>
+  ops = \sum_{i=1}^n [(n-i) + (n-i-1) + 1 + 1] = \sum_{i=1}^n [2 (n-i) + 1] = n^2.
+  \]</div>
+</li>
+</ul>
+<p>Thus, triangular solves are efficient and form the backbone of methods like LU decomposition for solving large linear systems.</p>
 </section>
 <section id="deriving-the-lu-decomposition">
 <h2>Deriving the LU Decomposition<a class="headerlink" href="#deriving-the-lu-decomposition" title="Link to this heading">#</a></h2>
-<p>We still don’t know how to compute the LU decomposition itself. This will be done in the following.</p>
-<section id="a-review-of-gaussian-elimination">
-<h3>A review of Gaussian elimination<a class="headerlink" href="#a-review-of-gaussian-elimination" title="Link to this heading">#</a></h3>
-<p>Consider the following <span class="math notranslate nohighlight">\(3\times 3\)</span> linear system of equations</p>
+<p>As warm-up, you may find it convenient to review the following example first:</p>
+<div class="proof example admonition" id="example-0">
+<p class="admonition-title"><span class="caption-number">Example 7 </span> (Gaussian elimination of the <span class="math notranslate nohighlight">\(3\times 3\)</span> linear system)</p>
+<section class="example-content" id="proof-content">
 <div class="math notranslate nohighlight">
 \[\begin{split}
-\begin{bmatrix}
+\begin{pmatrix}
 a_{11} &amp; a_{12} &amp; a_{13}\\
 a_{21} &amp; a_{22} &amp; a_{23}\\
 a_{31} &amp; a_{32} &amp; a_{33}
-\end{bmatrix}
-\begin{bmatrix}
+\end{pmatrix}
+\begin{pmatrix}
 x_1\\ x_2 \\ x_3
-\end{bmatrix}
-= \begin{bmatrix}b_1 \\ b_2 \\ b_3\end{bmatrix}.
+\end{pmatrix}
+= \begin{pmatrix}b_1 \\ b_2 \\ b_3\end{pmatrix}.
 \end{split}\]</div>
 <p>We want to transform this system into an upper triangular system. In the first step, we multiply the first row with
 <span class="math notranslate nohighlight">\(\ell_{21} = \frac{a_{21}}{a_{11}}\)</span> and subtract from the second row to obtain the
 modified system</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-\begin{bmatrix}
+\begin{pmatrix}
 a_{11} &amp; a_{12} &amp; a_{13}\\
 0 &amp; \tilde{a}_{22} &amp; \tilde{a}_{23}\\
 a_{31} &amp; a_{32} &amp; a_{33}
-\end{bmatrix}
-\begin{bmatrix}
+\end{pmatrix}
+\begin{pmatrix}
 x_1\\ x_2 \\ x_3
-\end{bmatrix}
-= \begin{bmatrix}b_1 \\ \tilde{b}_2 \\ b_3\end{bmatrix}
+\end{pmatrix}
+= \begin{pmatrix}b_1 \\ \tilde{b}_2 \\ b_3\end{pmatrix}
 \end{split}\]</div>
 <p>with</p>
 <div class="math notranslate nohighlight">
@@ -495,37 +489,34 @@ x_1\\ x_2 \\ x_3
 the third row to obtain</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-\begin{bmatrix}
+\begin{pmatrix}
 a_{11} &amp; a_{12} &amp; a_{13}\\
 0 &amp; \tilde{a}_{22} &amp; \tilde{a}_{23}\\
 0 &amp; \tilde{a}_{32} &amp; \tilde{a}_{33}
-\end{bmatrix}
-\begin{bmatrix}
+\end{pmatrix}
+\begin{pmatrix}
 x_1\\ x_2 \\ x_3
-\end{bmatrix}
-= \begin{bmatrix}b_1 \\ \tilde{b}_2 \\ \tilde{b}_3\end{bmatrix}.
+\end{pmatrix}
+= \begin{pmatrix}b_1 \\ \tilde{b}_2 \\ \tilde{b}_3\end{pmatrix}.
 \end{split}\]</div>
 <p>We now continue in the same way with the bottom right matrix. Define the element <span class="math notranslate nohighlight">\(\ell_{32} = \frac{\tilde{a}
 _{32}}{\tilde{a}_{22}}\)</span>, multiply the second row with it and subtract from the third row, giving at the end an upper
 triangular system of the form</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-\begin{bmatrix}
+\begin{pmatrix}
 a_{11} &amp; a_{12} &amp; a_{13}\\
 0 &amp; \tilde{a}_{22} &amp; \tilde{a}_{23}\\
 0 &amp; 0 &amp; \hat{a}_{33}
-\end{bmatrix}
-\begin{bmatrix}
+\end{pmatrix}
+\begin{pmatrix}
 x_1\\ x_2 \\ x_3
-\end{bmatrix}
-= \begin{bmatrix}b_1 \\ \tilde{b}_2 \\ \hat{b}_3\end{bmatrix}.
+\end{pmatrix}
+= \begin{pmatrix}b_1 \\ \tilde{b}_2 \\ \hat{b}_3\end{pmatrix}.
 \end{split}\]</div>
 <p>We can now easily solve this system by backward substitution to compute first <span class="math notranslate nohighlight">\(x_3\)</span>, then <span class="math notranslate nohighlight">\(x_2\)</span>, and finally <span class="math notranslate nohighlight">\(x_1\)</span>.</p>
 </section>
-</section>
-<section id="formalising-gaussian-elimination">
-<h2>Formalising Gaussian elimination<a class="headerlink" href="#formalising-gaussian-elimination" title="Link to this heading">#</a></h2>
-<p>We now introduce a different way of writing Gaussian elimination
+</div><p>We now introduce a different way of writing Gaussian elimination
 that will directly lead us to the LU decomposition.</p>
 <p>The key to Gaussian elimination is the subtraction of the multiple of one row from another row. Define</p>
 <div class="math notranslate nohighlight">
@@ -593,15 +584,37 @@ entry of <span class="math notranslate nohighlight">\(y\)</span> since the matri
 divide by <span class="math notranslate nohighlight">\(L_{ii}\)</span>.</p>
 <p>We then solve <span class="math notranslate nohighlight">\(Ux=b\)</span> by backward substitution.</p>
 </section>
-<section id="cost-of-the-lu-decomposition">
-<h2>Cost of the LU Decomposition<a class="headerlink" href="#cost-of-the-lu-decomposition" title="Link to this heading">#</a></h2>
-<p>We have already established that a triangular solve costs <span class="math notranslate nohighlight">\(\mathcal{O}(n^2)\)</span> operations. For the computation of the
-decomposition <span class="math notranslate nohighlight">\(A=LU\)</span> an operation count gives a cost of <span class="math notranslate nohighlight">\(\frac{2}{3}n^3 + O(n^2)\)</span> operations. Hence, by far the
-dominating cost is the LU decomposition itself. Once we have computed it the forward and backward solves are relatively
-much cheaper. If we want to solve many linear systems where the matrix <span class="math notranslate nohighlight">\(A\)</span> never changes but the right-hand side <span class="math notranslate nohighlight">\(b\)</span>
-changes, we only need to compute the <span class="math notranslate nohighlight">\(LU\)</span> decomposition once and can then forward and backward solve easily in each
-step.</p>
+<section id="cost-of-lu-decomposition">
+<h2>Cost of LU Decomposition<a class="headerlink" href="#cost-of-lu-decomposition" title="Link to this heading">#</a></h2>
+<p>We have established that solving a triangular system requires <span class="math notranslate nohighlight">\(\mathcal{O}(n^2)\)</span> operations. For computing the decomposition <span class="math notranslate nohighlight">\(A = LU\)</span>, an operation count yields a cost of <span class="math notranslate nohighlight">\(\frac{2}{3}n^3 + \mathcal{O}(n^2)\)</span> operations. Thus, the dominant computational cost lies in the LU decomposition itself. Once the decomposition is computed, the forward and backward substitution steps are comparatively inexpensive.</p>
+<p>This efficiency becomes particularly advantageous when solving multiple linear systems where the matrix <span class="math notranslate nohighlight">\(A\)</span> remains constant but the right-hand side <span class="math notranslate nohighlight">\(b\)</span> changes. In such cases, the <span class="math notranslate nohighlight">\(LU\)</span> decomposition is computed only once, and subsequent solutions require only the forward and backward substitutions, which can be performed efficiently.</p>
 </section>
+<section id="self-check-questions">
+<h2>Self-check Questions<a class="headerlink" href="#self-check-questions" title="Link to this heading">#</a></h2>
+<div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>A triangular matrix is invertible if and only if its diagonal elements are non-zero.</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">(⇒) Assume that a triangular matrix <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{n \times n}\)</span> is invertible. An invertible matrix has a non-zero determinant. For a triangular matrix, whether upper or lower, the determinant is the product of its diagonal elements. Thus, if <span class="math notranslate nohighlight">\(A\)</span> is invertible, its determinant is non-zero. This implies that each diagonal element must be non-zero.</p>
+<p class="sd-card-text">(⇐) Now assume that all diagonal elements of a triangular matrix <span class="math notranslate nohighlight">\(A\)</span> are non-zero. The determinant of a triangular matrix is the product of its diagonal entries. Since none of these entries is zero, their product is also non-zero. Hence, <span class="math notranslate nohighlight">\(\det(A) \neq 0\)</span>. A non-zero determinant implies that <span class="math notranslate nohighlight">\(A\)</span> is invertible.</p>
+<p class="sd-card-text">Comment: There are other valid methods to prove the result. For example one can argue with the linear independence of the columns.</p>
+</div>
+</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+</div>
+</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+</div>
+</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+</div>
+</details></section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -670,14 +683,11 @@ step.</p>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-idea">Basic idea</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-an-upper-triangular-system-of-equations">Solving an upper triangular system of equations</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deriving-the-lu-decomposition">Deriving the LU Decomposition</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-review-of-gaussian-elimination">A review of Gaussian elimination</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#formalising-gaussian-elimination">Formalising Gaussian elimination</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-an-upper-triangular-system">Solving an upper triangular system</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deriving-the-lu-decomposition">Deriving the LU Decomposition</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-complete-algorithm">The complete algorithm</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cost-of-the-lu-decomposition">Cost of the LU Decomposition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cost-of-lu-decomposition">Cost of LU Decomposition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#self-check-questions">Self-check Questions</a></li>
 </ul>
   </nav></div>
 
