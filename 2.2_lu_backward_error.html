@@ -67,7 +67,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Backward error of the LU decomposition" href="2.3_lu_backward_error_examples.html" />
-    <link rel="prev" title="Solving linear system with the LU Decomposition" href="2.1_lu_decomposition.html" />
+    <link rel="prev" title="LU Decomposition" href="2.1_lu_decomposition.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -182,7 +182,7 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="2.1_lu_decomposition.html">Solving linear system with the LU Decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.1_lu_decomposition.html">LU Decomposition</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Backward error of the LU decomposition and pivoting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.3_lu_backward_error_examples.html">Backward error of the LU decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.4_python_lu_decomposition.html">Implementing the LU decomposition in Python</a></li>
@@ -204,18 +204,6 @@
 <li class="toctree-l1"><a class="reference internal" href="5.1_eigenvalues_basic_properties.html">Basic properties of eigenvalue problems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="5.2_computing_eigenvalues.html">Computing eigenvalues</a></li>
 <li class="toctree-l1"><a class="reference internal" href="5.3_computing_eigenspaces.html">Computing eigenspaces</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Self Check Questions</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="week_1_self_check.html">Week 1 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_2_self_check.html">Week 2 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_3_self_check.html">Week 3 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_4_self_check.html">Week 4 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_5_self_check.html">Week 5 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_6_self_check.html">Week 6 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_7_self_check.html">Week 7 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_8_self_check.html">Week 8 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_9_self_check.html">Week 9 Self check questions and solutions</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Back matter</span></p>
 <ul class="nav bd-sidenav">
@@ -424,42 +412,42 @@ result, we would require that <span class="math notranslate nohighlight">\(\| \D
 <div class="math notranslate nohighlight">
 \[\begin{split}
 A_{\epsilon} =
-\begin{bmatrix}
+\begin{pmatrix}
 \epsilon &amp; 1\\
 1 &amp; 1
-\end{bmatrix}.
+\end{pmatrix}.
 \end{split}\]</div>
 <p>We have</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 A_{\epsilon} =
-\begin{bmatrix}
+\begin{pmatrix}
 1 &amp; 0\\
 \epsilon^{-1} &amp; 1
-\end{bmatrix}
-\begin{bmatrix}
+\end{pmatrix}
+\begin{pmatrix}
 \epsilon &amp; 1\\
 0 &amp; 1 - \epsilon^{-1}.
-\end{bmatrix}
+\end{pmatrix}
 \end{split}\]</div>
 <p>In this example <span class="math notranslate nohighlight">\(\|A\|\approx 1\)</span> (depending on the norm) but <span class="math notranslate nohighlight">\(\|L\|\cdot \|U\|\approx \mathcal{O}(\epsilon^{-2})\)</span>.</p>
 <p>The norms of <span class="math notranslate nohighlight">\(L\)</span> and <span class="math notranslate nohighlight">\(U\)</span> can differ wildly from the norm of <span class="math notranslate nohighlight">\(A\)</span>. But there is an easy fix in this example. We can swap
 the first and second rows of <span class="math notranslate nohighlight">\(A\)</span> to obtain</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-\begin{bmatrix}
+\begin{pmatrix}
 1 &amp; 1\\
 \epsilon &amp; 1
-\end{bmatrix}
+\end{pmatrix}
 =
-\begin{bmatrix}
+\begin{pmatrix}
 1 &amp; 0\\
 \epsilon &amp; 1
-\end{bmatrix}
-\begin{bmatrix}
+\end{pmatrix}
+\begin{pmatrix}
 1 &amp; 1\\
 0 &amp; 1-\epsilon.
-\end{bmatrix}
+\end{pmatrix}
 \end{split}\]</div>
 <p>We now have <span class="math notranslate nohighlight">\(\|L\|\cdot \|U\|\approx 1\)</span>, simply by swapping the two rows of the matrix.</p>
 <p>This motivates the following modification of the LU decomposition, called <strong>column pivoted</strong> (or simply <strong>pivoted</strong>) LU.</p>
@@ -469,40 +457,40 @@ the first and second rows of <span class="math notranslate nohighlight">\(A\)</s
 <p>The idea is simple. Consider again the <span class="math notranslate nohighlight">\(3\times 3\)</span> matrix</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-A = \begin{bmatrix}
+A = \begin{pmatrix}
 a_{11} &amp; a_{12} &amp; a_{13}\\
 a_{21} &amp; a_{22} &amp; a_{23}\\
 a_{31} &amp; a_{32} &amp; a_{33}
-\end{bmatrix}.
+\end{pmatrix}.
 \end{split}\]</div>
 <p>Assume that <span class="math notranslate nohighlight">\(a_{31}\)</span> is the element with the largest magnitude in the first column. We then exchange the third and the
 first row to get</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-P_1A = \begin{bmatrix}
+P_1A = \begin{pmatrix}
 a_{31} &amp; a_{32} &amp; a_{33}\\
 a_{21} &amp; a_{22} &amp; a_{23}\\
 a_{11} &amp; a_{12} &amp; a_{13}
-\end{bmatrix}
+\end{pmatrix}
 \end{split}\]</div>
 <p>with</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-P_1 = \begin{bmatrix}
+P_1 = \begin{pmatrix}
 0 &amp; 0 &amp; 1\\
 0 &amp; 1 &amp; 0\\
 1 &amp; 0 &amp; 0
-\end{bmatrix}.
+\end{pmatrix}.
 \end{split}\]</div>
 <p>We now proceed with the LU decomposition as normal to zero out the elements in the first column. We then obtain a matrix
 with the structure</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-\begin{bmatrix}
+\begin{pmatrix}
 x &amp; x &amp; x\\
 0 &amp; x &amp; x\\
 0 &amp; x &amp; x &amp;
-\end{bmatrix}.
+\end{pmatrix}.
 \end{split}\]</div>
 <p>Before we proceed with the LU decomposition we swap the second and third row if the element at position <span class="math notranslate nohighlight">\((3, 2)\)</span> is
 larger by magnitude than the entry at position at <span class="math notranslate nohighlight">\((2, 2)\)</span>.</p>
@@ -588,7 +576,7 @@ exponentially but also see that this almost never happens in practice.</p>
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Solving linear system with the LU Decomposition</p>
+        <p class="prev-next-title">LU Decomposition</p>
       </div>
     </a>
     <a class="right-next"

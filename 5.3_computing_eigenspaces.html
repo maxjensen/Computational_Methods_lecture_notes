@@ -66,7 +66,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = '5.3_computing_eigenspaces';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Week 1 Self check questions and solutions" href="week_1_self_check.html" />
+    <link rel="next" title="Notation and facts" href="bm1_notation_and_facts.html" />
     <link rel="prev" title="Computing eigenvalues" href="5.2_computing_eigenvalues.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -182,7 +182,7 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="2.1_lu_decomposition.html">Solving linear system with the LU Decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.1_lu_decomposition.html">LU Decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.2_lu_backward_error.html">Backward error of the LU decomposition and pivoting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.3_lu_backward_error_examples.html">Backward error of the LU decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.4_python_lu_decomposition.html">Implementing the LU decomposition in Python</a></li>
@@ -204,18 +204,6 @@
 <li class="toctree-l1"><a class="reference internal" href="5.1_eigenvalues_basic_properties.html">Basic properties of eigenvalue problems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="5.2_computing_eigenvalues.html">Computing eigenvalues</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Computing eigenspaces</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Self Check Questions</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="week_1_self_check.html">Week 1 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_2_self_check.html">Week 2 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_3_self_check.html">Week 3 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_4_self_check.html">Week 4 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_5_self_check.html">Week 5 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_6_self_check.html">Week 6 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_7_self_check.html">Week 7 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_8_self_check.html">Week 8 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_9_self_check.html">Week 9 Self check questions and solutions</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Back matter</span></p>
 <ul class="nav bd-sidenav">
@@ -470,12 +458,12 @@ A = Q R Q^H
 \[  
 S_m = A^{m}S.  
 \]</div>
-<p>Denote by <span class="math notranslate nohighlight">\(Q^{(0)} = \begin{bmatrix}q_0^{(0)} &amp; q_1^{(0)} &amp; \dots &amp; q_k^{(0)}\end{bmatrix}\)</span> a unitary basis of <span class="math notranslate nohighlight">\(S\)</span>, and let <span class="math notranslate nohighlight">\(Q^{(m)}R^{(m)}\)</span> be the QR decomposition of <span class="math notranslate nohighlight">\(A^mQ^{(0)}\)</span>. To test convergence, we compute</p>
+<p>Denote by <span class="math notranslate nohighlight">\(Q^{(0)} = \begin{pmatrix}q_0^{(0)} &amp; q_1^{(0)} &amp; \dots &amp; q_k^{(0)}\end{pmatrix}\)</span> a unitary basis of <span class="math notranslate nohighlight">\(S\)</span>, and let <span class="math notranslate nohighlight">\(Q^{(m)}R^{(m)}\)</span> be the QR decomposition of <span class="math notranslate nohighlight">\(A^mQ^{(0)}\)</span>. To test convergence, we compute</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}  
-\left[Q^{(m)}\right]^HAQ^{(m)} = \begin{bmatrix}B_{11} &amp; B_{12}\\  
+\left[Q^{(m)}\right]^HAQ^{(m)} = \begin{pmatrix}B_{11} &amp; B_{12}\\  
                                    B_{21} &amp; B_{22}  
-                     \end{bmatrix}  
+                     \end{pmatrix}  
 \end{split}\]</div>
 <p>for some matrices <span class="math notranslate nohighlight">\(B_{ij}\)</span>, <span class="math notranslate nohighlight">\(i, j=1,2\)</span>.</p>
 <p>The subspace iteration also converges to an invariant subspace for each <span class="math notranslate nohighlight">\(j\leq k\)</span>. Hence, we have a sequence of approximate invariant subspaces for <span class="math notranslate nohighlight">\(j\leq k\)</span> that all converge to invariant subspaces. It follows that</p>
@@ -693,18 +681,18 @@ A^{(m+1)} &amp;= R_mQ_m + \alpha I.
 <p class="sd-card-text">Proof. Let <span class="math notranslate nohighlight">\(\lambda\)</span> be an eigenvalue of <span class="math notranslate nohighlight">\(A\)</span> with a corresponding eigenvector <span class="math notranslate nohighlight">\(x\)</span> of unit norm. Construct <span class="math notranslate nohighlight">\(Q\)</span> as:</p>
 <div class="math notranslate nohighlight">
 \[
-Q = \begin{bmatrix}x &amp; \hat{Q}\end{bmatrix},
+Q = \begin{pmatrix}x &amp; \hat{Q}\end{pmatrix},
 \]</div>
 <p class="sd-card-text">where <span class="math notranslate nohighlight">\(\hat{Q}\)</span> has orthogonal columns forming a basis of <span class="math notranslate nohighlight">\(\text{span}\{x\}^\bot\)</span>. Calculating <span class="math notranslate nohighlight">\(Q^HAQ\)</span> yields:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-Q^HAQ = \begin{bmatrix}\lambda &amp; w \\ 0 &amp; \tilde{A}\end{bmatrix},
+Q^HAQ = \begin{pmatrix}\lambda &amp; w \\ 0 &amp; \tilde{A}\end{pmatrix},
 \end{split}\]</div>
 <p class="sd-card-text">with <span class="math notranslate nohighlight">\(\tilde{A}\)</span> being an <span class="math notranslate nohighlight">\((n-1)\)</span>-dimensional matrix. By induction, assume <span class="math notranslate nohighlight">\(\tilde{A}\)</span> has a Schur decomposition <span class="math notranslate nohighlight">\(\tilde{A} = \tilde{Q}\tilde{R}\tilde{Q}^H\)</span>.</p>
 <p class="sd-card-text">Then,</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-A = Q\begin{bmatrix}1 &amp; \\ &amp; \tilde{Q}\end{bmatrix}\begin{bmatrix}\lambda &amp; w \\ &amp; \tilde{R}\end{bmatrix}\begin{bmatrix}1 &amp; \\ &amp; \tilde{Q}^H\end{bmatrix}Q^H
+A = Q\begin{pmatrix}1 &amp; \\ &amp; \tilde{Q}\end{pmatrix}\begin{pmatrix}\lambda &amp; w \\ &amp; \tilde{R}\end{pmatrix}\begin{pmatrix}1 &amp; \\ &amp; \tilde{Q}^H\end{pmatrix}Q^H
 \end{split}\]</div>
 <p class="sd-card-text">is the Schur decomposition of <span class="math notranslate nohighlight">\(A\)</span>. The base case of the induction, for a scalar matrix <span class="math notranslate nohighlight">\(\alpha\)</span>, is trivially <span class="math notranslate nohighlight">\(\alpha = 1 \cdot \alpha \cdot 1\)</span>.</p>
 </div>
@@ -752,11 +740,11 @@ A = Q\begin{bmatrix}1 &amp; \\ &amp; \tilde{Q}\end{bmatrix}\begin{bmatrix}\lambd
       </div>
     </a>
     <a class="right-next"
-       href="week_1_self_check.html"
+       href="bm1_notation_and_facts.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Week 1 Self check questions and solutions</p>
+        <p class="prev-next-title">Notation and facts</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

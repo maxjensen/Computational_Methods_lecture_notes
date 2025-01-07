@@ -66,8 +66,6 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'week_3_self_check';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Week 4 Self check questions and solutions" href="week_4_self_check.html" />
-    <link rel="prev" title="Week 2 Self check questions and solutions" href="week_2_self_check.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -118,6 +116,8 @@
     <div class="bd-container__inner bd-page-width">
       
       
+      
+        
       
       <dialog id="pst-primary-sidebar-modal"></dialog>
       <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
@@ -182,7 +182,7 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="2.1_lu_decomposition.html">Solving linear system with the LU Decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.1_lu_decomposition.html">LU Decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.2_lu_backward_error.html">Backward error of the LU decomposition and pivoting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.3_lu_backward_error_examples.html">Backward error of the LU decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.4_python_lu_decomposition.html">Implementing the LU decomposition in Python</a></li>
@@ -204,18 +204,6 @@
 <li class="toctree-l1"><a class="reference internal" href="5.1_eigenvalues_basic_properties.html">Basic properties of eigenvalue problems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="5.2_computing_eigenvalues.html">Computing eigenvalues</a></li>
 <li class="toctree-l1"><a class="reference internal" href="5.3_computing_eigenspaces.html">Computing eigenspaces</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Self Check Questions</span></p>
-<ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="week_1_self_check.html">Week 1 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_2_self_check.html">Week 2 Self check questions and solutions</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Week 3 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_4_self_check.html">Week 4 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_5_self_check.html">Week 5 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_6_self_check.html">Week 6 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_7_self_check.html">Week 7 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_8_self_check.html">Week 8 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_9_self_check.html">Week 9 Self check questions and solutions</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Back matter</span></p>
 <ul class="nav bd-sidenav">
@@ -373,11 +361,11 @@
 <p>Does the LU decomposition exist for the following matrix? Justify your answer.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-\begin{bmatrix}
+\begin{pmatrix}
 0.5 &amp;   -2 &amp;   2 \\
 -1 &amp; 4 &amp; -5\\
 9&amp;  -5&amp; 8 
-\end{bmatrix}
+\end{pmatrix}
 \end{split}\]</div>
 <p><strong>Solution:</strong></p>
 <p>First assume that the LU Decomposition exists. We then have <span class="math notranslate nohighlight">\(A = LU\)</span> with nonsingular <span class="math notranslate nohighlight">\(L\)</span> and <span class="math notranslate nohighlight">\(U\)</span> and hence, for each minor <span class="math notranslate nohighlight">\(A[:m, :m] = L[:m, :m]\times U[:m, :m]\)</span>.
@@ -385,16 +373,16 @@ Since <span class="math notranslate nohighlight">\(L\)</span> and <span class="m
 <p>Now assume that all minors have nonzero determinant. We proceed by induction. Let the statement be true for all matrices have dimension <span class="math notranslate nohighlight">\(n-1\)</span>. We now partition <span class="math notranslate nohighlight">\(A\in\mathbb{R}^{n\times n}\)</span> as</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-A = \begin{bmatrix}\hat{A} &amp; b\\
+A = \begin{pmatrix}\hat{A} &amp; b\\
                    c^T &amp; \gamma
-    \end{bmatrix}
+    \end{pmatrix}
 =
-\begin{bmatrix}\hat{L} &amp; 0\\
+\begin{pmatrix}\hat{L} &amp; 0\\
                \ell^T &amp; 1
-\end{bmatrix}
-\begin{bmatrix}\hat{U} &amp; r\\
+\end{pmatrix}
+\begin{pmatrix}\hat{U} &amp; r\\
                0   &amp; \delta
-\end{bmatrix}
+\end{pmatrix}
 \end{split}\]</div>
 <p>with <span class="math notranslate nohighlight">\(b,c, \ell, r\in\mathbb{R}^{n-1}\)</span>, <span class="math notranslate nohighlight">\(\gamma, \delta\in\mathbb{R}\)</span>, <span class="math notranslate nohighlight">\(\hat{L}, \hat{U}\in\mathbb{R}^{n-1\times n-1}\)</span>. Here <span class="math notranslate nohighlight">\(\hat{A} = \hat{L}\times\hat{U}\)</span> is a nonsingular LU decomposition of
 <span class="math notranslate nohighlight">\(\hat{A}\)</span>, which exists by induction hypothesis. To construct an LU decomposition of dimension <span class="math notranslate nohighlight">\(n\)</span> we need to find <span class="math notranslate nohighlight">\(\ell\)</span>, <span class="math notranslate nohighlight">\(r\)</span> and a nonzero <span class="math notranslate nohighlight">\(\delta\)</span> such that the above decomposition is valid.</p>
@@ -412,11 +400,11 @@ A = \begin{bmatrix}\hat{A} &amp; b\\
 <p>For the matrix</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-\begin{bmatrix}
+\begin{pmatrix}
 0.5 &amp;   -2 &amp;   2 \\
 -1 &amp; 4 &amp; -5\\
 9&amp;  -5&amp; 8 
-\end{bmatrix}
+\end{pmatrix}
 \end{split}\]</div>
 <p>the first <span class="math notranslate nohighlight">\(2\times 2\)</span> subblock is singular. Hence, its determinant is zero and therefore the LU decomposition does not exist.</p>
 <p><strong>Question 2:</strong></p>
@@ -485,24 +473,6 @@ Assume that an LU decomposition exists. Show that it can be computed in <span cl
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
-    <a class="left-prev"
-       href="week_2_self_check.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Week 2 Self check questions and solutions</p>
-      </div>
-    </a>
-    <a class="right-next"
-       href="week_4_self_check.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Week 4 Self check questions and solutions</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
 </div>
                 </footer>
               

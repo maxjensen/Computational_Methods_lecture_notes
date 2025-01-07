@@ -8,11 +8,11 @@ Let $A\in\mathbb{R}^{n\times n}$. Proof that the LU decomposition exists with no
 Does the LU decomposition exist for the following matrix? Justify your answer. 
 
 $$
-\begin{bmatrix}
+\begin{pmatrix}
 0.5 &   -2 &   2 \\
 -1 & 4 & -5\\
 9&  -5& 8 
-\end{bmatrix}
+\end{pmatrix}
 $$
 
 **Solution:**
@@ -23,16 +23,16 @@ Since $L$ and $U$ are nonsingular it follows that also the minors are nonsingula
 Now assume that all minors have nonzero determinant. We proceed by induction. Let the statement be true for all matrices have dimension $n-1$. We now partition $A\in\mathbb{R}^{n\times n}$ as
 
 $$
-A = \begin{bmatrix}\hat{A} & b\\
+A = \begin{pmatrix}\hat{A} & b\\
                    c^T & \gamma
-    \end{bmatrix}
+    \end{pmatrix}
 =
-\begin{bmatrix}\hat{L} & 0\\
+\begin{pmatrix}\hat{L} & 0\\
                \ell^T & 1
-\end{bmatrix}
-\begin{bmatrix}\hat{U} & r\\
+\end{pmatrix}
+\begin{pmatrix}\hat{U} & r\\
                0   & \delta
-\end{bmatrix}
+\end{pmatrix}
 $$
 
 with $b,c, \ell, r\in\mathbb{R}^{n-1}$, $\gamma, \delta\in\mathbb{R}$, $\hat{L}, \hat{U}\in\mathbb{R}^{n-1\times n-1}$. Here $\hat{A} = \hat{L}\times\hat{U}$ is a nonsingular LU decomposition of
@@ -56,11 +56,11 @@ and that $\det A$ and $\det\hat{A}$ are nonzero by induction hypothesis.
 For the matrix 
 
 $$
-\begin{bmatrix}
+\begin{pmatrix}
 0.5 &   -2 &   2 \\
 -1 & 4 & -5\\
 9&  -5& 8 
-\end{bmatrix}
+\end{pmatrix}
 $$
 
 the first $2\times 2$ subblock is singular. Hence, its determinant is zero and therefore the LU decomposition does not exist.

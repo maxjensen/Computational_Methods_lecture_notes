@@ -182,7 +182,7 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="2.1_lu_decomposition.html">Solving linear system with the LU Decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.1_lu_decomposition.html">LU Decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.2_lu_backward_error.html">Backward error of the LU decomposition and pivoting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.3_lu_backward_error_examples.html">Backward error of the LU decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.4_python_lu_decomposition.html">Implementing the LU decomposition in Python</a></li>
@@ -204,18 +204,6 @@
 <li class="toctree-l1"><a class="reference internal" href="5.1_eigenvalues_basic_properties.html">Basic properties of eigenvalue problems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="5.2_computing_eigenvalues.html">Computing eigenvalues</a></li>
 <li class="toctree-l1"><a class="reference internal" href="5.3_computing_eigenspaces.html">Computing eigenspaces</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Self Check Questions</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="week_1_self_check.html">Week 1 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_2_self_check.html">Week 2 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_3_self_check.html">Week 3 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_4_self_check.html">Week 4 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_5_self_check.html">Week 5 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_6_self_check.html">Week 6 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_7_self_check.html">Week 7 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_8_self_check.html">Week 8 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_9_self_check.html">Week 9 Self check questions and solutions</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Back matter</span></p>
 <ul class="nav bd-sidenav">
@@ -712,14 +700,14 @@ K_{abs} = \frac{1}{2\sqrt{1}} = \frac{1}{2}.
 Compute the $1-$norm condition number of
 
 $$
-A = \begin{bmatrix}1 & 1\\ 0 & \epsilon\end{bmatrix}
+A = \begin{pmatrix}1 & 1\\ 0 & \epsilon\end{pmatrix}
 $$
 
 in dependence of $\epsilon$. What happens as $\epsilon\rightarrow 0$?
 ````
 
 ````{dropdown} **Answer**
-We have $A^{-1} = \begin{bmatrix}1 & -\epsilon^{-1}\\ 0 & \epsilon^{-1}\end{bmatrix}$. Hence,
+We have $A^{-1} = \begin{pmatrix}1 & -\epsilon^{-1}\\ 0 & \epsilon^{-1}\end{pmatrix}$. Hence,
 
 $$
 \kappa(A) = \|A\|_1\cdot \|A^{-1}\|_1 = (1+\epsilon) \cdot \frac{2}{\epsilon}.
@@ -736,14 +724,11 @@ and $\kappa(A)\rightarrow\infty$ as $\epsilon\rightarrow 0$. The reason is simpl
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
 <span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
-<p class="sd-card-text">The Jacobian of <span class="math notranslate nohighlight">\(f\)</span> is <span class="math notranslate nohighlight">\(J = \begin{bmatrix}1 &amp; -1\end{bmatrix}\)</span>. Hence, <span class="math notranslate nohighlight">\(\|J\|_{\infty} = 2\)</span>. For the condition number, we obtain</p>
+<p class="sd-card-text">The Jacobian of <span class="math notranslate nohighlight">\(f\)</span> is <span class="math notranslate nohighlight">\(J = \begin{pmatrix}1 &amp; -1\end{pmatrix}\)</span>. Hence, <span class="math notranslate nohighlight">\(\|J\|_{\infty} = 2\)</span>. For the condition number, we obtain</p>
 <div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{aligned}
-\kappa &amp;= \frac{\|x\|_\infty}{\|f(x)\|_\infty} \|J\|_\infty \\
-    &amp;= \frac{2 \max\left\{|x_1|, |x_2|\right\}}{|x_1 - x_2|}.
-\end{aligned}
-\end{split}\]</div>
+\[
+\kappa = \frac{\|x\|_\infty}{\|f(x)\|_\infty} \|J\|_\infty = \frac{2 \max\left\{|x_1|, |x_2|\right\}}{|x_1 - x_2|}.
+\]</div>
 <p class="sd-card-text">The condition number is large if <span class="math notranslate nohighlight">\(x_1 \approx x_2\)</span>. This reflects the issue of cancellation errors. Consider two numbers <span class="math notranslate nohighlight">\(x_1\)</span> and <span class="math notranslate nohighlight">\(x_2\)</span> that agree to the first 5 digits and each of them is accurate to 7 digits. The difference between the two numbers will only be accurate to 2 digits since the first 5 correct digits cancel each other out.</p>
 </div>
 </details><div class="tip admonition">
@@ -775,7 +760,7 @@ f(x + \Delta x) = f(x) + \nabla f(x) \cdot \Delta x + h(x + \Delta x) \cdot \Del
 <p class="sd-card-text">Similarly,</p>
 <div class="math notranslate nohighlight">
 \[
-\kappa_{rel}(x) = 
+\kappa_{rel}(x) =
 \frac{\| x \|}{\| f(x) \|} \lim_{\delta\rightarrow 0} \sup_{\|\Delta x\|\leq \delta} \frac{\| f(x + \Delta x) - f(x) \|}{\| \Delta x\|} = \frac{\| x \|}{\| f(x) \|} \| \nabla f(x) \|.
 \]</div>
 </div>
@@ -798,8 +783,7 @@ f(x + \Delta x) = f(x) + \nabla f(x) \cdot \Delta x + h(x + \Delta x) \cdot \Del
 <p class="sd-card-text">We only show the second bound; the first follows from an inquality similar to <span class="math notranslate nohighlight">\((*)\)</span> below, with an adjusted set over which the supremum is taken. We multiple and divide by an auxiary term:</p>
 <div class="math notranslate nohighlight">
 \[
-\frac{\|\Delta f\|}{\|f\|} \leq \Bigl( \frac{\|\Delta f\|}{\|f\|} \Big/ \frac{\|\Delta x\|}{\|x\|} \Bigr) \frac{\|\Delta x\|}{\|x\|} \stackrel{(*)}{\leq} \frac{\|\Delta x\|}{\|x\|} \sup_{
-    \| \Delta \tilde{x} \| \leq \| \Delta x \|} \Bigl( \frac{\| f(x + \Delta \tilde{x}) - f(x) \|}{\| f(x) \|} \Big/ \frac{\|\Delta \tilde{x}\|}{\|x\|} \Bigr) 
+\frac{\|\Delta f\|}{\|f\|} \leq \Bigl( \frac{\|\Delta f\|}{\|f\|} \Big/ \frac{\|\Delta x\|}{\|x\|} \Bigr) \frac{\|\Delta x\|}{\|x\|} \stackrel{(*)}{\leq} \frac{\|\Delta x\|}{\|x\|} \sup_{\| \Delta \tilde{x} \| \leq \| \Delta x \|} \Bigl( \frac{\| f(x + \Delta \tilde{x}) - f(x) \|}{\| f(x) \|} \Big/ \frac{\|\Delta \tilde{x}\|}{\|x\|} \Bigr)
 \]</div>
 <p class="sd-card-text">Because <span class="math notranslate nohighlight">\(\| f(x) \| \neq 0\)</span> and <span class="math notranslate nohighlight">\(f\)</span> is differentiable, we may use the arguments of the previous self-check question to show that the function</p>
 <div class="math notranslate nohighlight">
@@ -814,7 +798,7 @@ g(0) = \frac{\| x \|}{\|f(x) \|}\| f'(x) \| = \kappa_{rel}
 \]</div>
 <p class="sd-card-text">at <span class="math notranslate nohighlight">\(\Delta x = 0\)</span>, meaning that there is a function <span class="math notranslate nohighlight">\(\tilde{h}: \mathbb{R}^n \to \mathbb{R}\)</span> with <span class="math notranslate nohighlight">\(\lim_{\| \Delta x \| \to 0} \tilde{h}(\Delta x) = 0\)</span> such that</p>
 <div class="math notranslate nohighlight">
-\[ 
+\[
 g(\Delta x) = \kappa_{rel} + \tilde{h}(\Delta x).
 \]</div>
 <p class="sd-card-text">Now the result follows with</p>

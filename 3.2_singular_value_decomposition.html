@@ -182,7 +182,7 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="2.1_lu_decomposition.html">Solving linear system with the LU Decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.1_lu_decomposition.html">LU Decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.2_lu_backward_error.html">Backward error of the LU decomposition and pivoting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.3_lu_backward_error_examples.html">Backward error of the LU decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.4_python_lu_decomposition.html">Implementing the LU decomposition in Python</a></li>
@@ -204,18 +204,6 @@
 <li class="toctree-l1"><a class="reference internal" href="5.1_eigenvalues_basic_properties.html">Basic properties of eigenvalue problems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="5.2_computing_eigenvalues.html">Computing eigenvalues</a></li>
 <li class="toctree-l1"><a class="reference internal" href="5.3_computing_eigenspaces.html">Computing eigenspaces</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Self Check Questions</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="week_1_self_check.html">Week 1 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_2_self_check.html">Week 2 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_3_self_check.html">Week 3 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_4_self_check.html">Week 4 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_5_self_check.html">Week 5 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_6_self_check.html">Week 6 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_7_self_check.html">Week 7 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_8_self_check.html">Week 8 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_9_self_check.html">Week 9 Self check questions and solutions</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Back matter</span></p>
 <ul class="nav bd-sidenav">
@@ -363,6 +351,7 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#insights">Insights</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#svd-and-low-rank-approximation">SVD and low-rank approximation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-reduced-svd">The reduced SVD</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a></li>
@@ -399,11 +388,12 @@ A = U\Sigma V^T,
 </div><p>The proof is given below in the optional materials section. For the remainder of the page, assume that <span class="math notranslate nohighlight">\(m \geq n\)</span>. The matrix <span class="math notranslate nohighlight">\(\Sigma \in \mathbb{R}^{m \times n}\)</span> is a block matrix of the form</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-\Sigma = \begin{bmatrix} \tilde{\Sigma} \\ 0 \end{bmatrix},
+\Sigma = \begin{pmatrix} \tilde{\Sigma} \\ 0 \end{pmatrix},
 \end{split}\]</div>
 <p>where <span class="math notranslate nohighlight">\(\tilde{\Sigma} = \text{diag}(\sigma_1, \sigma_2, \dots, \sigma_r, 0, \dots, 0)\)</span> is a diagonal matrix with non-negative real numbers <span class="math notranslate nohighlight">\(\sigma_1, \sigma_2, \dots, \sigma_r\)</span> on the diagonal, and <span class="math notranslate nohighlight">\(r\)</span> represents the rank of the matrix <span class="math notranslate nohighlight">\(A\)</span>.</p>
 <p>These diagonal entries <span class="math notranslate nohighlight">\(\sigma_i\)</span> (for <span class="math notranslate nohighlight">\(i = 1, 2, \dots, n\)</span>) are known as the singular values of <span class="math notranslate nohighlight">\(A\)</span>. The columns <span class="math notranslate nohighlight">\(v_j\)</span> of <span class="math notranslate nohighlight">\(V\)</span> are called right singular vectors. The columns <span class="math notranslate nohighlight">\(u_j\)</span> of <span class="math notranslate nohighlight">\(U\)</span> are called left singular vectors.</p>
-<p><strong>Insights</strong></p>
+<section id="insights">
+<h2>Insights<a class="headerlink" href="#insights" title="Link to this heading">#</a></h2>
 <ol class="arabic">
 <li><p><strong>Rank determination</strong>: The rank of matrix <span class="math notranslate nohighlight">\(A\)</span> is equal to <span class="math notranslate nohighlight">\(r\)</span>, defined as the count of non-zero singular values in the decomposition.</p></li>
 <li><p><strong>Kernel characterisation</strong>: The kernel (or null space) of <span class="math notranslate nohighlight">\(A\)</span>, denoted as <span class="math notranslate nohighlight">\(\text{ker}(A)\)</span>, is the span of the vectors <span class="math notranslate nohighlight">\(\{v_{r+1}, \dots, v_n\}\)</span>.</p></li>
@@ -417,6 +407,7 @@ A = U\Sigma V^T,
 <li><p><strong>Inverse and condition number</strong>: For an invertible matrix <span class="math notranslate nohighlight">\(A\)</span>, its inverse is <span class="math notranslate nohighlight">\(A^{-1} = V\Sigma^{-1}U^T\)</span>, and <span class="math notranslate nohighlight">\(\|A^{-1}\|_2 = \sigma_n^{-1}\)</span>. The relative condition number, <span class="math notranslate nohighlight">\(\kappa_{rel}(A)\)</span>, is thus <span class="math notranslate nohighlight">\(\frac{\sigma_1}{\sigma_n}\)</span>. The smallest perturbation that makes <span class="math notranslate nohighlight">\(A + \Delta A\)</span> singular is <span class="math notranslate nohighlight">\(\Delta A = -\sigma_n u_n v_n^T\)</span>. Therefore, the condition number inversely relates to the smallest relative perturbation distance to singularity.</p></li>
 </ol>
 <p>See also the related self-check question below.</p>
+</section>
 <section id="svd-and-low-rank-approximation">
 <h2>SVD and low-rank approximation<a class="headerlink" href="#svd-and-low-rank-approximation" title="Link to this heading">#</a></h2>
 <p>The singular value decomposition of matrix <span class="math notranslate nohighlight">\(A\)</span>, represented as <span class="math notranslate nohighlight">\(A = U\Sigma V^T\)</span>, can be expansively expressed as a sum of rank-1 matrices: For the element <span class="math notranslate nohighlight">\(a_{ij}\)</span> we find</p>
@@ -467,12 +458,12 @@ A_\nu \cdot \hat{A}_\nu = \sum_{k,\ell} (\sigma_k u_k v_k^T) (\hat{\sigma}_\ell 
 <p>Above, we introduced the form of the SVD, which is known as the <em>full SVD</em> of <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span>:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-A = \begin{bmatrix} U_1 &amp; U_2 \end{bmatrix} \begin{bmatrix} \hat{\Sigma} &amp; 0 \\ 0 &amp; 0 \end{bmatrix} \begin{bmatrix} V_1 &amp; V_2 \end{bmatrix}^T,
+A = \begin{pmatrix} U_1 &amp; U_2 \end{pmatrix} \begin{pmatrix} \hat{\Sigma} &amp; 0 \\ 0 &amp; 0 \end{pmatrix} \begin{pmatrix} V_1 &amp; V_2 \end{pmatrix}^T,
 \end{split}\]</div>
-<p>where <span class="math notranslate nohighlight">\(U = \begin{bmatrix} U_1 &amp; U_2 \end{bmatrix} \in \mathbb{R}^{m \times m}\)</span> and <span class="math notranslate nohighlight">\(V = \begin{bmatrix} V_1 &amp; V_2 \end{bmatrix} \in \mathbb{R}^{n \times n}\)</span> are orthogonal matrices derived from the SVD. Here,</p>
+<p>where <span class="math notranslate nohighlight">\(U = \begin{pmatrix} U_1 &amp; U_2 \end{pmatrix} \in \mathbb{R}^{m \times m}\)</span> and <span class="math notranslate nohighlight">\(V = \begin{pmatrix} V_1 &amp; V_2 \end{pmatrix} \in \mathbb{R}^{n \times n}\)</span> are orthogonal matrices derived from the SVD. Here,</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-\Sigma = \begin{bmatrix} \hat{\Sigma} &amp; 0 \\ 0 &amp; 0 \end{bmatrix}
+\Sigma = \begin{pmatrix} \hat{\Sigma} &amp; 0 \\ 0 &amp; 0 \end{pmatrix}
 \end{split}\]</div>
 <p>represents the diagonal matrix in the decomposition. The columns of <span class="math notranslate nohighlight">\(U_2\)</span> span the orthogonal complement of the range of <span class="math notranslate nohighlight">\(A\)</span>, and the columns of <span class="math notranslate nohighlight">\(V_2\)</span> constitute the null space of <span class="math notranslate nohighlight">\(A\)</span>. The matrix <span class="math notranslate nohighlight">\(\hat{\Sigma} \in \mathbb{R}^{r \times r}\)</span> is a diagonal matrix with its diagonal elements consisting of the <em>positive</em> singular values <span class="math notranslate nohighlight">\(\sigma_1, \dots, \sigma_r\)</span>.</p>
 <p>The <em>reduced SVD</em> of <span class="math notranslate nohighlight">\(A\)</span> is defined as:</p>
@@ -525,11 +516,11 @@ A = U_1\hat{\Sigma}V_1^T.
 <p>Find the SVD of</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-A = \begin{bmatrix}
+A = \begin{pmatrix}
 0 &amp; 2 &amp; 0\\
 -3 &amp; 0 &amp; 0\\
 0 &amp; 0 &amp; 1
-\end{bmatrix}.
+\end{pmatrix}.
 \end{split}\]</div>
 </div>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
@@ -540,23 +531,23 @@ A = \begin{bmatrix}
 <div class="math notranslate nohighlight">
 \[\begin{split}
 A = 
-\begin{bmatrix}
+\begin{pmatrix}
 0 &amp; 1 &amp; 0\\
 -1 &amp; 0 &amp; 0\\
 0 &amp; 0 &amp; 1
-\end{bmatrix}
+\end{pmatrix}
 \cdot
-\begin{bmatrix}
+\begin{pmatrix}
 3 &amp; 0 &amp; 0\\
 0 &amp; 2 &amp; 0\\
 0 &amp; 0 &amp; 1
-\end{bmatrix}
+\end{pmatrix}
 \cdot
-\begin{bmatrix}
+\begin{pmatrix}
 1 &amp; 0 &amp; 0\\
 0 &amp; 1 &amp; 0\\
 0 &amp; 0 &amp; 1
-\end{bmatrix}
+\end{pmatrix}
 = U \Sigma V^T.
 \end{split}\]</div>
 </div>
@@ -667,24 +658,24 @@ singular values of <span class="math notranslate nohighlight">\(A\)</span>. The 
 <p class="sd-card-text">We represent <span class="math notranslate nohighlight">\(A\)</span> with its full QR decomposition:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-A = \begin{bmatrix} Q &amp; Q^{\perp} \end{bmatrix} \begin{bmatrix} R \\ 0 \end{bmatrix},
+A = \begin{pmatrix} Q &amp; Q^{\perp} \end{pmatrix} \begin{pmatrix} R \\ 0 \end{pmatrix},
 \end{split}\]</div>
 <p class="sd-card-text">where <span class="math notranslate nohighlight">\(Q^{\perp} \in \mathbb{R}^{m \times (m-n)}\)</span> is the orthogonal complement of <span class="math notranslate nohighlight">\(Q\)</span>. Now, let the singular value decomposition (SVD) of <span class="math notranslate nohighlight">\(R\)</span> be <span class="math notranslate nohighlight">\(R = U\Sigma V^T\)</span>, where <span class="math notranslate nohighlight">\(\Sigma\)</span> contains the singular values of <span class="math notranslate nohighlight">\(R\)</span>.</p>
 <p class="sd-card-text">Substituting the SVD of <span class="math notranslate nohighlight">\(R\)</span> into the QR decomposition, we get:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-A = \begin{bmatrix} Q &amp; Q^{\perp} \end{bmatrix} \begin{bmatrix} U &amp; 0 \\ 0 &amp; I \end{bmatrix} 
-\begin{bmatrix} \Sigma \\ 0 \end{bmatrix} V^T.
+A = \begin{pmatrix} Q &amp; Q^{\perp} \end{pmatrix} \begin{pmatrix} U &amp; 0 \\ 0 &amp; I \end{pmatrix} 
+\begin{pmatrix} \Sigma \\ 0 \end{pmatrix} V^T.
 \end{split}\]</div>
 <p class="sd-card-text">Here, <span class="math notranslate nohighlight">\(I\)</span> is the identity matrix of appropriate size. Simplifying, we obtain:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-A = \left( \begin{bmatrix} Q &amp; Q^{\perp} \end{bmatrix} \begin{bmatrix} U &amp; 0 \\ 0 &amp; I \end{bmatrix} \right) 
-\begin{bmatrix} \Sigma \\ 0 \end{bmatrix} V^T.
+A = \left( \begin{pmatrix} Q &amp; Q^{\perp} \end{pmatrix} \begin{pmatrix} U &amp; 0 \\ 0 &amp; I \end{pmatrix} \right) 
+\begin{pmatrix} \Sigma \\ 0 \end{pmatrix} V^T.
 \end{split}\]</div>
 <p class="sd-card-text">Notice that the matrix product</p>
 <div class="math notranslate nohighlight">
-\[\begin{split}\begin{bmatrix} Q &amp; Q^{\perp} \end{bmatrix} \begin{bmatrix} U &amp; 0 \\ 0 &amp; I \end{bmatrix}\end{split}\]</div>
+\[\begin{split}\begin{pmatrix} Q &amp; Q^{\perp} \end{pmatrix} \begin{pmatrix} U &amp; 0 \\ 0 &amp; I \end{pmatrix}\end{split}\]</div>
 <p class="sd-card-text">is orthogonal. Thus, the matrix <span class="math notranslate nohighlight">\(A\)</span> has been expressed in a form that reveals its singular value decomposition, where the singular values are precisely those contained in <span class="math notranslate nohighlight">\(\Sigma\)</span>. Therefore, the singular values of <span class="math notranslate nohighlight">\(A\)</span> are identical to those of <span class="math notranslate nohighlight">\(R\)</span>.</p>
 </div>
 </details><div class="tip admonition">
@@ -746,7 +737,7 @@ A = \left( \begin{bmatrix} Q &amp; Q^{\perp} \end{bmatrix} \begin{bmatrix} U &am
 Construct orthogonal matrices <span class="math notranslate nohighlight">\(U_1\)</span> and <span class="math notranslate nohighlight">\(V_1\)</span> in the form:</p>
 <div class="math notranslate nohighlight">
 \[
-   V_1 = \begin{bmatrix} v_1 &amp; \hat{V}_1 \end{bmatrix}, \quad U_1 = \begin{bmatrix} u_1 &amp; \hat{U}_1 \end{bmatrix}
+   V_1 = \begin{pmatrix} v_1 &amp; \hat{V}_1 \end{pmatrix}, \quad U_1 = \begin{pmatrix} u_1 &amp; \hat{U}_1 \end{pmatrix}
    \]</div>
 <p class="sd-card-text">where <span class="math notranslate nohighlight">\(\hat{V}_1\)</span> and <span class="math notranslate nohighlight">\(\hat{U}_1\)</span> are matrices that complete <span class="math notranslate nohighlight">\(v_1\)</span> and <span class="math notranslate nohighlight">\(u_1\)</span> to orthonormal bases. Their existence is guaranteed by the Gram-Schmidt method.</p>
 </li>
@@ -754,7 +745,7 @@ Construct orthogonal matrices <span class="math notranslate nohighlight">\(U_1\)
 Consider the matrix <span class="math notranslate nohighlight">\(S := U_1^T A V_1\)</span>, which takes the form:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-   S = \begin{bmatrix} \sigma_1 &amp; w^T \\ 0 &amp; B \end{bmatrix}
+   S = \begin{pmatrix} \sigma_1 &amp; w^T \\ 0 &amp; B \end{pmatrix}
    \end{split}\]</div>
 <p class="sd-card-text">where <span class="math notranslate nohighlight">\(w\)</span> is a vector in <span class="math notranslate nohighlight">\(\mathbb{R}^{n-1}\)</span> and <span class="math notranslate nohighlight">\(B\)</span> is a <span class="math notranslate nohighlight">\((m-1) \times (n-1)\)</span> matrix.</p>
 </li>
@@ -762,7 +753,7 @@ Consider the matrix <span class="math notranslate nohighlight">\(S := U_1^T A V_
 To show <span class="math notranslate nohighlight">\(w = 0\)</span>, we use the properties of matrix norms:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-   \|S\|_2 = \|U_1^T A V_1\|_2 \geq \left\| \begin{bmatrix} \sigma_1 &amp; w^T \\ 0 &amp; B \end{bmatrix} \begin{bmatrix} \sigma_1 \\ w \end{bmatrix} \right\|_2 \bigg/ \left\| \begin{bmatrix} \sigma_1 \\ w \end{bmatrix} \right\|_2 \geq \left( \sigma_1^2 + \|w\|^2 \right)^{1/2}
+   \|S\|_2 = \|U_1^T A V_1\|_2 \geq \left\| \begin{pmatrix} \sigma_1 &amp; w^T \\ 0 &amp; B \end{pmatrix} \begin{pmatrix} \sigma_1 \\ w \end{pmatrix} \right\|_2 \bigg/ \left\| \begin{pmatrix} \sigma_1 \\ w \end{pmatrix} \right\|_2 \geq \left( \sigma_1^2 + \|w\|^2 \right)^{1/2}
    \end{split}\]</div>
 <p class="sd-card-text">The inequality <span class="math notranslate nohighlight">\(\|Ax\| / \|x\| \leq \|A\|\)</span> and the disregard of the contribution of <span class="math notranslate nohighlight">\(Bw\)</span> in the norm lead to the conclusion that <span class="math notranslate nohighlight">\(\sigma_1 = \|S\|_2 \geq \left( \sigma_1^2 + \|w\|^2 \right)^{1/2}\)</span>, implying <span class="math notranslate nohighlight">\(w = 0\)</span>.</p>
 </li>
@@ -770,12 +761,12 @@ To show <span class="math notranslate nohighlight">\(w = 0\)</span>, we use the 
 Assume the SVD of <span class="math notranslate nohighlight">\(B\)</span> exists: <span class="math notranslate nohighlight">\(B = \hat{U} \hat{\Sigma} \hat{V}^T\)</span>. Then <span class="math notranslate nohighlight">\(A\)</span> can be decomposed as:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-   A = U_1 \begin{bmatrix} 1 &amp; 0 \\ 0 &amp; \hat{U} \end{bmatrix} \begin{bmatrix} \sigma_1 &amp; 0 \\ 0 &amp; \hat{\Sigma} \end{bmatrix} \begin{bmatrix} 1 &amp; 0 \\ 0 &amp; \hat{V}^T \end{bmatrix} V_1^T
+   A = U_1 \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; \hat{U} \end{pmatrix} \begin{pmatrix} \sigma_1 &amp; 0 \\ 0 &amp; \hat{\Sigma} \end{pmatrix} \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; \hat{V}^T \end{pmatrix} V_1^T
    \end{split}\]</div>
 <p class="sd-card-text">Defining</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-   U = U_1 \begin{bmatrix} 1 &amp; 0 \\ 0 &amp; \hat{U} \end{bmatrix}, \qquad V = \begin{bmatrix} 1 &amp; 0 \\ 0 &amp; \hat{V}^T \end{bmatrix} V_1^T,
+   U = U_1 \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; \hat{U} \end{pmatrix}, \qquad V = \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; \hat{V}^T \end{pmatrix} V_1^T,
    \end{split}\]</div>
 <p class="sd-card-text">we complete the inductive step.</p>
 </li>
@@ -853,6 +844,7 @@ Ultimately, the induction will reach a row or column vector, for which the exist
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#insights">Insights</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#svd-and-low-rank-approximation">SVD and low-rank approximation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-reduced-svd">The reduced SVD</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a></li>

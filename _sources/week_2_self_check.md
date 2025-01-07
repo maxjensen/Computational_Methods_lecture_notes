@@ -37,14 +37,14 @@ The algorithm is backward stable. Hence, the backward error is expected to be a 
 Compute the $1-$norm condition number of
 
 $$
-A = \begin{bmatrix}1 & 1\\ 0 & \epsilon\end{bmatrix}
+A = \begin{pmatrix}1 & 1\\ 0 & \epsilon\end{pmatrix}
 $$
 
 in dependence of $\epsilon$. What happens as $\epsilon\rightarrow 0$?
 
 **Solution:**
 
-We have $A^{-1} = \begin{bmatrix}1 & -\epsilon^{-1}\\ 0 & \epsilon^{-1}\end{bmatrix}$. Hence,
+We have $A^{-1} = \begin{pmatrix}1 & -\epsilon^{-1}\\ 0 & \epsilon^{-1}\end{pmatrix}$. Hence,
 
 $$
 \kappa(A) = \|A\|_1\cdot \|A^{-1}\|_1 = (1+\epsilon) \cdot \frac{2}{\epsilon}.
@@ -58,7 +58,7 @@ Let $x\in\mathbb{R}^2$ and $f(x) = x_1 - x_2$. Compute the $\infty$-norm conditi
 
 **Solution:**
 
-The Jacobian of $f$ is $J = \begin{bmatrix}1 & -1\end{bmatrix}$. Hence, $\|J\|_{\infty} = 2$. For the condition number we obtain
+The Jacobian of $f$ is $J = \begin{pmatrix}1 & -1\end{pmatrix}$. Hence, $\|J\|_{\infty} = 2$. For the condition number we obtain
 
 $$
 \begin{aligned}

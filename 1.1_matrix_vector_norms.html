@@ -182,7 +182,7 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="2.1_lu_decomposition.html">Solving linear system with the LU Decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.1_lu_decomposition.html">LU Decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.2_lu_backward_error.html">Backward error of the LU decomposition and pivoting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.3_lu_backward_error_examples.html">Backward error of the LU decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.4_python_lu_decomposition.html">Implementing the LU decomposition in Python</a></li>
@@ -204,18 +204,6 @@
 <li class="toctree-l1"><a class="reference internal" href="5.1_eigenvalues_basic_properties.html">Basic properties of eigenvalue problems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="5.2_computing_eigenvalues.html">Computing eigenvalues</a></li>
 <li class="toctree-l1"><a class="reference internal" href="5.3_computing_eigenspaces.html">Computing eigenspaces</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Self Check Questions</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="week_1_self_check.html">Week 1 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_2_self_check.html">Week 2 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_3_self_check.html">Week 3 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_4_self_check.html">Week 4 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_5_self_check.html">Week 5 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_6_self_check.html">Week 6 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_7_self_check.html">Week 7 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_8_self_check.html">Week 8 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_9_self_check.html">Week 9 Self check questions and solutions</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Back matter</span></p>
 <ul class="nav bd-sidenav">
@@ -584,7 +572,7 @@ and thus $\| B v \| \leq \| B \| \, \| v \|$. An analogous argument with $B v$ i
 </div>
 </details><div class="tip admonition">
 <p class="admonition-title"><strong>Question</strong></p>
-<p>For the matrix <span class="math notranslate nohighlight">\(A = \begin{bmatrix} 2 &amp; 3 \\ 0 &amp; 1\end{bmatrix}\)</span>, compute <span class="math notranslate nohighlight">\(\|A\|_p\)</span> for <span class="math notranslate nohighlight">\(p=1, 2, \infty, F\)</span>.</p>
+<p>For the matrix <span class="math notranslate nohighlight">\(A = \begin{pmatrix} 2 &amp; 3 \\ 0 &amp; 1\end{pmatrix}\)</span>, compute <span class="math notranslate nohighlight">\(\|A\|_p\)</span> for <span class="math notranslate nohighlight">\(p=1, 2, \infty, F\)</span>.</p>
 </div>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
@@ -592,7 +580,7 @@ and thus $\| B v \| \leq \| B \| \, \| v \|$. An analogous argument with $B v$ i
 <p class="sd-card-text">We have <span class="math notranslate nohighlight">\(\|A\|_1 = 4\)</span>, <span class="math notranslate nohighlight">\(\|A\|_{\infty} = 5\)</span>, and <span class="math notranslate nohighlight">\(\|A\|_F = \sqrt{14}\)</span>. For <span class="math notranslate nohighlight">\(\|A\|_2\)</span>, we compute the eigenvalues of</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-A^TA = \begin{bmatrix}4 &amp; 6\\ 6 &amp; 10\end{bmatrix},
+A^TA = \begin{pmatrix}4 &amp; 6\\ 6 &amp; 10\end{pmatrix},
 \end{split}\]</div>
 <p class="sd-card-text">giving us <span class="math notranslate nohighlight">\(\lambda_{1, 2} = 7 \pm 3\sqrt{5}\)</span>. Hence, <span class="math notranslate nohighlight">\(\|A\|_2 = \sqrt{7 + 3\sqrt{5}}\)</span>.</p>
 </div>

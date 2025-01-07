@@ -6,7 +6,7 @@ Following the [Introduction to Markdown and LaTeX](https://ashki23.github.io/mar
 
 The following provides a quick reference to the most commonly used Markdown syntax.
 
-### Emphasis
+## Emphasis
 
 Text can be emphasised as follows:
 
@@ -14,7 +14,7 @@ Text can be emphasised as follows:
 
 To quote text, use `>`. For example:
 
-```
+```markdown
 > Imagination is more important than knowledge.
 >
 > Albert Einstein
@@ -29,11 +29,11 @@ For a manual line break, use:
 
 - `<br />`
 
-### Headers
+## Headers
 
 Headers and document titles are defined by lines beginning with hashes. More hashes indicate lower-ranked headers:
 
-```
+```markdown
 # H1
 ## H2
 ### H3
@@ -42,11 +42,11 @@ Headers and document titles are defined by lines beginning with hashes. More has
 ###### H6
 ```
 
-### Lists
+## Lists
 
 Markdown supports lists using dashes (`-`), stars (`*`), or numbers, e.g.:
 
-```
+```markdown
 - Item 1
 - Item 2
     - Item 2a (2 tabs)
@@ -64,7 +64,7 @@ turns into
     - Item 2b-1 (4 tabs)
     - Item 2b-2
 
-```
+```markdown
 1. Item 1
 2. Item 2
 3. Item 3
@@ -80,7 +80,7 @@ turns into
     - Item 3a
     - Item 3b
 
-### Links and images
+## Links and images
 
 The name of a link is placed within square brackets, followed by the address in parentheses. For example: `[UCL](https://www.ucl.ac.uk/)` turns into [UCL](https://www.ucl.ac.uk/).
 
@@ -88,11 +88,11 @@ To display an image in the document, add an exclamation mark in front, using the
 
 ![logo](https://www.ucl.ac.uk/brand/sites/brand/files/styles/small_image/public/ucl-logo-white-on-black.jpg)
 
-### Tables
+## Tables
 
 You can also add tables. For example:
 
-```
+```markdown
 1st Header|2nd Header|3rd Header
 ---|:---:|---:
 col 1 is|left-aligned|1
@@ -108,11 +108,11 @@ col 1 is|left-aligned|1
 col 2 is|center-aligned|2
 col 3 is|right-aligned|3
 
-### Code blocks
+## Code blocks
 
 In Markdown, you can add plain code blocks (non-evaluating) using triple backticks (`\`\`\``). Double-click on the text cell to understand the example:
 
-```
+```markdown
 import matplotlib.pyplot as plt
 import numpy as np
 ```
@@ -130,7 +130,7 @@ LaTeX is a sophisticated typesetting system for mathematical texts. Markdown bor
 
 We switch to inline formulas with a single `$` and to a display formula with a double `$$`.
 
-```
+```markdown
 While $f(x) \ne g(y)$ is space-saving, this if often clearer:
 
 $$
@@ -148,11 +148,11 @@ f(x) \ne g(x)
 $$
 ---
 
-### Symbols
+## Symbols
 
-#### Operators
+### Operators
 
-```
+```markdown
 - $x + y$
 - $x - y$
 - $x \times y$
@@ -170,9 +170,9 @@ gives
 - $\dfrac{x}{y}$
 - $\sqrt{x}$
 
-#### Mathematical symbols
+### Mathematical symbols
 
-```
+```markdown
 - $\pi \approx 3.14159$
 - $\pm \, 0.2$
 - $\dfrac{0}{1} \neq \infty$
@@ -216,9 +216,9 @@ gives
 - $a \Longrightarrow b$
 - $a \propto b$
 
-#### Accents
+### Accents
 
-```
+```markdown
 - $\bar a$
 - $\tilde a$
 - $\breve a$
@@ -260,9 +260,9 @@ gives
 - $\{ \}$
 - $\_$
 
-#### Greek letters
+### Greek letters
 
-```
+```markdown
 $$
 \alpha, \beta, \gamma, \delta, \epsilon, \pi,\\
 \Gamma,\Sigma,\Upsilon,\Pi,\Theta
@@ -276,7 +276,7 @@ $$
 \Gamma,\Sigma,\Upsilon,\Pi,\Theta
 $$
 
-### Spaces
+## Spaces
 
 - Horizontal space: `\quad`
 - Large horizontal space: `\qquad`
@@ -287,7 +287,7 @@ $$
 
 For example, `$a \; + \! b$` gives $a \; + \! b$.
 
-### Matrices
+## Matrices
 
 To investigate the Markdown code for matrices, download this page's Markdown version by clicking the download button on the top right.
 
@@ -301,23 +301,23 @@ $$
 
 $$
 M =
-\begin{bmatrix}
+\begin{pmatrix}
 \frac{5}{6} & \frac{1}{6} & 0 \\[0.3em]
 \frac{5}{6} & 0 & \frac{1}{6} \\[0.3em]
 0 & \frac{5}{6} & \frac{1}{6}
-\end{bmatrix}
+\end{pmatrix}
 $$
 
 $$
 M =
-\begin{bmatrix}
+\begin{pmatrix}
 1 & 0 \\
 0 & 1
-\end{bmatrix}
-\begin{bmatrix}
+\end{pmatrix}
+\begin{pmatrix}
 1 & 0 \\
 0 & 1
-\end{bmatrix}
+\end{pmatrix}
 $$
 
 $$
@@ -342,7 +342,7 @@ a_{m,1} & a_{m,2} & \cdots & a_{m,n}
 \end{pmatrix}
 $$
 
-### Functions
+## Functions
 
 Special function names such as trigonometic functions are traditionally written in non-italic font. To achieve this, write `f(x) = \sin(x)` instead of `f(x) = sin(x)`, which gives $f(x) = \sin(x)$ instead of $f(x) = sin(x)$.
 
@@ -352,12 +352,12 @@ $$
 \cos(x) \qquad \log(x) \qquad \exp(x).
 $$
 
-### Sub and superscripts
+## Sub and superscripts
 
 - Subscripts: `$a_i$ or $a_{ij}$` gives $a_i$ or $a_{ij}$
 - Superscripts: `$a^i$ or $a^{ij}$` gives $a^i$ or $a^{ij}$
 
-### Sums and products
+## Sums and products
 
 A sum is written `S_n = \sum_{i=1}^n X^i`:
 
@@ -371,7 +371,7 @@ $$
 P_n = \prod_{i=1}^n X_i
 $$
 
-### Derivatives and integrals
+## Derivatives and integrals
 
 Derivatives `f'(x) = \frac{df}{dx}`:
 
@@ -391,7 +391,7 @@ $$
 \int_0^1 f(x) \, dx
 $$
 
-### Examples
+## Examples
 
 Investigate the Markdown code for matrices by double-clicking on the text cell.
 
@@ -419,6 +419,6 @@ $$
 x_\pm = -\frac{p}{2} \pm \sqrt{\Big(\frac{p}{2}\Big)^2 - q}
 $$
 
-### Converting LaTeX to Markdown
+## Converting LaTeX to Markdown
 
 If you have already written a text in LaTeX and need it in Markdown, you can use tools like [Pandoc](https://pandoc.org/) to convert from one format to another.

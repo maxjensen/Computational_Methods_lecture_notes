@@ -42,20 +42,20 @@ The rotation matrix is given as follows:
   
 $$  
 Q =   
-\begin{bmatrix}  
+\begin{pmatrix}  
 \cos\theta & -\sin\theta\\  
 \sin\theta & \cos\theta  
-\end{bmatrix}  
+\end{pmatrix}  
 $$  
   
 The matrix $Q$ is orthogonal since $Q^TQ=I$. The rotation matrix for the angle $-\theta$ is obtained as  
   
 $$  
 \hat{Q} =  
-\begin{bmatrix}  
+\begin{pmatrix}  
 \cos\theta & +\sin\theta\\  
 -\sin\theta & \cos\theta  
-\end{bmatrix},  
+\end{pmatrix},  
 $$  
   
 which is just the transpose of $Q$. Hence, as expected, the inverse of $Q$ is just the rotation by $-\theta$.
@@ -65,20 +65,20 @@ which is just the transpose of $Q$. Hence, as expected, the inverse of $Q$ is ju
   
 $$  
 Q =   
-\begin{bmatrix}  
+\begin{pmatrix}  
 \cos\theta & -\sin\theta\\  
 \sin\theta & \cos\theta  
-\end{bmatrix}  
+\end{pmatrix}  
 $$  
   
 The matrix $Q$ is orthogonal since $Q^TQ=I$. The rotation matrix for the angle $-\theta$ is obtained as  
   
 $$  
 \hat{Q} =  
-\begin{bmatrix}  
+\begin{pmatrix}  
 \cos\theta & +\sin\theta\\  
 -\sin\theta & \cos\theta  
-\end{bmatrix},  
+\end{pmatrix},  
 $$  
   
 which is just the transpose of $Q$. Hence, as expected, the inverse of $Q$ is just the rotation by $-\theta$.

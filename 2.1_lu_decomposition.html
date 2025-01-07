@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Solving linear system with the LU Decomposition &#8212; Computational Methods MATH0058 lecture notes</title>
+    <title>LU Decomposition &#8212; Computational Methods MATH0058 lecture notes</title>
   
   
   
@@ -182,7 +182,7 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Solving linear system with the LU Decomposition</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">LU Decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.2_lu_backward_error.html">Backward error of the LU decomposition and pivoting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.3_lu_backward_error_examples.html">Backward error of the LU decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.4_python_lu_decomposition.html">Implementing the LU decomposition in Python</a></li>
@@ -204,18 +204,6 @@
 <li class="toctree-l1"><a class="reference internal" href="5.1_eigenvalues_basic_properties.html">Basic properties of eigenvalue problems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="5.2_computing_eigenvalues.html">Computing eigenvalues</a></li>
 <li class="toctree-l1"><a class="reference internal" href="5.3_computing_eigenspaces.html">Computing eigenspaces</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Self Check Questions</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="week_1_self_check.html">Week 1 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_2_self_check.html">Week 2 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_3_self_check.html">Week 3 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_4_self_check.html">Week 4 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_5_self_check.html">Week 5 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_6_self_check.html">Week 6 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_7_self_check.html">Week 7 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_8_self_check.html">Week 8 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_9_self_check.html">Week 9 Self check questions and solutions</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Back matter</span></p>
 <ul class="nav bd-sidenav">
@@ -353,7 +341,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Solving linear system with the LU Decomposition</h1>
+    <h1>LU Decomposition</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -380,8 +368,8 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="solving-linear-system-with-the-lu-decomposition">
-<h1>Solving linear system with the LU Decomposition<a class="headerlink" href="#solving-linear-system-with-the-lu-decomposition" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="lu-decomposition">
+<h1>LU Decomposition<a class="headerlink" href="#lu-decomposition" title="Link to this heading">#</a></h1>
 <p>Solving linear systems of equations is among the most fundamental operations in a computer. Many problems (even
 nonlinear ones) eventually reduce to sequences of linear system solves.</p>
 <p>Most students learn about <a class="reference external" href="https://en.wikipedia.org/wiki/Gaussian_elimination">Gaussian elimination</a>, which is also known as row reduction, in school. The LU decomposition is simply a more organised way to perform Gaussian elimination.</p>
@@ -449,74 +437,7 @@ divisions.</p>
 </section>
 <section id="deriving-the-lu-decomposition">
 <h2>Deriving the LU Decomposition<a class="headerlink" href="#deriving-the-lu-decomposition" title="Link to this heading">#</a></h2>
-<p>As warm-up, you may find it convenient to review the following example first:</p>
-<div class="proof example admonition" id="example-0">
-<p class="admonition-title"><span class="caption-number">Example 5 </span> (Gaussian elimination of the <span class="math notranslate nohighlight">\(3\times 3\)</span> linear system)</p>
-<section class="example-content" id="proof-content">
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{pmatrix}
-a_{11} &amp; a_{12} &amp; a_{13}\\
-a_{21} &amp; a_{22} &amp; a_{23}\\
-a_{31} &amp; a_{32} &amp; a_{33}
-\end{pmatrix}
-\begin{pmatrix}
-x_1\\ x_2 \\ x_3
-\end{pmatrix}
-= \begin{pmatrix}b_1 \\ b_2 \\ b_3\end{pmatrix}.
-\end{split}\]</div>
-<p>We want to transform this system into an upper triangular system. In the first step, we multiply the first row with
-<span class="math notranslate nohighlight">\(\ell_{21} = \frac{a_{21}}{a_{11}}\)</span> and subtract from the second row to obtain the
-modified system</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{pmatrix}
-a_{11} &amp; a_{12} &amp; a_{13}\\
-0 &amp; \tilde{a}_{22} &amp; \tilde{a}_{23}\\
-a_{31} &amp; a_{32} &amp; a_{33}
-\end{pmatrix}
-\begin{pmatrix}
-x_1\\ x_2 \\ x_3
-\end{pmatrix}
-= \begin{pmatrix}b_1 \\ \tilde{b}_2 \\ b_3\end{pmatrix}
-\end{split}\]</div>
-<p>with</p>
-<div class="math notranslate nohighlight">
-\[
-\tilde{a}_{22} = a_{22} - l_{21}a_{12}, \quad \tilde{a}_{23} = a_{23} - \ell_{21}a_{13}
-\]</div>
-<p>and <span class="math notranslate nohighlight">\(b_2\)</span> modified correspondingly. We then define <span class="math notranslate nohighlight">\(\ell_{31} = \frac{a_{31}}{a_{11}}\)</span> and proceed in a similar way with
-the third row to obtain</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{pmatrix}
-a_{11} &amp; a_{12} &amp; a_{13}\\
-0 &amp; \tilde{a}_{22} &amp; \tilde{a}_{23}\\
-0 &amp; \tilde{a}_{32} &amp; \tilde{a}_{33}
-\end{pmatrix}
-\begin{pmatrix}
-x_1\\ x_2 \\ x_3
-\end{pmatrix}
-= \begin{pmatrix}b_1 \\ \tilde{b}_2 \\ \tilde{b}_3\end{pmatrix}.
-\end{split}\]</div>
-<p>We now continue in the same way with the bottom right matrix. Define the element <span class="math notranslate nohighlight">\(\ell_{32} = \frac{\tilde{a}
-_{32}}{\tilde{a}_{22}}\)</span>, multiply the second row with it and subtract from the third row, giving at the end an upper
-triangular system of the form</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{pmatrix}
-a_{11} &amp; a_{12} &amp; a_{13}\\
-0 &amp; \tilde{a}_{22} &amp; \tilde{a}_{23}\\
-0 &amp; 0 &amp; \hat{a}_{33}
-\end{pmatrix}
-\begin{pmatrix}
-x_1\\ x_2 \\ x_3
-\end{pmatrix}
-= \begin{pmatrix}b_1 \\ \tilde{b}_2 \\ \hat{b}_3\end{pmatrix}.
-\end{split}\]</div>
-<p>We can now easily solve this system by backward substitution to compute first <span class="math notranslate nohighlight">\(x_3\)</span>, then <span class="math notranslate nohighlight">\(x_2\)</span>, and finally <span class="math notranslate nohighlight">\(x_1\)</span>.</p>
-</section>
-</div><p>We now introduce a different way of writing Gaussian elimination
+<p>We now introduce a different way of writing Gaussian elimination
 that will directly lead us to the LU decomposition.</p>
 <p>The key to Gaussian elimination is the subtraction of the multiple of one row from another row. Define</p>
 <div class="math notranslate nohighlight">
@@ -587,11 +508,82 @@ divide by <span class="math notranslate nohighlight">\(L_{ii}\)</span>.</p>
 <section id="cost-of-lu-decomposition">
 <h2>Cost of LU Decomposition<a class="headerlink" href="#cost-of-lu-decomposition" title="Link to this heading">#</a></h2>
 <p>We have established that solving a triangular system requires <span class="math notranslate nohighlight">\(\mathcal{O}(n^2)\)</span> operations. For computing the decomposition <span class="math notranslate nohighlight">\(A = LU\)</span>, an operation count yields a cost of <span class="math notranslate nohighlight">\(\frac{2}{3}n^3 + \mathcal{O}(n^2)\)</span> operations. Thus, the dominant computational cost lies in the LU decomposition itself. Once the decomposition is computed, the forward and backward substitution steps are comparatively inexpensive.</p>
-<p>This efficiency becomes particularly advantageous when solving multiple linear systems where the matrix <span class="math notranslate nohighlight">\(A\)</span> remains constant but the right-hand side <span class="math notranslate nohighlight">\(b\)</span> changes. In such cases, the <span class="math notranslate nohighlight">\(LU\)</span> decomposition is computed only once, and subsequent solutions require only the forward and backward substitutions, which can be performed efficiently.</p>
+<p>This efficiency becomes particularly advantageous when solving multiple linear systems where the matrix <span class="math notranslate nohighlight">\(A\)</span> remains the same but the right-hand side <span class="math notranslate nohighlight">\(b\)</span> changes. In such cases, the <span class="math notranslate nohighlight">\(LU\)</span> decomposition is computed only once, and subsequent solutions require only the forward and backward substitutions, which can be performed efficiently.</p>
 </section>
 <section id="self-check-questions">
 <h2>Self-check Questions<a class="headerlink" href="#self-check-questions" title="Link to this heading">#</a></h2>
 <div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Write down how to solve the below general <span class="math notranslate nohighlight">\(3 \times 3\)</span> system</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{pmatrix}
+a_{11} &amp; a_{12} &amp; a_{13}\\
+a_{21} &amp; a_{22} &amp; a_{23}\\
+a_{31} &amp; a_{32} &amp; a_{33}
+\end{pmatrix}
+\begin{pmatrix}
+x_1\\ x_2 \\ x_3
+\end{pmatrix}
+= \begin{pmatrix}b_1 \\ b_2 \\ b_3\end{pmatrix}
+\end{split}\]</div>
+<p>with Gaussian elimination. You may assume that the system is invertible.</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">We want to transform this system into an upper triangular system. In the first step, we multiply the first row with
+<span class="math notranslate nohighlight">\(\ell_{21} = \frac{a_{21}}{a_{11}}\)</span> and subtract from the second row to obtain the
+modified system</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{pmatrix}
+a_{11} &amp; a_{12} &amp; a_{13}\\
+0 &amp; \tilde{a}_{22} &amp; \tilde{a}_{23}\\
+a_{31} &amp; a_{32} &amp; a_{33}
+\end{pmatrix}
+\begin{pmatrix}
+x_1\\ x_2 \\ x_3
+\end{pmatrix}
+= \begin{pmatrix}b_1 \\ \tilde{b}_2 \\ b_3\end{pmatrix}
+\end{split}\]</div>
+<p class="sd-card-text">with</p>
+<div class="math notranslate nohighlight">
+\[
+\tilde{a}_{22} = a_{22} - l_{21}a_{12}, \quad \tilde{a}_{23} = a_{23} - \ell_{21}a_{13}
+\]</div>
+<p class="sd-card-text">and <span class="math notranslate nohighlight">\(b_2\)</span> modified correspondingly. We then define <span class="math notranslate nohighlight">\(\ell_{31} = \frac{a_{31}}{a_{11}}\)</span> and proceed in a similar way with
+the third row to obtain</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{pmatrix}
+a_{11} &amp; a_{12} &amp; a_{13}\\
+0 &amp; \tilde{a}_{22} &amp; \tilde{a}_{23}\\
+0 &amp; \tilde{a}_{32} &amp; \tilde{a}_{33}
+\end{pmatrix}
+\begin{pmatrix}
+x_1\\ x_2 \\ x_3
+\end{pmatrix}
+= \begin{pmatrix}b_1 \\ \tilde{b}_2 \\ \tilde{b}_3\end{pmatrix}.
+\end{split}\]</div>
+<p class="sd-card-text">We now continue in the same way with the bottom right matrix. Define the element <span class="math notranslate nohighlight">\(\ell_{32} = \frac{\tilde{a}
+_{32}}{\tilde{a}_{22}}\)</span>, multiply the second row with it and subtract from the third row, giving at the end an upper
+triangular system of the form</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{pmatrix}
+a_{11} &amp; a_{12} &amp; a_{13}\\
+0 &amp; \tilde{a}_{22} &amp; \tilde{a}_{23}\\
+0 &amp; 0 &amp; \hat{a}_{33}
+\end{pmatrix}
+\begin{pmatrix}
+x_1\\ x_2 \\ x_3
+\end{pmatrix}
+= \begin{pmatrix}b_1 \\ \tilde{b}_2 \\ \hat{b}_3\end{pmatrix}.
+\end{split}\]</div>
+<p class="sd-card-text">We can now easily solve this system by backward substitution to compute first <span class="math notranslate nohighlight">\(x_3\)</span>, then <span class="math notranslate nohighlight">\(x_2\)</span>, and finally <span class="math notranslate nohighlight">\(x_1\)</span>.</p>
+</div>
+</details><div class="tip admonition">
 <p class="admonition-title"><strong>Question</strong></p>
 <p>A triangular matrix is invertible if and only if its diagonal elements are non-zero.</p>
 </div>
@@ -601,10 +593,6 @@ divide by <span class="math notranslate nohighlight">\(L_{ii}\)</span>.</p>
 <p class="sd-card-text">(⇒) Assume that a triangular matrix <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{n \times n}\)</span> is invertible. An invertible matrix has a non-zero determinant. For a triangular matrix, whether upper or lower, the determinant is the product of its diagonal elements. Thus, if <span class="math notranslate nohighlight">\(A\)</span> is invertible, its determinant is non-zero. This implies that each diagonal element must be non-zero.</p>
 <p class="sd-card-text">(⇐) Now assume that all diagonal elements of a triangular matrix <span class="math notranslate nohighlight">\(A\)</span> are non-zero. The determinant of a triangular matrix is the product of its diagonal entries. Since none of these entries is zero, their product is also non-zero. Hence, <span class="math notranslate nohighlight">\(\det(A) \neq 0\)</span>. A non-zero determinant implies that <span class="math notranslate nohighlight">\(A\)</span> is invertible.</p>
 <p class="sd-card-text">Comment: There are other valid methods to prove the result. For example one can argue with the linear independence of the columns.</p>
-</div>
-</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
-<summary class="sd-summary-title sd-card-header">
-<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
 </div>
 </details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">

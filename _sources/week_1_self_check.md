@@ -35,14 +35,14 @@ Let $\hat{i}$ be the row index for which the upper bound is attained. By choosin
 
 **Question 2:**
 
-For the matrix $A = \begin{bmatrix} 2 & 3 \\ 0 & 1\end{bmatrix}$ compute $\|A|_p$ for $p=1, 2, \infty, F$.
+For the matrix $A = \begin{pmatrix} 2 & 3 \\ 0 & 1\end{pmatrix}$ compute $\|A|_p$ for $p=1, 2, \infty, F$.
 
 **Solution:**
 
 We have $\|A|_1 = 4$, $\|A|_{\infty} = 5$, $\|A|_F = \sqrt{14}$. For $\|A\|_2$ we compute the eigenvalues of
 
 $$
-A^TA = \begin{bmatrix}4 & 6\\ 6 & 10\end{bmatrix},
+A^TA = \begin{pmatrix}4 & 6\\ 6 & 10\end{pmatrix},
 $$
 
 giving us $\lambda_{1, 2} = 7 \pm 3\sqrt{5}$. Hence, $\|A\|_2 = \sqrt{7 + 3\sqrt{5}}$.

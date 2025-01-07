@@ -66,8 +66,6 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'week_1_self_check';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Week 2 Self check questions and solutions" href="week_2_self_check.html" />
-    <link rel="prev" title="Computing eigenspaces" href="5.3_computing_eigenspaces.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -118,6 +116,8 @@
     <div class="bd-container__inner bd-page-width">
       
       
+      
+        
       
       <dialog id="pst-primary-sidebar-modal"></dialog>
       <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
@@ -182,7 +182,7 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="2.1_lu_decomposition.html">Solving linear system with the LU Decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.1_lu_decomposition.html">LU Decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.2_lu_backward_error.html">Backward error of the LU decomposition and pivoting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.3_lu_backward_error_examples.html">Backward error of the LU decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.4_python_lu_decomposition.html">Implementing the LU decomposition in Python</a></li>
@@ -204,18 +204,6 @@
 <li class="toctree-l1"><a class="reference internal" href="5.1_eigenvalues_basic_properties.html">Basic properties of eigenvalue problems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="5.2_computing_eigenvalues.html">Computing eigenvalues</a></li>
 <li class="toctree-l1"><a class="reference internal" href="5.3_computing_eigenspaces.html">Computing eigenspaces</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Self Check Questions</span></p>
-<ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Week 1 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_2_self_check.html">Week 2 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_3_self_check.html">Week 3 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_4_self_check.html">Week 4 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_5_self_check.html">Week 5 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_6_self_check.html">Week 6 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_7_self_check.html">Week 7 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_8_self_check.html">Week 8 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_9_self_check.html">Week 9 Self check questions and solutions</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Back matter</span></p>
 <ul class="nav bd-sidenav">
@@ -394,12 +382,12 @@
 \]</div>
 <p>Let <span class="math notranslate nohighlight">\(\hat{i}\)</span> be the row index for which the upper bound is attained. By choosing <span class="math notranslate nohighlight">\(x_j = \text{sign}~a_{\hat{i}j}\)</span> we have that <span class="math notranslate nohighlight">\(\|Ax\|_{\infty} = \max_i \sum_{j}|a_{ij}|\)</span>, which confirms that the upper bound can be attained.</p>
 <p><strong>Question 2:</strong></p>
-<p>For the matrix <span class="math notranslate nohighlight">\(A = \begin{bmatrix} 2 &amp; 3 \\ 0 &amp; 1\end{bmatrix}\)</span> compute <span class="math notranslate nohighlight">\(\|A|_p\)</span> for <span class="math notranslate nohighlight">\(p=1, 2, \infty, F\)</span>.</p>
+<p>For the matrix <span class="math notranslate nohighlight">\(A = \begin{pmatrix} 2 &amp; 3 \\ 0 &amp; 1\end{pmatrix}\)</span> compute <span class="math notranslate nohighlight">\(\|A|_p\)</span> for <span class="math notranslate nohighlight">\(p=1, 2, \infty, F\)</span>.</p>
 <p><strong>Solution:</strong></p>
 <p>We have <span class="math notranslate nohighlight">\(\|A|_1 = 4\)</span>, <span class="math notranslate nohighlight">\(\|A|_{\infty} = 5\)</span>, <span class="math notranslate nohighlight">\(\|A|_F = \sqrt{14}\)</span>. For <span class="math notranslate nohighlight">\(\|A\|_2\)</span> we compute the eigenvalues of</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-A^TA = \begin{bmatrix}4 &amp; 6\\ 6 &amp; 10\end{bmatrix},
+A^TA = \begin{pmatrix}4 &amp; 6\\ 6 &amp; 10\end{pmatrix},
 \end{split}\]</div>
 <p>giving us <span class="math notranslate nohighlight">\(\lambda_{1, 2} = 7 \pm 3\sqrt{5}\)</span>. Hence, <span class="math notranslate nohighlight">\(\|A\|_2 = \sqrt{7 + 3\sqrt{5}}\)</span>.</p>
 <p><strong>Question 3:</strong></p>
@@ -454,24 +442,6 @@ A^TA = \begin{bmatrix}4 &amp; 6\\ 6 &amp; 10\end{bmatrix},
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
-    <a class="left-prev"
-       href="5.3_computing_eigenspaces.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Computing eigenspaces</p>
-      </div>
-    </a>
-    <a class="right-next"
-       href="week_2_self_check.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Week 2 Self check questions and solutions</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
 </div>
                 </footer>
               

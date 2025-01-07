@@ -182,7 +182,7 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="2.1_lu_decomposition.html">Solving linear system with the LU Decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.1_lu_decomposition.html">LU Decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.2_lu_backward_error.html">Backward error of the LU decomposition and pivoting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.3_lu_backward_error_examples.html">Backward error of the LU decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.4_python_lu_decomposition.html">Implementing the LU decomposition in Python</a></li>
@@ -204,18 +204,6 @@
 <li class="toctree-l1"><a class="reference internal" href="5.1_eigenvalues_basic_properties.html">Basic properties of eigenvalue problems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="5.2_computing_eigenvalues.html">Computing eigenvalues</a></li>
 <li class="toctree-l1"><a class="reference internal" href="5.3_computing_eigenspaces.html">Computing eigenspaces</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Self Check Questions</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="week_1_self_check.html">Week 1 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_2_self_check.html">Week 2 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_3_self_check.html">Week 3 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_4_self_check.html">Week 4 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_5_self_check.html">Week 5 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_6_self_check.html">Week 6 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_7_self_check.html">Week 7 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_8_self_check.html">Week 8 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_9_self_check.html">Week 9 Self check questions and solutions</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Back matter</span></p>
 <ul class="nav bd-sidenav">
@@ -426,9 +414,8 @@
   \end{split}\]</div>
 </li>
 <li><p>For <span class="math notranslate nohighlight">\(k\)</span> in <span class="math notranslate nohighlight">\(\{2, \ldots, n\}\)</span>:</p>
-<ul class="simple">
-<li><p>To compute column <span class="math notranslate nohighlight">\(q_k\)</span>, orthogonalize column <span class="math notranslate nohighlight">\(a_k\)</span> against all previous <span class="math notranslate nohighlight">\(q_j\)</span> (for <span class="math notranslate nohighlight">\(j = 1, \ldots, k-1\)</span>):</p></li>
-</ul>
+<ul>
+<li><p>To compute column <span class="math notranslate nohighlight">\(q_k\)</span>, orthogonalize column <span class="math notranslate nohighlight">\(a_k\)</span> against all previous <span class="math notranslate nohighlight">\(q_j\)</span> (for <span class="math notranslate nohighlight">\(j = 1, \ldots, k-1\)</span>):</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
      \begin{aligned}
@@ -436,6 +423,8 @@
      q_k &amp;:= \frac{\tilde{q}_k}{\|\tilde{q}_k\|_2}.
      \end{aligned}
      \end{split}\]</div>
+</li>
+</ul>
 </li>
 </ul>
 </section>
@@ -449,17 +438,17 @@
 </li>
 <li><p>Hence, the matrix <span class="math notranslate nohighlight">\(A\)</span> can be decomposed as <span class="math notranslate nohighlight">\(A = QR\)</span> where:</p>
 <ul>
-<li><p><span class="math notranslate nohighlight">\(Q = \begin{bmatrix} q_1, \ldots, q_n \end{bmatrix}\)</span> is a matrix with orthogonal columns.</p></li>
+<li><p><span class="math notranslate nohighlight">\(Q = \begin{pmatrix} q_1, \ldots, q_n \end{pmatrix}\)</span> is a matrix with orthogonal columns.</p></li>
 <li><p><span class="math notranslate nohighlight">\(R\)</span> is an upper triangular matrix defined as:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-      R = \begin{bmatrix}
-      \|\tilde{q}_1\|_2 &amp; \langle a_2, q_1 \rangle &amp; \ldots &amp; \langle a_n, q_1 \rangle \\
-      &amp; \|\tilde{q}_2\|_2 &amp; \ddots &amp; \vdots \\
-      &amp; &amp; \ddots &amp; \langle a_n, q_{n-1} \rangle \\
-      &amp; &amp; &amp; \|\tilde{q}_n\|_2
-      \end{bmatrix}
-      \end{split}\]</div>
+    R = \begin{pmatrix}
+    \|\tilde{q}_1\|_2 &amp; \langle a_2, q_1 \rangle &amp; \ldots &amp; \langle a_n, q_1 \rangle \\
+    &amp; \|\tilde{q}_2\|_2 &amp; \ddots &amp; \vdots \\
+    &amp; &amp; \ddots &amp; \langle a_n, q_{n-1} \rangle \\
+    &amp; &amp; &amp; \|\tilde{q}_n\|_2
+    \end{pmatrix}
+    \end{split}\]</div>
 </li>
 </ul>
 </li>
@@ -491,7 +480,7 @@
 <p>Consider the QR decomposition <span class="math notranslate nohighlight">\(A = QR\)</span> with <span class="math notranslate nohighlight">\(Q\in\mathbb{R}^{m\times n}\)</span> and <span class="math notranslate nohighlight">\(R\in\mathbb{R}^{n\times n}\)</span>. We call this QR decomposition a reduced QR decomposition. To define the full QR decomposition, let <span class="math notranslate nohighlight">\(Q^{\bot}\in\mathbb{R}^{m\times m-n}\)</span> be a matrix whose columns are orthonormal and satisfy <span class="math notranslate nohighlight">\(\hat{Q}^TQ = 0\)</span> (i.e. they are a basis of the orthogonal complement of the range of <span class="math notranslate nohighlight">\(A\)</span>). We can reformulate the QR decomposition as</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-A = \begin{bmatrix}Q &amp; Q^{\bot}\end{bmatrix}\begin{bmatrix}R\\ 0\end{bmatrix} =: \tilde{R}\tilde{Q}.
+A = \begin{pmatrix}Q &amp; Q^{\bot}\end{pmatrix}\begin{pmatrix}R\\ 0\end{pmatrix} =: \tilde{R}\tilde{Q}.
 \end{split}\]</div>
 <p>The QR decomposition <span class="math notranslate nohighlight">\(A = \tilde{Q}\tilde{R}\)</span> is called full QR decomposition. It is rarely used in practical computation as the columns of <span class="math notranslate nohighlight">\(Q^{\bot}\)</span> are usually not required. However, it is essential theoretically, as <span class="math notranslate nohighlight">\(Q^{\bot}\)</span> contains information about the range of <span class="math notranslate nohighlight">\(A\)</span> and its orthogonal complement.</p>
 </section>
@@ -573,7 +562,7 @@ A = \begin{bmatrix}Q &amp; Q^{\bot}\end{bmatrix}\begin{bmatrix}R\\ 0\end{bmatrix
 <p class="admonition-title"><strong>Question</strong></p>
 <p>Find the QR decomposition of the matrix</p>
 <div class="math notranslate nohighlight">
-\[\begin{split} A = \begin{bmatrix} 3 &amp; 2 \\ 1 &amp; 4 \\ 0 &amp; 5 \end{bmatrix}.\end{split}\]</div>
+\[\begin{split} A = \begin{pmatrix} 3 &amp; 2 \\ 1 &amp; 4 \\ 0 &amp; 5 \end{pmatrix}.\end{split}\]</div>
 <p>using the Gram-Schmidt method.</p>
 </div>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
@@ -583,27 +572,27 @@ A = \begin{bmatrix}Q &amp; Q^{\bot}\end{bmatrix}\begin{bmatrix}R\\ 0\end{bmatrix
 <li><p class="sd-card-text"><strong>First Column (<span class="math notranslate nohighlight">\(q_1\)</span>)</strong>:</p></li>
 </ol>
 <div class="math notranslate nohighlight">
-\[\begin{split}q_1 = \begin{bmatrix} 0.9487 \\ 0.3162 \\ 0 \end{bmatrix}\end{split}\]</div>
+\[\begin{split}q_1 = \begin{pmatrix} 0.9487 \\ 0.3162 \\ 0 \end{pmatrix}\end{split}\]</div>
 <ol class="arabic simple" start="2">
 <li><p class="sd-card-text"><strong>Orthogonalized Second Column (<span class="math notranslate nohighlight">\(\tilde{q}_2\)</span>)</strong>:</p></li>
 </ol>
 <div class="math notranslate nohighlight">
-\[\begin{split}\tilde{q}_2 = \begin{bmatrix} -1 \\ 3 \\ 5 \end{bmatrix}\end{split}\]</div>
+\[\begin{split}\tilde{q}_2 = \begin{pmatrix} -1 \\ 3 \\ 5 \end{pmatrix}\end{split}\]</div>
 <ol class="arabic simple" start="3">
 <li><p class="sd-card-text"><strong>Normalized Second Column (<span class="math notranslate nohighlight">\(q_2\)</span>)</strong>:</p></li>
 </ol>
 <div class="math notranslate nohighlight">
-\[\begin{split}q_2 = \begin{bmatrix} -0.1690 \\ 0.5071 \\ 0.8452 \end{bmatrix}\end{split}\]</div>
+\[\begin{split}q_2 = \begin{pmatrix} -0.1690 \\ 0.5071 \\ 0.8452 \end{pmatrix}\end{split}\]</div>
 <ol class="arabic simple" start="4">
 <li><p class="sd-card-text"><strong>Orthogonal Matrix <span class="math notranslate nohighlight">\(Q\)</span></strong>:</p></li>
 </ol>
 <div class="math notranslate nohighlight">
-\[\begin{split}Q = \begin{bmatrix} 0.9487 &amp; -0.1690 \\ 0.3162 &amp; 0.5071 \\ 0 &amp; 0.8452 \end{bmatrix}\end{split}\]</div>
+\[\begin{split}Q = \begin{pmatrix} 0.9487 &amp; -0.1690 \\ 0.3162 &amp; 0.5071 \\ 0 &amp; 0.8452 \end{pmatrix}\end{split}\]</div>
 <ol class="arabic simple" start="5">
 <li><p class="sd-card-text"><strong>Upper Triangular Matrix <span class="math notranslate nohighlight">\(R\)</span></strong>:</p></li>
 </ol>
 <div class="math notranslate nohighlight">
-\[\begin{split}R = \begin{bmatrix} 3.1623 &amp; 3.1623 \\ 0 &amp; 5.9161 \end{bmatrix}\end{split}\]</div>
+\[\begin{split}R = \begin{pmatrix} 3.1623 &amp; 3.1623 \\ 0 &amp; 5.9161 \end{pmatrix}\end{split}\]</div>
 <p class="sd-card-text">The matrices <span class="math notranslate nohighlight">\(Q\)</span> and <span class="math notranslate nohighlight">\(R\)</span> form the QR decomposition of <span class="math notranslate nohighlight">\(A\)</span>, such that <span class="math notranslate nohighlight">\(A = QR\)</span>. The matrix <span class="math notranslate nohighlight">\(Q\)</span> contains orthonormal columns, and <span class="math notranslate nohighlight">\(R\)</span> is an upper triangular matrix.</p>
 </div>
 </details><div class="tip admonition">
@@ -616,12 +605,12 @@ A = \begin{bmatrix}Q &amp; Q^{\bot}\end{bmatrix}\begin{bmatrix}R\\ 0\end{bmatrix
 <p class="sd-card-text">Recall the structure of <span class="math notranslate nohighlight">\(R\)</span>:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-    R = \begin{bmatrix}
+    R = \begin{pmatrix}
     \|\tilde{q}_1\|_2 &amp; \langle a_2, q_1 \rangle &amp; \ldots &amp; \langle a_n, q_1 \rangle \\
                       &amp; \|\tilde{q}_2\|_2        &amp; \ddots &amp; \vdots \\
                       &amp;                          &amp; \ddots &amp; \langle a_n, q_{n-1} \rangle \\
                       &amp;                          &amp;        &amp; \|\tilde{q}_n\|_2
-    \end{bmatrix}
+    \end{pmatrix}
     \end{split}\]</div>
 <p class="sd-card-text">We need to show <span class="math notranslate nohighlight">\(r_{ij} = 0\)</span> if <span class="math notranslate nohighlight">\(j + 2 \geq i\)</span>:</p>
 <ul>
@@ -662,19 +651,19 @@ A = (A^T)^T = (\bar{Q} R)^T = R^T \bar{Q}^T = L Q
 <div class="math notranslate nohighlight">
 \[\begin{split}  
 Q =   
-\begin{bmatrix}  
+\begin{pmatrix}  
 \cos\theta &amp; -\sin\theta\\  
 \sin\theta &amp; \cos\theta  
-\end{bmatrix}  
+\end{pmatrix}  
 \end{split}\]</div>
 <p class="sd-card-text">The matrix <span class="math notranslate nohighlight">\(Q\)</span> is orthogonal since <span class="math notranslate nohighlight">\(Q^TQ=I\)</span>. The rotation matrix for the angle <span class="math notranslate nohighlight">\(-\theta\)</span> is obtained as</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}  
 \hat{Q} =  
-\begin{bmatrix}  
+\begin{pmatrix}  
 \cos\theta &amp; +\sin\theta\\  
 -\sin\theta &amp; \cos\theta  
-\end{bmatrix},  
+\end{pmatrix},  
 \end{split}\]</div>
 <p class="sd-card-text">which is just the transpose of <span class="math notranslate nohighlight">\(Q\)</span>. Hence, as expected, the inverse of <span class="math notranslate nohighlight">\(Q\)</span> is just the rotation by <span class="math notranslate nohighlight">\(-\theta\)</span>.</p>
 </div>
@@ -803,11 +792,11 @@ P^2 = uu^Tuu^T = uu^T
    \begin{align*}
    &amp;\hat{\phi}_1(t) = \phi_1(t) - \frac{(\hat{\phi}_0,\phi_1)}{(\hat{\phi}_0,\hat{\phi}_0)} = t - 0,\\
    &amp;\hat{\phi}_2(t) = \phi_2(t) - \frac{(\hat{\phi}_1,\phi_2)}{(\hat{\phi}_1,\hat{\phi}_1)}\hat{\phi}_1(t)
-	- \frac{(\hat{\phi}_0,\phi_2)}{(\hat{\phi}_0,\hat{\phi}_0)}\hat{\phi}_0(t)
-	= t^2 - 0 - \frac13,\\
+ - \frac{(\hat{\phi}_0,\phi_2)}{(\hat{\phi}_0,\hat{\phi}_0)}\hat{\phi}_0(t)
+ = t^2 - 0 - \frac13,\\
    &amp;\hat{\phi}_3(t) = \phi_3(t) - \frac{(\hat{\phi}_2,\phi_3)}{(\hat{\phi}_2,\hat{\phi}_2)}\hat{\phi}_2(t)
-	- \frac{(\hat{\phi}_1,\phi_3)}{(\hat{\phi}_1,\hat{\phi}_1)}\hat{\phi}_1(t)
-	- \frac{(\hat{\phi}_0,\phi_3)}{(\hat{\phi}_0,\hat{\phi}_0)}\hat{\phi}_0(t)
+ - \frac{(\hat{\phi}_1,\phi_3)}{(\hat{\phi}_1,\hat{\phi}_1)}\hat{\phi}_1(t)
+ - \frac{(\hat{\phi}_0,\phi_3)}{(\hat{\phi}_0,\hat{\phi}_0)}\hat{\phi}_0(t)
    = t^3 - 0 - \frac{3t}5 - 0.
    \end{align*}
    \end{split}\]</div>
@@ -819,13 +808,13 @@ P^2 = uu^Tuu^T = uu^T
    \begin{align*}
    \hat{\phi}_1(t) &amp; = \phi_1(t) - \frac{(\hat{\phi}_0,\phi_1)}{(\hat{\phi}_0,\hat{\phi}_0)} = t - \frac12,\\
    \hat{\phi}_2(t) &amp; = \phi_2(t) - \frac{(\hat{\phi}_1,\phi_2)}{(\hat{\phi}_1,\hat{\phi}_1)}\hat{\phi}_1(t)
-	- \frac{(\hat{\phi}_0,\phi_2)}{(\hat{\phi}_0,\hat{\phi}_0)}\hat{\phi}_0(t)
-	= t^2 - 1\cdot\hat{\phi}_1(t) - \frac13\cdot\hat{\phi}_0(t) = t^2 - t + \frac16,\\
+ - \frac{(\hat{\phi}_0,\phi_2)}{(\hat{\phi}_0,\hat{\phi}_0)}\hat{\phi}_0(t)
+ = t^2 - 1\cdot\hat{\phi}_1(t) - \frac13\cdot\hat{\phi}_0(t) = t^2 - t + \frac16,\\
    \hat{\phi}_3(t) &amp; = \phi_3(t) - \frac{(\hat{\phi}_2,\phi_3)}{(\hat{\phi}_2,\hat{\phi}_2)}\hat{\phi}_2(t)
-	- \frac{(\hat{\phi}_1,\phi_3)}{(\hat{\phi}_1,\hat{\phi}_1)}\hat{\phi}_1(t)
-	- \frac{(\hat{\phi}_0,\phi_3)}{(\hat{\phi}_0,\hat{\phi}_0)}\hat{\phi}_0(t)\\
+ - \frac{(\hat{\phi}_1,\phi_3)}{(\hat{\phi}_1,\hat{\phi}_1)}\hat{\phi}_1(t)
+ - \frac{(\hat{\phi}_0,\phi_3)}{(\hat{\phi}_0,\hat{\phi}_0)}\hat{\phi}_0(t)\\
    &amp; = t^3 - \frac32\cdot\hat{\phi}_2(t) - \frac9{10}\cdot\hat{\phi}_1(t) - \frac14\cdot\hat{\phi}_0(t)
-	= t^3 - \frac{3t^2}2 + \frac{3t}5 - \frac1{20}.
+ = t^3 - \frac{3t^2}2 + \frac{3t}5 - \frac1{20}.
    \end{align*}
    \end{split}\]</div>
 <p class="sd-card-text">No trick as in (a) is possible here.</p>
@@ -836,13 +825,13 @@ P^2 = uu^Tuu^T = uu^T
    \begin{align*}
    \hat{\phi}_1(t) &amp; = \phi_1(t) - \frac{(\hat{\phi}_0,\phi_1)}{(\hat{\phi}_0,\hat{\phi}_0)} = t - \frac{\exp-2}{\exp-1} = t - 0.4180232931,\\
    \hat{\phi}_2(t) &amp; = \phi_2(t) - \frac{(\hat{\phi}_1,\phi_2)}{(\hat{\phi}_1,\hat{\phi}_1)}\hat{\phi}_1(t)
-	- \frac{(\hat{\phi}_0,\phi_2)}{(\hat{\phi}_0,\hat{\phi}_0)}\hat{\phi}_0(t)\\
-	&amp; = t^2 - \frac{4\exp^2-13\exp+6}{\exp^2-3\exp+1}\,\hat{\phi}_1(t) - \frac{2\exp-5}{\exp-1}\,\hat{\phi}_0(t)
-	= t^2 - \frac{4\exp^2-13\exp+6}{\exp^2-3\exp+1}\,t + \frac{2\exp^2-8\exp+7}{\exp^2-3\exp+1}\\
+ - \frac{(\hat{\phi}_0,\phi_2)}{(\hat{\phi}_0,\hat{\phi}_0)}\hat{\phi}_0(t)\\
+ &amp; = t^2 - \frac{4\exp^2-13\exp+6}{\exp^2-3\exp+1}\,\hat{\phi}_1(t) - \frac{2\exp-5}{\exp-1}\,\hat{\phi}_0(t)
+ = t^2 - \frac{4\exp^2-13\exp+6}{\exp^2-3\exp+1}\,t + \frac{2\exp^2-8\exp+7}{\exp^2-3\exp+1}\\
    &amp; = t^2 - 0.93317985227\,t + 0.1360210355\\
    \hat{\phi}_3(t) &amp; = \phi_3(t) - \frac{(\hat{\phi}_2,\phi_3)}{(\hat{\phi}_2,\hat{\phi}_2)}\hat{\phi}_2(t)
-	- \frac{(\hat{\phi}_1,\phi_3)}{(\hat{\phi}_1,\hat{\phi}_1)}\hat{\phi}_1(t)
-	- \frac{(\hat{\phi}_0,\phi_3)}{(\hat{\phi}_0,\hat{\phi}_0)}\hat{\phi}_0(t)\\
+ - \frac{(\hat{\phi}_1,\phi_3)}{(\hat{\phi}_1,\hat{\phi}_1)}\hat{\phi}_1(t)
+ - \frac{(\hat{\phi}_0,\phi_3)}{(\hat{\phi}_0,\hat{\phi}_0)}\hat{\phi}_0(t)\\
    &amp; = t^3 - \frac{36\exp^3-194\exp^2+279\exp-48}{4\exp^3-21\exp^2+29\exp-4}\,\hat{\phi}_2(t) - \frac{18\exp^2-61\exp+33}{\exp^2-3\exp+1}\,\hat{\phi}_1(t) - \frac{6\exp-16}{\exp-1}\,\hat{\phi}_0(t)\\
    &amp; = t^3 - 1.435696868\,t^2 + 0.5378430946\,t - 0.040296542725.
    \end{align*}
