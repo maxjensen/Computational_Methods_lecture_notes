@@ -716,7 +716,7 @@ and $\kappa(A)\rightarrow\infty$ as $\epsilon\rightarrow 0$. The reason is simpl
 -->
 <div class="tip admonition">
 <p class="admonition-title"><strong>Question</strong></p>
-<p>Let <span class="math notranslate nohighlight">\(x \in \mathbb{R}^2\)</span> and <span class="math notranslate nohighlight">\(f(x) = x_1 - x_2\)</span>. Compute the <span class="math notranslate nohighlight">\(\infty\)</span>-norm condition number of <span class="math notranslate nohighlight">\(f\)</span>. For what inputs is the condition number large?</p>
+<p>Let <span class="math notranslate nohighlight">\(x \in \mathbb{R}^2\)</span> and <span class="math notranslate nohighlight">\(f(x) = x_1 - x_2\)</span>. Compute the <span class="math notranslate nohighlight">\(\infty\)</span>-norm condition number <span class="math notranslate nohighlight">\(\kappa_{rel}(x)\)</span> of <span class="math notranslate nohighlight">\(f(x)\)</span>. For what inputs is the condition number large?</p>
 <p>Hint: Use the expression for the condition number of a differentiable function.</p>
 </div>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
@@ -731,11 +731,12 @@ and $\kappa(A)\rightarrow\infty$ as $\epsilon\rightarrow 0$. The reason is simpl
 </div>
 </details><div class="tip admonition">
 <p class="admonition-title"><strong>Question</strong></p>
-<p>Let <span class="math notranslate nohighlight">\(f\)</span> be differentiable. Show that</p>
+<p>Let <span class="math notranslate nohighlight">\(f : D \subset X \to Y\)</span> be differentiable, where <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are finite-dimensional real vector spaces. Show that</p>
 <div class="math notranslate nohighlight">
 \[
 \kappa_{abs}(x) = \| \nabla f(x) \|_{Y,X}, \qquad \kappa_{rel}(x) = \frac{\| x \|_X}{\| f(x) \|_Y}\| \nabla f(x) \|_{Y,X}.
 \]</div>
+<p>Hint: You may find it easier to first try the case <span class="math notranslate nohighlight">\(X = Y = \mathbb{R}\)</span> with <span class="math notranslate nohighlight">\(\| \cdot \|_X = \| \cdot \|_Y = \| \cdot \|_{Y,X} = | \cdot |\)</span>.</p>
 </div>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
@@ -778,7 +779,7 @@ f(x + \Delta x) = f(x) + \nabla f(x) \cdot \Delta x + h(x + \Delta x) \cdot \Del
 </div>
 </details><div class="tip admonition">
 <p class="admonition-title"><strong>Question</strong></p>
-<p>Let <span class="math notranslate nohighlight">\(f\)</span> be differentiable and <span class="math notranslate nohighlight">\(\| x \|_X \neq 0\)</span> and <span class="math notranslate nohighlight">\(\| f(x) \|_Y \neq 0\)</span>. Show that</p>
+<p>Let <span class="math notranslate nohighlight">\(f : D \subset X \to Y\)</span> be differentiable and <span class="math notranslate nohighlight">\(\| x \|_X \neq 0\)</span> and <span class="math notranslate nohighlight">\(\| f(x) \|_Y \neq 0\)</span>, <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> being finite-dimensional real vector spaces. Show that</p>
 <div class="math notranslate nohighlight">
 \[
 \frac{\|\Delta f\|_Y}{\|f(x)\|_Y} \leq K_{rel}(x)\cdot \frac{\|\Delta x\|_X}{\|x\|_X}
