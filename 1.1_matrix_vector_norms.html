@@ -34,9 +34,9 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=b4b7a797" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- So that users can add custom icons -->
@@ -66,7 +66,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = '1.1_matrix_vector_norms';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Floating point arithmetic" href="1.2_floating_point_arithmetic.html" />
+    <link rel="next" title="Floating point numbers" href="1.2_floating_point_arithmetic.html" />
     <link rel="prev" title="Welcome!" href="index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -174,15 +174,15 @@
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Fundamentals</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Matrix and vector norms</a></li>
-<li class="toctree-l1"><a class="reference internal" href="1.2_floating_point_arithmetic.html">Floating point arithmetic</a></li>
-<li class="toctree-l1"><a class="reference internal" href="1.3_error_analysis.html">Backward Error Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_floating_point_arithmetic.html">Floating point numbers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.3_error_analysis.html">Backward error analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.4_linear_system_error.html">The condition number of linear systems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.5_complexity_notation.html">Asymptotic notation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.6_numpy_and_data_layouts.html">Memory layout and Numpy</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="2.1_lu_decomposition.html">LU Decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.1_lu_decomposition.html">LU decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.2_lu_backward_error.html">Backward error of the LU decomposition and pivoting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.3_lu_backward_error_examples.html">Backward error of the LU decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.4_python_lu_decomposition.html">Implementing the LU decomposition in Python</a></li>
@@ -358,9 +358,9 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submultiplicativity">Submultiplicativity</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#relative-and-absolute-errors">Relative and absolute errors</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#defining-vectors-and-matrices-with-numpy">Defining Vectors and Matrices with NumPy</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#computing-vector-norms">Computing Vector Norms</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#computing-matrix-norms">Computing Matrix Norms</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#defining-vectors-and-matrices-with-numpy">Defining vectors and matrices with NumPy</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#computing-vector-norms">Computing vector norms</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#computing-matrix-norms">Computing matrix norms</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#self-check-questions">Self-check questions</a></li>
@@ -491,7 +491,7 @@ and thus $\| B v \| \leq \| B \| \, \| v \|$. An analogous argument with $B v$ i
 <section id="python-skills">
 <h2>Python skills<a class="headerlink" href="#python-skills" title="Link to this heading">#</a></h2>
 <section id="defining-vectors-and-matrices-with-numpy">
-<h3>Defining Vectors and Matrices with NumPy<a class="headerlink" href="#defining-vectors-and-matrices-with-numpy" title="Link to this heading">#</a></h3>
+<h3>Defining vectors and matrices with NumPy<a class="headerlink" href="#defining-vectors-and-matrices-with-numpy" title="Link to this heading">#</a></h3>
 <p>To work with vectors and matrices in Python, we can use the <code class="docutils literal notranslate"><span class="pre">numpy</span></code> library. Here is how you can define them:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
@@ -505,7 +505,7 @@ and thus $\| B v \| \leq \| B \| \, \| v \|$. An analogous argument with $B v$ i
 </div>
 </section>
 <section id="computing-vector-norms">
-<h3>Computing Vector Norms<a class="headerlink" href="#computing-vector-norms" title="Link to this heading">#</a></h3>
+<h3>Computing vector norms<a class="headerlink" href="#computing-vector-norms" title="Link to this heading">#</a></h3>
 <p>NumPy provides built-in functions to compute various norms of vectors:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">numpy.linalg</span> <span class="kn">import</span> <span class="n">norm</span>
 
@@ -519,7 +519,7 @@ and thus $\| B v \| \leq \| B \| \, \| v \|$. An analogous argument with $B v$ i
 </div>
 </section>
 <section id="computing-matrix-norms">
-<h3>Computing Matrix Norms<a class="headerlink" href="#computing-matrix-norms" title="Link to this heading">#</a></h3>
+<h3>Computing matrix norms<a class="headerlink" href="#computing-matrix-norms" title="Link to this heading">#</a></h3>
 <p>Similarly, matrix norms can also be computed:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Compute Frobenius norm of a matrix</span>
 <span class="n">norm_F</span> <span class="o">=</span> <span class="n">norm</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="s1">&#39;fro&#39;</span><span class="p">)</span>   <span class="c1"># Frobenius norm</span>
@@ -668,7 +668,7 @@ A^TA = \begin{pmatrix}4 &amp; 6\\ 6 &amp; 10\end{pmatrix},
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Floating point arithmetic</p>
+        <p class="prev-next-title">Floating point numbers</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -696,9 +696,9 @@ A^TA = \begin{pmatrix}4 &amp; 6\\ 6 &amp; 10\end{pmatrix},
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submultiplicativity">Submultiplicativity</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#relative-and-absolute-errors">Relative and absolute errors</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#defining-vectors-and-matrices-with-numpy">Defining Vectors and Matrices with NumPy</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#computing-vector-norms">Computing Vector Norms</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#computing-matrix-norms">Computing Matrix Norms</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#defining-vectors-and-matrices-with-numpy">Defining vectors and matrices with NumPy</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#computing-vector-norms">Computing vector norms</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#computing-matrix-norms">Computing matrix norms</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#self-check-questions">Self-check questions</a></li>
