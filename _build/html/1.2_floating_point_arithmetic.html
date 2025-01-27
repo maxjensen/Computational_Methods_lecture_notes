@@ -34,9 +34,9 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=b4b7a797" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- So that users can add custom icons -->
@@ -204,18 +204,6 @@
 <li class="toctree-l1"><a class="reference internal" href="5.1_eigenvalues_basic_properties.html">Basic properties of eigenvalue problems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="5.2_computing_eigenvalues.html">Computing eigenvalues</a></li>
 <li class="toctree-l1"><a class="reference internal" href="5.3_computing_eigenspaces.html">Computing eigenspaces</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Self Check Questions</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="week_1_self_check.html">Week 1 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_2_self_check.html">Week 2 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_3_self_check.html">Week 3 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_4_self_check.html">Week 4 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_5_self_check.html">Week 5 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_6_self_check.html">Week 6 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_7_self_check.html">Week 7 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_8_self_check.html">Week 8 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_9_self_check.html">Week 9 Self check questions and solutions</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Back matter</span></p>
 <ul class="nav bd-sidenav">
@@ -488,7 +476,7 @@
 </section>
 </div><p>A graphical representation (<a class="reference external" href="https://en.wikipedia.org/wiki/Floating-point_arithmetic">Source Wikipedia</a>) of a floating point set is</p>
 <p><img alt="Floating point precision" src="_images/FloatingPointPrecision.png" /></p>
-<p>Often we call abreviate floating point numbers as floats.</p>
+<p>Often we say floats instead of floating point numbers.</p>
 </section>
 <section id="ieee-754">
 <h2>IEEE 754<a class="headerlink" href="#ieee-754" title="Link to this heading">#</a></h2>
@@ -514,7 +502,7 @@ fl: x \rightarrow fl(x),
 <div class="proof theorem admonition" id="theorem-2">
 <p class="admonition-title"><span class="caption-number">Theorem 2 </span> (Fundamental Theorem of Floating Point Arithmetic)</p>
 <section class="theorem-content" id="proof-content">
-<p>Define <span class="math notranslate nohighlight">\(x\odot y = fl(x \cdot y)\)</span>, where <span class="math notranslate nohighlight">\(\cdot\)</span> is one of <span class="math notranslate nohighlight">\(+,-,\times,\div\)</span>. Then for all <span class="math notranslate nohighlight">\(x,y\in\mathcal{F}\)</span> there exists <span class="math notranslate nohighlight">\(\epsilon\)</span> with <span class="math notranslate nohighlight">\(|\epsilon| \leq \epsilon_{mach}\)</span> such that</p>
+<p>Define <span class="math notranslate nohighlight">\(x\odot y = fl(x \cdot y)\)</span>, where <span class="math notranslate nohighlight">\(\odot\)</span> is one of <span class="math notranslate nohighlight">\(+,-,\times,\div\)</span>. Then for all <span class="math notranslate nohighlight">\(x,y\in\mathcal{F}\)</span> there exists <span class="math notranslate nohighlight">\(\epsilon\)</span> with <span class="math notranslate nohighlight">\(|\epsilon| \leq \epsilon_{mach}\)</span> such that</p>
 <div class="math notranslate nohighlight">
 \[ 
 x\odot y = (x \cdot y)(1+\epsilon).

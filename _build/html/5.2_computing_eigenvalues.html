@@ -34,9 +34,9 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=b4b7a797" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- So that users can add custom icons -->
@@ -204,18 +204,6 @@
 <li class="toctree-l1"><a class="reference internal" href="5.1_eigenvalues_basic_properties.html">Basic properties of eigenvalue problems</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Computing eigenvalues</a></li>
 <li class="toctree-l1"><a class="reference internal" href="5.3_computing_eigenspaces.html">Computing eigenspaces</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Self Check Questions</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="week_1_self_check.html">Week 1 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_2_self_check.html">Week 2 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_3_self_check.html">Week 3 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_4_self_check.html">Week 4 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_5_self_check.html">Week 5 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_6_self_check.html">Week 6 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_7_self_check.html">Week 7 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_8_self_check.html">Week 8 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_9_self_check.html">Week 9 Self check questions and solutions</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Back matter</span></p>
 <ul class="nav bd-sidenav">
@@ -428,7 +416,7 @@ R(A,x) := \frac{x^H A x}{x^H x},
 \]</div>
 <p>called the <em>Rayleigh quotient</em> of <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(x\)</span>. In practice, one needs to terminate the <code class="docutils literal notranslate"><span class="pre">for</span></code> loop of the power iteration after a prescribed number of iterations or through some criterion indicating the quality of the eigenvalue or eigenvector approximation. In fact, <span class="math notranslate nohighlight">\(\lambda^{(k)} = (q^{(k)})^HAq^{(k)}\)</span> may be taken out of the <code class="docutils literal notranslate"><span class="pre">for</span></code> loop and computed only with the final <span class="math notranslate nohighlight">\(q^{(k)}\)</span>.</p>
 <div class="proof example admonition" id="example-1">
-<p class="admonition-title"><span class="caption-number">Example 10 </span></p>
+<p class="admonition-title"><span class="caption-number">Example 12 </span></p>
 <section class="example-content" id="proof-content">
 <p>Consider the simple diagonal matrix</p>
 <div class="math notranslate nohighlight">
@@ -474,7 +462,7 @@ A = I_n + (\lambda_1 - 1) \, e_1 \otimes e_1 = \text{diag}(\lambda_1, 1, \ldots,
 </div>
 </details></section>
 </div><div class="proof example admonition" id="example-2">
-<p class="admonition-title"><span class="caption-number">Example 11 </span></p>
+<p class="admonition-title"><span class="caption-number">Example 13 </span></p>
 <section class="example-content" id="proof-content">
 <p>Consider the Wilkinson polynomial <span class="math notranslate nohighlight">\(P_n(z) = \prod_{j=1}^n (z-j)\)</span> and its companion matrix <span class="math notranslate nohighlight">\(C_n\)</span>, <span class="math notranslate nohighlight">\(n \in \mathbb{N}\)</span>. Clearly, the eigenvalues of <span class="math notranslate nohighlight">\(C_n\)</span> are <span class="math notranslate nohighlight">\(\{1, \ldots, n\}\)</span>.</p>
 <p><img alt="power_method_Wilkinson" src="_images/power_method_Wilkinson.png" /></p>
@@ -564,7 +552,7 @@ A = I_n + (\lambda_1 - 1) \, e_1 \otimes e_1 = \text{diag}(\lambda_1, 1, \ldots,
 </ul>
 </section>
 </div><div class="proof example admonition" id="example-4">
-<p class="admonition-title"><span class="caption-number">Example 12 </span></p>
+<p class="admonition-title"><span class="caption-number">Example 14 </span></p>
 <section class="example-content" id="proof-content">
 <p>We revisit the first example above and consider again the matrix <span class="math notranslate nohighlight">\(A = \text{diag}(\lambda_1, 1, \ldots, 1)\)</span> for <span class="math notranslate nohighlight">\(\lambda_1\)</span> and <span class="math notranslate nohighlight">\(n\)</span> as above. The following plot uses the inverse iteration with <span class="math notranslate nohighlight">\(\sigma = 1.1 \, \lambda_1\)</span>, illustrating a situation where the eigenvalue of interest is known within a 10% tolerance.</p>
 <p><img alt="inverse_iteration" src="_images/inverse_iteration.png" /></p>
@@ -613,7 +601,7 @@ A = I_n + (\lambda_1 - 1) \, e_1 \otimes e_1 = \text{diag}(\lambda_1, 1, \ldots,
 </div>
 </details></section>
 </div><div class="proof example admonition" id="example-5">
-<p class="admonition-title"><span class="caption-number">Example 13 </span></p>
+<p class="admonition-title"><span class="caption-number">Example 15 </span></p>
 <section class="example-content" id="proof-content">
 <p>In this example, we investigate how the choice of <span class="math notranslate nohighlight">\(\sigma\)</span> impacts the performance of the inverse iteration. The matrix is the companion matrix of the Wilkinson polynomial for <span class="math notranslate nohighlight">\(n = 20\)</span> and <span class="math notranslate nohighlight">\(\sigma = n+1, \ldots, n+6\)</span>.</p>
 <p><img alt="inverse_iteration_Wilkinson" src="_images/inverse_iteration_Wilkinson.png" /></p>
@@ -713,7 +701,7 @@ A = I_n + (\lambda_1 - 1) \, e_1 \otimes e_1 = \text{diag}(\lambda_1, 1, \ldots,
 </section>
 </div><p>While for the inverse iteration, the LU or QR decomposition of <span class="math notranslate nohighlight">\(A - \sigma I\)</span> only needs to be computed once, the Rayleigh quotient iteration requires a new decomposition in each iteration or an algorithm for the solution of linear systems that does not rely on a matrix decomposition.</p>
 <div class="proof example admonition" id="example-7">
-<p class="admonition-title"><span class="caption-number">Example 14 </span></p>
+<p class="admonition-title"><span class="caption-number">Example 16 </span></p>
 <section class="example-content" id="proof-content">
 <p>We revisit the example with the matrix <span class="math notranslate nohighlight">\(A = \text{diag}(\lambda_1, 1, \ldots, 1)\)</span> for <span class="math notranslate nohighlight">\(\lambda_1 = 1.1, 1.5, 2.0, 4.0, 8.0\)</span> and <span class="math notranslate nohighlight">\(n = 100\)</span> once more. The following plot starts the Rayleigh iteration with <span class="math notranslate nohighlight">\(\sigma = 1.01 \, \lambda_1\)</span>, illustrating a situation where a <em>very</em> good estimate of the eigenvalue of interest is known.</p>
 <p><img alt="Rayleigh_iteration" src="_images/Rayleigh_iteration.png" /></p>

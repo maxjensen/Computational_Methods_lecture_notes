@@ -34,9 +34,9 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=b4b7a797" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- So that users can add custom icons -->
@@ -204,18 +204,6 @@
 <li class="toctree-l1"><a class="reference internal" href="5.1_eigenvalues_basic_properties.html">Basic properties of eigenvalue problems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="5.2_computing_eigenvalues.html">Computing eigenvalues</a></li>
 <li class="toctree-l1"><a class="reference internal" href="5.3_computing_eigenspaces.html">Computing eigenspaces</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Self Check Questions</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="week_1_self_check.html">Week 1 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_2_self_check.html">Week 2 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_3_self_check.html">Week 3 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_4_self_check.html">Week 4 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_5_self_check.html">Week 5 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_6_self_check.html">Week 6 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_7_self_check.html">Week 7 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_8_self_check.html">Week 8 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_9_self_check.html">Week 9 Self check questions and solutions</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Back matter</span></p>
 <ul class="nav bd-sidenav">
@@ -392,7 +380,7 @@
 <section id="measuring-distances">
 <h2>Measuring distances<a class="headerlink" href="#measuring-distances" title="Link to this heading">#</a></h2>
 <p>Much of computational mathematics concerns the question of how to approximate the infinite by the finite. More precisely, many problems in computational mathematics fall into one of the following categories:</p>
-<p><strong>Infinite-dimensional problems:</strong> When solving an ordinary differential equation, we pose an equation whose solution belongs to an infinite-dimensional space, such as the vector space <span class="math notranslate nohighlight">\(C^1([a,b])\)</span> of continuously differentiable functions. In other words, the problem generally has an infinite number of degrees of freedom. While mathematical theory may provide analytic solutions for special ODEs, for challenging real-world problems, it is often only possible to make general statements about the solution’s regularity. On a computer, we can only store a finite number of degrees of freedom, leading to an approximation error between the numerical and exact solutions.</p>
+<p><strong>Infinite-dimensional problems:</strong> When solving an ordinary differential equation, we pose an equation whose solution belongs to an infinite-dimensional space, such as the vector space <span class="math notranslate nohighlight">\(C^1[a,b]\)</span> of continuously differentiable functions. In other words, the problem generally has an infinite number of degrees of freedom. While mathematical theory may provide analytic solutions for special ODEs, for challenging real-world problems, it is often only possible to make general qualitative statements about the solution. The question arises whether a computer can provide quantitative information about the solution. Since a computer can only handle a finite number of degrees of freedom, any numerical approach inevitably introduces an approximation error, resulting in a discrepancy between the numerical and exact solutions.</p>
 <p><strong>Infinite sets:</strong> Related to the above, even a finite-dimensional vector space, such as the real number line <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>, is an infinite set that must be represented by a finite set on a computer. This leads to the concept of floating-point numbers, which we shall discuss soon, and again introduces an approximation error.</p>
 <p><strong>Iterative problems:</strong> The solution to many mathematical problems can be expressed as the limit of a sequence, where each sequence element can be computed in a finite number of steps. For example, consider a <a class="reference external" href="https://en.wikipedia.org/wiki/Riemann_integral">Riemann integral</a> as the limit of increasingly refined Riemann sums or the root of a function as the limit of a <a class="reference external" href="https://en.wikipedia.org/wiki/Newton%27s_method">Newton iteration</a>. A computer can calculate the value of each sequence element in finite (but increasing) time. How large is the error, i.e., the difference between the computed element and the limit?</p>
 <p>If the objects of interest (such as an error) are from a vector space, the most suitable concept to measure their size is often that of a norm.</p>
@@ -457,7 +445,7 @@ C_1\|x\|_a\leq \|x\|_b\leq C_2\|x\|_a
 \[
 \|A\|_{b, a} := \max_{x \in \mathbb{R}^n \setminus \{0\}} \frac{\|Ax\|_b}{\|x\|_a}
 \]</div>
-<p>If the same norm is used for both the domain and codomain, we abbreviate <span class="math notranslate nohighlight">\(\|A\|_{a, a}\)</span> as <span class="math notranslate nohighlight">\(\|A\|_a\)</span>.</p>
+<p>If the same norm is used for both the domain and co-domain, we abbreviate <span class="math notranslate nohighlight">\(\|A\|_{a, a}\)</span> as <span class="math notranslate nohighlight">\(\|A\|_a\)</span>.</p>
 <p>The following three matrix norms derive from the corresponding vector norms (where <span class="math notranslate nohighlight">\(\lambda_{\max}\)</span> denotes the largest eigenvalue):</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(\|A\|_1 = \max_{1 \leq j \leq n} \sum_{i=1}^m |a_{ij}| = \max_{x \in \mathbb{R}^n \setminus \{0\}} \frac{\|Ax\|_1}{\|x\|_1}\)</span>,</p></li>

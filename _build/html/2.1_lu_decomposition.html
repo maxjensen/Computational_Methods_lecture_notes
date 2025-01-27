@@ -205,18 +205,6 @@
 <li class="toctree-l1"><a class="reference internal" href="5.2_computing_eigenvalues.html">Computing eigenvalues</a></li>
 <li class="toctree-l1"><a class="reference internal" href="5.3_computing_eigenspaces.html">Computing eigenspaces</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Self Check Questions</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="week_1_self_check.html">Week 1 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_2_self_check.html">Week 2 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_3_self_check.html">Week 3 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_4_self_check.html">Week 4 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_5_self_check.html">Week 5 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_6_self_check.html">Week 6 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_7_self_check.html">Week 7 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_8_self_check.html">Week 8 Self check questions and solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="week_9_self_check.html">Week 9 Self check questions and solutions</a></li>
-</ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Back matter</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="bm1_notation_and_facts.html">Notation and facts</a></li>
@@ -520,7 +508,7 @@ divide by <span class="math notranslate nohighlight">\(L_{ii}\)</span>.</p>
 <section id="cost-of-lu-decomposition">
 <h2>Cost of LU Decomposition<a class="headerlink" href="#cost-of-lu-decomposition" title="Link to this heading">#</a></h2>
 <p>We have established that solving a triangular system requires <span class="math notranslate nohighlight">\(\mathcal{O}(n^2)\)</span> operations. For computing the decomposition <span class="math notranslate nohighlight">\(A = LU\)</span>, an operation count yields a cost of <span class="math notranslate nohighlight">\(\frac{2}{3}n^3 + \mathcal{O}(n^2)\)</span> operations. Thus, the dominant computational cost lies in the LU decomposition itself. Once the decomposition is computed, the forward and backward substitution steps are comparatively inexpensive.</p>
-<p>This efficiency becomes particularly advantageous when solving multiple linear systems where the matrix <span class="math notranslate nohighlight">\(A\)</span> remains constant but the right-hand side <span class="math notranslate nohighlight">\(b\)</span> changes. In such cases, the <span class="math notranslate nohighlight">\(LU\)</span> decomposition is computed only once, and subsequent solutions require only the forward and backward substitutions, which can be performed efficiently.</p>
+<p>This efficiency becomes particularly advantageous when solving multiple linear systems where the matrix <span class="math notranslate nohighlight">\(A\)</span> remains the same but the right-hand side <span class="math notranslate nohighlight">\(b\)</span> changes. In such cases, the <span class="math notranslate nohighlight">\(LU\)</span> decomposition is computed only once, and subsequent solutions require only the forward and backward substitutions, which can be performed efficiently.</p>
 </section>
 <section id="self-check-questions">
 <h2>Self-check Questions<a class="headerlink" href="#self-check-questions" title="Link to this heading">#</a></h2>
