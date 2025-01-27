@@ -34,9 +34,9 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=b4b7a797" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- So that users can add custom icons -->
@@ -490,7 +490,7 @@ K_{rel} := \sup_{x,x+\Delta x \in D \atop \Delta x \neq 0, f(x) \neq 0} \frac{\|
 <p>while the <em>local relative condition number</em> is, for <span class="math notranslate nohighlight">\(x \in D\)</span> with <span class="math notranslate nohighlight">\(f(x) \neq 0\)</span>,</p>
 <div class="math notranslate nohighlight">
 \[
-\kappa_{rel}(x) := \lim_{\delta\rightarrow 0} \sup_{x,x+\Delta x \in D \atop 0 &lt; \| \Delta x \| \leq \delta} \frac{\| \Delta f \|_Y / \| f(x) \|_Y}{\| \Delta x \|_X / \| x \|_X}.
+\kappa_{rel}(x) := \lim_{\delta\rightarrow 0} \sup_{x+\Delta x \in D \atop 0 &lt; \| \Delta x \| \leq \delta} \frac{\| \Delta f \|_Y / \| f(x) \|_Y}{\| \Delta x \|_X / \| x \|_X}.
 \]</div>
 <p>Hence, <span class="math notranslate nohighlight">\(\kappa_{rel}\)</span> measures the largest possible ratio of relative output error with respect to relative input error under small perturbations. Simplifying the quotients places <span class="math notranslate nohighlight">\(x\)</span> in the numerator so that the case <span class="math notranslate nohighlight">\(x = 0\)</span> is not interpreted as a division by zero. If <span class="math notranslate nohighlight">\(f\)</span> is differentiable, you can show (self-check question)</p>
 <div class="math notranslate nohighlight">
@@ -760,7 +760,7 @@ f(x + \Delta x) = f(x) + \nabla f(x) \cdot \Delta x + h(x + \Delta x) \cdot \Del
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{align*}
-\lim_{\delta\rightarrow 0} \sup_{0&lt; \|\Delta x\|\leq \delta} \frac{\| \nabla f(x) \cdot \Delta x \|_Y}{\| \Delta x\|_X} \pm \| h(x + \Delta x) \|_{Y,X} 
+\lim_{\delta\rightarrow 0} \sup_{0&lt; \|\Delta x\|\leq \delta} \frac{\| \nabla f(x) \cdot \Delta x \|_Y}{\| \Delta x\|_X} \pm \| h(x + \Delta x) \|_{Y,X}
 \end{align*} &amp; = \lim_{\delta\rightarrow 0} \sup_{0&lt; \|\Delta x\|\leq \delta} \frac{\| \nabla f(x) \cdot \Delta x \|_Y}{\| \Delta x\|_X}\\
 &amp; = \lim_{\delta\rightarrow 0} \sup_{0&lt; \|\Delta x\|\leq \delta, 0 \neq \lambda \in \mathbb{R}} \frac{\| \nabla f(x) \cdot \lambda \Delta x \|_Y}{\| \lambda \Delta x\|_X}\\
 &amp; = \sup_{ \xi \neq 0} \frac{\| \nabla f(x) \cdot \xi \|_Y}{\| \xi \|_X} = \| \nabla f(x) \|_{Y,X}.

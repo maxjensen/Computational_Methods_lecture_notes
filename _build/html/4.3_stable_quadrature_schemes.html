@@ -412,7 +412,7 @@
 <h2>Gaussian Quadratures<a class="headerlink" href="#gaussian-quadratures" title="Link to this heading">#</a></h2>
 <p>The degree of exactness of an interpolatory quadrature <span class="math notranslate nohighlight">\(\mathcal{Q}_n\)</span> is at least <span class="math notranslate nohighlight">\(n\)</span>. By considering <span class="math notranslate nohighlight">\(\omega_{n+1}^2(x)=(x-x_0)^2\cdots(x-x_n)^2 \in \mathcal{P}_{2n+2}\)</span>, we find that the degree of exactness of any interpolatory quadrature cannot be equal to or larger than <span class="math notranslate nohighlight">\(2n+2\)</span>. Gauss showed that by judicious choice of the nodes <span class="math notranslate nohighlight">\(\{x_k\}\)</span>, one can indeed obtain a quadrature exact for all <span class="math notranslate nohighlight">\(f \in \mathcal{P}_{2n+1}\)</span>. The resulting Gaussian quadrature rests on the following:</p>
 <div class="proof theorem admonition" id="theorem-0">
-<p class="admonition-title"><span class="caption-number">Theorem 11 </span> (Gaussian quadrature)</p>
+<p class="admonition-title"><span class="caption-number">Theorem 12 </span> (Gaussian quadrature)</p>
 <section class="theorem-content" id="proof-content">
 <p>The interpolatory quadrature formula <span class="math notranslate nohighlight">\(\mathcal{Q}_n\)</span> achieves a degree of exactness <span class="math notranslate nohighlight">\(2n+1\)</span> if and only if its nodes <span class="math notranslate nohighlight">\(x_0, \ldots, x_n\)</span> are such that the polynomial</p>
 <div class="math notranslate nohighlight">
@@ -423,7 +423,7 @@
 </section>
 </div><p>Thus, the nodes <span class="math notranslate nohighlight">\(\{x_k\}_{k=0}^n\)</span> are chosen so that the error polynomial <span class="math notranslate nohighlight">\(\omega_{n+1} \in \mathcal{P}_{n+1}\)</span> is in the orthogonal complement relative to the <span class="math notranslate nohighlight">\((n+1)\)</span>-dimensional space <span class="math notranslate nohighlight">\(\mathcal{P}_n\)</span> within the <span class="math notranslate nohighlight">\((n+2)\)</span>-dimensional space <span class="math notranslate nohighlight">\(\mathcal{P}_{n+1}\)</span> with respect to the inner product <span class="math notranslate nohighlight">\(\langle p, q \rangle = \int_a^b p(x) \, q(x) \, dx\)</span>. A proof of the theorem is given in the optional materials section.</p>
 <div class="proof definition admonition" id="definition-1">
-<p class="admonition-title"><span class="caption-number">Definition 8 </span></p>
+<p class="admonition-title"><span class="caption-number">Definition 9 </span></p>
 <section class="definition-content" id="proof-content">
 <p>An interpolatory quadrature method that achieves a degree of exactness <span class="math notranslate nohighlight">\(2n+1\)</span> is termed a <em>Gaussian quadrature method</em>.</p>
 </section>
@@ -746,7 +746,7 @@ x_{i-1/2} := \frac{x_{i-1} + x_i}{2}.
 <p class="sd-card-text">This function <span class="math notranslate nohighlight">\(\gamma\)</span> is the same as the weight above and assumed to be piecewise continuous, integrable, and positive. Moreover, we assume that <span class="math notranslate nohighlight">\(\langle p, p \rangle\)</span> is finite for all <span class="math notranslate nohighlight">\(p \in \mathcal{P}_n\)</span>. Common examples include <span class="math notranslate nohighlight">\(\gamma = 1\)</span> for <span class="math notranslate nohighlight">\(a,b \in \mathbb{R}\)</span>, <span class="math notranslate nohighlight">\(\gamma = 1/t\)</span> for <span class="math notranslate nohighlight">\(a=0\)</span>, <span class="math notranslate nohighlight">\(b=\infty\)</span>, and <span class="math notranslate nohighlight">\(\gamma = 1/\sqrt{1-t^2}\)</span> for <span class="math notranslate nohighlight">\(a=-1\)</span>, <span class="math notranslate nohighlight">\(b=1\)</span>.</p>
 <p class="sd-card-text">Our focus is to demonstrate that the optimal quadrature nodes correspond to the roots of orthogonal polynomials. To understand this, we must explore two key results about orthogonal polynomials.</p>
 <div class="proof theorem admonition" id="theorem-2">
-<p class="admonition-title"><span class="caption-number">Theorem 12 </span> (Roots of orthogonal polynomials)</p>
+<p class="admonition-title"><span class="caption-number">Theorem 13 </span> (Roots of orthogonal polynomials)</p>
 <section class="theorem-content" id="proof-content">
 <p class="sd-card-text">For a polynomial <span class="math notranslate nohighlight">\(\tilde{p} \in \mathcal{P}_{n+1}\)</span>, if</p>
 <div class="math notranslate nohighlight">
@@ -760,7 +760,7 @@ x_{i-1/2} := \frac{x_{i-1} + x_i}{2}.
 </div>
 <p class="sd-card-text">This indicates that the roots of <span class="math notranslate nohighlight">\(\tilde{p}\)</span> are ideal candidates for quadrature nodes. However, a question arises: is there a unique polynomial that satisfies this condition? If different polynomials meet the criterion, they could have varying roots, affecting the choice of nodes. The following theorem addresses this concern.</p>
 <div class="proof theorem admonition" id="theorem-3">
-<p class="admonition-title"><span class="caption-number">Theorem 13 </span> (Uniqueness of the orthogonal polynomial)</p>
+<p class="admonition-title"><span class="caption-number">Theorem 14 </span> (Uniqueness of the orthogonal polynomial)</p>
 <section class="theorem-content" id="proof-content">
 <p class="sd-card-text">For any two non-zero polynomials <span class="math notranslate nohighlight">\(\tilde{p}, \bar{p} \in \mathcal{P}_{n+1}\)</span> satisfying the condition</p>
 <div class="math notranslate nohighlight">
@@ -795,7 +795,7 @@ q_0 = \frac{1}{\sqrt{2}},\quad q_1 = \sqrt{\frac{3}{2}} t,\quad q_2 = \sqrt{\fra
 </section>
 </div><p class="sd-card-text">We now arrive at the central result.</p>
 <div class="proof theorem admonition" id="theorem-5">
-<p class="admonition-title"><span class="caption-number">Theorem 14 </span> (Main theorem on Gaussian quadrature)</p>
+<p class="admonition-title"><span class="caption-number">Theorem 15 </span> (Main theorem on Gaussian quadrature)</p>
 <section class="theorem-content" id="proof-content">
 <p class="sd-card-text">For an integration weight <span class="math notranslate nohighlight">\(\gamma\)</span>, the interpolatory quadrature formula <span class="math notranslate nohighlight">\(\mathcal{Q}_n\)</span> achieves a degree of exactness <span class="math notranslate nohighlight">\(2n+1\)</span> with respect to <span class="math notranslate nohighlight">\(\gamma\)</span> if and only if its nodes <span class="math notranslate nohighlight">\(x_0, \ldots, x_n\)</span> are such that the polynomial</p>
 <div class="math notranslate nohighlight">
