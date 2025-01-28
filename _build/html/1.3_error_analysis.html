@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Backward Error Analysis &#8212; Computational Methods MATH0058 lecture notes</title>
+    <title>Backward error analysis &#8212; Computational Methods MATH0058 lecture notes</title>
   
   
   
@@ -34,9 +34,9 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=b4b7a797" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- So that users can add custom icons -->
@@ -67,7 +67,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="The condition number of linear systems" href="1.4_linear_system_error.html" />
-    <link rel="prev" title="Floating point arithmetic" href="1.2_floating_point_arithmetic.html" />
+    <link rel="prev" title="Floating point numbers" href="1.2_floating_point_arithmetic.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -174,15 +174,15 @@
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Fundamentals</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="1.1_matrix_vector_norms.html">Matrix and vector norms</a></li>
-<li class="toctree-l1"><a class="reference internal" href="1.2_floating_point_arithmetic.html">Floating point arithmetic</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Backward Error Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_floating_point_arithmetic.html">Floating point numbers</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Backward error analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.4_linear_system_error.html">The condition number of linear systems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.5_complexity_notation.html">Asymptotic notation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.6_numpy_and_data_layouts.html">Memory layout and Numpy</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="2.1_lu_decomposition.html">LU Decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.1_lu_decomposition.html">LU decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.2_lu_backward_error.html">Backward error of the LU decomposition and pivoting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.3_lu_backward_error_examples.html">Backward error of the LU decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.4_python_lu_decomposition.html">Implementing the LU decomposition in Python</a></li>
@@ -341,7 +341,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Backward Error Analysis</h1>
+    <h1>Backward error analysis</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -351,8 +351,8 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#forward-error">Forward Error</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#backward-error">Backward Error</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#forward-error">Forward error</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#backward-error">Backward error</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#condition-number">Condition Number</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finite-differences">Finite Differences</a></li>
@@ -373,7 +373,7 @@
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="backward-error-analysis">
-<h1>Backward Error Analysis<a class="headerlink" href="#backward-error-analysis" title="Link to this heading">#</a></h1>
+<h1>Backward error analysis<a class="headerlink" href="#backward-error-analysis" title="Link to this heading">#</a></h1>
 <p>Modern error analysis (in finite dimensional settings) traces its origins to the seminal work of <a class="reference external" href="https://en.wikipedia.org/wiki/James_H._Wilkinson">James Hardy Wilkinson</a>. It distinguishes between forward error, which is the error in the result of an algorithm, and backward error, which is a measure of perturbation in the input data.</p>
 <p>In the following, we denote by <span class="math notranslate nohighlight">\(f: D \rightarrow Y\)</span> a function that maps data from an input space <span class="math notranslate nohighlight">\(D\)</span> to an output space <span class="math notranslate nohighlight">\(Y\)</span>. We assume that <span class="math notranslate nohighlight">\(D \subset X\)</span> and that both <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are finite-dimensional real vector spaces with the respective norms <span class="math notranslate nohighlight">\(\| \cdot \|_X\)</span> and <span class="math notranslate nohighlight">\(\| \cdot \|_Y\)</span>. Correspondingly, we define a function <span class="math notranslate nohighlight">\(\tilde{f}: X \to Y\)</span>, which represents an approximate evaluation of <span class="math notranslate nohighlight">\(f\)</span>. Consider, for example, the solution of the non-singular linear system of equations</p>
 <div class="math notranslate nohighlight">
@@ -387,7 +387,7 @@ f(A, b) = A^{-1}b
 \]</div>
 <p>and the approximate function <span class="math notranslate nohighlight">\(\tilde{f}\)</span> is, for example, the Gaussian elimination algorithm in floating point arithmetic to compute the solution <span class="math notranslate nohighlight">\(y\)</span>.</p>
 <section id="forward-error">
-<h2>Forward Error<a class="headerlink" href="#forward-error" title="Link to this heading">#</a></h2>
+<h2>Forward error<a class="headerlink" href="#forward-error" title="Link to this heading">#</a></h2>
 <p>Let <span class="math notranslate nohighlight">\(y = f(x)\)</span> and <span class="math notranslate nohighlight">\(\tilde{y} = \tilde{f}(x)\)</span>. The absolute forward error of <span class="math notranslate nohighlight">\(f\)</span> at <span class="math notranslate nohighlight">\(x\)</span> is defined as</p>
 <div class="math notranslate nohighlight">
 \[
@@ -401,7 +401,7 @@ E_{rel} := \frac{\|y - \tilde{y}\|_Y}{\|y\|_Y}
 <p>whenever <span class="math notranslate nohighlight">\(y \neq 0\)</span>. The forward error is the quantity we are usually most interested in.</p>
 </section>
 <section id="backward-error">
-<h2>Backward Error<a class="headerlink" href="#backward-error" title="Link to this heading">#</a></h2>
+<h2>Backward error<a class="headerlink" href="#backward-error" title="Link to this heading">#</a></h2>
 <p>The backward error addresses the following question:</p>
 <blockquote>
 <div><p>Given an input <span class="math notranslate nohighlight">\(x\)</span> and the corresponding output <span class="math notranslate nohighlight">\(\tilde{y} = \tilde{f}(x)\)</span> from the <em>perturbed</em> function <span class="math notranslate nohighlight">\(\tilde{f}\)</span>, by how much would one need to perturb <span class="math notranslate nohighlight">\(x\)</span> to an input <span class="math notranslate nohighlight">\(\tilde{x} = x + \Delta x\)</span> so that the original function returns <span class="math notranslate nohighlight">\(\tilde{y}\)</span>? Thus we look for</p>
@@ -858,7 +858,7 @@ g(\Delta x) = \kappa_{rel}(x) + \tilde{h}(\Delta x).
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Floating point arithmetic</p>
+        <p class="prev-next-title">Floating point numbers</p>
       </div>
     </a>
     <a class="right-next"
@@ -887,8 +887,8 @@ g(\Delta x) = \kappa_{rel}(x) + \tilde{h}(\Delta x).
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#forward-error">Forward Error</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#backward-error">Backward Error</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#forward-error">Forward error</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#backward-error">Backward error</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#condition-number">Condition Number</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finite-differences">Finite Differences</a></li>
