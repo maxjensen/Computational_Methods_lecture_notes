@@ -1065,6 +1065,72 @@ u_{11} &amp; u_{12} &amp; u_{13}\\
 <p class="sd-card-text">Here the <span class="math notranslate nohighlight">\(\Rightarrow\)</span> arrow points to a variable that is fully determined by the preceeding equation. Note that <span class="math notranslate nohighlight">\(u_{ii} \neq 0\)</span> for all <span class="math notranslate nohighlight">\(i\)</span> because <span class="math notranslate nohighlight">\(A\)</span> and thus also <span class="math notranslate nohighlight">\(U\)</span> are non-singular.</p>
 <p class="sd-card-text">This proves the uniqueness of <span class="math notranslate nohighlight">\(L\)</span> and <span class="math notranslate nohighlight">\(U\)</span>. In fact, we can extend this argument to general <span class="math notranslate nohighlight">\(n \times n\)</span> matrices.</p>
 </div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Let <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{n \times n}\)</span>. Prove that an LU decomposition of <span class="math notranslate nohighlight">\(A\)</span> with nonsingular factors <span class="math notranslate nohighlight">\(L\)</span> and <span class="math notranslate nohighlight">\(U\)</span> exists if and only if all leading principal minors of <span class="math notranslate nohighlight">\(A\)</span> (i.e. the determinants of the submatrices <span class="math notranslate nohighlight">\(A[:m, :m]\)</span> for <span class="math notranslate nohighlight">\(m = 1, \ldots, n\)</span>) are nonzero. Determine whether such an LU decomposition exists for the matrix</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{pmatrix}
+0.5 &amp; -2 &amp; 2 \\
+-1 &amp; 4 &amp; -5 \\
+9 &amp; -5 &amp; 8
+\end{pmatrix}.
+\end{split}\]</div>
+<p>Justify your conclusion.</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text"><strong>Sufficiency:</strong> Suppose <span class="math notranslate nohighlight">\(A\)</span> admits an LU factorisation <span class="math notranslate nohighlight">\(A = LU\)</span> with nonsingular matrices <span class="math notranslate nohighlight">\(L\)</span> and <span class="math notranslate nohighlight">\(U\)</span>. Each leading principal submatrix <span class="math notranslate nohighlight">\(A[:m, :m]\)</span> then factors as <span class="math notranslate nohighlight">\(L[:m, :m] \, U[:m, :m]\)</span>, implying <span class="math notranslate nohighlight">\(\det(A[:m, :m]) \neq 0\)</span>.</p>
+<p class="sd-card-text"><strong>Necessity:</strong> Assume all leading principal minors of <em>A</em> are nonzero. We use induction on <em>n</em>. The base case for <span class="math notranslate nohighlight">\(n = 1\)</span> is trivial: <span class="math notranslate nohighlight">\(A \in \mathbb{R}\)</span>, <span class="math notranslate nohighlight">\(U = A\)</span> and <span class="math notranslate nohighlight">\(L = 1\)</span>. For the <span class="math notranslate nohighlight">\((n-1)\times(n-1)\)</span> case, the statement holds by the induction hypothesis. Now write</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+A =
+\begin{pmatrix}
+\hat{A} &amp; b \\
+c^T     &amp; \gamma
+\end{pmatrix},
+\end{split}\]</div>
+<p class="sd-card-text">where <span class="math notranslate nohighlight">\(\hat{A}\)</span> is an <span class="math notranslate nohighlight">\((n-1)\times(n-1)\)</span> matrix. By the induction assumption, <span class="math notranslate nohighlight">\(\hat{A}\)</span> admits an LU factorisation <span class="math notranslate nohighlight">\(\hat{A} = \hat{L}\hat{U}\)</span> with nonsingular factors. Extend this to <span class="math notranslate nohighlight">\(n \times n\)</span> by setting</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+A =
+\begin{pmatrix}
+\hat{L} &amp; 0 \\
+\ell^T  &amp; 1
+\end{pmatrix}
+\begin{pmatrix}
+\hat{U} &amp; r \\
+0       &amp; \delta
+\end{pmatrix},
+\quad
+r = \hat{L}^{-1} b,
+\quad
+\ell^T = c^T \hat{U}^{-1},
+\quad
+\delta = \gamma - c^T\hat{A}^{-1}b.
+\end{split}\]</div>
+<p class="sd-card-text">Because <span class="math notranslate nohighlight">\(A\)</span> is nonsingular, an LU decomposition exists where both blocks in the factorisation are nonsingular. In fact, the above prove ensures the existence of a decomposition with factor <span class="math notranslate nohighlight">\(L\)</span> whose diagonal elements are normalised to <span class="math notranslate nohighlight">\(1\)</span>.</p>
+<p class="sd-card-text"><strong>Specific Matrix:</strong> Consider</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+A =
+\begin{pmatrix}
+0.5 &amp; -2 &amp; 2 \\
+-1  &amp; 4  &amp; -5 \\
+9   &amp; -5 &amp; 8
+\end{pmatrix}.
+\end{split}\]</div>
+<p class="sd-card-text">Its leading <span class="math notranslate nohighlight">\(2\times 2\)</span> principal submatrix is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{pmatrix}
+0.5 &amp; -2 \\
+-1  &amp; 4
+\end{pmatrix},
+\end{split}\]</div>
+<p class="sd-card-text">whose determinant is <span class="math notranslate nohighlight">\(0.5 \times 4 - (-1) \times (-2) = 2 - 2 = 0\)</span>. Since this minor has determinant zero, no LU decomposition with nonsingular factors exists for <span class="math notranslate nohighlight">\(A\)</span>.</p>
+</div>
 </details></section>
 </section>
 
