@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Implementing the LU decomposition in Python &#8212; Computational Methods MATH0058 lecture notes</title>
+    <title>Python implementation &#8212; Computational Methods MATH0058 lecture notes</title>
   
   
   
@@ -182,7 +182,7 @@
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="2.1_lu_decomposition.html">LU decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.2_lu_backward_error.html">Backward error and pivoting</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Implementing the LU decomposition in Python</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Python implementation</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Orthogonal Decompositions</span></p>
 <ul class="nav bd-sidenav">
@@ -262,7 +262,7 @@
       
       
       
-      <li><a href="_sources/2.4_python_lu_decomposition.ipynb" target="_blank"
+      <li><a href="_sources/2.4_python_lu_decomposition.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -272,7 +272,7 @@
 <span class="btn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="btn__text-container">.ipynb</span>
+<span class="btn__text-container">.md</span>
 </a>
 </li>
       
@@ -336,7 +336,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Implementing the LU decomposition in Python</h1>
+    <h1>Python implementation</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -350,20 +350,13 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="implementing-the-lu-decomposition-in-python">
-<h1>Implementing the LU decomposition in Python<a class="headerlink" href="#implementing-the-lu-decomposition-in-python" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="python-implementation">
+<h1>Python implementation<a class="headerlink" href="#python-implementation" title="Link to this heading">#</a></h1>
 <p>In the following, we demonstrate a simple LU decomposition in Python. We also present timing comparisons against the Python implementation from Scipy to show that <strong>one should never use a self-implementation of the LU decomposition but always use existing Numpy/Scipy routines</strong>.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">scipy.linalg</span> <span class="kn">import</span> <span class="n">lu</span> <span class="k">as</span> <span class="n">scipy_lu</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">lu</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>
+
+<span class="k">def</span> <span class="nf">lu</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Our cool LU implementation.&quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
@@ -387,19 +380,16 @@
     <span class="k">return</span> <span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">U</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="mi">200</span>
+<p>The optimised code of the SciPy library is significantly faster. Here is a test case.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="mi">200</span>
 <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
 <span class="n">L</span><span class="p">,</span> <span class="n">U</span> <span class="o">=</span> <span class="n">lu</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
 
 <span class="n">residual</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">A</span> <span class="o">-</span> <span class="n">L</span> <span class="o">@</span> <span class="n">U</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The residual is: </span><span class="si">{</span><span class="n">residual</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-<span class="n">runtime_my_lu</span> <span class="o">=</span> <span class="o">%</span><span class="k">timeit</span> -o lu(A)
-<span class="n">runtime_scipy_lu</span> <span class="o">=</span> <span class="o">%</span><span class="k">timeit</span> -o scipy_lu(A)
+<span class="n">runtime_my_lu</span> <span class="o">=</span> <span class="o">%</span><span class="n">timeit</span> <span class="o">-</span><span class="n">o</span> <span class="n">lu</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="n">runtime_scipy_lu</span> <span class="o">=</span> <span class="o">%</span><span class="n">timeit</span> <span class="o">-</span><span class="n">o</span> <span class="n">scipy_lu</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Runtime of our LU (s): </span><span class="si">{</span><span class="n">runtime_my_lu</span><span class="o">.</span><span class="n">best</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Runtime of Scipy LU (s): </span><span class="si">{</span><span class="n">runtime_scipy_lu</span><span class="o">.</span><span class="n">best</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -407,17 +397,14 @@
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The speed ratio between the two implementations is: </span><span class="si">{</span><span class="n">runtime_my_lu</span><span class="o">.</span><span class="n">best</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">runtime_scipy_lu</span><span class="o">.</span><span class="n">best</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The residual is: 2.285256427880218e-13
+<p>A typical output is below, with some variation to be expected between different computers.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>The residual is: 2.285256427880218e-13
 50.6 ms ± 474 µs per loop (mean ± std. dev. of 7 runs, 10 loops each)
 2.26 ms ± 461 µs per loop (mean ± std. dev. of 7 runs, 100 loops each)
 Runtime of our LU (s): 0.05018079660003423
 Runtime of Scipy LU (s): 0.0018813237100403057
 The speed ratio between the two implementations is: 26.673132503581297
 </pre></div>
-</div>
-</div>
 </div>
 </section>
 

@@ -66,7 +66,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = '2.2_lu_backward_error';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Implementing the LU decomposition in Python" href="2.4_python_lu_decomposition.html" />
+    <link rel="next" title="Python implementation" href="2.4_python_lu_decomposition.html" />
     <link rel="prev" title="LU decomposition" href="2.1_lu_decomposition.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -184,7 +184,7 @@
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="2.1_lu_decomposition.html">LU decomposition</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Backward error and pivoting</a></li>
-<li class="toctree-l1"><a class="reference internal" href="2.4_python_lu_decomposition.html">Implementing the LU decomposition in Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.4_python_lu_decomposition.html">Python implementation</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Orthogonal Decompositions</span></p>
 <ul class="nav bd-sidenav">
@@ -354,6 +354,8 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lu-decomposition-with-pivoting">LU decomposition with pivoting</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#growth-factors">Growth factors</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#counterexample-to-backward-stability">Counterexample to backward stability</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#self-check-exercises">Self-check exercises</a></li>
 </ul>
             </nav>
         </div>
@@ -572,6 +574,171 @@ U_8 = \begin{pmatrix}
 \]</div>
 <p>A system of dimension <span class="math notranslate nohighlight">\(100\)</span> is modest by modern computational standards, yet this example illustrates that pivoted LU decomposition can fail spectacularly in certain pathological cases. Though rarely encountered in practice, such counterexamples highlight the importance of seeking alternative methods when numerical stability is critical.</p>
 </section>
+<section id="python-skills">
+<h2>Python skills<a class="headerlink" href="#python-skills" title="Link to this heading">#</a></h2>
+<p>Below are some Python examples that illustrate how to compute and investigate the backward error in LU decomposition.</p>
+<p>We also wish to compare LU decomposition with and without pivoting. Since the Python library provides the decomposition with pivoting, we implement here only the LU decomposition without pivoting.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="k">def</span> <span class="nf">lu_no_pivot</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Performs LU decomposition without pivoting.</span>
+<span class="sd">    Returns (L, U) where A = L @ U.</span>
+<span class="sd">    </span>
+<span class="sd">    NOTE: This function may fail or produce large errors if A has zeros or very small pivots on the main diagonal.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    
+    <span class="n">L</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="n">U</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="c1"># If U[k, k] is zero (or extremely small), the decomposition will fail numerically</span>
+        <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">U</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">k</span><span class="p">])</span> <span class="o">&lt;</span> <span class="mf">1e-15</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Zero (or tiny) pivot encountered at index </span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">. &quot;</span>
+                             <span class="s2">&quot;Pivoting would be required here.&quot;</span><span class="p">)</span>
+        
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+            <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">U</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">k</span><span class="p">]</span> <span class="o">/</span> <span class="n">U</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">k</span><span class="p">]</span>
+            <span class="n">U</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">k</span><span class="p">:]</span> <span class="o">=</span> <span class="n">U</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">k</span><span class="p">:]</span> <span class="o">-</span> <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">k</span><span class="p">]</span> <span class="o">*</span> <span class="n">U</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">k</span><span class="p">:]</span>
+    
+    <span class="k">return</span> <span class="n">L</span><span class="p">,</span> <span class="n">U</span>
+</pre></div>
+</div>
+<p>We begin the comparison by computing the reconstruction errors. Then recall the definition of the relative backward error for the computed factors <span class="math notranslate nohighlight">\(\tilde{L}\)</span> and <span class="math notranslate nohighlight">\(\tilde{U}\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+\eta(\tilde{L}, \tilde{U}) = \frac{\| A - \tilde{L}\,\tilde{U} \|}{\|A\|}.
+\]</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.linalg</span> <span class="kn">import</span> <span class="n">lu</span>
+
+<span class="c1"># Example usage:</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">1e-10</span><span class="p">,</span> <span class="mf">1.3</span><span class="p">],</span>
+              <span class="p">[</span><span class="mf">1.1</span><span class="p">,</span>    <span class="mf">1.2</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+
+<span class="n">P</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">U</span> <span class="o">=</span> <span class="n">lu</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="n">L_no_pivot</span><span class="p">,</span> <span class="n">U_no_pivot</span> <span class="o">=</span> <span class="n">lu_no_pivot</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Matrix A:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Permutation matrix P:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">P</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Lower triangular matrix L:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">L</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Upper triangular matrix U:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">U</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Lower triangular matrix without pivoting L:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">L_no_pivot</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Upper triangular matrix without pivoting U:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">U_no_pivot</span><span class="p">)</span>
+
+<span class="c1"># Check that P @ A is approximately L @ U</span>
+<span class="n">reconstruction_error</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">P</span> <span class="o">@</span> <span class="n">A</span> <span class="o">-</span> <span class="n">L</span> <span class="o">@</span> <span class="n">U</span><span class="p">)</span>
+<span class="n">reconstruction_error_no_pivot</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">A</span> <span class="o">-</span> <span class="n">L_no_pivot</span> <span class="o">@</span> <span class="n">U_no_pivot</span><span class="p">)</span>
+<span class="n">norm_A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Reconstruction error with pivoting (|| PA - LU||): </span><span class="si">{</span><span class="n">reconstruction_error</span><span class="si">:</span><span class="s2">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Reconstruction error without pivoting (|| A - LU||): </span><span class="si">{</span><span class="n">reconstruction_error_no_pivot</span><span class="si">:</span><span class="s2">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Relative backward error with pivoting: (|| PA - LU|| / ||A||): </span><span class="si">{</span><span class="n">reconstruction_error</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">norm_A</span><span class="si">:</span><span class="s2">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Relative backward error without pivoting: (|| A - LU|| / ||A||): </span><span class="si">{</span><span class="n">reconstruction_error_no_pivot</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">norm_A</span><span class="si">:</span><span class="s2">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Finally, we investigate the counterexample for backward stability.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">build_counterexample_matrix</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Constructs the n x n counterexample matrix A described in the notes:</span>
+<span class="sd">    1s on the diagonal and last column, and -1 below the diagonal.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>  <span class="c1"># diagonal entries</span>
+        <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="c1"># last column entries</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+            <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span>
+    <span class="k">return</span> <span class="n">A</span>
+
+<span class="k">def</span> <span class="nf">test_counterexample</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">build_counterexample_matrix</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="n">P</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">U</span> <span class="o">=</span> <span class="n">lu</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+    <span class="n">num</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">P</span> <span class="o">@</span> <span class="n">A</span> <span class="o">-</span> <span class="n">L</span> <span class="o">@</span> <span class="n">U</span><span class="p">)</span>
+    <span class="n">den</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+    <span class="n">err</span> <span class="o">=</span> <span class="n">num</span> <span class="o">/</span> <span class="n">den</span>
+    <span class="n">growth_factor</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">U</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># Illustrative choice for growth factor</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;n = </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2"> | Relative backward error: </span><span class="si">{</span><span class="n">err</span><span class="si">:</span><span class="s2">e</span><span class="si">}</span><span class="s2"> | Growth factor (||U||_1): </span><span class="si">{</span><span class="n">growth_factor</span><span class="si">:</span><span class="s2">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Example usage:</span>
+<span class="k">for</span> <span class="n">size</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">53</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">1000</span><span class="p">]:</span>
+    <span class="n">test_counterexample</span><span class="p">(</span><span class="n">size</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="self-check-exercises">
+<h2>Self-check exercises<a class="headerlink" href="#self-check-exercises" title="Link to this heading">#</a></h2>
+<div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>The matrix <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{n \times n}\)</span> is non-singular {\em diagonally dominant}:</p>
+<div class="math notranslate nohighlight">
+\[
+| A_{jj} | \geq \sum_{k = 1 \atop k \neq j}^n | A_{jk} |, \qquad j = 1, 2, \ldots, n.
+\]</div>
+<p>Show that Gaussian elimination without pivoting can be carried out.</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">d</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Let <span class="math notranslate nohighlight">\(P \in \mathbb{R}^{n \times n}\)</span> be a permutation matrix and <span class="math notranslate nohighlight">\(\pi : {1, \ldots, n} \to {1, \ldots, n}\)</span> be the associated permutation:</p>
+<div class="math notranslate nohighlight">
+\[
+P = \Big(
+e_{\pi(1)} \Big| \cdots \Big| e_{\pi(n)}
+\Big),
+\]</div>
+<p>Show</p>
+<div class="math notranslate nohighlight">
+\[
+P^{-1} = \Big(
+e_{\pi^{-1}(1)} \Big| \cdots \Big| e_{\pi^{-1}(n)}
+\Big),
+\]</div>
+<p>and <span class="math notranslate nohighlight">\(P^{-1} = P^T\)</span>.</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>d</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">d</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>d</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">d</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>d</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">d</p>
+</div>
+</details></section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -618,7 +785,7 @@ U_8 = \begin{pmatrix}
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Implementing the LU decomposition in Python</p>
+        <p class="prev-next-title">Python implementation</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -643,6 +810,8 @@ U_8 = \begin{pmatrix}
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lu-decomposition-with-pivoting">LU decomposition with pivoting</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#growth-factors">Growth factors</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#counterexample-to-backward-stability">Counterexample to backward stability</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#self-check-exercises">Self-check exercises</a></li>
 </ul>
   </nav></div>
 
