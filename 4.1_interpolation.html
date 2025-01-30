@@ -34,9 +34,9 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=b4b7a797" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- So that users can add custom icons -->
@@ -174,17 +174,16 @@
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Fundamentals</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="1.1_matrix_vector_norms.html">Matrix and vector norms</a></li>
-<li class="toctree-l1"><a class="reference internal" href="1.2_floating_point_arithmetic.html">Floating point arithmetic</a></li>
-<li class="toctree-l1"><a class="reference internal" href="1.3_error_analysis.html">Backward Error Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_floating_point_arithmetic.html">Floating point numbers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.3_error_analysis.html">Backward error analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.4_linear_system_error.html">The condition number of linear systems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.5_complexity_notation.html">Asymptotic notation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.6_numpy_and_data_layouts.html">Memory layout and Numpy</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="2.1_lu_decomposition.html">LU Decomposition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="2.2_lu_backward_error.html">Backward error of the LU decomposition and pivoting</a></li>
-<li class="toctree-l1"><a class="reference internal" href="2.3_lu_backward_error_examples.html">Backward error of the LU decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.1_lu_decomposition.html">LU decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.2_lu_backward_error.html">Backward error and pivoting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.4_python_lu_decomposition.html">Implementing the LU decomposition in Python</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Orthogonal Decompositions</span></p>
@@ -429,7 +428,7 @@ f(x) - p(x) = \frac{\omega_{n+1}(x) f^{(n+1)}(\xi)}{(n+1)!}.
 <p>Here <span class="math notranslate nohighlight">\(\| g \|_\infty = \max_{x \in [a,b]} |g(x)|\)</span> denotes the <span class="math notranslate nohighlight">\(\infty\)</span>-norm on <span class="math notranslate nohighlight">\(C[a,b]\)</span>.</p>
 <p>The <span class="math notranslate nohighlight">\(p\)</span> of the Weierstrass approximation theorem has to be selected with much care, and an unrefined interpolation method will generally not provide polynomials which approximate arbitrarily well. This is mainly due to the Runge phenomenon.</p>
 <div class="proof example admonition" id="example-2">
-<p class="admonition-title"><span class="caption-number">Example 8 </span> (Interpolation with uniformly distributed nodes)</p>
+<p class="admonition-title"><span class="caption-number">Example 9 </span> (Interpolation with uniformly distributed nodes)</p>
 <section class="example-content" id="proof-content">
 <p>Unless very smooth functions such as <span class="math notranslate nohighlight">\(\cos\)</span> are interpolated (recall that <span class="math notranslate nohighlight">\(\| \cos^{(n)} \|_\infty = 1\)</span> for all <span class="math notranslate nohighlight">\(n\)</span>th derivatives <span class="math notranslate nohighlight">\(\cos^{(n)}\)</span>, <span class="math notranslate nohighlight">\(n \in \mathbb{N}\)</span>), one observes that interpolating polynomials of high-order exhibit strong oscillations near the interval ends. This behaviour is known as the Runge phenomenon.</p>
 <p>Click through the tabs to see:</p>
@@ -605,7 +604,7 @@ sign(x)</label><div class="sd-tab-content docutils">
 </div>
 </div>
 </details><div class="proof example admonition" id="example-4">
-<p class="admonition-title"><span class="caption-number">Example 9 </span> (Interpolation with Chebychev nodes)</p>
+<p class="admonition-title"><span class="caption-number">Example 10 </span> (Interpolation with Chebychev nodes)</p>
 <section class="example-content" id="proof-content">
 <p>Here, the same functions as above are interpolated again, this time using Chebychev nodes. The difference is striking, with a fairly good approximation even in the discontinuous example of the sign function.</p>
 <div class="sd-tab-set docutils">
