@@ -34,9 +34,9 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=b4b7a797" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- So that users can add custom icons -->
@@ -66,7 +66,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = '2.1_lu_decomposition';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Backward error of the LU decomposition and pivoting" href="2.2_lu_backward_error.html" />
+    <link rel="next" title="Backward error and pivoting" href="2.2_lu_backward_error.html" />
     <link rel="prev" title="Memory layout and Numpy" href="1.6_numpy_and_data_layouts.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -183,9 +183,8 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">LU decomposition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="2.2_lu_backward_error.html">Backward error of the LU decomposition and pivoting</a></li>
-<li class="toctree-l1"><a class="reference internal" href="2.3_lu_backward_error_examples.html">Backward error of the LU decomposition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="2.4_python_lu_decomposition.html">Implementing the LU decomposition in Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.2_lu_backward_error.html">Backward error and pivoting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.4_python_lu_decomposition.html">Python implementation</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Orthogonal Decompositions</span></p>
 <ul class="nav bd-sidenav">
@@ -563,9 +562,9 @@ G^{(1)} = I + f^{(1)} \cdot (e^{(1)})^T.
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{align*}
-\Big( G^{(1)} \cdots G^{(s)} G^{(s+1)} \Big)_{ij} &amp; = \sum_{k = 1}^n \Big( \delta_{ik} + \sum_{r = 1}^s f_i^{(r)} \, (e_k^{(r)}) \Big) \, \Big( \delta_{kj} + f_k^{(s+1)} \, (e_j^{(s+1)}) \Big)\\
-&amp; = \delta_{ij} + \sum_{r=1}^s f_i^{(r)} \, (e_j^{(r)}) + f_i^{(s+1)} \, (e_j^{(s+1)}) + \sum_{k=1}^n \sum_{r=1}^s f_i^{(r)} \, (e_k^{(r)}) f_k^{(s+1)} \, (e_j^{(s+1)})\\
-&amp; = \delta_{ij} + \sum_{r=1}^{s+1} f_i^{(r)} \, (e_j^{(r)}).
+\Big( G^{(1)} \cdots G^{(s)} G^{(s+1)} \Big)_{ij} &amp; = \sum_{k = 1}^n \Big( \delta_{ik} + \sum_{r = 1}^s f_i^{(r)} \, e_k^{(r)} \Big) \, \Big( \delta_{kj} + f_k^{(s+1)} \, e_j^{(s+1)} \Big)\\
+&amp; = \delta_{ij} + \sum_{r=1}^s f_i^{(r)} \, e_j^{(r)} + f_i^{(s+1)} \, e_j^{(s+1)} + \sum_{k=1}^n \sum_{r=1}^s f_i^{(r)} \, e_k^{(r)} f_k^{(s+1)} \, e_j^{(s+1)}\\
+&amp; = \delta_{ij} + \sum_{r=1}^{s+1} f_i^{(r)} \, e_j^{(r)}.
 \end{align*}
 \end{split}\]</div>
 </div>
@@ -1110,7 +1109,7 @@ r = \hat{L}^{-1} b,
 \quad
 \delta = \gamma - c^T\hat{A}^{-1}b.
 \end{split}\]</div>
-<p class="sd-card-text">Because <span class="math notranslate nohighlight">\(A\)</span> is nonsingular, an LU decomposition exists where both blocks in the factorisation are nonsingular. In fact, the above prove ensures the existence of a decomposition with factor <span class="math notranslate nohighlight">\(L\)</span> whose diagonal elements are normalised to <span class="math notranslate nohighlight">\(1\)</span>.</p>
+<p class="sd-card-text">Because <span class="math notranslate nohighlight">\(A\)</span> is nonsingular, an LU decomposition exists where both blocks in the factorisation are nonsingular. In fact, the above proof ensures the existence of a decomposition with factor <span class="math notranslate nohighlight">\(L\)</span> whose diagonal elements are normalised to <span class="math notranslate nohighlight">\(1\)</span>.</p>
 <p class="sd-card-text"><strong>Specific Matrix:</strong> Consider</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -1178,7 +1177,7 @@ A =
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Backward error of the LU decomposition and pivoting</p>
+        <p class="prev-next-title">Backward error and pivoting</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
