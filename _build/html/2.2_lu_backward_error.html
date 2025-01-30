@@ -34,9 +34,9 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=b4b7a797" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- So that users can add custom icons -->
@@ -493,12 +493,24 @@ P^{(2)}\begin{pmatrix}
 \[
 F^{(2)} P^{(2)} F^{(1)} P{(1)} = U.
 \]</div>
-<p>This pivoting strategy guarantees that we have <span class="math notranslate nohighlight">\(|\ell_{i, j}|\leq 1\)</span> for all <span class="math notranslate nohighlight">\(i, j\)</span>. A commutation property between permutation and Frobenius matrices gives</p>
+<p>This pivoting strategy guarantees that we have <span class="math notranslate nohighlight">\(|\ell_{i, j}|\leq 1\)</span> for all <span class="math notranslate nohighlight">\(i, j\)</span>.</p>
+<div class="proof definition admonition" id="definition-1">
+<p class="admonition-title"><span class="caption-number">Definition 6 </span> (Permutation matrix)</p>
+<section class="definition-content" id="proof-content">
+<p><span class="math notranslate nohighlight">\(P \in \mathbb{R}^{n \times n}\)</span> is a permutation matrix if there exists a bijective mapping <span class="math notranslate nohighlight">\(\pi : \{1, \ldots, n\} \to \{1, \ldots, n\}\)</span> (called permutation) such that</p>
+<div class="math notranslate nohighlight">
+\[
+P = \Big( e^{(\pi(i))} \Big| \cdots \Big| e^{(\pi(i))} \Big)
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(e^{(k)} \in \mathbb{R}^n\)</span> is the <span class="math notranslate nohighlight">\(k\)</span>th canonical basis vector.</p>
+</section>
+</div><p>In other words, a permutation matrix is obtained through re-arranging the columns (or rows) of the identity matrix. As shown in a self-check question below, a reordering of rows is precisely the effect of muliplication with a permutation matrix from the left.</p>
+<p>A commutation property between permutation and Frobenius matrices (namely <span class="math notranslate nohighlight">\(P (I - f \, (e^{(i)})^T) P = I - (P f) \, (e^{(i)})^T\)</span> for special permutations <span class="math notranslate nohighlight">\(P\)</span>, see <span id="id1">[<a class="reference internal" href="bm4_bibliography.html#id4" title="Robert Plato. Concise numerical mathematics. Volume 57. American Mathematical Society, 2003. URL: https://ucl.primo.exlibrisgroup.com/permalink/44UCL_INST/155jbua/alma990010057180204761.">Plato, 2003</a>]</span>) ultimately gives</p>
 <div class="math notranslate nohighlight">
 \[
 \hat{F}_{n-1} \cdots \hat{F}_1 P A = U,
 \]</div>
-<p>where the <span class="math notranslate nohighlight">\(\hat{F}_i\)</span> are Frobenius matrices of index <span class="math notranslate nohighlight">\(i\)</span>, <span class="math notranslate nohighlight">\(P\)</span> is a permutation matrix and <span class="math notranslate nohighlight">\(U\)</span> is upper triangular.</p>
+<p>where the <span class="math notranslate nohighlight">\(\hat{F}_i = I - \hat{f}_i e^{(i)}\)</span> are Frobenius matrices of index <span class="math notranslate nohighlight">\(i\)</span>, <span class="math notranslate nohighlight">\(P\)</span> is a permutation matrix and <span class="math notranslate nohighlight">\(U\)</span> is upper triangular. The details are given in ; here</p>
 <div class="admonition-fact-pivoted-lu-decomposition admonition">
 <p class="admonition-title">Fact: Pivoted LU decomposition</p>
 <p>Let <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{n \times n}\)</span>. Then there are a lower triangular <span class="math notranslate nohighlight">\(L\)</span>, upper triangular <span class="math notranslate nohighlight">\(U\)</span> and permutation matrix <span class="math notranslate nohighlight">\(P\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^{n \times n}\)</span> such that</p>
@@ -506,7 +518,10 @@ F^{(2)} P^{(2)} F^{(1)} P{(1)} = U.
 \[
 PA = LU.
 \]</div>
-<p>The vector <span class="math notranslate nohighlight">\(x \in \mathbb{R}^n\)</span> solves <span class="math notranslate nohighlight">\(A x = b\)</span> if and only if <span class="math notranslate nohighlight">\(x\)</span> solves <span class="math notranslate nohighlight">\(U x = y\)</span> with L y = P b$.</p>
+<p>The vector <span class="math notranslate nohighlight">\(x \in \mathbb{R}^n\)</span> solves <span class="math notranslate nohighlight">\(A x = b\)</span> if and only if <span class="math notranslate nohighlight">\(x\)</span> solves <span class="math notranslate nohighlight">\(U x = y\)</span> with <span class="math notranslate nohighlight">\(L y = P b\)</span>.</p>
+</div>
+<div class="proof admonition" id="proof">
+<p>Proof. See <span id="id2">[<a class="reference internal" href="bm4_bibliography.html#id4" title="Robert Plato. Concise numerical mathematics. Volume 57. American Mathematical Society, 2003. URL: https://ucl.primo.exlibrisgroup.com/permalink/44UCL_INST/155jbua/alma990010057180204761.">Plato, 2003</a>]</span>.</p>
 </div>
 </section>
 <section id="growth-factors">
@@ -536,8 +551,8 @@ C_a \| B \|_* \leq \| B \| \leq C_b \| B \|_* \qquad \forall B \in \mathbb{R}^{n
 </section>
 <section id="counterexample-to-backward-stability">
 <h2>Counterexample to backward stability<a class="headerlink" href="#counterexample-to-backward-stability" title="Link to this heading">#</a></h2>
-<p>For most matrices, the growth factor <span class="math notranslate nohighlight">\(\rho\)</span> remains small when pivoting is employed. However, one counterexample suffices to demonstrate that LU decomposition with pivoting is not invariably backward stable.</p>
-<p>Define <span class="math notranslate nohighlight">\(A_n \in \mathbb{R}^{n \times n}\)</span> as the matrix with ones on the diagonal and in the last column, and -1 on all entries below the diagonal. For instance, A_8 is:</p>
+<p>For most matrices, the growth factor <span class="math notranslate nohighlight">\(\rho\)</span> remains small when pivoting is employed. However, one counterexample suffices to demonstrate that LU decomposition with pivoting is not backward stable.</p>
+<p>Define <span class="math notranslate nohighlight">\(A_n \in \mathbb{R}^{n \times n}\)</span> as the matrix with ones on the diagonal and in the last column, and <span class="math notranslate nohighlight">\(-1\)</span> on all entries below the diagonal. For instance, <span class="math notranslate nohighlight">\(A_8\)</span> is:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{pmatrix}
@@ -677,12 +692,45 @@ U_8 = \begin{pmatrix}
 <h2>Self-check exercises<a class="headerlink" href="#self-check-exercises" title="Link to this heading">#</a></h2>
 <div class="tip admonition">
 <p class="admonition-title"><strong>Question</strong></p>
-<p>The matrix <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{n \times n}\)</span> is non-singular {\em diagonally dominant}:</p>
+<p>The matrix <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{n \times n}\)</span> is non-singular <em>diagonally dominant</em>:</p>
 <div class="math notranslate nohighlight">
 \[
 | A_{jj} | \geq \sum_{k = 1 \atop k \neq j}^n | A_{jk} |, \qquad j = 1, 2, \ldots, n.
 \]</div>
 <p>Show that Gaussian elimination without pivoting can be carried out.</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">d</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Let <span class="math notranslate nohighlight">\(P\)</span> be a permutation matrix with permutation <span class="math notranslate nohighlight">\(\pi\)</span>.</p>
+<p>(a) Show that</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+P = \begin{pmatrix}
+&amp; e_{\pi^{-1}(1)}^T&amp; \\ \hline
+&amp; \vdots\\ \hline
+&amp; e_{\pi^{-1}(n)}^T&amp;
+\end{pmatrix}
+\end{split}\]</div>
+<p>(b) Show for the vectors <span class="math notranslate nohighlight">\(a_1, \ldots, a_n \in \mathbb{R}^n\)</span> that</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+P \cdot \begin{pmatrix}
+&amp; a_1^T&amp; \\ \hline
+&amp;\vdots&amp;\\ \hline
+&amp;a_n^T&amp;
+\end{pmatrix}
+=
+\begin{pmatrix}
+&amp; a_{\pi^{-1}(1)}^T&amp; \\ \hline
+&amp; \vdots\\ \hline
+&amp; a_{\pi^{-1}(n)}^T&amp;
+\end{pmatrix}
+\end{split}\]</div>
 </div>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
@@ -713,16 +761,7 @@ e_{\pi^{-1}(1)} \Big| \cdots \Big| e_{\pi^{-1}(n)}
 </div>
 </details><div class="tip admonition">
 <p class="admonition-title"><strong>Question</strong></p>
-<p>d</p>
-</div>
-<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
-<summary class="sd-summary-title sd-card-header">
-<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
-<p class="sd-card-text">d</p>
-</div>
-</details><div class="tip admonition">
-<p class="admonition-title"><strong>Question</strong></p>
-<p>d</p>
+<p>Let <span class="math notranslate nohighlight">\(F_s = I - f \, (e^{(s)})^T\)</span> be a Frobenius matrix of index <span class="math notranslate nohighlight">\(s\)</span> and <span class="math notranslate nohighlight">\(P\)</span> be an elementary permutation matrix with associated permutation <span class="math notranslate nohighlight">\(\pi\)</span>.</p>
 </div>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
