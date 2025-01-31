@@ -34,9 +34,9 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=b4b7a797" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- So that users can add custom icons -->
@@ -522,13 +522,9 @@ G = I + f \otimes e^{(s)}
 </div><div class="proof admonition" id="proof">
 <p>Proof. To show <span class="math notranslate nohighlight">\(F \, G = I\)</span>, we compute the entries of the product:</p>
 <div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{align*}
-\sum_{k = 1}^n F_{ik} \, G_{kj} &amp; = \sum_{k = 1}^n \big( \delta_{ik} - f_i \, e^{(s)}_k \big) \big( \delta_{kj} + f_k \, e^{(s)}_j \big)\\
-&amp; = \delta_{ij} - f_i \, e^{(s)}_j + f_i \, e^{(s)}_j - \sum_{k = 1}^n f_i  e^{(s)}_k f_k  e^{(s)}_j\\
-&amp; = \delta_{ij}.
-\end{align*}
-\end{split}\]</div>
+\[
+\sum_{k = 1}^n F_{ik} \, G_{kj} = \delta_{ij} - f_i \, e^{(s)}_j + f_i \, e^{(s)}_j - \sum_{k = 1}^n f_i  e^{(s)}_k f_k  e^{(s)}_j = \delta_{ij}.
+\]</div>
 <p>Here <span class="math notranslate nohighlight">\(\delta_{ij}\)</span> is the Kronecker product.</p>
 </div>
 <p>Note that the inverse of a Frobenius matrix is also a Frobenius matrix. We now learn that products of Frobenius matrices can be computed with great ease.</p>
@@ -562,8 +558,7 @@ G^{(1)} = I + f^{(1)} \cdot (e^{(1)})^T.
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{align*}
-\Big( G^{(1)} \cdots G^{(s)} G^{(s+1)} \Big)_{ij} &amp; = \sum_{k = 1}^n \Big( \delta_{ik} + \sum_{r = 1}^s f_i^{(r)} \, e_k^{(r)} \Big) \, \Big( \delta_{kj} + f_k^{(s+1)} \, e_j^{(s+1)} \Big)\\
-&amp; = \delta_{ij} + \sum_{r=1}^s f_i^{(r)} \, e_j^{(r)} + f_i^{(s+1)} \, e_j^{(s+1)} + \sum_{k=1}^n \sum_{r=1}^s f_i^{(r)} \, e_k^{(r)} f_k^{(s+1)} \, e_j^{(s+1)}\\
+\Big( G^{(1)} \cdots G^{(s)} G^{(s+1)} \Big)_{ij} &amp; = \delta_{ij} + \sum_{r=1}^s f_i^{(r)} \, e_j^{(r)} + f_i^{(s+1)} \, e_j^{(s+1)} + \sum_{k=1}^n \sum_{r=1}^s f_i^{(r)} \, e_k^{(r)} f_k^{(s+1)} \, e_j^{(s+1)}\\
 &amp; = \delta_{ij} + \sum_{r=1}^{s+1} f_i^{(r)} \, e_j^{(r)}.
 \end{align*}
 \end{split}\]</div>
