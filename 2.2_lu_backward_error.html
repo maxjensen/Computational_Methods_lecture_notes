@@ -701,76 +701,126 @@ U_8 = \begin{pmatrix}
 <h2>Self-check exercises<a class="headerlink" href="#self-check-exercises" title="Link to this heading">#</a></h2>
 <div class="tip admonition">
 <p class="admonition-title"><strong>Question</strong></p>
-<p>The matrix <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{n \times n}\)</span> is non-singular <em>diagonally dominant</em>:</p>
+<p>Solve the linear systems</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{equation*}
+\left( \begin{array}{rrrr}
+1 &amp; 2 &amp; \;\;3 &amp; 6\\
+2 &amp; 8 &amp; 6 &amp; 5\\
+0 &amp; 12 &amp; 9 &amp; -6\\
+-4 &amp; -8 &amp; 0 &amp; 0
+\end{array} \right)
+\left( \begin{array}{c} x_1 \\ x_2 \\ x_3 \\ x_4 \end{array} \right) = \left( \begin{array}{c} 1 \\
+2 \\ 3 \\ 4 \end{array} \right)
+\quad\textrm{and}\quad
+\left(\begin{array}{rrr}
+-1 &amp;17 &amp;-3\\ -1 &amp;29 &amp;-5\\ 3 &amp;-70 &amp;12\\ \end{array}\right)
+\left(\begin{array}{c} x_1\\ x_2\\ x_3\\ \end{array}\right)
+= \left(\begin{array}{c} 5\\ 6\\ 7\\ \end{array}\right)
+\end{equation*}
+\end{split}\]</div>
+<p>using Gaussian elimination with pivoting and back substitution.</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{equation*}\begin{aligned}
+   \left(\begin{array}{cccc}
+       1 &amp;2 &amp;3 &amp;6\\
+       2 &amp;8 &amp;6 &amp;5\\
+       0 &amp;12 &amp;9 &amp;-6\\
+       -4 &amp;-8 &amp;0 &amp;0 \end{array}\right|
+   \left.\begin{array}{c}
+	1\\ 2\\ 3\\ 4 \end{array}\right)
+   &amp;\sim
+   \left(\begin{array}{cccc}
+       -4 &amp;-8 &amp;0 &amp;0\\
+       0 &amp;4 &amp;6 &amp;5\\
+       0 &amp;12 &amp;9 &amp;-6\\
+       0 &amp;0 &amp;3 &amp;6 \end{array}\right|
+   \left.\begin{array}{c}
+	4\\ 4\\ 3\\ 2 \end{array}\right)\\
+   &amp;\sim
+   \left(\begin{array}{cccc}
+       -4 &amp;-8 &amp;0 &amp;0\\
+       0 &amp;12 &amp;9 &amp;-6\\
+       0 &amp;0 &amp;3 &amp;7\\
+       0 &amp;0 &amp;3 &amp;6 \end{array}\right|
+   \left.\begin{array}{c}
+	4\\ 3\\ 3\\ 2 \end{array}\right)
+   \sim    \left(\begin{array}{cccc}
+       -4 &amp;-8 &amp;0 &amp;0\\
+       0 &amp;12 &amp;9 &amp;-6\\
+       0 &amp;0 &amp;3 &amp;7\\
+       0 &amp;0 &amp;0 &amp;-1 \end{array}\right|
+   \left.\begin{array}{c}
+	4\\ 3\\ 3\\ -1 \end{array}\right)
+\end{aligned}\end{equation*}
+\end{split}\]</div>
+<p class="sd-card-text">Backsubstitution gives <span class="math notranslate nohighlight">\(x=(-9/2,7/4,-4/3,1)\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{equation*}
+   \left(\begin{array}{ccc}
+     -1 &amp;17 &amp;-3\\
+     -1 &amp;29 &amp;-5\\
+     3 &amp;-70 &amp;12\\
+   \end{array}\right|\left.\begin{array}{c} 5\\ 6\\ 7 \end{array}\right)
+   \sim \left(\begin{array}{ccc}
+     3 &amp;-70 &amp;12\\
+     0 &amp;17/3 &amp;-1\\
+     0 &amp;-16/3 &amp;1\\
+   \end{array}\right|\left.\begin{array}{c} 7\\ 25/3\\ 22/3 \end{array}\right)
+   \sim \left(\begin{array}{ccc}
+     3 &amp;-70 &amp;12\\
+     0 &amp;17/3 &amp;-1\\
+     0 &amp;0 &amp;1/17\\
+   \end{array}\right|\left.\begin{array}{c} 7\\ 25/3\\ 258/17 \end{array}\right)
+\end{equation*}
+\end{split}\]</div>
+<p class="sd-card-text">whose solution is <span class="math notranslate nohighlight">\(x=(67,47,258)\)</span>.</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>As in the counter example above, define <span class="math notranslate nohighlight">\(A_n \in \mathbb{R}^{n \times n}\)</span> as the matrix with ones on the diagonal and in the last column, and <span class="math notranslate nohighlight">\(-1\)</span> on all entries below the diagonal.</p>
+<p>Show that the LU decomposition <span class="math notranslate nohighlight">\(A_n = L_n U_n\)</span> exists where <span class="math notranslate nohighlight">\(U_n\)</span> is the identity matrix except in its last column, whose <span class="math notranslate nohighlight">\(i\)</span>th entry is <span class="math notranslate nohighlight">\(2^{i-1}\)</span>.</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Let <span class="math notranslate nohighlight">\(B_n(\alpha) \in \mathbb{R}^{n \times n}\)</span> be the matrix with ones on the diagonal and <span class="math notranslate nohighlight">\(\alpha\)</span> in the last column, and <span class="math notranslate nohighlight">\(-1\)</span> on all entries below the diagonal: For example</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+B_8(\alpha) = \begin{pmatrix}
+\phantom{-}1 &amp;  \phantom{-}0 &amp;  \phantom{-}0 &amp;  \phantom{-}0 &amp;  \phantom{-}0 &amp;  \phantom{-}0 &amp;  \phantom{-}0 &amp;  \phantom{-}\alpha \\
+ -1 &amp;  \phantom{-}1 &amp;  \phantom{-}0 &amp;  \phantom{-}0 &amp;  \phantom{-}0 &amp;  \phantom{-}0 &amp;  \phantom{-}0 &amp;  \phantom{-}\alpha \\
+ -1 &amp; -1 &amp;  \phantom{-}1 &amp;  \phantom{-}0 &amp;  \phantom{-}0 &amp;  \phantom{-}0 &amp;  \phantom{-}0 &amp;  \phantom{-}\alpha \\
+ -1 &amp; -1 &amp; -1 &amp;  \phantom{-}1 &amp;  \phantom{-}0 &amp;  \phantom{-}0 &amp;  \phantom{-}0 &amp;  \phantom{-}\alpha \\
+ -1 &amp; -1 &amp; -1 &amp; -1 &amp;  \phantom{-}1 &amp;  \phantom{-}0 &amp;  \phantom{-}0 &amp;  \phantom{-}\alpha \\
+ -1 &amp; -1 &amp; -1 &amp; -1 &amp; -1 &amp;  \phantom{-}1 &amp;  \phantom{-}0 &amp;  \phantom{-}\alpha \\
+ -1 &amp; -1 &amp; -1 &amp; -1 &amp; -1 &amp; -1 &amp;  \phantom{-}1 &amp;  \phantom{-}\alpha \\
+ -1 &amp; -1 &amp; -1 &amp; -1 &amp; -1 &amp; -1 &amp; -1 &amp;  \phantom{-}\alpha
+\end{pmatrix}
+\end{split}\]</div>
+<p class="sd-card-text">and <span class="math notranslate nohighlight">\(B_n(1) = A_n\)</span>. Let</p>
 <div class="math notranslate nohighlight">
 \[
-| A_{jj} | \geq \sum_{k = 1 \atop k \neq j}^n | A_{jk} |, \qquad j = 1, 2, \ldots, n.
+v_n(\alpha)^T = (0, \ldots, 0, \alpha)^T \in \mathbb{R}^n
 \]</div>
-<p>Show that Gaussian elimination without pivoting can be carried out.</p>
-</div>
-<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
-<summary class="sd-summary-title sd-card-header">
-<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
-<p class="sd-card-text">d</p>
-</div>
-</details><div class="tip admonition">
-<p class="admonition-title"><strong>Question</strong></p>
-<p>Let <span class="math notranslate nohighlight">\(P\)</span> be a permutation matrix with permutation <span class="math notranslate nohighlight">\(\pi\)</span>.</p>
-<p>(a) Show that</p>
+<p class="sd-card-text">Elimination of the entries of the first column of <span class="math notranslate nohighlight">\(B_n(\alpha)\)</span> has no effect on the entries of columns <span class="math notranslate nohighlight">\(2, \ldots, n-1\)</span> because the respective entries of the first row vanish. In the last column, all entries except the first double in size. Thus we obtain the following matrix (in matrix block form):</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-P = \begin{pmatrix}
-&amp; e_{\pi^{-1}(1)}^T&amp; \\ \hline
-&amp; \vdots\\ \hline
-&amp; e_{\pi^{-1}(n)}^T&amp;
-\end{pmatrix}
+\left(
+\begin{array}{c|c}
+1 &amp; v_{n-1}(\alpha) \\ \hline
+0 &amp; B_{n-1}(2 \alpha)
+\end{array}
+\right).
 \end{split}\]</div>
-<p>(b) Show for the vectors <span class="math notranslate nohighlight">\(a_1, \ldots, a_n \in \mathbb{R}^n\)</span> that</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-P \cdot \begin{pmatrix}
-&amp; a_1^T&amp; \\ \hline
-&amp;\vdots&amp;\\ \hline
-&amp;a_n^T&amp;
-\end{pmatrix}
-=
-\begin{pmatrix}
-&amp; a_{\pi^{-1}(1)}^T&amp; \\ \hline
-&amp; \vdots\\ \hline
-&amp; a_{\pi^{-1}(n)}^T&amp;
-\end{pmatrix}
-\end{split}\]</div>
-</div>
-<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
-<summary class="sd-summary-title sd-card-header">
-<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
-<p class="sd-card-text">d</p>
-</div>
-</details><div class="tip admonition">
-<p class="admonition-title"><strong>Question</strong></p>
-<p>d</p>
-</div>
-<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
-<summary class="sd-summary-title sd-card-header">
-<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
-</div>
-</details><div class="tip admonition">
-<p class="admonition-title"><strong>Question</strong></p>
-<p>d</p>
-</div>
-<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
-<summary class="sd-summary-title sd-card-header">
-<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
-<p class="sd-card-text">d</p>
-</div>
-</details><div class="tip admonition">
-<p class="admonition-title"><strong>Question</strong></p>
-<p>d</p>
-</div>
-<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
-<summary class="sd-summary-title sd-card-header">
-<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
-<p class="sd-card-text">d</p>
+<p class="sd-card-text">Repeating the step <span class="math notranslate nohighlight">\(n-1\)</span> times with <span class="math notranslate nohighlight">\(B_{n-1}(2 \alpha)\)</span> in place of <span class="math notranslate nohighlight">\(B_n(\alpha)\)</span> shows the result.</p>
 </div>
 </details></section>
 </section>
