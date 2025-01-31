@@ -500,7 +500,7 @@ F^{(2)} P^{(2)} F^{(1)} P^{(1)} A = U.
 <p><span class="math notranslate nohighlight">\(P \in \mathbb{R}^{n \times n}\)</span> is a permutation matrix if there exists a bijective mapping <span class="math notranslate nohighlight">\(\pi : \{1, \ldots, n\} \to \{1, \ldots, n\}\)</span> (called permutation) such that</p>
 <div class="math notranslate nohighlight">
 \[
-P = \Big( e^{(\pi(i))} \Big| \cdots \Big| e^{(\pi(i))} \Big)
+P = \Big( e^{(\pi(1))} \Big| \cdots \Big| e^{(\pi(n))} \Big)
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(e^{(k)} \in \mathbb{R}^n\)</span> is the <span class="math notranslate nohighlight">\(k\)</span>th canonical basis vector.</p>
 </section>
@@ -782,6 +782,70 @@ U_8 = \begin{pmatrix}
 \end{equation*}
 \end{split}\]</div>
 <p class="sd-card-text">whose solution is <span class="math notranslate nohighlight">\(x=(67,47,258)\)</span>.</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Let <span class="math notranslate nohighlight">\(P\)</span> be a permutation matrix with permutation <span class="math notranslate nohighlight">\(\pi\)</span>.</p>
+<p>(a) Show that</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+P = \begin{pmatrix}
+&amp; (e^{(\pi^{-1}(1))})^T&amp; \\ \hline
+&amp; \vdots\\ \hline
+&amp; (e^{(\pi^{-1}(n))})^T &amp;
+\end{pmatrix}
+\end{split}\]</div>
+<p>(b) Show for the vectors <span class="math notranslate nohighlight">\(a_1, \ldots, a_n \in \mathbb{R}^n\)</span> that</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+P \cdot \begin{pmatrix}
+&amp; a_1^T&amp; \\ \hline
+&amp;\vdots&amp;\\ \hline
+&amp;a_n^T&amp;
+\end{pmatrix}
+=
+\begin{pmatrix}
+&amp; a_{\pi^{-1}(1)}^T&amp; \\ \hline
+&amp; \vdots\\ \hline
+&amp; a_{\pi^{-1}(n)}^T&amp;
+\end{pmatrix}
+\end{split}\]</div>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">(a) For all <span class="math notranslate nohighlight">\(k = 1, \ldots, n\)</span>, we find <span class="math notranslate nohighlight">\(P e^{(k)} = e^{(\pi(k))}\)</span> also similarly</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{pmatrix}
+&amp; (e^{(\pi^{-1}(1))})^T&amp; \\ \hline
+&amp; \vdots\\ \hline
+&amp; (e^{(\pi^{-1}(n))})^T &amp;
+\end{pmatrix} e^{(k)} = 
+\begin{pmatrix}
+(e^{(\pi^{-1}(1))})^T e^{(k)}\\ \hline
+\vdots\\ \hline
+(e^{(\pi^{-1}(n))})^T e^{(k)}
+\end{pmatrix}
+= e^{(\pi(k))}.
+\end{split}\]</div>
+<p class="sd-card-text">(b) Using for <span class="math notranslate nohighlight">\((*)\)</span> that <span class="math notranslate nohighlight">\(\pi(j) = \ell\)</span> visits every number <span class="math notranslate nohighlight">\(1, \ldots, n\)</span> exactly once as <span class="math notranslate nohighlight">\(j = 1, \ldots, n\)</span>, we find</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+P \cdot \begin{pmatrix}
+&amp; a_1^T&amp; \\ \hline
+&amp;\vdots&amp;\\ \hline
+&amp;a_n^T&amp;
+\end{pmatrix}
+= \sum_{j=1}^n e^{(\pi(j))} a_j^T
+\stackrel{(*)}{=} \sum_{\ell=1}^n e^{(\ell)} a_{\pi^{-1}(\ell)}^T
+=
+\begin{pmatrix}
+&amp; a_{\pi^{-1}(1)}^T&amp; \\ \hline
+&amp; \vdots\\ \hline
+&amp; a_{\pi^{-1}(n)}^T&amp;
+\end{pmatrix}.
+\end{split}\]</div>
 </div>
 </details><div class="tip admonition">
 <p class="admonition-title"><strong>Question</strong></p>
