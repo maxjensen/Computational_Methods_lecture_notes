@@ -20,16 +20,32 @@
 - $A^T$: The transpose of matrix $A$.
 - $A^H$: The conjugate transpose of matrix $A$.
 - $I$: The identity matrix, sometimes $I_n$ to denote the size.
-- $\sigma_i$: The $i$-th singular value of matrix.
-- $\text{diag}(a_1, \ldots, a_n)$: A diagonal matrix with diagonal elements $a_1, \ldots, a_n \in \mathbb{R}$.
-- $\text{diag}(A)$: The diagonal of matrix $A$.
-- $\det(A)$: The determinant of matrix $A$.
-- $\text{rank}(A)$: The rank of matrix $A$.
-- $\text{ker}(A)$: The kernel (or null space) of matrix $A$.
+- $\| \cdot \|_p$: $p$-norm of a vector of matrix.
+- $\| \cdot \|_{b,a}$: matrix norm induced by the $\| \cdot \|_a$ and $\| \cdot \|_b$ vector norms.
+- $fl$: projection from $\mathbb{R}$ onto the floating point numbers.
+- $E_{abs}$: absolute forward error.
+- $E_{rel}$: relative forward error.
+- $\eta_{abs}$: absolute backward error.
+- $\eta_{rel}$: relative backward error.
+- $K_{abs}$: absolute condition number.
+- $K_{rel}$: relative condition number.
+- $\kappa_{abs}$: local absolute condition number.
+- $\kappa_{rel}$: local relative condition number.
+- $\mathcal{O}(f)$: assymptotic notation.
+- $\langle f, g \rangle$: inner product of $f$ and $g$.
+- $f \otimes g$: outer product of $f$ and $g$.
+- $\sigma_i$: $i$-th singular value of matrix.
+- $\lambda_i$: $i$-th eigenvalue of matrix.
+- $\text{diag}(a_1, \ldots, a_n)$: diagonal matrix with diagonal elements $a_1, \ldots, a_n \in \mathbb{R}$.
+- $\text{diag}(A)$: diagonal of matrix $A$.
+- $\det(A)$: determinant of matrix $A$.
+- $\text{rank}(A)$: rank of matrix $A$.
+- $\text{ker}(A)$: kernel (or null space) of matrix $A$.
 - $\mathcal{Q}_n$: quadrature rule with $n+1$ nodes.
-- $\mathcal{I}$: Integral operator.
-- $\langle f, g \rangle$: The inner product of functions $f$ and $g$.
-- $L_k$: The $k$-th Lagrange basis polynomial.
+- $\mathcal{C}_{n,m}$: composite quadrature rule with $n+1$ nodes in each of the $m$ subintervals.
+- $\mathcal{I}$: integral operator.
+- $L_k$: $k$th Lagrange basis polynomial.
+- $\omega_{n+1}$: error polynomial.
 
 ## Facts
 
