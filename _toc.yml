@@ -13,7 +13,7 @@ parts:
   chapters:
     - file: 2.1_lu_decomposition
     - file: 2.2_lu_backward_error
-    - file: 2.4_python_lu_decomposition
+    - file: 2.3_python_lu_decomposition
 - caption: Orthogonal Decompositions
   chapters:
     - file: 3.1_qr_decomposition

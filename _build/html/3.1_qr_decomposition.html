@@ -67,7 +67,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="The Singular Value Decomposition" href="3.2_singular_value_decomposition.html" />
-    <link rel="prev" title="Python implementation" href="2.4_python_lu_decomposition.html" />
+    <link rel="prev" title="Python implementation" href="2.3_python_lu_decomposition.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -184,7 +184,7 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="2.1_lu_decomposition.html">LU decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.2_lu_backward_error.html">Backward error and pivoting</a></li>
-<li class="toctree-l1"><a class="reference internal" href="2.4_python_lu_decomposition.html">Python implementation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.3_python_lu_decomposition.html">Python implementation</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Orthogonal Decompositions</span></p>
 <ul class="current nav bd-sidenav">
@@ -702,6 +702,7 @@ P^2 = uu^Tuu^T = uu^T
   
 <span class="k">def</span> <span class="nf">gram_schmidt</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>  
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns an orthogonal basis for the columns in A.&quot;&quot;&quot;</span>  
+    
     <span class="n">m</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  
     <span class="n">n</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>  
       
@@ -715,10 +716,11 @@ P^2 = uu^Tuu^T = uu^T
         <span class="n">Q</span><span class="p">[:,</span> <span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">t</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>  
       
     <span class="k">return</span> <span class="n">Q</span>  
-    <span class="k">def</span> <span class="nf">modified_gram_schmidt</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>  
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return an orthogonal basis for the columns in A&quot;&quot;&quot;</span>  
+
+<span class="k">def</span> <span class="nf">modified_gram_schmidt</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>  
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns an orthogonal basis for the columns in A.&quot;&quot;&quot;</span>  
           
-<span class="n">m</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  
+    <span class="n">m</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  
     <span class="n">n</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>  
       
     <span class="n">Q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>  
@@ -908,7 +910,7 @@ H x = \left(x_o - 2 \frac{v^T x_o}{v^Tv} v\right) + \left(x_c - 2 \frac{v^T x_c}
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="2.4_python_lu_decomposition.html"
+       href="2.3_python_lu_decomposition.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">

@@ -34,9 +34,9 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=b4b7a797" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- So that users can add custom icons -->
@@ -66,7 +66,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = '2.2_lu_backward_error';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Python implementation" href="2.4_python_lu_decomposition.html" />
+    <link rel="next" title="Python implementation" href="2.3_python_lu_decomposition.html" />
     <link rel="prev" title="LU decomposition" href="2.1_lu_decomposition.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -184,7 +184,7 @@
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="2.1_lu_decomposition.html">LU decomposition</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Backward error and pivoting</a></li>
-<li class="toctree-l1"><a class="reference internal" href="2.4_python_lu_decomposition.html">Python implementation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.3_python_lu_decomposition.html">Python implementation</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Orthogonal Decompositions</span></p>
 <ul class="nav bd-sidenav">
@@ -491,7 +491,7 @@ P^{(2)}\begin{pmatrix}
 <p>giving</p>
 <div class="math notranslate nohighlight">
 \[
-F^{(2)} P^{(2)} F^{(1)} P{(1)} = U.
+F^{(2)} P^{(2)} F^{(1)} P^{(1)} A = U.
 \]</div>
 <p>This pivoting strategy guarantees that we have <span class="math notranslate nohighlight">\(|\ell_{i, j}|\leq 1\)</span> for all <span class="math notranslate nohighlight">\(i, j\)</span>.</p>
 <div class="proof definition admonition" id="definition-1">
@@ -500,17 +500,11 @@ F^{(2)} P^{(2)} F^{(1)} P{(1)} = U.
 <p><span class="math notranslate nohighlight">\(P \in \mathbb{R}^{n \times n}\)</span> is a permutation matrix if there exists a bijective mapping <span class="math notranslate nohighlight">\(\pi : \{1, \ldots, n\} \to \{1, \ldots, n\}\)</span> (called permutation) such that</p>
 <div class="math notranslate nohighlight">
 \[
-P = \Big( e^{(\pi(i))} \Big| \cdots \Big| e^{(\pi(i))} \Big)
+P = \Big( e^{(\pi(1))} \Big| \cdots \Big| e^{(\pi(n))} \Big)
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(e^{(k)} \in \mathbb{R}^n\)</span> is the <span class="math notranslate nohighlight">\(k\)</span>th canonical basis vector.</p>
 </section>
 </div><p>In other words, a permutation matrix is obtained through re-arranging the columns (or rows) of the identity matrix. As shown in a self-check question below, a reordering of rows is precisely the effect of muliplication with a permutation matrix from the left.</p>
-<p>A commutation property between permutation and Frobenius matrices (namely <span class="math notranslate nohighlight">\(P (I - f \, (e^{(i)})^T) P = I - (P f) \, (e^{(i)})^T\)</span> for special permutations <span class="math notranslate nohighlight">\(P\)</span>, see <span id="id1">[<a class="reference internal" href="bm4_bibliography.html#id4" title="Robert Plato. Concise numerical mathematics. Volume 57. American Mathematical Society, 2003. URL: https://ucl.primo.exlibrisgroup.com/permalink/44UCL_INST/155jbua/alma990010057180204761.">Plato, 2003</a>]</span>) ultimately gives</p>
-<div class="math notranslate nohighlight">
-\[
-\hat{F}_{n-1} \cdots \hat{F}_1 P A = U,
-\]</div>
-<p>where the <span class="math notranslate nohighlight">\(\hat{F}_i = I - \hat{f}_i e^{(i)}\)</span> are Frobenius matrices of index <span class="math notranslate nohighlight">\(i\)</span>, <span class="math notranslate nohighlight">\(P\)</span> is a permutation matrix and <span class="math notranslate nohighlight">\(U\)</span> is upper triangular. The details are given in ; here</p>
 <div class="admonition-fact-pivoted-lu-decomposition admonition">
 <p class="admonition-title">Fact: Pivoted LU decomposition</p>
 <p>Let <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{n \times n}\)</span>. Then there are a lower triangular <span class="math notranslate nohighlight">\(L\)</span>, upper triangular <span class="math notranslate nohighlight">\(U\)</span> and permutation matrix <span class="math notranslate nohighlight">\(P\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^{n \times n}\)</span> such that</p>
@@ -521,7 +515,22 @@ PA = LU.
 <p>The vector <span class="math notranslate nohighlight">\(x \in \mathbb{R}^n\)</span> solves <span class="math notranslate nohighlight">\(A x = b\)</span> if and only if <span class="math notranslate nohighlight">\(x\)</span> solves <span class="math notranslate nohighlight">\(U x = y\)</span> with <span class="math notranslate nohighlight">\(L y = P b\)</span>.</p>
 </div>
 <div class="proof admonition" id="proof">
-<p>Proof. See <span id="id2">[<a class="reference internal" href="bm4_bibliography.html#id4" title="Robert Plato. Concise numerical mathematics. Volume 57. American Mathematical Society, 2003. URL: https://ucl.primo.exlibrisgroup.com/permalink/44UCL_INST/155jbua/alma990010057180204761.">Plato, 2003</a>]</span>.</p>
+<p>Proof. Generalising the principle of the above example gives</p>
+<div class="math notranslate nohighlight">
+\[
+F^{(n-1)} P^{(n-1)} \cdots F^{(2)} P^{(2)} F^{(1)} P^{(1)} A = U.
+\]</div>
+<p>There is a commutation property between permutation and Frobenius matrices,</p>
+<div class="math notranslate nohighlight">
+\[
+P (I - f \, (e^{(i)})^T) P = I - (P f) \, (e^{(i)})^T
+\]</div>
+<p>for elementary permutations <span class="math notranslate nohighlight">\(P\)</span>, that ultimately allows to reorder the product so that</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{F}_{n-1} \cdots \hat{F}_1 P A = U,
+\]</div>
+<p>where the <span class="math notranslate nohighlight">\(\hat{F}_i = I - \hat{f}_i e^{(i)}\)</span> are Frobenius matrices of index <span class="math notranslate nohighlight">\(i\)</span>, <span class="math notranslate nohighlight">\(P\)</span> is a permutation matrix and <span class="math notranslate nohighlight">\(U\)</span> is upper triangular. The details are beyond the scope of this lecture. See <span id="id1">[<a class="reference internal" href="bm4_bibliography.html#id4" title="Robert Plato. Concise numerical mathematics. Volume 57. American Mathematical Society, 2003. URL: https://ucl.primo.exlibrisgroup.com/permalink/44UCL_INST/155jbua/alma990010057180204761.">Plato, 2003</a>]</span> for the full proof.</p>
 </div>
 </section>
 <section id="growth-factors">
@@ -692,17 +701,87 @@ U_8 = \begin{pmatrix}
 <h2>Self-check exercises<a class="headerlink" href="#self-check-exercises" title="Link to this heading">#</a></h2>
 <div class="tip admonition">
 <p class="admonition-title"><strong>Question</strong></p>
-<p>The matrix <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{n \times n}\)</span> is non-singular <em>diagonally dominant</em>:</p>
+<p>Solve the linear systems</p>
 <div class="math notranslate nohighlight">
-\[
-| A_{jj} | \geq \sum_{k = 1 \atop k \neq j}^n | A_{jk} |, \qquad j = 1, 2, \ldots, n.
-\]</div>
-<p>Show that Gaussian elimination without pivoting can be carried out.</p>
+\[\begin{split}
+\begin{equation*}
+\left( \begin{array}{rrrr}
+1 &amp; 2 &amp; \;\;3 &amp; 6\\
+2 &amp; 8 &amp; 6 &amp; 5\\
+0 &amp; 12 &amp; 9 &amp; -6\\
+-4 &amp; -8 &amp; 0 &amp; 0
+\end{array} \right)
+\left( \begin{array}{c} x_1 \\ x_2 \\ x_3 \\ x_4 \end{array} \right) = \left( \begin{array}{c} 1 \\
+2 \\ 3 \\ 4 \end{array} \right)
+\quad\textrm{and}\quad
+\left(\begin{array}{rrr}
+-1 &amp;17 &amp;-3\\ -1 &amp;29 &amp;-5\\ 3 &amp;-70 &amp;12\\ \end{array}\right)
+\left(\begin{array}{c} x_1\\ x_2\\ x_3\\ \end{array}\right)
+= \left(\begin{array}{c} 5\\ 6\\ 7\\ \end{array}\right)
+\end{equation*}
+\end{split}\]</div>
+<p>using Gaussian elimination with pivoting and back substitution.</p>
 </div>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
 <span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
-<p class="sd-card-text">d</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{equation*}\begin{aligned}
+   \left(\begin{array}{cccc}
+       1 &amp;2 &amp;3 &amp;6\\
+       2 &amp;8 &amp;6 &amp;5\\
+       0 &amp;12 &amp;9 &amp;-6\\
+       -4 &amp;-8 &amp;0 &amp;0 \end{array}\right|
+   \left.\begin{array}{c}
+	1\\ 2\\ 3\\ 4 \end{array}\right)
+   &amp;\sim
+   \left(\begin{array}{cccc}
+       -4 &amp;-8 &amp;0 &amp;0\\
+       0 &amp;4 &amp;6 &amp;5\\
+       0 &amp;12 &amp;9 &amp;-6\\
+       0 &amp;0 &amp;3 &amp;6 \end{array}\right|
+   \left.\begin{array}{c}
+	4\\ 4\\ 3\\ 2 \end{array}\right)\\
+   &amp;\sim
+   \left(\begin{array}{cccc}
+       -4 &amp;-8 &amp;0 &amp;0\\
+       0 &amp;12 &amp;9 &amp;-6\\
+       0 &amp;0 &amp;3 &amp;7\\
+       0 &amp;0 &amp;3 &amp;6 \end{array}\right|
+   \left.\begin{array}{c}
+	4\\ 3\\ 3\\ 2 \end{array}\right)
+   \sim    \left(\begin{array}{cccc}
+       -4 &amp;-8 &amp;0 &amp;0\\
+       0 &amp;12 &amp;9 &amp;-6\\
+       0 &amp;0 &amp;3 &amp;7\\
+       0 &amp;0 &amp;0 &amp;-1 \end{array}\right|
+   \left.\begin{array}{c}
+	4\\ 3\\ 3\\ -1 \end{array}\right)
+\end{aligned}\end{equation*}
+\end{split}\]</div>
+<p class="sd-card-text">Backsubstitution gives <span class="math notranslate nohighlight">\(x=(-9/2,7/4,-4/3,1)\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{equation*}
+   \left(\begin{array}{ccc}
+     -1 &amp;17 &amp;-3\\
+     -1 &amp;29 &amp;-5\\
+     3 &amp;-70 &amp;12\\
+   \end{array}\right|\left.\begin{array}{c} 5\\ 6\\ 7 \end{array}\right)
+   \sim \left(\begin{array}{ccc}
+     3 &amp;-70 &amp;12\\
+     0 &amp;17/3 &amp;-1\\
+     0 &amp;-16/3 &amp;1\\
+   \end{array}\right|\left.\begin{array}{c} 7\\ 25/3\\ 22/3 \end{array}\right)
+   \sim \left(\begin{array}{ccc}
+     3 &amp;-70 &amp;12\\
+     0 &amp;17/3 &amp;-1\\
+     0 &amp;0 &amp;1/17\\
+   \end{array}\right|\left.\begin{array}{c} 7\\ 25/3\\ 258/17 \end{array}\right)
+\end{equation*}
+\end{split}\]</div>
+<p class="sd-card-text">whose solution is <span class="math notranslate nohighlight">\(x=(67,47,258)\)</span>.</p>
 </div>
 </details><div class="tip admonition">
 <p class="admonition-title"><strong>Question</strong></p>
@@ -711,9 +790,9 @@ U_8 = \begin{pmatrix}
 <div class="math notranslate nohighlight">
 \[\begin{split}
 P = \begin{pmatrix}
-&amp; e_{\pi^{-1}(1)}^T&amp; \\ \hline
+&amp; (e^{(\pi^{-1}(1))})^T&amp; \\ \hline
 &amp; \vdots\\ \hline
-&amp; e_{\pi^{-1}(n)}^T&amp;
+&amp; (e^{(\pi^{-1}(n))})^T &amp;
 \end{pmatrix}
 \end{split}\]</div>
 <p>(b) Show for the vectors <span class="math notranslate nohighlight">\(a_1, \ldots, a_n \in \mathbb{R}^n\)</span> that</p>
@@ -735,47 +814,112 @@ P \cdot \begin{pmatrix}
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
 <span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
-<p class="sd-card-text">d</p>
+<p class="sd-card-text">(a) For all <span class="math notranslate nohighlight">\(k = 1, \ldots, n\)</span>, we find <span class="math notranslate nohighlight">\(P e^{(k)} = e^{(\pi(k))}\)</span>. Similarly</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{pmatrix}
+&amp; (e^{(\pi^{-1}(1))})^T&amp; \\ \hline
+&amp; \vdots\\ \hline
+&amp; (e^{(\pi^{-1}(n))})^T &amp;
+\end{pmatrix} e^{(k)} = 
+\begin{pmatrix}
+(e^{(\pi^{-1}(1))})^T e^{(k)}\\ \hline
+\vdots\\ \hline
+(e^{(\pi^{-1}(n))})^T e^{(k)}
+\end{pmatrix}
+= e^{(\pi(k))}.
+\end{split}\]</div>
+<p class="sd-card-text">We now use that two matrices are the same if multiplication with the basis vectors <span class="math notranslate nohighlight">\(e^{(k)}\)</span> yields the same product.</p>
+<p class="sd-card-text">(b) Using for <span class="math notranslate nohighlight">\((*)\)</span> that <span class="math notranslate nohighlight">\(\pi(j) = \ell\)</span> visits every number <span class="math notranslate nohighlight">\(1, \ldots, n\)</span> exactly once as <span class="math notranslate nohighlight">\(j = 1, \ldots, n\)</span>, we find</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+P \cdot \begin{pmatrix}
+&amp; a_1^T&amp; \\ \hline
+&amp;\vdots&amp;\\ \hline
+&amp;a_n^T&amp;
+\end{pmatrix}
+= \sum_{j=1}^n e^{(\pi(j))} a_j^T
+\stackrel{(*)}{=} \sum_{\ell=1}^n e^{(\ell)} a_{\pi^{-1}(\ell)}^T
+=
+\begin{pmatrix}
+&amp; a_{\pi^{-1}(1)}^T&amp; \\ \hline
+&amp; \vdots\\ \hline
+&amp; a_{\pi^{-1}(n)}^T&amp;
+\end{pmatrix}.
+\end{split}\]</div>
 </div>
 </details><div class="tip admonition">
 <p class="admonition-title"><strong>Question</strong></p>
-<p>Let <span class="math notranslate nohighlight">\(P \in \mathbb{R}^{n \times n}\)</span> be a permutation matrix and <span class="math notranslate nohighlight">\(\pi : {1, \ldots, n} \to {1, \ldots, n}\)</span> be the associated permutation:</p>
+<p>As in the counter example above, define <span class="math notranslate nohighlight">\(A_n \in \mathbb{R}^{n \times n}\)</span> as the matrix with ones on the diagonal and in the last column, and <span class="math notranslate nohighlight">\(-1\)</span> on all entries below the diagonal.</p>
+<p>Show that the LU decomposition <span class="math notranslate nohighlight">\(A_n = L_n U_n\)</span> exists where <span class="math notranslate nohighlight">\(U_n\)</span> is the identity matrix except in its last column, whose <span class="math notranslate nohighlight">\(i\)</span>th entry is <span class="math notranslate nohighlight">\(2^{i-1}\)</span>.</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Let <span class="math notranslate nohighlight">\(B_n(\alpha) \in \mathbb{R}^{n \times n}\)</span> be the matrix with ones on the diagonal and <span class="math notranslate nohighlight">\(\alpha\)</span> in the last column, and <span class="math notranslate nohighlight">\(-1\)</span> on all entries below the diagonal: For example</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+B_8(\alpha) = \begin{pmatrix}
+\phantom{-}1 &amp;  \phantom{-}0 &amp;  \phantom{-}0 &amp;  \phantom{-}0 &amp;  \phantom{-}0 &amp;  \phantom{-}0 &amp;  \phantom{-}0 &amp;  \phantom{-}\alpha \\
+ -1 &amp;  \phantom{-}1 &amp;  \phantom{-}0 &amp;  \phantom{-}0 &amp;  \phantom{-}0 &amp;  \phantom{-}0 &amp;  \phantom{-}0 &amp;  \phantom{-}\alpha \\
+ -1 &amp; -1 &amp;  \phantom{-}1 &amp;  \phantom{-}0 &amp;  \phantom{-}0 &amp;  \phantom{-}0 &amp;  \phantom{-}0 &amp;  \phantom{-}\alpha \\
+ -1 &amp; -1 &amp; -1 &amp;  \phantom{-}1 &amp;  \phantom{-}0 &amp;  \phantom{-}0 &amp;  \phantom{-}0 &amp;  \phantom{-}\alpha \\
+ -1 &amp; -1 &amp; -1 &amp; -1 &amp;  \phantom{-}1 &amp;  \phantom{-}0 &amp;  \phantom{-}0 &amp;  \phantom{-}\alpha \\
+ -1 &amp; -1 &amp; -1 &amp; -1 &amp; -1 &amp;  \phantom{-}1 &amp;  \phantom{-}0 &amp;  \phantom{-}\alpha \\
+ -1 &amp; -1 &amp; -1 &amp; -1 &amp; -1 &amp; -1 &amp;  \phantom{-}1 &amp;  \phantom{-}\alpha \\
+ -1 &amp; -1 &amp; -1 &amp; -1 &amp; -1 &amp; -1 &amp; -1 &amp;  \phantom{-}\alpha
+\end{pmatrix}
+\end{split}\]</div>
+<p class="sd-card-text">and <span class="math notranslate nohighlight">\(B_n(1) = A_n\)</span>. Let</p>
 <div class="math notranslate nohighlight">
 \[
-P = \Big(
-e_{\pi(1)} \Big| \cdots \Big| e_{\pi(n)}
-\Big),
+v_n(\alpha)^T = (0, \ldots, 0, \alpha)^T \in \mathbb{R}^n
 \]</div>
-<p>Show</p>
+<p class="sd-card-text">Elimination of the entries of the first column of <span class="math notranslate nohighlight">\(B_n(\alpha)\)</span> has no effect on the entries of columns <span class="math notranslate nohighlight">\(2, \ldots, n-1\)</span> because the respective entries of the first row vanish. In the last column, all entries except the first double in size. Thus we obtain the following matrix (in matrix block form):</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\left(
+\begin{array}{c|c}
+1 &amp; v_{n-1}(\alpha) \\ \hline
+0 &amp; B_{n-1}(2 \alpha)
+\end{array}
+\right).
+\end{split}\]</div>
+<p class="sd-card-text">Repeating the step a further <span class="math notranslate nohighlight">\(n-2\)</span> times with</p>
 <div class="math notranslate nohighlight">
 \[
-P^{-1} = \Big(
-e_{\pi^{-1}(1)} \Big| \cdots \Big| e_{\pi^{-1}(n)}
-\Big),
+B_{n-1}(2 \alpha), B_{n-2}(4 \alpha), \ldots, B_{n-i}(2^i \alpha), \ldots, B_2(2^{n-2} \alpha)
 \]</div>
-<p>and <span class="math notranslate nohighlight">\(P^{-1} = P^T\)</span>.</p>
-</div>
-<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
-<summary class="sd-summary-title sd-card-header">
-<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">in place of <span class="math notranslate nohighlight">\(B_n(\alpha)\)</span> shows the result, noting that the last iteration returns a triangular <span class="math notranslate nohighlight">\(2 \times 2\)</span> matrix with the entry <span class="math notranslate nohighlight">\(2^{n-1}\)</span> in the lower right.</p>
 </div>
 </details><div class="tip admonition">
 <p class="admonition-title"><strong>Question</strong></p>
-<p>Let <span class="math notranslate nohighlight">\(F_s = I - f \, (e^{(s)})^T\)</span> be a Frobenius matrix of index <span class="math notranslate nohighlight">\(s\)</span> and <span class="math notranslate nohighlight">\(P\)</span> be an elementary permutation matrix with associated permutation <span class="math notranslate nohighlight">\(\pi\)</span>.</p>
+<p>As discussed in the computer practical on Frobenius matrices, suppose you have implemented the following three functions in Python:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">permute(i,j,n)</span></code> returns an <code class="docutils literal notranslate"><span class="pre">n</span></code> <span class="math notranslate nohighlight">\(\times\)</span> <code class="docutils literal notranslate"><span class="pre">n</span></code> permutation matrix that interchanges the <code class="docutils literal notranslate"><span class="pre">i</span></code>th and <code class="docutils literal notranslate"><span class="pre">j</span></code>th elements of a vector upon multiplication.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">frob(s,f)</span></code> returns the <span class="math notranslate nohighlight">\(n \times n\)</span> Frobenius matrix of index <code class="docutils literal notranslate"><span class="pre">s</span></code> whose subdiagonal entries are given by last <span class="math notranslate nohighlight">\(n - \)</span><code class="docutils literal notranslate"><span class="pre">s</span></code> entries of <code class="docutils literal notranslate"><span class="pre">f</span></code>. Here <span class="math notranslate nohighlight">\(n\)</span> is the length of <code class="docutils literal notranslate"><span class="pre">f</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ifrob(s,f)</span></code> returns the inverse of <code class="docutils literal notranslate"><span class="pre">frob(s,f)</span></code>.</p></li>
+</ul>
+<p>Find the LU decomposition with pivoting of <code class="docutils literal notranslate"><span class="pre">A</span></code>, using the above Python functions for Frobenius and permutation matrices:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">]])</span>
+</pre></div>
+</div>
 </div>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
 <span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
-<p class="sd-card-text">d</p>
+<p class="sd-card-text">The following commands define <code class="docutils literal notranslate"><span class="pre">U</span></code>, <code class="docutils literal notranslate"><span class="pre">P</span></code> and <code class="docutils literal notranslate"><span class="pre">L</span></code> for the decomposition <code class="docutils literal notranslate"><span class="pre">P</span> <span class="pre">&#64;</span> <span class="pre">A</span> <span class="pre">=</span> <span class="pre">L</span> <span class="pre">&#64;</span> <span class="pre">U</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">U</span> <span class="o">=</span> <span class="n">permute</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span> <span class="o">@</span> <span class="n">frob</span><span class="p">(</span><span class="mi">0</span><span class="p">,[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span> <span class="o">@</span> <span class="n">permute</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span> <span class="o">@</span> <span class="n">A</span>
+<span class="n">P</span> <span class="o">=</span> <span class="n">permute</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span> <span class="o">@</span> <span class="n">permute</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">L</span> <span class="o">=</span> <span class="n">ifrob</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">permute</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span> <span class="o">@</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;P A = </span><span class="se">\n</span><span class="si">{</span><span class="n">P</span><span class="w"> </span><span class="o">@</span><span class="w"> </span><span class="n">A</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;L U = </span><span class="se">\n</span><span class="si">{</span><span class="n">L</span><span class="w"> </span><span class="o">@</span><span class="w"> </span><span class="n">U</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;P = </span><span class="se">\n</span><span class="si">{</span><span class="n">P</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;L = </span><span class="se">\n</span><span class="si">{</span><span class="n">L</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;U = </span><span class="se">\n</span><span class="si">{</span><span class="n">U</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
 </div>
-</details><div class="tip admonition">
-<p class="admonition-title"><strong>Question</strong></p>
-<p>d</p>
-</div>
-<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
-<summary class="sd-summary-title sd-card-header">
-<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
-<p class="sd-card-text">d</p>
+<p class="sd-card-text"><strong>Note:</strong> Some books and Python libraries instead use the decomposition <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">=</span> <span class="pre">P</span> <span class="pre">&#64;</span> <span class="pre">L</span> <span class="pre">&#64;</span> <span class="pre">U</span></code>. The <code class="docutils literal notranslate"><span class="pre">P</span></code> of this decomposition is the transpose of the <code class="docutils literal notranslate"><span class="pre">P</span></code> above.</p>
 </div>
 </details></section>
 </section>
@@ -820,7 +964,7 @@ e_{\pi^{-1}(1)} \Big| \cdots \Big| e_{\pi^{-1}(n)}
       </div>
     </a>
     <a class="right-next"
-       href="2.4_python_lu_decomposition.html"
+       href="2.3_python_lu_decomposition.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>

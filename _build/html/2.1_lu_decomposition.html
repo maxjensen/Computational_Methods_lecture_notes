@@ -184,7 +184,7 @@
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">LU decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.2_lu_backward_error.html">Backward error and pivoting</a></li>
-<li class="toctree-l1"><a class="reference internal" href="2.4_python_lu_decomposition.html">Python implementation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.3_python_lu_decomposition.html">Python implementation</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Orthogonal Decompositions</span></p>
 <ul class="nav bd-sidenav">
@@ -522,13 +522,9 @@ G = I + f \otimes e^{(s)}
 </div><div class="proof admonition" id="proof">
 <p>Proof. To show <span class="math notranslate nohighlight">\(F \, G = I\)</span>, we compute the entries of the product:</p>
 <div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{align*}
-\sum_{k = 1}^n F_{ik} \, G_{kj} &amp; = \sum_{k = 1}^n \big( \delta_{ik} - f_i \, e^{(s)}_k \big) \big( \delta_{kj} + f_k \, e^{(s)}_j \big)\\
-&amp; = \delta_{ij} - f_i \, e^{(s)}_j + f_i \, e^{(s)}_j - \sum_{k = 1}^n f_i  e^{(s)}_k f_k  e^{(s)}_j\\
-&amp; = \delta_{ij}.
-\end{align*}
-\end{split}\]</div>
+\[
+\sum_{k = 1}^n F_{ik} \, G_{kj} = \delta_{ij} - f_i \, e^{(s)}_j + f_i \, e^{(s)}_j - \sum_{k = 1}^n f_i  e^{(s)}_k f_k  e^{(s)}_j = \delta_{ij}.
+\]</div>
 <p>Here <span class="math notranslate nohighlight">\(\delta_{ij}\)</span> is the Kronecker product.</p>
 </div>
 <p>Note that the inverse of a Frobenius matrix is also a Frobenius matrix. We now learn that products of Frobenius matrices can be computed with great ease.</p>
@@ -562,8 +558,7 @@ G^{(1)} = I + f^{(1)} \cdot (e^{(1)})^T.
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{align*}
-\Big( G^{(1)} \cdots G^{(s)} G^{(s+1)} \Big)_{ij} &amp; = \sum_{k = 1}^n \Big( \delta_{ik} + \sum_{r = 1}^s f_i^{(r)} \, e_k^{(r)} \Big) \, \Big( \delta_{kj} + f_k^{(s+1)} \, e_j^{(s+1)} \Big)\\
-&amp; = \delta_{ij} + \sum_{r=1}^s f_i^{(r)} \, e_j^{(r)} + f_i^{(s+1)} \, e_j^{(s+1)} + \sum_{k=1}^n \sum_{r=1}^s f_i^{(r)} \, e_k^{(r)} f_k^{(s+1)} \, e_j^{(s+1)}\\
+\Big( G^{(1)} \cdots G^{(s)} G^{(s+1)} \Big)_{ij} &amp; = \delta_{ij} + \sum_{r=1}^s f_i^{(r)} \, e_j^{(r)} + f_i^{(s+1)} \, e_j^{(s+1)} + \sum_{k=1}^n \sum_{r=1}^s f_i^{(r)} \, e_k^{(r)} f_k^{(s+1)} \, e_j^{(s+1)}\\
 &amp; = \delta_{ij} + \sum_{r=1}^{s+1} f_i^{(r)} \, e_j^{(r)}.
 \end{align*}
 \end{split}\]</div>
@@ -671,8 +666,7 @@ x_1\\ x_2 \\ x_3
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
 <span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
-<p class="sd-card-text">We want to transform this system into an upper triangular system. In the first step, we multiply the first row with
-<span class="math notranslate nohighlight">\(\ell_{21} = \frac{a_{21}}{a_{11}}\)</span> and subtract from the second row to obtain the
+<p class="sd-card-text">We want to transform this system into an upper triangular system. In the first step, we multiply the first row with <span class="math notranslate nohighlight">\(\ell_{21} = \frac{a_{21}}{a_{11}}\)</span> and subtract from the second row to obtain the
 modified system</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -721,6 +715,89 @@ x_1\\ x_2 \\ x_3
 = \begin{pmatrix}b_1 \\ \tilde{b}_2 \\ \hat{b}_3\end{pmatrix}.
 \end{split}\]</div>
 <p class="sd-card-text">We can now easily solve this system by backward substitution to compute first <span class="math notranslate nohighlight">\(x_3\)</span>, then <span class="math notranslate nohighlight">\(x_2\)</span>, and finally <span class="math notranslate nohighlight">\(x_1\)</span>.</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Do <span class="math notranslate nohighlight">\(LU\)</span> decomposition on</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+A = \left( \begin{array}{rrrr}
+3 &amp; 1 &amp; 4 &amp; 1\\
+15 &amp; 14 &amp; 22 &amp; 11 \\
+15 &amp; 32 &amp; 31 &amp; 31\\
+27 &amp; 72 &amp; 95 &amp; 126\\
+\end{array} \right).
+\end{split}\]</div>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">We have</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{equation*}\begin{aligned}
+% \left( \begin{array}{rrrr}
+% 3 &amp; 1 &amp; 4 &amp; 1\\
+% 15 &amp; 14 &amp; 22 &amp; 11 \\
+% 15 &amp; 32 &amp; 31 &amp; 31\\
+% 27 &amp; 72 &amp; 95 &amp; 126\\
+% \end{array} \right)
+A &amp;\stackrel{l_{21}=5}\sim
+\left( \begin{array}{rrrr}
+3 &amp; 1 &amp; 4 &amp; 1\\
+0 &amp;9 &amp;2 &amp;6\\
+15 &amp; 32 &amp; 31 &amp; 31\\
+27 &amp; 72 &amp; 95 &amp; 126\\
+\end{array} \right)
+\stackrel{l_{31}=5}\sim
+\left( \begin{array}{rrrr}
+3 &amp; 1 &amp; 4 &amp; 1\\
+0 &amp;9 &amp;2 &amp;6\\
+0 &amp;27 &amp;11 &amp;26\\
+27 &amp; 72 &amp; 95 &amp; 126\\
+\end{array} \right)
+\stackrel{l_{41}=9}\sim
+\left( \begin{array}{rrrr}
+3 &amp; 1 &amp; 4 &amp; 1\\
+0 &amp;9 &amp;2 &amp;6\\
+0 &amp;27 &amp;11 &amp;26\\
+0 &amp;63 &amp;59 &amp;117
+\end{array} \right)\\
+&amp;\stackrel{l_{32}=3}\sim
+\left( \begin{array}{rrrr}
+3 &amp; 1 &amp; 4 &amp; 1\\
+0 &amp;9 &amp;2 &amp;6\\
+0 &amp;0 &amp;5 &amp;8\\
+0 &amp;63 &amp;59 &amp;117
+\end{array} \right)
+\stackrel{l_{42}=7}\sim
+\left( \begin{array}{rrrr}
+3 &amp; 1 &amp; 4 &amp; 1\\
+0 &amp;9 &amp;2 &amp;6\\
+0 &amp;0 &amp;5 &amp;8\\
+0 &amp;0 &amp;45 &amp;75
+\end{array} \right)
+\stackrel{l_{43}=9}\sim
+\left( \begin{array}{rrrr}
+3 &amp; 1 &amp; 4 &amp; 1\\
+0 &amp;9 &amp;2 &amp;6\\
+0 &amp;0 &amp;5 &amp;8\\
+0 &amp;0 &amp;0 &amp;3
+\end{array} \right) = U,\\
+L &amp;= \left( \begin{array}{rrrr}
+1 &amp;0 &amp;0 &amp;0\\
+l_{21} &amp;1 &amp;0 &amp;0\\
+l_{31} &amp;l_{32} &amp;1 &amp;0\\
+l_{41} &amp;l_{42} &amp;l_{43} &amp;1
+\end{array} \right)
+= \left(\begin{array}{rrrr}
+1 &amp;0 &amp;0 &amp;0\\
+5 &amp;1 &amp;0 &amp;0\\
+5 &amp;3 &amp;1 &amp;0\\
+9 &amp;7 &amp;9 &amp;1
+\end{array}\right).
+\end{aligned}\end{equation*}
+\end{split}\]</div>
 </div>
 </details><div class="tip admonition">
 <p class="admonition-title"><strong>Question</strong></p>
@@ -1066,7 +1143,7 @@ u_{11} &amp; u_{12} &amp; u_{13}\\
 </div>
 </details><div class="tip admonition">
 <p class="admonition-title"><strong>Question</strong></p>
-<p>Let <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{n \times n}\)</span>. Prove that an LU decomposition of <span class="math notranslate nohighlight">\(A\)</span> with nonsingular factors <span class="math notranslate nohighlight">\(L\)</span> and <span class="math notranslate nohighlight">\(U\)</span> exists if and only if all leading principal minors of <span class="math notranslate nohighlight">\(A\)</span> (i.e. the determinants of the submatrices <span class="math notranslate nohighlight">\(A[:m, :m]\)</span> for <span class="math notranslate nohighlight">\(m = 1, \ldots, n\)</span>) are nonzero. Determine whether such an LU decomposition exists for the matrix</p>
+<p>Let <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{n \times n}\)</span>. Prove that an LU decomposition of <span class="math notranslate nohighlight">\(A\)</span> with nonsingular factors <span class="math notranslate nohighlight">\(L\)</span> and <span class="math notranslate nohighlight">\(U\)</span> exists if and only if all leading principal minors of <span class="math notranslate nohighlight">\(A\)</span> (i.e. the determinants of the <span class="math notranslate nohighlight">\(m \times m\)</span> submatrices <span class="math notranslate nohighlight">\(A_{:m, :m}\)</span> for <span class="math notranslate nohighlight">\(m = 1, \ldots, n\)</span>) are nonzero. Determine whether such an LU decomposition exists for the matrix</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{pmatrix}
