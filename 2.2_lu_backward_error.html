@@ -814,7 +814,7 @@ P \cdot \begin{pmatrix}
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
 <span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
-<p class="sd-card-text">(a) For all <span class="math notranslate nohighlight">\(k = 1, \ldots, n\)</span>, we find <span class="math notranslate nohighlight">\(P e^{(k)} = e^{(\pi(k))}\)</span> also similarly</p>
+<p class="sd-card-text">(a) For all <span class="math notranslate nohighlight">\(k = 1, \ldots, n\)</span>, we find <span class="math notranslate nohighlight">\(P e^{(k)} = e^{(\pi(k))}\)</span>. Similarly</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{pmatrix}
@@ -829,6 +829,7 @@ P \cdot \begin{pmatrix}
 \end{pmatrix}
 = e^{(\pi(k))}.
 \end{split}\]</div>
+<p class="sd-card-text">We now use that two matrices are the same if multiplication with the basis vectors <span class="math notranslate nohighlight">\(e^{(k)}\)</span> yields the same product.</p>
 <p class="sd-card-text">(b) Using for <span class="math notranslate nohighlight">\((*)\)</span> that <span class="math notranslate nohighlight">\(\pi(j) = \ell\)</span> visits every number <span class="math notranslate nohighlight">\(1, \ldots, n\)</span> exactly once as <span class="math notranslate nohighlight">\(j = 1, \ldots, n\)</span>, we find</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -890,6 +891,35 @@ v_n(\alpha)^T = (0, \ldots, 0, \alpha)^T \in \mathbb{R}^n
 B_{n-1}(2 \alpha), B_{n-2}(4 \alpha), \ldots, B_{n-i}(2^i \alpha), \ldots, B_2(2^{n-2} \alpha)
 \]</div>
 <p class="sd-card-text">in place of <span class="math notranslate nohighlight">\(B_n(\alpha)\)</span> shows the result, noting that the last iteration returns a triangular <span class="math notranslate nohighlight">\(2 \times 2\)</span> matrix with the entry <span class="math notranslate nohighlight">\(2^{n-1}\)</span> in the lower right.</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>As discussed in the computer practical on Frobenius matrices, suppose you have implemented the following three functions in Python:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">permute(i,j,n)</span></code> returns an <code class="docutils literal notranslate"><span class="pre">n</span></code> <span class="math notranslate nohighlight">\(\times\)</span> <code class="docutils literal notranslate"><span class="pre">n</span></code> permutation matrix that interchanges the <code class="docutils literal notranslate"><span class="pre">i</span></code>th and <code class="docutils literal notranslate"><span class="pre">j</span></code>th elements of a vector upon multiplication.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">frob(s,f)</span></code> returns the <span class="math notranslate nohighlight">\(n \times n\)</span> Frobenius matrix of index <code class="docutils literal notranslate"><span class="pre">s</span></code> whose subdiagonal entries are given by last <span class="math notranslate nohighlight">\(n - \)</span><code class="docutils literal notranslate"><span class="pre">s</span></code> entries of <code class="docutils literal notranslate"><span class="pre">f</span></code>. Here <span class="math notranslate nohighlight">\(n\)</span> is the length of <code class="docutils literal notranslate"><span class="pre">f</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ifrob(s,f)</span></code> returns the inverse of <code class="docutils literal notranslate"><span class="pre">frob(s,f)</span></code>.</p></li>
+</ul>
+<p>Find the LU decomposition with pivoting of <code class="docutils literal notranslate"><span class="pre">A</span></code>, using the above Python functions for Frobenius and permutation matrices:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">]])</span>
+</pre></div>
+</div>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">The following commands define <code class="docutils literal notranslate"><span class="pre">U</span></code>, <code class="docutils literal notranslate"><span class="pre">P</span></code> and <code class="docutils literal notranslate"><span class="pre">L</span></code> for the decomposition <code class="docutils literal notranslate"><span class="pre">P</span> <span class="pre">&#64;</span> <span class="pre">A</span> <span class="pre">=</span> <span class="pre">L</span> <span class="pre">&#64;</span> <span class="pre">U</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">U</span> <span class="o">=</span> <span class="n">permute</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span> <span class="o">@</span> <span class="n">frob</span><span class="p">(</span><span class="mi">0</span><span class="p">,[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span> <span class="o">@</span> <span class="n">permute</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span> <span class="o">@</span> <span class="n">A</span>
+<span class="n">P</span> <span class="o">=</span> <span class="n">permute</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span> <span class="o">@</span> <span class="n">permute</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">L</span> <span class="o">=</span> <span class="n">ifrob</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">permute</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span> <span class="o">@</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;P A = </span><span class="se">\n</span><span class="si">{</span><span class="n">P</span><span class="w"> </span><span class="o">@</span><span class="w"> </span><span class="n">A</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;L U = </span><span class="se">\n</span><span class="si">{</span><span class="n">L</span><span class="w"> </span><span class="o">@</span><span class="w"> </span><span class="n">U</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;P = </span><span class="se">\n</span><span class="si">{</span><span class="n">P</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;L = </span><span class="se">\n</span><span class="si">{</span><span class="n">L</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;U = </span><span class="se">\n</span><span class="si">{</span><span class="n">U</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sd-card-text"><strong>Note:</strong> Some books and Python libraries instead use the decomposition <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">=</span> <span class="pre">P</span> <span class="pre">&#64;</span> <span class="pre">L</span> <span class="pre">&#64;</span> <span class="pre">U</span></code>. The <code class="docutils literal notranslate"><span class="pre">P</span></code> of this definition is the transpose of the <code class="docutils literal notranslate"><span class="pre">P</span></code> above.</p>
 </div>
 </details></section>
 </section>
