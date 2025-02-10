@@ -34,9 +34,9 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=b4b7a797" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- So that users can add custom icons -->
@@ -61,7 +61,7 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = '2.4_python_lu_decomposition';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '2.3_python_lu_decomposition';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="The QR Decomposition" href="3.1_qr_decomposition.html" />
@@ -262,7 +262,7 @@
       
       
       
-      <li><a href="_sources/2.4_python_lu_decomposition.md" target="_blank"
+      <li><a href="_sources/2.3_python_lu_decomposition.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -398,12 +398,12 @@
 </pre></div>
 </div>
 <p>A typical output is below, with some variation to be expected between different computers.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>The residual is: 2.285256427880218e-13
-50.6 ms ± 474 µs per loop (mean ± std. dev. of 7 runs, 10 loops each)
-2.26 ms ± 461 µs per loop (mean ± std. dev. of 7 runs, 100 loops each)
-Runtime of our LU (s): 0.05018079660003423
-Runtime of Scipy LU (s): 0.0018813237100403057
-The speed ratio between the two implementations is: 26.673132503581297
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">The</span> <span class="n">residual</span> <span class="ow">is</span><span class="p">:</span> <span class="mf">2.285256427880218e-13</span>
+<span class="mf">50.6</span> <span class="n">ms</span> <span class="err">±</span> <span class="mi">474</span> <span class="n">µs</span> <span class="n">per</span> <span class="n">loop</span> <span class="p">(</span><span class="n">mean</span> <span class="err">±</span> <span class="n">std</span><span class="o">.</span> <span class="n">dev</span><span class="o">.</span> <span class="n">of</span> <span class="mi">7</span> <span class="n">runs</span><span class="p">,</span> <span class="mi">10</span> <span class="n">loops</span> <span class="n">each</span><span class="p">)</span>
+<span class="mf">2.26</span> <span class="n">ms</span> <span class="err">±</span> <span class="mi">461</span> <span class="n">µs</span> <span class="n">per</span> <span class="n">loop</span> <span class="p">(</span><span class="n">mean</span> <span class="err">±</span> <span class="n">std</span><span class="o">.</span> <span class="n">dev</span><span class="o">.</span> <span class="n">of</span> <span class="mi">7</span> <span class="n">runs</span><span class="p">,</span> <span class="mi">100</span> <span class="n">loops</span> <span class="n">each</span><span class="p">)</span>
+<span class="n">Runtime</span> <span class="n">of</span> <span class="n">our</span> <span class="n">LU</span> <span class="p">(</span><span class="n">s</span><span class="p">):</span> <span class="mf">0.05018079660003423</span>
+<span class="n">Runtime</span> <span class="n">of</span> <span class="n">Scipy</span> <span class="n">LU</span> <span class="p">(</span><span class="n">s</span><span class="p">):</span> <span class="mf">0.0018813237100403057</span>
+<span class="n">The</span> <span class="n">speed</span> <span class="n">ratio</span> <span class="n">between</span> <span class="n">the</span> <span class="n">two</span> <span class="n">implementations</span> <span class="ow">is</span><span class="p">:</span> <span class="mf">26.673132503581297</span>
 </pre></div>
 </div>
 </section>

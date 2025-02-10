@@ -66,7 +66,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = '2.2_lu_backward_error';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Python implementation" href="2.4_python_lu_decomposition.html" />
+    <link rel="next" title="Python implementation" href="2.3_python_lu_decomposition.html" />
     <link rel="prev" title="LU decomposition" href="2.1_lu_decomposition.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -184,7 +184,7 @@
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="2.1_lu_decomposition.html">LU decomposition</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Backward error and pivoting</a></li>
-<li class="toctree-l1"><a class="reference internal" href="2.4_python_lu_decomposition.html">Python implementation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.3_python_lu_decomposition.html">Python implementation</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Orthogonal Decompositions</span></p>
 <ul class="nav bd-sidenav">
@@ -456,12 +456,12 @@ a_{31} &amp; a_{32} &amp; a_{33}\\
 a_{21} &amp; a_{22} &amp; a_{23}\\
 a_{11} &amp; a_{12} &amp; a_{13}
 \end{pmatrix}
-= 
+=
 \begin{pmatrix}
 0 &amp; 0 &amp; 1\\
 0 &amp; 1 &amp; 0\\
 1 &amp; 0 &amp; 0
-\end{pmatrix} 
+\end{pmatrix}
 \,
 \begin{pmatrix}
 a_{11} &amp; a_{12} &amp; a_{13}\\
@@ -734,7 +734,7 @@ U_8 = \begin{pmatrix}
        0 &amp;12 &amp;9 &amp;-6\\
        -4 &amp;-8 &amp;0 &amp;0 \end{array}\right|
    \left.\begin{array}{c}
-	1\\ 2\\ 3\\ 4 \end{array}\right)
+       1\\ 2\\ 3\\ 4 \end{array}\right)
    &amp;\sim
    \left(\begin{array}{cccc}
        -4 &amp;-8 &amp;0 &amp;0\\
@@ -742,7 +742,7 @@ U_8 = \begin{pmatrix}
        0 &amp;12 &amp;9 &amp;-6\\
        0 &amp;0 &amp;3 &amp;6 \end{array}\right|
    \left.\begin{array}{c}
-	4\\ 4\\ 3\\ 2 \end{array}\right)\\
+       4\\ 4\\ 3\\ 2 \end{array}\right)\\
    &amp;\sim
    \left(\begin{array}{cccc}
        -4 &amp;-8 &amp;0 &amp;0\\
@@ -750,14 +750,14 @@ U_8 = \begin{pmatrix}
        0 &amp;0 &amp;3 &amp;7\\
        0 &amp;0 &amp;3 &amp;6 \end{array}\right|
    \left.\begin{array}{c}
-	4\\ 3\\ 3\\ 2 \end{array}\right)
+       4\\ 3\\ 3\\ 2 \end{array}\right)
    \sim    \left(\begin{array}{cccc}
        -4 &amp;-8 &amp;0 &amp;0\\
        0 &amp;12 &amp;9 &amp;-6\\
        0 &amp;0 &amp;3 &amp;7\\
        0 &amp;0 &amp;0 &amp;-1 \end{array}\right|
    \left.\begin{array}{c}
-	4\\ 3\\ 3\\ -1 \end{array}\right)
+       4\\ 3\\ 3\\ -1 \end{array}\right)
 \end{aligned}\end{equation*}
 \end{split}\]</div>
 <p class="sd-card-text">Backsubstitution gives <span class="math notranslate nohighlight">\(x=(-9/2,7/4,-4/3,1)\)</span>.</p>
@@ -919,7 +919,7 @@ B_{n-1}(2 \alpha), B_{n-2}(4 \alpha), \ldots, B_{n-i}(2^i \alpha), \ldots, B_2(2
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;U = </span><span class="se">\n</span><span class="si">{</span><span class="n">U</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sd-card-text"><strong>Note:</strong> Some books and Python libraries instead use the decomposition <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">=</span> <span class="pre">P</span> <span class="pre">&#64;</span> <span class="pre">L</span> <span class="pre">&#64;</span> <span class="pre">U</span></code>. The <code class="docutils literal notranslate"><span class="pre">P</span></code> of this definition is the transpose of the <code class="docutils literal notranslate"><span class="pre">P</span></code> above.</p>
+<p class="sd-card-text"><strong>Note:</strong> Some books and Python libraries instead use the decomposition <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">=</span> <span class="pre">P</span> <span class="pre">&#64;</span> <span class="pre">L</span> <span class="pre">&#64;</span> <span class="pre">U</span></code>. The <code class="docutils literal notranslate"><span class="pre">P</span></code> of this decomposition is the transpose of the <code class="docutils literal notranslate"><span class="pre">P</span></code> above.</p>
 </div>
 </details></section>
 </section>
@@ -964,7 +964,7 @@ B_{n-1}(2 \alpha), B_{n-2}(4 \alpha), \ldots, B_{n-i}(2^i \alpha), \ldots, B_2(2
       </div>
     </a>
     <a class="right-next"
-       href="2.4_python_lu_decomposition.html"
+       href="2.3_python_lu_decomposition.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
