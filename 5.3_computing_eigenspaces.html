@@ -190,7 +190,8 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="3.1_qr_decomposition.html">The QR Decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3.2_singular_value_decomposition.html">The Singular Value Decomposition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="3.3_least_squares_problems.html">Least Squares Problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.3_least_squares_problems.html">Least-squares Problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.4_constrained_least_squares_problems.html">Constrained Problems</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Interpolation and Quadrature</span></p>
 <ul class="nav bd-sidenav">
@@ -382,7 +383,7 @@
 <p>The eigenvalue decomposition <span class="math notranslate nohighlight">\(A = X\Lambda X^{-1}\)</span> is not always suitable for computational purposes. It might not exist, requiring a Jordan normal form instead. Even though small machine perturbations usually ensure diagonalizability in floating point arithmetic, the proximity to a Jordan form can introduce instabilities. The eigenvector matrix <span class="math notranslate nohighlight">\(X\)</span> might also be ill-conditioned, making its inverse computationally unreliable.</p>
 <p>For practical computations, the Schur decomposition of <span class="math notranslate nohighlight">\(A\)</span> is more robust.</p>
 <div class="proof theorem admonition" id="theorem-0">
-<p class="admonition-title"><span class="caption-number">Theorem 16 </span> (Existence of the Schur decomposition)</p>
+<p class="admonition-title"><span class="caption-number">Theorem 18 </span> (Existence of the Schur decomposition)</p>
 <section class="theorem-content" id="proof-content">
 <p>Every complex matrix <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{n \times n}\)</span> has a Schur decomposition</p>
 <div class="math notranslate nohighlight">

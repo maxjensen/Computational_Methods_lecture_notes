@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Least Squares Problems &#8212; Computational Methods MATH0058 lecture notes</title>
+    <title>Least-squares Problems &#8212; Computational Methods MATH0058 lecture notes</title>
   
   
   
@@ -66,7 +66,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = '3.3_least_squares_problems';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Polynomial Interpolation" href="4.1_interpolation.html" />
+    <link rel="next" title="Constrained Problems" href="3.4_constrained_least_squares_problems.html" />
     <link rel="prev" title="The Singular Value Decomposition" href="3.2_singular_value_decomposition.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -190,7 +190,8 @@
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="3.1_qr_decomposition.html">The QR Decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3.2_singular_value_decomposition.html">The Singular Value Decomposition</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Least Squares Problems</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Least-squares Problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.4_constrained_least_squares_problems.html">Constrained Problems</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Interpolation and Quadrature</span></p>
 <ul class="nav bd-sidenav">
@@ -340,7 +341,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Least Squares Problems</h1>
+    <h1>Least-squares Problems</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -356,7 +357,6 @@
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-least-squares-problems-with-the-qr-decomposition">Solving least-squares problems with the QR decomposition</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-least-squares-problems-with-the-svd">Solving least-squares problems with the SVD</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#constraints">Constraints</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-a-least-squares-problem-with-qr-decomposition">Solving a least-squares problem with QR decomposition</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-a-least-squares-problem-with-svd">Solving a least-squares problem with SVD</a></li>
@@ -376,34 +376,34 @@
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="least-squares-problems">
-<h1>Least Squares Problems<a class="headerlink" href="#least-squares-problems" title="Link to this heading">#</a></h1>
-<p>Least squares problems occur in optimisation, data fitting and other fields of the mathematical sciences.</p>
-<p>Consider a matrix <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span> and a vector <span class="math notranslate nohighlight">\(b \in \mathbb{R}^m\)</span>. The central idea of the least squares problem is to find a vector <span class="math notranslate nohighlight">\(\hat{x} \in \mathbb{R}^n\)</span> that minimises the Euclidean norm (or <span class="math notranslate nohighlight">\(2\)</span>-norm) of the residual vector <span class="math notranslate nohighlight">\(Ax - b\)</span>. This problem is formulated as</p>
+<h1>Least-squares Problems<a class="headerlink" href="#least-squares-problems" title="Link to this heading">#</a></h1>
+<p>Least-squares problems occur in optimisation, data fitting and other fields of the mathematical sciences.</p>
+<p>Consider a matrix <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span> and a vector <span class="math notranslate nohighlight">\(a \in \mathbb{R}^m\)</span>. The central idea of the least-squares problem is to find a vector <span class="math notranslate nohighlight">\(\hat{x} \in \mathbb{R}^n\)</span> that minimises the Euclidean norm (or <span class="math notranslate nohighlight">\(2\)</span>-norm) of the residual vector <span class="math notranslate nohighlight">\(Ax - a\)</span>. This problem is formulated as</p>
 <div class="math notranslate nohighlight">
 \[
-\hat{x} \in \text{arg}\min_{x \in \mathbb{R}^n} \|Ax - b\|_2.
+\hat{x} \in \text{arg}\min_{x \in \mathbb{R}^n} \|Ax - a\|_2.
 \]</div>
-<p>Here <span class="math notranslate nohighlight">\(\text{arg}\min_{x \in \mathbb{R}^n} \|Ax - b\|_2\)</span> is the set of all <span class="math notranslate nohighlight">\(x\)</span> which minimise <span class="math notranslate nohighlight">\(\|Ax - b\|_2\)</span>. If the minimiser is unique, we also write (with a slight abuse of notation)</p>
+<p>Here <span class="math notranslate nohighlight">\(\text{arg}\min_{x \in \mathbb{R}^n} \|Ax - a\|_2\)</span> is the set of all <span class="math notranslate nohighlight">\(x\)</span> which minimise <span class="math notranslate nohighlight">\(\|Ax - a\|_2\)</span>. If the minimiser is unique, we also write (with a slight abuse of notation)</p>
 <div class="math notranslate nohighlight">
 \[
-\hat{x} = \text{arg}\min_{x \in \mathbb{R}^n} \|Ax - b\|_2.
+\hat{x} = \text{arg}\min_{x \in \mathbb{R}^n} \|Ax - a\|_2.
 \]</div>
-<p>Thus, in the least squares sense, the optimisation problem generalises the concept of the solution to a system of linear equations: if <span class="math notranslate nohighlight">\(A\)</span> is invertible, then <span class="math notranslate nohighlight">\(A \hat{x} = b\)</span>. If <span class="math notranslate nohighlight">\(A\)</span> is overdetermined, then <span class="math notranslate nohighlight">\(\hat{x}\)</span> aims to minimise the amount by which <span class="math notranslate nohighlight">\(A \hat{x}\)</span> fails to achieve equality with <span class="math notranslate nohighlight">\(b\)</span>.</p>
+<p>Thus, in the least-squares sense, the optimisation problem generalises the concept of the solution to a system of linear equations: if <span class="math notranslate nohighlight">\(A\)</span> is invertible, then <span class="math notranslate nohighlight">\(A \hat{x} = a\)</span>. If <span class="math notranslate nohighlight">\(A\)</span> is overdetermined, then <span class="math notranslate nohighlight">\(\hat{x}\)</span> aims to minimise the amount by which <span class="math notranslate nohighlight">\(A \hat{x}\)</span> fails to achieve equality with <span class="math notranslate nohighlight">\(a\)</span>.</p>
 <section id="the-normal-equation">
 <h2>The normal equation<a class="headerlink" href="#the-normal-equation" title="Link to this heading">#</a></h2>
 <p>The identity</p>
 <div class="math notranslate nohighlight">
 \[
-A^TA\hat{x} = A^Tb.
+A^TA\hat{x} = A^Ta.
 \]</div>
 <p>is called the normal equation of the least-squares problem.</p>
 <div class="proof theorem admonition" id="theorem-0">
 <p class="admonition-title"><span class="caption-number">Theorem 6 </span> (Normal equation of least-squares approximations)</p>
 <section class="theorem-content" id="proof-content">
-<p>Let <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span>, <span class="math notranslate nohighlight">\(b \in \mathbb{R}^m\)</span>. Then</p>
+<p>Let <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span>, <span class="math notranslate nohighlight">\(a \in \mathbb{R}^m\)</span>. Then</p>
 <div class="math notranslate nohighlight">
 \[
-\hat{x} \in \text{arg}\min_{x \in \mathbb{R}^n} \|Ax - b\|_2.
+\hat{x} \in \text{arg}\min_{x \in \mathbb{R}^n} \|Ax - a\|_2.
 \]</div>
 <p>if and only if <span class="math notranslate nohighlight">\(\hat{x}\)</span> satisfies the normal equation.</p>
 </section>
@@ -412,21 +412,21 @@ A^TA\hat{x} = A^Tb.
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{aligned}
-\|A\hat{x} -b \|_2^2 
-&amp; \leq \|A(\hat{x} + \epsilon) - b\|_2^2 = \left[A(\hat{x} + \epsilon) - b\right]^T\left[A(\hat{x} + \epsilon) - b\right]\\
-&amp;= \|A\hat{x} -b \|_2^2+2 \epsilon^T(A^TA\hat{x} - A^Tb) + \epsilon^TA^TA\epsilon
+\|A\hat{x} -a \|_2^2 
+&amp; \leq \|A(\hat{x} + \epsilon) - a\|_2^2 = \left[A(\hat{x} + \epsilon) - a\right]^T\left[A(\hat{x} + \epsilon) - a\right]\\
+&amp;= \|A\hat{x} -a \|_2^2+2 \epsilon^T(A^TA\hat{x} - A^Ta) + \epsilon^TA^TA\epsilon
 \end{aligned}
 \end{split}\]</div>
-<p><em>Step 1:</em> Suppose that <span class="math notranslate nohighlight">\(\hat{x}\)</span> does not satisfy the normal equation. Then <span class="math notranslate nohighlight">\(\| A^TA\hat{x} - A^Tb \|_2 &gt; 0\)</span>. Suppose that <span class="math notranslate nohighlight">\(\hat{x}\)</span> minimises the least-squares problem. With <span class="math notranslate nohighlight">\(\epsilon := \delta (A^TA\hat{x} - A^Tb)\)</span>, <span class="math notranslate nohighlight">\(\delta \in \mathbb{R}\)</span>, the above implies</p>
+<p><em>Step 1:</em> Suppose that <span class="math notranslate nohighlight">\(\hat{x}\)</span> does not satisfy the normal equation. Then <span class="math notranslate nohighlight">\(\| A^TA\hat{x} - A^Ta \|_2 &gt; 0\)</span>. Suppose that <span class="math notranslate nohighlight">\(\hat{x}\)</span> minimises the least-squares problem. With <span class="math notranslate nohighlight">\(\epsilon := \delta (A^TA\hat{x} - A^Ta)\)</span>, <span class="math notranslate nohighlight">\(\delta \in \mathbb{R}\)</span>, the above implies</p>
 <div class="math notranslate nohighlight">
 \[
-0 \leq 2 \delta \, \| A^TA\hat{x} - A^Tb \|_2^2 + \delta^2 \, \| A (A^TA\hat{x} - A^Tb) \|_2^2 =: \Phi(\delta) \qquad \forall \delta \in \mathbb{R}.
+0 \leq 2 \delta \, \| A^TA\hat{x} - A^Ta \|_2^2 + \delta^2 \, \| A (A^TA\hat{x} - A^Ta) \|_2^2 =: \Phi(\delta) \qquad \forall \delta \in \mathbb{R}.
 \]</div>
 <p>This is a contradiction because <span class="math notranslate nohighlight">\(\Phi(\delta) &lt; 0\)</span> for small negative <span class="math notranslate nohighlight">\(\delta\)</span>.</p>
 <p><em>Step 2:</em> Suppose that <span class="math notranslate nohighlight">\(\hat{x}\)</span> satisfies the normal equation. Then, by the above,</p>
 <div class="math notranslate nohighlight">
 \[
-\|A(\hat{x} + \epsilon) - b\|_2^2 = \|A\hat{x} -b \|_2^2 + \epsilon^TA^TA\epsilon \geq \|A\hat{x} -b \|_2^2.
+\|A(\hat{x} + \epsilon) - a\|_2^2 = \|A\hat{x} -a \|_2^2 + \epsilon^TA^TA\epsilon \geq \|A\hat{x} -a \|_2^2.
 \]</div>
 </div>
 <section id="properties-of-the-normal-equation">
@@ -461,13 +461,13 @@ A = \begin{pmatrix} Q_1 &amp; Q_2 \end{pmatrix}\begin{pmatrix} R \\ 0 \end{pmatr
 <p>where <span class="math notranslate nohighlight">\(Q_1\)</span> and <span class="math notranslate nohighlight">\(Q_2\)</span> are orthogonal matrices, and <span class="math notranslate nohighlight">\(R\)</span> is an upper triangular matrix. Substituting this decomposition into the least-squares problem, we get:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-\|Ax - b\|_2 = \left\|\begin{pmatrix} Q_1 &amp; Q_2 \end{pmatrix}\begin{pmatrix} R \\ 0 \end{pmatrix}x - b\right\|_2 =
-\left\|\begin{pmatrix} R \\ 0 \end{pmatrix}x - \begin{pmatrix} Q_1^Tb \\ Q_2^Tb \end{pmatrix}\right\|_2
+\|Ax - a\|_2 = \left\|\begin{pmatrix} Q_1 &amp; Q_2 \end{pmatrix}\begin{pmatrix} R \\ 0 \end{pmatrix}x - a\right\|_2 =
+\left\|\begin{pmatrix} R \\ 0 \end{pmatrix}x - \begin{pmatrix} Q_1^Ta \\ Q_2^Ta \end{pmatrix}\right\|_2
 \end{split}\]</div>
-<p>Here, we observe that the choice of <span class="math notranslate nohighlight">\(x\)</span> influences only the first block-row. In the second block row, <span class="math notranslate nohighlight">\(x\)</span> is multiplied by zero, meaning no choice of <span class="math notranslate nohighlight">\(x\)</span> will reduce the contribution from this part. Therefore, the minimiser <span class="math notranslate nohighlight">\(\hat{x}\)</span> of the least squares problem is found by solving:</p>
+<p>Here, we observe that the choice of <span class="math notranslate nohighlight">\(x\)</span> influences only the first block-row. In the second block row, <span class="math notranslate nohighlight">\(x\)</span> is multiplied by zero, meaning no choice of <span class="math notranslate nohighlight">\(x\)</span> will reduce the contribution from this part. Therefore, the minimiser <span class="math notranslate nohighlight">\(\hat{x}\)</span> of the least-squares problem is found by solving:</p>
 <div class="math notranslate nohighlight">
 \[
-R \hat{x} = Q_1^Tb.
+R \hat{x} = Q_1^Ta.
 \]</div>
 <p>Returning to the question of the <span class="math notranslate nohighlight">\(2\)</span>-norm condition number:</p>
 <div class="math notranslate nohighlight">
@@ -488,18 +488,18 @@ A = U\Sigma V^T = \begin{pmatrix} U_1 &amp; U_2 \end{pmatrix} \begin{pmatrix} \h
 <p>with <span class="math notranslate nohighlight">\(\hat{\Sigma}\)</span> as in <a class="reference internal" href="3.2_singular_value_decomposition.html"><span class="std std-doc">the previous chapter</span></a>. Substitute into the least-squares problem to obtain</p>
 <div class="math notranslate nohighlight">
 \[
-\|Ax-b\|_2 = \|U\Sigma V^Tx - b\|_2.
+\|Ax-a\|_2 = \|U\Sigma V^Tx - a\|_2.
 \]</div>
 <p>Let <span class="math notranslate nohighlight">\([y_1, y_2]^T = [V_1^T x, V_2^T x]^T\)</span> and factorise out <span class="math notranslate nohighlight">\(U\)</span> to obtain</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-\|Ax - b\|_2 = \left\|\begin{pmatrix} \hat{\Sigma} &amp; 0 \\ 0 &amp; 0 \end{pmatrix} \begin{pmatrix} y_1\\ y_2 \end{pmatrix} - \begin{pmatrix}U_1^Tb\\
-U_2^Tb\end{pmatrix}\right\|_2.
+\|Ax - a\|_2 = \left\|\begin{pmatrix} \hat{\Sigma} &amp; 0 \\ 0 &amp; 0 \end{pmatrix} \begin{pmatrix} y_1\\ y_2 \end{pmatrix} - \begin{pmatrix}U_1^Ta\\
+U_2^Ta\end{pmatrix}\right\|_2.
 \end{split}\]</div>
-<p>The second block row as well as the choice of <span class="math notranslate nohighlight">\(y_2\)</span> do not affect the least-squares norm and, hence, <span class="math notranslate nohighlight">\(y_1 = \hat{\Sigma}^{-1} U_1^Tb\)</span> and therefore</p>
+<p>The second block row as well as the choice of <span class="math notranslate nohighlight">\(y_2\)</span> do not affect the least-squares norm and, hence, <span class="math notranslate nohighlight">\(y_1 = \hat{\Sigma}^{-1} U_1^Ta\)</span> and therefore</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-\hat{x}= \begin{pmatrix} V_1 &amp; V_2 \end{pmatrix} \begin{pmatrix} \hat{\Sigma}^{-1} &amp; 0 \\ 0 &amp; 0 \end{pmatrix} \begin{pmatrix} U_1 &amp; U_2 \end{pmatrix}^T b
+\hat{x}= \begin{pmatrix} V_1 &amp; V_2 \end{pmatrix} \begin{pmatrix} \hat{\Sigma}^{-1} &amp; 0 \\ 0 &amp; 0 \end{pmatrix} \begin{pmatrix} U_1 &amp; U_2 \end{pmatrix}^T a
 \end{split}\]</div>
 <p>is a (possibly non-unique) minimiser of the least-squares problem. This leads to the important concept of a pseudo-inverse of a matrix.</p>
 <div class="proof definition admonition" id="definition-1">
@@ -512,32 +512,7 @@ A^{\dagger} := V \begin{pmatrix} \hat{\Sigma}^{-1} &amp; 0 \\ 0 &amp; 0 \end{pma
 \end{split}\]</div>
 <p>where <span class="math notranslate nohighlight">\(\hat{\Sigma} \in \mathbb{R}^{r \times r}\)</span> and <span class="math notranslate nohighlight">\(r = \text{rank}(A)\)</span>.</p>
 </section>
-</div><p>The pseudo-inverse of <span class="math notranslate nohighlight">\(A\)</span> is a generalisation of the inverse of <span class="math notranslate nohighlight">\(A\)</span>. In the same way that <span class="math notranslate nohighlight">\(A^{-1}b\)</span> solves the linear system <span class="math notranslate nohighlight">\(Ax=b\)</span> for a square matrix <span class="math notranslate nohighlight">\(A\)</span>, the pseudo-inverse <span class="math notranslate nohighlight">\(A^{\dagger}\)</span> applied to <span class="math notranslate nohighlight">\(b\)</span> solves the least-squares minimisation problem <span class="math notranslate nohighlight">\(\|Ax-b\|_2\)</span> for rectangular <span class="math notranslate nohighlight">\(A\)</span>.</p>
-</section>
-<section id="constraints">
-<h2>Constraints<a class="headerlink" href="#constraints" title="Link to this heading">#</a></h2>
-<p>Least-squares problems often come with equality constraints or inequality constraints or a combination of the two. We shall briefly consider equality constraints here. Then the problem is formulated as</p>
-<div class="math notranslate nohighlight">
-\[
-\hat{x} \in \text{arg}\min_{x \in \mathbb{R}^n \atop B x = d} \|Ax - b\|_2.
-\]</div>
-<p>Suppose that a (particular) solution <span class="math notranslate nohighlight">\(x_p\)</span> of <span class="math notranslate nohighlight">\(B x_p = d\)</span> exists and let <span class="math notranslate nohighlight">\(\{ y_1, \ldots, y_k \} \subset \mathbb{R}^n\)</span> be a basis of <span class="math notranslate nohighlight">\(\ker B\)</span>, so that solutions of <span class="math notranslate nohighlight">\(B x_p = d\)</span> take the general form</p>
-<div class="math notranslate nohighlight">
-\[
-x_p + \sum_{i = 1}^k \alpha_i y_i, \quad \alpha_1, \ldots, \alpha_k \in \mathbb{R}.
-\]</div>
-<p>Hence with</p>
-<div class="math notranslate nohighlight">
-\[
-\hat{\alpha} \in \text{arg}\min_{\alpha \in \mathbb{R}^k} \Big\|A \Big(x_p + \sum_{i = 1}^k \alpha_i y_i \Big) - b \Big\|_2
-\]</div>
-<p>we have</p>
-<div class="math notranslate nohighlight">
-\[
-\hat{x} = x_p + \sum_{i = 1}^k \hat{\alpha}_i y_i,
-\]</div>
-<p>meaning that we can reduce the constrained problem to an unconstrained one and apply the QR and SVD techniques outlined above. We note that alternative techniques exist to directly solve the constrained least-squares optimisation without the construction of a basis of the kernel.</p>
-<p>TODO: Rephrase section and add CVXopt example to Python skills section</p>
+</div><p>The pseudo-inverse of <span class="math notranslate nohighlight">\(A\)</span> is a generalisation of the inverse of <span class="math notranslate nohighlight">\(A\)</span>. In the same way that <span class="math notranslate nohighlight">\(A^{-1}a\)</span> solves the linear system <span class="math notranslate nohighlight">\(Ax=a\)</span> for a square matrix <span class="math notranslate nohighlight">\(A\)</span>, the pseudo-inverse <span class="math notranslate nohighlight">\(A^{\dagger}\)</span> applied to <span class="math notranslate nohighlight">\(a\)</span> solves the least-squares minimisation problem <span class="math notranslate nohighlight">\(\|Ax-a\|_2\)</span> for rectangular <span class="math notranslate nohighlight">\(A\)</span>.</p>
 </section>
 <section id="python-skills">
 <h2>Python skills<a class="headerlink" href="#python-skills" title="Link to this heading">#</a></h2>
@@ -547,18 +522,18 @@ x_p + \sum_{i = 1}^k \alpha_i y_i, \quad \alpha_1, \ldots, \alpha_k \in \mathbb{
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">scipy.linalg</span> <span class="kn">import</span> <span class="n">solve_triangular</span>
 
-<span class="c1"># Define matrix A and vector b</span>
+<span class="c1"># Define matrix A and vector a</span>
 <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]])</span>
-<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">])</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">])</span>
 
 <span class="c1"># Perform QR decomposition</span>
 <span class="n">Q</span><span class="p">,</span> <span class="n">R</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">qr</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
 
-<span class="c1"># Compute Q^T * b</span>
-<span class="n">Q_T_b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">Q</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+<span class="c1"># Compute Q^T * a</span>
+<span class="n">Q_T_a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">Q</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
 
-<span class="c1"># Solve Rx = Q^Tb for x</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">solve_triangular</span><span class="p">(</span><span class="n">R</span><span class="p">[:</span><span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="p">:],</span> <span class="n">Q_T_b</span><span class="p">[:</span><span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span>
+<span class="c1"># Solve Rx = Q^Ta for x</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">solve_triangular</span><span class="p">(</span><span class="n">R</span><span class="p">[:</span><span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="p">:],</span> <span class="n">Q_T_a</span><span class="p">[:</span><span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Solution x:&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
 </pre></div>
@@ -569,9 +544,9 @@ x_p + \sum_{i = 1}^k \alpha_i y_i, \quad \alpha_1, \ldots, \alpha_k \in \mathbb{
 <p>Here is a problem that is solved with the SVD.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
-<span class="c1"># Step 1: Define A and b</span>
+<span class="c1"># Step 1: Define A and a</span>
 <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>  <span class="c1"># A random 5x3 matrix</span>
-<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>  <span class="c1"># A random vector of length 5</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>  <span class="c1"># A random vector of length 5</span>
 
 <span class="c1"># Step 2: Perform SVD</span>
 <span class="n">U</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">VT</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
@@ -581,7 +556,7 @@ x_p + \sum_{i = 1}^k \alpha_i y_i, \quad \alpha_1, \ldots, \alpha_k \in \mathbb{
 <span class="n">A_pseudo_inverse</span> <span class="o">=</span> <span class="n">VT</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">Sigma_inv</span> <span class="o">@</span> <span class="n">U</span><span class="o">.</span><span class="n">T</span>
 
 <span class="c1"># Step 4: Solve for x</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">A_pseudo_inverse</span> <span class="o">@</span> <span class="n">b</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">A_pseudo_inverse</span> <span class="o">@</span> <span class="n">a</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Solution x:&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
 </pre></div>
@@ -619,7 +594,7 @@ x_p + \sum_{i = 1}^k \alpha_i y_i, \quad \alpha_1, \ldots, \alpha_k \in \mathbb{
 <p class="sd-card-text">and</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-\mathbf{A}^T\mathbf{b} = \begin{pmatrix} 1 &amp; 1 &amp; 1\\ 1 &amp; 2 &amp; 3 \end{pmatrix} \begin{pmatrix} 2 \\ 3 \\ 5 \end{pmatrix} = \begin{pmatrix} 10\\ 23 \end{pmatrix}.
+\mathbf{A}^T\mathbf{a} = \begin{pmatrix} 1 &amp; 1 &amp; 1\\ 1 &amp; 2 &amp; 3 \end{pmatrix} \begin{pmatrix} 2 \\ 3 \\ 5 \end{pmatrix} = \begin{pmatrix} 10\\ 23 \end{pmatrix}.
 \end{split}\]</div>
 <p class="sd-card-text">Thus, the minimiser solves</p>
 <div class="math notranslate nohighlight">
@@ -649,7 +624,7 @@ x_p + \sum_{i = 1}^k \alpha_i y_i, \quad \alpha_1, \ldots, \alpha_k \in \mathbb{
 <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x_points</span><span class="p">,</span> <span class="n">y_points</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Data Points&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Least Squares Line Fit&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Least-squares Line Fit&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
@@ -709,14 +684,14 @@ formulated as</p>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
 <span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
-<p class="sd-card-text">The matrix <span class="math notranslate nohighlight">\(A\)</span> of the normal equation <span class="math notranslate nohighlight">\(A^TA\hat{x} = A^Tb\)</span> depends on <span class="math notranslate nohighlight">\(\{ x_i \}\)</span>, but not <span class="math notranslate nohighlight">\(\{y_i\}\)</span>. Compute the QR or singular value decomposition of <span class="math notranslate nohighlight">\(A\)</span> once, and apply it for each of the different <span class="math notranslate nohighlight">\(\{y_i\}\)</span>.</p>
+<p class="sd-card-text">The matrix <span class="math notranslate nohighlight">\(A\)</span> of the normal equation <span class="math notranslate nohighlight">\(A^TA\hat{x} = A^Ta\)</span> depends on <span class="math notranslate nohighlight">\(\{ x_i \}\)</span>, but not <span class="math notranslate nohighlight">\(\{y_i\}\)</span>. Compute the QR or singular value decomposition of <span class="math notranslate nohighlight">\(A\)</span> once, and apply it for each of the different <span class="math notranslate nohighlight">\(\{y_i\}\)</span>.</p>
 </div>
 </details><div class="tip admonition">
 <p class="admonition-title"><strong>Question</strong></p>
-<p>Let <span class="math notranslate nohighlight">\(A\in\mathbb{R}^{m\times n}\)</span> with <span class="math notranslate nohighlight">\(m\geq n\)</span> and <span class="math notranslate nohighlight">\(\text{rank}(A)=n\)</span> and <span class="math notranslate nohighlight">\(b\in\mathbb{R}^m\)</span>. How should one approach the following least-squares problem with the SVD? Find <span class="math notranslate nohighlight">\(\hat{x}\in\mathbb{R}^n\)</span>, such that</p>
+<p>Let <span class="math notranslate nohighlight">\(A\in\mathbb{R}^{m\times n}\)</span> with <span class="math notranslate nohighlight">\(m\geq n\)</span> and <span class="math notranslate nohighlight">\(\text{rank}(A)=n\)</span> and <span class="math notranslate nohighlight">\(a\in\mathbb{R}^m\)</span>. How should one approach the following least-squares problem with the SVD? Find <span class="math notranslate nohighlight">\(\hat{x}\in\mathbb{R}^n\)</span>, such that</p>
 <div class="math notranslate nohighlight">
 \[
-\|A\hat{x}-b\|_2 = \min_{x\in\mathbb{R}^n}\|Ax-b\|_2.
+\|A\hat{x}-a\|_2 = \min_{x\in\mathbb{R}^n}\|Ax-a\|_2.
 \]</div>
 </div>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
@@ -727,22 +702,22 @@ matrices and <span class="math notranslate nohighlight">\(\Sigma \in\mathbb{R}^{
 <p class="sd-card-text">Substituting into the least-squares problem, we have</p>
 <div class="math notranslate nohighlight">
 \[
-\|Ax-b\|_2 = \|U\Sigma V^Tx - b\|_2 = \|\Sigma y - \hat{b}\|_2
+\|Ax-a\|_2 = \|U\Sigma V^Tx - a\|_2 = \|\Sigma y - \hat{a}\|_2
 \]</div>
-<p class="sd-card-text">for <span class="math notranslate nohighlight">\(y=V^Tx\)</span> and <span class="math notranslate nohighlight">\(\hat{b} = U^Tb\)</span>. We find <span class="math notranslate nohighlight">\(y_j\)</span> as <span class="math notranslate nohighlight">\(y_j = \hat{b}_j/\sigma_j\)</span> by minimising the above expression. This is equivalent to <span class="math notranslate nohighlight">\(x = A^{\dagger} b\)</span>.</p>
+<p class="sd-card-text">for <span class="math notranslate nohighlight">\(y=V^Tx\)</span> and <span class="math notranslate nohighlight">\(\hat{a} = U^Ta\)</span>. We find <span class="math notranslate nohighlight">\(y_j\)</span> as <span class="math notranslate nohighlight">\(y_j = \hat{a}_j/\sigma_j\)</span> by minimising the above expression. This is equivalent to <span class="math notranslate nohighlight">\(x = A^{\dagger} a\)</span>.</p>
 </div>
 </details><div class="tip admonition">
 <p class="admonition-title"><strong>Question</strong></p>
 <p>We now consider the modified least-squares problem</p>
 <div class="math notranslate nohighlight">
 \[
-\min_{x\in\mathbb{R}^n} \|Ax-b\|_2^2+\|L x\|_2^2
+\min_{x\in\mathbb{R}^n} \|Ax-a\|_2^2+\|L x\|_2^2
 \]</div>
 <p>with <span class="math notranslate nohighlight">\(L\in\mathbb{R}^{n\times n}\)</span> nonsingular.
 Show that the solution of this least-squares problem is identical to the solution of</p>
 <div class="math notranslate nohighlight">
 \[
-(A^TA+L^TL)x = A^Tb.
+(A^TA+L^TL)x = A^Ta.
 \]</div>
 </div>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
@@ -752,24 +727,24 @@ Show that the solution of this least-squares problem is identical to the solutio
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{aligned}
-\|A\hat{x} -b \|_2^2 + \| L \hat{x}\|_2^2 
-&amp; \leq \|A(\hat{x} + \epsilon) - b\|_2^2 + \| L (\hat{x} + \epsilon) \|_2^2\\
-&amp; = \left[A(\hat{x} + \epsilon) - b\right]^T\left[A(\hat{x} + \epsilon) - b\right] + [L (\hat{x} + \epsilon)]^T [L (\hat{x} + \epsilon)]\\
-&amp;= \|A\hat{x} -b \|_2^2+2 \epsilon^T(A^TA\hat{x} - A^Tb) + \epsilon^TA^TA\epsilon + 
+\|A\hat{x} -a \|_2^2 + \| L \hat{x}\|_2^2 
+&amp; \leq \|A(\hat{x} + \epsilon) - a\|_2^2 + \| L (\hat{x} + \epsilon) \|_2^2\\
+&amp; = \left[A(\hat{x} + \epsilon) - a\right]^T\left[A(\hat{x} + \epsilon) - a\right] + [L (\hat{x} + \epsilon)]^T [L (\hat{x} + \epsilon)]\\
+&amp;= \|A\hat{x} -a \|_2^2+2 \epsilon^T(A^TA\hat{x} - A^Ta) + \epsilon^TA^TA\epsilon + 
 \|L\hat{x} \|_2^2+2 \epsilon^T(L^TL\hat{x}) + \epsilon^TL^T L \epsilon\\
-&amp;= \|A\hat{x} -b \|_2^2 + \|L\hat{x} \|_2^2 + 2 \epsilon^T((A^TA + L^TL) \hat{x} - A^Tb) + \epsilon^T(A^TA + L^T L) \epsilon
+&amp;= \|A\hat{x} -a \|_2^2 + \|L\hat{x} \|_2^2 + 2 \epsilon^T((A^TA + L^TL) \hat{x} - A^Ta) + \epsilon^T(A^TA + L^T L) \epsilon
 \end{aligned}
 \end{split}\]</div>
-<p class="sd-card-text"><em>Step 1:</em> Suppose that <span class="math notranslate nohighlight">\(\hat{x}\)</span> does not satisfy the generalised normal equation <span class="math notranslate nohighlight">\((A^TA+L^TL)x = A^Tb.\)</span>. Then <span class="math notranslate nohighlight">\(\| (A^TA + L^TL) \hat{x} - A^Tb \|_2 &gt; 0\)</span>. Suppose that <span class="math notranslate nohighlight">\(\hat{x}\)</span> minimises the least-squares problem. With <span class="math notranslate nohighlight">\(\epsilon := \delta ((A^TA + L^TL) \hat{x} - A^Tb)\)</span>, <span class="math notranslate nohighlight">\(\delta \in \mathbb{R}\)</span>, the above implies</p>
+<p class="sd-card-text"><em>Step 1:</em> Suppose that <span class="math notranslate nohighlight">\(\hat{x}\)</span> does not satisfy the generalised normal equation <span class="math notranslate nohighlight">\((A^TA+L^TL)x = A^Ta.\)</span>. Then <span class="math notranslate nohighlight">\(\| (A^TA + L^TL) \hat{x} - A^Ta \|_2 &gt; 0\)</span>. Suppose that <span class="math notranslate nohighlight">\(\hat{x}\)</span> minimises the least-squares problem. With <span class="math notranslate nohighlight">\(\epsilon := \delta ((A^TA + L^TL) \hat{x} - A^Ta)\)</span>, <span class="math notranslate nohighlight">\(\delta \in \mathbb{R}\)</span>, the above implies</p>
 <div class="math notranslate nohighlight">
 \[
-0 \leq 2 \delta \, \| (A^TA + L^TL) \hat{x} - A^Tb \|_2^2 + \delta^2 \, \| (A + L) ((A^TA + L^TL) \hat{x} - A^Tb) \|_2^2 =: \Phi(\delta) \qquad \forall \delta \in \mathbb{R}.
+0 \leq 2 \delta \, \| (A^TA + L^TL) \hat{x} - A^Ta \|_2^2 + \delta^2 \, \| (A + L) ((A^TA + L^TL) \hat{x} - A^Ta) \|_2^2 =: \Phi(\delta) \qquad \forall \delta \in \mathbb{R}.
 \]</div>
 <p class="sd-card-text">This is a contradiction because <span class="math notranslate nohighlight">\(\Phi(\delta) &lt; 0\)</span> for small negative <span class="math notranslate nohighlight">\(\delta\)</span>.</p>
 <p class="sd-card-text"><em>Step 2:</em> Suppose that <span class="math notranslate nohighlight">\(\hat{x}\)</span> satisfies the generalised normal equation. Then, by the above,</p>
 <div class="math notranslate nohighlight">
 \[
-\|\|A(\hat{x} + \epsilon) - b\|_2^2 + \| L (\hat{x} + \epsilon) \|_2^2 = \|A\hat{x} -b \|_2^2 + \|L\hat{x} \|_2^2 + \epsilon^T(A^TA + L^T L) \epsilon \geq \|A\hat{x} -b \|_2^2 + \|L\hat{x} \|_2^2,
+\|\|A(\hat{x} + \epsilon) - a\|_2^2 + \| L (\hat{x} + \epsilon) \|_2^2 = \|A\hat{x} -a \|_2^2 + \|L\hat{x} \|_2^2 + \epsilon^T(A^TA + L^T L) \epsilon \geq \|A\hat{x} -a \|_2^2 + \|L\hat{x} \|_2^2,
 \]</div>
 <p class="sd-card-text">ensuring that <span class="math notranslate nohighlight">\(\hat{x}\)</span> is a minimiser.</p>
 </div>
@@ -799,9 +774,9 @@ A = \begin{pmatrix}Q &amp; Q^{\bot}\end{pmatrix}\begin{pmatrix}U &amp; 0 \\ 0 &a
 <p>Let</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-A = \begin{pmatrix} 2 &amp; 0 \\ 0 &amp; 0 \end{pmatrix}, \qquad b = \begin{pmatrix} 2\\ 0 \end{pmatrix}.
+A = \begin{pmatrix} 2 &amp; 0 \\ 0 &amp; 0 \end{pmatrix}, \qquad a = \begin{pmatrix} 2\\ 0 \end{pmatrix}.
 \end{split}\]</div>
-<p>What is the pseudo-inverse of <span class="math notranslate nohighlight">\(A\)</span>? Describe <em>all</em> solutions of the least-squares problem <span class="math notranslate nohighlight">\(\text{arg}\min_x \|Ax - b\|_2\)</span>.</p>
+<p>What is the pseudo-inverse of <span class="math notranslate nohighlight">\(A\)</span>? Describe <em>all</em> solutions of the least-squares problem <span class="math notranslate nohighlight">\(\text{arg}\min_x \|Ax - a\|_2\)</span>.</p>
 </div>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
@@ -811,7 +786,7 @@ A = \begin{pmatrix} 2 &amp; 0 \\ 0 &amp; 0 \end{pmatrix}, \qquad b = \begin{pmat
 \[\begin{split}
 A^{\dagger} = \begin{pmatrix} 0.5 &amp; 0 \\ 0 &amp; 0 \end{pmatrix}.
 \end{split}\]</div>
-<p class="sd-card-text">The pseudo-inverse selects the solution <span class="math notranslate nohighlight">\((1,0)^T = A^{\dagger} b\)</span>. Clearly, the <span class="math notranslate nohighlight">\(x_2\)</span> component does not affect the value of <span class="math notranslate nohighlight">\(A x\)</span> so that the solutions of the least-squares problem are of the form <span class="math notranslate nohighlight">\((1, x_2)^T\)</span>, <span class="math notranslate nohighlight">\(x_2 \in \mathbb{R}\)</span>.</p>
+<p class="sd-card-text">The pseudo-inverse selects the solution <span class="math notranslate nohighlight">\((1,0)^T = A^{\dagger} a\)</span>. Clearly, the <span class="math notranslate nohighlight">\(x_2\)</span> component does not affect the value of <span class="math notranslate nohighlight">\(A x\)</span> so that the solutions of the least-squares problem are of the form <span class="math notranslate nohighlight">\((1, x_2)^T\)</span>, <span class="math notranslate nohighlight">\(x_2 \in \mathbb{R}\)</span>.</p>
 </div>
 </details></section>
 <section id="optional-material">
@@ -920,9 +895,9 @@ p = \sum_{j=0}^k \hat{x}_j \, p_j.
 <p class="sd-card-text">Hence, the best approximation can be computed by solving</p>
 <div class="math notranslate nohighlight">
 \[
-A x = b
+A x = a
 \]</div>
-<p class="sd-card-text">where <span class="math notranslate nohighlight">\(A\)</span> contains the entries <span class="math notranslate nohighlight">\(a_{j\ell} =  \langle  p_j, p_\ell \rangle\)</span> and <span class="math notranslate nohighlight">\(b\)</span> contains the entries <span class="math notranslate nohighlight">\(b_\ell = \langle v, p_\ell \rangle\)</span>.</p>
+<p class="sd-card-text">where <span class="math notranslate nohighlight">\(A\)</span> contains the entries <span class="math notranslate nohighlight">\(a_{j\ell} =  \langle  p_j, p_\ell \rangle\)</span> and <span class="math notranslate nohighlight">\(a\)</span> contains the entries <span class="math notranslate nohighlight">\(a_\ell = \langle v, p_\ell \rangle\)</span>.</p>
 <div class="prf-theorem admonition">
 <p class="admonition-title">Fact: Orthogonal approximation</p>
 <p class="sd-card-text">The matrix <span class="math notranslate nohighlight">\(A\)</span> is positive definite and therefore invertible.</p>
@@ -957,9 +932,9 @@ a_{01,01} &amp;= \int_\Omega t_2 \cdot t_2 dt = \frac{4}{3}.
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{align*}
-b_{00} &amp;= \int_\Omega \sin (\pi t_1) \cdot 1 dt = 0,\\
-b_{10} &amp;= \int_\Omega \sin (\pi t_1) \cdot t_1 dt = \frac{\pi}{4},\\
-b_{01} &amp;= \int_\Omega \sin (\pi t_1) \cdot t_2 dt = 0.
+a_{00} &amp;= \int_\Omega \sin (\pi t_1) \cdot 1 dt = 0,\\
+a_{10} &amp;= \int_\Omega \sin (\pi t_1) \cdot t_1 dt = \frac{\pi}{4},\\
+a_{01} &amp;= \int_\Omega \sin (\pi t_1) \cdot t_2 dt = 0.
 \end{align*}
 \end{split}\]</div>
 <p class="sd-card-text">The resulting linear system is</p>
@@ -995,9 +970,9 @@ x_{01}
 \end{pmatrix}
 =
 \begin{pmatrix}
-b_{00}\\
-b_{10}\\
-b_{01}
+a_{00}\\
+a_{10}\\
+a_{01}
 \end{pmatrix}.
 \end{align*}
 \end{split}\]</div>
@@ -1171,11 +1146,11 @@ p(t_1, t_2) = \frac{15}{4} \Bigl( - \frac{12}{\pi^3} \Bigr) \; t_1 \; \Bigl( \fr
       </div>
     </a>
     <a class="right-next"
-       href="4.1_interpolation.html"
+       href="3.4_constrained_least_squares_problems.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Polynomial Interpolation</p>
+        <p class="prev-next-title">Constrained Problems</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1202,7 +1177,6 @@ p(t_1, t_2) = \frac{15}{4} \Bigl( - \frac{12}{\pi^3} \Bigr) \; t_1 \; \Bigl( \fr
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-least-squares-problems-with-the-qr-decomposition">Solving least-squares problems with the QR decomposition</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-least-squares-problems-with-the-svd">Solving least-squares problems with the SVD</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#constraints">Constraints</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-a-least-squares-problem-with-qr-decomposition">Solving a least-squares problem with QR decomposition</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-a-least-squares-problem-with-svd">Solving a least-squares problem with SVD</a></li>
