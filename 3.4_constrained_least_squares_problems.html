@@ -34,9 +34,9 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=b4b7a797" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- So that users can add custom icons -->
@@ -560,8 +560,7 @@ c^T y + d^T s - \frac{1}{2} x^T B x \, \leq \, &amp; (C \bar{x})^T y + (D \bar{x
 </div>
 <p>This code returns the optimiser <code class="docutils literal notranslate"><span class="pre">x</span></code>, the value of the primal quadratic programme, and the value of the original least-squares problem. To check that CVXPY has indeed found an optimal solution, we also retrieve the dual variables.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Obtain y and s from the solver.</span>
-<span class="c1"># For equality constraints, CVXPY internally uses -y^T(Cx - c),</span>
-<span class="c1"># hence the sign flip below if your theory uses +y^T(c - Cx).</span>
+<span class="c1"># CVXPY stores in constraints[0].dual_value the variable -y instead of y</span>
 <span class="n">y</span> <span class="o">=</span> <span class="o">-</span><span class="n">constraints</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">dual_value</span>  
 <span class="n">s</span> <span class="o">=</span> <span class="n">constraints</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">dual_value</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Dual variable y (equality):&quot;</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
