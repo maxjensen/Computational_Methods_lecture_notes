@@ -19,6 +19,7 @@ parts:
     - file: 3.1_qr_decomposition
     - file: 3.2_singular_value_decomposition
     - file: 3.3_least_squares_problems
+    - file: 3.4_constrained_least_squares_problems
 - caption: Interpolation and Quadrature
   chapters:
     - file: 4.1_interpolation

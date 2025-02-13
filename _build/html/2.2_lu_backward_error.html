@@ -34,9 +34,9 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=b4b7a797" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- So that users can add custom icons -->
@@ -190,7 +190,8 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="3.1_qr_decomposition.html">The QR Decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3.2_singular_value_decomposition.html">The Singular Value Decomposition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="3.3_least_squares_problems.html">Least Squares Problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.3_least_squares_problems.html">Least-squares Problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.4_constrained_least_squares_problems.html">Constrained Problems</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Interpolation and Quadrature</span></p>
 <ul class="nav bd-sidenav">
@@ -795,19 +796,25 @@ P = \begin{pmatrix}
 &amp; (e^{(\pi^{-1}(n))})^T &amp;
 \end{pmatrix}
 \end{split}\]</div>
-<p>(b) Show for the vectors <span class="math notranslate nohighlight">\(a_1, \ldots, a_n \in \mathbb{R}^n\)</span> that</p>
+<p>(b) Let <span class="math notranslate nohighlight">\(A\)</span>, <span class="math notranslate nohighlight">\(B\)</span> be matrices of compatible size so that the matrix product <span class="math notranslate nohighlight">\(A \cdot B\)</span> is defined. Show that</p>
+<div class="math notranslate nohighlight">
+\[
+A \cdot B = \sum_k a_k \otimes b_k
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(a_k\)</span> is the <span class="math notranslate nohighlight">\(k\)</span>th column of <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\((b_k)^T\)</span> the <span class="math notranslate nohighlight">\(k\)</span>th row of <span class="math notranslate nohighlight">\(B\)</span>.</p>
+<p>(c) Show for the vectors <span class="math notranslate nohighlight">\(b_1, \ldots, b_n \in \mathbb{R}^n\)</span> that</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 P \cdot \begin{pmatrix}
-&amp; a_1^T&amp; \\ \hline
+&amp; b_1^T&amp; \\ \hline
 &amp;\vdots&amp;\\ \hline
-&amp;a_n^T&amp;
+&amp;b_n^T&amp;
 \end{pmatrix}
 =
 \begin{pmatrix}
-&amp; a_{\pi^{-1}(1)}^T&amp; \\ \hline
+&amp; b_{\pi^{-1}(1)}^T&amp; \\ \hline
 &amp; \vdots\\ \hline
-&amp; a_{\pi^{-1}(n)}^T&amp;
+&amp; b_{\pi^{-1}(n)}^T&amp;
 \end{pmatrix}
 \end{split}\]</div>
 </div>
@@ -830,23 +837,35 @@ P \cdot \begin{pmatrix}
 = e^{(\pi(k))}.
 \end{split}\]</div>
 <p class="sd-card-text">We now use that two matrices are the same if multiplication with the basis vectors <span class="math notranslate nohighlight">\(e^{(k)}\)</span> yields the same product.</p>
-<p class="sd-card-text">(b) Using for <span class="math notranslate nohighlight">\((*)\)</span> that <span class="math notranslate nohighlight">\(\pi(j) = \ell\)</span> visits every number <span class="math notranslate nohighlight">\(1, \ldots, n\)</span> exactly once as <span class="math notranslate nohighlight">\(j = 1, \ldots, n\)</span>, we find</p>
+<p class="sd-card-text">(b) Let <span class="math notranslate nohighlight">\(R_k\)</span> be the matrix with the entries <span class="math notranslate nohighlight">\((R_k)_{ij} = A_{ik} B_{kj}\)</span>. Observe that <span class="math notranslate nohighlight">\(R_k\)</span> is the outer product of the <span class="math notranslate nohighlight">\(k\)</span>th column of <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(k\)</span>th row of <span class="math notranslate nohighlight">\(B\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+R_k = a_k b_k^T = a_k \otimes b_k.
+\]</div>
+<p class="sd-card-text">Entry <span class="math notranslate nohighlight">\((i,j)\)</span> of the matrix product <span class="math notranslate nohighlight">\(A \cdot B\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[
+(A \cdot B)_{ij} = \sum_{k = 1}^n A_{ik} B_{kj} = \sum_{k = 1}^n (R_k)_{ij}.
+\]</div>
+<p class="sd-card-text">This means that</p>
+<div class="math notranslate nohighlight">
+\[
+A \cdot B = \sum_{k = 1}^n R_k = \sum_{k = 1}^n a_k \otimes b_k = \sum_{k = 1}^n a_k \, (b_k)^T.
+\]</div>
+<p class="sd-card-text">(c) For <span class="math notranslate nohighlight">\((*)\)</span> use (b) with <span class="math notranslate nohighlight">\(P = A\)</span>. Using for <span class="math notranslate nohighlight">\((**)\)</span> that <span class="math notranslate nohighlight">\(\pi(k) = \ell\)</span> visits every number <span class="math notranslate nohighlight">\(1, \ldots, n\)</span> exactly once as <span class="math notranslate nohighlight">\(j = 1, \ldots, n\)</span>, we find</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-P \cdot \begin{pmatrix}
-&amp; a_1^T&amp; \\ \hline
-&amp;\vdots&amp;\\ \hline
-&amp;a_n^T&amp;
-\end{pmatrix}
-= \sum_{j=1}^n e^{(\pi(j))} a_j^T
-\stackrel{(*)}{=} \sum_{\ell=1}^n e^{(\ell)} a_{\pi^{-1}(\ell)}^T
-=
+P \cdot B \stackrel{(*)}{=}
+\sum_{k=1}^n e^{(\pi(k))} b_k^T
+\stackrel{(**)}{=} \sum_{\ell=1}^n e^{(\ell)} b_{\pi^{-1}(\ell)}^T
+\stackrel{(***)}{=}
 \begin{pmatrix}
-&amp; a_{\pi^{-1}(1)}^T&amp; \\ \hline
+&amp; b_{\pi^{-1}(1)}^T&amp; \\ \hline
 &amp; \vdots\\ \hline
-&amp; a_{\pi^{-1}(n)}^T&amp;
+&amp; b_{\pi^{-1}(n)}^T&amp;
 \end{pmatrix}.
 \end{split}\]</div>
+<p class="sd-card-text">For <span class="math notranslate nohighlight">\((***)\)</span> we used part (b) with <span class="math notranslate nohighlight">\(A = I\)</span>.</p>
 </div>
 </details><div class="tip admonition">
 <p class="admonition-title"><strong>Question</strong></p>

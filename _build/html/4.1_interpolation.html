@@ -67,7 +67,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Introduction to Quadrature" href="4.2_quadrature.html" />
-    <link rel="prev" title="Least Squares Problems" href="3.3_least_squares_problems.html" />
+    <link rel="prev" title="Constrained Problems" href="3.4_constrained_least_squares_problems.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -190,7 +190,8 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="3.1_qr_decomposition.html">The QR Decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3.2_singular_value_decomposition.html">The Singular Value Decomposition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="3.3_least_squares_problems.html">Least Squares Problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.3_least_squares_problems.html">Least-squares Problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.4_constrained_least_squares_problems.html">Constrained Problems</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Interpolation and Quadrature</span></p>
 <ul class="current nav bd-sidenav">
@@ -399,7 +400,7 @@ p_n(x)= \sum_{j=0}^n y_j L_j(x).
 \]</div>
 <p>We refer to <span class="math notranslate nohighlight">\(p\)</span>, when written in this form, as the <em>Lagrange interpolation polynomial</em>. We still need to prove uniqueness.</p>
 <div class="proof theorem admonition" id="theorem-0">
-<p class="admonition-title"><span class="caption-number">Theorem 7 </span> (Existence and uniqueness of interpolating polynomial)</p>
+<p class="admonition-title"><span class="caption-number">Theorem 9 </span> (Existence and uniqueness of interpolating polynomial)</p>
 <section class="theorem-content" id="proof-content">
 <p>Given <span class="math notranslate nohighlight">\(\{ (x_i,y_i) \}_{i=0}^n\)</span> with <span class="math notranslate nohighlight">\(x_i &lt; x_{i+1}\)</span>, there exists a unique <span class="math notranslate nohighlight">\(p_n \in \mathcal{P}_n\)</span> such that <span class="math notranslate nohighlight">\(p_n(x_i) = y_i\)</span> for all <span class="math notranslate nohighlight">\(i = 0, \ldots, n\)</span>.</p>
 </section>
@@ -412,7 +413,7 @@ p_n(x)= \sum_{j=0}^n y_j L_j(x).
 \omega_{n+1}(x) := \prod_{j = 0}^n (x - x_j).
 \]</div>
 <div class="proof theorem admonition" id="theorem-1">
-<p class="admonition-title"><span class="caption-number">Theorem 8 </span> (Interpolation error bound)</p>
+<p class="admonition-title"><span class="caption-number">Theorem 10 </span> (Interpolation error bound)</p>
 <section class="theorem-content" id="proof-content">
 <p>Suppose <span class="math notranslate nohighlight">\(f \in C^{n+1}[a,b]\)</span> and <span class="math notranslate nohighlight">\(a \le x_0 &lt; \ldots &lt; x_n \le b\)</span>. Let <span class="math notranslate nohighlight">\(p \in \mathcal{P}_n\)</span> such that <span class="math notranslate nohighlight">\(p(x_i) = f(x_i)\)</span> for <span class="math notranslate nohighlight">\(i \in \{ 0, \dots, n\}\)</span>. Then for every <span class="math notranslate nohighlight">\(x \in [a,b]\)</span> there is a <span class="math notranslate nohighlight">\(\xi \in [a,b]\)</span>, depending on <span class="math notranslate nohighlight">\(x\)</span>, such that</p>
 <div class="math notranslate nohighlight">
@@ -559,7 +560,7 @@ sign(x)</label><div class="sd-tab-content docutils">
 \]</div>
 <p>(Note: Some texts define <span class="math notranslate nohighlight">\(i\)</span> to start from <span class="math notranslate nohighlight">\(1\)</span> in the definition of Chebyshev nodes and adjust <span class="math notranslate nohighlight">\(n\)</span> accordingly. This is only a notational difference.)</p>
 <div class="proof theorem admonition" id="theorem-3">
-<p class="admonition-title"><span class="caption-number">Theorem 9 </span></p>
+<p class="admonition-title"><span class="caption-number">Theorem 11 </span></p>
 <section class="theorem-content" id="proof-content">
 <p>Consider <span class="math notranslate nohighlight">\(n+1\)</span> arbitrary, pairwise distinct nodes <span class="math notranslate nohighlight">\(x_0, x_1, \ldots, x_n\)</span> in <span class="math notranslate nohighlight">\([-1,1]\)</span> with error polynomial <span class="math notranslate nohighlight">\(\omega_{n+1}\)</span>. Then</p>
 <div class="math notranslate nohighlight">
@@ -864,7 +865,7 @@ T_0(x) = 1, \quad T_1(x) = x, \quad T_{n+1}(x) = 2 x T_n(x) - T_{n-1}(x).
 </section>
 </div><p class="sd-card-text">Chebychev polynomials are considered on the reference interval <span class="math notranslate nohighlight">\([-1,1]\)</span> with only a few exceptions. We shall use the terms Chebychev polynomial of the first kind and Chebychev polynomial synonymously.</p>
 <div class="proof theorem admonition" id="theorem-6">
-<p class="admonition-title"><span class="caption-number">Theorem 10 </span></p>
+<p class="admonition-title"><span class="caption-number">Theorem 12 </span></p>
 <section class="theorem-content" id="proof-content">
 <p class="sd-card-text">For <span class="math notranslate nohighlight">\(n \in \mathbb{N}\)</span> and <span class="math notranslate nohighlight">\(x \in [-1,1]\)</span> the identity <span class="math notranslate nohighlight">\(T_n(x) = \cos(n \arccos x)\)</span> holds.</p>
 </section>
@@ -892,7 +893,7 @@ T_{n+1}(x) &amp;= 2 x T_n(x) - T_{n-1}(x) = 2 \cos \theta \cos(n \theta) - \cos(
 \]</div>
 <p class="sd-card-text">with <span class="math notranslate nohighlight">\(T_n(\tilde{y}_i) = (-1)^i\)</span>. The roots <span class="math notranslate nohighlight">\(\tilde{x}_i\)</span> are called Chebychev nodes. The below theorem states that the <span class="math notranslate nohighlight">\(\tilde{x}_i\)</span> are the best nodes to minimise the oscillations of the error polynomial.</p>
 <div class="proof theorem admonition" id="theorem-7">
-<p class="admonition-title"><span class="caption-number">Theorem 11 </span></p>
+<p class="admonition-title"><span class="caption-number">Theorem 13 </span></p>
 <section class="theorem-content" id="proof-content">
 <p class="sd-card-text">Suppose <span class="math notranslate nohighlight">\(p \in \mathcal{P}_n\)</span> interpolates <span class="math notranslate nohighlight">\(f \in C^{(n+1)}[a,b]\)</span> at the Chebychev nodes <span class="math notranslate nohighlight">\(\tilde{x}_0, \ldots, \tilde{x}_n\)</span>. Let <span class="math notranslate nohighlight">\(\tilde{\omega}_{n+1}\)</span> be the error polynomial corresponding to these nodes. Then</p>
 <div class="math notranslate nohighlight">
@@ -988,12 +989,12 @@ p_n(x) = \frac{\sum_{k=0}^n \frac{w_k}{x - x_k} y_k}{\sum_{k=0}^n \frac{w_k}{x -
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="3.3_least_squares_problems.html"
+       href="3.4_constrained_least_squares_problems.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Least Squares Problems</p>
+        <p class="prev-next-title">Constrained Problems</p>
       </div>
     </a>
     <a class="right-next"

@@ -34,9 +34,9 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=b4b7a797" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- So that users can add custom icons -->
@@ -190,7 +190,8 @@
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">The QR Decomposition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3.2_singular_value_decomposition.html">The Singular Value Decomposition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="3.3_least_squares_problems.html">Least Squares Problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.3_least_squares_problems.html">Least-squares Problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.4_constrained_least_squares_problems.html">Constrained Problems</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Interpolation and Quadrature</span></p>
 <ul class="nav bd-sidenav">
@@ -454,7 +455,7 @@
 </ul>
 <div class="prf-theorem admonition">
 <p class="admonition-title">Fact: QR Decomposition</p>
-<p>Given <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span> with <span class="math notranslate nohighlight">\(m \geq n\)</span>, a QR decomposition of <span class="math notranslate nohighlight">\(A = QR\)</span> exists, where <span class="math notranslate nohighlight">\(Q\)</span> is an <span class="math notranslate nohighlight">\(m \times n\)</span> orthogonal matrix satisfying <span class="math notranslate nohighlight">\(Q^TQ = I\)</span> and where <span class="math notranslate nohighlight">\(R\)</span> is an <span class="math notranslate nohighlight">\(n \times n\)</span> upper triangular matrix. If <span class="math notranslate nohighlight">\(A\)</span> has a full rank, then the QR decomposition is unique if we require the diagonal elements of <span class="math notranslate nohighlight">\(R\)</span> to be positive.</p>
+<p>Given <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span> with <span class="math notranslate nohighlight">\(m \geq n\)</span>, a QR decomposition of <span class="math notranslate nohighlight">\(A = QR\)</span> exists, where <span class="math notranslate nohighlight">\(Q\)</span> is an <span class="math notranslate nohighlight">\(m \times n\)</span> matrix satisfying <span class="math notranslate nohighlight">\(Q^TQ = I\)</span> and where <span class="math notranslate nohighlight">\(R\)</span> is an <span class="math notranslate nohighlight">\(n \times n\)</span> upper triangular matrix. If <span class="math notranslate nohighlight">\(A\)</span> has a full rank, then the QR decomposition is unique if we require the diagonal elements of <span class="math notranslate nohighlight">\(R\)</span> to be positive.</p>
 </div>
 </section>
 </section>
@@ -470,8 +471,8 @@
 </ol>
 <p>The last equation, <span class="math notranslate nohighlight">\(Rx = Q^Tb\)</span>, represents an upper triangular system. This can be efficiently solved by backward substitution, starting from the previous equation and substituting backwards to find all unknowns.</p>
 <ul class="simple">
-<li><p><strong>Backward Stability</strong>: Solving linear systems via QR decomposition is known to be backward stable. Backward stability refers to the property where the computed solution is the exact solution to a slightly perturbed version of the original problem. This stability is particularly beneficial when dealing with ill-conditioned matrices or when high precision is required.</p></li>
-<li><p><strong>Comparison with LU Decomposition</strong>: Despite its stability, the QR decomposition method for solving linear systems is less commonly used than the LU decomposition in practice. This is primarily due to its computational cost. The QR decomposition typically requires about twice as many operations as the LU decomposition, making it less efficient for large-scale problems.</p></li>
+<li><p><strong>Backward Stability</strong>: Solving linear systems via QR decomposition is known to be backward stable.</p></li>
+<li><p><strong>Comparison with LU Decomposition</strong>: Despite its stability, the QR decomposition method for solving linear systems is less commonly used than the LU decomposition in practice. This is primarily due to its computational cost. The QR decomposition typically requires about twice as many operations as the LU decomposition, making it less efficient for large-scale problems. However, recall that LU decomposition is not backward stable.</p></li>
 </ul>
 </section>
 <section id="reduced-vs-full-qr-decomposition">
@@ -481,7 +482,7 @@
 \[\begin{split}
 A = \begin{pmatrix}Q &amp; Q^{\bot}\end{pmatrix}\begin{pmatrix}R\\ 0\end{pmatrix} =: \tilde{R}\tilde{Q}.
 \end{split}\]</div>
-<p>The QR decomposition <span class="math notranslate nohighlight">\(A = \tilde{Q}\tilde{R}\)</span> is called full QR decomposition. It is rarely used in practical computation as the columns of <span class="math notranslate nohighlight">\(Q^{\bot}\)</span> are usually not required. However, it is essential theoretically, as <span class="math notranslate nohighlight">\(Q^{\bot}\)</span> contains information about the range of <span class="math notranslate nohighlight">\(A\)</span> and its orthogonal complement.</p>
+<p>The QR decomposition <span class="math notranslate nohighlight">\(A = \tilde{Q}\tilde{R}\)</span> is called full QR decomposition. It is rarely used in practical computation as the columns of <span class="math notranslate nohighlight">\(Q^{\bot}\)</span> are usually not required. However, it is essential theoretically, as <span class="math notranslate nohighlight">\(Q^{\bot}\)</span> contains information about the range of <span class="math notranslate nohighlight">\(A\)</span> and its orthogonal complement. Moreover, <span class="math notranslate nohighlight">\(\tilde{Q}\)</span> is an orthogonal matrix, while <span class="math notranslate nohighlight">\(Q\)</span> is only a submatrix of an orthogonal matrix.</p>
 </section>
 <section id="python-skills">
 <h2>Python skills<a class="headerlink" href="#python-skills" title="Link to this heading">#</a></h2>
