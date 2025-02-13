@@ -17,7 +17,7 @@
 - $a_{ij}$: The element in the $i$-th row and $j$-th column of matrix $A$.
 - $a_{:,j}$ or $a_j$: The $j$-th column of matrix $A$.
 - $a_{i,:}$: The $i$-th row of matrix $A$.
-- $A^T$: The transpose of matrix $A$.
+- $A^\top$: The transpose of matrix $A$.
 - $A^H$: The conjugate transpose of matrix $A$.
 - $I$: The identity matrix, sometimes $I_n$ to denote the size.
 - $\| \cdot \|_p$: $p$-norm of a vector of matrix.
@@ -56,8 +56,8 @@
 - **Mean value theorem**: If $f \in C[a,b]$ and differentiable on $(a,b)$, there exists a $\xi \in (a,b)$ such that $f'(c) = \frac{f(b) - f(a)}{b-a}$.
 - **Taylor's theorem**: For $f \in C^{n+1}[a,b]$ and $x_0, x \in [a,b]$, there's a $\xi$ between $x_0$ and $x$ with $f(x) = f(x_0) + f'(x_0)(x-x_0) + \frac{f''(x_0)}{2!}(x-x_0)^2 + \ldots + \frac{f^{(n)}(x_0)}{n!}(x-x_0)^n + \frac{f^{(n+1)}(\xi)}{(n+1)!}(x-x_0)^{n+1}.$
 - **Fundamental theorem of calculus:** If $f$ is continuous on $[a, b]$, then $\int_a^b f(x) dx = F(b) - F(a)$, where $f$ is the derivative of $F$.
-- **Scalar product of vectors**: The canonical scalar product of vectors $x$ and $y$ is $x^Ty$.
-- **Outer product:** The outer product of two vectors $x$ and $y$, denoted as $x \otimes y$, is a matrix where the element in the $i$-th row and $j$-th column is given by $x_i y_j$. Thus, $x \otimes y = xy^T$.
+- **Scalar product of vectors**: The canonical scalar product of vectors $x$ and $y$ is $x^\top y$.
+- **Outer product:** The outer product of two vectors $x$ and $y$, denoted as $x \otimes y$, is a matrix where the element in the $i$-th row and $j$-th column is given by $x_i y_j$. Thus, $x \otimes y = xy^\top$.
 - **Orthogonality**: Two vectors are orthogonal if their scalar product is zero.
 - **Orthogonal complement**: The orthogonal complement of a subspace $V$ in $\mathbb{R}^n$ is the set of all vectors in $\mathbb{R}^n$ orthogonal to every vector in $V$.
 - **Linear independence**: A set of vectors is linearly independent if no vector in the set can be written as a linear combination of the others.
@@ -70,12 +70,12 @@
 - **Inverse**: A matrix $A$ is invertible if and only if its determinant is non-zero. The inverse of $A$ is $A^{-1}$ such that $AA^{-1} = A^{-1}A = I$
 - **Singularity**: A matrix is singular if it has no inverse, i.e., its determinant is zero.
 - **Regular matrix**: A matrix is regular if it is non-singular.
-- **Transpose**: The transpose of a matrix $A$ is a matrix $A^T$ such that the element in the $i$-th row and $j$-th column of $A^T$ is the element in the $j$-th row and $i$-th column of $A$.
+- **Transpose**: The transpose of a matrix $A$ is a matrix $A^\top$ such that the element in the $i$-th row and $j$-th column of $A^\top$ is the element in the $j$-th row and $i$-th column of $A$.
 - **Conjugate transpose**: The conjugate transpose of a matrix $A$ is a matrix $A^H$ such that the element in the $i$-th row and $j$-th column of $A^H$ is the complex conjugate of the element in the $j$-th row and $i$-th column of $A$.
-- **Orthogonal matrix**: A matrix $Q$ is orthogonal if $Q^TQ = I$.
+- **Orthogonal matrix**: A matrix $Q$ is orthogonal if $Q^\top Q = I$.
 - **Unitary matrix**: A matrix $U$ is unitary if $U^HU = I$, where $U^H$ is the conjugate transpose of $U$.
-- **Positive definite matrix**: A symmetric matrix $A$ is positive definite if $x^TAx > 0$ for all non-zero vectors $x$.
-- **Symmetric matrix**: A matrix $A$ is symmetric if $A = A^T$.
+- **Positive definite matrix**: A symmetric matrix $A$ is positive definite if $x^\top Ax > 0$ for all non-zero vectors $x$.
+- **Symmetric matrix**: A matrix $A$ is symmetric if $A = A^\top$.
 - **Hermitian matrix**: A matrix $A$ is Hermitian if $A = A^H$, i.e., it is equal to its conjugate transpose.
 - **Diagonal matrix**: A matrix $A$ is diagonal if all its off-diagonal elements are zero.
 - **Diagonalisation**: A matrix $A$ is diagonalisable if it has $n$ linearly independent eigenvectors. It can be written as $A = X \Lambda X^{-1}$, where $\Lambda$ is a diagonal matrix of eigenvalues and $X$ is a matrix of eigenvectors.

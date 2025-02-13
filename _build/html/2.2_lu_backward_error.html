@@ -524,7 +524,7 @@ F^{(n-1)} P^{(n-1)} \cdots F^{(2)} P^{(2)} F^{(1)} P^{(1)} A = U.
 <p>There is a commutation property between permutation and Frobenius matrices,</p>
 <div class="math notranslate nohighlight">
 \[
-P (I - f \, (e^{(i)})^T) P = I - (P f) \, (e^{(i)})^T
+P (I - f \, (e^{(i)})^\top) P = I - (P f) \, (e^{(i)})^\top
 \]</div>
 <p>for elementary permutations <span class="math notranslate nohighlight">\(P\)</span>, that ultimately allows to reorder the product so that</p>
 <div class="math notranslate nohighlight">
@@ -791,9 +791,9 @@ U_8 = \begin{pmatrix}
 <div class="math notranslate nohighlight">
 \[\begin{split}
 P = \begin{pmatrix}
-&amp; (e^{(\pi^{-1}(1))})^T&amp; \\ \hline
+&amp; (e^{(\pi^{-1}(1))})^\top &amp; \\ \hline
 &amp; \vdots\\ \hline
-&amp; (e^{(\pi^{-1}(n))})^T &amp;
+&amp; (e^{(\pi^{-1}(n))})^\top &amp;
 \end{pmatrix}
 \end{split}\]</div>
 <p>(b) Let <span class="math notranslate nohighlight">\(A\)</span>, <span class="math notranslate nohighlight">\(B\)</span> be matrices of compatible size so that the matrix product <span class="math notranslate nohighlight">\(A \cdot B\)</span> is defined. Show that</p>
@@ -801,20 +801,20 @@ P = \begin{pmatrix}
 \[
 A \cdot B = \sum_k a_k \otimes b_k
 \]</div>
-<p>where <span class="math notranslate nohighlight">\(a_k\)</span> is the <span class="math notranslate nohighlight">\(k\)</span>th column of <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\((b_k)^T\)</span> the <span class="math notranslate nohighlight">\(k\)</span>th row of <span class="math notranslate nohighlight">\(B\)</span>.</p>
+<p>where <span class="math notranslate nohighlight">\(a_k\)</span> is the <span class="math notranslate nohighlight">\(k\)</span>th column of <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\((b_k)^\top\)</span> the <span class="math notranslate nohighlight">\(k\)</span>th row of <span class="math notranslate nohighlight">\(B\)</span>.</p>
 <p>(c) Show for the vectors <span class="math notranslate nohighlight">\(b_1, \ldots, b_n \in \mathbb{R}^n\)</span> that</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 P \cdot \begin{pmatrix}
-&amp; b_1^T&amp; \\ \hline
+&amp; b_1^\top &amp; \\ \hline
 &amp;\vdots&amp;\\ \hline
-&amp;b_n^T&amp;
+&amp;b_n^\top &amp;
 \end{pmatrix}
 =
 \begin{pmatrix}
-&amp; b_{\pi^{-1}(1)}^T&amp; \\ \hline
+&amp; b_{\pi^{-1}(1)}^\top &amp; \\ \hline
 &amp; \vdots\\ \hline
-&amp; b_{\pi^{-1}(n)}^T&amp;
+&amp; b_{\pi^{-1}(n)}^\top &amp;
 \end{pmatrix}
 \end{split}\]</div>
 </div>
@@ -825,14 +825,14 @@ P \cdot \begin{pmatrix}
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{pmatrix}
-&amp; (e^{(\pi^{-1}(1))})^T&amp; \\ \hline
+&amp; (e^{(\pi^{-1}(1))})^\top &amp; \\ \hline
 &amp; \vdots\\ \hline
-&amp; (e^{(\pi^{-1}(n))})^T &amp;
+&amp; (e^{(\pi^{-1}(n))})^\top &amp;
 \end{pmatrix} e^{(k)} = 
 \begin{pmatrix}
-(e^{(\pi^{-1}(1))})^T e^{(k)}\\ \hline
+(e^{(\pi^{-1}(1))})^\top e^{(k)}\\ \hline
 \vdots\\ \hline
-(e^{(\pi^{-1}(n))})^T e^{(k)}
+(e^{(\pi^{-1}(n))})^\top e^{(k)}
 \end{pmatrix}
 = e^{(\pi(k))}.
 \end{split}\]</div>
@@ -840,7 +840,7 @@ P \cdot \begin{pmatrix}
 <p class="sd-card-text">(b) Let <span class="math notranslate nohighlight">\(R_k\)</span> be the matrix with the entries <span class="math notranslate nohighlight">\((R_k)_{ij} = A_{ik} B_{kj}\)</span>. Observe that <span class="math notranslate nohighlight">\(R_k\)</span> is the outer product of the <span class="math notranslate nohighlight">\(k\)</span>th column of <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(k\)</span>th row of <span class="math notranslate nohighlight">\(B\)</span>:</p>
 <div class="math notranslate nohighlight">
 \[
-R_k = a_k b_k^T = a_k \otimes b_k.
+R_k = a_k b_k^\top = a_k \otimes b_k.
 \]</div>
 <p class="sd-card-text">Entry <span class="math notranslate nohighlight">\((i,j)\)</span> of the matrix product <span class="math notranslate nohighlight">\(A \cdot B\)</span> is</p>
 <div class="math notranslate nohighlight">
@@ -850,19 +850,19 @@ R_k = a_k b_k^T = a_k \otimes b_k.
 <p class="sd-card-text">This means that</p>
 <div class="math notranslate nohighlight">
 \[
-A \cdot B = \sum_{k = 1}^n R_k = \sum_{k = 1}^n a_k \otimes b_k = \sum_{k = 1}^n a_k \, (b_k)^T.
+A \cdot B = \sum_{k = 1}^n R_k = \sum_{k = 1}^n a_k \otimes b_k = \sum_{k = 1}^n a_k \, (b_k)^\top.
 \]</div>
 <p class="sd-card-text">(c) For <span class="math notranslate nohighlight">\((*)\)</span> use (b) with <span class="math notranslate nohighlight">\(P = A\)</span>. Using for <span class="math notranslate nohighlight">\((**)\)</span> that <span class="math notranslate nohighlight">\(\pi(k) = \ell\)</span> visits every number <span class="math notranslate nohighlight">\(1, \ldots, n\)</span> exactly once as <span class="math notranslate nohighlight">\(j = 1, \ldots, n\)</span>, we find</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 P \cdot B \stackrel{(*)}{=}
-\sum_{k=1}^n e^{(\pi(k))} b_k^T
-\stackrel{(**)}{=} \sum_{\ell=1}^n e^{(\ell)} b_{\pi^{-1}(\ell)}^T
+\sum_{k=1}^n e^{(\pi(k))} b_k^\top
+\stackrel{(**)}{=} \sum_{\ell=1}^n e^{(\ell)} b_{\pi^{-1}(\ell)}^\top
 \stackrel{(***)}{=}
 \begin{pmatrix}
-&amp; b_{\pi^{-1}(1)}^T&amp; \\ \hline
+&amp; b_{\pi^{-1}(1)}^\top &amp; \\ \hline
 &amp; \vdots\\ \hline
-&amp; b_{\pi^{-1}(n)}^T&amp;
+&amp; b_{\pi^{-1}(n)}^\top &amp;
 \end{pmatrix}.
 \end{split}\]</div>
 <p class="sd-card-text">For <span class="math notranslate nohighlight">\((***)\)</span> we used part (b) with <span class="math notranslate nohighlight">\(A = I\)</span>.</p>
@@ -892,7 +892,7 @@ B_8(\alpha) = \begin{pmatrix}
 <p class="sd-card-text">and <span class="math notranslate nohighlight">\(B_n(1) = A_n\)</span>. Let</p>
 <div class="math notranslate nohighlight">
 \[
-v_n(\alpha)^T = (0, \ldots, 0, \alpha)^T \in \mathbb{R}^n
+v_n(\alpha)^\top = (0, \ldots, 0, \alpha)^\top \in \mathbb{R}^n
 \]</div>
 <p class="sd-card-text">Elimination of the entries of the first column of <span class="math notranslate nohighlight">\(B_n(\alpha)\)</span> has no effect on the entries of columns <span class="math notranslate nohighlight">\(2, \ldots, n-1\)</span> because the respective entries of the first row vanish. In the last column, all entries except the first double in size. Thus we obtain the following matrix (in matrix block form):</p>
 <div class="math notranslate nohighlight">

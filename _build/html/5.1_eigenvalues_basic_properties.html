@@ -391,10 +391,10 @@ A x = \lambda x.
 <p>For complex spaces, the Euclidean inner product is defined as:</p>
 <div class="math notranslate nohighlight">
 \[
-\langle x, y \rangle = x^T \, \overline{y} = \sum_j x_j \, \overline{y}_j.
+\langle x, y \rangle = x^\top \, \overline{y} = \sum_j x_j \, \overline{y}_j.
 \]</div>
 <p>It requires taking the complex conjugate of <span class="math notranslate nohighlight">\(y\)</span> in the inner product calculation. The 2-norm of a vector is <span class="math notranslate nohighlight">\(\|x\|_2 = \langle x, x \rangle^{1/2}\)</span>.</p>
-<p>In complex spaces, the counterpart to transposed matrices is the conjugate transpose <span class="math notranslate nohighlight">\(A^H := \bar{A}^T\)</span>. With this, the following relation holds:</p>
+<p>In complex spaces, the counterpart to transposed matrices is the conjugate transpose <span class="math notranslate nohighlight">\(A^H := \bar{A}^\top\)</span>. With this, the following relation holds:</p>
 <div class="math notranslate nohighlight">
 \[
 \langle Ax, y \rangle = \langle x, A^H y \rangle.
@@ -572,7 +572,7 @@ A = \begin{pmatrix}
 \[\begin{split} 
 \begin{pmatrix} 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 1 \\ 0 &amp; 0 &amp; 0 \end{pmatrix}x = 0.
 \end{split}\]</div>
-<p class="sd-card-text">The solution space is spanned by <span class="math notranslate nohighlight">\((1, 0, 0)^T\)</span>.</p>
+<p class="sd-card-text">The solution space is spanned by <span class="math notranslate nohighlight">\((1, 0, 0)^\top\)</span>.</p>
 <p class="sd-card-text">The eigenvalue <span class="math notranslate nohighlight">\(\lambda = 3\)</span> appears three times on the diagonal of <span class="math notranslate nohighlight">\(A\)</span>, so its algebraic multiplicity is 3. The solution to the eigenvector equation yields only one linearly independent eigenvector, so the geometric multiplicity of <span class="math notranslate nohighlight">\(\lambda = 3\)</span> is <span class="math notranslate nohighlight">\(1\)</span>.</p>
 <p class="sd-card-text">Since the algebraic and geometric multiplicities of the eigenvalue are not equal, <span class="math notranslate nohighlight">\(A\)</span> cannot be decomposed as <span class="math notranslate nohighlight">\(A = X\Lambda X^{-1}\)</span>. For such a decomposition to exist, the matrix must have a full set of linearly independent eigenvectors.</p>
 </div>

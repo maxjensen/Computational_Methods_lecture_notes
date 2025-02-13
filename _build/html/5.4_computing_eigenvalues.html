@@ -453,7 +453,7 @@ A^{k}q^{(0)} = \sum_{j=1}^n\alpha_j\lambda_j^kx_j = \alpha_1\lambda_1^{k}\left(x
 <img alt="_images/17d5880d7db4d8b15b47a6dbdb6dad102b8b1d3f08d1b3e1b1a5f594e51dd303.png" src="_images/17d5880d7db4d8b15b47a6dbdb6dad102b8b1d3f08d1b3e1b1a5f594e51dd303.png" />
 </div>
 </div>
-<p>We see that the largest eigenvalue is at around 50 and far away from the other eigenvalues who cluster around the origin. This is typical for random matrices with equally distributed random numbers in <span class="math notranslate nohighlight">\([0, 1]\)</span>. Replace every entry of the matrix by its mean <span class="math notranslate nohighlight">\(0.5\)</span>, and you get one eigenvalue which is exactly <span class="math notranslate nohighlight">\(50\)</span> (the corresponding eigenvector is <span class="math notranslate nohighlight">\(x=[1, \dots, 1]^T\)</span>). Random matrices may have some very non-random behaviour!</p>
+<p>We see that the largest eigenvalue is at around 50 and far away from the other eigenvalues who cluster around the origin. This is typical for random matrices with equally distributed random numbers in <span class="math notranslate nohighlight">\([0, 1]\)</span>. Replace every entry of the matrix by its mean <span class="math notranslate nohighlight">\(0.5\)</span>, and you get one eigenvalue which is exactly <span class="math notranslate nohighlight">\(50\)</span> (the corresponding eigenvector is <span class="math notranslate nohighlight">\(x=[1, \dots, 1]^	op\)</span>). Random matrices may have some very non-random behaviour!</p>
 <p>If we replace <span class="math notranslate nohighlight">\(A\)</span> by normally  distributed random numbers all eigenvalue are clustered around <span class="math notranslate nohighlight">\(0\)</span> and the power method won’t converge (Try this out!). A solution here is the inverse iteration.</p>
 </section>
 <section id="inverse-iteration">
@@ -571,11 +571,11 @@ A^{k}q^{(0)} = \sum_{j=1}^n\alpha_j\lambda_j^kx_j = \alpha_1\lambda_1^{k}\left(x
 <h2>Rayleigh quotient iteration<a class="headerlink" href="#rayleigh-quotient-iteration" title="Link to this heading">#</a></h2>
 <p>For symmetric eigenvalue problems one can combine the inverse iteration with evaluating the Rayleigh quotient. The idea is that instead of the fixed value <span class="math notranslate nohighlight">\(\sigma\)</span> in each step we use as shift the value of the Rayleigh quotient. The resulting algorithm is called Rayleigh quotient iteration. Its convergence is even cubic.</p>
 <p><strong>Algorithm (Rayleigh Quotient Iteration)</strong></p>
-<p><span class="math notranslate nohighlight">\(\lambda^{(0)} = [q^{(0)}]^TAq^{(0)}\)</span></p>
+<p><span class="math notranslate nohighlight">\(\lambda^{(0)} = [q^{(0)}]^	opAq^{(0)}\)</span></p>
 <p>for <span class="math notranslate nohighlight">\(k=1,2,\dots\)</span></p>
 <p><span class="math notranslate nohighlight">\(\quad z^{(k)} = (A-\lambda^{(k-1)}I)^{-1}q^{(k-1)}\)</span></p>
 <p><span class="math notranslate nohighlight">\(\quad q^{(k)} = z^{(k)}/\|z^{(k)}\|_2\)</span></p>
-<p><span class="math notranslate nohighlight">\(\quad \lambda^{(k)} = \left[q^{(k)}\right]^TAq^{(k)}\)</span></p>
+<p><span class="math notranslate nohighlight">\(\quad \lambda^{(k)} = \left[q^{(k)}\right]^	opAq^{(k)}\)</span></p>
 <p>end</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">

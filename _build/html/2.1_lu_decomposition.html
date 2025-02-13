@@ -492,14 +492,14 @@ F^{(s)} =
 </div><p>We denote the <span class="math notranslate nohighlight">\(s\)</span>th unit vector by <span class="math notranslate nohighlight">\(e^{(s)}\)</span>, thus <span class="math notranslate nohighlight">\(e_k^{(s)} = 1\)</span> if <span class="math notranslate nohighlight">\(s = k\)</span> and <span class="math notranslate nohighlight">\(e_k^{(s)} = 0\)</span> otherwise. Any Frobenius matrix of index <span class="math notranslate nohighlight">\(s\)</span> can be written by choosing a vector</p>
 <div class="math notranslate nohighlight">
 \[
-f = (0, \ldots, 0, f_{s+1}, \ldots, f_n)^T,
+f = (0, \ldots, 0, f_{s+1}, \ldots, f_n)^\top,
 \]</div>
 <p>containing the subdiagonal elements:</p>
 <div class="math notranslate nohighlight">
 \[
-F = I - f \cdot (e^{(s)})^T = I - f \otimes e^{(s)}.
+F = I - f \cdot (e^{(s)})^\top = I - f \otimes e^{(s)}.
 \]</div>
-<p>Here <span class="math notranslate nohighlight">\(I\)</span> is the identity matrix and <span class="math notranslate nohighlight">\(\otimes\)</span> is the outer (or tensor) product: <span class="math notranslate nohighlight">\(a \cdot b^T = a \otimes b\)</span> for <span class="math notranslate nohighlight">\(a \in \mathbb{R}^m, b \in \mathbb{R}^n\)</span>. Observe that <span class="math notranslate nohighlight">\(a \otimes b \in \mathbb{R}^{m \times n}\)</span> and distinguish it from the inner product <span class="math notranslate nohighlight">\(a^T \cdot b = \langle a, b\rangle \in \mathbb{R}\)</span>.</p>
+<p>Here <span class="math notranslate nohighlight">\(I\)</span> is the identity matrix and <span class="math notranslate nohighlight">\(\otimes\)</span> is the outer (or tensor) product: <span class="math notranslate nohighlight">\(a \cdot b^\top = a \otimes b\)</span> for <span class="math notranslate nohighlight">\(a \in \mathbb{R}^m, b \in \mathbb{R}^n\)</span>. Observe that <span class="math notranslate nohighlight">\(a \otimes b \in \mathbb{R}^{m \times n}\)</span> and distinguish it from the inner product <span class="math notranslate nohighlight">\(a^\top \cdot b = \langle a, b\rangle \in \mathbb{R}\)</span>.</p>
 <p>Before continuing, make sure you fully understand</p>
 <ul class="simple">
 <li><p>why <span class="math notranslate nohighlight">\(A^{(s+1)} = F^{(s)} \, A^{(s)}\)</span> precisely implements the Gaussian elimination in column <span class="math notranslate nohighlight">\(s\)</span>,</p></li>
@@ -535,7 +535,7 @@ G = I + f \otimes e^{(s)}
 <p>For <span class="math notranslate nohighlight">\(s = 1, \ldots, n-1\)</span> let <span class="math notranslate nohighlight">\(G^{(s)} = I + f^{(s)} \otimes e^{(s)}\)</span> be a Frobenius matrix of index <span class="math notranslate nohighlight">\(s\)</span>. Then</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-G^{(1)} \cdots G^{(s)} = I + \sum_{r = 1}^s f^{(r)} \cdot (e^{(r)})^T
+G^{(1)} \cdots G^{(s)} = I + \sum_{r = 1}^s f^{(r)} \cdot (e^{(r)})^\top
 =
 \begin{pmatrix}
 1\\
@@ -553,7 +553,7 @@ f^{(1)}_n &amp; f^{(2)}_n &amp; \cdots &amp; f^{(s)}_n &amp; &amp; &amp; 1
 <p>Proof. We begin induction in <span class="math notranslate nohighlight">\(s\)</span> with <span class="math notranslate nohighlight">\(s = 1\)</span>:</p>
 <div class="math notranslate nohighlight">
 \[
-G^{(1)} = I + f^{(1)} \cdot (e^{(1)})^T.
+G^{(1)} = I + f^{(1)} \cdot (e^{(1)})^\top.
 \]</div>
 <p>Suppose the statement of the lemma holds for <span class="math notranslate nohighlight">\(s\)</span>. Then for the element in row <span class="math notranslate nohighlight">\(i\)</span> and column <span class="math notranslate nohighlight">\(j\)</span> of the product we find</p>
 <div class="math notranslate nohighlight">
@@ -873,7 +873,7 @@ F = \begin{pmatrix}
 1 &amp; 0 &amp; 1
 \end{pmatrix}
 \end{split}\]</div>
-<p>has the form <span class="math notranslate nohighlight">\(F = I - f \cdot g^T\)</span>. What are <span class="math notranslate nohighlight">\(f, g \in \mathbb{R}^3\)</span>?</p>
+<p>has the form <span class="math notranslate nohighlight">\(F = I - f \cdot g^\top\)</span>. What are <span class="math notranslate nohighlight">\(f, g \in \mathbb{R}^3\)</span>?</p>
 </div>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
@@ -899,7 +899,7 @@ e^{(1)} = \begin{pmatrix}
 <p class="sd-card-text">The Frobenius matrix <span class="math notranslate nohighlight">\(F\)</span> is then constructed as:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-F = I - f \cdot (e^{(1)})^T = \begin{pmatrix}
+F = I - f \cdot (e^{(1)})^\top = \begin{pmatrix}
 1 &amp; 0 &amp; 0 \\
 0 &amp; 1 &amp; 0 \\
 0 &amp; 0 &amp; 1
@@ -915,7 +915,7 @@ F = I - f \cdot (e^{(1)})^T = \begin{pmatrix}
 1 &amp; 0 &amp; 1
 \end{pmatrix}.
 \end{split}\]</div>
-<p class="sd-card-text">Thus, the Frobenius matrix has the form <span class="math notranslate nohighlight">\(I - f \cdot g^T\)</span>.</p>
+<p class="sd-card-text">Thus, the Frobenius matrix has the form <span class="math notranslate nohighlight">\(I - f \cdot g^\top\)</span>.</p>
 </div>
 </details><div class="tip admonition">
 <p class="admonition-title"><strong>Question</strong></p>
@@ -932,9 +932,9 @@ F = I - f \cdot (e^{(1)})^T = \begin{pmatrix}
 <p>Proof the Sherman-Morrison formula</p>
 <div class="math notranslate nohighlight">
 \[
-(A+uv^T)^{-1} = A^{-1} - \frac{A^{-1}uv^TA^{-1}}{1+v^TA^{-1}u}
+(A+uv^\top)^{-1} = A^{-1} - \frac{A^{-1}uv^\top A^{-1}}{1+v^\top A^{-1}u}
 \]</div>
-<p>if <span class="math notranslate nohighlight">\(1+v^TA^{-1}u\neq 0\)</span>.</p>
+<p>if <span class="math notranslate nohighlight">\(1+v^\top A^{-1}u\neq 0\)</span>.</p>
 </div>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
@@ -943,18 +943,18 @@ F = I - f \cdot (e^{(1)})^T = \begin{pmatrix}
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{aligned}
-    (A+uv^T) \left[A^{-1} - \frac{A^{-1}uv^TA^{-1}}{1+v^TA^{-1}u}\right] &amp;= \\
-    I - \frac{uv^TA^{-1}}{1+v^TA^{-1}u} + uv^TA^{-1} - uv^T\frac{A^{-1}uv^TA^{-1}}{1+v^TA^{-1}u} &amp;=\\
-    I - \left[\frac{uv^TA^{-1} + uv^TA^{-1}uv^TA^{-1}}{1+v^TA^{-1}u} - uv^TA^{-1}\right] &amp;= \\
-    I - u\left[\frac{1+v^TA^{-1}u}{1+v^TA^{-1}u} -1\right]v^TA^{-1}&amp;= I
+    (A+uv^\top) \left[A^{-1} - \frac{A^{-1}uv^\top A^{-1}}{1+v^\top A^{-1}u}\right] &amp;= \\
+    I - \frac{uv^\top A^{-1}}{1+v^\top A^{-1}u} + uv^\top A^{-1} - uv^\top\frac{A^{-1}uv^\top A^{-1}}{1+v^\top A^{-1}u} &amp;=\\
+    I - \left[\frac{uv^\top A^{-1} + uv^\top A^{-1}uv^\top A^{-1}}{1+v^\top A^{-1}u} - uv^\top A^{-1}\right] &amp;= \\
+    I - u\left[\frac{1+v^\top A^{-1}u}{1+v^\top A^{-1}u} -1\right]v^\top A^{-1}&amp;= I
 \end{aligned}
 \end{split}\]</div>
 <p class="sd-card-text">Similarly, we could show that</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{aligned}
-    \left[A^{-1} - \frac{A^{-1}uv^TA^{-1}}{1+v^TA^{-1}u}\right](A+uv^T) &amp;= \\
-    I - A^{-1}u\left[\frac{1 + v^TA^{-1}u}{1+v^TA^{-1}u} - 1\right]v^T &amp;= I
+    \left[A^{-1} - \frac{A^{-1}uv^\top A^{-1}}{1+v^\top A^{-1}u}\right](A+uv^\top) &amp;= \\
+    I - A^{-1}u\left[\frac{1 + v^\top A^{-1}u}{1+v^\top A^{-1}u} - 1\right]v^\top &amp;= I
 \end{aligned}
 \end{split}\]</div>
 <p class="sd-card-text">Hence, the formula holds.</p>
@@ -1075,7 +1075,7 @@ A = LU = \begin{pmatrix}
 </div>
 </details><div class="tip admonition">
 <p class="admonition-title"><strong>Question</strong></p>
-<p>Suppose that <span class="math notranslate nohighlight">\(A\)</span> is symmetric and <span class="math notranslate nohighlight">\(A = L U\)</span> is its <span class="math notranslate nohighlight">\(LU\)</span> decomposition. Is <span class="math notranslate nohighlight">\(U = L^T\)</span>?</p>
+<p>Suppose that <span class="math notranslate nohighlight">\(A\)</span> is symmetric and <span class="math notranslate nohighlight">\(A = L U\)</span> is its <span class="math notranslate nohighlight">\(LU\)</span> decomposition. Is <span class="math notranslate nohighlight">\(U = L^\top\)</span>?</p>
 </div>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
@@ -1165,7 +1165,7 @@ u_{11} &amp; u_{12} &amp; u_{13}\\
 A =
 \begin{pmatrix}
 \hat{A} &amp; b \\
-c^T     &amp; \gamma
+c^\top     &amp; \gamma
 \end{pmatrix},
 \end{split}\]</div>
 <p class="sd-card-text">where <span class="math notranslate nohighlight">\(\hat{A}\)</span> is an <span class="math notranslate nohighlight">\((n-1)\times(n-1)\)</span> matrix. By the induction assumption, <span class="math notranslate nohighlight">\(\hat{A}\)</span> admits an LU factorisation <span class="math notranslate nohighlight">\(\hat{A} = \hat{L}\hat{U}\)</span> with nonsingular factors. Extend this to <span class="math notranslate nohighlight">\(n \times n\)</span> by setting</p>
@@ -1174,7 +1174,7 @@ c^T     &amp; \gamma
 A =
 \begin{pmatrix}
 \hat{L} &amp; 0 \\
-\ell^T  &amp; 1
+\ell^\top  &amp; 1
 \end{pmatrix}
 \begin{pmatrix}
 \hat{U} &amp; r \\
@@ -1183,9 +1183,9 @@ A =
 \quad
 r = \hat{L}^{-1} b,
 \quad
-\ell^T = c^T \hat{U}^{-1},
+\ell^\top = c^\top \hat{U}^{-1},
 \quad
-\delta = \gamma - c^T\hat{A}^{-1}b.
+\delta = \gamma - c^\top\hat{A}^{-1}b.
 \end{split}\]</div>
 <p class="sd-card-text">Because <span class="math notranslate nohighlight">\(A\)</span> is nonsingular, an LU decomposition exists where both blocks in the factorisation are nonsingular. In fact, the above proof ensures the existence of a decomposition with factor <span class="math notranslate nohighlight">\(L\)</span> whose diagonal elements are normalised to <span class="math notranslate nohighlight">\(1\)</span>.</p>
 <p class="sd-card-text"><strong>Specific Matrix:</strong> Consider</p>

@@ -890,9 +890,9 @@ A = \begin{pmatrix} 3 &amp; 2 \\ 2 &amp; 6 \end{pmatrix}
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{align*}
-q^{(k)} &amp; \gets z^{(k)} / \| z^{(k)} \| = [2, -1]^T / \sqrt{5},\\
-\lambda^{(k)} &amp; \gets (q^{(k)})^T \, A \, q^{(k)} = 2,\\
-z^{(k+1)} &amp; \gets A \cdot q^{(k)} = 2 \, q^{(k)} = 2 \, [2, -1]^T / \sqrt{5}.
+q^{(k)} &amp; \gets z^{(k)} / \| z^{(k)} \| = [2, -1]^\top / \sqrt{5},\\
+\lambda^{(k)} &amp; \gets (q^{(k)})^\top \, A \, q^{(k)} = 2,\\
+z^{(k+1)} &amp; \gets A \cdot q^{(k)} = 2 \, q^{(k)} = 2 \, [2, -1]^\top / \sqrt{5}.
 \end{align*}
 \end{split}\]</div>
 <p class="sd-card-text">More generally, the exercise illustrates the following: Suppose <span class="math notranslate nohighlight">\(A\)</span> has a basis of eigenvectors <span class="math notranslate nohighlight">\(x_1, \ldots, x_n\)</span>, ordered by the magnitude of the respective eigenvalues. Then, for the power iteration to converge to <span class="math notranslate nohighlight">\(x_1\)</span>, it is necessary that <span class="math notranslate nohighlight">\(\alpha_1 \neq 0\)</span> in the linear combination</p>
@@ -909,7 +909,7 @@ q^{(0)} = \sum_{j = 1}^n \alpha_j \, x_j.
 q^{(0)} = \sum_{j = 1}^n \alpha_j x_j
 \]</div>
 <p>of the start vector <span class="math notranslate nohighlight">\(q^{(0)}\)</span> of the power iteration. Also, suppose the eigenvalue <span class="math notranslate nohighlight">\(\lambda_1\)</span> is simple.</p>
-<p>Explain why the power iteration, when applied to <span class="math notranslate nohighlight">\(A - \lambda_1 x_1^T x_1\)</span>, generates a sequence of Rayleigh quotients that converge to <span class="math notranslate nohighlight">\(\lambda_2\)</span>, not <span class="math notranslate nohighlight">\(\lambda_1\)</span>.</p>
+<p>Explain why the power iteration, when applied to <span class="math notranslate nohighlight">\(A - \lambda_1 x_1^\top x_1\)</span>, generates a sequence of Rayleigh quotients that converge to <span class="math notranslate nohighlight">\(\lambda_2\)</span>, not <span class="math notranslate nohighlight">\(\lambda_1\)</span>.</p>
 </div>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
@@ -917,7 +917,7 @@ q^{(0)} = \sum_{j = 1}^n \alpha_j x_j
 <p class="sd-card-text">The power iteration yields</p>
 <div class="math notranslate nohighlight">
 \[
-(A - \lambda_1 x_1^T x_1)^k q^{(0)} = (\alpha_1\lambda_1^k x_1 - \alpha_1\lambda_1^k x_1) + \sum_{j=2}^n\alpha_j\lambda_j^k x_j = \alpha_2\lambda_2^k \left(x_2+\sum_{j \geq 3}\frac{\alpha_j}{\alpha_2}\left(\frac{\lambda_j}{\lambda_2}\right)^k x_j\right).
+(A - \lambda_1 x_1^\top x_1)^k q^{(0)} = (\alpha_1\lambda_1^k x_1 - \alpha_1\lambda_1^k x_1) + \sum_{j=2}^n\alpha_j\lambda_j^k x_j = \alpha_2\lambda_2^k \left(x_2+\sum_{j \geq 3}\frac{\alpha_j}{\alpha_2}\left(\frac{\lambda_j}{\lambda_2}\right)^k x_j\right).
 \]</div>
 <p class="sd-card-text">Therefore, it follows that</p>
 <div class="math notranslate nohighlight">
