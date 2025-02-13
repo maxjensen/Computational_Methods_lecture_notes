@@ -449,10 +449,10 @@ C_1\|x\|_a\leq \|x\|_b\leq C_2\|x\|_a
 <p>The following three matrix norms derive from the corresponding vector norms (where <span class="math notranslate nohighlight">\(\lambda_{\max}\)</span> denotes the largest eigenvalue):</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(\|A\|_1 = \max_{1 \leq j \leq n} \sum_{i=1}^m |a_{ij}| = \max_{x \in \mathbb{R}^n \setminus \{0\}} \frac{\|Ax\|_1}{\|x\|_1}\)</span>,</p></li>
-<li><p><span class="math notranslate nohighlight">\(\|A\|_2 = \sqrt{\lambda_{\max}(A^T A)} = \max_{x \in \mathbb{R}^n \setminus \{0\}} \frac{\|Ax\|_2}{\|x\|_2}\)</span>,</p></li>
+<li><p><span class="math notranslate nohighlight">\(\|A\|_2 = \sqrt{\lambda_{\max}(A^\top A)} = \max_{x \in \mathbb{R}^n \setminus \{0\}} \frac{\|Ax\|_2}{\|x\|_2}\)</span>,</p></li>
 <li><p><span class="math notranslate nohighlight">\(\|A\|_{\infty} = \max_{1 \leq i \leq m} \sum_{j=1}^n |a_{ij}| = \max_{x \in \mathbb{R}^n \setminus \{0\}} \frac{\|Ax\|_\infty}{\|x\|_\infty}\)</span>.</p></li>
 </ul>
-<p>Observe that <span class="math notranslate nohighlight">\(\|A\|_1 = \|A^T\|_{\infty}\)</span>. The <span class="math notranslate nohighlight">\(\|A\|_2\)</span> matrix norm is difficult to evaluate as it requires computation of the largest eigenvalue of <span class="math notranslate nohighlight">\(A^T A\)</span>, which is an computationally expensive operation. In practice, the following <strong>Frobenius</strong> norm is therefore frequently used instead of the matrix <span class="math notranslate nohighlight">\(2\)</span>-norm:</p>
+<p>Observe that <span class="math notranslate nohighlight">\(\|A\|_1 = \|A^\top\|_{\infty}\)</span>. The <span class="math notranslate nohighlight">\(\|A\|_2\)</span> matrix norm is difficult to evaluate as it requires computation of the largest eigenvalue of <span class="math notranslate nohighlight">\(A^\top A\)</span>, which is an computationally expensive operation. In practice, the following <strong>Frobenius</strong> norm is therefore frequently used instead of the matrix <span class="math notranslate nohighlight">\(2\)</span>-norm:</p>
 <div class="math notranslate nohighlight">
 \[
 \|A\|_F := \left(\sum_{ij} |a_{ij}|^2 \right)^{1/2}.
@@ -580,7 +580,7 @@ and thus $\| B v \| \leq \| B \| \, \| v \|$. An analogous argument with $B v$ i
 <p class="sd-card-text">We have <span class="math notranslate nohighlight">\(\|A\|_1 = 4\)</span>, <span class="math notranslate nohighlight">\(\|A\|_{\infty} = 5\)</span>, and <span class="math notranslate nohighlight">\(\|A\|_F = \sqrt{14}\)</span>. For <span class="math notranslate nohighlight">\(\|A\|_2\)</span>, we compute the eigenvalues of</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-A^TA = \begin{pmatrix}4 &amp; 6\\ 6 &amp; 10\end{pmatrix},
+A^\top A = \begin{pmatrix}4 &amp; 6\\ 6 &amp; 10\end{pmatrix},
 \end{split}\]</div>
 <p class="sd-card-text">giving us <span class="math notranslate nohighlight">\(\lambda_{1, 2} = 7 \pm 3\sqrt{5}\)</span>. Hence, <span class="math notranslate nohighlight">\(\|A\|_2 = \sqrt{7 + 3\sqrt{5}}\)</span>.</p>
 </div>

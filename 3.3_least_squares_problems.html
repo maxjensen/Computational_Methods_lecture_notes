@@ -394,7 +394,7 @@
 <p>The identity</p>
 <div class="math notranslate nohighlight">
 \[
-A^TA\hat{x} = A^Ta.
+A^\top A\hat{x} = A^\top a.
 \]</div>
 <p>is called the normal equation of the least-squares problem.</p>
 <div class="proof theorem admonition" id="theorem-0">
@@ -413,25 +413,25 @@ A^TA\hat{x} = A^Ta.
 \[\begin{split}
 \begin{aligned}
 \|A\hat{x} -a \|_2^2 
-&amp; \leq \|A(\hat{x} + \epsilon) - a\|_2^2 = \left[A(\hat{x} + \epsilon) - a\right]^T\left[A(\hat{x} + \epsilon) - a\right]\\
-&amp;= \|A\hat{x} -a \|_2^2+2 \epsilon^T(A^TA\hat{x} - A^Ta) + \epsilon^TA^TA\epsilon
+&amp; \leq \|A(\hat{x} + \epsilon) - a\|_2^2 = \left[A(\hat{x} + \epsilon) - a\right]^\top\left[A(\hat{x} + \epsilon) - a\right]\\
+&amp;= \|A\hat{x} -a \|_2^2+2 \epsilon^\top(A^\top A\hat{x} - A^\top a) + \epsilon^\top A^\top A\epsilon
 \end{aligned}
 \end{split}\]</div>
-<p><em>Step 1:</em> Suppose that <span class="math notranslate nohighlight">\(\hat{x}\)</span> does not satisfy the normal equation. Then <span class="math notranslate nohighlight">\(\| A^TA\hat{x} - A^Ta \|_2 &gt; 0\)</span>. Suppose that <span class="math notranslate nohighlight">\(\hat{x}\)</span> minimises the least-squares problem. With <span class="math notranslate nohighlight">\(\epsilon := \delta (A^TA\hat{x} - A^Ta)\)</span>, <span class="math notranslate nohighlight">\(\delta \in \mathbb{R}\)</span>, the above implies</p>
+<p><em>Step 1:</em> Suppose that <span class="math notranslate nohighlight">\(\hat{x}\)</span> does not satisfy the normal equation. Then <span class="math notranslate nohighlight">\(\| A^\top A\hat{x} - A^\top a \|_2 &gt; 0\)</span>. Suppose that <span class="math notranslate nohighlight">\(\hat{x}\)</span> minimises the least-squares problem. With <span class="math notranslate nohighlight">\(\epsilon := \delta (A^\top A\hat{x} - A^\top a)\)</span>, <span class="math notranslate nohighlight">\(\delta \in \mathbb{R}\)</span>, the above implies</p>
 <div class="math notranslate nohighlight">
 \[
-0 \leq 2 \delta \, \| A^TA\hat{x} - A^Ta \|_2^2 + \delta^2 \, \| A (A^TA\hat{x} - A^Ta) \|_2^2 =: \Phi(\delta) \qquad \forall \delta \in \mathbb{R}.
+0 \leq 2 \delta \, \| A^\top A\hat{x} - A^\top a \|_2^2 + \delta^2 \, \| A (A^\top A\hat{x} - A^\top a) \|_2^2 =: \Phi(\delta) \qquad \forall \delta \in \mathbb{R}.
 \]</div>
 <p>This is a contradiction because <span class="math notranslate nohighlight">\(\Phi(\delta) &lt; 0\)</span> for small negative <span class="math notranslate nohighlight">\(\delta\)</span>.</p>
 <p><em>Step 2:</em> Suppose that <span class="math notranslate nohighlight">\(\hat{x}\)</span> satisfies the normal equation. Then, by the above,</p>
 <div class="math notranslate nohighlight">
 \[
-\|A(\hat{x} + \epsilon) - a\|_2^2 = \|A\hat{x} -a \|_2^2 + \epsilon^TA^TA\epsilon \geq \|A\hat{x} -a \|_2^2.
+\|A(\hat{x} + \epsilon) - a\|_2^2 = \|A\hat{x} -a \|_2^2 + \epsilon^\top A^\top A\epsilon \geq \|A\hat{x} -a \|_2^2.
 \]</div>
 </div>
 <section id="properties-of-the-normal-equation">
 <h3>Properties of the normal equation<a class="headerlink" href="#properties-of-the-normal-equation" title="Link to this heading">#</a></h3>
-<p>We assume in this section that <span class="math notranslate nohighlight">\(m \ge n\)</span> and that <span class="math notranslate nohighlight">\(A\)</span> has a full rank. Let <span class="math notranslate nohighlight">\(A = U\Sigma V^T \in \mathbb{R}^{m \times n}\)</span> be the SVD of <span class="math notranslate nohighlight">\(A\)</span>. To generalise the relative condition number of a square matrix, we define the relative condition number for a rectangular <span class="math notranslate nohighlight">\((m \times n)\)</span>-matrix as</p>
+<p>We assume in this section that <span class="math notranslate nohighlight">\(m \ge n\)</span> and that <span class="math notranslate nohighlight">\(A\)</span> has a full rank. Let <span class="math notranslate nohighlight">\(A = U\Sigma V^\top \in \mathbb{R}^{m \times n}\)</span> be the SVD of <span class="math notranslate nohighlight">\(A\)</span>. To generalise the relative condition number of a square matrix, we define the relative condition number for a rectangular <span class="math notranslate nohighlight">\((m \times n)\)</span>-matrix as</p>
 <div class="math notranslate nohighlight">
 \[
 \kappa_{rel}(A):=\sigma_1/\sigma_n.
@@ -439,13 +439,13 @@ A^TA\hat{x} = A^Ta.
 <p>We also have</p>
 <div class="math notranslate nohighlight">
 \[
-A^TA = V\Sigma^T\Sigma V^T \in \mathbb{R}^{n \times n},
+A^\top A = V\Sigma^\top\Sigma V^\top \in \mathbb{R}^{n \times n},
 \]</div>
-<p>guaranteeing the non-singularity of <span class="math notranslate nohighlight">\(A^T A\)</span> and, therefore, the existence of a unique minimiser of the least-squares problem.</p>
+<p>guaranteeing the non-singularity of <span class="math notranslate nohighlight">\(A^\top A\)</span> and, therefore, the existence of a unique minimiser of the least-squares problem.</p>
 <p>Furthermore,</p>
 <div class="math notranslate nohighlight">
 \[
-\kappa_{rel}(A^TA) = \sigma_1^2 / \sigma_n^2 = \kappa_{rel}(A)^2.
+\kappa_{rel}(A^\top A) = \sigma_1^2 / \sigma_n^2 = \kappa_{rel}(A)^2.
 \]</div>
 <p>It follows that the linear system in the normal equation has a <em>squared condition number</em> compared to the original matrix <span class="math notranslate nohighlight">\(A\)</span>.</p>
 <p>Subsequently, we will explore orthogonalisation methods to circumvent this condition number squaring, offering a more stable approach to solving the least-squares problem.</p>
@@ -462,20 +462,20 @@ A = \begin{pmatrix} Q_1 &amp; Q_2 \end{pmatrix}\begin{pmatrix} R \\ 0 \end{pmatr
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \|Ax - a\|_2 = \left\|\begin{pmatrix} Q_1 &amp; Q_2 \end{pmatrix}\begin{pmatrix} R \\ 0 \end{pmatrix}x - a\right\|_2 =
-\left\|\begin{pmatrix} R \\ 0 \end{pmatrix}x - \begin{pmatrix} Q_1^Ta \\ Q_2^Ta \end{pmatrix}\right\|_2
+\left\|\begin{pmatrix} R \\ 0 \end{pmatrix}x - \begin{pmatrix} Q_1^\top a \\ Q_2^\top a \end{pmatrix}\right\|_2
 \end{split}\]</div>
 <p>Here, we observe that the choice of <span class="math notranslate nohighlight">\(x\)</span> influences only the first block-row. In the second block row, <span class="math notranslate nohighlight">\(x\)</span> is multiplied by zero, meaning no choice of <span class="math notranslate nohighlight">\(x\)</span> will reduce the contribution from this part. Therefore, the minimiser <span class="math notranslate nohighlight">\(\hat{x}\)</span> of the least-squares problem is found by solving:</p>
 <div class="math notranslate nohighlight">
 \[
-R \hat{x} = Q_1^Ta.
+R \hat{x} = Q_1^\top a.
 \]</div>
 <p>Returning to the question of the <span class="math notranslate nohighlight">\(2\)</span>-norm condition number:</p>
 <div class="math notranslate nohighlight">
 \[
-\kappa_{rel}(R) = \kappa_{rel}(Q^T A) = \| Q^T A \|_2 \, \| (Q^T A)^{-1} \|_2 \leq \| Q^T \|_2 \, \| A \|_2 \, \|
+\kappa_{rel}(R) = \kappa_{rel}(Q^\top A) = \| Q^\top A \|_2 \, \| (Q^\top A)^{-1} \|_2 \leq \| Q^\top \|_2 \, \| A \|_2 \, \|
 A^{-1} \|_2 \, \| Q \|_2 = \kappa_{rel}(A),
 \]</div>
-<p>where we use the submultiplicativity of the matrix <span class="math notranslate nohighlight">\(2\)</span>-norm and that <span class="math notranslate nohighlight">\(\| Q \|_2 = 1\)</span> and <span class="math notranslate nohighlight">\(Q^T = Q^{-1}\)</span>.</p>
+<p>where we use the submultiplicativity of the matrix <span class="math notranslate nohighlight">\(2\)</span>-norm and that <span class="math notranslate nohighlight">\(\| Q \|_2 = 1\)</span> and <span class="math notranslate nohighlight">\(Q^\top = Q^{-1}\)</span>.</p>
 <p>Consequently, the <span class="math notranslate nohighlight">\(QR\)</span> decomposition approach effectively circumvents the condition number squaring issue associated with the normal equation method.</p>
 </section>
 <section id="solving-least-squares-problems-with-the-svd">
@@ -483,32 +483,32 @@ A^{-1} \|_2 \, \| Q \|_2 = \kappa_{rel}(A),
 <p>The SVD can also be used to solve least-squares problems. In this section, we assume that <span class="math notranslate nohighlight">\(m \ge n\)</span> but <strong>not</strong> that <span class="math notranslate nohighlight">\(A\)</span> has a full rank. The full SVD of <span class="math notranslate nohighlight">\(A\)</span> is</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}  
-A = U\Sigma V^T = \begin{pmatrix} U_1 &amp; U_2 \end{pmatrix} \begin{pmatrix} \hat{\Sigma} &amp; 0 \\ 0 &amp; 0 \end{pmatrix} \begin{pmatrix} V_1 &amp; V_2 \end{pmatrix}^T
+A = U\Sigma V^\top = \begin{pmatrix} U_1 &amp; U_2 \end{pmatrix} \begin{pmatrix} \hat{\Sigma} &amp; 0 \\ 0 &amp; 0 \end{pmatrix} \begin{pmatrix} V_1 &amp; V_2 \end{pmatrix}^\top
 \end{split}\]</div>
 <p>with <span class="math notranslate nohighlight">\(\hat{\Sigma}\)</span> as in <a class="reference internal" href="3.2_singular_value_decomposition.html"><span class="std std-doc">the previous chapter</span></a>. Substitute into the least-squares problem to obtain</p>
 <div class="math notranslate nohighlight">
 \[
-\|Ax-a\|_2 = \|U\Sigma V^Tx - a\|_2.
+\|Ax-a\|_2 = \|U\Sigma V^\top x - a\|_2.
 \]</div>
-<p>Let <span class="math notranslate nohighlight">\([y_1, y_2]^T = [V_1^T x, V_2^T x]^T\)</span> and factorise out <span class="math notranslate nohighlight">\(U\)</span> to obtain</p>
+<p>Let <span class="math notranslate nohighlight">\([y_1, y_2]^\top = [V_1^\top x, V_2^\top x]^\top\)</span> and factorise out <span class="math notranslate nohighlight">\(U\)</span> to obtain</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-\|Ax - a\|_2 = \left\|\begin{pmatrix} \hat{\Sigma} &amp; 0 \\ 0 &amp; 0 \end{pmatrix} \begin{pmatrix} y_1\\ y_2 \end{pmatrix} - \begin{pmatrix}U_1^Ta\\
-U_2^Ta\end{pmatrix}\right\|_2.
+\|Ax - a\|_2 = \left\|\begin{pmatrix} \hat{\Sigma} &amp; 0 \\ 0 &amp; 0 \end{pmatrix} \begin{pmatrix} y_1\\ y_2 \end{pmatrix} - \begin{pmatrix}U_1^\top a\\
+U_2^\top a\end{pmatrix}\right\|_2.
 \end{split}\]</div>
-<p>The second block row as well as the choice of <span class="math notranslate nohighlight">\(y_2\)</span> do not affect the least-squares norm and, hence, <span class="math notranslate nohighlight">\(y_1 = \hat{\Sigma}^{-1} U_1^Ta\)</span> and therefore</p>
+<p>The second block row as well as the choice of <span class="math notranslate nohighlight">\(y_2\)</span> do not affect the least-squares norm and, hence, <span class="math notranslate nohighlight">\(y_1 = \hat{\Sigma}^{-1} U_1^\top a\)</span> and therefore</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-\hat{x}= \begin{pmatrix} V_1 &amp; V_2 \end{pmatrix} \begin{pmatrix} \hat{\Sigma}^{-1} &amp; 0 \\ 0 &amp; 0 \end{pmatrix} \begin{pmatrix} U_1 &amp; U_2 \end{pmatrix}^T a
+\hat{x}= \begin{pmatrix} V_1 &amp; V_2 \end{pmatrix} \begin{pmatrix} \hat{\Sigma}^{-1} &amp; 0 \\ 0 &amp; 0 \end{pmatrix} \begin{pmatrix} U_1 &amp; U_2 \end{pmatrix}^\top a
 \end{split}\]</div>
 <p>is a (possibly non-unique) minimiser of the least-squares problem. This leads to the important concept of a pseudo-inverse of a matrix.</p>
 <div class="proof definition admonition" id="definition-1">
 <p class="admonition-title"><span class="caption-number">Definition 7 </span> (Pseudo-inverse of a matrix)</p>
 <section class="definition-content" id="proof-content">
-<p>Let <span class="math notranslate nohighlight">\(U \Sigma V^T\)</span> be an SVD of <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span> and <span class="math notranslate nohighlight">\(m \geq n\)</span>. Then the pseudo-inverse of <span class="math notranslate nohighlight">\(A\)</span> is</p>
+<p>Let <span class="math notranslate nohighlight">\(U \Sigma V^\top\)</span> be an SVD of <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span> and <span class="math notranslate nohighlight">\(m \geq n\)</span>. Then the pseudo-inverse of <span class="math notranslate nohighlight">\(A\)</span> is</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-A^{\dagger} := V \begin{pmatrix} \hat{\Sigma}^{-1} &amp; 0 \\ 0 &amp; 0 \end{pmatrix} U^T,
+A^{\dagger} := V \begin{pmatrix} \hat{\Sigma}^{-1} &amp; 0 \\ 0 &amp; 0 \end{pmatrix} U^\top,
 \end{split}\]</div>
 <p>where <span class="math notranslate nohighlight">\(\hat{\Sigma} \in \mathbb{R}^{r \times r}\)</span> and <span class="math notranslate nohighlight">\(r = \text{rank}(A)\)</span>.</p>
 </section>
@@ -532,7 +532,7 @@ A^{\dagger} := V \begin{pmatrix} \hat{\Sigma}^{-1} &amp; 0 \\ 0 &amp; 0 \end{pma
 <span class="c1"># Compute Q^T * a</span>
 <span class="n">Q_T_a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">Q</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
 
-<span class="c1"># Solve Rx = Q^Ta for x</span>
+<span class="c1"># Solve Rx = Q^T a for x</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">solve_triangular</span><span class="p">(</span><span class="n">R</span><span class="p">[:</span><span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="p">:],</span> <span class="n">Q_T_a</span><span class="p">[:</span><span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Solution x:&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
@@ -589,12 +589,12 @@ A^{\dagger} := V \begin{pmatrix} \hat{\Sigma}^{-1} &amp; 0 \\ 0 &amp; 0 \end{pma
 <p class="sd-card-text">We have</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-\mathbf{A}^T\mathbf{A} = \begin{pmatrix} 1 &amp; 1 &amp; 1\\ 1 &amp; 2 &amp; 3  \end{pmatrix} \begin{pmatrix} 1 &amp; 1 \\ 1 &amp; 2 \\ 1 &amp; 3 \end{pmatrix} = \begin{pmatrix} 3 &amp; 6 \\ 6 &amp; 14 \end{pmatrix}
+\mathbf{A}^\top\mathbf{A} = \begin{pmatrix} 1 &amp; 1 &amp; 1\\ 1 &amp; 2 &amp; 3  \end{pmatrix} \begin{pmatrix} 1 &amp; 1 \\ 1 &amp; 2 \\ 1 &amp; 3 \end{pmatrix} = \begin{pmatrix} 3 &amp; 6 \\ 6 &amp; 14 \end{pmatrix}
 \end{split}\]</div>
 <p class="sd-card-text">and</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-\mathbf{A}^T\mathbf{a} = \begin{pmatrix} 1 &amp; 1 &amp; 1\\ 1 &amp; 2 &amp; 3 \end{pmatrix} \begin{pmatrix} 2 \\ 3 \\ 5 \end{pmatrix} = \begin{pmatrix} 10\\ 23 \end{pmatrix}.
+\mathbf{A}^\top\mathbf{a} = \begin{pmatrix} 1 &amp; 1 &amp; 1\\ 1 &amp; 2 &amp; 3 \end{pmatrix} \begin{pmatrix} 2 \\ 3 \\ 5 \end{pmatrix} = \begin{pmatrix} 10\\ 23 \end{pmatrix}.
 \end{split}\]</div>
 <p class="sd-card-text">Thus, the minimiser solves</p>
 <div class="math notranslate nohighlight">
@@ -684,7 +684,7 @@ formulated as</p>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
 <span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
-<p class="sd-card-text">The matrix <span class="math notranslate nohighlight">\(A\)</span> of the normal equation <span class="math notranslate nohighlight">\(A^TA\hat{x} = A^Ta\)</span> depends on <span class="math notranslate nohighlight">\(\{ x_i \}\)</span>, but not <span class="math notranslate nohighlight">\(\{y_i\}\)</span>. Compute the QR or singular value decomposition of <span class="math notranslate nohighlight">\(A\)</span> once, and apply it for each of the different <span class="math notranslate nohighlight">\(\{y_i\}\)</span>.</p>
+<p class="sd-card-text">The matrix <span class="math notranslate nohighlight">\(A\)</span> of the normal equation <span class="math notranslate nohighlight">\(A^\top A\hat{x} = A^\top a\)</span> depends on <span class="math notranslate nohighlight">\(\{ x_i \}\)</span>, but not <span class="math notranslate nohighlight">\(\{y_i\}\)</span>. Compute the QR or singular value decomposition of <span class="math notranslate nohighlight">\(A\)</span> once, and apply it for each of the different <span class="math notranslate nohighlight">\(\{y_i\}\)</span>.</p>
 </div>
 </details><div class="tip admonition">
 <p class="admonition-title"><strong>Question</strong></p>
@@ -697,14 +697,14 @@ formulated as</p>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
 <span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
-<p class="sd-card-text">The SVD of <span class="math notranslate nohighlight">\(A\)</span> is given as <span class="math notranslate nohighlight">\(A=U\Sigma V^T\)</span>, where <span class="math notranslate nohighlight">\(U\in\mathbb{R}^{m\times m}\)</span> and <span class="math notranslate nohighlight">\(V\in\mathbb{R}^{n\times n}\)</span> are orthogonal
+<p class="sd-card-text">The SVD of <span class="math notranslate nohighlight">\(A\)</span> is given as <span class="math notranslate nohighlight">\(A=U\Sigma V^\top\)</span>, where <span class="math notranslate nohighlight">\(U\in\mathbb{R}^{m\times m}\)</span> and <span class="math notranslate nohighlight">\(V\in\mathbb{R}^{n\times n}\)</span> are orthogonal
 matrices and <span class="math notranslate nohighlight">\(\Sigma \in\mathbb{R}^{m\times n}\)</span> is a diagonal matrix with the nonzero singular values <span class="math notranslate nohighlight">\(\sigma_1\geq\sigma_2\geq\dots\geq\sigma_n &gt;0\)</span> in decreasing order on the diagonal of the matrix, using that <span class="math notranslate nohighlight">\(A\)</span> has full rank.</p>
 <p class="sd-card-text">Substituting into the least-squares problem, we have</p>
 <div class="math notranslate nohighlight">
 \[
-\|Ax-a\|_2 = \|U\Sigma V^Tx - a\|_2 = \|\Sigma y - \hat{a}\|_2
+\|Ax-a\|_2 = \|U\Sigma V^\top x - a\|_2 = \|\Sigma y - \hat{a}\|_2
 \]</div>
-<p class="sd-card-text">for <span class="math notranslate nohighlight">\(y=V^Tx\)</span> and <span class="math notranslate nohighlight">\(\hat{a} = U^Ta\)</span>. We find <span class="math notranslate nohighlight">\(y_j\)</span> as <span class="math notranslate nohighlight">\(y_j = \hat{a}_j/\sigma_j\)</span> by minimising the above expression. This is equivalent to <span class="math notranslate nohighlight">\(x = A^{\dagger} a\)</span>.</p>
+<p class="sd-card-text">for <span class="math notranslate nohighlight">\(y=V^\top x\)</span> and <span class="math notranslate nohighlight">\(\hat{a} = U^\top a\)</span>. We find <span class="math notranslate nohighlight">\(y_j\)</span> as <span class="math notranslate nohighlight">\(y_j = \hat{a}_j/\sigma_j\)</span> by minimising the above expression. This is equivalent to <span class="math notranslate nohighlight">\(x = A^{\dagger} a\)</span>.</p>
 </div>
 </details><div class="tip admonition">
 <p class="admonition-title"><strong>Question</strong></p>
@@ -717,7 +717,7 @@ matrices and <span class="math notranslate nohighlight">\(\Sigma \in\mathbb{R}^{
 Show that the solution of this least-squares problem is identical to the solution of</p>
 <div class="math notranslate nohighlight">
 \[
-(A^TA+L^TL)x = A^Ta.
+(A^\top A+L^\top L)x = A^\top a.
 \]</div>
 </div>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
@@ -729,22 +729,22 @@ Show that the solution of this least-squares problem is identical to the solutio
 \begin{aligned}
 \|A\hat{x} -a \|_2^2 + \| L \hat{x}\|_2^2 
 &amp; \leq \|A(\hat{x} + \epsilon) - a\|_2^2 + \| L (\hat{x} + \epsilon) \|_2^2\\
-&amp; = \left[A(\hat{x} + \epsilon) - a\right]^T\left[A(\hat{x} + \epsilon) - a\right] + [L (\hat{x} + \epsilon)]^T [L (\hat{x} + \epsilon)]\\
-&amp;= \|A\hat{x} -a \|_2^2+2 \epsilon^T(A^TA\hat{x} - A^Ta) + \epsilon^TA^TA\epsilon + 
-\|L\hat{x} \|_2^2+2 \epsilon^T(L^TL\hat{x}) + \epsilon^TL^T L \epsilon\\
-&amp;= \|A\hat{x} -a \|_2^2 + \|L\hat{x} \|_2^2 + 2 \epsilon^T((A^TA + L^TL) \hat{x} - A^Ta) + \epsilon^T(A^TA + L^T L) \epsilon
+&amp; = \left[A(\hat{x} + \epsilon) - a\right]^\top\left[A(\hat{x} + \epsilon) - a\right] + [L (\hat{x} + \epsilon)]^\top [L (\hat{x} + \epsilon)]\\
+&amp;= \|A\hat{x} -a \|_2^2+2 \epsilon^\top(A^\top A\hat{x} - A^\top a) + \epsilon^\top A^\top A\epsilon + 
+\|L\hat{x} \|_2^2+2 \epsilon^\top(L^\top L\hat{x}) + \epsilon^\top L^\top L \epsilon\\
+&amp;= \|A\hat{x} -a \|_2^2 + \|L\hat{x} \|_2^2 + 2 \epsilon^\top((A^\top A + L^\top L) \hat{x} - A^\top a) + \epsilon^\top(A^\top A + L^\top L) \epsilon
 \end{aligned}
 \end{split}\]</div>
-<p class="sd-card-text"><em>Step 1:</em> Suppose that <span class="math notranslate nohighlight">\(\hat{x}\)</span> does not satisfy the generalised normal equation <span class="math notranslate nohighlight">\((A^TA+L^TL)x = A^Ta.\)</span>. Then <span class="math notranslate nohighlight">\(\| (A^TA + L^TL) \hat{x} - A^Ta \|_2 &gt; 0\)</span>. Suppose that <span class="math notranslate nohighlight">\(\hat{x}\)</span> minimises the least-squares problem. With <span class="math notranslate nohighlight">\(\epsilon := \delta ((A^TA + L^TL) \hat{x} - A^Ta)\)</span>, <span class="math notranslate nohighlight">\(\delta \in \mathbb{R}\)</span>, the above implies</p>
+<p class="sd-card-text"><em>Step 1:</em> Suppose that <span class="math notranslate nohighlight">\(\hat{x}\)</span> does not satisfy the generalised normal equation <span class="math notranslate nohighlight">\((A^\top A+L^\top L)x = A^\top a.\)</span>. Then <span class="math notranslate nohighlight">\(\| (A^\top A + L^\top L) \hat{x} - A^\top a \|_2 &gt; 0\)</span>. Suppose that <span class="math notranslate nohighlight">\(\hat{x}\)</span> minimises the least-squares problem. With <span class="math notranslate nohighlight">\(\epsilon := \delta ((A^\top A + L^\top L) \hat{x} - A^\top a)\)</span>, <span class="math notranslate nohighlight">\(\delta \in \mathbb{R}\)</span>, the above implies</p>
 <div class="math notranslate nohighlight">
 \[
-0 \leq 2 \delta \, \| (A^TA + L^TL) \hat{x} - A^Ta \|_2^2 + \delta^2 \, \| (A + L) ((A^TA + L^TL) \hat{x} - A^Ta) \|_2^2 =: \Phi(\delta) \qquad \forall \delta \in \mathbb{R}.
+0 \leq 2 \delta \, \| (A^\top A + L^\top L) \hat{x} - A^\top a \|_2^2 + \delta^2 \, \| (A + L) ((A^\top A + L^\top L) \hat{x} - A^\top a) \|_2^2 =: \Phi(\delta) \qquad \forall \delta \in \mathbb{R}.
 \]</div>
 <p class="sd-card-text">This is a contradiction because <span class="math notranslate nohighlight">\(\Phi(\delta) &lt; 0\)</span> for small negative <span class="math notranslate nohighlight">\(\delta\)</span>.</p>
 <p class="sd-card-text"><em>Step 2:</em> Suppose that <span class="math notranslate nohighlight">\(\hat{x}\)</span> satisfies the generalised normal equation. Then, by the above,</p>
 <div class="math notranslate nohighlight">
 \[
-\|\|A(\hat{x} + \epsilon) - a\|_2^2 + \| L (\hat{x} + \epsilon) \|_2^2 = \|A\hat{x} -a \|_2^2 + \|L\hat{x} \|_2^2 + \epsilon^T(A^TA + L^T L) \epsilon \geq \|A\hat{x} -a \|_2^2 + \|L\hat{x} \|_2^2,
+\|\|A(\hat{x} + \epsilon) - a\|_2^2 + \| L (\hat{x} + \epsilon) \|_2^2 = \|A\hat{x} -a \|_2^2 + \|L\hat{x} \|_2^2 + \epsilon^\top(A^\top A + L^\top L) \epsilon \geq \|A\hat{x} -a \|_2^2 + \|L\hat{x} \|_2^2,
 \]</div>
 <p class="sd-card-text">ensuring that <span class="math notranslate nohighlight">\(\hat{x}\)</span> is a minimiser.</p>
 </div>
@@ -762,10 +762,10 @@ of <span class="math notranslate nohighlight">\(R\)</span>.</p>
 \[\begin{split}
 A = \begin{pmatrix}Q &amp; Q^{\bot}\end{pmatrix}\begin{pmatrix}R\\ 0\end{pmatrix}.
 \end{split}\]</div>
-<p class="sd-card-text">Let <span class="math notranslate nohighlight">\(R = U\Sigma V^T\)</span> be the SVD of <span class="math notranslate nohighlight">\(R\)</span>. Plugging into the above equation gives</p>
+<p class="sd-card-text">Let <span class="math notranslate nohighlight">\(R = U\Sigma V^\top\)</span> be the SVD of <span class="math notranslate nohighlight">\(R\)</span>. Plugging into the above equation gives</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-A = \begin{pmatrix}Q &amp; Q^{\bot}\end{pmatrix}\begin{pmatrix}U &amp; 0 \\ 0 &amp; I\end{pmatrix}\begin{pmatrix}\Sigma \\ 0\end{pmatrix}V^T.
+A = \begin{pmatrix}Q &amp; Q^{\bot}\end{pmatrix}\begin{pmatrix}U &amp; 0 \\ 0 &amp; I\end{pmatrix}\begin{pmatrix}\Sigma \\ 0\end{pmatrix}V^\top.
 \end{split}\]</div>
 <p class="sd-card-text">This is the singular value decomposition of <span class="math notranslate nohighlight">\(A\)</span> with singular values contained in <span class="math notranslate nohighlight">\(\Sigma\)</span>.</p>
 </div>
@@ -786,7 +786,7 @@ A = \begin{pmatrix} 2 &amp; 0 \\ 0 &amp; 0 \end{pmatrix}, \qquad a = \begin{pmat
 \[\begin{split}
 A^{\dagger} = \begin{pmatrix} 0.5 &amp; 0 \\ 0 &amp; 0 \end{pmatrix}.
 \end{split}\]</div>
-<p class="sd-card-text">The pseudo-inverse selects the solution <span class="math notranslate nohighlight">\((1,0)^T = A^{\dagger} a\)</span>. Clearly, the <span class="math notranslate nohighlight">\(x_2\)</span> component does not affect the value of <span class="math notranslate nohighlight">\(A x\)</span> so that the solutions of the least-squares problem are of the form <span class="math notranslate nohighlight">\((1, x_2)^T\)</span>, <span class="math notranslate nohighlight">\(x_2 \in \mathbb{R}\)</span>.</p>
+<p class="sd-card-text">The pseudo-inverse selects the solution <span class="math notranslate nohighlight">\((1,0)^\top = A^{\dagger} a\)</span>. Clearly, the <span class="math notranslate nohighlight">\(x_2\)</span> component does not affect the value of <span class="math notranslate nohighlight">\(A x\)</span> so that the solutions of the least-squares problem are of the form <span class="math notranslate nohighlight">\((1, x_2)^\top\)</span>, <span class="math notranslate nohighlight">\(x_2 \in \mathbb{R}\)</span>.</p>
 </div>
 </details></section>
 <section id="optional-material">
@@ -836,7 +836,7 @@ s : V \times V \to \mathbb{K}
 <p class="sd-card-text">(a) Let <span class="math notranslate nohighlight">\(A\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^{n \times n}\)</span> be a symmetric, positive definite matrix. Then the mapping</p>
 <div class="math notranslate nohighlight">
 \[
-\mathbb{R}^n \times \mathbb{R}^n \to \mathbb{R}, \; (x,y) \mapsto x^T \, A \, y
+\mathbb{R}^n \times \mathbb{R}^n \to \mathbb{R}, \; (x,y) \mapsto x^\top \, A \, y
 \]</div>
 <p class="sd-card-text">is a scalar product on <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>. The canonical scalar product is defined with <span class="math notranslate nohighlight">\(A\)</span> being the identity matrix <span class="math notranslate nohighlight">\(I\)</span>.</p>
 <p class="sd-card-text">(b) Let <span class="math notranslate nohighlight">\(A\)</span> in <span class="math notranslate nohighlight">\(\mathbb{C}^{n \times n}\)</span> be a Hermitian, positive definite matrix, i.e. <span class="math notranslate nohighlight">\(A = A^H\)</span>. Then the mapping</p>

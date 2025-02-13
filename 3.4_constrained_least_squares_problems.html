@@ -355,6 +355,7 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#least-squares-problems">Least-squares problems</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#self-check-questions">Self-check questions</a></li>
 </ul>
             </nav>
         </div>
@@ -378,15 +379,19 @@
 &amp; D x \ge d.
 \end{array}
 \end{split}\]</div>
-<p>where <span class="math notranslate nohighlight">\(a \in \mathbb{R}^n\)</span>, <span class="math notranslate nohighlight">\(c \in \mathbb{R}^m\)</span>, <span class="math notranslate nohighlight">\(d \in \mathbb{R}^p\)</span>, <span class="math notranslate nohighlight">\(C \in \mathbb{R}^{m \times n}\)</span>, <span class="math notranslate nohighlight">\(D \in \mathbb{R}^{p \times n}\)</span> and <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{n \times n}\)</span>.</p>
-<p>Because of the constraints, the techniques from the previous section do not apply directly because the problem is inherently nonlinear.</p>
-<p>Setting <span class="math notranslate nohighlight">\(B = A^T A\)</span> and <span class="math notranslate nohighlight">\(b = - a^T A\)</span>, we rewrite the above least-squares problem in the generic form of a quadratic programme.</p>
+<p>where <span class="math notranslate nohighlight">\(a \in \mathbb{R}^n\)</span>, <span class="math notranslate nohighlight">\(c \in \mathbb{R}^m\)</span>, <span class="math notranslate nohighlight">\(d \in \mathbb{R}^p\)</span>, <span class="math notranslate nohighlight">\(C \in \mathbb{R}^{m \times n}\)</span>, <span class="math notranslate nohighlight">\(D \in \mathbb{R}^{p \times n}\)</span> and <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{n \times n}\)</span>. The expression <span class="math notranslate nohighlight">\(D x \ge d\)</span> is to be understood componentwise: for <span class="math notranslate nohighlight">\(d, e \in \mathbb{R}^p\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[
+d \ge e \qquad \Leftrightarrow \qquad d_i \ge e_i \quad \forall \; i \in \{1, \ldots, p\}.
+\]</div>
+<p>Because of the constraints, the techniques from the previous section do not apply directly, as the problem is inherently nonlinear.</p>
+<p>Setting <span class="math notranslate nohighlight">\(B = A^\top A\)</span> and <span class="math notranslate nohighlight">\(b = - A^\top a\)</span>, we rewrite the above least-squares problem in the generic form of a quadratic programme.</p>
 <div class="admonition-primal-problem-quadratic-programme admonition">
 <p class="admonition-title">Primal problem (quadratic programme)</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{array}{ll}
-\min_x &amp; \frac{1}{2} x^T B x + b^T x\\
+\min_x &amp; \frac{1}{2} x^\top B x + b^\top x\\
 \text{subject to} &amp;\\
 &amp; C x - c = 0,\\
 &amp; D x - d \ge 0.
@@ -396,15 +401,15 @@
 <p>Both problems have the same minimisers because</p>
 <div class="math notranslate nohighlight">
 \[
-\textstyle \frac{1}{2} \| A x - a \|_2^2 = \frac{1}{2} x^T A^T A  x - a^T A x + \frac{1}{2} a^T a = x^T B x + b^T x + \frac{1}{2} a^T a,
+\textstyle \frac{1}{2} \| A x - a \|_2^2 = \frac{1}{2} x^\top A^\top A  x - a^\top A x + \frac{1}{2} a^\top a = x^\top B x + b^\top x + \frac{1}{2} a^\top a,
 \]</div>
-<p>noting that the constant term <span class="math notranslate nohighlight">\(\frac{1}{2} a^T a\)</span> can be removed without changing the set of minimisers. Because of our initial assumption <span class="math notranslate nohighlight">\(B = A^T A\)</span> we shall assume throughout the section that <span class="math notranslate nohighlight">\(B\)</span> is symmetric and positive semi-definite. We refer to <span class="math notranslate nohighlight">\(\frac{1}{2} x^T B x + b^T x\)</span> as the <em>objective function</em>, <span class="math notranslate nohighlight">\(C x - c = 0\)</span> the <em>equality constraint</em> and <span class="math notranslate nohighlight">\(D x - d \ge 0\)</span> the <em>inequality constraint</em>. The <em>value</em> of the optimal control problem is that value of the objective function when evaluated at an optimal solution.</p>
+<p>noting that the constant term <span class="math notranslate nohighlight">\(\frac{1}{2} a^\top a\)</span> can be removed without changing the set of minimisers. Because of our initial assumption <span class="math notranslate nohighlight">\(B = A^\top A\)</span> we shall assume throughout the section that <span class="math notranslate nohighlight">\(B\)</span> is symmetric and positive semi-definite. We refer to <span class="math notranslate nohighlight">\(\frac{1}{2} x^\top B x + b^\top x\)</span> as the <em>objective function</em>, <span class="math notranslate nohighlight">\(C x - c = 0\)</span> the <em>equality constraint</em> and <span class="math notranslate nohighlight">\(D x - d \ge 0\)</span> the <em>inequality constraint</em>. The <em>value</em> of the optimal control problem is that value of the objective function when evaluated at an optimal solution.</p>
 <p>Observe, that the value of the initial problem in least-squares form differs from that of quadratic programme because of the factor <span class="math notranslate nohighlight">\(\frac{1}{2}\)</span> and the squaring of the norm and the constant term, even if the set of optimal solutions coincide. However, given a optimal solution <span class="math notranslate nohighlight">\(x\)</span> it is simple to compute the value <span class="math notranslate nohighlight">\(\| A x - a \|_2\)</span>.</p>
 <p>In this section, we learn about <em>certificates of optimality</em>, which address a more fundamental point: The algorithms to solve constrained least-squares problem are outside of the scope of this module. How, then, can you solve such problems with confidence? More generally, how can you use numerical methods, that you have not mathematically fully understood? A key realisation is that verifying whether a candidate solution is indeed equal to (or at least a good approximation of) an exaxt solution is often much simpler than finding such a candidate in the first place.</p>
 <p>You are familiar with this situation from other areas of mathematics: For</p>
 <div class="math notranslate nohighlight">
 \[
-F(t) = \int_0^t f(x) dx,
+F(t) = \int_0^\top f(x) dx,
 \]</div>
 <p>it can be hard to find <span class="math notranslate nohighlight">\(F\)</span> given <span class="math notranslate nohighlight">\(f\)</span>, but once a candidate <span class="math notranslate nohighlight">\(F\)</span> is found, it is relatively easy to check that its derivative is <span class="math notranslate nohighlight">\(f\)</span>. Similarly, various encryption methods rely on the fact that it is easier to multiply two prime numbers than to find the prime factors of a given product.</p>
 <p>A certificate of optimality consists of a candidate solution together with additional information that makes it relatively easy to confirm the quality of the candidate solution; even if the method by which the candidate solution was obtained is not examined. In other areas of numerical analysis and scientific computing one finds similar concepts; for example, <em>a posteriori error bounds</em> are used to appraise the quality of numerical solutions of differential equations.</p>
@@ -412,14 +417,14 @@ F(t) = \int_0^t f(x) dx,
 <p>The <em>Lagrangian function</em> associated with the primal problem is</p>
 <div class="math notranslate nohighlight">
 \[
-L(x, y, s) := \frac{1}{2} x^T B x + b^T x - y^T (C x - c) - s^T (D x - d).
+L(x, y, s) := \frac{1}{2} x^\top B x + b^\top x - y^\top (C x - c) - s^\top (D x - d).
 \]</div>
-<p>All information about the primal problem is encoded within the Lagrangian function through the observation that for any given vector <span class="math notranslate nohighlight">\(x\)</span> (self-check question)</p>
+<p>The variables <span class="math notranslate nohighlight">\(y\)</span> and <span class="math notranslate nohighlight">\(s\)</span> are called <em>Lagrangian multipliers</em>. All information about the primal problem is encoded within the Lagrangian function through the observation that for any given vector <span class="math notranslate nohighlight">\(x\)</span> (self-check question)</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-\max_{y, s \atop s \geq 0} L(x, y, s) = 
+\max_{y, s \atop s \geq 0} L(x, y, s) =
 \begin{cases}
-\frac{1}{2} x^T B x + b^T x &amp; \text{if $C x = c$ and $D x \geq d$,}\\
+\frac{1}{2} x^\top B x + b^\top x &amp; \text{if $C x = c$ and $D x \geq d$,}\\
 +\infty &amp; \text{otherwise.}
 \end{cases}
 \end{split}\]</div>
@@ -445,14 +450,14 @@ L(x, y, s) := \frac{1}{2} x^T B x + b^T x - y^T (C x - c) - s^T (D x - d).
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{array}{ll}
-\max_{x,y,s} &amp; c^T y + d^T s - \frac{1}{2} x^T B x\\
+\max_{x,y,s} &amp; c^\top y + d^\top s - \frac{1}{2} x^\top B x\\
 \text{subject to} &amp;\\
-&amp; C^T y + D^T s - B x = b,\\
+&amp; C^\top y + D^\top s - B x = b,\\
 &amp; s \ge 0.
 \end{array}
 \end{split}\]</div>
 </div>
-<p>We call <span class="math notranslate nohighlight">\(x\)</span> a <em>feasible point</em> of the primal problem if <span class="math notranslate nohighlight">\(C x = c\)</span> and <span class="math notranslate nohighlight">\(D x \ge d\)</span>. Similarly, <span class="math notranslate nohighlight">\((x,y,s)\)</span> is feasible for the dual problem if <span class="math notranslate nohighlight">\(C^T y + D^T s - B x = b\)</span> and <span class="math notranslate nohighlight">\(s \ge 0\)</span>. In short, feasible points are those that satisfy the constraints.</p>
+<p>We call <span class="math notranslate nohighlight">\(x\)</span> a <em>feasible point</em> of the primal problem if <span class="math notranslate nohighlight">\(C x = c\)</span> and <span class="math notranslate nohighlight">\(D x \ge d\)</span>. Similarly, <span class="math notranslate nohighlight">\((x,y,s)\)</span> is feasible for the dual problem if <span class="math notranslate nohighlight">\(C^\top y + D^\top s - B x = b\)</span> and <span class="math notranslate nohighlight">\(s \ge 0\)</span>. In short, feasible points are those that satisfy the constraints.</p>
 <p>There is a fundamental connection between the primal and dual problem</p>
 <div class="proof theorem admonition" id="theorem-0">
 <p class="admonition-title"><span class="caption-number">Theorem 7 </span> (Weak duality)</p>
@@ -460,7 +465,7 @@ L(x, y, s) := \frac{1}{2} x^T B x + b^T x - y^T (C x - c) - s^T (D x - d).
 <p>Assume that <span class="math notranslate nohighlight">\(\bar{x}\)</span> and <span class="math notranslate nohighlight">\((x,y,s)\)</span> are feasible points of the primal and dual problems, respectively. Then</p>
 <div class="math notranslate nohighlight">
 \[
-c^T y + d^T s - \frac{1}{2} x^T B x \leq \frac{1}{2} \bar{x}^T B \bar{x} + b^T \bar{x}.
+c^\top y + d^\top s - \frac{1}{2} x^\top B x \leq \frac{1}{2} \bar{x}^\top B \bar{x} + b^\top \bar{x}.
 \]</div>
 <p>In other words, among feasible points, the objective function of the dual problem attains values below than or equal to those of the primal function.</p>
 </section>
@@ -469,11 +474,11 @@ c^T y + d^T s - \frac{1}{2} x^T B x \leq \frac{1}{2} \bar{x}^T B \bar{x} + b^T \
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{align*}
-c^T y + d^T s - \frac{1}{2} x^T B x \, \leq \, &amp; (C \bar{x})^T y + (D \bar{x})^T s - \frac{1}{2} x^T B x\\
-= \, &amp; (C^T y + D^T s)^T \bar{x} - \frac{1}{2} x^T B x\\
-= \, &amp; (b + B x)^T \bar{x} - \frac{1}{2} x^T B x\\
-= \, &amp; \frac{1}{2} \bar{x}^T B \bar{x} + b^T \bar{x} - \frac{1}{2} (x - \bar{x})^T B (x - \bar{x})\\
-\leq \, &amp; \frac{1}{2} \bar{x}^T B \bar{x} + b^T \bar{x}.
+c^\top y + d^\top s - \frac{1}{2} x^\top B x \, \leq \, &amp; (C \bar{x})^\top y + (D \bar{x})^\top s - \frac{1}{2} x^\top B x\\
+= \, &amp; (C^\top y + D^\top s)^\top \bar{x} - \frac{1}{2} x^\top B x\\
+= \, &amp; (b + B x)^\top \bar{x} - \frac{1}{2} x^\top B x\\
+= \, &amp; \frac{1}{2} \bar{x}^\top B \bar{x} + b^\top \bar{x} - \frac{1}{2} (x - \bar{x})^\top B (x - \bar{x})\\
+\leq \, &amp; \frac{1}{2} \bar{x}^\top B \bar{x} + b^\top \bar{x}.
 \end{align*}
 \end{split}\]</div>
 </div>
@@ -481,19 +486,19 @@ c^T y + d^T s - \frac{1}{2} x^T B x \, \leq \, &amp; (C \bar{x})^T y + (D \bar{x
 <ol class="arabic simple">
 <li><p>Check that <span class="math notranslate nohighlight">\(\bar{x}\)</span> is a feasible point of the primal problem.</p></li>
 <li><p>Check that <span class="math notranslate nohighlight">\((x,y,s)\)</span> is a feasible point of the dual problem.</p></li>
-<li><p>Check that <span class="math notranslate nohighlight">\(c^T y + d^T s - \frac{1}{2} x^T B x = \frac{1}{2} \bar{x}^T B \bar{x} + b^T \bar{x}\)</span>.</p></li>
+<li><p>Check that <span class="math notranslate nohighlight">\(c^\top y + d^\top s - \frac{1}{2} x^\top B x = \frac{1}{2} \bar{x}^\top B \bar{x} + b^\top \bar{x}\)</span>.</p></li>
 </ol>
 <p>All those steps only require the evaluation of simple matrix vector and scalar products.</p>
 <p>Why does this work? Suppose that <span class="math notranslate nohighlight">\(\bar{x}\)</span> and <span class="math notranslate nohighlight">\((x,y,s)\)</span> passed the above tests 1., 2. and 3., but <span class="math notranslate nohighlight">\(\bar{x}\)</span> was not an optimal solution. Then there exists another feasible point <span class="math notranslate nohighlight">\(\tilde{x}\)</span> of the primal problem with an even lower value:</p>
 <div class="math notranslate nohighlight">
 \[
-\frac{1}{2} \tilde{x}^T B \tilde{x} + b^T \tilde{x} &lt; \frac{1}{2} \bar{x}^T B \bar{x} + b^T \bar{x} = c^T y + d^T s - \frac{1}{2} x^T B x.
+\frac{1}{2} \tilde{x}^\top B \tilde{x} + b^\top \tilde{x} &lt; \frac{1}{2} \bar{x}^\top B \bar{x} + b^\top \bar{x} = c^\top y + d^\top s - \frac{1}{2} x^\top B x.
 \]</div>
 <p>This is impossible by weak duality, and therefore <span class="math notranslate nohighlight">\(\bar{x}\)</span> must be optimal.</p>
 <p>With <span class="math notranslate nohighlight">\(\bar{x}\)</span> and <span class="math notranslate nohighlight">\((x,y,s)\)</span> optimal, the difference</p>
 <div class="math notranslate nohighlight">
 \[
-\underbrace{\frac{1}{2} \bar{x}^T B \bar{x} + b^T \bar{x}}_{\text{optimal value of the primal problem}} - \underbrace{c^T y + d^T s - \frac{1}{2} x^T B x}_{\text{optimal value of the dual problem}}
+\underbrace{\frac{1}{2} \bar{x}^\top B \bar{x} + b^\top \bar{x}}_{\text{optimal value of the primal problem}} - \underbrace{c^\top y + d^\top s - \frac{1}{2} x^\top B x}_{\text{optimal value of the dual problem}}
 \]</div>
 <p>is called the <em>duality gap</em>.</p>
 <p>One might wonder if certificates of the type <span class="math notranslate nohighlight">\((\bar{x}, (x,y,s))\)</span> are too restrictive: Could there be optimisation problems for which the duality gap exceeds 0? Then the above certificate of optimality would not work even if optimal solutions are found. The following deep result, known as strong duality, shows that this cannot happen for constrained least-squares problems.</p>
@@ -582,6 +587,266 @@ c^T y + d^T s - \frac{1}{2} x^T B x \, \leq \, &amp; (C \bar{x})^T y + (D \bar{x
 <p>Note that CVXPY does not directly return the <span class="math notranslate nohighlight">\(x\)</span> of the dual problem; it merely provides <span class="math notranslate nohighlight">\(y\)</span> and <span class="math notranslate nohighlight">\(s\)</span>. We recover the dual <span class="math notranslate nohighlight">\(x\)</span> from the dual equality constraint. The pseudo-inverse (<code class="docutils literal notranslate"><span class="pre">pinv</span></code>) is needed if B is only positive semidefinite. As always, a near-zero duality gap indicates strong duality and certifies that the solution is optimal.</p>
 </section>
 </section>
+<section id="self-check-questions">
+<h2>Self-check questions<a class="headerlink" href="#self-check-questions" title="Link to this heading">#</a></h2>
+<div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Consider the least-squares problem in <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{array}{ll}
+\min_x &amp; \| A x - a \|_2 \\
+\text{subject to} &amp;\\
+&amp; x_1 + x_2 = 1,\\
+&amp; x \ge 0
+\end{array}
+\end{split}\]</div>
+<p>with</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+A = \begin{pmatrix}
+2 &amp; 1\\ 1 &amp; 2
+\end{pmatrix}, \qquad
+a = \begin{pmatrix}
+1\\ 2
+\end{pmatrix}.
+\end{split}\]</div>
+<p>Write down the primal and dual quadratic programme. What is the Lagrangian function?</p>
+<p>You are provided with the certificates of optimality</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+\bar{x}^{(1)} &amp; = (0.5, 0.5)^\top,\\
+(x^{(1)},y^{(1)},s^{(1)}) &amp; = ((0.5, 0.5)^\top, 1, (0,0)^\top).
+\end{align*}
+\end{split}\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+\bar{x}^{(2)} &amp; = (0, 1)^\top,\\
+(x^{(2)},y^{(2)},s^{(2)}) &amp; = ((0.5, 0.5)^\top, 0, (0,0)^\top).
+\end{align*}
+\end{split}\]</div>
+<p>Determine for each certificate whether it is a valid proof that <span class="math notranslate nohighlight">\(\bar{x}_i\)</span> is optimal solution of the primal problem, <span class="math notranslate nohighlight">\(i = 1\)</span> resp. <span class="math notranslate nohighlight">\(i = 2\)</span>.</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text"><strong>Step 1. Primal quadratic programme:</strong> First, we rewrite the objective <span class="math notranslate nohighlight">\(\|A x - a\|_2\)</span> in a quadratic form:</p>
+<div class="math notranslate nohighlight">
+\[
+\|A x - a\|_2^2 
+\;=\;
+(A x - a)^\top (A x - a)
+\;=\;
+x^\top (A^\top A)\,x \;-\; 2\,a^\top A\,x \;+\; a^\top a,
+\]</div>
+<p class="sd-card-text">where <span class="math notranslate nohighlight">\(A^\top = A\)</span> since <span class="math notranslate nohighlight">\(A\)</span> is symmetric. Defining</p>
+<div class="math notranslate nohighlight">
+\[
+B := A^\top A 
+\quad\text{and}\quad
+b := -\,A^\top a,
+\]</div>
+<p class="sd-card-text">the quadratic objective takes the usual form <span class="math notranslate nohighlight">\(\tfrac12\,x^\top B x + b^\top x + \text{const}\)</span>. Concretely:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+B = A^2 = \begin{pmatrix}5 &amp; 4\\ 4 &amp; 5\end{pmatrix}, \qquad 
+b = -\,A a = \begin{pmatrix}-4 \\ -5\end{pmatrix}.
+\end{split}\]</div>
+<p class="sd-card-text">Ignoring the constant <span class="math notranslate nohighlight">\(a^\top a\)</span> (which does not affect the minimiser), we get the primal quadratic programme:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{array}{ll}
+\displaystyle \min_{x \in \mathbb{R}^2} 
+&amp; \tfrac12 \,x^\top B\,x \;+\; b^\top x 
+\\[6pt]
+\text{subject to} 
+&amp; x_1 + x_2 = 1,\\
+&amp; x_1 \ge 0,\; x_2 \ge 0.
+\end{array}
+\end{split}\]</div>
+<p class="sd-card-text"><strong>Step 2. Dual quadratic programme:</strong> We define the Lagrangian function with multipliers <span class="math notranslate nohighlight">\(y \in \mathbb{R}\)</span> for the equality and <span class="math notranslate nohighlight">\(s \in \mathbb{R}^2_{\ge 0}\)</span> for <span class="math notranslate nohighlight">\(x \ge 0\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+L(x,y,s) 
+\;=\;
+\tfrac12\,x^\top B\,x 
+\;+\;
+b^\top x
+\;-\;
+y\,\bigl(x_1 + x_2 \,-\,1\bigr)
+\;-\;
+s^\top x.
+\]</div>
+<p class="sd-card-text">The term <span class="math notranslate nohighlight">\(-\,y\,(x_1+x_2 -1)\)</span> encodes <span class="math notranslate nohighlight">\(x_1 + x_2 = 1\)</span>, while <span class="math notranslate nohighlight">\(-\,s^\top x\)</span> encodes <span class="math notranslate nohighlight">\(x \ge 0\)</span> with <span class="math notranslate nohighlight">\(s \ge 0\)</span>.</p>
+<p class="sd-card-text">Reversing the order of <span class="math notranslate nohighlight">\(\min\)</span> and <span class="math notranslate nohighlight">\(\max\)</span> yields the dual:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+\max_{(x,y,s), \; s \ge 0}
+&amp;&amp;&amp; y \;-\;\tfrac12\,x^\top B\,x
+\\
+\text{subject to}
+&amp;&amp;&amp; B\,x \;=\; y\,(1,1)^\top \;+\; s \;-\; (4,5)^\top,\quad s \ge 0.
+\end{aligned}
+\end{split}\]</div>
+<p class="sd-card-text">where <span class="math notranslate nohighlight">\(c^\top y = 1 \cdot y\)</span> (because the equality constraint is <span class="math notranslate nohighlight">\(x_1+x_2=1\)</span>) and <span class="math notranslate nohighlight">\(d^\top s = 0\)</span> (because <span class="math notranslate nohighlight">\(d = 0\)</span> in the inequality constraints).</p>
+<p class="sd-card-text"><strong>Step 3. Lagrangian function:</strong> From the above steps:</p>
+<div class="math notranslate nohighlight">
+\[
+L(x,y,s) \;=\; \tfrac12\,x^\top B\,x \;+\; b^\top x \;-\; y\,(x_1 + x_2 -1) \;-\; s^\top x,
+\]</div>
+<p class="sd-card-text">where <span class="math notranslate nohighlight">\(\;y \in \mathbb{R}\)</span> and <span class="math notranslate nohighlight">\(\;s \in \mathbb{R}^2_{\ge 0}\)</span>.</p>
+<p class="sd-card-text"><strong>Step 4. Checking the first certificate of optimality:</strong> We are given a <em>candidate</em> solution <span class="math notranslate nohighlight">\(\bar{x}^{(1)} = (0.5, 0.5)^\top\)</span> and a <em>dual triple</em> <span class="math notranslate nohighlight">\((\,x^{(1)},\,y^{(1)},\,s^{(1)}) = \bigl((0.5,0.5)^\top,\,1,\,(0,0)\bigr)\)</span>. We must check the <em>three</em> conditions for a valid certificate of optimality:</p>
+<ol class="arabic simple">
+<li><p class="sd-card-text"><em>Primal feasibility</em> of <span class="math notranslate nohighlight">\(\bar{x}\)</span>: This holds because <span class="math notranslate nohighlight">\(x_1^{(1)} + x_2^{(1)} = 0.5 + 0.5 = 1\)</span> and <span class="math notranslate nohighlight">\(x_1^{(1)},\,x_2^{(1)} \ge 0\)</span>.</p></li>
+<li><p class="sd-card-text"><em>Dual feasibility</em> of <span class="math notranslate nohighlight">\((x,y,s)\)</span>: This does <em>not</em> hold. While we have <span class="math notranslate nohighlight">\(s^{(1)} = (0,0) \ge 0\)</span>, the equality constraint is not satisfied:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+B\,x^{(1)} = \begin{pmatrix}4.5\\4.5\end{pmatrix} \neq y \begin{pmatrix}1\\1\end{pmatrix} + s - b = \begin{pmatrix}1\\1\end{pmatrix} + \begin{pmatrix}0\\0\end{pmatrix} - \begin{pmatrix}-4\\-5\end{pmatrix} = \begin{pmatrix}5\\6\end{pmatrix}.
+\end{split}\]</div>
+<ol class="arabic simple" start="3">
+<li><p class="sd-card-text"><em>Equality of primal and dual objective values</em> (only relevant once both are feasible).</p></li>
+</ol>
+<p class="sd-card-text">Because the second step <em>fails</em>, this certificate does <em>not</em> ensure that <span class="math notranslate nohighlight">\(\bar{x}^{(1)}\)</span> is optimal. (However note that that the certificate fails does not prove that <span class="math notranslate nohighlight">\(\bar{x}^{(1)}\)</span> is not optimal.)</p>
+<p class="sd-card-text"><strong>Step 5. Checking the second certificate of optimality:</strong> We are given a <em>candidate</em> solution <span class="math notranslate nohighlight">\(\bar{x}^{(2)} = (0.5, 0.5)^\top\)</span> and a <em>dual triple</em> <span class="math notranslate nohighlight">\((\,x^{(2)},\,y^{(2)},\,s^{(2)}) = \bigl((0.5,0.5)^\top,\,1,\,(0,0)\bigr)\)</span>.</p>
+<ol class="arabic simple">
+<li><p class="sd-card-text"><em>Primal feasibility</em> of <span class="math notranslate nohighlight">\(\bar{x}\)</span>: This holds because <span class="math notranslate nohighlight">\(x_1 + x_2 = 0 + 1 = 1\)</span> and <span class="math notranslate nohighlight">\(x_1,\,x_2 \ge 0\)</span>.</p></li>
+<li><p class="sd-card-text"><em>Dual feasibility</em> of <span class="math notranslate nohighlight">\((x,y,s)\)</span> This holds because <span class="math notranslate nohighlight">\(s = (0,0)\)</span> satisfies <span class="math notranslate nohighlight">\(s \ge 0\)</span> and</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+B\,x = \begin{pmatrix}4\\5\end{pmatrix} = y \begin{pmatrix}1\\1\end{pmatrix} + s - b = \begin{pmatrix}0\\0\end{pmatrix} + \begin{pmatrix}0\\0\end{pmatrix} - \begin{pmatrix}-4\\-5\end{pmatrix}.
+\end{split}\]</div>
+<ol class="arabic simple" start="3">
+<li><p class="sd-card-text"><em>Equality of primal and dual objective values</em>: This holds because <span class="math notranslate nohighlight">\(\tfrac12 \,\bar{x}^\top B\,\bar{x} \;+\; b^\top \bar{x} = -2.5 = y \;-\;\tfrac12\,x^\top B\,x = -2.5\)</span></p></li>
+</ol>
+<p class="sd-card-text">Therefore certificate passed all checks and <span class="math notranslate nohighlight">\(\bar{x}^{(2)}\)</span> is an optimal solution of the primal problem.</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>The <em>Lagrangian function</em> associated with the primal problem is</p>
+<div class="math notranslate nohighlight">
+\[
+L(x, y, s) := \frac{1}{2} x^\top B x + b^\top x - y^\top (C x - c) - s^\top (D x - d).
+\]</div>
+<p>Show that</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\max_{y, s \atop s \geq 0} L(x, y, s) =
+\begin{cases}
+\frac{1}{2} x^\top B x + b^\top x &amp; \text{if $C x = c$ and $D x \geq d$,}\\
++\infty &amp; \text{otherwise.}
+\end{cases}
+\end{split}\]</div>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">If any component <span class="math notranslate nohighlight">\((Cx - c)_i \neq 0\)</span>, we can send the corresponding <span class="math notranslate nohighlight">\(y_i\)</span> to <span class="math notranslate nohighlight">\(+\infty\)</span> or <span class="math notranslate nohighlight">\(-\infty\)</span> (depending on the sign of <span class="math notranslate nohighlight">\((Cx - c)_i\)</span>), causing the term <span class="math notranslate nohighlight">\(-\,y_i\,(Cx - c)_i\)</span> to grow without bound.  Therefore, to keep the Lagrangian finite, we need <span class="math notranslate nohighlight">\((Cx - c)_i = 0\)</span> for all <span class="math notranslate nohighlight">\(i\)</span>, i.e. <span class="math notranslate nohighlight">\(Cx = c\)</span>.</p>
+<p class="sd-card-text">Similarly, if <span class="math notranslate nohighlight">\((Dx - d)_j &lt; 0\)</span> for some <span class="math notranslate nohighlight">\(j\)</span>, choosing <span class="math notranslate nohighlight">\(s_j \to +\infty\)</span> makes <span class="math notranslate nohighlight">\(-\,s_j\,(Dx - d)_j\)</span> go to <span class="math notranslate nohighlight">\(+\infty\)</span>. Hence, to avoid an unbounded Lagrangian, we require <span class="math notranslate nohighlight">\(Dx \ge d\)</span>. Thus, the maximum is finite only if <span class="math notranslate nohighlight">\(Cx = c\)</span> and <span class="math notranslate nohighlight">\(Dx \ge d\)</span>. In that scenario, we can simply pick <span class="math notranslate nohighlight">\(y = 0\)</span> and <span class="math notranslate nohighlight">\(s = 0\)</span>, yielding</p>
+<div class="math notranslate nohighlight">
+\[
+\max_{y,s \ge 0} L(x,y,s)
+=
+\tfrac{1}{2}\,x^\top B\,x + b^\top x.
+\]</div>
+<p class="sd-card-text">Hence,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\max_{y, s \atop s \geq 0} L(x, y, s)
+=
+\begin{cases}
+\tfrac{1}{2} x^\top B x + b^\top x &amp; \text{if } C x = c \text{ and } D x \ge d,\\
++\infty &amp; \text{otherwise.}
+\end{cases}
+\end{split}\]</div>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Show that the dual problem</p>
+<div class="math notranslate nohighlight">
+\[
+\max_{y, s \atop s \geq 0} \min_x L(x, y, s) = \max_{y, s \atop s \geq 0} \min_x \Big[ \frac{1}{2} x^\top B x + b^\top x - y^\top (C x - c) - s^\top (D x - d) \Big]
+\]</div>
+<p>can be written as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{array}{ll}
+\max_{x,y,s} &amp; c^\top y + d^\top s - \frac{1}{2} x^\top B x\\
+\text{subject to} &amp;\\
+&amp; C^\top y + D^\top s - B x = b,\\
+&amp; s \ge 0.
+\end{array}
+\end{split}\]</div>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text"><strong>Solution</strong></p>
+<p class="sd-card-text">We first examine the inner minimisation <span class="math notranslate nohighlight">\(\min_x L(x,y,s)\)</span> for fixed <span class="math notranslate nohighlight">\(y\)</span> and <span class="math notranslate nohighlight">\(s\)</span>. Differentiating <span class="math notranslate nohighlight">\(L\)</span> with respect to <span class="math notranslate nohighlight">\(x\)</span> and setting the gradient to zero gives</p>
+<div class="math notranslate nohighlight">
+\[
+0 = \nabla_{\!x} \, L (x,y,s) = Bx + b - C^\top y - D^\top s.
+\]</div>
+<p class="sd-card-text">If there are two solutions <span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(\tilde{x}\)</span> of <span class="math notranslate nohighlight">\(B x = C^\top y + D^\top s - b\)</span> then</p>
+<div class="math notranslate nohighlight">
+\[
+x^\top B\,x - \tilde{x}^\top B\,\tilde{x} = (x - \tilde{x})^\top (C^\top y + D^\top s - b) = (x - \tilde{x})^\top B\,x = 0
+\]</div>
+<p class="sd-card-text">because <span class="math notranslate nohighlight">\(x - \tilde{x} \in \ker B^\top = \ker B\)</span>. Therefore for any solution <span class="math notranslate nohighlight">\(\tilde{x}\)</span> of <span class="math notranslate nohighlight">\(B x = C^\top y + D^\top s - b\)</span>, the inner minimisation problem satisfies</p>
+<div class="math notranslate nohighlight">
+\[
+\min_x L(x,y,s) \;=\; c^\top y \;+\; d^\top s \;-\; \tfrac12 \,\tilde{x}^\top B\,\tilde{x},
+\]</div>
+<p class="sd-card-text">using the simplification of <span class="math notranslate nohighlight">\(L\)</span> arising from <span class="math notranslate nohighlight">\(B \tilde{x} = C^\top y + D^\top s - b\)</span>. If <span class="math notranslate nohighlight">\(B\,x = C^\top y + D^\top s - b\)</span> has no solution then <span class="math notranslate nohighlight">\(x \mapsto L(x,y,s)\)</span> has no stationary point and <span class="math notranslate nohighlight">\(\min_x L(x,y,s) = - \infty\)</span>.</p>
+<p class="sd-card-text">We turn to the outer maximisation over all <span class="math notranslate nohighlight">\(y\)</span> and <span class="math notranslate nohighlight">\(s\ge0\)</span>. If there are  <span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(y\)</span>, <span class="math notranslate nohighlight">\(s\)</span> such that <span class="math notranslate nohighlight">\(Bx = C^\top y + D^\top s - b\)</span> then the maximum is attained among those. Otherwise the maximum is <span class="math notranslate nohighlight">\(- \infty\)</span>. Note that also <span class="math notranslate nohighlight">\(\max \emptyset = -\infty\)</span>. The dual problem therefore becomes:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{array}{ll}
+\displaystyle \max_{x,y,s} 
+&amp; 
+c^\top y + d^\top s \;-\; \tfrac12\,x^\top B\,x
+\\[4pt]
+\text{subject to} 
+&amp;
+C^\top y + D^\top s - B\,x = b,
+\quad
+s \ge 0.
+\end{array}
+\end{split}\]</div>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Let</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">The</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Let</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">The</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Let</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">The</p>
+</div>
+</details></section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -653,6 +918,7 @@ c^T y + d^T s - \frac{1}{2} x^T B x \, \leq \, &amp; (C \bar{x})^T y + (D \bar{x
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#least-squares-problems">Least-squares problems</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#self-check-questions">Self-check questions</a></li>
 </ul>
   </nav></div>
 
