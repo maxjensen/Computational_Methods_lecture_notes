@@ -830,12 +830,12 @@ L(x, y, s) :=f(x) - y^\top h(x) - s^\top g(x),
 <p>giving rise to the primal problem</p>
 <div class="math notranslate nohighlight">
 \[
-p := \min_x \underbrace{\max_{y, s \atop s \geq 0} L(x, y, s)}_{=: F(x)} = \min_x F(x)
+p := \min_x \underbrace{\max_{y, s \atop s \geq 0} L(x, y, s)}_{=: P(x)} = \min_x P(x)
 \]</div>
 <p>and the dual problem</p>
 <div class="math notranslate nohighlight">
 \[
-d := \max_{y, s \atop s \geq 0} \underbrace{\min_x L(x, y, s)}_{=: G(y,s)} = \max_{y, s \atop s \geq 0} G(y,s).
+d := \max_{y, s \atop s \geq 0} \underbrace{\min_x L(x, y, s)}_{=: D(y,s)} = \max_{y, s \atop s \geq 0} D(y,s).
 \]</div>
 <p>Suppose that a minimiser <span class="math notranslate nohighlight">\(\bar{x}\)</span> of the primal problem exists and that a maximiser <span class="math notranslate nohighlight">\((y,s)\)</span> of the dual problem exists. For that <span class="math notranslate nohighlight">\((y,s)\)</span> let <span class="math notranslate nohighlight">\(x\)</span> be a minimiser of <span class="math notranslate nohighlight">\(\min_x L(x, y, s)\)</span>.</p>
 <p>We say that strong duality does not hold if <span class="math notranslate nohighlight">\(d &lt; p\)</span>; note that the inquality is strict. Explain why in this case <span class="math notranslate nohighlight">\((\bar{x}, (x,y,s))\)</span> cannot be used as certificate of optimimality as above.</p>
@@ -848,8 +848,9 @@ d := \max_{y, s \atop s \geq 0} \underbrace{\min_x L(x, y, s)}_{=: G(y,s)} = \ma
 \[
 L(\bar{x}, \bar{y}, \bar{s}) = L(x, y, s)
 \]</div>
-<p class="sd-card-text">where <span class="math notranslate nohighlight">\(\bar{y}\)</span>, <span class="math notranslate nohighlight">\(\bar{s}\)</span> are maximisers of <span class="math notranslate nohighlight">\(\max_{\bar{y}, \bar{s} \atop \bar{s} \geq 0} L(x, y, s)\)</span>.</p>
+<p class="sd-card-text">where <span class="math notranslate nohighlight">\(\bar{y}\)</span>, <span class="math notranslate nohighlight">\(\bar{s}\)</span> are maximisers of the inner primal optimisation problem <span class="math notranslate nohighlight">\(\max_{\bar{y}, \bar{s} \atop \bar{s} \geq 0} L(x, y, s)\)</span>.</p>
 <p class="sd-card-text">But if strong duality does not hold, then this equality is not satisfied (<span class="math notranslate nohighlight">\(d \neq p\)</span>) and the alternative characterisation of optimal solutions fails.</p>
+<p class="sd-card-text"><strong>Note:</strong> You may observe a slight asymmetry in the way we state the certificate of optimality: The primal problem <span class="math notranslate nohighlight">\(\min_x P(x) = \min_x \max_{y, s \atop s \geq 0} L(x, y, s)\)</span> has the variable <span class="math notranslate nohighlight">\(x\)</span> of the outer optimisation and <span class="math notranslate nohighlight">\((y,s)\)</span> of the inner optimisation. For the dual problem <span class="math notranslate nohighlight">\(\max_{y, s \atop s \geq 0} D(y,s) = \max_{y, s \atop s \geq 0} \min_x L(x, y, s)\)</span> roles are reversed. The certificate <span class="math notranslate nohighlight">\((\bar{x}, (x,y,s))\)</span> refers to the outer variable of the <em>primal</em> problem while to the <em>inner and outer</em> variables of the dual problem. This happened because in the chapter above our starting point was the quadratic programme, in which <span class="math notranslate nohighlight">\(\bar{y}\)</span>, <span class="math notranslate nohighlight">\(\bar{s}\)</span> do not appear explicitly. For the abstract theory we could always assume that <span class="math notranslate nohighlight">\(\bar{y}\)</span>, <span class="math notranslate nohighlight">\(\bar{s}\)</span> can be recovered from solving the inner primal optimisation problem, restoring symmetry.</p>
 </div>
 </details><div class="tip admonition">
 <p class="admonition-title"><strong>Question</strong></p>

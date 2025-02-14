@@ -41,6 +41,7 @@
 - $\det(A)$: determinant of matrix $A$.
 - $\text{rank}(A)$: rank of matrix $A$.
 - $\text{ker}(A)$: kernel (or null space) of matrix $A$.
+- $\text{ran}(A)$: range (or image) of matrix $A$.
 - $\mathcal{Q}_n$: quadrature rule with $n+1$ nodes.
 - $\mathcal{C}_{n,m}$: composite quadrature rule with $n+1$ nodes in each of the $m$ subintervals.
 - $\mathcal{I}$: integral operator.
