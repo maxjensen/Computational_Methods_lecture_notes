@@ -1,0 +1,14 @@
+# In _config.yml
+title: Computational Methods MATH0058 lecture notes
+author: Timo Betcke, Erik Burman, Max Jensen
+copyright: "2024"
+logo: ./figures/logo.png
+sphinx:
+  extra_extensions:
+    - sphinx_proof
+  config:
+    bibtex_reference_style: author_year
+bibtex_bibfiles:
+    - references.bib
+execute:
+  execute_notebooks: off
