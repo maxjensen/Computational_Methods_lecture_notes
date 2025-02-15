@@ -1,0 +1,821 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Basic properties of eigenvalue problems &#8212; Computational Methods MATH0058 lecture notes</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=b4b7a797" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '5.1_eigenvalues_basic_properties';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Computing eigenvalues" href="5.2_computing_eigenvalues.html" />
+    <link rel="prev" title="Stable Quadrature Schemes" href="4.3_stable_quadrature_schemes.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Computational Methods MATH0058 lecture notes - Home"/>
+    <img src="_static/logo.png" class="logo__image only-dark pst-js-only" alt="Computational Methods MATH0058 lecture notes - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="index.html">
+                    Welcome!
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Fundamentals</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="0.1_matrix_vector_norms.html">Measuring distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="0.2_error_analysis.html">Backward error analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="0.3_linear_system_error.html">The condition number of linear systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="0.4_complexity_notation.html">Asymptotic notation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Implementation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="1.1_floating_point_arithmetic.html">Floating point numbers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_numpy_and_data_layouts.html">Memory layout and Numpy</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="2.1_lu_decomposition.html">LU decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.2_lu_backward_error.html">Backward error and pivoting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.3_python_lu_decomposition.html">Python implementation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Orthogonal Decompositions</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="3.1_qr_decomposition.html">The QR Decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.2_singular_value_decomposition.html">The Singular Value Decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.3_least_squares_problems.html">Least-squares Problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.4_constrained_least_squares_problems.html">Constrained Problems</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Interpolation and Quadrature</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="4.1_interpolation.html">Polynomial Interpolation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.2_quadrature.html">Introduction to Quadrature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.3_stable_quadrature_schemes.html">Stable Quadrature Schemes</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Eigenvalue Problems</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Basic properties of eigenvalue problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.2_computing_eigenvalues.html">Computing eigenvalues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.3_computing_eigenspaces.html">Computing the eigensystem</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back matter</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="bm1_notation_and_facts.html">Notation and facts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bm2_programming_resources.html">Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bm3_markdown.html">Markdown and LaTeX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bm4_bibliography.html">Bibliography</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/5.1_eigenvalues_basic_properties.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Basic properties of eigenvalue problems</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#complex-vector-spaces">Complex vector spaces</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#characteristic-polynomials-algebraic-and-geometric-multiplicities">Characteristic polynomials, algebraic and geometric multiplicities</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eigenvalue-decomposition">Eigenvalue decomposition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-companion-matrix">The companion matrix</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#complex-numbers">Complex numbers</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eigenvalue-decomposition-with-python">Eigenvalue decomposition with Python</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#self-check-questions">Self-check questions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-material">Optional material</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="basic-properties-of-eigenvalue-problems">
+<h1>Basic properties of eigenvalue problems<a class="headerlink" href="#basic-properties-of-eigenvalue-problems" title="Link to this heading">#</a></h1>
+<p>Eigenvalues are often complex, making it essential to consider eigenvalue problems within the setting of complex vector spaces.</p>
+<div class="proof definition admonition" id="definition-0">
+<p class="admonition-title"><span class="caption-number">Definition 11 </span></p>
+<section class="definition-content" id="proof-content">
+<p>Consider a matrix <span class="math notranslate nohighlight">\(A\)</span> in <span class="math notranslate nohighlight">\(\mathbb{C}^{n \times n}\)</span>. An <em>eigenvalue problem</em> is the task to find a non-zero vector <span class="math notranslate nohighlight">\(x \in \mathbb{C}^n\)</span>, called <em>eigenvector</em>, and a scalar <span class="math notranslate nohighlight">\(\lambda \in \mathbb{C}\)</span>, called <em>eigenvalue</em>, such that:</p>
+<div class="math notranslate nohighlight">
+\[
+A x = \lambda x.
+\]</div>
+</section>
+</div><p>The following section briefly outlines key distinctions in handling complex spaces.</p>
+<section id="complex-vector-spaces">
+<h2>Complex vector spaces<a class="headerlink" href="#complex-vector-spaces" title="Link to this heading">#</a></h2>
+<p>For complex spaces, the Euclidean inner product is defined as:</p>
+<div class="math notranslate nohighlight">
+\[
+\langle x, y \rangle = x^\top \, \overline{y} = \sum_j x_j \, \overline{y}_j.
+\]</div>
+<p>It requires taking the complex conjugate of <span class="math notranslate nohighlight">\(y\)</span> in the inner product calculation. The 2-norm of a vector is <span class="math notranslate nohighlight">\(\|x\|_2 = \langle x, x \rangle^{1/2}\)</span>.</p>
+<p>In complex spaces, the counterpart to transposed matrices is the conjugate transpose <span class="math notranslate nohighlight">\(A^H := \bar{A}^\top\)</span>. With this, the following relation holds:</p>
+<div class="math notranslate nohighlight">
+\[
+\langle Ax, y \rangle = \langle x, A^H y \rangle.
+\]</div>
+<div class="proof definition admonition" id="definition-1">
+<p class="admonition-title"><span class="caption-number">Definition 12 </span> (Hermitian matrix)</p>
+<section class="definition-content" id="proof-content">
+<p>A matrix is <em>Hermitian</em> (or <em>self-adjoint</em>) if <span class="math notranslate nohighlight">\(A^H = A\)</span>.</p>
+</section>
+</div><p>Consequently, the diagonal elements of a Hermitian matrix are real-valued. Reflecting the altered inner product definition, the concept of orthogonal matrices in complex spaces changes to unitary matrices.</p>
+<div class="proof definition admonition" id="definition-2">
+<p class="admonition-title"><span class="caption-number">Definition 13 </span> (Unitary matrix)</p>
+<section class="definition-content" id="proof-content">
+<p>A matrix <span class="math notranslate nohighlight">\(Q \in \mathbb{C}^{n \times n}\)</span> is <em>unitary</em> if <span class="math notranslate nohighlight">\(Q^H Q = I\)</span>.</p>
+</section>
+</div><p>All unitary matrices satisfy <span class="math notranslate nohighlight">\(|\det(Q)| = 1\)</span>.</p>
+</section>
+<section id="characteristic-polynomials-algebraic-and-geometric-multiplicities">
+<h2>Characteristic polynomials, algebraic and geometric multiplicities<a class="headerlink" href="#characteristic-polynomials-algebraic-and-geometric-multiplicities" title="Link to this heading">#</a></h2>
+<p>Rewriting the eigenvalue problem, we get:</p>
+<div class="math notranslate nohighlight">
+\[
+(\lambda I - A)x = 0.
+\]</div>
+<p>Nontrivial solutions <span class="math notranslate nohighlight">\(x\)</span> exist if and only if <span class="math notranslate nohighlight">\(\lambda I - A\)</span> is singular, which is equivalent to:</p>
+<div class="math notranslate nohighlight">
+\[
+\det(\lambda I - A) = 0.
+\]</div>
+<div class="proof definition admonition" id="definition-3">
+<p class="admonition-title"><span class="caption-number">Definition 14 </span></p>
+<section class="definition-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(A \in \mathbb{C}^{n \times n}\)</span>. We define the <em>characteristic polynomial</em> of <span class="math notranslate nohighlight">\(A\)</span> as</p>
+<div class="math notranslate nohighlight">
+\[
+p(\lambda) := \det(\lambda I - A).
+\]</div>
+</section>
+</div><p>Expanding this determinant reveals that <span class="math notranslate nohighlight">\(p\)</span> is a polynomial with degree <span class="math notranslate nohighlight">\(n\)</span>. Let <span class="math notranslate nohighlight">\(\lambda_j\)</span> be the <span class="math notranslate nohighlight">\(j\)</span>th root of <span class="math notranslate nohighlight">\(p\)</span>. Then:</p>
+<div class="math notranslate nohighlight">
+\[
+p(\lambda) = \prod_j (\lambda - \lambda_j)^{\alpha_j},
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\alpha_j\)</span> is the algebraic multiplicity of the <span class="math notranslate nohighlight">\(j\)</span>th root. According to the fundamental theorem of algebra, <span class="math notranslate nohighlight">\(n = \sum_j \alpha_j\)</span>, meaning an <span class="math notranslate nohighlight">\(n \times n\)</span> matrix has <span class="math notranslate nohighlight">\(n\)</span> eigenvalues, including multiplicities.</p>
+<p>The geometric multiplicity <span class="math notranslate nohighlight">\(\beta_j\)</span> of an eigenvalue <span class="math notranslate nohighlight">\(\lambda_j\)</span> is the dimension of the kernel of <span class="math notranslate nohighlight">\(\lambda_j I - A\)</span>. If  <span class="math notranslate nohighlight">\(\beta_j = 1\)</span> then <span class="math notranslate nohighlight">\(\lambda_j\)</span> is a  simple eigenvalue. Generally, <span class="math notranslate nohighlight">\(\beta_j \leq \alpha_j\)</span>. The relationship between algebraic and geometric multiplicities can be further explored through the concept of Jordan normal form, which is briefly described in the optional material.</p>
+</section>
+<section id="eigenvalue-decomposition">
+<h2>Eigenvalue decomposition<a class="headerlink" href="#eigenvalue-decomposition" title="Link to this heading">#</a></h2>
+<p>If for all <span class="math notranslate nohighlight">\(j\)</span>, the algebraic and geometric multiplicities are equal (<span class="math notranslate nohighlight">\(\alpha_j = \beta_j\)</span>), the matrix <span class="math notranslate nohighlight">\(A\)</span> admits an eigenvalue decomposition</p>
+<div class="math notranslate nohighlight">
+\[
+A = X\Lambda X^{-1},
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(X \in \mathbb{C}^{n \times n}\)</span> is a nonsingular matrix with columns <span class="math notranslate nohighlight">\(x_j\)</span> comprising eigenvectors of <span class="math notranslate nohighlight">\(A\)</span>, and <span class="math notranslate nohighlight">\(\Lambda\)</span> is a diagonal matrix with diagonal entries being the corresponding eigenvalues <span class="math notranslate nohighlight">\(\lambda_j\)</span>. Hermitian matrices have a basis of orthonormal eigenvectors.</p>
+</section>
+<section id="the-companion-matrix">
+<h2>The companion matrix<a class="headerlink" href="#the-companion-matrix" title="Link to this heading">#</a></h2>
+<p>The companion matrix of a polynomial <span class="math notranslate nohighlight">\(p\)</span> is a special square matrix whose characteristic polynomial is <span class="math notranslate nohighlight">\(p\)</span>. Thus, the companion matrix’s eigenvalues are the polynomial’s roots. This makes companion matrices useful in numerical algebra for finding polynomial roots.</p>
+<p>Given the polynomial</p>
+<div class="math notranslate nohighlight">
+\[
+p(x) = x^n + a_{n-1}x^{n-1} + \cdots + a_2x^2 + a_1x + a_0
+\]</div>
+<p>of degree <span class="math notranslate nohighlight">\(n\)</span> with leading coefficient <span class="math notranslate nohighlight">\(a_n = 1\)</span>, the companion matrix <span class="math notranslate nohighlight">\(C\)</span> of <span class="math notranslate nohighlight">\(p(x)\)</span> is an <span class="math notranslate nohighlight">\(n \times n\)</span> matrix defined as:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+C = \begin{pmatrix}
+0 &amp; 0 &amp; \cdots &amp; 0 &amp; -a_0 \\
+1 &amp; 0 &amp; \cdots &amp; 0 &amp; -a_1 \\
+0 &amp; 1 &amp; \cdots &amp; 0 &amp; -a_2 \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots &amp; \vdots \\
+0 &amp; 0 &amp; \cdots &amp; 1 &amp; -a_{n-1}
+\end{pmatrix}.
+\end{split}\]</div>
+<p>One can check that <span class="math notranslate nohighlight">\(\det(x I - C) = p(x)\)</span>.</p>
+</section>
+<section id="python-skills">
+<h2>Python skills<a class="headerlink" href="#python-skills" title="Link to this heading">#</a></h2>
+<section id="complex-numbers">
+<h3>Complex numbers<a class="headerlink" href="#complex-numbers" title="Link to this heading">#</a></h3>
+<p>Working with complex matrices is well-supported in Python.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># Step 1: Create complex matrices A and B</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">2</span><span class="n">j</span><span class="p">,</span> <span class="mi">3</span> <span class="o">+</span> <span class="mi">4</span><span class="n">j</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span> <span class="o">+</span> <span class="mi">6</span><span class="n">j</span><span class="p">,</span> <span class="mi">7</span> <span class="o">+</span> <span class="mi">8</span><span class="n">j</span><span class="p">]])</span>
+<span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="n">j</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="n">j</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Step 2: Matrix multiplication</span>
+<span class="n">product</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span>
+
+<span class="c1"># Step 3: Conjugate transpose (Hermitian) of A and B</span>
+<span class="n">A_H</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">conjugate</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+<span class="n">B_H</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">conjugate</span><span class="p">(</span><span class="n">B</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+
+<span class="c1"># Step 4: Check if A or B are unitary</span>
+<span class="n">is_unitary_A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A_H</span><span class="p">,</span> <span class="n">A</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+<span class="n">is_unitary_B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">B_H</span><span class="p">,</span> <span class="n">B</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">B</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+
+<span class="c1"># Displaying the results</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Matrix A:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">A</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Matrix B:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Product of A and B:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">product</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Conjugate transpose (Hermitian) of A:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">A_H</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Conjugate transpose (Hermitian) of B:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">B_H</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Is Matrix A unitary?:&quot;</span><span class="p">,</span> <span class="n">is_unitary_A</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Is Matrix B unitary?:&quot;</span><span class="p">,</span> <span class="n">is_unitary_B</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="eigenvalue-decomposition-with-python">
+<h3>Eigenvalue decomposition with Python<a class="headerlink" href="#eigenvalue-decomposition-with-python" title="Link to this heading">#</a></h3>
+<p>Shortly, we will be delving into constructing numerical methods to compute eigenvalues and eigenvectors. Here, we look at a simple example, which uses Numpy’s eigensystem solver as a black box.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># Define a complex matrix A</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">2</span><span class="o">+</span><span class="mi">1</span><span class="n">j</span><span class="p">,</span> <span class="mi">4</span><span class="o">-</span><span class="mi">1</span><span class="n">j</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="o">+</span><span class="mi">1</span><span class="n">j</span><span class="p">,</span> <span class="mi">3</span><span class="o">-</span><span class="mi">2</span><span class="n">j</span><span class="p">]])</span>
+
+<span class="c1"># Solve the eigenvalue problem</span>
+<span class="n">eigenvalues</span><span class="p">,</span> <span class="n">eigenvectors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+
+<span class="c1"># Display eigenvalues and eigenvectors</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Eigenvalues of A:&quot;</span><span class="p">,</span> <span class="n">eigenvalues</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Eigenvectors of A:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">eigenvectors</span><span class="p">)</span>
+
+<span class="c1"># Eigenvalue decomposition (if A is diagonalizable)</span>
+<span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">matrix_rank</span><span class="p">(</span><span class="n">eigenvectors</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>
+    <span class="n">Lambda</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">eigenvalues</span><span class="p">)</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">eigenvectors</span>
+    <span class="n">X_inv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+    <span class="n">A_reconstructed</span> <span class="o">=</span> <span class="n">X</span> <span class="o">@</span> <span class="n">Lambda</span> <span class="o">@</span> <span class="n">X_inv</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Reconstructed A from its eigenvalue decomposition:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">A_reconstructed</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;A cannot be diagonalized with a full set of eigenvectors.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="self-check-questions">
+<h2>Self-check questions<a class="headerlink" href="#self-check-questions" title="Link to this heading">#</a></h2>
+<div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Show that all unitary matrices <span class="math notranslate nohighlight">\(Q\)</span> satisfy <span class="math notranslate nohighlight">\(|\det(Q)| = 1\)</span>.</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">From <span class="math notranslate nohighlight">\(Q^H Q = I\)</span>, we conclude</p>
+<div class="math notranslate nohighlight">
+\[
+1 = \det(I) = \det(Q^H Q) = \det(Q^H) \det(Q) = \overline{\det(Q)} \det(Q) = |\det(Q)|^2.
+\]</div>
+<p class="sd-card-text">It follows that <span class="math notranslate nohighlight">\(|\det(Q)| = 1\)</span>.</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Analyze the matrix <span class="math notranslate nohighlight">\(A\)</span> given by:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+A = \begin{pmatrix}
+3 &amp; 1 &amp; 0 \\
+0 &amp; 3 &amp; 1 \\
+0 &amp; 0 &amp; 3
+\end{pmatrix}.
+\end{split}\]</div>
+<p>Determine the eigenvalues and eigenvectors of <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<p>Compute the algebraic and geometric multiplicities of each eigenvalue.</p>
+<p>Can <span class="math notranslate nohighlight">\(A\)</span> be decomposed as <span class="math notranslate nohighlight">\(A = X \Lambda X^{-1}\)</span> where <span class="math notranslate nohighlight">\(\Lambda\)</span> is a diagonal matrix and <span class="math notranslate nohighlight">\(X\)</span> non-singular? Explain why or why not.</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">We solve <span class="math notranslate nohighlight">\(\det(A - \lambda I) = 0\)</span> to find the eigenvalues. The only possible eigenvalue in this case is <span class="math notranslate nohighlight">\(\lambda = 3\)</span>.</p>
+<p class="sd-card-text">For <span class="math notranslate nohighlight">\(\lambda = 3\)</span>, the equation <span class="math notranslate nohighlight">\((A - \lambda I)x = 0\)</span> simplifies to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{pmatrix} 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 1 \\ 0 &amp; 0 &amp; 0 \end{pmatrix}x = 0.
+\end{split}\]</div>
+<p class="sd-card-text">The solution space is spanned by <span class="math notranslate nohighlight">\((1, 0, 0)^\top\)</span>.</p>
+<p class="sd-card-text">The eigenvalue <span class="math notranslate nohighlight">\(\lambda = 3\)</span> appears three times on the diagonal of <span class="math notranslate nohighlight">\(A\)</span>, so its algebraic multiplicity is 3. The solution to the eigenvector equation yields only one linearly independent eigenvector, so the geometric multiplicity of <span class="math notranslate nohighlight">\(\lambda = 3\)</span> is <span class="math notranslate nohighlight">\(1\)</span>.</p>
+<p class="sd-card-text">Since the algebraic and geometric multiplicities of the eigenvalue are not equal, <span class="math notranslate nohighlight">\(A\)</span> cannot be decomposed as <span class="math notranslate nohighlight">\(A = X\Lambda X^{-1}\)</span>. For such a decomposition to exist, the matrix must have a full set of linearly independent eigenvectors.</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Prove each eigenvalue of a unitary matrix has modulus <span class="math notranslate nohighlight">\(1\)</span>.</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">An eigenvector <span class="math notranslate nohighlight">\(v \neq 0\)</span> of a unitary matrix <span class="math notranslate nohighlight">\(Q\)</span> with eigenvalue <span class="math notranslate nohighlight">\(\lambda\)</span> satisfies <span class="math notranslate nohighlight">\(Q v = \lambda v\)</span>. Furthermore, <span class="math notranslate nohighlight">\(v^H Q^H = \overline{\lambda} v^H\)</span>, noting that <span class="math notranslate nohighlight">\(\lambda\)</span> is a scalar and so its transpose. Multiplying both identities with each other gives</p>
+<div class="math notranslate nohighlight">
+\[
+(v^H Q^H) (Q v) = (\overline{\lambda} v^H) (\lambda v).
+\]</div>
+<p class="sd-card-text">Using <span class="math notranslate nohighlight">\(Q^H Q = I\)</span>, we arrive at <span class="math notranslate nohighlight">\(\| v \|_2^2 = |\lambda|^2 \| v \|_2^2\)</span>, implying <span class="math notranslate nohighlight">\(|\lambda| = 1\)</span>.</p>
+</div>
+</details></section>
+<section id="optional-material">
+<h2>Optional material<a class="headerlink" href="#optional-material" title="Link to this heading">#</a></h2>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Eigenvalues and ordinary differential equations</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Eigenvalue problems are fundamentally important in various fields, including the study of differential equations. For instance, consider solving the ordinary differential equation (ODE):</p>
+<div class="math notranslate nohighlight">
+\[
+y' = Ay,
+\]</div>
+<p class="sd-card-text">where <span class="math notranslate nohighlight">\(A \in \mathbb{C}^{n \times n}\)</span> and <span class="math notranslate nohighlight">\(y(0) = y_0\)</span>. If <span class="math notranslate nohighlight">\(y_0\)</span> is an eigenvector of <span class="math notranslate nohighlight">\(A\)</span> with eigenvalue <span class="math notranslate nohighlight">\(\lambda\)</span>, then the solution of the ODE is given by <span class="math notranslate nohighlight">\(y(t) = y_0 e^{\lambda t}\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+y'(t) = \lambda y_0 e^{\lambda t} = A y_0 e^{\lambda t} = A y(t).
+\]</div>
+<p class="sd-card-text">This perspective emphasises eigenvalues as not merely properties of matrices but as fundamental characteristics of dynamical systems governed by the matrix <span class="math notranslate nohighlight">\(A\)</span>. This view contrasts singular values, which are more about the mapping attributes of a matrix <span class="math notranslate nohighlight">\(A\)</span>.</p>
+</div>
+</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Jordan normal form</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">The Jordan normal form (or Jordan canonical form) is a way of simplifying a square matrix into a specific upper triangular form through a similarity transformation. This form is useful because it provides a simplified representation of the matrix that retains its essential features, especially its eigenvalues and the geometric structure associated with them.</p>
+<p class="sd-card-text">Here are the key aspects of the Jordan normal form:</p>
+<ol class="arabic">
+<li><p class="sd-card-text"><strong>Structure</strong>: A matrix in Jordan normal form is a block diagonal matrix where each block is a Jordan block. A Jordan block is an upper triangular matrix of the form:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+   J = \begin{pmatrix}
+   \lambda &amp; 1 &amp; 0 &amp; \cdots &amp; 0 \\
+   0 &amp; \lambda &amp; 1 &amp; \cdots &amp; 0 \\
+   0 &amp; 0 &amp; \lambda &amp; \ddots &amp; \vdots \\
+   \vdots &amp; \vdots &amp; \ddots &amp; \ddots &amp; 1 \\
+   0 &amp; 0 &amp; \cdots &amp; 0 &amp; \lambda
+   \end{pmatrix}.
+   \end{split}\]</div>
+<p class="sd-card-text">Here, <span class="math notranslate nohighlight">\(\lambda\)</span> is an eigenvalue of the original matrix.</p>
+</li>
+<li><p class="sd-card-text"><strong>Eigenvalues</strong>: The diagonal entries of each Jordan block are the eigenvalues of the matrix. If an eigenvalue has a higher algebraic multiplicity, it appears in multiple blocks or in a larger block.</p></li>
+<li><p class="sd-card-text"><strong>Geometric Multiplicity</strong>: The number of Jordan blocks corresponding to each eigenvalue is the geometric multiplicity of that eigenvalue.</p></li>
+<li><p class="sd-card-text"><strong>Existence</strong>: Every square matrix over an algebraically closed field (like the complex numbers) can be put into Jordan normal form. However, finding the Jordan normal form of a matrix can be computationally difficult and is sensitive to perturbations in the matrix entries.</p></li>
+<li><p class="sd-card-text"><strong>Limitation</strong>: Due to instability, the Jordan normal form is often avoided for numerical computations. Instead, other forms like the Schur decomposition are used.</p></li>
+</ol>
+</div>
+</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Perturbation results for eigenvalue problems</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Consider a matrix <span class="math notranslate nohighlight">\(A\in\mathbb{C}^{n\times n}\)</span> and an eigenpair <span class="math notranslate nohighlight">\((\lambda, x)\)</span> of <span class="math notranslate nohighlight">\(A\)</span>. Let <span class="math notranslate nohighlight">\(y\)</span> be the corresponding left-eigenvector, satisfying <span class="math notranslate nohighlight">\(y^HA = \lambda y^H\)</span>.</p>
+<p class="sd-card-text">We wish to investigate the effect of a perturbation <span class="math notranslate nohighlight">\(\delta A\)</span> of <span class="math notranslate nohighlight">\(A\)</span> on the eigenvalues and eigenvectors of the matrix. Suppose that <span class="math notranslate nohighlight">\(\lambda\)</span> is a simple eigenvalue. Because eigenvalues are roots of the characteristic polynomial, one can show that perturbing <span class="math notranslate nohighlight">\(A\)</span> by <span class="math notranslate nohighlight">\(\delta A\)</span> creates a perturbation <span class="math notranslate nohighlight">\(\delta \lambda\)</span> of the eigenvalue and <span class="math notranslate nohighlight">\(\delta x\)</span> of the eigenvector, which smoothly depends on <span class="math notranslate nohighlight">\(\delta A\)</span> for small perturbations. The perturbed eigenvalue equation is</p>
+<div class="math notranslate nohighlight">
+\[
+(A + \delta A)(x+ \delta x) = (\lambda + \delta \lambda)(x + \delta x).
+\]</div>
+<p class="sd-card-text">Expanding the equation, we obtain <span class="math notranslate nohighlight">\(A \, \delta x + \delta A \, x + \delta A \, \delta x 
+= \lambda \, \delta x + \delta \lambda \, x + \delta \lambda \, \delta x\)</span>. We now multiply from the left with <span class="math notranslate nohighlight">\(y^H\)</span> and use that <span class="math notranslate nohighlight">\(y^HA = \lambda y^H\)</span>, resulting in <span class="math notranslate nohighlight">\(y^H \, \delta A \, x + y^H \, \delta A \, \delta x 
+= \delta \lambda \, y^H \, x + \delta \lambda \, y^H \, \delta x\)</span>. Solving for <span class="math notranslate nohighlight">\(\delta \lambda\)</span>, we arrive at</p>
+<div class="math notranslate nohighlight">
+\[
+\delta\lambda = \frac{y^H \, \delta A \, x + y^H \, \delta A \, \delta x - \delta \lambda \, y^H \, \delta x}{y^H \, x}.
+\]</div>
+<p class="sd-card-text">The absolute condition number with respect to the <span class="math notranslate nohighlight">\(2\)</span> norm is, for <span class="math notranslate nohighlight">\(\lambda \neq 0\)</span> and <span class="math notranslate nohighlight">\(A \neq 0\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+\kappa_{abs}(\lambda) = &amp; \lim_{\delta \to 0} \sup_{\| \delta A \|_2 \leq \delta} \Bigl( \frac{|\delta \lambda|}{\| \delta A \|_2} \Bigr) = \lim_{\delta \to 0} \sup_{\| \delta A \|_2 \leq \delta} \Bigl( \frac{|y^H \, \delta A \, x / (y^H \, x)|}{\| \delta A \|_2} \Bigr)\\
+= &amp; \sup_{\| \delta A \|_2 \leq 1} \Bigl( \frac{|y^H \, \delta A \, x / (y^H \, x)|}{\| \delta A \|_2} \Bigr) = \sup_{\| \delta A \|_2 \leq 1} \bigl( |y^H \, \delta A \, x / (y^H \, x)| \bigr) = \frac{\|y\| \|x\|}{|y^Hx|}.
+\end{align*}
+\end{split}\]</div>
+<p class="sd-card-text">Here, we used that <span class="math notranslate nohighlight">\(y^H \, \delta A \, \delta x - \delta \lambda \, y^H \, \delta x\)</span> are higher-order terms and, for the last equality, that <span class="math notranslate nohighlight">\(\delta A\)</span> may be chosen to reflect <span class="math notranslate nohighlight">\(x\)</span> such that <span class="math notranslate nohighlight">\(\delta A \, x\)</span> is collinear to <span class="math notranslate nohighlight">\(y\)</span>. We find that <span class="math notranslate nohighlight">\(\kappa_{abs}(\lambda)\)</span> approaches infinity as <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> approach orthogonal directions.</p>
+<p class="sd-card-text">We now turn our attention to a multiple eigenvalue. Let’s assume for simplicity that its algebraic and geometric multiplicities are equal. This situation gives rise to two right eigenvectors, <span class="math notranslate nohighlight">\(x_1\)</span> and <span class="math notranslate nohighlight">\(x_2\)</span>, as well as two left eigenvectors, <span class="math notranslate nohighlight">\(y_1\)</span> and <span class="math notranslate nohighlight">\(y_2\)</span>. Furthermore, any non-zero linear blend of <span class="math notranslate nohighlight">\(\alpha_1 x_1 + \alpha_2 x_2\)</span> forms a right eigenvector and a similar combination can be made with <span class="math notranslate nohighlight">\(y_1\)</span> and <span class="math notranslate nohighlight">\(y_2\)</span> for left eigenvectors.</p>
+<p class="sd-card-text">We can determine the orthogonal relationship by solving:</p>
+<div class="math notranslate nohighlight">
+\[
+y_1^H(x_1 - \alpha x_2) = 0,
+\]</div>
+<p class="sd-card-text">leading to <span class="math notranslate nohighlight">\(y_1 \bot (x_1 - \frac{y_1^H x_1}{y_1^H x_2}x_2)\)</span>. Therefore, in the presence of multiple eigenvalues, an orthogonal pair of left and right eigenvectors exists, indicating that multiple eigenvalues are unstable to perturbations. This is also reflected in the observation that if we have a polynomial with a multiple root, then a small arbitrary perturbation in the coefficients will turn a multiple root into several simple roots, qualitatively changing the nature of the eigensystem.</p>
+<p class="sd-card-text">For a more comprehensive and formal discussion on the perturbations of eigensystems, particularly in cases of multiple eigenvalues and their projections onto corresponding eigenvector subspaces, see Chapter 2 of <span id="id1">[<a class="reference internal" href="bm4_bibliography.html#id6" title="Tosio Kato. Perturbation theory for linear operators. Volume 132 of Die Grundlehren der mathematischen Wissenschaften. Springer, 1966. URL: https://ucl.primo.exlibrisgroup.com/permalink/44UCL_INST/155jbua/alma990002502430204761.">Kato, 1966</a>]</span>.</p>
+<p class="sd-card-text">We conclude with a statement of the Bauer-Fike Theorem.</p>
+<div class="prf-theorem admonition">
+<p class="admonition-title">Fact: Bauer-Fike Theorem</p>
+<p class="sd-card-text">Consider a diagonalizable matrix <span class="math notranslate nohighlight">\(A\in\mathbb{C}^{n\times n}\)</span> with the similarity transformation <span class="math notranslate nohighlight">\(A = X \, \Lambda \, X^{-1}\)</span>, where <span class="math notranslate nohighlight">\(X\)</span> is invertible and <span class="math notranslate nohighlight">\(\Lambda\)</span> diagonal. For every perturbation <span class="math notranslate nohighlight">\(\delta A\)</span> and every eigenvalue <span class="math notranslate nohighlight">\(z\)</span> of <span class="math notranslate nohighlight">\(A+\delta A\)</span> there exists an eigenvalue <span class="math notranslate nohighlight">\(\lambda\)</span> of <span class="math notranslate nohighlight">\(A\)</span> such that:</p>
+<div class="math notranslate nohighlight">
+\[
+|z-\lambda| \leq \|X\|_2 \|X^{-1}\|_2 \|\delta A\|_2.
+\]</div>
+</div>
+<p class="sd-card-text">In the above notation, we may write this more succinctly as</p>
+<div class="math notranslate nohighlight">
+\[
+|\delta \lambda| \leq \kappa_{rel}(X) \| \delta A \|_2,
+\]</div>
+<p class="sd-card-text">where <span class="math notranslate nohighlight">\(\kappa_{rel}(A) = \|X\|_2 \|X^{-1}\|_2\)</span>. This theorem relates the perturbation of eigenvalues to the condition number of the eigenvector matrix <span class="math notranslate nohighlight">\(X\)</span>, offering a maximum bound for eigenvalue perturbations. For a Hermitian matrix <span class="math notranslate nohighlight">\(A\)</span>, the eigenvector matrix is unitary, implying that the condition number is 1, simplifying the Bauer-Fike theorem.</p>
+</div>
+</details></section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="4.3_stable_quadrature_schemes.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Stable Quadrature Schemes</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="5.2_computing_eigenvalues.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Computing eigenvalues</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#complex-vector-spaces">Complex vector spaces</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#characteristic-polynomials-algebraic-and-geometric-multiplicities">Characteristic polynomials, algebraic and geometric multiplicities</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eigenvalue-decomposition">Eigenvalue decomposition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-companion-matrix">The companion matrix</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#complex-numbers">Complex numbers</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eigenvalue-decomposition-with-python">Eigenvalue decomposition with Python</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#self-check-questions">Self-check questions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-material">Optional material</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Timo Betcke, Erik Burman, Max Jensen
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

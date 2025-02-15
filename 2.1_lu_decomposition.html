@@ -1,0 +1,1344 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>LU decomposition &#8212; Computational Methods MATH0058 lecture notes</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '2.1_lu_decomposition';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Backward error and pivoting" href="2.2_lu_backward_error.html" />
+    <link rel="prev" title="Memory layout and Numpy" href="1.2_numpy_and_data_layouts.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Computational Methods MATH0058 lecture notes - Home"/>
+    <img src="_static/logo.png" class="logo__image only-dark pst-js-only" alt="Computational Methods MATH0058 lecture notes - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="index.html">
+                    Welcome!
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Fundamentals</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="0.1_matrix_vector_norms.html">Measuring distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="0.2_error_analysis.html">Backward error analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="0.3_linear_system_error.html">The condition number of linear systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="0.4_complexity_notation.html">Asymptotic notation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Implementation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="1.1_floating_point_arithmetic.html">Floating point numbers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_numpy_and_data_layouts.html">Memory layout and Numpy</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">LU decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.2_lu_backward_error.html">Backward error and pivoting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.3_python_lu_decomposition.html">Python implementation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Orthogonal Decompositions</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="3.1_qr_decomposition.html">The QR Decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.2_singular_value_decomposition.html">The Singular Value Decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.3_least_squares_problems.html">Least-squares Problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.4_constrained_least_squares_problems.html">Constrained Problems</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Interpolation and Quadrature</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="4.1_interpolation.html">Polynomial Interpolation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.2_quadrature.html">Introduction to Quadrature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.3_stable_quadrature_schemes.html">Stable Quadrature Schemes</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Eigenvalue Problems</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="5.1_eigenvalues_basic_properties.html">Basic properties of eigenvalue problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.2_computing_eigenvalues.html">Computing eigenvalues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.3_computing_eigenspaces.html">Computing the eigensystem</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back matter</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="bm1_notation_and_facts.html">Notation and facts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bm2_programming_resources.html">Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bm3_markdown.html">Markdown and LaTeX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bm4_bibliography.html">Bibliography</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/2.1_lu_decomposition.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>LU decomposition</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-idea">Basic idea</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-an-upper-triangular-system">Solving an upper triangular system</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-elimination-in-matrix-notation">Gaussian elimination in matrix notation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deriving-the-lu-decomposition">Deriving the LU decomposition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-complete-algorithm">The complete algorithm</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cost-of-lu-decomposition">Cost of LU decomposition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#self-check-questions">Self-check questions</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="lu-decomposition">
+<h1>LU decomposition<a class="headerlink" href="#lu-decomposition" title="Link to this heading">#</a></h1>
+<p>Solving linear systems of equations is among the most fundamental operations in a computer. Many problems (even
+nonlinear ones) eventually reduce to sequences of linear system solves.</p>
+<p>Most students learn about <a class="reference external" href="https://en.wikipedia.org/wiki/Gaussian_elimination">Gaussian elimination</a>, which is also known as row reduction, in school. The LU decomposition is simply a more organised way to perform Gaussian elimination.</p>
+<section id="basic-idea">
+<h2>Basic idea<a class="headerlink" href="#basic-idea" title="Link to this heading">#</a></h2>
+<p>We consider the linear system of equations</p>
+<div class="math notranslate nohighlight">
+\[
+Ax = b
+\]</div>
+<p>with <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{n \times n}\)</span>. Throughout, assume that <span class="math notranslate nohighlight">\(A\)</span> is nonsingular. The LU decomposition applies similarly to complex matrices.</p>
+<p>Many techniques in numerical linear algebra rely on factoring a matrix into products of simpler matrices. The LU decomposition is one such factorization:</p>
+<div class="math notranslate nohighlight">
+\[
+A = LU
+\]</div>
+<p>This represents a decomposition of <span class="math notranslate nohighlight">\(A\)</span> into the product of two matrices, <span class="math notranslate nohighlight">\(L\)</span> and <span class="math notranslate nohighlight">\(U\)</span>. Substituting this into the system gives</p>
+<div class="math notranslate nohighlight">
+\[
+LUx = b
+\]</div>
+<p>To solve this system, we now have to solve two matrix problems:</p>
+<div class="math notranslate nohighlight">
+\[
+Ly = b, \qquad Ux = y.
+\]</div>
+<p>This might seem cumbersome. Instead of one linear system, we now have two. However, the trick is to choose a decomposition that makes solving linear systems with <span class="math notranslate nohighlight">\(L\)</span> and <span class="math notranslate nohighlight">\(U\)</span> particularly easy.</p>
+<p>In LU decomposition, <span class="math notranslate nohighlight">\(L\)</span> is a lower triangular matrix, meaning its nonzero elements are confined to the diagonal and the entries below it. Similarly, <span class="math notranslate nohighlight">\(U\)</span> is an upper triangular matrix, where nonzero elements appear on the diagonal and above it.</p>
+</section>
+<section id="solving-an-upper-triangular-system">
+<h2>Solving an upper triangular system<a class="headerlink" href="#solving-an-upper-triangular-system" title="Link to this heading">#</a></h2>
+<p>Consider an upper triangular system <span class="math notranslate nohighlight">\(Ux = y\)</span>. Its equations can be written as</p>
+<div class="math notranslate nohighlight">
+\[
+\sum_{j=i}^n u_{i,j} x_j = y_i,
+\]</div>
+<p>for <span class="math notranslate nohighlight">\(i = n, n-1, \dots, 1\)</span>. This leads to the well-known back-substitution procedure:</p>
+<ul>
+<li><p>First, find <span class="math notranslate nohighlight">\(x_n = y_n / u_{n,n}\)</span>.</p></li>
+<li><p>Then, for each <span class="math notranslate nohighlight">\(i\)</span> from <span class="math notranslate nohighlight">\(n-1\)</span> down to <span class="math notranslate nohighlight">\(1\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[
+  x_i = \frac{y_i - \sum_{j=i+1}^n u_{i,j} x_j}{u_{i,i}}.
+  \]</div>
+</li>
+</ul>
+<p>The following fact ensures that there is no division by zero in the back-substitution procedure if <span class="math notranslate nohighlight">\(U\)</span> is invertible.</p>
+<div class="admonition-fact-invertible-triangular-systems admonition">
+<p class="admonition-title">Fact: Invertible triangular systems</p>
+<p>A triangular matrix is invertible if and only if its diagonal elements are non-zero.</p>
+</div>
+<p>What is the cost of this triangular solve? We count the number of additions, subtractions, multiplications, and divisions.</p>
+<ul>
+<li><p>For each <span class="math notranslate nohighlight">\(i\)</span>, there are <span class="math notranslate nohighlight">\(n - i\)</span> multiplications and <span class="math notranslate nohighlight">\(n - i - 1\)</span> additions, plus one subtraction and one division.</p></li>
+<li><p>Hence, the overall number of operations (<span class="math notranslate nohighlight">\(ops\)</span>) is</p>
+<div class="math notranslate nohighlight">
+\[
+  ops = \sum_{i=1}^n [(n-i) + (n-i-1) + 1 + 1] = \sum_{i=1}^n [2 (n-i) + 1] = n^2.
+  \]</div>
+</li>
+</ul>
+<p>Thus, triangular solves are efficient and form the backbone of methods like LU decomposition for solving large linear systems.</p>
+</section>
+<section id="gaussian-elimination-in-matrix-notation">
+<h2>Gaussian elimination in matrix notation<a class="headerlink" href="#gaussian-elimination-in-matrix-notation" title="Link to this heading">#</a></h2>
+<p>To derive the LU decomposition, we express Gaussian elimination operations as matrix multiplications.</p>
+<p>At the beginning, we have <span class="math notranslate nohighlight">\(A^{(1)} = A\)</span> and <span class="math notranslate nohighlight">\(b^{(1)} = b\)</span>. At each stage of Gaussian elimination, we eliminate the entries of a column below the diagonal. Let <span class="math notranslate nohighlight">\(A^{(s)}\)</span> and <span class="math notranslate nohighlight">\(b^{(s)}\)</span> be the matrix and right-hand side we obtain after eliminating the first <span class="math notranslate nohighlight">\(s-1\)</span> columns.</p>
+<p>Schematically, we have the picture</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+A^{(s)} =
+\begin{pmatrix}
+\times &amp; \times &amp; \times &amp; \times &amp; \times\\
+0 &amp; \times &amp; \times &amp; \times &amp; \times\\
+0 &amp; 0 &amp; \times &amp; \times &amp; \times\\
+0 &amp; 0 &amp; \times &amp; \times &amp; \times\\
+0 &amp; 0 &amp; \times &amp; \times &amp; \times
+\end{pmatrix}
+\mapsto
+\begin{pmatrix}
+\times &amp; \times &amp; \times &amp; \times &amp; \times\\
+0 &amp; \times &amp; \times &amp; \times &amp; \times\\
+0 &amp; 0 &amp; \times &amp; \times &amp; \times\\
+0 &amp; 0 &amp; 0 &amp; {\bf \times} &amp; \times\\
+0 &amp; 0 &amp; 0 &amp; \times &amp; \times
+\end{pmatrix}
+= A^{(s+1)}
+\end{split}\]</div>
+<p>To be more precise, given <span class="math notranslate nohighlight">\(A^{(s)}\)</span>, subtract <span class="math notranslate nohighlight">\(A^{(s)}_{is} / A^{(s)}_{ss}\)</span> times row <span class="math notranslate nohighlight">\(s\)</span> from row <span class="math notranslate nohighlight">\(i \in \{s+1, \ldots, n\}\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+A^{(s+1)}_{ij} = A^{(s)}_{ij} - \frac{A^{(s)}_{is}}{A^{(s)}_{ss}} A^{(s)}_{sj}
+\]</div>
+<p>Note that on a computer, the computation only needs to be carried out for <span class="math notranslate nohighlight">\(j \in \{ s+1, \ldots, n\}\)</span>: for <span class="math notranslate nohighlight">\(j \in \{1, \ldots, s-1\}\)</span> both <span class="math notranslate nohighlight">\(A^{(s)}_{ij}\)</span> and <span class="math notranslate nohighlight">\(A^{(s)}_{sj}\)</span> vanish; for <span class="math notranslate nohighlight">\(j = s\)</span> the formula is precisely chosen to guarantee the cancellation of terms. Through successive elimination of columns, we reduce <span class="math notranslate nohighlight">\(A\)</span> to an upper triangular matrix <span class="math notranslate nohighlight">\(A^{(n)}\)</span> after <span class="math notranslate nohighlight">\(n-1\)</span> steps. We now rewrite the elimination step as matrix multiplication</p>
+<div class="math notranslate nohighlight">
+\[
+A^{(s+1)} = F^{(s)} \, A^{(s)}
+\]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+F^{(s)} =
+\begin{pmatrix}
+1\\
+&amp; \ddots\\
+&amp; &amp; 1\\
+&amp; &amp; \!\!\!\!\!\!\!\!\!\!\!\!-\ell_{s+1, s}\!\!\!\!\!\!\!\!\! &amp; \ddots\\
+&amp; &amp; \vdots &amp; &amp; \ddots\\
+&amp; &amp; \!\!\!\!-\ell_{n, s} &amp; &amp; &amp;  1\\
+\end{pmatrix},
+\qquad \ell_{i,s} = \frac{A^{(s)}_{is}}{A^{(s)}_{ss}}.
+\end{split}\]</div>
+<div class="proof definition admonition" id="definition-0">
+<p class="admonition-title"><span class="caption-number">Definition 5 </span></p>
+<section class="definition-content" id="proof-content">
+<p>A matrix where all diagonal elements are <span class="math notranslate nohighlight">\(1\)</span>, with zeros elsewhere except for nonzero entries in column <span class="math notranslate nohighlight">\(s\)</span> below the diagonal is called a Frobenius matrix of index <span class="math notranslate nohighlight">\(s\)</span>.</p>
+</section>
+</div><p>We denote the <span class="math notranslate nohighlight">\(s\)</span>th unit vector by <span class="math notranslate nohighlight">\(e^{(s)}\)</span>, thus <span class="math notranslate nohighlight">\(e_k^{(s)} = 1\)</span> if <span class="math notranslate nohighlight">\(s = k\)</span> and <span class="math notranslate nohighlight">\(e_k^{(s)} = 0\)</span> otherwise. Any Frobenius matrix of index <span class="math notranslate nohighlight">\(s\)</span> can be written by choosing a vector</p>
+<div class="math notranslate nohighlight">
+\[
+f = (0, \ldots, 0, f_{s+1}, \ldots, f_n)^\top,
+\]</div>
+<p>containing the subdiagonal elements:</p>
+<div class="math notranslate nohighlight">
+\[
+F = I - f \cdot (e^{(s)})^\top = I - f \otimes e^{(s)}.
+\]</div>
+<p>Here <span class="math notranslate nohighlight">\(I\)</span> is the identity matrix and <span class="math notranslate nohighlight">\(\otimes\)</span> is the outer (or tensor) product: <span class="math notranslate nohighlight">\(a \cdot b^\top = a \otimes b\)</span> for <span class="math notranslate nohighlight">\(a \in \mathbb{R}^m, b \in \mathbb{R}^n\)</span>. Observe that <span class="math notranslate nohighlight">\(a \otimes b \in \mathbb{R}^{m \times n}\)</span> and distinguish it from the inner product <span class="math notranslate nohighlight">\(a^\top \cdot b = \langle a, b\rangle \in \mathbb{R}\)</span>.</p>
+<p>Before continuing, make sure you fully understand</p>
+<ul class="simple">
+<li><p>why <span class="math notranslate nohighlight">\(A^{(s+1)} = F^{(s)} \, A^{(s)}\)</span> precisely implements the Gaussian elimination in column <span class="math notranslate nohighlight">\(s\)</span>,</p></li>
+<li><p>why all Frobenius matrices <span class="math notranslate nohighlight">\(F\)</span> of index <span class="math notranslate nohighlight">\(s\)</span> are of the form <span class="math notranslate nohighlight">\(I - f \otimes e^{(s)}\)</span> where the first <span class="math notranslate nohighlight">\(s\)</span> elements of <span class="math notranslate nohighlight">\(f\)</span> vanish.</p></li>
+</ul>
+<p>Also look at the self-check exercises below.</p>
+</section>
+<section id="deriving-the-lu-decomposition">
+<h2>Deriving the LU decomposition<a class="headerlink" href="#deriving-the-lu-decomposition" title="Link to this heading">#</a></h2>
+<p>So far we changed the description of Gaussian elimination, but not added any substantial new mathematics. That is going to change now: the inverses of Frobenius matrices are known and efficiently computable. This is a rare property!</p>
+<div class="proof lemma admonition" id="lemma-1">
+<p class="admonition-title"><span class="caption-number">Lemma 2 </span></p>
+<section class="lemma-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(F = I - f \otimes e^{(s)}\)</span> be as above. Then</p>
+<div class="math notranslate nohighlight">
+\[
+G = I + f \otimes e^{(s)}
+\]</div>
+<p>is the inverse of <span class="math notranslate nohighlight">\(F\)</span>.</p>
+</section>
+</div><div class="proof admonition" id="proof">
+<p>Proof. To show <span class="math notranslate nohighlight">\(F \, G = I\)</span>, we compute the entries of the product:</p>
+<div class="math notranslate nohighlight">
+\[
+\sum_{k = 1}^n F_{ik} \, G_{kj} = \delta_{ij} - f_i \, e^{(s)}_j + f_i \, e^{(s)}_j - \sum_{k = 1}^n f_i  e^{(s)}_k f_k  e^{(s)}_j = \delta_{ij}.
+\]</div>
+<p>Here <span class="math notranslate nohighlight">\(\delta_{ij}\)</span> is the Kronecker product.</p>
+</div>
+<p>Note that the inverse of a Frobenius matrix is also a Frobenius matrix. We now learn that products of Frobenius matrices can be computed with great ease.</p>
+<div class="proof lemma admonition" id="lemma-2">
+<p class="admonition-title"><span class="caption-number">Lemma 3 </span></p>
+<section class="lemma-content" id="proof-content">
+<p>For <span class="math notranslate nohighlight">\(s = 1, \ldots, n-1\)</span> let <span class="math notranslate nohighlight">\(G^{(s)} = I + f^{(s)} \otimes e^{(s)}\)</span> be a Frobenius matrix of index <span class="math notranslate nohighlight">\(s\)</span>. Then</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+G^{(1)} \cdots G^{(s)} = I + \sum_{r = 1}^s f^{(r)} \cdot (e^{(r)})^\top
+=
+\begin{pmatrix}
+1\\
+f^{(1)}_2 &amp; 1\\
+f^{(1)}_3 &amp; f^{(2)}_3 &amp; 1\\
+\vdots &amp; &amp; \ddots &amp; 1 \\
+\vdots &amp; &amp; &amp; f^{(s)}_n &amp; \ddots\\
+\vdots &amp; &amp; &amp; \vdots &amp; &amp; \ddots\\
+f^{(1)}_n &amp; f^{(2)}_n &amp; \cdots &amp; f^{(s)}_n &amp; &amp; &amp; 1
+\end{pmatrix} 
+.
+\end{split}\]</div>
+</section>
+</div><div class="proof admonition" id="proof">
+<p>Proof. We begin induction in <span class="math notranslate nohighlight">\(s\)</span> with <span class="math notranslate nohighlight">\(s = 1\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+G^{(1)} = I + f^{(1)} \cdot (e^{(1)})^\top.
+\]</div>
+<p>Suppose the statement of the lemma holds for <span class="math notranslate nohighlight">\(s\)</span>. Then for the element in row <span class="math notranslate nohighlight">\(i\)</span> and column <span class="math notranslate nohighlight">\(j\)</span> of the product we find</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+\Big( G^{(1)} \cdots G^{(s)} G^{(s+1)} \Big)_{ij} &amp; = \delta_{ij} + \sum_{r=1}^s f_i^{(r)} \, e_j^{(r)} + f_i^{(s+1)} \, e_j^{(s+1)} + \sum_{k=1}^n \sum_{r=1}^s f_i^{(r)} \, e_k^{(r)} f_k^{(s+1)} \, e_j^{(s+1)}\\
+&amp; = \delta_{ij} + \sum_{r=1}^{s+1} f_i^{(r)} \, e_j^{(r)}.
+\end{align*}
+\end{split}\]</div>
+</div>
+<p>Now everything is in place to return to Gaussian elimination:</p>
+<div class="math notranslate nohighlight">
+\[
+U := A^{(n)} = F^{(n-1)} \, A^{(n-1)} = F^{(n-1)} \cdots F^{(1)} A^{(1)}.
+\]</div>
+<p>With <span class="math notranslate nohighlight">\(L = G^{(1)} \cdots G^{(n-1)}\)</span>, we conclude</p>
+<div class="math notranslate nohighlight">
+\[
+LU = G^{(1)} \cdots G^{(n-1)} F^{(n-1)} \cdots F^{(1)} A^{(1)} = A^{(1)} = A.
+\]</div>
+<p>We showed that if Gaussian elimination works (without causing division by 0 or needing row or column permutations, called pivoting) then we can find an LU decomposition.</p>
+<div class="proof theorem admonition" id="theorem-3">
+<p class="admonition-title"><span class="caption-number">Theorem 3 </span></p>
+<section class="theorem-content" id="proof-content">
+<p>Suppose <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{n \times n}\)</span> can be transformed into an upper triangular <span class="math notranslate nohighlight">\(U \in \mathbb{R}^{n \times n}\)</span> by Gaussian elimination (without pivoting). Then there exists a lower triangular <span class="math notranslate nohighlight">\(L \in \mathbb{R}^{n \times n}\)</span> such that</p>
+<div class="math notranslate nohighlight">
+\[
+A = LU.
+\]</div>
+</section>
+</div></section>
+<section id="the-complete-algorithm">
+<h2>The complete algorithm<a class="headerlink" href="#the-complete-algorithm" title="Link to this heading">#</a></h2>
+<p>Consider we want to solve the linear system</p>
+<div class="math notranslate nohighlight">
+\[
+Ax = b
+\]</div>
+<p>First, we compute the LU decomposition</p>
+<div class="math notranslate nohighlight">
+\[
+A = LU
+\]</div>
+<p>using Gaussian elimination, storing the <span class="math notranslate nohighlight">\(\ell_{ij}\)</span> multipliers for each row in the corresponding positions of the <span class="math notranslate nohighlight">\(L\)</span> matrix.</p>
+<p>Next, we solve <span class="math notranslate nohighlight">\(Ly = b\)</span> by forward substitution. This involves solving for <span class="math notranslate nohighlight">\(y_1\)</span> first, then <span class="math notranslate nohighlight">\(y_2\)</span>, and so on. The algorithm is similar to the triangular solve discussed earlier, but we proceed from the first entry to the last entry of <span class="math notranslate nohighlight">\(y\)</span> since the matrix <span class="math notranslate nohighlight">\(L\)</span> is lower triangular. Additionally, since all diagonal entries of <span class="math notranslate nohighlight">\(L\)</span> are <span class="math notranslate nohighlight">\(1\)</span>, we do not need to divide by <span class="math notranslate nohighlight">\(L_{ii}\)</span>.</p>
+<p>Finally, we solve <span class="math notranslate nohighlight">\(Ux = y\)</span> by backward substitution.</p>
+</section>
+<section id="cost-of-lu-decomposition">
+<h2>Cost of LU decomposition<a class="headerlink" href="#cost-of-lu-decomposition" title="Link to this heading">#</a></h2>
+<p>We have established that solving a triangular system requires <span class="math notranslate nohighlight">\(\mathcal{O}(n^2)\)</span> operations. For computing the decomposition <span class="math notranslate nohighlight">\(A = LU\)</span>, the operation count yields a cost of <span class="math notranslate nohighlight">\(\frac{2}{3}n^3 + \mathcal{O}(n^2)\)</span> operations. Thus, the dominant computational cost lies in the LU decomposition itself. Once the decomposition is computed, the forward and backward substitution steps are comparatively inexpensive.</p>
+<p>This efficiency becomes particularly advantageous when solving multiple linear systems where the matrix <span class="math notranslate nohighlight">\(A\)</span> remains the same but the right-hand side <span class="math notranslate nohighlight">\(b\)</span> changes. In such cases, the <span class="math notranslate nohighlight">\(LU\)</span> decomposition is computed only once, and subsequent solutions require only the forward and backward substitutions, which can be performed efficiently.</p>
+</section>
+<section id="python-skills">
+<h2>Python skills<a class="headerlink" href="#python-skills" title="Link to this heading">#</a></h2>
+<p>To perform LU decomposition in Python, we can use the <code class="docutils literal notranslate"><span class="pre">scipy.linalg.lu</span></code> function from the SciPy library. This function returns the permutation matrix <code class="docutils literal notranslate"><span class="pre">P</span></code>, lower triangular matrix <code class="docutils literal notranslate"><span class="pre">L</span></code>, and upper triangular matrix <code class="docutils literal notranslate"><span class="pre">U</span></code> such that <code class="docutils literal notranslate"><span class="pre">PA</span> <span class="pre">=</span> <span class="pre">LU</span></code>. We shall investigate the use of <code class="docutils literal notranslate"><span class="pre">P</span></code> in the next section.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.linalg</span> <span class="kn">import</span> <span class="n">lu</span>
+
+<span class="c1"># Example matrix</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+
+<span class="c1"># Perform LU decomposition</span>
+<span class="n">P</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">U</span> <span class="o">=</span> <span class="n">lu</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;P:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">P</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;L:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">L</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;U:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">U</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We can use the above factors to solve the linear system with different right-hand sides. The inverse of <code class="docutils literal notranslate"><span class="pre">P</span></code> is <code class="docutils literal notranslate"><span class="pre">P</span></code> itself.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example right-hand sides</span>
+<span class="n">b1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="n">b2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+
+<span class="c1"># Check that P is its own inverse</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;P * P =</span><span class="se">\n</span><span class="s2"> </span><span class="si">{</span><span class="n">P</span><span class="w"> </span><span class="o">@</span><span class="w"> </span><span class="n">P</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">trig_solve</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+  <span class="c1"># Forward substitution to solve Ly = P b</span>
+  <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>
+
+  <span class="c1"># Backward substitution to solve Ux = y</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">U</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+  <span class="k">return</span> <span class="n">x</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Solution x1: </span><span class="si">{</span><span class="n">trig_solve</span><span class="p">(</span><span class="n">P</span><span class="p">,</span><span class="w"> </span><span class="n">L</span><span class="p">,</span><span class="w"> </span><span class="n">U</span><span class="p">,</span><span class="w"> </span><span class="n">b1</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Solution x2: </span><span class="si">{</span><span class="n">trig_solve</span><span class="p">(</span><span class="n">P</span><span class="p">,</span><span class="w"> </span><span class="n">L</span><span class="p">,</span><span class="w"> </span><span class="n">U</span><span class="p">,</span><span class="w"> </span><span class="n">b2</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="self-check-questions">
+<h2>Self-check questions<a class="headerlink" href="#self-check-questions" title="Link to this heading">#</a></h2>
+<div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Write down how to solve the below general <span class="math notranslate nohighlight">\(3 \times 3\)</span> system</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{pmatrix}
+a_{11} &amp; a_{12} &amp; a_{13}\\
+a_{21} &amp; a_{22} &amp; a_{23}\\
+a_{31} &amp; a_{32} &amp; a_{33}
+\end{pmatrix}
+\begin{pmatrix}
+x_1\\ x_2 \\ x_3
+\end{pmatrix}
+= \begin{pmatrix}b_1 \\ b_2 \\ b_3\end{pmatrix}
+\end{split}\]</div>
+<p>with Gaussian elimination. You may assume that the system is invertible.</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">We want to transform this system into an upper triangular system. In the first step, we multiply the first row with <span class="math notranslate nohighlight">\(\ell_{21} = \frac{a_{21}}{a_{11}}\)</span> and subtract from the second row to obtain the
+modified system</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{pmatrix}
+a_{11} &amp; a_{12} &amp; a_{13}\\
+0 &amp; \tilde{a}_{22} &amp; \tilde{a}_{23}\\
+a_{31} &amp; a_{32} &amp; a_{33}
+\end{pmatrix}
+\begin{pmatrix}
+x_1\\ x_2 \\ x_3
+\end{pmatrix}
+= \begin{pmatrix}b_1 \\ \tilde{b}_2 \\ b_3\end{pmatrix}
+\end{split}\]</div>
+<p class="sd-card-text">with</p>
+<div class="math notranslate nohighlight">
+\[
+\tilde{a}_{22} = a_{22} - l_{21}a_{12}, \quad \tilde{a}_{23} = a_{23} - \ell_{21}a_{13}
+\]</div>
+<p class="sd-card-text">and <span class="math notranslate nohighlight">\(b_2\)</span> modified correspondingly. We then define <span class="math notranslate nohighlight">\(\ell_{31} = \frac{a_{31}}{a_{11}}\)</span> and proceed in a similar way with
+the third row to obtain</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{pmatrix}
+a_{11} &amp; a_{12} &amp; a_{13}\\
+0 &amp; \tilde{a}_{22} &amp; \tilde{a}_{23}\\
+0 &amp; \tilde{a}_{32} &amp; \tilde{a}_{33}
+\end{pmatrix}
+\begin{pmatrix}
+x_1\\ x_2 \\ x_3
+\end{pmatrix}
+= \begin{pmatrix}b_1 \\ \tilde{b}_2 \\ \tilde{b}_3\end{pmatrix}.
+\end{split}\]</div>
+<p class="sd-card-text">We now continue in the same way with the bottom right matrix. Define the element <span class="math notranslate nohighlight">\(\ell_{32} = \frac{\tilde{a}
+_{32}}{\tilde{a}_{22}}\)</span>, multiply the second row with it and subtract from the third row, giving at the end an upper
+triangular system of the form</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{pmatrix}
+a_{11} &amp; a_{12} &amp; a_{13}\\
+0 &amp; \tilde{a}_{22} &amp; \tilde{a}_{23}\\
+0 &amp; 0 &amp; \hat{a}_{33}
+\end{pmatrix}
+\begin{pmatrix}
+x_1\\ x_2 \\ x_3
+\end{pmatrix}
+= \begin{pmatrix}b_1 \\ \tilde{b}_2 \\ \hat{b}_3\end{pmatrix}.
+\end{split}\]</div>
+<p class="sd-card-text">We can now easily solve this system by backward substitution to compute first <span class="math notranslate nohighlight">\(x_3\)</span>, then <span class="math notranslate nohighlight">\(x_2\)</span>, and finally <span class="math notranslate nohighlight">\(x_1\)</span>.</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Do <span class="math notranslate nohighlight">\(LU\)</span> decomposition on</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+A = \left( \begin{array}{rrrr}
+3 &amp; 1 &amp; 4 &amp; 1\\
+15 &amp; 14 &amp; 22 &amp; 11 \\
+15 &amp; 32 &amp; 31 &amp; 31\\
+27 &amp; 72 &amp; 95 &amp; 126\\
+\end{array} \right).
+\end{split}\]</div>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">We have</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{equation*}\begin{aligned}
+% \left( \begin{array}{rrrr}
+% 3 &amp; 1 &amp; 4 &amp; 1\\
+% 15 &amp; 14 &amp; 22 &amp; 11 \\
+% 15 &amp; 32 &amp; 31 &amp; 31\\
+% 27 &amp; 72 &amp; 95 &amp; 126\\
+% \end{array} \right)
+A &amp;\stackrel{l_{21}=5}\sim
+\left( \begin{array}{rrrr}
+3 &amp; 1 &amp; 4 &amp; 1\\
+0 &amp;9 &amp;2 &amp;6\\
+15 &amp; 32 &amp; 31 &amp; 31\\
+27 &amp; 72 &amp; 95 &amp; 126\\
+\end{array} \right)
+\stackrel{l_{31}=5}\sim
+\left( \begin{array}{rrrr}
+3 &amp; 1 &amp; 4 &amp; 1\\
+0 &amp;9 &amp;2 &amp;6\\
+0 &amp;27 &amp;11 &amp;26\\
+27 &amp; 72 &amp; 95 &amp; 126\\
+\end{array} \right)
+\stackrel{l_{41}=9}\sim
+\left( \begin{array}{rrrr}
+3 &amp; 1 &amp; 4 &amp; 1\\
+0 &amp;9 &amp;2 &amp;6\\
+0 &amp;27 &amp;11 &amp;26\\
+0 &amp;63 &amp;59 &amp;117
+\end{array} \right)\\
+&amp;\stackrel{l_{32}=3}\sim
+\left( \begin{array}{rrrr}
+3 &amp; 1 &amp; 4 &amp; 1\\
+0 &amp;9 &amp;2 &amp;6\\
+0 &amp;0 &amp;5 &amp;8\\
+0 &amp;63 &amp;59 &amp;117
+\end{array} \right)
+\stackrel{l_{42}=7}\sim
+\left( \begin{array}{rrrr}
+3 &amp; 1 &amp; 4 &amp; 1\\
+0 &amp;9 &amp;2 &amp;6\\
+0 &amp;0 &amp;5 &amp;8\\
+0 &amp;0 &amp;45 &amp;75
+\end{array} \right)
+\stackrel{l_{43}=9}\sim
+\left( \begin{array}{rrrr}
+3 &amp; 1 &amp; 4 &amp; 1\\
+0 &amp;9 &amp;2 &amp;6\\
+0 &amp;0 &amp;5 &amp;8\\
+0 &amp;0 &amp;0 &amp;3
+\end{array} \right) = U,\\
+L &amp;= \left( \begin{array}{rrrr}
+1 &amp;0 &amp;0 &amp;0\\
+l_{21} &amp;1 &amp;0 &amp;0\\
+l_{31} &amp;l_{32} &amp;1 &amp;0\\
+l_{41} &amp;l_{42} &amp;l_{43} &amp;1
+\end{array} \right)
+= \left(\begin{array}{rrrr}
+1 &amp;0 &amp;0 &amp;0\\
+5 &amp;1 &amp;0 &amp;0\\
+5 &amp;3 &amp;1 &amp;0\\
+9 &amp;7 &amp;9 &amp;1
+\end{array}\right).
+\end{aligned}\end{equation*}
+\end{split}\]</div>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>A triangular matrix is invertible if and only if its diagonal elements are non-zero.</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">(⇒) Assume that a triangular matrix <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{n \times n}\)</span> is invertible. An invertible matrix has a non-zero determinant. For a triangular matrix, whether upper or lower, the determinant is the product of its diagonal elements. Thus, if <span class="math notranslate nohighlight">\(A\)</span> is invertible, its determinant is non-zero. This implies that each diagonal element must be non-zero.</p>
+<p class="sd-card-text">(⇐) Now assume that all diagonal elements of a triangular matrix <span class="math notranslate nohighlight">\(A\)</span> are non-zero. The determinant of a triangular matrix is the product of its diagonal entries. Since none of these entries is zero, their product is also non-zero. Hence, <span class="math notranslate nohighlight">\(\det(A) \neq 0\)</span>. A non-zero determinant implies that <span class="math notranslate nohighlight">\(A\)</span> is invertible.</p>
+<p class="sd-card-text">Comment: There are other valid methods to prove the result. For example one can argue with the linear independence of the columns.</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Eliminate the elements below the diagonal in the first column of the matrix</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+A = \begin{pmatrix}
+2 &amp; 1 &amp; 1 \\
+4 &amp; -6 &amp; 0 \\
+-2 &amp; 7 &amp; 2
+\end{pmatrix}
+\end{split}\]</div>
+<p>using multiplication with a Frobenius matrix.</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">We want to eliminate the elements in the second and third rows, first column. The multipliers for the second and third rows are:</p>
+<div class="math notranslate nohighlight">
+\[
+\ell_{21} = \frac{A_{21}}{A_{11}} = \frac{4}{2} = 2, \quad \ell_{31} = \frac{A_{31}}{A_{11}} = \frac{-2}{2} = -1
+\]</div>
+<p class="sd-card-text">The Frobenius matrix <span class="math notranslate nohighlight">\(F^{(1)}\)</span> for this step is therefore:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+F^{(1)} = \begin{pmatrix}
+1 &amp; 0 &amp; 0 \\
+-2 &amp; 1 &amp; 0 \\
+1 &amp; 0 &amp; 1
+\end{pmatrix}
+\end{split}\]</div>
+<p class="sd-card-text">Now, we compute</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+A^{(2)} = F^{(1)} \, A = \begin{pmatrix}
+1 &amp; 0 &amp; 0 \\
+-2 &amp; 1 &amp; 0 \\
+1 &amp; 0 &amp; 1
+\end{pmatrix}
+\begin{pmatrix}
+2 &amp; 1 &amp; 1 \\
+4 &amp; -6 &amp; 0 \\
+-2 &amp; 7 &amp; 2
+\end{pmatrix}
+= \begin{pmatrix}
+2 &amp; 1 &amp; 1 \\
+0 &amp; -8 &amp; -2 \\
+0 &amp; 8 &amp; 3
+\end{pmatrix}
+\end{split}\]</div>
+<p class="sd-card-text">As required, the multiplication eliminated two elements.</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>The Frobenius matrix</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+F = \begin{pmatrix}
+1 &amp; 0 &amp; 0 \\
+-2 &amp; 1 &amp; 0 \\
+1 &amp; 0 &amp; 1
+\end{pmatrix}
+\end{split}\]</div>
+<p>has the form <span class="math notranslate nohighlight">\(F = I - f \cdot g^\top\)</span>. What are <span class="math notranslate nohighlight">\(f, g \in \mathbb{R}^3\)</span>?</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">The vector <span class="math notranslate nohighlight">\(f\)</span> containing the subdiagonal elements is:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+f = \begin{pmatrix}
+0 \\
+2 \\
+-1
+\end{pmatrix}
+\end{split}\]</div>
+<p class="sd-card-text">The vector <span class="math notranslate nohighlight">\(g\)</span> is the first unit vector:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+e^{(1)} = \begin{pmatrix}
+1 \\
+0 \\
+0
+\end{pmatrix}
+\end{split}\]</div>
+<p class="sd-card-text">The Frobenius matrix <span class="math notranslate nohighlight">\(F\)</span> is then constructed as:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+F = I - f \cdot (e^{(1)})^\top = \begin{pmatrix}
+1 &amp; 0 &amp; 0 \\
+0 &amp; 1 &amp; 0 \\
+0 &amp; 0 &amp; 1
+\end{pmatrix} - \begin{pmatrix}
+0 \\
+2 \\
+-1
+\end{pmatrix} \cdot \begin{pmatrix}
+1 &amp; 0 &amp; 0
+\end{pmatrix} = \begin{pmatrix}
+1 &amp; 0 &amp; 0 \\
+-2 &amp; 1 &amp; 0 \\
+1 &amp; 0 &amp; 1
+\end{pmatrix}.
+\end{split}\]</div>
+<p class="sd-card-text">Thus, the Frobenius matrix has the form <span class="math notranslate nohighlight">\(I - f \cdot g^\top\)</span>.</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Let <span class="math notranslate nohighlight">\(A\in\mathbb{R}^{n\times n}\)</span> be tridiagonal, that is only the main diagonal and the first upper and lower off-diagonals can be nonzero.</p>
+<p>Assume that an LU decomposition exists. Show that it can be computed in <span class="math notranslate nohighlight">\(\mathcal{O}(n)\)</span> operations.</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">In each outer loop of the Gaussian elimination only one off-diagonal element needs to be reduced. Hence, the cost for each outer loop is constant and independent of <span class="math notranslate nohighlight">\(n\)</span>, leading to a total cost of <span class="math notranslate nohighlight">\(\mathcal{O}(n)\)</span>.</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Prove the Sherman-Morrison formula</p>
+<div class="math notranslate nohighlight">
+\[
+(A+uv^\top)^{-1} = A^{-1} - \frac{A^{-1}uv^\top A^{-1}}{1+v^\top A^{-1}u}
+\]</div>
+<p>if <span class="math notranslate nohighlight">\(1+v^\top A^{-1}u\neq 0\)</span>.</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">We have</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+    (A+uv^\top) \left[A^{-1} - \frac{A^{-1}uv^\top A^{-1}}{1+v^\top A^{-1}u}\right] &amp;= \\
+    I - \frac{uv^\top A^{-1}}{1+v^\top A^{-1}u} + uv^\top A^{-1} - uv^\top\frac{A^{-1}uv^\top A^{-1}}{1+v^\top A^{-1}u} &amp;=\\
+    I - \left[\frac{uv^\top A^{-1} + uv^\top A^{-1}uv^\top A^{-1}}{1+v^\top A^{-1}u} - uv^\top A^{-1}\right] &amp;= \\
+    I - u\left[\frac{1+v^\top A^{-1}u}{1+v^\top A^{-1}u} -1\right]v^\top A^{-1}&amp;= I
+\end{aligned}
+\end{split}\]</div>
+<p class="sd-card-text">Similarly, we could show that</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+    \left[A^{-1} - \frac{A^{-1}uv^\top A^{-1}}{1+v^\top A^{-1}u}\right](A+uv^\top) &amp;= \\
+    I - A^{-1}u\left[\frac{1 + v^\top A^{-1}u}{1+v^\top A^{-1}u} - 1\right]v^\top &amp;= I
+\end{aligned}
+\end{split}\]</div>
+<p class="sd-card-text">Hence, the formula holds.</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Compute the LU decomposition of the following matrix:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+A = \begin{pmatrix}
+4 &amp; 3 &amp; 2 \\
+6 &amp; 3 &amp; 0 \\
+2 &amp; 1 &amp; 1
+\end{pmatrix}
+\end{split}\]</div>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text"><strong>Column 1:</strong> The multipliers for the second and third rows are:</p>
+<div class="math notranslate nohighlight">
+\[
+\ell_{21} = \frac{A_{21}}{A_{11}} = \frac{6}{4} = 1.5, \quad \ell_{31} = \frac{A_{31}}{A_{11}} = \frac{2}{4} = 0.5
+\]</div>
+<p class="sd-card-text">The Frobenius matrix <span class="math notranslate nohighlight">\(F^{(1)}\)</span> for this step is:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+F^{(1)} = \begin{pmatrix}
+1 &amp; 0 &amp; 0 \\
+-1.5 &amp; 1 &amp; 0 \\
+-0.5 &amp; 0 &amp; 1
+\end{pmatrix}
+\end{split}\]</div>
+<p class="sd-card-text">Now, compute <span class="math notranslate nohighlight">\(A^{(2)} = F^{(1)} \, A\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+A^{(2)} = \begin{pmatrix}
+1 &amp; 0 &amp; 0 \\
+-1.5 &amp; 1 &amp; 0 \\
+-0.5 &amp; 0 &amp; 1
+\end{pmatrix}
+\begin{pmatrix}
+4 &amp; 3 &amp; 2 \\
+6 &amp; 3 &amp; 0 \\
+2 &amp; 1 &amp; 1
+\end{pmatrix}
+= \begin{pmatrix}
+4 &amp; 3 &amp; 2 \\
+0 &amp; -1.5 &amp; -3 \\
+0 &amp; -0.5 &amp; 0
+\end{pmatrix}
+\end{split}\]</div>
+<p class="sd-card-text"><strong>Column 2:</strong> The multiplier for the third row is:</p>
+<div class="math notranslate nohighlight">
+\[
+\ell_{32} = \frac{A^{(2)}_{32}}{A^{(2)}_{22}} = \frac{-0.5}{-1.5} = \frac{1}{3}
+\]</div>
+<p class="sd-card-text">The Frobenius matrix <span class="math notranslate nohighlight">\(F^{(2)}\)</span> for this step is:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+F^{(2)} = \begin{pmatrix}
+1 &amp; 0 &amp; 0 \\
+0 &amp; 1 &amp; 0 \\
+0 &amp; -\frac{1}{3} &amp; 1
+\end{pmatrix}
+\end{split}\]</div>
+<p class="sd-card-text">Now, compute <span class="math notranslate nohighlight">\(A^{(3)} = F^{(2)} \, A^{(2)}\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+A^{(3)} = \begin{pmatrix}
+1 &amp; 0 &amp; 0 \\
+0 &amp; 1 &amp; 0 \\
+0 &amp; -\frac{1}{3} &amp; 1
+\end{pmatrix}
+\begin{pmatrix}
+4 &amp; 3 &amp; 2 \\
+0 &amp; -1.5 &amp; -3 \\
+0 &amp; -0.5 &amp; 0
+\end{pmatrix}
+= \begin{pmatrix}
+4 &amp; 3 &amp; 2 \\
+0 &amp; -1.5 &amp; -3 \\
+0 &amp; 0 &amp; 1
+\end{pmatrix}
+\end{split}\]</div>
+<p class="sd-card-text"><strong>Constructing <span class="math notranslate nohighlight">\(L\)</span> and <span class="math notranslate nohighlight">\(U\)</span>:</strong> The matrix <span class="math notranslate nohighlight">\(U\)</span> is the final upper triangular matrix <span class="math notranslate nohighlight">\(A^{(3)}\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+U = \begin{pmatrix}
+4 &amp; 3 &amp; 2 \\
+0 &amp; -1.5 &amp; -3 \\
+0 &amp; 0 &amp; 1
+\end{pmatrix}
+\end{split}\]</div>
+<p class="sd-card-text">The matrix <span class="math notranslate nohighlight">\(L\)</span> is constructed from the multipliers used in the elimination steps:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+L = \begin{pmatrix}
+1 &amp; 0 &amp; 0 \\
+1.5 &amp; 1 &amp; 0 \\
+0.5 &amp; \frac{1}{3} &amp; 1
+\end{pmatrix}
+\end{split}\]</div>
+<p class="sd-card-text">Thus, the LU decomposition of <span class="math notranslate nohighlight">\(A\)</span> is:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+A = LU = \begin{pmatrix}
+1 &amp; 0 &amp; 0 \\
+1.5 &amp; 1 &amp; 0 \\
+0.5 &amp; \frac{1}{3} &amp; 1
+\end{pmatrix}
+\begin{pmatrix}
+4 &amp; 3 &amp; 2 \\
+0 &amp; -1.5 &amp; -3 \\
+0 &amp; 0 &amp; 1
+\end{pmatrix}
+\end{split}\]</div>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Suppose that <span class="math notranslate nohighlight">\(A\)</span> is symmetric and <span class="math notranslate nohighlight">\(A = L U\)</span> is its <span class="math notranslate nohighlight">\(LU\)</span> decomposition. Is <span class="math notranslate nohighlight">\(U = L^\top\)</span>?</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">No, here is a counterexample:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{pmatrix}
+2 &amp; 1\\
+1 &amp; 2
+\end{pmatrix}
+=
+\begin{pmatrix}
+1 &amp; 0\\
+\frac{1}{2} &amp; 1
+\end{pmatrix}
+\cdot
+\begin{pmatrix}
+2 &amp; 1\\
+0 &amp; \frac{3}{2}
+\end{pmatrix}.
+\end{split}\]</div>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Given a non-singular <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{3 \times 3}\)</span>, is its <span class="math notranslate nohighlight">\(LU\)</span> decomposition unique?</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">If <span class="math notranslate nohighlight">\(L\)</span> is <em>only</em> required to be lower triangular, it is clear that the <span class="math notranslate nohighlight">\(LU\)</span> decomposition is not unique: setting <span class="math notranslate nohighlight">\(L'=\alpha L\)</span> and <span class="math notranslate nohighlight">\(U'=(1/\alpha)U\)</span> for some scalar <span class="math notranslate nohighlight">\(\alpha\)</span>, one has <span class="math notranslate nohighlight">\(L'U'=LU=A\)</span>.</p>
+<p class="sd-card-text">So let us consider our <em>standard form</em> where <span class="math notranslate nohighlight">\(\ell_{ii}=1\)</span>. Setting</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+A = \begin{pmatrix}
+a_{11} &amp; a_{12} &amp; a_{13}\\
+a_{21} &amp; a_{22} &amp; a_{23}\\
+a_{31} &amp; a_{32} &amp; a_{33}
+\end{pmatrix}
+= \begin{pmatrix}
+1 &amp; 0 &amp; 0\\
+\ell_{21} &amp; 1 &amp; 0\\
+\ell_{31} &amp; \ell_{32} &amp; 1
+\end{pmatrix} \cdot
+\begin{pmatrix}
+u_{11} &amp; u_{12} &amp; u_{13}\\
+0 &amp; u_{22} &amp; u_{23}\\
+0 &amp; 0 &amp; u_{33}
+\end{pmatrix}
+= L \cdot U,
+\end{split}\]</div>
+<p class="sd-card-text">we find:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+   &amp;u_{1j} = a_{1j} &amp; &amp;\\
+   &amp;\ell_{21} u_{11} = a_{21} &amp; &amp;\Rightarrow \ell_{21}\\
+   &amp;\ell_{21} u_{1j} + u_{2j} = a_{2j} &amp; &amp;\Rightarrow u_{2j}\\
+   &amp;\ell_{31} u_{11} = a_{31} &amp; &amp;\Rightarrow \ell_{31}\\
+   &amp;\ell_{31} u_{12} + l_{32} u_{22} = a_{32} &amp; &amp;\Rightarrow \ell_{32}\\
+   &amp;\ell_{31} u_{1j} + l_{32} u_{2j} + u_{3j} = a_{3j} &amp; &amp;\Rightarrow u_{3j}
+\end{aligned}
+\end{split}\]</div>
+<p class="sd-card-text">Here the <span class="math notranslate nohighlight">\(\Rightarrow\)</span> arrow points to a variable that is fully determined by the preceeding equation. Note that <span class="math notranslate nohighlight">\(u_{ii} \neq 0\)</span> for all <span class="math notranslate nohighlight">\(i\)</span> because <span class="math notranslate nohighlight">\(A\)</span> and thus also <span class="math notranslate nohighlight">\(U\)</span> are non-singular.</p>
+<p class="sd-card-text">This proves the uniqueness of <span class="math notranslate nohighlight">\(L\)</span> and <span class="math notranslate nohighlight">\(U\)</span>. In fact, we can extend this argument to general <span class="math notranslate nohighlight">\(n \times n\)</span> matrices.</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Let <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{n \times n}\)</span>. Prove that an LU decomposition of <span class="math notranslate nohighlight">\(A\)</span> with nonsingular factors <span class="math notranslate nohighlight">\(L\)</span> and <span class="math notranslate nohighlight">\(U\)</span> exists if and only if all leading principal minors of <span class="math notranslate nohighlight">\(A\)</span> (i.e. the determinants of the <span class="math notranslate nohighlight">\(m \times m\)</span> submatrices <span class="math notranslate nohighlight">\(A_{:m, :m}\)</span> for <span class="math notranslate nohighlight">\(m = 1, \ldots, n\)</span>) are nonzero. Determine whether such an LU decomposition exists for the matrix</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{pmatrix}
+0.5 &amp; -2 &amp; 2 \\
+-1 &amp; 4 &amp; -5 \\
+9 &amp; -5 &amp; 8
+\end{pmatrix}.
+\end{split}\]</div>
+<p>Justify your conclusion.</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text"><strong>Sufficiency:</strong> Suppose <span class="math notranslate nohighlight">\(A\)</span> admits an LU factorisation <span class="math notranslate nohighlight">\(A = LU\)</span> with nonsingular matrices <span class="math notranslate nohighlight">\(L\)</span> and <span class="math notranslate nohighlight">\(U\)</span>. Each leading principal submatrix <span class="math notranslate nohighlight">\(A[:m, :m]\)</span> then factors as <span class="math notranslate nohighlight">\(L[:m, :m] \, U[:m, :m]\)</span>, implying <span class="math notranslate nohighlight">\(\det(A[:m, :m]) \neq 0\)</span>.</p>
+<p class="sd-card-text"><strong>Necessity:</strong> Assume all leading principal minors of <em>A</em> are nonzero. We use induction on <em>n</em>. The base case for <span class="math notranslate nohighlight">\(n = 1\)</span> is trivial: <span class="math notranslate nohighlight">\(A \in \mathbb{R}\)</span>, <span class="math notranslate nohighlight">\(U = A\)</span> and <span class="math notranslate nohighlight">\(L = 1\)</span>. For the <span class="math notranslate nohighlight">\((n-1)\times(n-1)\)</span> case, the statement holds by the induction hypothesis. Now write</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+A =
+\begin{pmatrix}
+\hat{A} &amp; b \\
+c^\top     &amp; \gamma
+\end{pmatrix},
+\end{split}\]</div>
+<p class="sd-card-text">where <span class="math notranslate nohighlight">\(\hat{A}\)</span> is an <span class="math notranslate nohighlight">\((n-1)\times(n-1)\)</span> matrix. By the induction assumption, <span class="math notranslate nohighlight">\(\hat{A}\)</span> admits an LU factorisation <span class="math notranslate nohighlight">\(\hat{A} = \hat{L}\hat{U}\)</span> with nonsingular factors. Extend this to <span class="math notranslate nohighlight">\(n \times n\)</span> by setting</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+A =
+\begin{pmatrix}
+\hat{L} &amp; 0 \\
+\ell^\top  &amp; 1
+\end{pmatrix}
+\begin{pmatrix}
+\hat{U} &amp; r \\
+0       &amp; \delta
+\end{pmatrix},
+\quad
+r = \hat{L}^{-1} b,
+\quad
+\ell^\top = c^\top \hat{U}^{-1},
+\quad
+\delta = \gamma - c^\top\hat{A}^{-1}b.
+\end{split}\]</div>
+<p class="sd-card-text">Because <span class="math notranslate nohighlight">\(A\)</span> is nonsingular, an LU decomposition exists where both blocks in the factorisation are nonsingular. In fact, the above proof ensures the existence of a decomposition with factor <span class="math notranslate nohighlight">\(L\)</span> whose diagonal elements are normalised to <span class="math notranslate nohighlight">\(1\)</span>.</p>
+<p class="sd-card-text"><strong>Specific Matrix:</strong> Consider</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+A =
+\begin{pmatrix}
+0.5 &amp; -2 &amp; 2 \\
+-1  &amp; 4  &amp; -5 \\
+9   &amp; -5 &amp; 8
+\end{pmatrix}.
+\end{split}\]</div>
+<p class="sd-card-text">Its leading <span class="math notranslate nohighlight">\(2\times 2\)</span> principal submatrix is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{pmatrix}
+0.5 &amp; -2 \\
+-1  &amp; 4
+\end{pmatrix},
+\end{split}\]</div>
+<p class="sd-card-text">whose determinant is <span class="math notranslate nohighlight">\(0.5 \times 4 - (-1) \times (-2) = 2 - 2 = 0\)</span>. Since this minor has determinant zero, no LU decomposition with nonsingular factors exists for <span class="math notranslate nohighlight">\(A\)</span>.</p>
+</div>
+</details></section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="1.2_numpy_and_data_layouts.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Memory layout and Numpy</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="2.2_lu_backward_error.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Backward error and pivoting</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-idea">Basic idea</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-an-upper-triangular-system">Solving an upper triangular system</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-elimination-in-matrix-notation">Gaussian elimination in matrix notation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deriving-the-lu-decomposition">Deriving the LU decomposition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-complete-algorithm">The complete algorithm</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cost-of-lu-decomposition">Cost of LU decomposition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#self-check-questions">Self-check questions</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Timo Betcke, Erik Burman, Max Jensen
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

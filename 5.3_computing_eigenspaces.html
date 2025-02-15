@@ -1,0 +1,892 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Computing the eigensystem &#8212; Computational Methods MATH0058 lecture notes</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=b4b7a797" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '5.3_computing_eigenspaces';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Notation and facts" href="bm1_notation_and_facts.html" />
+    <link rel="prev" title="Computing eigenvalues" href="5.2_computing_eigenvalues.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Computational Methods MATH0058 lecture notes - Home"/>
+    <img src="_static/logo.png" class="logo__image only-dark pst-js-only" alt="Computational Methods MATH0058 lecture notes - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="index.html">
+                    Welcome!
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Fundamentals</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="0.1_matrix_vector_norms.html">Measuring distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="0.2_error_analysis.html">Backward error analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="0.3_linear_system_error.html">The condition number of linear systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="0.4_complexity_notation.html">Asymptotic notation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Implementation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="1.1_floating_point_arithmetic.html">Floating point numbers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_numpy_and_data_layouts.html">Memory layout and Numpy</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="2.1_lu_decomposition.html">LU decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.2_lu_backward_error.html">Backward error and pivoting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.3_python_lu_decomposition.html">Python implementation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Orthogonal Decompositions</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="3.1_qr_decomposition.html">The QR Decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.2_singular_value_decomposition.html">The Singular Value Decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.3_least_squares_problems.html">Least-squares Problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.4_constrained_least_squares_problems.html">Constrained Problems</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Interpolation and Quadrature</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="4.1_interpolation.html">Polynomial Interpolation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.2_quadrature.html">Introduction to Quadrature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.3_stable_quadrature_schemes.html">Stable Quadrature Schemes</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Eigenvalue Problems</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="5.1_eigenvalues_basic_properties.html">Basic properties of eigenvalue problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.2_computing_eigenvalues.html">Computing eigenvalues</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Computing the eigensystem</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back matter</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="bm1_notation_and_facts.html">Notation and facts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bm2_programming_resources.html">Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bm3_markdown.html">Markdown and LaTeX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bm4_bibliography.html">Bibliography</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/5.3_computing_eigenspaces.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Computing the eigensystem</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-schur-decomposition">The Schur decomposition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pure-qr-iteration">Pure QR iteration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-qr-iteration">Practical QR iteration</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#numerical-investigation-of-qr-iteration-steps">Numerical investigation of QR iteration steps</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#self-check-questions">Self-check questions</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="computing-the-eigensystem">
+<h1>Computing the eigensystem<a class="headerlink" href="#computing-the-eigensystem" title="Link to this heading">#</a></h1>
+<p>So far we have focused on individual eigenvalues and eigenvectors. Now we turn to the QR iteration, which builds on the QR decomposition/factorisation we studied earlier.</p>
+<section id="the-schur-decomposition">
+<h2>The Schur decomposition<a class="headerlink" href="#the-schur-decomposition" title="Link to this heading">#</a></h2>
+<p>The eigenvalue decomposition <span class="math notranslate nohighlight">\(A = X\Lambda X^{-1}\)</span> is not always suitable for computational purposes. It might not exist, requiring a Jordan normal form instead. Even though small machine perturbations usually ensure diagonalizability in floating-point arithmetic, the proximity to a Jordan form can introduce instabilities. The eigenvector matrix <span class="math notranslate nohighlight">\(X\)</span> might also be ill-conditioned, making its inverse computationally unreliable.</p>
+<p>For practical computations, the Schur decomposition of <span class="math notranslate nohighlight">\(A\)</span> is more robust.</p>
+<div class="proof theorem admonition" id="theorem-0">
+<p class="admonition-title"><span class="caption-number">Theorem 18 </span> (Existence of the Schur decomposition)</p>
+<section class="theorem-content" id="proof-content">
+<p>Every complex matrix <span class="math notranslate nohighlight">\(A \in \mathbb{C}^{n \times n}\)</span> has a Schur decomposition</p>
+<div class="math notranslate nohighlight">
+\[
+A = Q R Q^H
+\]</div>
+<p>with unitary <span class="math notranslate nohighlight">\(Q\in\mathbb{C}^{n\times n}\)</span> and upper triangular <span class="math notranslate nohighlight">\(R\in\mathbb{C}^{n\times n}\)</span>.</p>
+</section>
+</div><p>The proof is given in the optional material section below. Let’s explore some key properties of the Schur decomposition:</p>
+<ul>
+<li><p><strong>Eigenvalues</strong>: The eigenvalues of <span class="math notranslate nohighlight">\(A\)</span> are the diagonal elements of <span class="math notranslate nohighlight">\(R\)</span>. This is evident from the equation <span class="math notranslate nohighlight">\(\det(\lambda I - A) = \det Q \det Q^H \det(\lambda I - R)\)</span> and expanding the determinant of <span class="math notranslate nohighlight">\(\lambda I - R\)</span> along its diagonal.</p></li>
+<li><p><strong>Hermitian Matrices</strong>: For Hermitian <span class="math notranslate nohighlight">\(A\)</span>, the Schur decomposition coincides with the eigenvalue decomposition. Since <span class="math notranslate nohighlight">\(A = A^H\)</span>, it implies <span class="math notranslate nohighlight">\(R = R^H\)</span>, which means <span class="math notranslate nohighlight">\(R\)</span> is diagonal. The first column of <span class="math notranslate nohighlight">\(Q\)</span> corresponds to the eigenvector for the eigenvalue <span class="math notranslate nohighlight">\(r_{11}\)</span> in <span class="math notranslate nohighlight">\(R\)</span>.</p></li>
+<li><p><strong>Invariant Subspaces</strong>: Consider <span class="math notranslate nohighlight">\(R_k\)</span>, the upper left <span class="math notranslate nohighlight">\(k \times k\)</span> principal submatrix of <span class="math notranslate nohighlight">\(R\)</span>, and <span class="math notranslate nohighlight">\(Q_k \in \mathbb{C}^{n \times k}\)</span>, the matrix of the first <span class="math notranslate nohighlight">\(k\)</span> columns of <span class="math notranslate nohighlight">\(Q\)</span>. It holds that <span class="math notranslate nohighlight">\(AQ_k = Q_kR_k\)</span>. This implies that for any vector <span class="math notranslate nohighlight">\(v\)</span> in the span of <span class="math notranslate nohighlight">\(\{q_1, \ldots, q_k\}\)</span>, <span class="math notranslate nohighlight">\(Av\)</span> is also in this span:</p>
+<div class="math notranslate nohighlight">
+\[
+    v\in \text{span}\{q_1, \dots, q_k\} \implies Av\in \text{span}\{q_1, \dots, q_k\}.
+    \]</div>
+<p>We say that the subspace is invariant under <span class="math notranslate nohighlight">\(A\)</span>. The Schur decomposition thus reveals a sequence of enlarging invariant subspaces.</p>
+</li>
+</ul>
+</section>
+<section id="pure-qr-iteration">
+<h2>Pure QR iteration<a class="headerlink" href="#pure-qr-iteration" title="Link to this heading">#</a></h2>
+<p>In its basic form, the QR iteration is suprisingly simple.</p>
+<div class="proof algorithm admonition" id="algorithm-1">
+<p class="admonition-title"><span class="caption-number">Algorithm 5 </span> (Pure QR iteration)</p>
+<section class="algorithm-content" id="proof-content">
+<p><strong>Inputs</strong> <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{n \times n}\)</span></p>
+<p><strong>Outputs</strong> In the limit <span class="math notranslate nohighlight">\(Q, R \in \mathbb{R}^{n \times n}\)</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(A_0 := A\)</span>.</p></li>
+<li><p>For <span class="math notranslate nohighlight">\(k\)</span> in <span class="math notranslate nohighlight">\(\{1, \ldots, n\}\)</span>:</p>
+<ul>
+<li><p>Compute QR factorisation of <span class="math notranslate nohighlight">\(A_{k-1}\)</span>: <span class="math notranslate nohighlight">\(Q_k \, R_k = A_{k-1}\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(A_k = R_k \, Q_k\)</span></p></li>
+</ul>
+</li>
+</ul>
+</section>
+</div><p>The first observation is that all <span class="math notranslate nohighlight">\(A_k\)</span> are similar:</p>
+<div class="math notranslate nohighlight">
+\[
+Q_k^H A_{k-1} Q_k = Q_k^H (Q_k \, R_k) Q_k = R_k Q_k= A_k
+\]</div>
+<p>and therefore</p>
+<div class="math notranslate nohighlight">
+\[
+A = Q_1 \cdots Q_k \, A_k \, Q_k^H \cdots Q_1^H.
+\]</div>
+<p>Hence, the QR iteration returns the above Schur decomposition if</p>
+<div class="math notranslate nohighlight">
+\[
+\| Q_1 \cdots Q_k - Q \| \to 0, \qquad \| A_k - R \| \to 0,
+\]</div>
+<p>where the convergence may be (by norm equivalence) understood in any matrix norm <span class="math notranslate nohighlight">\(\| \cdot \|\)</span>.</p>
+<div class="proof theorem admonition" id="theorem-2">
+<p class="admonition-title"><span class="caption-number">Theorem 19 </span> (Convergence of the pure QR iteration)</p>
+<section class="theorem-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{n \times n}\)</span> be non-singular and diagonalisable with in modulus distinct eigenvalues:</p>
+<div class="math notranslate nohighlight">
+\[
+| \lambda_1 | &gt; | \lambda_2 | &gt; \ldots &gt; | \lambda_n | &gt; 0.
+\]</div>
+<p>Suppose that the inverse of the matrix <span class="math notranslate nohighlight">\(T = (v_1| \ldots| v_n) \in \mathbb{R}^{n \times n}\)</span> of normalised eigenvectors <span class="math notranslate nohighlight">\(v_k\)</span> of <span class="math notranslate nohighlight">\(\lambda_k\)</span> has an LU decomposition without pivoting (i.e. <span class="math notranslate nohighlight">\(T^{-1} = LU\)</span>). Then, with signs adjusted as necessary, the <span class="math notranslate nohighlight">\(A_k\)</span> converge linearly to <span class="math notranslate nohighlight">\(R\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+A_k = R + \mathcal{O}(q^m), \qquad q := \max_k \frac{|\lambda_{k+1}|}{\lambda_k}.
+\]</div>
+</section>
+</div><div class="proof admonition" id="proof">
+<p>Proof. For the full proof see <span id="id1">[<a class="reference internal" href="bm4_bibliography.html#id4" title="Robert Plato. Concise numerical mathematics. Volume 57. American Mathematical Society, 2003. URL: https://ucl.primo.exlibrisgroup.com/permalink/44UCL_INST/155jbua/alma990010057180204761.">Plato, 2003</a>]</span> or <span id="id2">[<a class="reference internal" href="bm4_bibliography.html#id2" title="Lloyd N. Trefethen and David Bau, III. Numerical linear algebra. SIAM, 1997. URL: https://ucl.primo.exlibrisgroup.com/permalink/44UCL_INST/155jbua/alma990010608020204761.">Trefethen and Bau, 1997</a>]</span>. Here we cover the convergence of <span class="math notranslate nohighlight">\(A_k \to R\)</span> in the simpler case <span class="math notranslate nohighlight">\(n = 2\)</span> without determining the rate of convergence.</p>
+<p>We conclude from the above that</p>
+<div class="math notranslate nohighlight">
+\[
+A Q_1 \cdots Q_k = Q_1 \cdots Q_k \, A_k = Q_1 \cdots Q_{k+1} R_{k+1}.
+\]</div>
+<p>Let <span class="math notranslate nohighlight">\(q_k\)</span> be the first column of <span class="math notranslate nohighlight">\(Q_1 \cdots Q_k\)</span>. Then the previous identity gives</p>
+<div class="math notranslate nohighlight">
+\[
+A q_k = (R_{k+1})_{11} q_{k+1}.
+\]</div>
+<p>This is exactly the defining equation of the power iteration, with that top-left entry <span class="math notranslate nohighlight">\((R_{k+1})_{11}\)</span> taking the role of <span class="math notranslate nohighlight">\(\lambda^{(k)} = (q_k)^H A q_k = (R_{k+1})_{11} \| q_{k+1} \|^2 = (R_{k+1})_{11}\)</span>. As the hypotheses of the theorem include those needed for the convergence proof of the power iteration, <span class="math notranslate nohighlight">\((R_{k+1})_{11} \to \lambda_1\)</span> and <span class="math notranslate nohighlight">\(q_k \to v_1\)</span> as <span class="math notranslate nohighlight">\(k \to \infty\)</span>.</p>
+<p>In the case <span class="math notranslate nohighlight">\(n = 2\)</span>, the second column of <span class="math notranslate nohighlight">\(Q_1 \cdots Q_k\)</span>, being orthonormal to the first, converges (up to sign adjustments) to <span class="math notranslate nohighlight">\(v_2\)</span>, which is known to be orthogonal to <span class="math notranslate nohighlight">\(v_1\)</span>. Finally,</p>
+<div class="math notranslate nohighlight">
+\[
+A_k = Q_k^H \cdots Q_1^H \, A \, Q_1 \cdots Q_k \to Q^H A Q = R.
+\]</div>
+</div>
+</section>
+<section id="practical-qr-iteration">
+<h2>Practical QR iteration<a class="headerlink" href="#practical-qr-iteration" title="Link to this heading">#</a></h2>
+<p>In practice, the QR iteration is modified to increase that rate of convergence.</p>
+<ul class="simple">
+<li><p>The first is to build in the idea of shifts, that we have already come across as <span class="math notranslate nohighlight">\(\sigma\)</span> when studying the inverse iteration.</p></li>
+<li><p>The second is to transform the matrix first into a similar tri-diagonal matrix (only the diagonal and the first off-diagonals have non-zero entries).</p></li>
+<li><p>In addition, techniques can be applied to break the iteration into smaller (computationally cheaper) subproblems when zeros in off-diagonal entries are discovered. These approaches are called deflation strategies.</p></li>
+</ul>
+<p>For real symmetric matrices the resulting QR iteration exhibits very fast cubic convergence, with <span class="math notranslate nohighlight">\(\mathcal{O}(n^3)\)</span> operations to achieve machine accuracy.</p>
+<section id="numerical-investigation-of-qr-iteration-steps">
+<h3>Numerical investigation of QR iteration steps<a class="headerlink" href="#numerical-investigation-of-qr-iteration-steps" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.linalg</span> <span class="kn">import</span> <span class="n">qr</span><span class="p">,</span> <span class="n">hessenberg</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+</pre></div>
+</div>
+<p>We start with some random matrix <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rand</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">A</span>  <span class="o">=</span> <span class="n">rand</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">rand</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Let us first tranform the matrix to upper Hessenberg form. This can be implemented as similarity transformation that does not change the eigenvalues.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">H</span> <span class="o">=</span> <span class="n">hessenberg</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">spy</span><span class="p">(</span><span class="n">H</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><img alt="Hessenberg form" src="_images/HessenbergA.png" /></p>
+<p>We see that the matrix and its first lower diagonal are nonzero. Upper Hessenberg structures are preserved by a QR iteration step. Let’s check this.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Q</span><span class="p">,</span> <span class="n">R</span> <span class="o">=</span> <span class="n">qr</span><span class="p">(</span><span class="n">H</span><span class="p">)</span>
+<span class="n">H2</span> <span class="o">=</span> <span class="n">R</span> <span class="o">@</span> <span class="n">Q</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">spy</span><span class="p">(</span><span class="n">H2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><img alt="Hessenberg form" src="_images/HessenbergB.png" /></p>
+<p>This structure preservation can be used to implement a QR iteration step in a highly efficient manner. We will not go into technical details about this here.</p>
+<p>Let us now run a couple of iterations of the QR iteration and let’s see how quickly the second to last element in the last row of <span class="math notranslate nohighlight">\(H\)</span> converges to zero. If it is zero the bottom last diagonal element is a wanted eigenvalue (convince yourself that this is true).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nsteps</span> <span class="o">=</span> <span class="mi">300</span>
+
+<span class="n">H</span> <span class="o">=</span> <span class="n">hessenberg</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+
+<span class="n">residuals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">nsteps</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float64&#39;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nsteps</span><span class="p">):</span>
+    <span class="n">Q</span><span class="p">,</span> <span class="n">R</span> <span class="o">=</span> <span class="n">qr</span><span class="p">(</span><span class="n">H</span><span class="p">)</span>
+    <span class="n">H</span> <span class="o">=</span> <span class="n">R</span> <span class="o">@</span> <span class="n">Q</span>
+    <span class="n">residuals</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">H</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">])</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">H</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+    
+<span class="n">plt</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="n">residuals</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><img alt="residuals" src="_images/residuals.png" /></p>
+<p>The convergence is extremely slow. We can speed this up by a shift strategy. The idea is to modify the QR iteration step so that it reads</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+A^{(m)} -\sigma I &amp;= Q_mR_m\\
+A^{(m+1)} &amp;= R_mQ_m + \sigma I.
+\end{aligned}
+\end{split}\]</div>
+<p>Hence, we subtract the shift and do the QR decomposition, and then when we compute <span class="math notranslate nohighlight">\(R_mQ_m\)</span> we add the shift back in.</p>
+<p>Once can show that a QR step is equivalent to inverse iteration applied to the last vector in the simultaneous iteration. Hence, by applying the shift we perform a shifted inverse iteration. What shall we use as shift?</p>
+<p>It turns out that we achieve quadratic convergence if we simply use the bottom right element of the Hessenberg matrix in each step as shift. This is similar to the Rayleigh quotient method for symmetric problems, where we adapted the shift in each step.</p>
+<p>The following implements the shift strategy.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nsteps</span> <span class="o">=</span> <span class="mi">7</span>
+
+<span class="n">H</span> <span class="o">=</span> <span class="n">hessenberg</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+
+<span class="n">residuals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">nsteps</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float64&#39;</span><span class="p">)</span>
+
+<span class="n">ident</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nsteps</span><span class="p">):</span>
+    <span class="n">shift</span> <span class="o">=</span> <span class="n">H</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">Q</span><span class="p">,</span> <span class="n">R</span> <span class="o">=</span> <span class="n">qr</span><span class="p">(</span><span class="n">H</span> <span class="o">-</span> <span class="n">shift</span> <span class="o">*</span> <span class="n">ident</span><span class="p">)</span>
+    <span class="n">H</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">Q</span><span class="p">)</span> <span class="o">+</span> <span class="n">shift</span> <span class="o">*</span> <span class="n">ident</span>
+    <span class="n">residual</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">H</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">])</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">H</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Residual: </span><span class="si">{</span><span class="n">residual</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">residuals</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">residual</span>
+    
+<span class="n">plt</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="n">residuals</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The output is</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Residual</span><span class="p">:</span> <span class="mf">0.508873616732413</span>
+<span class="n">Residual</span><span class="p">:</span> <span class="mf">0.2076653000186893</span>
+<span class="n">Residual</span><span class="p">:</span> <span class="mf">0.18529890729552823</span>
+<span class="n">Residual</span><span class="p">:</span> <span class="mf">0.01935687814656868</span>
+<span class="n">Residual</span><span class="p">:</span> <span class="mf">0.00034094139006009337</span>
+<span class="n">Residual</span><span class="p">:</span> <span class="mf">1.1837354557680947e-07</span>
+<span class="n">Residual</span><span class="p">:</span> <span class="mf">1.3539693075470919e-14</span>
+</pre></div>
+</div>
+<p><img alt="residuals" src="_images/residuals_shift.png" /></p>
+<p>We have seen convergence in 7 iterations. Let us now reduce the matrix and continue with the next smaller matrix.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nsteps</span> <span class="o">=</span> <span class="mi">3</span>
+
+<span class="n">H_reduced</span> <span class="o">=</span> <span class="n">H</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="c1"># Copy H over to preserve the original matrix</span>
+
+<span class="n">residuals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">nsteps</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float64&#39;</span><span class="p">)</span>
+
+<span class="n">ident</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nsteps</span><span class="p">):</span>
+    <span class="n">shift</span> <span class="o">=</span> <span class="n">H_reduced</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">Q</span><span class="p">,</span> <span class="n">R</span> <span class="o">=</span> <span class="n">qr</span><span class="p">(</span><span class="n">H_reduced</span> <span class="o">-</span> <span class="n">shift</span> <span class="o">*</span> <span class="n">ident</span><span class="p">)</span>
+    <span class="n">H_reduced</span> <span class="o">=</span> <span class="n">R</span> <span class="o">@</span> <span class="n">Q</span> <span class="o">+</span> <span class="n">shift</span> <span class="o">*</span> <span class="n">ident</span>
+    <span class="n">residual</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">H_reduced</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">])</span> <span class="o">/</span> <span class="nb">abs</span><span class="p">(</span><span class="n">H_reduced</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Residual: </span><span class="si">{</span><span class="n">residual</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">residuals</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">residual</span>
+    
+<span class="n">plt</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="n">residuals</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This returns</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Residual</span><span class="p">:</span> <span class="mf">1.0943921434074488e-05</span>
+<span class="n">Residual</span><span class="p">:</span> <span class="mf">7.568006610141011e-11</span>
+<span class="n">Residual</span><span class="p">:</span> <span class="mf">3.1024322351139375e-21</span>
+</pre></div>
+</div>
+<p><img alt="residuals" src="_images/residuals_submatrix.png" /></p>
+<p>We have now observed convergence in 3 iterations. In practice, with more sophisticated shift variants and good deflation strategies the QR iteration takes typically only 2 to 3 iterations per eigenvalue, where each iteration has quadratic cost. Hence, the overall algorithm converges usually in cubic time. Even though the QR iteration is an iterative algorithm, we still speak of a method with cubic complexity, since this holds in almost all cases.</p>
+</section>
+</section>
+<section id="python-skills">
+<h2>Python skills<a class="headerlink" href="#python-skills" title="Link to this heading">#</a></h2>
+<p>Below you find an implementation of the pure QR iteration.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="k">def</span> <span class="nf">pure_qr_iteration</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-10</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes the eigenvalues and eigenvectors of matrix A using the pure QR iteration method.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">    A (numpy.ndarray): The input square matrix.</span>
+<span class="sd">    max_iter (int): Maximum number of iterations.</span>
+<span class="sd">    tol (float): Convergence tolerance for off-diagonal elements.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">    numpy.ndarray: Approximated eigenvalues.</span>
+<span class="sd">    numpy.ndarray: Approximate eigenvectors.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">A_k</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>  <span class="c1"># Ensure floating-point computation</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">eigenvectors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>  <span class="c1"># Accumulate eigenvectors</span>
+
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_iter</span><span class="p">):</span>
+        <span class="n">Q</span><span class="p">,</span> <span class="n">R</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">qr</span><span class="p">(</span><span class="n">A_k</span><span class="p">)</span>  <span class="c1"># QR decomposition</span>
+        <span class="n">A_k</span> <span class="o">=</span> <span class="n">R</span> <span class="o">@</span> <span class="n">Q</span>  <span class="c1"># Update A_k</span>
+        <span class="n">eigenvectors</span> <span class="o">=</span> <span class="n">eigenvectors</span> <span class="o">@</span> <span class="n">Q</span>  <span class="c1"># Update eigenvectors</span>
+
+        <span class="c1"># Check for convergence: sum of squared off-diagonal elements</span>
+        <span class="n">off_diagonal_norm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">A_k</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">triu_indices</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">)]</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">off_diagonal_norm</span> <span class="o">&lt;</span> <span class="n">tol</span><span class="p">:</span>
+            <span class="k">break</span>
+    
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">A_k</span><span class="p">),</span> <span class="n">eigenvectors</span>
+</pre></div>
+</div>
+<p>Let us compare the result with the build-in <code class="docutils literal notranslate"><span class="pre">np.linalg.eig</span></code> command:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define a symmetric matrix</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]])</span>
+
+<span class="c1"># Compute eigenvalues and eigenvectors using QR iteration</span>
+<span class="n">eigenvalues</span><span class="p">,</span> <span class="n">eigenvectors</span> <span class="o">=</span> <span class="n">pure_qr_iteration</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="n">eigenvectors</span> <span class="o">=</span> <span class="n">normalize_eigenvectors</span><span class="p">(</span><span class="n">eigenvectors</span><span class="p">)</span>
+
+<span class="c1"># Display results</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Approximated Eigenvalues:&quot;</span><span class="p">,</span> <span class="n">eigenvalues</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Approximated Eigenvectors:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">eigenvectors</span><span class="p">)</span>
+
+<span class="c1"># Compare with NumPy&#39;s eig function</span>
+<span class="n">eigenvalues_np</span><span class="p">,</span> <span class="n">eigenvectors_np</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="n">eigenvectors_np</span> <span class="o">=</span> <span class="n">normalize_eigenvectors</span><span class="p">(</span><span class="n">eigenvectors_np</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;NumPy Eigenvalues:&quot;</span><span class="p">,</span> <span class="n">eigenvalues_np</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;NumPy Eigenvectors:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">eigenvectors_np</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We have used here the helper function <code class="docutils literal notranslate"><span class="pre">normalize_eigenvectors</span></code>, which ensures eigenvectors have unit length and a positive first nonzero entry.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">normalize_eigenvectors</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-10</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Normalizes eigenvectors such that each has unit length and a positive first nonzero entry.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">    V (numpy.ndarray): Matrix of eigenvectors (columns are eigenvectors).</span>
+<span class="sd">    tol (float): Tolerance below which values are considered zero.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">    numpy.ndarray: Normalized eigenvectors.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Normalize each column to unit length</span>
+    <span class="n">norms</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">norms</span><span class="p">[</span><span class="n">norms</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># Avoid division by zero</span>
+    <span class="n">V_norm</span> <span class="o">=</span> <span class="n">V</span> <span class="o">/</span> <span class="n">norms</span>  
+
+    <span class="c1"># Ensure the first nonzero entry of each eigenvector is positive</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">V_norm</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+        <span class="n">first_nonzero_index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">V_norm</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Find nonzero indices</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">first_nonzero_index</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">first_nonzero</span> <span class="o">=</span> <span class="n">first_nonzero_index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># First nonzero row index</span>
+            <span class="k">if</span> <span class="n">V_norm</span><span class="p">[</span><span class="n">first_nonzero</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>  
+                <span class="n">V_norm</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">*=</span> <span class="o">-</span><span class="mi">1</span>  <span class="c1"># Flip sign</span>
+
+    <span class="c1"># Set small values to zero</span>
+    <span class="n">V_norm</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">V_norm</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">tol</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+    <span class="k">return</span> <span class="n">V_norm</span>
+</pre></div>
+</div>
+</section>
+<section id="self-check-questions">
+<h2>Self-check questions<a class="headerlink" href="#self-check-questions" title="Link to this heading">#</a></h2>
+<div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Consider two orthogonal matrices <span class="math notranslate nohighlight">\(Q_1, Q_2 \in \mathbb{R}^{n \times n}\)</span> and regular upper triangular matrices <span class="math notranslate nohighlight">\(R_1, R_2 \in \mathbb{R}^{n \times n}\)</span> such that</p>
+<div class="math notranslate nohighlight">
+\[
+Q_1 R_1 = Q_2 R_2.
+\]</div>
+<p>Then there exists a matrix <span class="math notranslate nohighlight">\(S = \text{diag}(s_1, \ldots, s_n)\)</span> with <span class="math notranslate nohighlight">\(s_i \in \{-1, 1\}\)</span> such that</p>
+<div class="math notranslate nohighlight">
+\[
+Q_2 = Q_1 S, \qquad R_2 = S R_1.
+\]</div>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">By the assumptions of the question</p>
+<div class="math notranslate nohighlight">
+\[
+Q_1^{-1} Q_2 = R_1 R_2^{-1} =: S.
+\]</div>
+<p class="sd-card-text">The products and inverses of orthogonal matrices are orthogonal. Similarly, the products and inverses of regular upper triangular matrices are regular and upper triangular.</p>
+<p class="sd-card-text">Therefore, <span class="math notranslate nohighlight">\(S\)</span> is upper triangular and <span class="math notranslate nohighlight">\(S^{-1} = S^T\)</span>, implying that <span class="math notranslate nohighlight">\(S\)</span> is a diagonal matrix:</p>
+<div class="math notranslate nohighlight">
+\[
+S = \text{diag}(s_1, \ldots, s_n).
+\]</div>
+<p class="sd-card-text">Again with <span class="math notranslate nohighlight">\(S^{-1} = S^T\)</span> we conclude <span class="math notranslate nohighlight">\(s_i = 1/s_i\)</span> therefore that <span class="math notranslate nohighlight">\(s_i = 1\)</span> or <span class="math notranslate nohighlight">\(s_i = -1\)</span>.</p>
+<p class="sd-card-text"><strong>Note:</strong> In conclusion, for regular matrices the QR decomposition is unique up to the choice of signs.</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>What happens if the pure QR iteration is applied to the orthogonal matrix</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+Q = \begin{pmatrix}
+0 &amp; 1\\ -1 &amp; 0
+\end{pmatrix}?
+\end{split}\]</div>
+<p>Does the iteration converge? If convergence takes place, is the Schur decomposition attained in the limit and do eigenvalues appear explicitly as entries of a matrix?</p>
+<p>You may suppose the decomposition favours positive signs on the diagonal of <span class="math notranslate nohighlight">\(R\)</span>.</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">We begin by recording that the eigenvalues of <span class="math notranslate nohighlight">\(Q\)</span> are complex: <span class="math notranslate nohighlight">\(\lambda_1 = i\)</span> and <span class="math notranslate nohighlight">\(\lambda_2 = -i\)</span>.</p>
+<p class="sd-card-text">The pure QR iterations computes <span class="math notranslate nohighlight">\(Q_k = Q\)</span> and <span class="math notranslate nohighlight">\(R_k = I\)</span>. Thus <span class="math notranslate nohighlight">\(A_k = R_k Q_k = Q\)</span>. Thus the iteration creates a constant sequence <span class="math notranslate nohighlight">\((Q_k, R_k, A_k)\)</span> that thus converges.</p>
+<p class="sd-card-text">In particular, <span class="math notranslate nohighlight">\(A_k\)</span> does not converge to an upper triangular matrix and as complex numbers do not arise in the computations, the eigenvalues do appear explicitly as entries of a matrix.</p>
+<p class="sd-card-text">We note that the so-called real form of the Schur decomposition is attained, in which pair of complex eigenvalues give rise to <span class="math notranslate nohighlight">\(2 \times 2\)</span> blocks on the diagonal of an almost triangular factor <span class="math notranslate nohighlight">\(R\)</span>.</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>What happens if the pure QR iteration is applied to the symmetric matrix</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+A = \begin{pmatrix}
+1 &amp; 1\\ 1 &amp; 1
+\end{pmatrix}?
+\end{split}\]</div>
+<p>Does the iteration converge? If convergence takes place, is the Schur decomposition attained in the limit and do eigenvalues appear explicitly as entries of a matrix?</p>
+<p>You may suppose the decomposition favours positive signs on the diagonal of <span class="math notranslate nohighlight">\(R\)</span>.</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">We begin by recording that the eigenvalues of <span class="math notranslate nohighlight">\(A\)</span>: <span class="math notranslate nohighlight">\(\lambda_1 = 2\)</span> and <span class="math notranslate nohighlight">\(\lambda_2 = 0\)</span>.</p>
+<p class="sd-card-text">The pure QR iteration computes</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+Q_1 = \frac{1}{\sqrt{2}}\begin{pmatrix} 1 &amp; \phantom{-}1\\ 1 &amp; -1 \end{pmatrix},
+\qquad R_1 = \begin{pmatrix} \sqrt{2} &amp; \sqrt{2}\\ 0 &amp; 0 \end{pmatrix},
+\qquad A_1 = \begin{pmatrix} 2 &amp; 0 \\ 0 &amp; 0 \end{pmatrix}.
+\end{split}\]</div>
+<p class="sd-card-text">From now on <span class="math notranslate nohighlight">\(Q_k = I\)</span> and <span class="math notranslate nohighlight">\(R_k = A_k = A_1\)</span>. The sequence converged and indeed the eigenvalues are found on the diagonal of all <span class="math notranslate nohighlight">\(A_k\)</span>.</p>
+</div>
+</details></section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="5.2_computing_eigenvalues.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Computing eigenvalues</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="bm1_notation_and_facts.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Notation and facts</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-schur-decomposition">The Schur decomposition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pure-qr-iteration">Pure QR iteration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-qr-iteration">Practical QR iteration</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#numerical-investigation-of-qr-iteration-steps">Numerical investigation of QR iteration steps</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#self-check-questions">Self-check questions</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Timo Betcke, Erik Burman, Max Jensen
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

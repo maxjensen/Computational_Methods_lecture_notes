@@ -1,0 +1,1244 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Least-squares Problems &#8212; Computational Methods MATH0058 lecture notes</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '3.3_least_squares_problems';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Constrained Problems" href="3.4_constrained_least_squares_problems.html" />
+    <link rel="prev" title="The Singular Value Decomposition" href="3.2_singular_value_decomposition.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Computational Methods MATH0058 lecture notes - Home"/>
+    <img src="_static/logo.png" class="logo__image only-dark pst-js-only" alt="Computational Methods MATH0058 lecture notes - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="index.html">
+                    Welcome!
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Fundamentals</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="0.1_matrix_vector_norms.html">Measuring distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="0.2_error_analysis.html">Backward error analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="0.3_linear_system_error.html">The condition number of linear systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="0.4_complexity_notation.html">Asymptotic notation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Implementation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="1.1_floating_point_arithmetic.html">Floating point numbers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_numpy_and_data_layouts.html">Memory layout and Numpy</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="2.1_lu_decomposition.html">LU decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.2_lu_backward_error.html">Backward error and pivoting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.3_python_lu_decomposition.html">Python implementation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Orthogonal Decompositions</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="3.1_qr_decomposition.html">The QR Decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.2_singular_value_decomposition.html">The Singular Value Decomposition</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Least-squares Problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.4_constrained_least_squares_problems.html">Constrained Problems</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Interpolation and Quadrature</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="4.1_interpolation.html">Polynomial Interpolation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.2_quadrature.html">Introduction to Quadrature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.3_stable_quadrature_schemes.html">Stable Quadrature Schemes</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Eigenvalue Problems</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="5.1_eigenvalues_basic_properties.html">Basic properties of eigenvalue problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.2_computing_eigenvalues.html">Computing eigenvalues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.3_computing_eigenspaces.html">Computing the eigensystem</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back matter</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="bm1_notation_and_facts.html">Notation and facts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bm2_programming_resources.html">Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bm3_markdown.html">Markdown and LaTeX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bm4_bibliography.html">Bibliography</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/3.3_least_squares_problems.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Least-squares Problems</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-normal-equation">The normal equation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#properties-of-the-normal-equation">Properties of the normal equation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-least-squares-problems-with-the-qr-decomposition">Solving least-squares problems with the QR decomposition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-least-squares-problems-with-the-svd">Solving least-squares problems with the SVD</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-a-least-squares-problem-with-qr-decomposition">Solving a least-squares problem with QR decomposition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-a-least-squares-problem-with-svd">Solving a least-squares problem with SVD</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#self-check-questions">Self-check questions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-material">Optional material</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="least-squares-problems">
+<h1>Least-squares Problems<a class="headerlink" href="#least-squares-problems" title="Link to this heading">#</a></h1>
+<p>Least-squares problems occur in optimisation, data fitting and other fields of the mathematical sciences.</p>
+<p>Consider a matrix <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span> and a vector <span class="math notranslate nohighlight">\(a \in \mathbb{R}^m\)</span>. The central idea of the least-squares problem is to find a vector <span class="math notranslate nohighlight">\(\hat{x} \in \mathbb{R}^n\)</span> that minimises the Euclidean norm (or <span class="math notranslate nohighlight">\(2\)</span>-norm) of the residual vector <span class="math notranslate nohighlight">\(Ax - a\)</span>. This problem is formulated as</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{x} \in \text{arg}\min_{x \in \mathbb{R}^n} \|Ax - a\|_2.
+\]</div>
+<p>Here <span class="math notranslate nohighlight">\(\text{arg}\min_{x \in \mathbb{R}^n} \|Ax - a\|_2\)</span> is the set of all <span class="math notranslate nohighlight">\(x\)</span> which minimise <span class="math notranslate nohighlight">\(\|Ax - a\|_2\)</span>. If the minimiser is unique, we also write (with a slight abuse of notation)</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{x} = \text{arg}\min_{x \in \mathbb{R}^n} \|Ax - a\|_2.
+\]</div>
+<p>Thus, in the least-squares sense, the optimisation problem generalises the concept of the solution to a system of linear equations: if <span class="math notranslate nohighlight">\(A\)</span> is invertible, then <span class="math notranslate nohighlight">\(A \hat{x} = a\)</span>. If <span class="math notranslate nohighlight">\(A\)</span> is overdetermined, then <span class="math notranslate nohighlight">\(\hat{x}\)</span> aims to minimise the amount by which <span class="math notranslate nohighlight">\(A \hat{x}\)</span> fails to achieve equality with <span class="math notranslate nohighlight">\(a\)</span>.</p>
+<section id="the-normal-equation">
+<h2>The normal equation<a class="headerlink" href="#the-normal-equation" title="Link to this heading">#</a></h2>
+<p>The identity</p>
+<div class="math notranslate nohighlight">
+\[
+A^\top A\hat{x} = A^\top a.
+\]</div>
+<p>is called the normal equation of the least-squares problem.</p>
+<div class="proof theorem admonition" id="theorem-0">
+<p class="admonition-title"><span class="caption-number">Theorem 6 </span> (Normal equation of least-squares approximations)</p>
+<section class="theorem-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span>, <span class="math notranslate nohighlight">\(a \in \mathbb{R}^m\)</span>. Then</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{x} \in \text{arg}\min_{x \in \mathbb{R}^n} \|Ax - a\|_2.
+\]</div>
+<p>if and only if <span class="math notranslate nohighlight">\(\hat{x}\)</span> satisfies the normal equation.</p>
+</section>
+</div><div class="proof admonition" id="proof">
+<p>Proof. The vector <span class="math notranslate nohighlight">\(\hat{x}\)</span> minimises the least-squares problem if and only if for all <span class="math notranslate nohighlight">\(\epsilon\in\mathbb{R}^n\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+\|A\hat{x} -a \|_2^2 
+&amp; \leq \|A(\hat{x} + \epsilon) - a\|_2^2 = \left[A(\hat{x} + \epsilon) - a\right]^\top\left[A(\hat{x} + \epsilon) - a\right]\\
+&amp;= \|A\hat{x} -a \|_2^2+2 \epsilon^\top(A^\top A\hat{x} - A^\top a) + \epsilon^\top A^\top A\epsilon
+\end{aligned}
+\end{split}\]</div>
+<p><em>Step 1:</em> Suppose that <span class="math notranslate nohighlight">\(\hat{x}\)</span> does not satisfy the normal equation. Then <span class="math notranslate nohighlight">\(\| A^\top A\hat{x} - A^\top a \|_2 &gt; 0\)</span>. Suppose that <span class="math notranslate nohighlight">\(\hat{x}\)</span> minimises the least-squares problem. With <span class="math notranslate nohighlight">\(\epsilon := \delta (A^\top A\hat{x} - A^\top a)\)</span>, <span class="math notranslate nohighlight">\(\delta \in \mathbb{R}\)</span>, the above implies</p>
+<div class="math notranslate nohighlight">
+\[
+0 \leq 2 \delta \, \| A^\top A\hat{x} - A^\top a \|_2^2 + \delta^2 \, \| A (A^\top A\hat{x} - A^\top a) \|_2^2 =: \Phi(\delta) \qquad \forall \delta \in \mathbb{R}.
+\]</div>
+<p>This is a contradiction because <span class="math notranslate nohighlight">\(\Phi(\delta) &lt; 0\)</span> for small negative <span class="math notranslate nohighlight">\(\delta\)</span>.</p>
+<p><em>Step 2:</em> Suppose that <span class="math notranslate nohighlight">\(\hat{x}\)</span> satisfies the normal equation. Then, by the above,</p>
+<div class="math notranslate nohighlight">
+\[
+\|A(\hat{x} + \epsilon) - a\|_2^2 = \|A\hat{x} -a \|_2^2 + \epsilon^\top A^\top A\epsilon \geq \|A\hat{x} -a \|_2^2.
+\]</div>
+</div>
+<section id="properties-of-the-normal-equation">
+<h3>Properties of the normal equation<a class="headerlink" href="#properties-of-the-normal-equation" title="Link to this heading">#</a></h3>
+<p>We assume in this section that <span class="math notranslate nohighlight">\(m \ge n\)</span> and that <span class="math notranslate nohighlight">\(A\)</span> has a full rank. Let <span class="math notranslate nohighlight">\(A = U\Sigma V^\top \in \mathbb{R}^{m \times n}\)</span> be the SVD of <span class="math notranslate nohighlight">\(A\)</span>. To generalise the relative condition number of a square matrix, we define the relative condition number for a rectangular <span class="math notranslate nohighlight">\((m \times n)\)</span>-matrix as</p>
+<div class="math notranslate nohighlight">
+\[
+\kappa_{rel}(A):=\sigma_1/\sigma_n.
+\]</div>
+<p>We also have</p>
+<div class="math notranslate nohighlight">
+\[
+A^\top A = V\Sigma^\top\Sigma V^\top \in \mathbb{R}^{n \times n},
+\]</div>
+<p>guaranteeing the non-singularity of <span class="math notranslate nohighlight">\(A^\top A\)</span> and, therefore, the existence of a unique minimiser of the least-squares problem.</p>
+<p>Furthermore,</p>
+<div class="math notranslate nohighlight">
+\[
+\kappa_{rel}(A^\top A) = \sigma_1^2 / \sigma_n^2 = \kappa_{rel}(A)^2.
+\]</div>
+<p>It follows that the linear system in the normal equation has a <em>squared condition number</em> compared to the original matrix <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<p>Subsequently, we will explore orthogonalisation methods to circumvent this condition number squaring, offering a more stable approach to solving the least-squares problem.</p>
+</section>
+</section>
+<section id="solving-least-squares-problems-with-the-qr-decomposition">
+<h2>Solving least-squares problems with the QR decomposition<a class="headerlink" href="#solving-least-squares-problems-with-the-qr-decomposition" title="Link to this heading">#</a></h2>
+<p>We assume in this section that <span class="math notranslate nohighlight">\(m \ge n\)</span> and that <span class="math notranslate nohighlight">\(A\)</span> has a full rank. The full <span class="math notranslate nohighlight">\(QR\)</span> decomposition of <span class="math notranslate nohighlight">\(A\)</span> can be expressed as follows:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+A = \begin{pmatrix} Q_1 &amp; Q_2 \end{pmatrix}\begin{pmatrix} R \\ 0 \end{pmatrix},
+\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(Q_1\)</span> and <span class="math notranslate nohighlight">\(Q_2\)</span> are orthogonal matrices, and <span class="math notranslate nohighlight">\(R\)</span> is an upper triangular matrix. Substituting this decomposition into the least-squares problem, we get:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\|Ax - a\|_2 = \left\|\begin{pmatrix} Q_1 &amp; Q_2 \end{pmatrix}\begin{pmatrix} R \\ 0 \end{pmatrix}x - a\right\|_2 =
+\left\|\begin{pmatrix} R \\ 0 \end{pmatrix}x - \begin{pmatrix} Q_1^\top a \\ Q_2^\top a \end{pmatrix}\right\|_2
+\end{split}\]</div>
+<p>Here, we observe that the choice of <span class="math notranslate nohighlight">\(x\)</span> influences only the first block-row. In the second block row, <span class="math notranslate nohighlight">\(x\)</span> is multiplied by zero, meaning no choice of <span class="math notranslate nohighlight">\(x\)</span> will reduce the contribution from this part. Therefore, the minimiser <span class="math notranslate nohighlight">\(\hat{x}\)</span> of the least-squares problem is found by solving:</p>
+<div class="math notranslate nohighlight">
+\[
+R \hat{x} = Q_1^\top a.
+\]</div>
+<p>Returning to the question of the <span class="math notranslate nohighlight">\(2\)</span>-norm condition number:</p>
+<div class="math notranslate nohighlight">
+\[
+\kappa_{rel}(R) = \kappa_{rel}(Q^\top A) = \| Q^\top A \|_2 \, \| (Q^\top A)^{-1} \|_2 \leq \| Q^\top \|_2 \, \| A \|_2 \, \|
+A^{-1} \|_2 \, \| Q \|_2 = \kappa_{rel}(A),
+\]</div>
+<p>where we use the submultiplicativity of the matrix <span class="math notranslate nohighlight">\(2\)</span>-norm and that <span class="math notranslate nohighlight">\(\| Q \|_2 = 1\)</span> and <span class="math notranslate nohighlight">\(Q^\top = Q^{-1}\)</span>.</p>
+<p>Consequently, the <span class="math notranslate nohighlight">\(QR\)</span> decomposition approach effectively circumvents the condition number squaring issue associated with the normal equation method.</p>
+</section>
+<section id="solving-least-squares-problems-with-the-svd">
+<h2>Solving least-squares problems with the SVD<a class="headerlink" href="#solving-least-squares-problems-with-the-svd" title="Link to this heading">#</a></h2>
+<p>The SVD can also be used to solve least-squares problems. In this section, we assume that <span class="math notranslate nohighlight">\(m \ge n\)</span> but <strong>not</strong> that <span class="math notranslate nohighlight">\(A\)</span> has a full rank. The full SVD of <span class="math notranslate nohighlight">\(A\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}  
+A = U\Sigma V^\top = \begin{pmatrix} U_1 &amp; U_2 \end{pmatrix} \begin{pmatrix} \hat{\Sigma} &amp; 0 \\ 0 &amp; 0 \end{pmatrix} \begin{pmatrix} V_1 &amp; V_2 \end{pmatrix}^\top
+\end{split}\]</div>
+<p>with <span class="math notranslate nohighlight">\(\hat{\Sigma}\)</span> as in <a class="reference internal" href="3.2_singular_value_decomposition.html"><span class="std std-doc">the previous chapter</span></a>. Substitute into the least-squares problem to obtain</p>
+<div class="math notranslate nohighlight">
+\[
+\|Ax-a\|_2 = \|U\Sigma V^\top x - a\|_2.
+\]</div>
+<p>Let <span class="math notranslate nohighlight">\([y_1, y_2]^\top = [V_1^\top x, V_2^\top x]^\top\)</span> and factorise out <span class="math notranslate nohighlight">\(U\)</span> to obtain</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\|Ax - a\|_2 = \left\|\begin{pmatrix} \hat{\Sigma} &amp; 0 \\ 0 &amp; 0 \end{pmatrix} \begin{pmatrix} y_1\\ y_2 \end{pmatrix} - \begin{pmatrix}U_1^\top a\\
+U_2^\top a\end{pmatrix}\right\|_2.
+\end{split}\]</div>
+<p>The second block row as well as the choice of <span class="math notranslate nohighlight">\(y_2\)</span> do not affect the least-squares norm and, hence, <span class="math notranslate nohighlight">\(y_1 = \hat{\Sigma}^{-1} U_1^\top a\)</span> and therefore</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\hat{x}= \begin{pmatrix} V_1 &amp; V_2 \end{pmatrix} \begin{pmatrix} \hat{\Sigma}^{-1} &amp; 0 \\ 0 &amp; 0 \end{pmatrix} \begin{pmatrix} U_1 &amp; U_2 \end{pmatrix}^\top a
+\end{split}\]</div>
+<p>is a (possibly non-unique) minimiser of the least-squares problem. This leads to the important concept of a pseudo-inverse of a matrix.</p>
+<div class="proof definition admonition" id="definition-1">
+<p class="admonition-title"><span class="caption-number">Definition 7 </span> (Pseudo-inverse of a matrix)</p>
+<section class="definition-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(U \Sigma V^\top\)</span> be an SVD of <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span> and <span class="math notranslate nohighlight">\(m \geq n\)</span>. Then the pseudo-inverse of <span class="math notranslate nohighlight">\(A\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+A^{\dagger} := V \begin{pmatrix} \hat{\Sigma}^{-1} &amp; 0 \\ 0 &amp; 0 \end{pmatrix} U^\top,
+\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\hat{\Sigma} \in \mathbb{R}^{r \times r}\)</span> and <span class="math notranslate nohighlight">\(r = \text{rank}(A)\)</span>.</p>
+</section>
+</div><p>The pseudo-inverse of <span class="math notranslate nohighlight">\(A\)</span> is a generalisation of the inverse of <span class="math notranslate nohighlight">\(A\)</span>. In the same way that <span class="math notranslate nohighlight">\(A^{-1}a\)</span> solves the linear system <span class="math notranslate nohighlight">\(Ax=a\)</span> for a square matrix <span class="math notranslate nohighlight">\(A\)</span>, the pseudo-inverse <span class="math notranslate nohighlight">\(A^{\dagger}\)</span> applied to <span class="math notranslate nohighlight">\(a\)</span> solves the least-squares minimisation problem <span class="math notranslate nohighlight">\(\|Ax-a\|_2\)</span> for rectangular <span class="math notranslate nohighlight">\(A\)</span>.</p>
+</section>
+<section id="python-skills">
+<h2>Python skills<a class="headerlink" href="#python-skills" title="Link to this heading">#</a></h2>
+<section id="solving-a-least-squares-problem-with-qr-decomposition">
+<h3>Solving a least-squares problem with QR decomposition<a class="headerlink" href="#solving-a-least-squares-problem-with-qr-decomposition" title="Link to this heading">#</a></h3>
+<p>The following example shows how to use Numpy’s QR decomposition to find the least-squares approximation</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.linalg</span> <span class="kn">import</span> <span class="n">solve_triangular</span>
+
+<span class="c1"># Define matrix A and vector a</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]])</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">])</span>
+
+<span class="c1"># Perform QR decomposition</span>
+<span class="n">Q</span><span class="p">,</span> <span class="n">R</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">qr</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+
+<span class="c1"># Compute Q^T * a</span>
+<span class="n">Q_T_a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">Q</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+
+<span class="c1"># Solve Rx = Q^T a for x</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">solve_triangular</span><span class="p">(</span><span class="n">R</span><span class="p">[:</span><span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="p">:],</span> <span class="n">Q_T_a</span><span class="p">[:</span><span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Solution x:&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="solving-a-least-squares-problem-with-svd">
+<h3>Solving a least-squares problem with SVD<a class="headerlink" href="#solving-a-least-squares-problem-with-svd" title="Link to this heading">#</a></h3>
+<p>Here is a problem that is solved with the SVD.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># Step 1: Define A and a</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>  <span class="c1"># A random 5x3 matrix</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>  <span class="c1"># A random vector of length 5</span>
+
+<span class="c1"># Step 2: Perform SVD</span>
+<span class="n">U</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">VT</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+
+<span class="c1"># Step 3: Compute the pseudo-inverse</span>
+<span class="n">Sigma_inv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">sigma</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">))))</span>
+<span class="n">A_pseudo_inverse</span> <span class="o">=</span> <span class="n">VT</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">Sigma_inv</span> <span class="o">@</span> <span class="n">U</span><span class="o">.</span><span class="n">T</span>
+
+<span class="c1"># Step 4: Solve for x</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">A_pseudo_inverse</span> <span class="o">@</span> <span class="n">a</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Solution x:&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="self-check-questions">
+<h2>Self-check questions<a class="headerlink" href="#self-check-questions" title="Link to this heading">#</a></h2>
+<div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Let’s consider three points: <span class="math notranslate nohighlight">\((1, 2)\)</span>, <span class="math notranslate nohighlight">\((2, 3)\)</span>, and <span class="math notranslate nohighlight">\((3, 5)\)</span>. Find the best-fitting line <span class="math notranslate nohighlight">\(y = m x + c\)</span> in the least-squares sense:</p>
+<div class="math notranslate nohighlight">
+\[
+(\hat{c}, \hat{m}) = \text{arg}\min_{(c,m) \in \mathbb{R}^2} | 2 - (m \, 1 + c) |^2 + | 3 - (m \, 2 + c) |^2 + | 5 - (m \, 3 + c) |^2.
+\]</div>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">The minimisation problem can be equivalently formulated as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\text{arg}\min_{(c,m) \in \mathbb{R}^2} \left\| 
+\begin{pmatrix} 1 &amp; 1\\ 1 &amp; 2\\ 1 &amp; 3 \end{pmatrix}
+\begin{pmatrix} c\\ m \end{pmatrix}
+- \begin{pmatrix} 2\\ 3\\ 5 \end{pmatrix}
+\right\|^2.
+\end{split}\]</div>
+<p class="sd-card-text">We learned three methods to proceed: solve the normal equation, the QR reformulation or the SVD reformulation. The two latter choices are preferable for bigger problems solved with a computer. However, for hand calculations of small problems, solving the original normal equation is often the most convenient approach.</p>
+<p class="sd-card-text">We have</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathbf{A}^\top\mathbf{A} = \begin{pmatrix} 1 &amp; 1 &amp; 1\\ 1 &amp; 2 &amp; 3  \end{pmatrix} \begin{pmatrix} 1 &amp; 1 \\ 1 &amp; 2 \\ 1 &amp; 3 \end{pmatrix} = \begin{pmatrix} 3 &amp; 6 \\ 6 &amp; 14 \end{pmatrix}
+\end{split}\]</div>
+<p class="sd-card-text">and</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathbf{A}^\top\mathbf{a} = \begin{pmatrix} 1 &amp; 1 &amp; 1\\ 1 &amp; 2 &amp; 3 \end{pmatrix} \begin{pmatrix} 2 \\ 3 \\ 5 \end{pmatrix} = \begin{pmatrix} 10\\ 23 \end{pmatrix}.
+\end{split}\]</div>
+<p class="sd-card-text">Thus, the minimiser solves</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{pmatrix} 3 &amp; 6 \\ 6 &amp; 14 \end{pmatrix} \begin{pmatrix} c \\ m \end{pmatrix} = \begin{pmatrix} 10\\ 23 \end{pmatrix},
+\end{split}\]</div>
+<p class="sd-card-text">giving <span class="math notranslate nohighlight">\((\hat{c}, \hat{m}) = (1/3, 3/2)\)</span>.</p>
+<p class="sd-card-text"><em>Remark</em> One can plot an illustration of the calculation with Python.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># Given points</span>
+<span class="n">x_points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="n">y_points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+
+<span class="c1"># Given least-squares solution</span>
+<span class="n">c</span> <span class="o">=</span> <span class="mf">1.0</span><span class="o">/</span><span class="mf">3.0</span>
+<span class="n">m</span> <span class="o">=</span> <span class="mf">3.0</span><span class="o">/</span><span class="mf">2.0</span>
+
+<span class="c1"># Line of best fit</span>
+<span class="n">x_line</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">y_line</span> <span class="o">=</span> <span class="n">m</span> <span class="o">*</span> <span class="n">x_line</span> <span class="o">+</span> <span class="n">c</span>
+
+<span class="c1"># Plotting</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_line</span><span class="p">,</span> <span class="n">y_line</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Best Fit Line: y = </span><span class="si">{</span><span class="n">m</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">x + </span><span class="si">{</span><span class="n">c</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x_points</span><span class="p">,</span> <span class="n">y_points</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Data Points&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Least-squares Line Fit&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Let <span class="math notranslate nohighlight">\(x=(0,0.25,0.5,0.75,1)\)</span>.</p>
+<ol class="arabic simple">
+<li><p>Find a least-squares quadratic approximation to <span class="math notranslate nohighlight">\(\{(x_i,\exp(x_i))\}\)</span>.</p></li>
+<li><p>Find a least-squares quadratic approximation to <span class="math notranslate nohighlight">\(\{(x_i,\cos(x_i))\}\)</span>.</p></li>
+</ol>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<ol class="arabic">
+<li><p class="sd-card-text">The quadratic approximation is of the form <span class="math notranslate nohighlight">\(p_2(x) = a \, x^2 + b \, x + c\)</span>. The minimisation problem can be equivalently
+formulated as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+   \text{arg}\min_{(a,b,c) \in \mathbb{R}^3} \left\| 
+   \begin{pmatrix} x_1^2 &amp; x_1 &amp; 1\\ x_2^2 &amp; x_2 &amp; 1\\ x_3^2 &amp; x_3 &amp; 1\\ x_4^2 &amp; x_4 &amp; 1\\ x_5^2 &amp; x_5 &amp; 1\end{pmatrix}
+   \begin{pmatrix} a\\ b\\ c \end{pmatrix}
+   - \begin{pmatrix} \exp(x_1)\\ \exp(x_2)\\ \exp(x_3)\\ \exp(x_4)\\ \exp(x_5) \end{pmatrix} \right\|^2.
+   \end{split}\]</div>
+<p class="sd-card-text">The normal equations in matrix form are:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+   \begin{pmatrix}
+   \sum_i x_i^4 &amp; \sum_i x_i^3 &amp; \sum_i x_i^2 \\
+   \sum_i x_i^3 &amp; \sum_i x_i^2 &amp; \sum_i x_i \\
+   \sum_i x_i^2 &amp; \sum_i x_i &amp; n
+   \end{pmatrix}
+   \begin{pmatrix} a \\ b \\ c \end{pmatrix} 
+   =
+   \begin{pmatrix}
+   \sum_i (x_i^2 y_i) \\
+   \sum_i (x_i y_i) \\
+   \sum_i y_i
+   \end{pmatrix}
+   \end{split}\]</div>
+<p class="sd-card-text">where <span class="math notranslate nohighlight">\(y_i = \exp(x_i)\)</span> and <span class="math notranslate nohighlight">\(n\)</span> is the number of data points. Therefore, the least-squares quadratic approximation is given by:</p>
+<div class="math notranslate nohighlight">
+\[
+   p_2(t)=1.005+0.8643t+0.8435t^2.
+   \]</div>
+</li>
+<li><p class="sd-card-text">Analogously, the approximation is <span class="math notranslate nohighlight">\(p_2(t)=1.001-0.03389t-0.4288t^2\)</span>.</p></li>
+</ol>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>For many applications, one must obtain polynomial least-squares approximations at the same nodes <span class="math notranslate nohighlight">\(\{ x_i \}\)</span> for many different sets of data <span class="math notranslate nohighlight">\(\{y_i\}\)</span>. What is the best way to do this? Only try to answer this after having worked out the two previous questions.</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">The matrix <span class="math notranslate nohighlight">\(A\)</span> of the normal equation <span class="math notranslate nohighlight">\(A^\top A\hat{x} = A^\top a\)</span> depends on <span class="math notranslate nohighlight">\(\{ x_i \}\)</span>, but not <span class="math notranslate nohighlight">\(\{y_i\}\)</span>. Compute the QR or singular value decomposition of <span class="math notranslate nohighlight">\(A\)</span> once, and apply it for each of the different <span class="math notranslate nohighlight">\(\{y_i\}\)</span>.</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Let <span class="math notranslate nohighlight">\(A\in\mathbb{R}^{m\times n}\)</span> with <span class="math notranslate nohighlight">\(m\geq n\)</span> and <span class="math notranslate nohighlight">\(\text{rank}(A)=n\)</span> and <span class="math notranslate nohighlight">\(a\in\mathbb{R}^m\)</span>. How should one approach the following least-squares problem with the SVD? Find <span class="math notranslate nohighlight">\(\hat{x}\in\mathbb{R}^n\)</span>, such that</p>
+<div class="math notranslate nohighlight">
+\[
+\|A\hat{x}-a\|_2 = \min_{x\in\mathbb{R}^n}\|Ax-a\|_2.
+\]</div>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">The SVD of <span class="math notranslate nohighlight">\(A\)</span> is given as <span class="math notranslate nohighlight">\(A=U\Sigma V^\top\)</span>, where <span class="math notranslate nohighlight">\(U\in\mathbb{R}^{m\times m}\)</span> and <span class="math notranslate nohighlight">\(V\in\mathbb{R}^{n\times n}\)</span> are orthogonal
+matrices and <span class="math notranslate nohighlight">\(\Sigma \in\mathbb{R}^{m\times n}\)</span> is a diagonal matrix with the nonzero singular values <span class="math notranslate nohighlight">\(\sigma_1\geq\sigma_2\geq\dots\geq\sigma_n &gt;0\)</span> in decreasing order on the diagonal of the matrix, using that <span class="math notranslate nohighlight">\(A\)</span> has full rank.</p>
+<p class="sd-card-text">Substituting into the least-squares problem, we have</p>
+<div class="math notranslate nohighlight">
+\[
+\|Ax-a\|_2 = \|U\Sigma V^\top x - a\|_2 = \|\Sigma y - \hat{a}\|_2
+\]</div>
+<p class="sd-card-text">for <span class="math notranslate nohighlight">\(y=V^\top x\)</span> and <span class="math notranslate nohighlight">\(\hat{a} = U^\top a\)</span>. We find <span class="math notranslate nohighlight">\(y_j\)</span> as <span class="math notranslate nohighlight">\(y_j = \hat{a}_j/\sigma_j\)</span> by minimising the above expression. This is equivalent to <span class="math notranslate nohighlight">\(x = A^{\dagger} a\)</span>.</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>We now consider the modified least-squares problem</p>
+<div class="math notranslate nohighlight">
+\[
+\min_{x\in\mathbb{R}^n} \|Ax-a\|_2^2+\|L x\|_2^2
+\]</div>
+<p>with <span class="math notranslate nohighlight">\(L\in\mathbb{R}^{n\times n}\)</span> nonsingular.
+Show that the solution of this least-squares problem is identical to the solution of</p>
+<div class="math notranslate nohighlight">
+\[
+(A^\top A+L^\top L)x = A^\top a.
+\]</div>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">The vector <span class="math notranslate nohighlight">\(\hat{x}\)</span> minimises the least-squares problem if and only if for all <span class="math notranslate nohighlight">\(\epsilon\in\mathbb{R}^n\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+\|A\hat{x} -a \|_2^2 + \| L \hat{x}\|_2^2 
+&amp; \leq \|A(\hat{x} + \epsilon) - a\|_2^2 + \| L (\hat{x} + \epsilon) \|_2^2\\
+&amp; = \left[A(\hat{x} + \epsilon) - a\right]^\top\left[A(\hat{x} + \epsilon) - a\right] + [L (\hat{x} + \epsilon)]^\top [L (\hat{x} + \epsilon)]\\
+&amp;= \|A\hat{x} -a \|_2^2+2 \epsilon^\top(A^\top A\hat{x} - A^\top a) + \epsilon^\top A^\top A\epsilon + 
+\|L\hat{x} \|_2^2+2 \epsilon^\top(L^\top L\hat{x}) + \epsilon^\top L^\top L \epsilon\\
+&amp;= \|A\hat{x} -a \|_2^2 + \|L\hat{x} \|_2^2 + 2 \epsilon^\top((A^\top A + L^\top L) \hat{x} - A^\top a) + \epsilon^\top(A^\top A + L^\top L) \epsilon
+\end{aligned}
+\end{split}\]</div>
+<p class="sd-card-text"><em>Step 1:</em> Suppose that <span class="math notranslate nohighlight">\(\hat{x}\)</span> does not satisfy the generalised normal equation <span class="math notranslate nohighlight">\((A^\top A+L^\top L)x = A^\top a.\)</span>. Then <span class="math notranslate nohighlight">\(\| (A^\top A + L^\top L) \hat{x} - A^\top a \|_2 &gt; 0\)</span>. Suppose that <span class="math notranslate nohighlight">\(\hat{x}\)</span> minimises the least-squares problem. With <span class="math notranslate nohighlight">\(\epsilon := \delta ((A^\top A + L^\top L) \hat{x} - A^\top a)\)</span>, <span class="math notranslate nohighlight">\(\delta \in \mathbb{R}\)</span>, the above implies</p>
+<div class="math notranslate nohighlight">
+\[
+0 \leq 2 \delta \, \| (A^\top A + L^\top L) \hat{x} - A^\top a \|_2^2 + \delta^2 \, \| (A + L) ((A^\top A + L^\top L) \hat{x} - A^\top a) \|_2^2 =: \Phi(\delta) \qquad \forall \delta \in \mathbb{R}.
+\]</div>
+<p class="sd-card-text">This is a contradiction because <span class="math notranslate nohighlight">\(\Phi(\delta) &lt; 0\)</span> for small negative <span class="math notranslate nohighlight">\(\delta\)</span>.</p>
+<p class="sd-card-text"><em>Step 2:</em> Suppose that <span class="math notranslate nohighlight">\(\hat{x}\)</span> satisfies the generalised normal equation. Then, by the above,</p>
+<div class="math notranslate nohighlight">
+\[
+\|\|A(\hat{x} + \epsilon) - a\|_2^2 + \| L (\hat{x} + \epsilon) \|_2^2 = \|A\hat{x} -a \|_2^2 + \|L\hat{x} \|_2^2 + \epsilon^\top(A^\top A + L^\top L) \epsilon \geq \|A\hat{x} -a \|_2^2 + \|L\hat{x} \|_2^2,
+\]</div>
+<p class="sd-card-text">ensuring that <span class="math notranslate nohighlight">\(\hat{x}\)</span> is a minimiser.</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Let <span class="math notranslate nohighlight">\(A = QR\)</span> be the QR decomposition of a matrix <span class="math notranslate nohighlight">\(A\in\mathbb{R}^{m\times n}\)</span> with
+<span class="math notranslate nohighlight">\(R\in\mathbb{R}^{n\times n}\)</span>. Show that the singular values of <span class="math notranslate nohighlight">\(A\)</span> are identical to those
+of <span class="math notranslate nohighlight">\(R\)</span>.</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">We use the full QR decomposition; that is, let</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+A = \begin{pmatrix}Q &amp; Q^{\bot}\end{pmatrix}\begin{pmatrix}R\\ 0\end{pmatrix}.
+\end{split}\]</div>
+<p class="sd-card-text">Let <span class="math notranslate nohighlight">\(R = U\Sigma V^\top\)</span> be the SVD of <span class="math notranslate nohighlight">\(R\)</span>. Plugging into the above equation gives</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+A = \begin{pmatrix}Q &amp; Q^{\bot}\end{pmatrix}\begin{pmatrix}U &amp; 0 \\ 0 &amp; I\end{pmatrix}\begin{pmatrix}\Sigma \\ 0\end{pmatrix}V^\top.
+\end{split}\]</div>
+<p class="sd-card-text">This is the singular value decomposition of <span class="math notranslate nohighlight">\(A\)</span> with singular values contained in <span class="math notranslate nohighlight">\(\Sigma\)</span>.</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Let</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+A = \begin{pmatrix} 2 &amp; 0 \\ 0 &amp; 0 \end{pmatrix}, \qquad a = \begin{pmatrix} 2\\ 0 \end{pmatrix}.
+\end{split}\]</div>
+<p>What is the pseudo-inverse of <span class="math notranslate nohighlight">\(A\)</span>? Describe <em>all</em> solutions of the least-squares problem <span class="math notranslate nohighlight">\(\text{arg}\min_x \|Ax - a\|_2\)</span>.</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">The pseudo-inverse is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+A^{\dagger} = \begin{pmatrix} 0.5 &amp; 0 \\ 0 &amp; 0 \end{pmatrix}.
+\end{split}\]</div>
+<p class="sd-card-text">The pseudo-inverse selects the solution <span class="math notranslate nohighlight">\((1,0)^\top = A^{\dagger} a\)</span>. Clearly, the <span class="math notranslate nohighlight">\(x_2\)</span> component does not affect the value of <span class="math notranslate nohighlight">\(A x\)</span> so that the solutions of the least-squares problem are of the form <span class="math notranslate nohighlight">\((1, x_2)^\top\)</span>, <span class="math notranslate nohighlight">\(x_2 \in \mathbb{R}\)</span>.</p>
+</div>
+</details></section>
+<section id="optional-material">
+<h2>Optional material<a class="headerlink" href="#optional-material" title="Link to this heading">#</a></h2>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Principles of orthogonal approximation</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<div class="proof definition admonition" id="definition-2">
+<p class="admonition-title"><span class="caption-number">Definition 8 </span></p>
+<section class="definition-content" id="proof-content">
+<p class="sd-card-text">Let <span class="math notranslate nohighlight">\(V\)</span> be a vector space over ,<span class="math notranslate nohighlight">\(\mathbb{K} \in \{ \mathbb{R}, \mathbb{C} \}\)</span>. A mapping</p>
+<div class="math notranslate nohighlight">
+\[
+s : V \times V \to \mathbb{K}
+\]</div>
+<p class="sd-card-text">is called a scalar product if the following conditions hold:</p>
+<ol class="arabic">
+<li><p class="sd-card-text">conjugate symmetry:</p>
+<div class="math notranslate nohighlight">
+\[
+   \forall \, v, w \in V : s(v,w) = \overline{s(w,v)}.
+   \]</div>
+</li>
+<li><p class="sd-card-text">linearity:</p>
+<div class="math notranslate nohighlight">
+\[
+   \forall \, u,v,w \in V \; \forall \, \alpha, \beta \in \mathbb{K} : \; s(\alpha v + \beta w, u) = \alpha \, s(v,u) + \beta \, s(w,u).
+   \]</div>
+</li>
+<li><p class="sd-card-text">positivity:</p>
+<div class="math notranslate nohighlight">
+\[
+   \forall \, v \in V \setminus \{ 0 \} : \; s(v,v) &gt; 0
+   \]</div>
+</li>
+</ol>
+<p class="sd-card-text">The positivity condition is meaningful because conjugate symmetry ensures that <span class="math notranslate nohighlight">\(s(v,v) = \overline{s(v,v)}\)</span> is real-valued.</p>
+</section>
+</div><p class="sd-card-text">Often, one denotes scalar products with angle brackets: <span class="math notranslate nohighlight">\(s(v,w) = \langle v, w \rangle\)</span>. Scalar products are also called inner products, and vector spaces equipped with a scalar product are called inner product spaces.</p>
+<div class="prf-theorem admonition">
+<p class="admonition-title">Fact: Interpolation error bound</p>
+<p class="sd-card-text">Let <span class="math notranslate nohighlight">\((V, \langle \cdot, \cdot \rangle)\)</span> be an inner product space. Then, the mapping <span class="math notranslate nohighlight">\(v \mapsto \sqrt{\langle v, v \rangle}\)</span> defines a norm.</p>
+</div>
+<div class="proof example admonition" id="example-3">
+<p class="admonition-title"><span class="caption-number">Example 10 </span></p>
+<section class="example-content" id="proof-content">
+<p class="sd-card-text">(a) Let <span class="math notranslate nohighlight">\(A\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^{n \times n}\)</span> be a symmetric, positive definite matrix. Then the mapping</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbb{R}^n \times \mathbb{R}^n \to \mathbb{R}, \; (x,y) \mapsto x^\top \, A \, y
+\]</div>
+<p class="sd-card-text">is a scalar product on <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>. The canonical scalar product is defined with <span class="math notranslate nohighlight">\(A\)</span> being the identity matrix <span class="math notranslate nohighlight">\(I\)</span>.</p>
+<p class="sd-card-text">(b) Let <span class="math notranslate nohighlight">\(A\)</span> in <span class="math notranslate nohighlight">\(\mathbb{C}^{n \times n}\)</span> be a Hermitian, positive definite matrix, i.e. <span class="math notranslate nohighlight">\(A = A^H\)</span>. Then the mapping</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbb{C}^n \times \mathbb{C}^n \to \mathbb{C}, \; (x,y) \mapsto x^H \, A \, y
+\]</div>
+<p class="sd-card-text">is a scalar product on <span class="math notranslate nohighlight">\(\mathbb{C}^n\)</span>.</p>
+<p class="sd-card-text">(c) Let <span class="math notranslate nohighlight">\(\Omega \subset \mathbb{R}^n\)</span> be open and non-empty. Let <span class="math notranslate nohighlight">\(\gamma \in C(\Omega, \mathbb{R})\)</span> be positive, i.e. <span class="math notranslate nohighlight">\(\gamma(x) &gt; 0\)</span> for all <span class="math notranslate nohighlight">\(x \in \Omega\)</span>. The set of Riemann integrable functions <span class="math notranslate nohighlight">\(v : \Omega \to \mathbb{K}^m\)</span> for which</p>
+<div class="math notranslate nohighlight">
+\[
+\| v \|_{\Omega,\gamma} := \| v \|_{L^2_\gamma(\Omega, \mathbb{K}^m)} := \Bigl( \int_\Omega | v(x)|^2 \, \gamma(x) dx \Bigr)^{1/2}
+\]</div>
+<p class="sd-card-text">is finite is denoted <span class="math notranslate nohighlight">\(L^2_\gamma(\Omega, \mathbb{K}^m)\)</span>. It is a vector space closed under pointwise addition and scalar multiplication. It is equipped with a scalar product.</p>
+<div class="math notranslate nohighlight">
+\[
+\langle \cdot, \cdot \rangle_{\Omega,\gamma} : \; L^2_\gamma(\Omega, \mathbb{K}^m) \times L^2_\gamma(\Omega, \mathbb{K}^m) \to \mathbb{K}, \; (v,w) \mapsto \int_\Omega v(x) \, \overline{w(x)} \, \gamma(x) dx.
+\]</div>
+<p class="sd-card-text">If <span class="math notranslate nohighlight">\(\gamma \equiv 1\)</span>, then <span class="math notranslate nohighlight">\(L^2(\Omega, \mathbb{K}^m) := L^2_\gamma(\Omega, \mathbb{K}^m)\)</span> and <span class="math notranslate nohighlight">\(\langle \cdot, \cdot \rangle_{\Omega} := \langle \cdot, \cdot \rangle_{\Omega,\gamma}\)</span>.</p>
+</section>
+</div><p class="sd-card-text">Two vectors <span class="math notranslate nohighlight">\(v,w \in V\)</span> are called orthogonal if <span class="math notranslate nohighlight">\(\langle v, w \rangle = 0\)</span>. A subspace <span class="math notranslate nohighlight">\(P \subset V\)</span> is called orthogonal to <span class="math notranslate nohighlight">\(v \in V\)</span> if <span class="math notranslate nohighlight">\(\langle v, p \rangle = 0\)</span> for all <span class="math notranslate nohighlight">\(p \in P\)</span>.</p>
+<div class="prf-theorem admonition">
+<p class="admonition-title">Fact: Orthogonal approximation</p>
+<p class="sd-card-text">Let <span class="math notranslate nohighlight">\((V, \langle \cdot, \cdot \rangle)\)</span> be an inner product space. Let <span class="math notranslate nohighlight">\(P\)</span> be a finite-dimensional subspace of <span class="math notranslate nohighlight">\(V\)</span> and <span class="math notranslate nohighlight">\(v \in V\)</span>. Then there is a unique best approximation <span class="math notranslate nohighlight">\(p \in P\)</span> to <span class="math notranslate nohighlight">\(v\)</span> in <span class="math notranslate nohighlight">\(P\)</span>, which is distinguished by the condition</p>
+<div class="math notranslate nohighlight">
+\[
+ \forall \, q \in P : \, \langle v-p , q \rangle = 0.
+\]</div>
+<p class="sd-card-text">In words, <span class="math notranslate nohighlight">\(v-p\)</span> is orthogonal to <span class="math notranslate nohighlight">\(P\)</span>.</p>
+</div>
+<p class="sd-card-text">Suppose that <span class="math notranslate nohighlight">\(P\)</span> has the basis</p>
+<div class="math notranslate nohighlight">
+\[
+\{ p_0, p_1, \ldots, p_k \},
+\]</div>
+<p class="sd-card-text">i.e. each element <span class="math notranslate nohighlight">\(q\)</span> can be written as a linear combination</p>
+<div class="math notranslate nohighlight">
+\[
+q = \sum_{j=0}^k x_j \, p_j
+\]</div>
+<p class="sd-card-text">where the coefficients <span class="math notranslate nohighlight">\(x_j \in \mathbb{K}\)</span> are unique for each <span class="math notranslate nohighlight">\(q\)</span>. In particular there are coefficients <span class="math notranslate nohighlight">\(\hat{x}_0, \ldots, \hat{x}_k\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}\)</span> of the best approximation <span class="math notranslate nohighlight">\(p\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+p = \sum_{j=0}^k \hat{x}_j \, p_j.
+\]</div>
+<p class="sd-card-text">It follows from the above fact that, for all <span class="math notranslate nohighlight">\(\ell \in \{ 0, 1, \ldots, k \}\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[
+0 = \Bigl\langle v - \sum_{j=0}^k \hat{x}_j \, p_j , p_\ell \Bigr\rangle 
+\]</div>
+<p class="sd-card-text">and thus that</p>
+<div class="math notranslate nohighlight">
+\[
+ \sum_{j=0}^k \hat{x}_j \langle  p_j, p_\ell \rangle =  \langle v, p_\ell \rangle.
+\]</div>
+<p class="sd-card-text">Hence, the best approximation can be computed by solving</p>
+<div class="math notranslate nohighlight">
+\[
+A x = a
+\]</div>
+<p class="sd-card-text">where <span class="math notranslate nohighlight">\(A\)</span> contains the entries <span class="math notranslate nohighlight">\(a_{j\ell} =  \langle  p_j, p_\ell \rangle\)</span> and <span class="math notranslate nohighlight">\(a\)</span> contains the entries <span class="math notranslate nohighlight">\(a_\ell = \langle v, p_\ell \rangle\)</span>.</p>
+<div class="prf-theorem admonition">
+<p class="admonition-title">Fact: Orthogonal approximation</p>
+<p class="sd-card-text">The matrix <span class="math notranslate nohighlight">\(A\)</span> is positive definite and therefore invertible.</p>
+</div>
+<div class="proof example admonition" id="example-4">
+<p class="admonition-title"><span class="caption-number">Example 11 </span></p>
+<section class="example-content" id="proof-content">
+<p class="sd-card-text">Let <span class="math notranslate nohighlight">\(\Omega = (-1,1)^2\)</span> be non-empty, open and <span class="math notranslate nohighlight">\(V = L^2(\Omega, \mathbb{R})\)</span>. Let <span class="math notranslate nohighlight">\(P = \mathcal{P}_{1,2}\)</span> be the space of <span class="math notranslate nohighlight">\(2\)</span>-variate polynomials with degrees less than or equal to <span class="math notranslate nohighlight">\(1\)</span>. The space <span class="math notranslate nohighlight">\(\mathcal{P}_{1,2}\)</span> has the basis</p>
+<div class="math notranslate nohighlight">
+\[
+p_{00}(t_1,t_2) = 1, \qquad p_{10}(t_1,t_2) = t_1, \qquad p_{01}(t_1,t_2) = t_2.
+\]</div>
+<p class="sd-card-text">because for every <span class="math notranslate nohighlight">\(q \in P\)</span> there is exactly one triple <span class="math notranslate nohighlight">\((x_{00}, x_{10}, x_{01}) \in \mathbb{R}^3\)</span> such that</p>
+<div class="math notranslate nohighlight">
+\[
+q(t_1,t_2) = x_{00} + x_{10} \, t_1 + x_{01} \, t_2 \qquad \forall \, (t_1,t_2) \in \Omega.
+\]</div>
+<p class="sd-card-text">The double index notation is convenient to <span class="math notranslate nohighlight">\(2\)</span>-variate functions; however, one could equally well also denote the basis by <span class="math notranslate nohighlight">\(p_0\)</span>, <span class="math notranslate nohighlight">\(p_1\)</span>, <span class="math notranslate nohighlight">\(p_2\)</span> and the coefficients by <span class="math notranslate nohighlight">\(x_0\)</span>, <span class="math notranslate nohighlight">\(x_1\)</span>, <span class="math notranslate nohighlight">\(x_2\)</span>. In the double index notation, the first index marks the degree in <span class="math notranslate nohighlight">\(t_1\)</span> and the second in <span class="math notranslate nohighlight">\(t_2\)</span>.</p>
+<p class="sd-card-text">The best approximation to <span class="math notranslate nohighlight">\(v \in L^2(\Omega)\)</span> can be computed by solving a <span class="math notranslate nohighlight">\(3 \times 3\)</span> linear system. Using also double indices for the matrix entries, one has</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+a_{00,00} &amp;= \int_\Omega 1 \cdot 1 dt = 4,\\
+a_{10,00} = a_{00,10} &amp;= \int_\Omega t_1 \cdot 1 dt = 0,\\
+a_{01,00} = a_{00,01} &amp;= \int_\Omega t_2 \cdot 1 dt = 0,\\
+a_{10,10} &amp;= \int_\Omega t_1 \cdot t_1 dt = \frac{4}{3},\\
+a_{01,10} = a_{10,01} &amp;= \int_\Omega t_1 \cdot t_2 dt = 0,\\
+a_{01,01} &amp;= \int_\Omega t_2 \cdot t_2 dt = \frac{4}{3}.
+\end{align*}
+\end{split}\]</div>
+<p class="sd-card-text">The right-hand side depends on <span class="math notranslate nohighlight">\(v\)</span>. Choosing <span class="math notranslate nohighlight">\(v(t_1,t_2) = \sin (\pi t_1)\)</span> one obtains</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+a_{00} &amp;= \int_\Omega \sin (\pi t_1) \cdot 1 dt = 0,\\
+a_{10} &amp;= \int_\Omega \sin (\pi t_1) \cdot t_1 dt = \frac{\pi}{4},\\
+a_{01} &amp;= \int_\Omega \sin (\pi t_1) \cdot t_2 dt = 0.
+\end{align*}
+\end{split}\]</div>
+<p class="sd-card-text">The resulting linear system is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+\begin{pmatrix}
+a_{00,00} &amp; a_{00,10} &amp; a_{00,01}\\
+a_{10,00} &amp; a_{10,10} &amp; a_{10,01}\\
+a_{01,00} &amp; a_{01,10} &amp; a_{01,01}
+\end{pmatrix}
+\begin{pmatrix}
+x_{00}\\
+x_{10}\\
+x_{01}
+\end{pmatrix}
+=
+\begin{pmatrix}
+4 &amp; 0 &amp; 0\\
+0 &amp; \frac{4}{3} &amp; 0\\
+0 &amp; 0 &amp; \frac{4}{3}
+\end{pmatrix}
+\begin{pmatrix}
+x_{00}\\
+x_{10}\\
+x_{01}
+\end{pmatrix}
+=
+\begin{pmatrix}
+0\\
+\frac{\pi}{4}\\
+0
+\end{pmatrix}
+=
+\begin{pmatrix}
+a_{00}\\
+a_{10}\\
+a_{01}
+\end{pmatrix}.
+\end{align*}
+\end{split}\]</div>
+<p class="sd-card-text">The solution of the system is <span class="math notranslate nohighlight">\((0,\frac{3 \pi}{16},0)\)</span> and therefore the best approximation is</p>
+<div class="math notranslate nohighlight">
+\[
+p(t_1,t_2) =0 \cdot 1 + \frac{3 \pi}{16} \cdot t_1 +0 \cdot t_2 = \frac{3 \pi}{16} \, t_1.
+\]</div>
+<p class="sd-card-text">The functions <span class="math notranslate nohighlight">\(v\)</span> and <span class="math notranslate nohighlight">\(p\)</span> are depicted here:</p>
+<p class="sd-card-text"><img alt="orthogonal_approximation" src="_images/orth_approx.jpg" /></p>
+</section>
+</div><p class="sd-card-text">A remarkable feature of the example is that all off-diagonal entries in <span class="math notranslate nohighlight">\(A\)</span> vanish. This means that the basis functions are mutually orthogonal. In general, one cannot expect this. For instance, one can show that the functions</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+p_{00}(t_1,t_2) &amp;= 1, &amp;p_{01}(t_1,t_2) &amp;= t_2, &amp; p_{02}(t_1,t_2) &amp;= t_2^2,\\ 
+p_{10}(t_1,t_2) &amp;= t_1, &amp;p_{11}(t_1,t_2) &amp;= t_1 \, t_2, &amp; p_{12}(t_1,t_2) &amp;= t_1 \, t_2^2,\\
+p_{20}(t_1,t_2) &amp;= t_1^2, &amp;p_{21}(t_1,t_2) &amp;= t_1^2 \, t_2, &amp; p_{22}(t_1,t_2) &amp;= t_1^2 \, t_2^2
+\end{align}
+\end{split}\]</div>
+<p class="sd-card-text">are a basis of <span class="math notranslate nohighlight">\(\mathcal{Q}_{2,2} := \text{span}(p_{00}, \ldots, p_{22})\)</span>. Computing, for example,</p>
+<div class="math notranslate nohighlight">
+\[
+\langle p_{00}, p_{20} \rangle_{\Omega} = \int_\Omega 1 \cdot t_1^2 dt = \frac{4}{3}
+\]</div>
+<p class="sd-card-text">implies that orthogonality is lost and that the matrix <span class="math notranslate nohighlight">\(A\)</span>, implementing <span class="math notranslate nohighlight">\(L^2\)</span> approximation in <span class="math notranslate nohighlight">\(\mathcal{Q}_{2,2}\)</span> with <span class="math notranslate nohighlight">\(p_{00}, \ldots, p_{22}\)</span> as underlying basis, has off-diagonal entries.</p>
+<p class="sd-card-text">One can already observe in the 1-dimensional case that the basis of the approximation space <span class="math notranslate nohighlight">\(P\)</span> needs to be chosen carefully. For instance, if <span class="math notranslate nohighlight">\(P = \mathcal{P}_n\)</span> with basis <span class="math notranslate nohighlight">\(1, t, t^2, \ldots, t^n\)</span>, then the resulting matrix <span class="math notranslate nohighlight">\(A\)</span> is poorly conditioned for larger and even moderate values of <span class="math notranslate nohighlight">\(n\)</span>. However, the `more orthogonal’ the basis functions are, the better conditioned the linear system is. In the ideal case, the basis is orthonormal, implying that <span class="math notranslate nohighlight">\(A = I\)</span>.</p>
+<p class="sd-card-text">There are different options to obtain an orthonormal basis in multivariate space. One can use the Gram-Schmidt method, which works for all (finite-dimensional) inner product spaces. For instance, one can start with the above <span class="math notranslate nohighlight">\(p_{00}, \ldots, p_{22}\)</span> to generate an orthonormal basis of <span class="math notranslate nohighlight">\(\mathcal{Q}_{2,2}\)</span> with this method.</p>
+<p class="sd-card-text">However, assembling the multivariate basis from an orthonormal <span class="math notranslate nohighlight">\(1\)</span>-variate basis is often more economical. Let <span class="math notranslate nohighlight">\(p_\alpha, p_\beta\)</span> be orthogonal functions in <span class="math notranslate nohighlight">\(L^2_\gamma((a,b),\mathbb{K}^m)\)</span>. Then the functions</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+p_\alpha(t_1) \, p_\alpha(t_2), \quad p_\alpha(t_1) \, p_\beta(t_2), \quad p_\beta(t_1) \, p_\alpha(t_2), \quad p_\beta(t_1) \, p_\beta(t_2)
+\end{align}
+\]</div>
+<p class="sd-card-text">are orthogonal in <span class="math notranslate nohighlight">\(L_\eta^2((a,b)^2, \mathbb{K}^m)\)</span> with <span class="math notranslate nohighlight">\(\eta(t_1,t_2) = \gamma(t_1) \cdot \gamma(t_2)\)</span> because</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\langle p_j \, p_\ell, p_i \, p_k \rangle_{\Omega, \eta} &amp;= \int_a^b \int_a^b \bigl( p_j(t_1) \, p_\ell(t_2) \bigr) \cdot \overline{\bigl( p_i(t_1) \, p_k(t_2) \bigr)} \bigl( \gamma(t_1) \, \gamma(t_2)\bigr) dt_1 dt_2\\ \label{eqn:prod_basis_argument}
+&amp;= \int_a^b p_j(t_1) \cdot \overline{p_i(t_1)} \, \gamma(t_1) dt_1 \int_a^b p_\ell(t_2) \cdot \overline{p_k(t_2)} \, \gamma(t_2) dt_2\\ \nonumber
+&amp;= \langle p_j, p_i \rangle_{(a,b), \gamma} \,  \langle p_\ell, p_k \rangle_{(a,b), \gamma}\\ \nonumber
+&amp;= \begin{cases} \| p_j \|^2 \cdot \| p_\ell \|^2 &amp;: \mbox{ if $j=i$ and $\ell = k$}\\ 0 &amp;: \mbox{ if $j\neq i$ or $\ell \neq k$} \end{cases} \nonumber
+\end{align}
+\end{split}\]</div>
+<p class="sd-card-text">with <span class="math notranslate nohighlight">\(i, j, k, \ell \in \{ \alpha, \beta \}\)</span>. In particular, if <span class="math notranslate nohighlight">\(p_\alpha\)</span> and <span class="math notranslate nohighlight">\(p_\beta\)</span> are orthonormal, then the products <span class="math notranslate nohighlight">\(p_\alpha \cdot p_\beta\)</span> are orthonormal.</p>
+<p class="sd-card-text">Let us use this argument to construct an orthogonal basis of <span class="math notranslate nohighlight">\(\mathcal{Q}_{2,2}\)</span>. Functions in <span class="math notranslate nohighlight">\(\mathcal{Q}_{2,2}\)</span> have the form</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+p(t_1, t_2) = \sum_{j=0}^2 \sum_{k=0}^2 \alpha_{jk} t_1^j t_2^k.
+\end{align}
+\]</div>
+<p class="sd-card-text">Recall that the <span class="math notranslate nohighlight">\(t_1^j t_2^k\)</span> are a basis of <span class="math notranslate nohighlight">\(\mathcal{Q}_{2,2}\)</span>. Even without the proof that they are, in fact, a basis (which was omitted), one can directly conclude that <span class="math notranslate nohighlight">\(\mathcal{Q}_{2,2}\)</span> spanned by the <span class="math notranslate nohighlight">\(9\)</span> functions <span class="math notranslate nohighlight">\(t_1^j t_2^k\)</span>, which means that <span class="math notranslate nohighlight">\(\mathcal{Q}_{2,2}\)</span> can at most be <span class="math notranslate nohighlight">\(9\)</span> dimensional.</p>
+<p class="sd-card-text">We leave it as an exercise to check that the so-called Legendre polynomials</p>
+<div class="math notranslate nohighlight">
+\[
+L_0(t) = 1, \quad L_1(t) = t, \quad L_2(t) = \frac{3}{2} t^2 - \frac{1}{2}
+\]</div>
+<p class="sd-card-text">are orthogonal in <span class="math notranslate nohighlight">\(L^2((-1,1), \mathbb{R})\)</span>. Consequently, the functions</p>
+<div class="math notranslate nohighlight">
+\[
+p_{jk}(t_1, t_2) := L_j(t_1) \cdot L_k(t_2), \qquad j,k \in \{ 0, 1, 2 \},
+\]</div>
+<p class="sd-card-text">are orthogonal in <span class="math notranslate nohighlight">\(L^2((-1,1)^2, \mathbb{R})\)</span>.</p>
+<div class="prf-theorem admonition">
+<p class="admonition-title">Fact: Independence of orthogonal vectors</p>
+<p class="sd-card-text">Mutually orthogonal vectors in an inner product space <span class="math notranslate nohighlight">\((V, \langle \cdot, \cdot \rangle)\)</span> are linearly independent.</p>
+</div>
+<p class="sd-card-text">Thus, the <span class="math notranslate nohighlight">\(p_{jk}\)</span> are linearly independent. Moreover, the <span class="math notranslate nohighlight">\(p_{jk}\)</span> belong to <span class="math notranslate nohighlight">\(\mathcal{Q}_{2,2}\)</span>. For instance,</p>
+<div class="math notranslate nohighlight">
+\[
+p_{1,2} = t_1 \cdot \Bigl( \frac{3}{2} t_2^2 - \frac{1}{2} \Bigr) = \alpha_{1,2} t_1 \, t_2^2 + \alpha_{0,0} t_1^0 t_2^0
+\]</div>
+<p class="sd-card-text">has the structure a linear combination in the original span with <span class="math notranslate nohighlight">\(\alpha_{1,2} = \frac{3}{2}\)</span> and <span class="math notranslate nohighlight">\(\alpha_{0,0} = -\frac{1}{2}\)</span>.</p>
+<div class="prf-theorem admonition">
+<p class="admonition-title">Fact: Basis of orthogonal vectors</p>
+<p class="sd-card-text">A selection of <span class="math notranslate nohighlight">\(n\)</span> linearly independent, nonzero vectors in an <span class="math notranslate nohighlight">\(n\)</span>-dimensional vector space <span class="math notranslate nohighlight">\(V\)</span>, <span class="math notranslate nohighlight">\(n \in \mathbb{N}\)</span>, is a basis of ,<span class="math notranslate nohighlight">\(V\)</span>.</p>
+</div>
+<p class="sd-card-text">Therefore the <span class="math notranslate nohighlight">\(p_{jk}\)</span> are a basis of <span class="math notranslate nohighlight">\(\mathcal{Q}_{2,2}\)</span>. The matrix <span class="math notranslate nohighlight">\(A\)</span> above is diagonal if the <span class="math notranslate nohighlight">\(p_{jk}\)</span> are orthogonal.</p>
+<div class="proof example admonition" id="example-5">
+<p class="admonition-title"><span class="caption-number">Example 12 </span></p>
+<section class="example-content" id="proof-content">
+<p class="sd-card-text">Let <span class="math notranslate nohighlight">\(V = L^2((-1,1)^2, \mathbb{R})\)</span>. Compute the best approximation <span class="math notranslate nohighlight">\(p\)</span> to</p>
+<div class="math notranslate nohighlight">
+\[
+v(t_1, t_2) = \sin(\pi t_1) \, \cos(\pi t_2)
+\]</div>
+<p class="sd-card-text">in <span class="math notranslate nohighlight">\(P = \mathcal{Q}_{2,2}\)</span>.</p>
+<p class="sd-card-text">We use the Legendre product basis for the computation. Then the coefficients <span class="math notranslate nohighlight">\(\hat{x}_{jk}\)</span> in</p>
+<div class="math notranslate nohighlight">
+\[
+p(t_1, t_2) = \sum_{j=0}^2 \sum_{k=0}^2 \hat{x}_{jk} p_{jk}(t_1, t_2) = \sum_{j=0}^2 \sum_{k=0}^2 \hat{x}_{jk} L_j(t_1) \cdot L_k(t_2)
+\]</div>
+<p class="sd-card-text">are given by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align} \label{eqn:Lt_approx_example}
+\langle p_{jk}, p_{jk} \rangle_{(-1,1)^2} \, \hat{x}_{jk} &amp; = \langle v, p_{jk} \rangle_{(-1,1)^2}\\ \nonumber
+&amp; = \int_{-1}^1 \int_{-1}^1 \, \sin(\pi t_1) \, \cos(\pi t_1) L_j(t_1) \, L_k(t_2) dt_1 dt_2\\ \nonumber
+&amp; = \int_{-1}^1 \sin(\pi t_1) \, L_j(t_1) dt_1 \; \int_{-1}^1 \cos(\pi t_2) \, L_k(t_2) dt_2,
+\end{align}
+\end{split}\]</div>
+<p class="sd-card-text">taking the diagonal structure of the system into account. One calculates</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+\int_{-1}^1 \sin(\pi t_1) \, L_0(t_1) dt_1 &amp;= 0, &amp; \int_{-1}^1 \cos(\pi t_2) \, L_0(t_2) dt_2 &amp;= 0, \\
+\int_{-1}^1 \sin(\pi t_1) \, L_1(t_1) dt_1 &amp;= \frac{2}{\pi}, &amp; \int_{-1}^1 \cos(\pi t_2) \, L_1(t_2) dt_2 &amp;= 0,\\
+\int_{-1}^1 \sin(\pi t_1) \, L_2(t_1) dt_1 &amp;= 0,&amp; \int_{-1}^1 \cos(\pi t_2) \, L_2(t_2) dt_2 &amp;= - \frac{6}{\pi^2}.
+\end{align*}
+\end{split}\]</div>
+<p class="sd-card-text">Therefore, the system of equations turns into</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\langle p_{jk}, p_{jk} \rangle_{(-1,1)^2} \, \hat{x}_{jk} =
+\begin{cases} - \frac{12}{\pi^3} &amp; \mbox{ if $j = 1$ and $k = 2$,}\\ 0 &amp; \mbox{ if $j \neq 1$ or $k \neq 2$.} \end{cases}
+\end{split}\]</div>
+<p class="sd-card-text">Furthermore,</p>
+<div class="math notranslate nohighlight">
+\[
+\langle p_{1,2}, p_{1,2} \rangle_{(-1,1)^2} = \int_{-1}^1 \int_{-1}^1 \Bigl( t_1 \cdot \Bigl( \frac{3}{2} t_2^2 - \frac{1}{2} \Bigr) \Bigr)^2 dt_1 dt_2 = \frac{4}{15}.\]</div>
+<p class="sd-card-text">Therefore</p>
+<div class="math notranslate nohighlight">
+\[
+p(t_1, t_2) = \frac{15}{4} \Bigl( - \frac{12}{\pi^3} \Bigr) \; t_1 \; \Bigl( \frac{3}{2} t_2^2 - \frac{1}{2} \Bigr).
+\]</div>
+<p class="sd-card-text"><img alt="L2_approximation" src="_images/L2_approx.jpg" /></p>
+</section>
+</div></div>
+</details></section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="3.2_singular_value_decomposition.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">The Singular Value Decomposition</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="3.4_constrained_least_squares_problems.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Constrained Problems</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-normal-equation">The normal equation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#properties-of-the-normal-equation">Properties of the normal equation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-least-squares-problems-with-the-qr-decomposition">Solving least-squares problems with the QR decomposition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-least-squares-problems-with-the-svd">Solving least-squares problems with the SVD</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-a-least-squares-problem-with-qr-decomposition">Solving a least-squares problem with QR decomposition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-a-least-squares-problem-with-svd">Solving a least-squares problem with SVD</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#self-check-questions">Self-check questions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-material">Optional material</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Timo Betcke, Erik Burman, Max Jensen
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

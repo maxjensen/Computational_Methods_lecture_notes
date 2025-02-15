@@ -1,0 +1,798 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Introduction to Quadrature &#8212; Computational Methods MATH0058 lecture notes</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=b4b7a797" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '4.2_quadrature';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Stable Quadrature Schemes" href="4.3_stable_quadrature_schemes.html" />
+    <link rel="prev" title="Polynomial Interpolation" href="4.1_interpolation.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Computational Methods MATH0058 lecture notes - Home"/>
+    <img src="_static/logo.png" class="logo__image only-dark pst-js-only" alt="Computational Methods MATH0058 lecture notes - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="index.html">
+                    Welcome!
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Fundamentals</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="0.1_matrix_vector_norms.html">Measuring distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="0.2_error_analysis.html">Backward error analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="0.3_linear_system_error.html">The condition number of linear systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="0.4_complexity_notation.html">Asymptotic notation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Implementation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="1.1_floating_point_arithmetic.html">Floating point numbers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_numpy_and_data_layouts.html">Memory layout and Numpy</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="2.1_lu_decomposition.html">LU decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.2_lu_backward_error.html">Backward error and pivoting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.3_python_lu_decomposition.html">Python implementation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Orthogonal Decompositions</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="3.1_qr_decomposition.html">The QR Decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.2_singular_value_decomposition.html">The Singular Value Decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.3_least_squares_problems.html">Least-squares Problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.4_constrained_least_squares_problems.html">Constrained Problems</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Interpolation and Quadrature</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="4.1_interpolation.html">Polynomial Interpolation</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Introduction to Quadrature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.3_stable_quadrature_schemes.html">Stable Quadrature Schemes</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Eigenvalue Problems</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="5.1_eigenvalues_basic_properties.html">Basic properties of eigenvalue problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.2_computing_eigenvalues.html">Computing eigenvalues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.3_computing_eigenspaces.html">Computing the eigensystem</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back matter</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="bm1_notation_and_facts.html">Notation and facts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bm2_programming_resources.html">Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bm3_markdown.html">Markdown and LaTeX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bm4_bibliography.html">Bibliography</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/4.2_quadrature.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Introduction to Quadrature</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpolatory-quadratures">Interpolatory Quadratures</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#error-bound">Error bound</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#runge-phenomenon">Runge phenomenon</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#self-check-questions">Self-check questions</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="introduction-to-quadrature">
+<h1>Introduction to Quadrature<a class="headerlink" href="#introduction-to-quadrature" title="Link to this heading">#</a></h1>
+<p>In this section, we aim to approximate the definite integral</p>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{I}(f) := \int_a^b f(x) dx
+\]</div>
+<p>on the interval <span class="math notranslate nohighlight">\([a,b] \subset \mathbb{R}\)</span>, using a method known as <em>quadrature</em>. A <em>quadrature formula</em> is an approximation of the form</p>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{Q}_n(f) := \sum_{k=0}^n \sigma_k f(x_k),
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\{x_k\}\)</span> are called <em>nodes</em>, and <span class="math notranslate nohighlight">\(\sigma_k\)</span> are corresponding <em>weights</em> or <em>coefficients</em>. The choice of nodes and coefficients is crucial for the accuracy of the approximation. Importantly, quadrature formulas share a key property with integrals: linearity. This means</p>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{Q}_n(\alpha f + \beta g) = \alpha \mathcal{Q}_n(f) + \beta \mathcal{Q}_n(g) \quad \forall \, \alpha, \beta \in \mathbb{R}.
+\]</div>
+<p>The <em>degree of exactness</em> of a quadrature formula <span class="math notranslate nohighlight">\(\mathcal{Q}_n\)</span> is defined as the highest degree <span class="math notranslate nohighlight">\(r\)</span> for which it exactly integrates all polynomials up to degree <span class="math notranslate nohighlight">\(r\)</span>, but not for degree <span class="math notranslate nohighlight">\(r+1\)</span>. Formally,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+   \mathcal{Q}_n(x^j) &amp; = \mathcal{I}(x^j) \quad \text{for } j = 0, \ldots, r,\\
+   \mathcal{Q}_n(x^{r+1}) &amp; \neq \mathcal{I}(x^{r+1}).
+\end{aligned}
+\end{split}\]</div>
+<p>Therefore, a quadrature formula <span class="math notranslate nohighlight">\(\mathcal{Q}_n\)</span> with a degree of exactness <span class="math notranslate nohighlight">\(r\)</span> perfectly approximates the integral of any polynomial in <span class="math notranslate nohighlight">\(\mathcal{P}_r\)</span>, the set of all polynomials of degree up to <span class="math notranslate nohighlight">\(r\)</span>.</p>
+<section id="interpolatory-quadratures">
+<h2>Interpolatory Quadratures<a class="headerlink" href="#interpolatory-quadratures" title="Link to this heading">#</a></h2>
+<p>Interpolatory quadrature involves approximating a function <span class="math notranslate nohighlight">\(f\)</span> by a polynomial <span class="math notranslate nohighlight">\(p\)</span> that interpolates <span class="math notranslate nohighlight">\(f\)</span> at given nodes <span class="math notranslate nohighlight">\(\{x_k\}\)</span>, and then integrating this polynomial. Utilising Lagrange interpolation, <span class="math notranslate nohighlight">\(p(x)\)</span> is expressed as</p>
+<div class="math notranslate nohighlight">
+\[
+p(x) = \sum_{k=0}^n f(x_k) L_k(x), \quad \text{where } L_k(x) = \prod_{l\ne k} \frac{x-x_l}{x_k-x_l}.
+\]</div>
+<p>This leads to the quadrature formula</p>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{Q}_n(f) := \int_a^b p(x) dx = \sum_{k=0}^n f(x_k) \int_a^b L_k(x) dx,
+\]</div>
+<p>with the weights</p>
+<div class="math notranslate nohighlight">
+\[
+\sigma_k = \int_a^b L_k(x) dx.
+\]</div>
+<p>Hence, the interpolatory quadrature formula becomes <span class="math notranslate nohighlight">\(\mathcal{Q}_n(f) = \sum_{k=0}^n \sigma_k f(x_k)\)</span>. The degree of exactness of <span class="math notranslate nohighlight">\(\mathcal{Q}_n\)</span> is at least <span class="math notranslate nohighlight">\(n\)</span>, and it for <span class="math notranslate nohighlight">\(n \geq 0\)</span> holds that</p>
+<div class="math notranslate nohighlight">
+\[
+\sum_{k=0}^n \sigma_k = b-a, \qquad\mathcal{Q}_n(1) = \mathcal{I}(1).
+\]</div>
+<p>In the case of equidistant nodes, we obtain the <em>Newton-Cotes formulas</em>, and if these nodes include the endpoints <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span>, the formulas are termed <em>closed</em> Newton-Cotes formulas.</p>
+<div class="proof example admonition" id="example-0">
+<p class="admonition-title"><span class="caption-number">Example 15 </span> (Interpolatory quadrature formulas)</p>
+<section class="example-content" id="proof-content">
+<ul>
+<li><p><strong>Rectangle Method</strong>:</p>
+<div class="math notranslate nohighlight">
+\[
+   \mathcal{Q}_0(f) = (b-a)f\Bigl(\frac{a+b}{2}\Bigr).
+   \]</div>
+</li>
+<li><p><strong>Trapezoid Rule</strong> (a closed Newton-Cotes formula for <span class="math notranslate nohighlight">\(n=1\)</span>):</p>
+<div class="math notranslate nohighlight">
+\[
+   \mathcal{Q}_1(f) = (b-a)\frac{f(a)+f(b)}{2}.
+   \]</div>
+</li>
+<li><p><strong>Simpson’s Rule</strong> (a closed Newton-Cotes formula for <span class="math notranslate nohighlight">\(n=2\)</span>):</p>
+<div class="math notranslate nohighlight">
+\[\mathcal{Q}_2(f) = (b-a)\,\Bigl[ \frac{1}{6} f(a) + \frac{2}{3} f\Bigl(\frac{a+b}{2}\Bigr) + \frac{1}{6} f(b) \Bigr].\]</div>
+</li>
+</ul>
+</section>
+</div><section id="error-bound">
+<h3>Error bound<a class="headerlink" href="#error-bound" title="Link to this heading">#</a></h3>
+<p>Using the <a class="reference internal" href="4.1_interpolation.html"><span class="std std-doc">interpolation error bound</span></a>, we obtain</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+   |\mathcal{I}(f)-\mathcal{Q}_n(f)| &amp;= |\mathcal{I}(f)-\mathcal{Q}_n(p)| = |\mathcal{I}(f)-\mathcal{I}(p)| = |\mathcal{I}(f-p)|\\
+  &amp;= \Bigl| \int_a^b \frac{\omega_{n+1}(x)}{(n+1)!}\,f^{(n+1)}(\xi(x)) dx \Bigr|\\
+  &amp;\le \frac1{(n+1)!}\,\max_{\xi\in[a,b]} |f^{(n+1)}(\xi)| \,\int_a^b |\omega_{n+1}(x)| dx.
+\end{aligned}
+\end{split}\]</div>
+<p>This error bound suggests that the accuracy of <span class="math notranslate nohighlight">\(\mathcal{Q}_n\)</span> is limited <em>both</em> by the differentiability of <span class="math notranslate nohighlight">\(f\)</span>, which is usually out of our control as numerical analysts, and by the size of <span class="math notranslate nohighlight">\(|\omega_{n+1}|\)</span>, which depends on the choice of the nodes <span class="math notranslate nohighlight">\(\{x_k\}\)</span> and thus may be improved. We will address these two issues in the next section.</p>
+</section>
+<section id="runge-phenomenon">
+<h3>Runge phenomenon<a class="headerlink" href="#runge-phenomenon" title="Link to this heading">#</a></h3>
+<p>Even when <span class="math notranslate nohighlight">\(|\omega_{n+1}|\)</span> is bounded, and when <span class="math notranslate nohighlight">\(f\)</span> is smooth, interpolatory quadrature may still suffer from Runge’s phenomenon. We find negative values for some coefficients <span class="math notranslate nohighlight">\(\sigma_k^{(n)}\)</span> even for moderate values of <span class="math notranslate nohighlight">\(n\)</span>, 8 in the case of closed Newton-Cotes formulas. In fact, one can prove that, for the closed Newton-Cotes formulas,</p>
+<div class="math notranslate nohighlight">
+\[
+\sum_{k=0}^n \bigl|\sigma_k^{(n)}\bigr| \to \infty \qquad n \to \infty.
+\]</div>
+<p>This makes Newton-Cotes formulas vulnerable to instability for large <span class="math notranslate nohighlight">\(n\)</span>.</p>
+</section>
+</section>
+<section id="python-skills">
+<h2>Python skills<a class="headerlink" href="#python-skills" title="Link to this heading">#</a></h2>
+<p>Here is an implementation of the trapezium and Simpson’s rule in Python.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">trapezium_rule</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">b</span> <span class="o">-</span> <span class="n">a</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">+</span> <span class="n">f</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">simpsons_rule</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">b</span> <span class="o">-</span> <span class="n">a</span><span class="p">)</span> <span class="o">/</span> <span class="mi">6</span> <span class="o">*</span> <span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">f</span><span class="p">((</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">f</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
+
+<span class="c1"># Example usage</span>
+<span class="c1"># Define a function to integrate</span>
+<span class="k">def</span> <span class="nf">my_function</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">**</span> <span class="mi">2</span>
+
+<span class="c1"># Apply the quadrature rules</span>
+<span class="n">a</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># Lower limit</span>
+<span class="n">b</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># Upper limit</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Trapezium Rule:&quot;</span><span class="p">,</span> <span class="n">trapezium_rule</span><span class="p">(</span><span class="n">my_function</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Simpson&#39;s Rule:&quot;</span><span class="p">,</span> <span class="n">simpsons_rule</span><span class="p">(</span><span class="n">my_function</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>
+</pre></div>
+</div>
+</section>
+<section id="self-check-questions">
+<h2>Self-check questions<a class="headerlink" href="#self-check-questions" title="Link to this heading">#</a></h2>
+<div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Calculate the weights and nodes for the closed Newton-Cotes formula with <span class="math notranslate nohighlight">\(n = 3\)</span>.</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">The nodes are <span class="math notranslate nohighlight">\(x_0 = a\)</span>, <span class="math notranslate nohighlight">\(x_1 = a + h\)</span>, <span class="math notranslate nohighlight">\(x_2 = a + 2h\)</span> and <span class="math notranslate nohighlight">\(x_3 = b\)</span>.</p>
+<p class="sd-card-text">The weights are determined with the integration of the Lagrange interpolating polynomial:</p>
+<ul class="simple">
+<li><p class="sd-card-text"><span class="math notranslate nohighlight">\(\sigma_0 = \sigma_3 = 3h/8\)</span></p></li>
+<li><p class="sd-card-text"><span class="math notranslate nohighlight">\(\sigma_1 = \sigma_2 = 9h/8\)</span></p></li>
+</ul>
+<p class="sd-card-text">Thus, the integral approximation over the interval <span class="math notranslate nohighlight">\([a, b]\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\int_a^b f(x) \, dx &amp; \approx \frac{3h}{8} [f(x_0) + 3f(x_1) + 3f(x_2) + f(x_3)]\\
+&amp; = \frac{b - a}{8} [f(a) + 3f(a + h) + 3f(a + 2h) + f(b)].
+\end{align}
+\end{split}\]</div>
+<p class="sd-card-text">The rule is known as Simpson’s 3/8 Rule.</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>A quadrature rule <span class="math notranslate nohighlight">\(\mathcal{Q}\)</span> has a negative weight <span class="math notranslate nohighlight">\(\sigma_k\)</span>. Show that there exists a non-negative function <span class="math notranslate nohighlight">\(g\)</span> such <span class="math notranslate nohighlight">\(\mathcal{Q}(g) &lt; 0\)</span>. This means that the quadrature rule assigns a negative estimate of the integral to the non-negative function.</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Let <span class="math notranslate nohighlight">\(x_i\)</span> be the <span class="math notranslate nohighlight">\(i\)</span>th node of <span class="math notranslate nohighlight">\(\mathcal{Q}\)</span>. We define <span class="math notranslate nohighlight">\(g : [a,b] \to \mathbb{R}\)</span> to be <span class="math notranslate nohighlight">\(\delta_{ik}\)</span> at nodes <span class="math notranslate nohighlight">\(x_i\)</span>, and on the restrictions <span class="math notranslate nohighlight">\([x_i, x_{i+1}]\)</span> between nodes be the linear interpolant of those values.</p>
+<p class="sd-card-text">Then <span class="math notranslate nohighlight">\(g\)</span> is non-negative; however,</p>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{Q}(g) = \sigma_k &lt; 0.
+\]</div>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>For a family <span class="math notranslate nohighlight">\(\mathcal{Q}_n\)</span> of quadrature methods (interpolatory or otherwise) one observes</p>
+<div class="math notranslate nohighlight">
+\[
+\sum_{k=0}^n \bigl|\sigma_k^{(n)}\bigr| \to \infty \qquad n \to \infty.
+\]</div>
+<p>Why does the relative forward error, observed over the set of continuous functions, grow unboundedly as <span class="math notranslate nohighlight">\(n \to \infty\)</span>?</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Let <span class="math notranslate nohighlight">\(x_i^{(n)}\)</span> be the <span class="math notranslate nohighlight">\(i\)</span>th node of <span class="math notranslate nohighlight">\(\mathcal{Q}_n\)</span>. We define <span class="math notranslate nohighlight">\(g^{(n)} : [a,b] \to \mathbb{R}\)</span> to be <span class="math notranslate nohighlight">\(\text{sign}(\sigma_k^{(n)})\)</span> at nodes <span class="math notranslate nohighlight">\(x_i^{(n)}\)</span>, and on the restrictions <span class="math notranslate nohighlight">\([x_i^{(n)}, x_{i+1}^{(n)}]\)</span> between nodes be the linear interpolant of those values.</p>
+<p class="sd-card-text">Then</p>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{Q}_n(g^{(n)}) = \sum_{k=0}^n \sigma_k^{(n)} g^{(n)}(x_k) = \sum_{k=0}^n | \sigma_k | \to \infty \qquad n \to \infty.
+\]</div>
+<p class="sd-card-text">However, <span class="math notranslate nohighlight">\(|\mathcal{I}(g^{(n)})| \leq (b-a)\)</span>. In the notation of the Foundation chapter on the forward error, the exact operator is <span class="math notranslate nohighlight">\(f: C[a,b] \to \mathbb{R}, g \mapsto \mathcal{I}(g)\)</span>, while the <span class="math notranslate nohighlight">\(n\)</span>th quadrature approximation is <span class="math notranslate nohighlight">\(\tilde{f}_n: C[a,b] \to \mathbb{R}, g \mapsto \mathcal{Q}_n(g)\)</span>.</p>
+<p class="sd-card-text">Thus, we established that the largest relative forward error, observed over the set of continuous functions, diverges as <span class="math notranslate nohighlight">\(n \to \infty\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+\sup_{g \in C[a,b]} \frac{| f(g) - \tilde{f}_n(g) |}{|f(g)|} \geq \frac{| f(g^{(n)}) - \tilde{f}_n(g^{(n)}) |}{|f(g^{(n)})|}  \to \infty,
+\]</div>
+<p class="sd-card-text">using <span class="math notranslate nohighlight">\(0 &lt; f(g^{(n)}) \leq b - a\)</span>.</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Given a set of nodes <span class="math notranslate nohighlight">\(a \leq x_0 &lt; x_1 &lt; \cdots &lt; x_n \leq b\)</span>, demonstrate that there exist unique real numbers <span class="math notranslate nohighlight">\(a_0, a_1, \ldots, a_n\)</span> such that for every polynomial <span class="math notranslate nohighlight">\(p\)</span> in <span class="math notranslate nohighlight">\(\mathcal{P}_n\)</span> the following equality holds:</p>
+<div class="math notranslate nohighlight">
+\[
+\sum_{k = 0}^n a_k \, p(x_k) = \int_a^b p(x) \, dx.
+\]</div>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">The existence of the coefficients follows directly from the results about interpolatory quadrature formulas. For completeness, we summarise that the Lagrange basis polynomials</p>
+<div class="math notranslate nohighlight">
+\[
+L_k(x) = \prod_{l\ne k} \frac{x-x_l}{x_k-x_l}
+\]</div>
+<p class="sd-card-text">constitute a basis for <span class="math notranslate nohighlight">\(\mathcal{P}_n\)</span>. Any polynomial <span class="math notranslate nohighlight">\(p\)</span> in <span class="math notranslate nohighlight">\(\mathcal{P}_n\)</span> can be represented as a linear combination of these basis polynomials:</p>
+<div class="math notranslate nohighlight">
+\[
+p = \sum_{k = 0}^n p(x_k) \, L_k(x).
+\]</div>
+<p class="sd-card-text">By integrating both sides over the interval <span class="math notranslate nohighlight">\([a, b]\)</span>, we get:</p>
+<div class="math notranslate nohighlight">
+\[
+\int_a^b p(x) \, dx = \sum_{k = 0}^n p(x_k) \int_a^b L_k(x) \, dx.
+\]</div>
+<p class="sd-card-text">The coefficients <span class="math notranslate nohighlight">\(a_k\)</span> can then be defined as:</p>
+<div class="math notranslate nohighlight">
+\[
+a_k := \int_a^b L_k(x) \, dx.
+\]</div>
+<p class="sd-card-text">This definition ensures the existence of coefficients that satisfy the given relationship for all <span class="math notranslate nohighlight">\(p\)</span> in <span class="math notranslate nohighlight">\(\mathcal{P}_n\)</span>.</p>
+<p class="sd-card-text">To prove the uniqueness of the coefficients <span class="math notranslate nohighlight">\(a_0, a_1, \ldots, a_n\)</span>, assume that another set of coefficients satisfies the question’s condition. Now the property of the Lagrange basis polynomials, <span class="math notranslate nohighlight">\(L_k(x_j) = \delta_{kj}\)</span> leads to:</p>
+<div class="math notranslate nohighlight">
+\[
+\int_a^b L_k(x) \, dx = \sum_{j = 0}^n a_j \, L_k(x_j) = a_k.
+\]</div>
+<p class="sd-card-text">This implies that any other set of coefficients satisfying the condition must be identical to the <span class="math notranslate nohighlight">\(a_k\)</span>’s defined above, proving their uniqueness.</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>a) Suppose the interpolatory quadrature formula <span class="math notranslate nohighlight">\(\mathcal{Q}_1\)</span> has the nodes <span class="math notranslate nohighlight">\(1/4\)</span> and <span class="math notranslate nohighlight">\(2/3\)</span> and the integration domain <span class="math notranslate nohighlight">\([0,1]\)</span>. Compute the weights of <span class="math notranslate nohighlight">\(\mathcal{Q}_1\)</span>.</p>
+<p>b) Calculate <span class="math notranslate nohighlight">\(\mathcal{Q}_1(- \ln)\)</span> to approximate the integral</p>
+<div class="math notranslate nohighlight">
+\[
+- \int_0^1 \ln x \, dx.
+\]</div>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">a) The weights of <span class="math notranslate nohighlight">\(\mathcal{Q}_1\)</span> are given by</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{eqnarray*}
+\sigma_k = \int_0^1 \prod_{m=0, \atop m \neq k}^n \frac{x-x_m}{x_k - x_m} \, dx.
+\end{eqnarray*}
+\]</div>
+<p class="sd-card-text">Hence</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{eqnarray*}
+\sigma_0 &amp;=&amp; \int_0^1 \frac{x-2/3}{1/4 - 2/3} \, dx = 2/5,\\
+\sigma_1 &amp;=&amp; \int_0^1 \frac{x-1/4}{2/3 - 1/4} \, dx = 3/5.
+\end{eqnarray*}
+\end{split}\]</div>
+<p class="sd-card-text">b) In general, <span class="math notranslate nohighlight">\(\mathcal{Q}_1(f) = \sigma_0 f(x_0) + \sigma_1 f(x_1)\)</span>. Here</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{eqnarray*}
+\mathcal{Q}_1(- \ln) &amp;=&amp; - \frac{2}{5} \ln (1/4) - \frac{3}{5} \ln (2/3) \approx 0.79779680931285.
+\end{eqnarray*}
+\]</div>
+<p class="sd-card-text"><em>Note:</em> The exact integral is</p>
+<div class="math notranslate nohighlight">
+\[
+\int_0^1 - \ln(x) dx = x - x \ln x\big|_{x \to 0}^1 = 1.
+\]</div>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Using <span class="math notranslate nohighlight">\(\int_0^1 \frac{1}{\sqrt{x}} \, dx = 2\)</span> and Simpson’s rule, find the approximate value of</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{eqnarray*}
+\int_0^1 \frac{1}{\sqrt{\sin x}} \, dx. \qquad (*)
+\end{eqnarray*}
+\]</div>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">We cannot use Simpson’s rule directly to integrate <span class="math notranslate nohighlight">\((*)\)</span> numerically. The reason is that <span class="math notranslate nohighlight">\(1/\sqrt{\sin x}\)</span> diverges at the node <span class="math notranslate nohighlight">\(x_0 = 0\)</span>. However, we can reformulate the problem as follows:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{eqnarray*}
+\int_0^1 \frac{1}{\sqrt{\sin x}} \, dx &amp;=&amp; \int_0^1 \frac{1}{\sqrt{x}} \, dx + \int_0^1
+\frac{1}{\sqrt{\sin x}} - \frac{1}{\sqrt{x}} \, dx\\
+&amp;=&amp; 2 + \int_0^1 \frac{1}{\sqrt{\sin x}} - \frac{1}{\sqrt{x}} \, dx.
+\end{eqnarray*}
+\end{split}\]</div>
+<p class="sd-card-text">The function <span class="math notranslate nohighlight">\(\frac{1}{\sqrt{\sin x}} - \frac{1}{\sqrt{x}}\)</span> is continuous and bounded on <span class="math notranslate nohighlight">\([0,1]\)</span> so that Simpson’s rule can be applied:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{eqnarray*}
+\mathcal{Q}_2(\frac{1}{\sqrt{\sin x}} - \frac{1}{\sqrt{x}}) &amp;=&amp; (1-0) \Bigl( \frac{1}{6} \cdot 0 +
+\frac{2}{3} \cdot \Bigl(\frac{1}{\sqrt{\sin x}} - \frac{1}{\sqrt{x}} \Bigr) + \frac{1}{6} \cdot
+\Bigl( \frac{1}{\sqrt{\sin x}} - \frac{1}{\sqrt{x}} \Bigr) \Bigr)\\
+&amp;\approx&amp; 0.03504029268746660.
+\end{eqnarray*}
+\end{split}\]</div>
+<p class="sd-card-text">This gives the approximate value <span class="math notranslate nohighlight">\(2.03504029268746660\)</span>. The exact integral is <span class="math notranslate nohighlight">\(2.034805319207\ldots\)</span></p>
+</div>
+</details></section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="4.1_interpolation.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Polynomial Interpolation</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="4.3_stable_quadrature_schemes.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Stable Quadrature Schemes</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpolatory-quadratures">Interpolatory Quadratures</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#error-bound">Error bound</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#runge-phenomenon">Runge phenomenon</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#self-check-questions">Self-check questions</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Timo Betcke, Erik Burman, Max Jensen
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

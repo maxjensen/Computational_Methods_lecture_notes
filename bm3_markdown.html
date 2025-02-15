@@ -1,0 +1,963 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Markdown and LaTeX &#8212; Computational Methods MATH0058 lecture notes</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'bm3_markdown';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Bibliography" href="bm4_bibliography.html" />
+    <link rel="prev" title="Python" href="bm2_programming_resources.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Computational Methods MATH0058 lecture notes - Home"/>
+    <img src="_static/logo.png" class="logo__image only-dark pst-js-only" alt="Computational Methods MATH0058 lecture notes - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="index.html">
+                    Welcome!
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Fundamentals</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="0.1_matrix_vector_norms.html">Measuring distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="0.2_error_analysis.html">Backward error analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="0.3_linear_system_error.html">The condition number of linear systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="0.4_complexity_notation.html">Asymptotic notation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Implementation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="1.1_floating_point_arithmetic.html">Floating point numbers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_numpy_and_data_layouts.html">Memory layout and Numpy</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="2.1_lu_decomposition.html">LU decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.2_lu_backward_error.html">Backward error and pivoting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.3_python_lu_decomposition.html">Python implementation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Orthogonal Decompositions</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="3.1_qr_decomposition.html">The QR Decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.2_singular_value_decomposition.html">The Singular Value Decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.3_least_squares_problems.html">Least-squares Problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.4_constrained_least_squares_problems.html">Constrained Problems</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Interpolation and Quadrature</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="4.1_interpolation.html">Polynomial Interpolation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.2_quadrature.html">Introduction to Quadrature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.3_stable_quadrature_schemes.html">Stable Quadrature Schemes</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Eigenvalue Problems</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="5.1_eigenvalues_basic_properties.html">Basic properties of eigenvalue problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.2_computing_eigenvalues.html">Computing eigenvalues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.3_computing_eigenspaces.html">Computing the eigensystem</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back matter</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="bm1_notation_and_facts.html">Notation and facts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bm2_programming_resources.html">Python</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Markdown and LaTeX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bm4_bibliography.html">Bibliography</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/bm3_markdown.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Markdown and LaTeX</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#emphasis">Emphasis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#headers">Headers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lists">Lists</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#links-and-images">Links and images</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tables">Tables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#code-blocks">Code blocks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#latex-and-adding-mathematics-to-markdown">LaTeX and adding mathematics to Markdown</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#symbols">Symbols</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#operators">Operators</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-symbols">Mathematical symbols</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#accents">Accents</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#greek-letters">Greek letters</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spaces">Spaces</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matrices">Matrices</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#functions">Functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sub-and-superscripts">Sub and superscripts</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sums-and-products">Sums and products</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#derivatives-and-integrals">Derivatives and integrals</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#examples">Examples</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#converting-latex-to-markdown">Converting LaTeX to Markdown</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="markdown-and-latex">
+<h1>Markdown and LaTeX<a class="headerlink" href="#markdown-and-latex" title="Link to this heading">#</a></h1>
+<p>Following the <a class="reference external" href="https://ashki23.github.io/markdown-latex.html">Introduction to Markdown and LaTeX</a>, Markdown allows you to write in a simple plain-text format that supports text formatting, embedded graphics, source code, and LaTeX formulas. LaTeX is a high-quality typesetting system; it includes features designed to produce technical and scientific documentation. A basic understanding of Markdown and LaTeX enables the quick creation of high-quality documents and reports. This tutorial provides a quick reference for using Markdown and LaTeX. This text is written in Markdown; you can view the original text by clicking the download button in the top-right corner of this page.</p>
+<p><strong>You need to submit your coursework on Crowdmark in Markdown.</strong></p>
+<p>The following provides a quick reference to the most commonly used Markdown syntax.</p>
+<section id="emphasis">
+<h2>Emphasis<a class="headerlink" href="#emphasis" title="Link to this heading">#</a></h2>
+<p>Text can be emphasised as follows:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">*Italic*</span> <span class="pre">and</span> <span class="pre">**Bold**</span></code> becomes <em>Italic</em> and <strong>Bold</strong></p></li>
+</ul>
+<p>To quote text, use <code class="docutils literal notranslate"><span class="pre">&gt;</span></code>. For example:</p>
+<div class="highlight-markdown notranslate"><div class="highlight"><pre><span></span><span class="k">&gt; </span><span class="ge">Imagination is more important than knowledge.</span>
+<span class="k">&gt;</span>
+<span class="ge">&gt; Albert Einstein</span>
+</pre></div>
+</div>
+<p>gives</p>
+<blockquote>
+<div><p>Imagination is more important than knowledge.</p>
+<p>Albert Einstein</p>
+</div></blockquote>
+<p>For a manual line break, use:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;br</span> <span class="pre">/&gt;</span></code></p></li>
+</ul>
+</section>
+<section id="headers">
+<h2>Headers<a class="headerlink" href="#headers" title="Link to this heading">#</a></h2>
+<p>Headers and document titles are defined by lines beginning with hashes. More hashes indicate lower-ranked headers:</p>
+<div class="highlight-markdown notranslate"><div class="highlight"><pre><span></span><span class="gh"># H1</span>
+<span class="gu">## H2</span>
+<span class="gu">### H3</span>
+<span class="gu">#### H4</span>
+<span class="gu">##### H5</span>
+<span class="gu">###### H6</span>
+</pre></div>
+</div>
+</section>
+<section id="lists">
+<h2>Lists<a class="headerlink" href="#lists" title="Link to this heading">#</a></h2>
+<p>Markdown supports lists using dashes (<code class="docutils literal notranslate"><span class="pre">-</span></code>), stars (<code class="docutils literal notranslate"><span class="pre">*</span></code>), or numbers, e.g.:</p>
+<div class="highlight-markdown notranslate"><div class="highlight"><pre><span></span><span class="k">-</span><span class="w"> </span>Item 1
+<span class="k">-</span><span class="w"> </span>Item 2
+<span class="w">    </span><span class="k">-</span><span class="w"> </span>Item 2a (2 tabs)
+<span class="w">    </span><span class="k">-</span><span class="w"> </span>Item 2b
+<span class="w">        </span><span class="k">-</span><span class="w"> </span>Item 2b-1 (4 tabs)
+<span class="w">        </span><span class="k">-</span><span class="w"> </span>Item 2b-2
+</pre></div>
+</div>
+<p>turns into</p>
+<ul class="simple">
+<li><p>Item 1</p></li>
+<li><p>Item 2</p>
+<ul>
+<li><p>Item 2a (2 tabs)</p></li>
+<li><p>Item 2b</p>
+<ul>
+<li><p>Item 2b-1 (4 tabs)</p></li>
+<li><p>Item 2b-2</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="highlight-markdown notranslate"><div class="highlight"><pre><span></span><span class="k">1.</span> Item 1
+<span class="k">2.</span> Item 2
+<span class="k">3.</span> Item 3
+<span class="w">    </span><span class="k">-</span><span class="w"> </span>Item 3a
+<span class="w">    </span><span class="k">-</span><span class="w"> </span>Item 3b
+</pre></div>
+</div>
+<p>turns into</p>
+<ol class="arabic simple">
+<li><p>Item 1</p></li>
+<li><p>Item 2</p></li>
+<li><p>Item 3</p>
+<ul class="simple">
+<li><p>Item 3a</p></li>
+<li><p>Item 3b</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="links-and-images">
+<h2>Links and images<a class="headerlink" href="#links-and-images" title="Link to this heading">#</a></h2>
+<p>The name of a link is placed within square brackets, followed by the address in parentheses. For example: <code class="docutils literal notranslate"><span class="pre">[UCL](https://www.ucl.ac.uk/)</span></code> turns into <a class="reference external" href="https://www.ucl.ac.uk/">UCL</a>.</p>
+<p>To display an image in the document, add an exclamation mark in front, using the structure <code class="docutils literal notranslate"><span class="pre">![...](...)</span></code>. For example, <code class="docutils literal notranslate"><span class="pre">![logo](https://www.ucl.ac.uk/brand/sites/brand/files/styles/small_image/public/ucl-logo-white-on-black.jpg)</span></code> turns into</p>
+<p><img alt="logo" src="https://www.ucl.ac.uk/brand/sites/brand/files/styles/small_image/public/ucl-logo-white-on-black.jpg" /></p>
+</section>
+<section id="tables">
+<h2>Tables<a class="headerlink" href="#tables" title="Link to this heading">#</a></h2>
+<p>You can also add tables. For example:</p>
+<div class="highlight-markdown notranslate"><div class="highlight"><pre><span></span>1st Header|2nd Header|3rd Header
+---|:---:|---:
+col 1 is|left-aligned|1
+col 2 is|center-aligned|2
+col 3 is|right-aligned|3
+</pre></div>
+</div>
+<p>turns into</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>1st Header</p></th>
+<th class="head text-center"><p>2nd Header</p></th>
+<th class="head text-right"><p>3rd Header</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>col 1 is</p></td>
+<td class="text-center"><p>left-aligned</p></td>
+<td class="text-right"><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><p>col 2 is</p></td>
+<td class="text-center"><p>center-aligned</p></td>
+<td class="text-right"><p>2</p></td>
+</tr>
+<tr class="row-even"><td><p>col 3 is</p></td>
+<td class="text-center"><p>right-aligned</p></td>
+<td class="text-right"><p>3</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="code-blocks">
+<h2>Code blocks<a class="headerlink" href="#code-blocks" title="Link to this heading">#</a></h2>
+<p>In Markdown, you can add plain code blocks (non-evaluating) using triple backticks (<code class="docutils literal notranslate"><span class="pre">\</span></code>```). Double-click on the text cell to understand the example:</p>
+<div class="highlight-markdown notranslate"><div class="highlight"><pre><span></span>import matplotlib.pyplot as plt
+import numpy as np
+</pre></div>
+</div>
+<p>You can add syntax highlighting by specifying the programming language after the opening triple backticks:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+</section>
+<section id="latex-and-adding-mathematics-to-markdown">
+<h2>LaTeX and adding mathematics to Markdown<a class="headerlink" href="#latex-and-adding-mathematics-to-markdown" title="Link to this heading">#</a></h2>
+<p>LaTeX is a sophisticated typesetting system for mathematical texts. Markdown borrows from LaTeX to typeset mathematical formulas without going into the full complexity of LaTeX. For more information about LaTeX see for example <a class="reference external" href="https://www.overleaf.com/learn/latex/Learn_LaTeX_in_30_minutes">Learn LaTeX in 30 minutes</a> and <a class="reference external" href="https://en.wikibooks.org/wiki/LaTeX/Mathematics">Wikibooks</a>.</p>
+<p>We switch to inline formulas with a single <code class="docutils literal notranslate"><span class="pre">$</span></code> and to a display formula with a double <code class="docutils literal notranslate"><span class="pre">$$</span></code>.</p>
+<div class="highlight-markdown notranslate"><div class="highlight"><pre><span></span>While $f(x) \ne g(y)$ is space-saving, this if often clearer:
+
+$$
+f(x) \ne g(x)
+$$
+</pre></div>
+</div>
+<p>gives</p>
+<hr class="docutils" />
+<p>While <span class="math notranslate nohighlight">\(f(x) \ne g(y)\)</span> is space-saving, this if often clearer:</p>
+<div class="math notranslate nohighlight">
+\[
+f(x) \ne g(x)
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="symbols">
+<h2>Symbols<a class="headerlink" href="#symbols" title="Link to this heading">#</a></h2>
+<section id="operators">
+<h3>Operators<a class="headerlink" href="#operators" title="Link to this heading">#</a></h3>
+<div class="highlight-markdown notranslate"><div class="highlight"><pre><span></span><span class="k">-</span><span class="w"> </span>$x + y$
+<span class="k">-</span><span class="w"> </span>$x - y$
+<span class="k">-</span><span class="w"> </span>$x \times y$
+<span class="k">-</span><span class="w"> </span>$x \div y$
+<span class="k">-</span><span class="w"> </span>$\dfrac{x}{y}$
+<span class="k">-</span><span class="w"> </span>$\sqrt{x}$
+</pre></div>
+</div>
+<p>gives</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(x + y\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(x - y\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(x \times y\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(x \div y\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\dfrac{x}{y}\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\sqrt{x}\)</span></p></li>
+</ul>
+</section>
+<section id="mathematical-symbols">
+<h3>Mathematical symbols<a class="headerlink" href="#mathematical-symbols" title="Link to this heading">#</a></h3>
+<div class="highlight-markdown notranslate"><div class="highlight"><pre><span></span><span class="k">-</span><span class="w"> </span>$\pi \approx 3.14159$
+<span class="k">-</span><span class="w"> </span>$\pm \, 0.2$
+<span class="k">-</span><span class="w"> </span>$\dfrac{0}{1} \neq \infty$
+<span class="k">-</span><span class="w"> </span>$0 &lt; x &lt; 1$
+<span class="k">-</span><span class="w"> </span>$0 \leq x \leq 1$
+<span class="k">-</span><span class="w"> </span>$x \geq 10$
+<span class="k">-</span><span class="w"> </span>$\forall \, x \in (1,2)$
+<span class="k">-</span><span class="w"> </span>$\exists \, x \notin [0,1]$
+<span class="k">-</span><span class="w"> </span>$A \subset B$
+<span class="k">-</span><span class="w"> </span>$A \subseteq B$
+<span class="k">-</span><span class="w"> </span>$A \cup B$
+<span class="k">-</span><span class="w"> </span>$A \cap B$
+<span class="k">-</span><span class="w"> </span>$X \implies Y$
+<span class="k">-</span><span class="w"> </span>$X \impliedby Y$
+<span class="k">-</span><span class="w"> </span>$a \to b$
+<span class="k">-</span><span class="w"> </span>$a \longrightarrow b$
+<span class="k">-</span><span class="w"> </span>$a \Rightarrow b$
+<span class="k">-</span><span class="w"> </span>$a \Longrightarrow b$
+<span class="k">-</span><span class="w"> </span>$a \propto b$
+</pre></div>
+</div>
+<p>gives</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\pi \approx 3.14159\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\pm \, 0.2\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\dfrac{0}{1} \neq \infty\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(0 &lt; x &lt; 1\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(0 \leq x \leq 1\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(x \geq 10\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\forall \, x \in (1,2)\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\exists \, x \notin [0,1]\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(A \subset B\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(A \subseteq B\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(A \cup B\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(A \cap B\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(X \implies Y\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(X \impliedby Y\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(a \to b\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(a \longrightarrow b\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(a \Rightarrow b\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(a \Longrightarrow b\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(a \propto b\)</span></p></li>
+</ul>
+</section>
+<section id="accents">
+<h3>Accents<a class="headerlink" href="#accents" title="Link to this heading">#</a></h3>
+<div class="highlight-markdown notranslate"><div class="highlight"><pre><span></span><span class="k">-</span><span class="w"> </span>$\bar a$
+<span class="k">-</span><span class="w"> </span>$\tilde a$
+<span class="k">-</span><span class="w"> </span>$\breve a$
+<span class="k">-</span><span class="w"> </span>$\hat a$
+<span class="k">-</span><span class="w"> </span>$a^ \prime$
+<span class="k">-</span><span class="w"> </span>$a^ \dagger$
+<span class="k">-</span><span class="w"> </span>$a^ \ast$
+<span class="k">-</span><span class="w"> </span>$a^ \star$
+<span class="k">-</span><span class="w"> </span>$\mathcal A$
+<span class="k">-</span><span class="w"> </span>$\mathrm a$
+<span class="k">-</span><span class="w"> </span>$\cdots$
+<span class="k">-</span><span class="w"> </span>$\vdots$
+<span class="k">-</span><span class="w"> </span>$\#$
+<span class="k">-</span><span class="w"> </span>$\$$
+<span class="k">-</span><span class="w"> </span>$\%$
+<span class="k">-</span><span class="w"> </span>$\&amp;$
+<span class="k">-</span><span class="w"> </span>$\{ \}$
+<span class="k">-</span><span class="w"> </span>$\_$
+</pre></div>
+</div>
+<p>gives</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\bar a\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\tilde a\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\breve a\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\hat a\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(a^ \prime\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(a^ \dagger\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(a^ \ast\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(a^ \star\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathcal A\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathrm a\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\cdots\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\vdots\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\#\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\$\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\%\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\&amp;\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\{ \}\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\_\)</span></p></li>
+</ul>
+</section>
+<section id="greek-letters">
+<h3>Greek letters<a class="headerlink" href="#greek-letters" title="Link to this heading">#</a></h3>
+<div class="highlight-markdown notranslate"><div class="highlight"><pre><span></span>$$
+\alpha, \beta, \gamma, \delta, \epsilon, \pi,\\
+\Gamma,\Sigma,\Upsilon,\Pi,\Theta
+$$
+</pre></div>
+</div>
+<p>gives</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\alpha, \beta, \gamma, \delta, \epsilon, \pi,\\
+\Gamma,\Sigma,\Upsilon,\Pi,\Theta
+\end{split}\]</div>
+</section>
+</section>
+<section id="spaces">
+<h2>Spaces<a class="headerlink" href="#spaces" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Horizontal space: <code class="docutils literal notranslate"><span class="pre">\quad</span></code></p></li>
+<li><p>Large horizontal space: <code class="docutils literal notranslate"><span class="pre">\qquad</span></code></p></li>
+<li><p>Small space: <code class="docutils literal notranslate"><span class="pre">\,</span></code></p></li>
+<li><p>Medium space: <code class="docutils literal notranslate"><span class="pre">\:</span></code></p></li>
+<li><p>Large space: <code class="docutils literal notranslate"><span class="pre">\;</span></code></p></li>
+<li><p>Negative space: <code class="docutils literal notranslate"><span class="pre">\!</span></code></p></li>
+</ul>
+<p>For example, <code class="docutils literal notranslate"><span class="pre">$a</span> <span class="pre">\;</span> <span class="pre">+</span> <span class="pre">\!</span> <span class="pre">b$</span></code> gives <span class="math notranslate nohighlight">\(a \; + \! b\)</span>.</p>
+</section>
+<section id="matrices">
+<h2>Matrices<a class="headerlink" href="#matrices" title="Link to this heading">#</a></h2>
+<p>To investigate the Markdown code for matrices, download this page’s Markdown version by clicking the download button on the top right.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{matrix}
+1 &amp; 2 &amp; 3 \\
+4 &amp; 5 &amp; 6 \\
+7 &amp; 8 &amp; 9
+\end{matrix}
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+M =
+\begin{pmatrix}
+\frac{5}{6} &amp; \frac{1}{6} &amp; 0 \\[0.3em]
+\frac{5}{6} &amp; 0 &amp; \frac{1}{6} \\[0.3em]
+0 &amp; \frac{5}{6} &amp; \frac{1}{6}
+\end{pmatrix}
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+M =
+\begin{pmatrix}
+1 &amp; 0 \\
+0 &amp; 1
+\end{pmatrix}
+\begin{pmatrix}
+1 &amp; 0 \\
+0 &amp; 1
+\end{pmatrix}
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+M =
+\begin{pmatrix}
+1 &amp; 0 \\
+0 &amp; 1
+\end{pmatrix}
+\begin{pmatrix}
+1 &amp; 0 \\
+0 &amp; 1
+\end{pmatrix}
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+A_{m,n} =
+\begin{pmatrix}
+a_{1,1} &amp; a_{1,2} &amp; \cdots &amp; a_{1,n} \\
+a_{2,1} &amp; a_{2,2} &amp; \cdots &amp; a_{2,n} \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+a_{m,1} &amp; a_{m,2} &amp; \cdots &amp; a_{m,n}
+\end{pmatrix}
+\end{split}\]</div>
+</section>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading">#</a></h2>
+<p>Special function names such as trigonometic functions are traditionally written in non-italic font. To achieve this, write <code class="docutils literal notranslate"><span class="pre">f(x)</span> <span class="pre">=</span> <span class="pre">\sin(x)</span></code> instead of <code class="docutils literal notranslate"><span class="pre">f(x)</span> <span class="pre">=</span> <span class="pre">sin(x)</span></code>, which gives <span class="math notranslate nohighlight">\(f(x) = \sin(x)\)</span> instead of <span class="math notranslate nohighlight">\(f(x) = sin(x)\)</span>.</p>
+<p>Similarly, <code class="docutils literal notranslate"><span class="pre">\cos(x)</span> <span class="pre">\qquad</span> <span class="pre">\log(x)</span> <span class="pre">\qquad</span> <span class="pre">\exp(x)</span></code> gives</p>
+<div class="math notranslate nohighlight">
+\[
+\cos(x) \qquad \log(x) \qquad \exp(x).
+\]</div>
+</section>
+<section id="sub-and-superscripts">
+<h2>Sub and superscripts<a class="headerlink" href="#sub-and-superscripts" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Subscripts: <code class="docutils literal notranslate"><span class="pre">$a_i$</span> <span class="pre">or</span> <span class="pre">$a_{ij}$</span></code> gives <span class="math notranslate nohighlight">\(a_i\)</span> or <span class="math notranslate nohighlight">\(a_{ij}\)</span></p></li>
+<li><p>Superscripts: <code class="docutils literal notranslate"><span class="pre">$a^i$</span> <span class="pre">or</span> <span class="pre">$a^{ij}$</span></code> gives <span class="math notranslate nohighlight">\(a^i\)</span> or <span class="math notranslate nohighlight">\(a^{ij}\)</span></p></li>
+</ul>
+</section>
+<section id="sums-and-products">
+<h2>Sums and products<a class="headerlink" href="#sums-and-products" title="Link to this heading">#</a></h2>
+<p>A sum is written <code class="docutils literal notranslate"><span class="pre">S_n</span> <span class="pre">=</span> <span class="pre">\sum_{i=1}^n</span> <span class="pre">X^i</span></code>:</p>
+<div class="math notranslate nohighlight">
+\[
+S_n = \sum_{i=1}^n X^i
+\]</div>
+<p>A product is written <code class="docutils literal notranslate"><span class="pre">P_n</span> <span class="pre">=</span> <span class="pre">\prod_{i=1}^n</span> <span class="pre">X_i</span></code>:</p>
+<div class="math notranslate nohighlight">
+\[
+P_n = \prod_{i=1}^n X_i
+\]</div>
+</section>
+<section id="derivatives-and-integrals">
+<h2>Derivatives and integrals<a class="headerlink" href="#derivatives-and-integrals" title="Link to this heading">#</a></h2>
+<p>Derivatives <code class="docutils literal notranslate"><span class="pre">f'(x)</span> <span class="pre">=</span> <span class="pre">\frac{df}{dx}</span></code>:</p>
+<div class="math notranslate nohighlight">
+\[
+f'(x) = \frac{df}{dx}
+\]</div>
+<p>Partial derivatives <code class="docutils literal notranslate"><span class="pre">f(a,b)</span> <span class="pre">=</span> <span class="pre">f(0,b)</span> <span class="pre">+</span> <span class="pre">\frac{\partial</span> <span class="pre">f}{\partial</span> <span class="pre">x}</span> <span class="pre">a</span> <span class="pre">+</span> <span class="pre">\text{higher-order</span> <span class="pre">terms}</span></code>:</p>
+<div class="math notranslate nohighlight">
+\[
+f(a,b) = f(0,b) + \frac{\partial f}{\partial x} a + \text{higher-order terms}
+\]</div>
+<p>Integrals <code class="docutils literal notranslate"><span class="pre">\int_0^1</span> <span class="pre">f(x)</span> <span class="pre">\,</span> <span class="pre">dx</span></code>:</p>
+<div class="math notranslate nohighlight">
+\[
+\int_0^1 f(x) \, dx
+\]</div>
+</section>
+<section id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Link to this heading">#</a></h2>
+<p>Investigate the Markdown code for matrices by double-clicking on the text cell.</p>
+<div class="math notranslate nohighlight">
+\[
+\forall x \in X\quad \exists y \subset \Sigma
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+x_n \rightarrow 0 \text{ as } n \rightarrow \infty
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\|A\|_p := \sup_{x \in R^n \setminus \{0\}} \frac{\|Ax\|_p}{\|x\|_p}
+\]</div>
+<p>Question: Find the roots of</p>
+<div class="math notranslate nohighlight">
+\[
+x^2+p x + q = 0
+\]</div>
+<p>Solution:</p>
+<div class="math notranslate nohighlight">
+\[
+x_\pm = -\frac{p}{2} \pm \sqrt{\Big(\frac{p}{2}\Big)^2 - q}
+\]</div>
+</section>
+<section id="converting-latex-to-markdown">
+<h2>Converting LaTeX to Markdown<a class="headerlink" href="#converting-latex-to-markdown" title="Link to this heading">#</a></h2>
+<p>If you have already written a text in LaTeX and need it in Markdown, you can use tools like <a class="reference external" href="https://pandoc.org/">Pandoc</a> to convert from one format to another.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="bm2_programming_resources.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Python</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="bm4_bibliography.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Bibliography</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#emphasis">Emphasis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#headers">Headers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lists">Lists</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#links-and-images">Links and images</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tables">Tables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#code-blocks">Code blocks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#latex-and-adding-mathematics-to-markdown">LaTeX and adding mathematics to Markdown</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#symbols">Symbols</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#operators">Operators</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-symbols">Mathematical symbols</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#accents">Accents</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#greek-letters">Greek letters</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spaces">Spaces</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matrices">Matrices</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#functions">Functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sub-and-superscripts">Sub and superscripts</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sums-and-products">Sums and products</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#derivatives-and-integrals">Derivatives and integrals</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#examples">Examples</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#converting-latex-to-markdown">Converting LaTeX to Markdown</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Timo Betcke, Erik Burman, Max Jensen
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

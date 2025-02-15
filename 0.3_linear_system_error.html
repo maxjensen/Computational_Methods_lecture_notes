@@ -1,0 +1,770 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>The condition number of linear systems &#8212; Computational Methods MATH0058 lecture notes</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '0.3_linear_system_error';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Asymptotic notation" href="0.4_complexity_notation.html" />
+    <link rel="prev" title="Backward error analysis" href="0.2_error_analysis.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Computational Methods MATH0058 lecture notes - Home"/>
+    <img src="_static/logo.png" class="logo__image only-dark pst-js-only" alt="Computational Methods MATH0058 lecture notes - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="index.html">
+                    Welcome!
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Fundamentals</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="0.1_matrix_vector_norms.html">Measuring distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="0.2_error_analysis.html">Backward error analysis</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">The condition number of linear systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="0.4_complexity_notation.html">Asymptotic notation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Implementation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="1.1_floating_point_arithmetic.html">Floating point numbers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_numpy_and_data_layouts.html">Memory layout and Numpy</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="2.1_lu_decomposition.html">LU decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.2_lu_backward_error.html">Backward error and pivoting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.3_python_lu_decomposition.html">Python implementation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Orthogonal Decompositions</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="3.1_qr_decomposition.html">The QR Decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.2_singular_value_decomposition.html">The Singular Value Decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.3_least_squares_problems.html">Least-squares Problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.4_constrained_least_squares_problems.html">Constrained Problems</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Interpolation and Quadrature</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="4.1_interpolation.html">Polynomial Interpolation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.2_quadrature.html">Introduction to Quadrature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.3_stable_quadrature_schemes.html">Stable Quadrature Schemes</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Eigenvalue Problems</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="5.1_eigenvalues_basic_properties.html">Basic properties of eigenvalue problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.2_computing_eigenvalues.html">Computing eigenvalues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.3_computing_eigenspaces.html">Computing the eigensystem</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back matter</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="bm1_notation_and_facts.html">Notation and facts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bm2_programming_resources.html">Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bm3_markdown.html">Markdown and LaTeX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bm4_bibliography.html">Bibliography</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/0.3_linear_system_error.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>The condition number of linear systems</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#self-check-questions">Self-check questions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-material">Optional material</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="the-condition-number-of-linear-systems">
+<h1>The condition number of linear systems<a class="headerlink" href="#the-condition-number-of-linear-systems" title="Link to this heading">#</a></h1>
+<p>Recall that the condition number quantifies the sensitivity of a function evaluation <span class="math notranslate nohighlight">\(f(x + \Delta x)\)</span> to perturbations <span class="math notranslate nohighlight">\(\Delta x\)</span>. It is independent of the numerical method used (which is encoded by <span class="math notranslate nohighlight">\(\tilde{f}\)</span>) and instead serves as an indicator of the inherent difficulty of numerically evaluating <span class="math notranslate nohighlight">\(f\)</span>, regardless of the specific method employed.</p>
+<p>With this in mind, we now compute the condition number for linear systems of equations <span class="math notranslate nohighlight">\(Ay = b\)</span> with <span class="math notranslate nohighlight">\(A\in\mathbb{R}^{n\times n}\)</span> and <span class="math notranslate nohighlight">\(b\in\mathbb{R}^n\)</span>. We assume that <span class="math notranslate nohighlight">\(A\)</span> is non-singular and <span class="math notranslate nohighlight">\(b \neq 0\)</span>. We use <span class="math notranslate nohighlight">\(\|\cdot\|\)</span> to denote both the vector norm on <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span> and the induced matrix norm on <span class="math notranslate nohighlight">\(\mathbb{R}^{n\times n}\)</span>.</p>
+<p>We consider the following two problems:</p>
+<ol class="arabic simple">
+<li><p>Given a fixed <span class="math notranslate nohighlight">\(A\)</span>, what is the local relative condition number <span class="math notranslate nohighlight">\(\kappa_1(b)\)</span> of <span class="math notranslate nohighlight">\(f_1 : \mathbb{R}^n \to \mathbb{R}^n\)</span>, defined by <span class="math notranslate nohighlight">\(b \mapsto A^{-1} b\)</span>?</p></li>
+<li><p>Given a fixed <span class="math notranslate nohighlight">\(b\)</span>, what is the local relative condition number <span class="math notranslate nohighlight">\(\kappa_2(A)\)</span> of <span class="math notranslate nohighlight">\(f_2 : \mathbb{R}^{n \times n} \to \mathbb{R}^n\)</span>, defined by <span class="math notranslate nohighlight">\(A \mapsto A^{-1} b\)</span>?</p></li>
+</ol>
+<p>Conveniently, both questions can be answered with the same calculation. Let <span class="math notranslate nohighlight">\(\Delta A\)</span> and <span class="math notranslate nohighlight">\(\Delta b\)</span> be perturbations in <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(b\)</span>, and let <span class="math notranslate nohighlight">\(\Delta y\)</span> satisfy</p>
+<div class="math notranslate nohighlight">
+\[
+(A + \Delta A)(y + \Delta y) = b + \Delta b.
+\]</div>
+<p>Then</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+\Delta y &amp;= (A + \Delta A)^{-1}(-\Delta A y + \Delta b)\\
+&amp;= \left[A(I + A^{-1}\Delta A)\right]^{-1}(-\Delta A y + \Delta b)\\
+&amp;= \left(I + A^{-1}\Delta A\right)^{-1}A^{-1}(-\Delta Ay+\Delta b).
+\end{aligned}.
+\end{split}\]</div>
+<p>To continue, we use the following lemma, whose proof is given in the optional materials. It is a direct generalisation of a well-known result for scalars (i.e. <span class="math notranslate nohighlight">\(n = 1\)</span> and the norm is the modulus) to the matrix setting.</p>
+<div class="proof lemma admonition" id="lemma-0">
+<p class="admonition-title"><span class="caption-number">Lemma 1 </span> (Matrix-valued von Neumann series)</p>
+<section class="lemma-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(\|\cdot\|\)</span> be a submultiplicative matrix norm, and let <span class="math notranslate nohighlight">\(X\in\mathbb{R}^{n\times n}\)</span> with <span class="math notranslate nohighlight">\(\|X\| &lt; 1\)</span>. Then <span class="math notranslate nohighlight">\(I - X\)</span> is invertible and</p>
+<div class="math notranslate nohighlight">
+\[
+(I - X)^{-1} = \sum_{i=0}^{\infty}X^i
+\]</div>
+<p>with</p>
+<div class="math notranslate nohighlight">
+\[
+\|(I - X)^{-1}\| \leq \frac{1}{1-\|X\|}.
+\]</div>
+</section>
+</div><p>Assuming that <span class="math notranslate nohighlight">\(\Delta A\)</span> is sufficiently small so that <span class="math notranslate nohighlight">\(\|A^{-1}\Delta A\| &lt; 1\)</span>, we conclude from the lemma that</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+\frac{\|\Delta y\|}{\|y\|} &amp; \leq \frac{\|A^{-1}\|}{1-\|A^{-1}\|\cdot \|\Delta A\|}\left(\|\Delta A\| + \frac{\|\Delta b\|}{\|y\|}\right)\\
+&amp;\leq \frac{\|A^{-1}\|\cdot \|A\|}{1-\|A^{-1}\| \cdot \| \Delta A\|}\left(\frac{\|\Delta A\|}{\|A\|} +
+\frac{\|\Delta b\|}{\|b\|}\right),
+\end{align*}
+\end{split}\]</div>
+<p>where in the last step we used that <span class="math notranslate nohighlight">\(\|b\| = \|Ay\| \leq \|A\|\cdot\|y\|\)</span>. To answer the first question above, let <span class="math notranslate nohighlight">\(\Delta A = 0\)</span>. Then <span class="math notranslate nohighlight">\(A\Delta y = \Delta b\)</span>, and thus</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+\kappa_1(b) = &amp; \lim_{\delta\rightarrow 0} \sup_{b,b+\Delta b \in \mathbb{R}^n \atop 0 &lt; \| \Delta b \| \leq \delta} \frac{\| f_1(b+\Delta b) - f_1(b) \|_{\mathbb{R}^n} / \| f_1(b) \|_{\mathbb{R}^n}}{\| \Delta b \|_{\mathbb{R}^n} / \| b \|_{\mathbb{R}^n}}
+= \lim_{\delta\rightarrow 0} \sup_{b,\Delta b \in \mathbb{R}^n \atop 0 &lt; \| \Delta b \| \leq \delta} \frac{\| \Delta y \|_{\mathbb{R}^n} / \| y \|_{\mathbb{R}^n}}{\| \Delta b \|_{\mathbb{R}^n} / \| b \|_{\mathbb{R}^n}}\\
+\leq &amp; \lim_{\delta\rightarrow 0} \sup_{b,\Delta b \in \mathbb{R}^n \atop 0 &lt; \| \Delta b \| \leq \delta} \frac{\|A^{-1}\|\cdot \|A\|}{1-\|A^{-1}\| \cdot \| \Delta A\|} \leq \|A^{-1}\|\cdot \|A\|.
+\end{align*}
+\end{split}\]</div>
+<p>Similarly, to answer the second question, let <span class="math notranslate nohighlight">\(\Delta b = 0\)</span>. Then <span class="math notranslate nohighlight">\((A + \Delta A)\Delta y = \Delta A y\)</span>, and so</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+\kappa_2(A) = &amp; \lim_{\delta\rightarrow 0} \sup_{A,A+\Delta A \in \mathbb{R}^{n \times n} \atop 0 &lt; \| \Delta A \| \leq \delta} \frac{\| f_2(A+\Delta A) - f_2(A) \|_{\mathbb{R}^{n \times n}} / \| f_2(A) \|_{\mathbb{R}^{n \times n}}}{\| \Delta A \|_{\mathbb{R}^{n \times n}} / \| A \|_{\mathbb{R}^{n \times n}}} \\
+= &amp; \lim_{\delta\rightarrow 0} \sup_{A,A+\Delta A \in \mathbb{R}^{n \times n} \atop 0 &lt; \| \Delta A \| \leq \delta} \frac{\| \Delta y \|_{\mathbb{R}^{n \times n}} / \| y \|_{\mathbb{R}^{n \times n}}}{\| \Delta A \|_{\mathbb{R}^{n \times n}} / \| A \|_{\mathbb{R}^{n \times n}}} \leq \|A^{-1}\|\cdot \|A\|.
+\end{align*}
+\end{split}\]</div>
+<p>Therefore, both condition numbers <span class="math notranslate nohighlight">\(A \mapsto A^{-1}b\)</span> and <span class="math notranslate nohighlight">\(b \mapsto A^{-1}b\)</span> are bounded above by <span class="math notranslate nohighlight">\(\|A^{-1}\|\cdot \|A\|\)</span>. This bound is sharp, as recorded by the following fact.</p>
+<div class="admonition-fact-condition-number-of-linear-systems admonition">
+<p class="admonition-title">Fact: Condition number of linear systems</p>
+<p>Assume that <span class="math notranslate nohighlight">\(A\in\mathbb{R}^{n\times n}\)</span> is non-singular and <span class="math notranslate nohighlight">\(b\in\mathbb{R}^n\)</span> is non-zero. Then</p>
+<div class="math notranslate nohighlight">
+\[
+\kappa_1(b) = \kappa_2(A) = \|A^{-1}\|\cdot \|A\|.
+\]</div>
+</div>
+<p>The condition number <span class="math notranslate nohighlight">\(\kappa_{rel}(A)\)</span> has an important interpretation. It measures how close the linear system is to being singular. More precisely,</p>
+<div class="math notranslate nohighlight">
+\[
+\min\left\{\frac{\|\Delta A\|_2}{\|A\|_2}: A + \Delta A \text{ singular} \right\} = \frac{1}{\kappa_{rel}(A)}.
+\]</div>
+<p>We do not prove this result here.</p>
+<section id="python-skills">
+<h2>Python skills<a class="headerlink" href="#python-skills" title="Link to this heading">#</a></h2>
+<p>You can compute the condition number of a matrix using the <code class="docutils literal notranslate"><span class="pre">numpy.linalg.cond</span></code> function. Here are a few examples:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># Example 1: 2x2 matrix</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">]])</span>
+<span class="n">cond_number</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">cond</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Condition number of A: </span><span class="si">{</span><span class="n">cond_number</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Example 2: 3x3 matrix</span>
+<span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">9</span><span class="p">]])</span>
+<span class="n">cond_number_B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">cond</span><span class="p">(</span><span class="n">B</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Condition number of B: </span><span class="si">{</span><span class="n">cond_number_B</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Example 3: Using different norms</span>
+<span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+<span class="n">cond_number_C_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">cond</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># 1-norm</span>
+<span class="n">cond_number_C_inf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">cond</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">)</span>  <span class="c1"># Infinity norm</span>
+<span class="n">cond_number_C_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">cond</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># 2-norm</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Condition number of C (1-norm): </span><span class="si">{</span><span class="n">cond_number_C_1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Condition number of C (Infinity norm): </span><span class="si">{</span><span class="n">cond_number_C_inf</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Condition number of C (2-norm): </span><span class="si">{</span><span class="n">cond_number_C_2</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="self-check-questions">
+<h2>Self-check questions<a class="headerlink" href="#self-check-questions" title="Link to this heading">#</a></h2>
+<div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Compute the <span class="math notranslate nohighlight">\(1-\)</span>norm condition number of</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+A = \begin{pmatrix}1 &amp; 1\\ 0 &amp; \epsilon\end{pmatrix}
+\end{split}\]</div>
+<p>as a function of <span class="math notranslate nohighlight">\(\epsilon\)</span>. What happens as <span class="math notranslate nohighlight">\(\epsilon\rightarrow 0\)</span>?</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">We have</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+A^{-1} = \begin{pmatrix}1 &amp; -\epsilon^{-1}\\ 0 &amp; \epsilon^{-1}\end{pmatrix}.
+\end{split}\]</div>
+<p class="sd-card-text">Hence,</p>
+<div class="math notranslate nohighlight">
+\[
+\kappa(A) = \|A\|_1\cdot \|A^{-1}\|_1 = (1+\epsilon) \cdot \frac{2}{\epsilon}.
+\]</div>
+<p class="sd-card-text">and <span class="math notranslate nohighlight">\(\kappa(A)\rightarrow\infty\)</span> as <span class="math notranslate nohighlight">\(\epsilon\rightarrow 0\)</span>. The reason is simple: For <span class="math notranslate nohighlight">\(\epsilon=0\)</span> the matrix is not invertible and we expect the condition number to become unbounded as we reach this limit case.</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong> (Sharp condition number)</p>
+<p>Let</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+   A = \left(\begin{array}{rr} 5 &amp;-18\\ -5 &amp;19\end{array}\right).
+\end{split}\]</div>
+<p>Compute local relative condition number <span class="math notranslate nohighlight">\(\kappa_1\)</span> and find vectors <span class="math notranslate nohighlight">\(b\)</span>, <span class="math notranslate nohighlight">\(\Delta b\)</span> such that <span class="math notranslate nohighlight">\(A(x+\Delta x)=b+\Delta b\)</span> and</p>
+<div class="math notranslate nohighlight">
+\[
+   \frac{\|\Delta x\|_1^{}}{\|x\|_1^{}} = \kappa_1 \frac{\|\Delta b\|_1^{}}{\|b\|_1^{}}.
+\]</div>
+<p>Here <span class="math notranslate nohighlight">\(\| \cdot \|_1^{}\)</span> denotes the <span class="math notranslate nohighlight">\(1\)</span>-norm. Normalise your vectors so that <span class="math notranslate nohighlight">\(\|x\|_1^{}=1\)</span> and <span class="math notranslate nohighlight">\(\|\Delta b\|_1^{}=0.01\)</span>.</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">We have <span class="math notranslate nohighlight">\(\|A\|_1^{}=\|A\|_\textrm{col}^{}=37\)</span> and</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+   A^{-1} = \left(\begin{array}{rr} \frac{19}{5} &amp; \frac{18}{5}\\ 1 &amp; 1\end{array}\right)
+   \qquad\Rightarrow\qquad
+   \|A^{-1}\|_1^{}=\|A^{-1}\|_\textrm{col}^{}=\frac{24}{5}
+   \quad\textrm{and}\quad
+   \kappa_1 = 177 \frac{3}{5}.
+\end{split}\]</div>
+<p class="sd-card-text">To satisfy <span class="math notranslate nohighlight">\(\|b\|_1^{}=\|A\|_1^{}\|x\|_1^{}\)</span>, we could take <span class="math notranslate nohighlight">\(x=(0,1)^\top\)</span> which gives <span class="math notranslate nohighlight">\(b=(-18,19)^\top\)</span>. And to satisfy <span class="math notranslate nohighlight">\(\| \Delta x\|_1^{}=\|A^{-1}\|_1^{}\|\Delta b\|_1^{}\)</span>, we could take <span class="math notranslate nohighlight">\(\Delta b=(0.01,0)^\top\)</span>. By construction,</p>
+<div class="math notranslate nohighlight">
+\[
+   \frac{\|\Delta x\|_1^{}}{\|x\|_1^{}} = \kappa_1 \frac{\|\Delta b\|_1^{}}{\|b\|_1^{}}.
+\]</div>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong> (Sharp condition number)</p>
+<p>Repeat for</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+A = \left(\begin{array}{rrr} -4 &amp; 8 &amp; -7\\ -5 &amp; 3 &amp; 2\\ -3 &amp; 3 &amp; -9\end{array}\right), \qquad 
+A^{-1} = 
+\left(
+\begin{array}{rrr}
+ \frac{11}{78} &amp; -\frac{17}{78} &amp; -\frac{37}{234} \\
+ \frac{17}{78} &amp; -\frac{5}{78} &amp; -\frac{43}{234} \\
+ \frac{1}{39} &amp; \frac{2}{39} &amp; -\frac{14}{117} \\
+\end{array}
+\right).
+\end{split}\]</div>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">We have <span class="math notranslate nohighlight">\(\|A\|_1^{}=\|A\|_\textrm{col}=18\)</span> and <span class="math notranslate nohighlight">\(\|A^{-1}\|_1^{} = \frac{108}{234} = \frac6{13}\)</span>, so <span class="math notranslate nohighlight">\(\kappa_1(A) = 108/13\)</span>. In the derivation of the error formula, there are only two inequalities: <span class="math notranslate nohighlight">\(\|\Delta x\|_1^{}\le\|A^{-1}\|_1^{}\|\Delta b\|_1^{}\)</span> and <span class="math notranslate nohighlight">\(\|b\|_1^{}\le \|A\|_1^{}\,\|x\|_1^{}\)</span>.  We therefore choose <span class="math notranslate nohighlight">\(x\)</span> such that <span class="math notranslate nohighlight">\(\|b\|_1^{}=\|A\|_1^{}\,\|x\|_1^{}\)</span>, namely <span class="math notranslate nohighlight">\(x=(0,0,1)^\top\)</span> which gives <span class="math notranslate nohighlight">\(b=(-7,2,-9)^\top\)</span>, and <span class="math notranslate nohighlight">\(\Delta b\)</span> such that <span class="math notranslate nohighlight">\(\|\Delta x\|_1^{}=\|A^{-1}\|_1^{}\|\Delta b\|_1^{}\)</span>, e.g. <span class="math notranslate nohighlight">\(\Delta b=(0,0,0.01)^\top\)</span>.</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Let</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+A = \begin{pmatrix}2 &amp; 1 \\ 1 &amp; 2\end{pmatrix}.
+\end{split}\]</div>
+<p>Compute <span class="math notranslate nohighlight">\(\kappa_1(A)\)</span>, <span class="math notranslate nohighlight">\(\kappa_\infty(A)\)</span>, <span class="math notranslate nohighlight">\(\kappa_2(A)\)</span>, which denote here the condition numbers with respect to the <span class="math notranslate nohighlight">\(1\)</span>-, <span class="math notranslate nohighlight">\(\infty\)</span>- and <span class="math notranslate nohighlight">\(2\)</span>-norm. Which is largest?</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">First compute <span class="math notranslate nohighlight">\(A^{-1}\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+A^{-1} = \frac{1}{3}\begin{pmatrix}2 &amp; -1 \\ -1 &amp; 2\end{pmatrix}.
+\end{split}\]</div>
+<p class="sd-card-text">For the <span class="math notranslate nohighlight">\(1\)</span>-norm and <span class="math notranslate nohighlight">\(\infty\)</span>-norm:</p>
+<div class="math notranslate nohighlight">
+\[
+\|A\|_1 = \|A\|_\infty = \max_{\textrm{row or col}} (2+1) = 3.
+\]</div>
+<p class="sd-card-text">Similarly,</p>
+<div class="math notranslate nohighlight">
+\[
+\|A^{-1}\|_1 = \|A^{-1}\|_\infty = 1.
+\]</div>
+<p class="sd-card-text">Thus,</p>
+<div class="math notranslate nohighlight">
+\[
+\kappa_1(A) = \kappa_\infty(A) = 3.
+\]</div>
+<p class="sd-card-text">For the <span class="math notranslate nohighlight">\(2\)</span>-norm, the eigenvalues of <span class="math notranslate nohighlight">\(A\)</span> are <span class="math notranslate nohighlight">\(3\)</span> and <span class="math notranslate nohighlight">\(1\)</span>, so</p>
+<div class="math notranslate nohighlight">
+\[
+\|A\|_2 = 3,\quad \|A^{-1}\|_2 = \frac{1}{1} = 1,
+\]</div>
+<p class="sd-card-text">hence</p>
+<div class="math notranslate nohighlight">
+\[
+\kappa_2(A) = 3.
+\]</div>
+<p class="sd-card-text">All three condition numbers coincide and equal <span class="math notranslate nohighlight">\(3\)</span> in this case.</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Consider</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+A = \begin{pmatrix}1 &amp; \tfrac{1}{2} \\[6pt] \tfrac{1}{2} &amp; 1\end{pmatrix}.
+\end{split}\]</div>
+<p>Its eigenvalues are <span class="math notranslate nohighlight">\(\lambda_{\max}=1.5\)</span> and <span class="math notranslate nohighlight">\(\lambda_{\min}=0.5\)</span>. Suppose we add a small perturbation <span class="math notranslate nohighlight">\(\Delta A\)</span> and consider no perturbation in <span class="math notranslate nohighlight">\(b\)</span> (i.e. <span class="math notranslate nohighlight">\(\Delta b=0\)</span>). Estimate, using the <span class="math notranslate nohighlight">\(2\)</span>-norm condition number, how large the relative perturbation <span class="math notranslate nohighlight">\(\frac{\|\Delta A\|_2}{\|A\|_2}\)</span> can be before <span class="math notranslate nohighlight">\(A+\Delta A\)</span> becomes close to singular.</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Since <span class="math notranslate nohighlight">\(\|A\|_2 = 1.5\)</span> and <span class="math notranslate nohighlight">\(\|A^{-1}\|_2 = 1/\lambda_{\min} = 2\)</span>, the condition number is</p>
+<div class="math notranslate nohighlight">
+\[
+\kappa_2(A) = \|A\|_2\|A^{-1}\|_2 = 1.5 \cdot 2 = 3.
+\]</div>
+<p class="sd-card-text">Recall</p>
+<div class="math notranslate nohighlight">
+\[
+\min\left\{\frac{\|\Delta A\|_2}{\|A\|_2} : A+\Delta A \text{ singular}\right\} = \frac{1}{\kappa_2(A)} = \frac{1}{3}.
+\]</div>
+<p class="sd-card-text">Hence, a relative perturbation of about <span class="math notranslate nohighlight">\(1/3\)</span> in norm is sufficient for <span class="math notranslate nohighlight">\(A+\Delta A\)</span> to become close to singular. Since <span class="math notranslate nohighlight">\(\|A\|_2=1.5\)</span>, this corresponds to <span class="math notranslate nohighlight">\(\|\Delta A\|_2 = 0.5\)</span>.</p>
+</div>
+</details></section>
+<section id="optional-material">
+<h2>Optional material<a class="headerlink" href="#optional-material" title="Link to this heading">#</a></h2>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Proof of the convergence lemma for the matrix-valued von Neumann series</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Here is the proof of the convergence lemma for matrix-valued von Neumann series.</p>
+<div class="proof admonition" id="proof">
+<p class="sd-card-text">Proof. Let <span class="math notranslate nohighlight">\(S_n = \sum_{i=0}^n X^i\)</span>. By norm equivalence and submultiplicativity we have for each matrix element <span class="math notranslate nohighlight">\((S_n)_{\ell, t}\)</span> that</p>
+<div class="math notranslate nohighlight">
+\[
+|(S_n)_{\ell, t}| \leq \sum_{i=0}^{n}\left|\left(X^i\right)_{\ell, t}\right|\leq \sum_{i=0}^n \underbrace{\max_{\ell, t}\left|\left(
+X^i\right)_{\ell, t}\right|}_{\text{this is a norm}} \leq C\sum_{i=0}^{\infty}\|X^{i}\|\leq C\sum_{i=0}^\infty \|X\|^{i}= \frac{C}{1 - \|X\|}.
+\]</div>
+<p class="sd-card-text">for some <span class="math notranslate nohighlight">\(C&gt; 0\)</span>. Hence, every component of <span class="math notranslate nohighlight">\(S_n\)</span> is absolutely convergent and therefore the sum <span class="math notranslate nohighlight">\(S_n\)</span> converges with <span class="math notranslate nohighlight">\(X^{n}\rightarrow 0\)</span> as <span class="math notranslate nohighlight">\(n\rightarrow\infty\)</span>. We conclude the <span class="math notranslate nohighlight">\(S := \sum_{i=0}^{\infty}X^{i}\)</span> exists.</p>
+<p class="sd-card-text">We find <span class="math notranslate nohighlight">\((I - X)S_n = \sum_{i = 0}^n X^i - \sum_{i = 1}^{n + 1} X^i = I - X^{n+1}\)</span>, cancelling common terms in the sums. Taking the limit as <span class="math notranslate nohighlight">\(n \to \infty\)</span> we have <span class="math notranslate nohighlight">\((I-X)S = I\)</span>,so <span class="math notranslate nohighlight">\((I-X)\)</span> is non-singular with <span class="math notranslate nohighlight">\((I-X)^{-1} = S\)</span>. Finally,</p>
+<div class="math notranslate nohighlight">
+\[
+\|(I-X)^{-1}\| = \|S\| \leq \sum_{i=0}^{\infty}\|X\|^{i} = \frac{1}{1-\|X\|}.
+\]</div>
+</div>
+</div>
+</details></section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="0.2_error_analysis.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Backward error analysis</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="0.4_complexity_notation.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Asymptotic notation</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#self-check-questions">Self-check questions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-material">Optional material</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Timo Betcke, Erik Burman, Max Jensen
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

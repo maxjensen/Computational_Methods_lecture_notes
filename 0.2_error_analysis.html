@@ -1,0 +1,987 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Backward error analysis &#8212; Computational Methods MATH0058 lecture notes</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '0.2_error_analysis';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="The condition number of linear systems" href="0.3_linear_system_error.html" />
+    <link rel="prev" title="Measuring distances" href="0.1_matrix_vector_norms.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Computational Methods MATH0058 lecture notes - Home"/>
+    <img src="_static/logo.png" class="logo__image only-dark pst-js-only" alt="Computational Methods MATH0058 lecture notes - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="index.html">
+                    Welcome!
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Fundamentals</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="0.1_matrix_vector_norms.html">Measuring distances</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Backward error analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="0.3_linear_system_error.html">The condition number of linear systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="0.4_complexity_notation.html">Asymptotic notation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Implementation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="1.1_floating_point_arithmetic.html">Floating point numbers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_numpy_and_data_layouts.html">Memory layout and Numpy</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="2.1_lu_decomposition.html">LU decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.2_lu_backward_error.html">Backward error and pivoting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.3_python_lu_decomposition.html">Python implementation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Orthogonal Decompositions</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="3.1_qr_decomposition.html">The QR Decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.2_singular_value_decomposition.html">The Singular Value Decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.3_least_squares_problems.html">Least-squares Problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.4_constrained_least_squares_problems.html">Constrained Problems</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Interpolation and Quadrature</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="4.1_interpolation.html">Polynomial Interpolation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.2_quadrature.html">Introduction to Quadrature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.3_stable_quadrature_schemes.html">Stable Quadrature Schemes</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Eigenvalue Problems</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="5.1_eigenvalues_basic_properties.html">Basic properties of eigenvalue problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.2_computing_eigenvalues.html">Computing eigenvalues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.3_computing_eigenspaces.html">Computing the eigensystem</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back matter</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="bm1_notation_and_facts.html">Notation and facts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bm2_programming_resources.html">Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bm3_markdown.html">Markdown and LaTeX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bm4_bibliography.html">Bibliography</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/0.2_error_analysis.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Backward error analysis</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#forward-error">Forward error</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#backward-error">Backward error</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#condition-number">Condition Number</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finite-differences">Finite Differences</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#symbolic-computation">Symbolic computation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#automatic-differentiation">Automatic Differentiation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#self-check-questions">Self-check questions</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="backward-error-analysis">
+<h1>Backward error analysis<a class="headerlink" href="#backward-error-analysis" title="Link to this heading">#</a></h1>
+<p>Modern error analysis (in finite dimensional settings) traces its origins to the seminal work of <a class="reference external" href="https://en.wikipedia.org/wiki/James_H._Wilkinson">James Hardy Wilkinson</a>. It distinguishes between forward error, which is the error in the result of an algorithm, and backward error, which is a measure of perturbation in the input data.</p>
+<p>In the following, we denote by <span class="math notranslate nohighlight">\(f: D \rightarrow Y\)</span> a function that maps data from an input space <span class="math notranslate nohighlight">\(D\)</span> to an output space <span class="math notranslate nohighlight">\(Y\)</span>. We assume that <span class="math notranslate nohighlight">\(D \subset X\)</span> and that both <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are finite-dimensional real vector spaces with the respective norms <span class="math notranslate nohighlight">\(\| \cdot \|_X\)</span> and <span class="math notranslate nohighlight">\(\| \cdot \|_Y\)</span>. Correspondingly, we define a function <span class="math notranslate nohighlight">\(\tilde{f}: D \to Y\)</span>, which represents an approximate evaluation of <span class="math notranslate nohighlight">\(f\)</span>.</p>
+<div class="proof example admonition" id="example-0">
+<p class="admonition-title"><span class="caption-number">Example 1 </span></p>
+<section class="example-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(f : \mathbb{R}^n \to \mathbb{R}\)</span> be a differentiable function and</p>
+<div class="math notranslate nohighlight">
+\[
+\tilde{f}(x) = f(\bar{x}) + \nabla f(\bar{x}) \cdot (x - \bar{x})
+\]</div>
+<p>its first-order Taylor expansion about <span class="math notranslate nohighlight">\(\bar{x}\)</span>.</p>
+</section>
+</div><div class="proof example admonition" id="example-1">
+<p class="admonition-title"><span class="caption-number">Example 2 </span></p>
+<section class="example-content" id="proof-content">
+<p>Approximate the derivative <span class="math notranslate nohighlight">\(f := g'\)</span> by a difference quotient of <span class="math notranslate nohighlight">\(g\)</span></p>
+<div class="math notranslate nohighlight">
+\[
+\tilde{f}(x) = \frac{g(x + h) - g(x)}{h}.
+\]</div>
+<p>for some <span class="math notranslate nohighlight">\(h &gt; 0\)</span>.</p>
+</section>
+</div><div class="proof example admonition" id="example-2">
+<p class="admonition-title"><span class="caption-number">Example 3 </span></p>
+<section class="example-content" id="proof-content">
+<p>Consider the solution of the non-singular linear system of equations</p>
+<div class="math notranslate nohighlight">
+\[
+Ay = b
+\]</div>
+<p>with <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{n \times n}\)</span> and <span class="math notranslate nohighlight">\(b \in \mathbb{R}^n\)</span>. Then, the input space is the product space <span class="math notranslate nohighlight">\(D = X = \mathbb{R}^{n \times n} \times \mathbb{R}^n\)</span> and our input data is the tuple <span class="math notranslate nohighlight">\((A, b) \in X\)</span>. The output space is <span class="math notranslate nohighlight">\(Y = \mathbb{R}^n\)</span>. The function <span class="math notranslate nohighlight">\(f\)</span> is given as</p>
+<div class="math notranslate nohighlight">
+\[
+f(A, b) = A^{-1}b
+\]</div>
+<p>and the approximate function <span class="math notranslate nohighlight">\(\tilde{f}\)</span> is, for example, the Gaussian elimination algorithm with rounding errors to compute the solution <span class="math notranslate nohighlight">\(y\)</span>.</p>
+</section>
+</div><section id="forward-error">
+<h2>Forward error<a class="headerlink" href="#forward-error" title="Link to this heading">#</a></h2>
+<p>Let <span class="math notranslate nohighlight">\(y = f(x)\)</span> and <span class="math notranslate nohighlight">\(\tilde{y} = \tilde{f}(x)\)</span>. The absolute forward error of <span class="math notranslate nohighlight">\(f\)</span> at <span class="math notranslate nohighlight">\(x\)</span> is defined as</p>
+<div class="math notranslate nohighlight">
+\[
+E_{abs} := \|y - \tilde{y}\|_Y.
+\]</div>
+<p>The relative forward error <span class="math notranslate nohighlight">\(E_{rel}\)</span> of <span class="math notranslate nohighlight">\(f\)</span> at <span class="math notranslate nohighlight">\(x\)</span> is defined as</p>
+<div class="math notranslate nohighlight">
+\[
+E_{rel} := \frac{\|y - \tilde{y}\|_Y}{\|y\|_Y}
+\]</div>
+<p>whenever <span class="math notranslate nohighlight">\(y \neq 0\)</span>. The forward error is the quantity we are usually most interested in.</p>
+</section>
+<section id="backward-error">
+<h2>Backward error<a class="headerlink" href="#backward-error" title="Link to this heading">#</a></h2>
+<p>The backward error addresses the following question:</p>
+<blockquote>
+<div><p>Given an input <span class="math notranslate nohighlight">\(x\)</span> and the corresponding output <span class="math notranslate nohighlight">\(\tilde{y} = \tilde{f}(x)\)</span> from the <em>perturbed</em> function <span class="math notranslate nohighlight">\(\tilde{f}\)</span>, by how much would one need to perturb <span class="math notranslate nohighlight">\(x\)</span> to an input <span class="math notranslate nohighlight">\(\tilde{x} = x + \Delta x\)</span> so that the original function returns <span class="math notranslate nohighlight">\(\tilde{y}\)</span>? Thus we look for</p>
+<div class="math notranslate nohighlight">
+\[
+f(\tilde{x}) = \tilde{y} = \tilde{f}(x).
+\]</div>
+</div></blockquote>
+<p>In other words, we ask if the exact function <span class="math notranslate nohighlight">\(f\)</span> could produce the same output as <span class="math notranslate nohighlight">\(\tilde{f}\)</span> but with a slight perturbation in the input data. The idea is that our approximate function <span class="math notranslate nohighlight">\(\tilde{f}\)</span> is useful if only a small perturbation is needed for the input data so that <span class="math notranslate nohighlight">\(f\)</span> produces the same output as <span class="math notranslate nohighlight">\(\tilde{f}\)</span>. Note that the perturbation generally depends on the input <span class="math notranslate nohighlight">\(x\)</span>.</p>
+<div class="proof example admonition" id="example-3">
+<p class="admonition-title"><span class="caption-number">Example 4 </span></p>
+<section class="example-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(f(x) = x^2 + x\)</span> and <span class="math notranslate nohighlight">\(\tilde{f} = x\)</span>, its linearisation at <span class="math notranslate nohighlight">\(0\)</span>. Let <span class="math notranslate nohighlight">\(x = 1\)</span> so that <span class="math notranslate nohighlight">\(\tilde{y} = 1\)</span>. The function <span class="math notranslate nohighlight">\(f\)</span> attains <span class="math notranslate nohighlight">\(1\)</span> at <span class="math notranslate nohighlight">\(\tilde{x}_{1,2} := - \frac{1}{2} \pm \frac{\sqrt{5}}{2}\)</span>.</p>
+<a class="reference internal image-reference" href="_images/backward_error.png"><img alt="_images/backward_error.png" class="align-center" src="_images/backward_error.png" style="width: 400px;" /></a>
+<p>Therefore, <span class="math notranslate nohighlight">\(\Delta x_1 := \tilde{x}_1 - x = (- \frac{1}{2} + \frac{\sqrt{5}}{2}) - 1\)</span> and <span class="math notranslate nohighlight">\(\Delta x_2 := \tilde{x}_2 - x = (- \frac{1}{2} - \frac{\sqrt{5}}{2}) - 1\)</span> are perturbations of <span class="math notranslate nohighlight">\(x\)</span> to reproduce <span class="math notranslate nohighlight">\(\tilde{f}\)</span>’s output.</p>
+</section>
+</div><div class="proof example admonition" id="example-4">
+<p class="admonition-title"><span class="caption-number">Example 5 </span></p>
+<section class="example-content" id="proof-content">
+<p>In the second example, we reverse the roles of <span class="math notranslate nohighlight">\(f\)</span> and <span class="math notranslate nohighlight">\(\tilde{f}\)</span>. Let <span class="math notranslate nohighlight">\(f(x) = x\)</span> and <span class="math notranslate nohighlight">\(\tilde{f} = x^2 + x\)</span>. Given <span class="math notranslate nohighlight">\(\tilde{y} = 1\)</span>, there are two possible inputs: <span class="math notranslate nohighlight">\(- \frac{1}{2} \pm \frac{\sqrt{5}}{2}\)</span>. Re-reading the question in the box above clarifies that we assume the choice of input is given: suppose it is the positive input <span class="math notranslate nohighlight">\(x = - \frac{1}{2} + \frac{\sqrt{5}}{2}\)</span>. Now, with <span class="math notranslate nohighlight">\(\tilde{x} = 1\)</span>, the perturbation is <span class="math notranslate nohighlight">\(\Delta x_1 := \tilde{x} - x = 1 - (- \frac{1}{2} + \frac{\sqrt{5}}{2})\)</span>.</p>
+</section>
+</div><p>The potential lack of bijectivity of <span class="math notranslate nohighlight">\(f\)</span> makes the backward error concept more complex than that of the forward error: there may be many possible <span class="math notranslate nohighlight">\(\Delta x\)</span> satisfying <span class="math notranslate nohighlight">\(\tilde{y} = f(x + \Delta x)\)</span>. We wish to find a smallest perturbation <span class="math notranslate nohighlight">\(\Delta x\)</span>, meaning it is obtained by solving a minimisation problem.</p>
+<p>Therefore, the absolute backward error of <span class="math notranslate nohighlight">\(f\)</span> at <span class="math notranslate nohighlight">\(\tilde{y}\)</span> with input <span class="math notranslate nohighlight">\(x \in \tilde{f}^{-1}(\tilde{y})\)</span> is defined as</p>
+<div class="math notranslate nohighlight">
+\[
+\eta_{abs}(\tilde{y}, x) := \inf\{\epsilon \in [0, \infty): \, \exists \, \Delta x \in X \text{ such that } x+ \Delta x \in D, f(x+ \Delta x) = \tilde{y}, \|\Delta x\|_X = \epsilon\}.
+\]</div>
+<p>To express the above, we can also sometimes write more compactly</p>
+<div class="math notranslate nohighlight">
+\[
+\eta_{abs}(\tilde{y}, x) = \inf \{ \| \Delta x \|_X : \, \Delta x \in f(\tilde{y})^{-1} - x\}. 
+\]</div>
+<p>Similarly, the relative backward error of <span class="math notranslate nohighlight">\(f\)</span> at <span class="math notranslate nohighlight">\(\tilde{y}\)</span> with input <span class="math notranslate nohighlight">\(x \in \tilde{f}^{-1}(\tilde{y})\)</span> is defined as</p>
+<div class="math notranslate nohighlight">
+\[
+\eta_{rel}(\tilde{y}, x) := \inf \Big\{ \frac{\| \Delta x \|_X}{\|x\|_X} : \, \Delta x \in f(\tilde{y})^{-1} - x \Big\} = \frac{\eta_{abs}(\tilde{y}, x)}{\|x\|_X}.
+\]</div>
+<p>Recall that <span class="math notranslate nohighlight">\(\inf \emptyset = \infty\)</span>; thus, if no <span class="math notranslate nohighlight">\(\Delta x\)</span> exists such that <span class="math notranslate nohighlight">\(f(x+ \Delta x) = \tilde{y}\)</span>, then</p>
+<div class="math notranslate nohighlight">
+\[
+\eta_{abs}(\tilde{y}, x) = \eta_{rel}(\tilde{y}, x) = \infty.
+\]</div>
+<p>The definitions simplify if we assume that both <span class="math notranslate nohighlight">\(f\)</span> and <span class="math notranslate nohighlight">\(\tilde{f}\)</span> are invertible. Then there exists only one <span class="math notranslate nohighlight">\(x \in \tilde{f}^{-1}(\tilde{y})\)</span> and we may drop the <span class="math notranslate nohighlight">\(x\)</span> argument in <span class="math notranslate nohighlight">\(\eta_{abs}\)</span> and <span class="math notranslate nohighlight">\(\eta_{rel}\)</span>. Furthermore, there is one <span class="math notranslate nohighlight">\(\tilde{x}\)</span> such that <span class="math notranslate nohighlight">\(f(x+ \Delta x) = \tilde{y}\)</span>. The minimum of <span class="math notranslate nohighlight">\(\eta_{abs}\)</span> is attained when <span class="math notranslate nohighlight">\(\|\Delta x\| = \epsilon\)</span>, that is</p>
+<div class="math notranslate nohighlight">
+\[
+\eta_{abs}(\tilde{y}) = \|\Delta x\|_X = \| x - \tilde{x} \|_X.
+\]</div>
+<p>Analogously, the minimum of <span class="math notranslate nohighlight">\(\eta_{rel}\)</span> is attained when <span class="math notranslate nohighlight">\(\|\Delta x\| = \epsilon \|x\|\)</span>, that is</p>
+<div class="math notranslate nohighlight">
+\[
+\eta_{rel}(\tilde{y}) = \frac{\|\Delta x\|_X}{\|x\|_X} = \frac{\| x - \tilde{x} \|_X}{\|x\|_X}.
+\]</div>
+<p>Thus, for invertible <span class="math notranslate nohighlight">\(f\)</span> and <span class="math notranslate nohighlight">\(\tilde{f}\)</span>, the absolute (resp. relative) backward error of <span class="math notranslate nohighlight">\(f\)</span> at <span class="math notranslate nohighlight">\(\tilde{y}\)</span> is equal to the absolute (resp. relative) forward error of <span class="math notranslate nohighlight">\(\tilde{f}^{-1}\)</span> at <span class="math notranslate nohighlight">\(\tilde{y}\)</span>, now viewing <span class="math notranslate nohighlight">\(f\)</span> as an approximation of <span class="math notranslate nohighlight">\(\tilde{f}\)</span>.</p>
+<div class="proof example admonition" id="example-5">
+<p class="admonition-title"><span class="caption-number">Example 6 </span></p>
+<section class="example-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(f(A, b) = A^{-1} b\)</span> as introduced in this section. Then, given a vector <span class="math notranslate nohighlight">\(\tilde{y}\)</span>, <span class="math notranslate nohighlight">\(f^{-1}(\tilde{y})\)</span> is the set of matrix-vector pairs <span class="math notranslate nohighlight">\((A,b)\)</span> such that <span class="math notranslate nohighlight">\(A \tilde{y} = b\)</span>. Clearly, there are many linear systems that have the solution <span class="math notranslate nohighlight">\(\tilde{y}\)</span> and therefore this <span class="math notranslate nohighlight">\(f\)</span> is not invertible.</p>
+</section>
+</div><p>The definition of the backward error may seem convoluted at first, but it is very useful when combined with the condition number.</p>
+</section>
+<section id="condition-number">
+<h2>Condition Number<a class="headerlink" href="#condition-number" title="Link to this heading">#</a></h2>
+<p>We assume momentarily that <span class="math notranslate nohighlight">\(f\)</span> is differentiable. For <span class="math notranslate nohighlight">\(X = \mathbb{R}^n\)</span> and <span class="math notranslate nohighlight">\(Y = \mathbb{R}^m\)</span> the gradient is an <span class="math notranslate nohighlight">\(\mathbb{R}^{m \times n}\)</span> matrix, whose magnitude we can measure with the induced <span class="math notranslate nohighlight">\(\| \cdot \|_{Y,X}\)</span> norm. Owing to the mean-value theorem, we have for an <span class="math notranslate nohighlight">\(\alpha \in [0,1]\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+\|y - \tilde{y}\|_Y &amp;\stackrel{(1)}{=} \|f(x) - \tilde{f}(x)\|_Y\\
+&amp;\stackrel{(2)}{=} \|f(x) - f(x + \Delta x)\|_Y\\
+&amp;\stackrel{(3)}{=} \| \nabla f(x + \alpha \Delta x) \cdot \Delta x\|_Y\\
+&amp;\stackrel{(4)}{=} \frac{\| \nabla f(x + \alpha \Delta x)  \cdot \Delta x \|_Y}{\| \Delta x\|_X} \cdot \| \Delta x\|_X\\
+&amp;\stackrel{(5)}{\leq} \|\nabla f(x + \alpha \Delta x)\|_{Y,X} \cdot \| \Delta x\|_X
+\end{aligned}
+\end{split}\]</div>
+<p>Equality (2) is possible by choosing <span class="math notranslate nohighlight">\(\tilde{x} = x + \Delta x\)</span> such that <span class="math notranslate nohighlight">\(\tilde{f}(x) = f(\tilde{x})\)</span>. Hence, <span class="math notranslate nohighlight">\(\Delta x\)</span> is the backward perturbation associated with the output <span class="math notranslate nohighlight">\(\tilde{y}\)</span>. The right-hand side in (5) is the product of the derivative of <span class="math notranslate nohighlight">\(f\)</span> and the size of the backward error.</p>
+<p>Inequality (5) demonstrates that the absolute forward error depends on a product of two quantities: the sensitivity of <span class="math notranslate nohighlight">\(f\)</span> to perturbations (there <span class="math notranslate nohighlight">\(\|\nabla f (x)\|_{Y,X}\)</span>) and the size of the absolute backward error <span class="math notranslate nohighlight">\(\|x-\tilde{x}\|\)</span>. This is of fundamental importance and we shall now turn to methods to measure the sensitivity of <span class="math notranslate nohighlight">\(f\)</span> via its <em>condition numbers</em>. The output forward error will still be large if the problem is highly sensitive to perturbations, even though the backward error may be small.</p>
+<p>The <em>absolute condition number</em> of <span class="math notranslate nohighlight">\(f : D \to Y\)</span> is defined as</p>
+<div class="math notranslate nohighlight">
+\[
+K_{abs} = \sup_{x, x+\Delta x \in D \atop 0 &lt; \| \Delta x \|} \frac{\| \Delta f \|_Y}{\| \Delta x \|_X},
+\]</div>
+<p>with <span class="math notranslate nohighlight">\(\Delta f = f(x + \Delta x) - f(x)\)</span> being the perturbation in the output data. It measures the largest rate of change observed anywhere in the domain <span class="math notranslate nohighlight">\(D\)</span>. To measure the largest rate of change in the vicinity of a point <span class="math notranslate nohighlight">\(x \in D\)</span>, one uses the <em>local absolute condition number</em></p>
+<div class="math notranslate nohighlight">
+\[
+\kappa_{abs}(x) := \lim_{\delta\rightarrow 0} \sup_{x+\Delta x \in D \atop 0 &lt; \| \Delta x \| \leq \delta} \frac{\| \Delta f \|_Y}{\| \Delta x \|_X}, \qquad x \in D.
+\]</div>
+<p>Similarly, the <em>relative condition number</em> is defined as</p>
+<div class="math notranslate nohighlight">
+\[
+K_{rel} := \sup_{x,x+\Delta x \in D \atop \Delta x \neq 0, f(x) \neq 0} \frac{\| \Delta f \|_Y / \| f(x) \|_Y}{\| \Delta x \|_X / \| x \|_X}
+\]</div>
+<p>while the <em>local relative condition number</em> is, for <span class="math notranslate nohighlight">\(x \in D\)</span> with <span class="math notranslate nohighlight">\(f(x) \neq 0\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[
+\kappa_{rel}(x) := \lim_{\delta\rightarrow 0} \sup_{x+\Delta x \in D \atop 0 &lt; \| \Delta x \| \leq \delta} \frac{\| \Delta f \|_Y / \| f(x) \|_Y}{\| \Delta x \|_X / \| x \|_X}.
+\]</div>
+<p>Hence, <span class="math notranslate nohighlight">\(\kappa_{rel}\)</span> measures the largest possible ratio of relative output error with respect to relative input error under small perturbations. Simplifying the quotients places <span class="math notranslate nohighlight">\(x\)</span> in the numerator so that the case <span class="math notranslate nohighlight">\(x = 0\)</span> is not interpreted as a division by zero. If <span class="math notranslate nohighlight">\(f\)</span> is differentiable, you can show (self-check question)</p>
+<div class="math notranslate nohighlight">
+\[
+\kappa_{abs}(x) = \| \nabla f(x) \|_{Y,X}, \qquad \kappa_{rel}(x) = \frac{\| x \|_X}{\| f(x) \|_Y}\| \nabla f(x) \|_{Y,X}.
+\]</div>
+<p>We use here gradient and Jacobian as interchangable concepts. Returning to equation <span class="math notranslate nohighlight">\((2)\)</span> above, we find</p>
+<div class="math notranslate nohighlight">
+\[
+\|y - \tilde{y}\|_Y = \frac{\|f(x) - f(x + \Delta x)\|_Y}{\| \Delta x \|_X} \| \Delta x \|_X \leq K_{abs} \| \Delta x \|_X
+\]</div>
+<p>for <span class="math notranslate nohighlight">\(\Delta x \neq 0\)</span>. Similarly, convince yourself with the below self-check question that</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\|\Delta f\|_Y}{\|f(x)\|_Y} \leq K_{rel}(x)\cdot \frac{\|\Delta x\|_X}{\|x\|_X}
+\]</div>
+<p>and, for <span class="math notranslate nohighlight">\(x \neq 0\)</span> and <span class="math notranslate nohighlight">\(f(x) \neq 0\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\|\Delta f\|_Y}{\|f(x)\|_Y} \leq \kappa_{rel}(x)\cdot \frac{\|\Delta x\|_X}{\|x\|_X} + \text{higher-order terms}.
+\]</div>
+<p><strong>In words, the relative forward error is bounded by the product of the condition number and the relative backward error.</strong></p>
+<p>What is a good condition number in practice? Ideally, we want the condition number to be as small as possible so that errors in the input data are not amplified in the output error. For each magnitude of the condition number, we lose one digit of accuracy in the output error. This can be seen as follows: Assume we work in double precision and that the algorithm has a backward error that is a small multiple of <span class="math notranslate nohighlight">\(\epsilon_{mach}\)</span>. Hence, if the condition number is <span class="math notranslate nohighlight">\(100\)</span>, we expect to lose two digits of accuracy in the forward error. If the condition number is in the order of <span class="math notranslate nohighlight">\(\epsilon_{mach}^{-1}\)</span>, then we will likely lose almost all digits.</p>
+<p>If a condition number is small, we say that the problem is <em>well-conditioned</em>. If the condition number is large, we say that the problem is <em>ill-conditioned</em>. The precise meaning of these terms depends on the requirements of the application.</p>
+<div class="admonition-worst-case-bound admonition">
+<p class="admonition-title">Worst-case Bound</p>
+<p>The condition number is a worst-case bound. In practice, the actual forward error may be better than predicted by the condition number.</p>
+</div>
+<p>In the following, we will generally not use the subscript <span class="math notranslate nohighlight">\(rel\)</span> for relative quantities. Unless otherwise stated, we always work with relative quantities.</p>
+<!--
+## Stability
+
+If the relative backward error for $\tilde{f}$ is bounded by a small constant, we say that the algorithm is backward
+stable. It means that the backward accuracy of the algorithm is as good as we can expect. Hence, for a numerical
+algorithm on a computer, we say that an algorithm is backward stable if its backward error is bounded by a small
+multiple of machine precision.
+-->
+</section>
+<section id="python-skills">
+<h2>Python skills<a class="headerlink" href="#python-skills" title="Link to this heading">#</a></h2>
+<p>When working with numerical computations, derivatives are frequently required. The above formulas for the condition numbers are an example. There are several approaches to approximate or compute them, we begin here by demonstrating a numerical approximation with finite differences, followed by alternative approachs using symbolic and automatic differentiation methods.</p>
+<section id="finite-differences">
+<h3>Finite Differences<a class="headerlink" href="#finite-differences" title="Link to this heading">#</a></h3>
+<p>An efficient way to approximate the derivative of a function  <span class="math notranslate nohighlight">\(f : \mathbb{R} \to \mathbb{R}\)</span> at a point <span class="math notranslate nohighlight">\(x\)</span> is to use a finite difference scheme. The derivative <span class="math notranslate nohighlight">\(f'(x)\)</span> can be approximated for example using a central difference formula:</p>
+<div class="math notranslate nohighlight">
+\[
+f'(x) \approx \frac{f(x+h) - f(x-h)}{2h}
+\]</div>
+<p>Choosing a suitable step size <span class="math notranslate nohighlight">\(h\)</span> is key: too large and we lose accuracy; too small and we risk numerical round-off errors.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">finite_difference_derivative</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">h</span><span class="p">)</span> <span class="o">-</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">h</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">h</span><span class="p">)</span>
+
+<span class="c1"># Approximate f&#39;(1)</span>
+<span class="n">approx_derivative</span> <span class="o">=</span> <span class="n">finite_difference_derivative</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Finite difference approximation of f&#39;(1):&quot;</span><span class="p">,</span> <span class="n">approx_derivative</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="symbolic-computation">
+<h3>Symbolic computation<a class="headerlink" href="#symbolic-computation" title="Link to this heading">#</a></h3>
+<p>Python also has libraries, such as <code class="docutils literal notranslate"><span class="pre">sympy</span></code>, that can compute the derivitive symbolically, similar to manual calculations or computer algebra programmes such as Mathematica.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sympy</span> <span class="k">as</span> <span class="nn">sp</span>
+
+<span class="c1"># Define a symbolic variable</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">real</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Define the function f(x) = sin(x^2)</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Compute the derivative f&#39;(x)</span>
+<span class="n">f_prime</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+
+<span class="c1"># Print the result</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;f&#39;(x) =&quot;</span><span class="p">,</span> <span class="n">f_prime</span><span class="p">)</span>
+
+<span class="c1"># Optionally, evaluate the derivative at a specific point, e.g., x = 1</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;f&#39;(1) =&quot;</span><span class="p">,</span> <span class="n">f_prime</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+</pre></div>
+</div>
+</section>
+<section id="automatic-differentiation">
+<h3>Automatic Differentiation<a class="headerlink" href="#automatic-differentiation" title="Link to this heading">#</a></h3>
+<p>Another way to compute derivatives in Python is through libraries that implement automatic differentiation at runtime, rather than relying on symbolic manipulation. One such tool is autograd, which can take ordinary Python functions using numpy and return functions representing their derivatives, combining symbolic and numerical techniques. This approach is particularly convenient for more complex functions or situations where symbolic differentiation is cumbersome.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">autograd.numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">autograd</span> <span class="kn">import</span> <span class="n">grad</span>
+
+<span class="c1"># Define the function f(x) = sin(x²)</span>
+<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Use autograd&#39;s grad to create a function for f&#39;(x)</span>
+<span class="n">f_prime</span> <span class="o">=</span> <span class="n">grad</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+<span class="c1"># Evaluate the derivative at a specific point, for example, x = 1.0</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;f&#39;(1) =&quot;</span><span class="p">,</span> <span class="n">f_prime</span><span class="p">(</span><span class="mf">1.0</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>The example shows how quickly one can obtain numeric derivatives without explicitly working out the derivative formula. The <code class="docutils literal notranslate"><span class="pre">grad</span></code> function tracks operations performed on <code class="docutils literal notranslate"><span class="pre">x</span></code> and automatically applies the chain rule, enabling fast and accurate derivative calculations.</p>
+</section>
+</section>
+<section id="self-check-questions">
+<h2>Self-check questions<a class="headerlink" href="#self-check-questions" title="Link to this heading">#</a></h2>
+<!--
+````{admonition} **Question**
+:class: tip
+State the relative forward error, backward error, and condition number for the linear system of equations $Ax=b$.
+
+Let $x$ be the exact solution, and $\tilde{x}$ the computed solution. Then the relative forward error is defined as
+
+$$
+e := \frac{\|x - \tilde{x}\|}{\|x\|}.
+$$
+````
+
+````{dropdown} **Answer**
+The relative backward error is
+
+$$
+\eta(\tilde{x}) = \frac{\|b - A\tilde{x}\|}{\|A\| \cdot \|\tilde{x}\| + \|b\|}.
+$$
+
+The condition number is
+
+$$
+\kappa(A) = \|A\|\cdot \|A^{-1}\|.
+$$
+````
+-->
+<div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Let us consider the function <span class="math notranslate nohighlight">\(f : D \subset \mathbb{R} \to Y, x \mapsto \sqrt{x}\)</span> with <span class="math notranslate nohighlight">\(Y = \mathbb{R}\)</span>. Let <span class="math notranslate nohighlight">\(\| \cdot \|_X = \| \cdot \|_Y = | \cdot |\)</span>, i.e. the norms are equal to the modulus.</p>
+<ol class="arabic simple">
+<li><p>Show that <span class="math notranslate nohighlight">\(K_{abs} = 1/2\)</span> if <span class="math notranslate nohighlight">\(D = [1,2]\)</span>.</p></li>
+<li><p>Show that <span class="math notranslate nohighlight">\(K_{abs} = \infty\)</span> if <span class="math notranslate nohighlight">\(D = [0,1]\)</span>.</p></li>
+<li><p>Show that <span class="math notranslate nohighlight">\(\kappa_{rel} = 1/2\)</span> if <span class="math notranslate nohighlight">\(D = (0,\infty)\)</span>.</p></li>
+</ol>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text"><strong>Part 1.</strong> The absolute condition number is given by:</p>
+<div class="math notranslate nohighlight">
+\[
+K_{abs} = \sup_{x, x+\Delta x \in D \atop 0 &lt; \| \Delta x \|} \frac{|f(x+\Delta x) - f(x)|}{|\Delta x|}.
+\]</div>
+<p class="sd-card-text">Here <span class="math notranslate nohighlight">\(f(x) = \sqrt{x}\)</span> and <span class="math notranslate nohighlight">\(D = [1, 2]\)</span>. Using the mean value theorem, there exists <span class="math notranslate nohighlight">\(c \in (x, x+\Delta x)\)</span> such that:</p>
+<div class="math notranslate nohighlight">
+\[
+f(x+\Delta x) - f(x) = f'(c) \Delta x,
+\]</div>
+<p class="sd-card-text">where <span class="math notranslate nohighlight">\(f'(x) = \frac{1}{2\sqrt{x}}\)</span>. Substituting:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{|f(x+\Delta x) - f(x)|}{|\Delta x|} = |f'(c)| = \frac{1}{2\sqrt{c}}.
+\]</div>
+<p class="sd-card-text">To find the supremum of <span class="math notranslate nohighlight">\(\frac{1}{2\sqrt{c}}\)</span> for <span class="math notranslate nohighlight">\(c \in [1, 2]\)</span>, observe that <span class="math notranslate nohighlight">\(\frac{1}{2\sqrt{c}}\)</span> decreases as <span class="math notranslate nohighlight">\(c\)</span> increases. The maximum occurs at <span class="math notranslate nohighlight">\(c = 1\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+K_{abs} = \frac{1}{2\sqrt{1}} = \frac{1}{2}.
+\]</div>
+<p class="sd-card-text"><strong>Part 2.</strong> For <span class="math notranslate nohighlight">\(D = [0, 1]\)</span>, consider:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{|f(x+\Delta x) - f(x)|}{|\Delta x|} = \frac{1}{2\sqrt{c}},
+\]</div>
+<p class="sd-card-text">where <span class="math notranslate nohighlight">\(c \in (x, x+\Delta x)\)</span> and <span class="math notranslate nohighlight">\(c \in [0, 1]\)</span>. As <span class="math notranslate nohighlight">\(c \to 0^+\)</span>, <span class="math notranslate nohighlight">\(\sqrt{c} \to 0\)</span>, and <span class="math notranslate nohighlight">\(\frac{1}{2\sqrt{c}} \to \infty\)</span>. Thus, <span class="math notranslate nohighlight">\(K_{abs} = \infty\)</span>.</p>
+<p class="sd-card-text"><strong>Part 3.</strong> The relative local condition number is:</p>
+<div class="math notranslate nohighlight">
+\[
+\kappa_{rel}(x) = \lim_{\delta \to 0} \sup_{x, x+\Delta x \in D \atop 0 &lt; |\Delta x| \leq \delta} \frac{|f(x+\Delta x) - f(x)| / |f(x)|}{|\Delta x| / |x|}.
+\]</div>
+<p class="sd-card-text">Simplify:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{|f(x+\Delta x) - f(x)| / |f(x)|}{|\Delta x| / |x|} = \frac{|f(x+\Delta x) - f(x)|}{|\Delta x|} \cdot \frac{|x|}{|f(x)|}.
+\]</div>
+<p class="sd-card-text">From earlier, <span class="math notranslate nohighlight">\(\frac{|f(x+\Delta x) - f(x)|}{|\Delta x|} = \frac{1}{2\sqrt{c}}\)</span>, and <span class="math notranslate nohighlight">\(f(x) = \sqrt{x}\)</span>, so <span class="math notranslate nohighlight">\(\frac{|x|}{|f(x)|} = \sqrt{x}\)</span>. Substituting:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{|f(x+\Delta x) - f(x)| / |f(x)|}{|\Delta x| / |x|} = \frac{1}{2\sqrt{c}} \cdot \sqrt{x}.
+\]</div>
+<p class="sd-card-text">As <span class="math notranslate nohighlight">\(\delta \to 0\)</span>, <span class="math notranslate nohighlight">\(c \to x\)</span>, so:</p>
+<div class="math notranslate nohighlight">
+\[
+\kappa_{rel}(x) = \frac{\sqrt{x}}{2\sqrt{x}} = \frac{1}{2}.
+\]</div>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Assuming single precision floating-point arithmetic, consider an algorithm with a backward error of <span class="math notranslate nohighlight">\(2 \cdot \epsilon_{mach}\)</span> for a problem with a condition number <span class="math notranslate nohighlight">\(\kappa = 10^{3}\)</span>. How many correct digits do you expect in your solution?</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">For single precision, we have <span class="math notranslate nohighlight">\(\epsilon_{mach} \approx 6 \times 10^{-8}\)</span>. The condition number is <span class="math notranslate nohighlight">\(10^3\)</span>. Hence, the forward error is bounded by <span class="math notranslate nohighlight">\(1.2 \times 10^{-4}\)</span>, giving us nearly 4 digits of accuracy in the solution.</p>
+</div>
+</details><!--
+````{admonition} **Question**
+:class: tip
+Compute the $1-$norm condition number of
+
+$$
+A = \begin{pmatrix}1 & 1\\ 0 & \epsilon\end{pmatrix}
+$$
+
+in dependence of $\epsilon$. What happens as $\epsilon\rightarrow 0$?
+````
+
+````{dropdown} **Answer**
+We have $A^{-1} = \begin{pmatrix}1 & -\epsilon^{-1}\\ 0 & \epsilon^{-1}\end{pmatrix}$. Hence,
+
+$$
+\kappa(A) = \|A\|_1\cdot \|A^{-1}\|_1 = (1+\epsilon) \cdot \frac{2}{\epsilon}.
+$$
+
+and $\kappa(A)\rightarrow\infty$ as $\epsilon\rightarrow 0$. The reason is simple. For $\epsilon=0$ the matrix is not invertible and we expect the condition number to become unbounded as we reach this limit case.
+````
+-->
+<div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Let <span class="math notranslate nohighlight">\(x \in \mathbb{R}^2\)</span> and <span class="math notranslate nohighlight">\(f(x) = x_1 - x_2\)</span>. Compute the <span class="math notranslate nohighlight">\(\infty\)</span>-norm condition number <span class="math notranslate nohighlight">\(\kappa_{rel}(x)\)</span> of <span class="math notranslate nohighlight">\(f(x)\)</span>. For what inputs is the condition number large?</p>
+<p>Hint: Use the expression for the condition number of a differentiable function.</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">The Jacobian of <span class="math notranslate nohighlight">\(f\)</span> is <span class="math notranslate nohighlight">\(J = \Delta f = \begin{pmatrix}1 &amp; -1\end{pmatrix}\)</span>. Hence, <span class="math notranslate nohighlight">\(\|J\|_{\infty} = 2\)</span>. For the condition number, we obtain</p>
+<div class="math notranslate nohighlight">
+\[
+\kappa = \frac{\|x\|_\infty}{\|f(x)\|_\infty} \|J\|_\infty = \frac{2 \max\left\{|x_1|, |x_2|\right\}}{|x_1 - x_2|}.
+\]</div>
+<p class="sd-card-text">The condition number is large if <span class="math notranslate nohighlight">\(x_1 \approx x_2\)</span>. This reflects the issue of cancellation errors. Consider two numbers <span class="math notranslate nohighlight">\(x_1\)</span> and <span class="math notranslate nohighlight">\(x_2\)</span> that agree to the first 5 digits and each of them is accurate to 7 digits. The difference between the two numbers will only be accurate to 2 digits since the first 5 correct digits cancel each other out.</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Let <span class="math notranslate nohighlight">\(f : D \subset X \to Y\)</span> be differentiable, where <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are finite-dimensional real vector spaces. Show that</p>
+<div class="math notranslate nohighlight">
+\[
+\kappa_{abs}(x) = \| \nabla f(x) \|_{Y,X}, \qquad \kappa_{rel}(x) = \frac{\| x \|_X}{\| f(x) \|_Y}\| \nabla f(x) \|_{Y,X}.
+\]</div>
+<p>Hint: You may find it easier to first try the case <span class="math notranslate nohighlight">\(X = Y = \mathbb{R}\)</span> with <span class="math notranslate nohighlight">\(\| \cdot \|_X = \| \cdot \|_Y = \| \cdot \|_{Y,X} = | \cdot |\)</span>.</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Because <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are finite-dimensional real vector spaces, we may identify them as <span class="math notranslate nohighlight">\(X = \mathbb{R}^n\)</span> and <span class="math notranslate nohighlight">\(Y = \mathbb{R}^m\)</span>. Noting that <span class="math notranslate nohighlight">\(f\)</span> is differentiable at <span class="math notranslate nohighlight">\(x\)</span>, there is a function <span class="math notranslate nohighlight">\(h: \mathbb{R}^n \to \mathbb{R}^{m \times n}\)</span> with <span class="math notranslate nohighlight">\(\lim_{\| \Delta x \| \to 0} h(x + \Delta x) = 0\)</span> such that</p>
+<div class="math notranslate nohighlight">
+\[
+f(x + \Delta x) = f(x) + \nabla f(x) \cdot \Delta x + h(x + \Delta x) \cdot \Delta x.
+\]</div>
+<p class="sd-card-text">Hence, using the triangle inequality,</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\| f(x + \Delta x) - f(x) \|_Y}{\| \Delta x\|_X} = \frac{\| \nabla f (x) \cdot \Delta x + h(x + \Delta x) \cdot \Delta x \|_Y}{\| \Delta x\|_X} \leq \frac{\| \nabla f(x) \cdot \Delta x \|_Y}{\| \Delta x\|_X} + \| h(x + \Delta x) \|_{Y,X}.
+\]</div>
+<p class="sd-card-text">and</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\| f(x + \Delta x) - f(x) \|_Y}{\| \Delta x\|_X} = \frac{\| \nabla f (x) \cdot \Delta x + h(x + \Delta x) \cdot \Delta x \|_Y}{\| \Delta x\|_X} \geq \frac{\| \nabla f(x) \cdot \Delta x \|_Y}{\| \Delta x\|_X} - \| h(x + \Delta x) \|_{Y,X}.
+\]</div>
+<p class="sd-card-text">Furthermore, with <span class="math notranslate nohighlight">\(\xi\)</span> taking the place of <span class="math notranslate nohighlight">\(\lambda \Delta x\)</span> in the last step,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+\lim_{\delta\rightarrow 0} \sup_{0&lt; \|\Delta x\|\leq \delta} \frac{\| \nabla f(x) \cdot \Delta x \|_Y}{\| \Delta x\|_X} \pm \| h(x + \Delta x) \|_{Y,X}
+\end{align*} &amp; = \lim_{\delta\rightarrow 0} \sup_{0&lt; \|\Delta x\|\leq \delta} \frac{\| \nabla f(x) \cdot \Delta x \|_Y}{\| \Delta x\|_X}\\
+&amp; = \lim_{\delta\rightarrow 0} \sup_{0&lt; \|\Delta x\|\leq \delta, 0 \neq \lambda \in \mathbb{R}} \frac{\| \nabla f(x) \cdot \lambda \Delta x \|_Y}{\| \lambda \Delta x\|_X}\\
+&amp; = \sup_{ \xi \neq 0} \frac{\| \nabla f(x) \cdot \xi \|_Y}{\| \xi \|_X} = \| \nabla f(x) \|_{Y,X}.
+\end{split}\]</div>
+<p class="sd-card-text">We deduce</p>
+<div class="math notranslate nohighlight">
+\[
+\kappa_{abs}(x) = \lim_{\delta\rightarrow 0} \sup_{0&lt;\|\Delta x\|\leq \delta} \frac{\| f(x + \Delta x) - f(x) \|_Y}{\| \Delta x\|_X} = \| \nabla f(x) \|_{Y,X}.
+\]</div>
+<p class="sd-card-text">Similarly,</p>
+<div class="math notranslate nohighlight">
+\[
+\kappa_{rel}(x) =
+\frac{\| x \|_X}{\| f(x) \|_Y} \lim_{\delta\rightarrow 0} \sup_{0&lt;\|\Delta x\|\leq \delta} \frac{\| f(x + \Delta x) - f(x) \|_Y}{\| \Delta x\|_X} = \frac{\| x \|_X}{\| f(x) \|_Y} \| \nabla f(x) \|_{Y,X}.
+\]</div>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Let <span class="math notranslate nohighlight">\(f : D \subset X \to Y\)</span> be differentiable and <span class="math notranslate nohighlight">\(\| x \|_X \neq 0\)</span> and <span class="math notranslate nohighlight">\(\| f(x) \|_Y \neq 0\)</span>, <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> being finite-dimensional real vector spaces. Show that</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\|\Delta f\|_Y}{\|f(x)\|_Y} \leq K_{rel}(x)\cdot \frac{\|\Delta x\|_X}{\|x\|_X}
+\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\|\Delta f\|_Y}{\|f\|_Y} \leq \kappa_{rel}(x)\cdot \frac{\|\Delta x\|_X}{\|x\|_X} + \text{higher-order terms}
+\]</div>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">We only show the second bound; the first follows from an inquality similar to <span class="math notranslate nohighlight">\((*)\)</span> below, with an adjusted set over which the supremum is taken. We multiple and divide by an auxiary term: for <span class="math notranslate nohighlight">\(\|\Delta x\|_X &gt; 0\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\|\Delta f\|_Y}{\|f\|_Y} \leq \Bigl( \frac{\|\Delta f\|_Y}{\|f\|_Y} \Big/ \frac{\|\Delta x\|_X}{\|x\|_X} \Bigr) \frac{\|\Delta x\|_X}{\|x\|_X} \stackrel{(*)}{\leq} \frac{\|\Delta x\|_X}{\|x\|_X} \sup_{0 &lt; \| \Delta \tilde{x} \|_X \leq \| \Delta x \|_X} \Bigl( \frac{\| f(x + \Delta \tilde{x}) - f(x) \|_Y}{\| f(x) \|_Y} \Big/ \frac{\|\Delta \tilde{x}\|_X}{\|x\|_X} \Bigr)
+\]</div>
+<p class="sd-card-text">Because <span class="math notranslate nohighlight">\(\| f(x) \| \neq 0\)</span> and <span class="math notranslate nohighlight">\(f\)</span> is differentiable, we may use the arguments of the previous self-check question to show that the function</p>
+<div class="math notranslate nohighlight">
+\[
+g(\Delta x) := \sup_{0 &lt; \| \Delta \tilde{x} \|_X \leq \| \Delta x \|_X} \Bigl( \frac{\| f(x + \Delta \tilde{x}) - f(x) \|_Y}{\| f(x) \|_Y} \Big/ \frac{\|\Delta \tilde{x}\|_X}{\|x\|_X} \Bigr)
+\]</div>
+<p class="sd-card-text">has the continuous extension</p>
+<div class="math notranslate nohighlight">
+\[
+g(0) = \frac{\| x \|_X}{\|f(x) \|_Y}\| \nabla f(x) \|_{Y,X} = \kappa_{rel}(x)
+\]</div>
+<p class="sd-card-text">at <span class="math notranslate nohighlight">\(\Delta x = 0\)</span>, meaning that there is a function <span class="math notranslate nohighlight">\(\tilde{h}: \mathbb{R}^n \to \mathbb{R}\)</span> with <span class="math notranslate nohighlight">\(\lim_{\| \Delta x \| \to 0} \tilde{h}(\Delta x) = 0\)</span> such that</p>
+<div class="math notranslate nohighlight">
+\[
+g(\Delta x) = \kappa_{rel}(x) + \tilde{h}(\Delta x).
+\]</div>
+<p class="sd-card-text">Now the result follows with</p>
+<div class="math notranslate nohighlight">
+\[
+\text{higher-order terms} = \tilde{h}(\Delta x) \frac{\|\Delta x\|_X}{\|x\|_X}.
+\]</div>
+</div>
+</details></section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="0.1_matrix_vector_norms.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Measuring distances</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="0.3_linear_system_error.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">The condition number of linear systems</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#forward-error">Forward error</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#backward-error">Backward error</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#condition-number">Condition Number</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finite-differences">Finite Differences</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#symbolic-computation">Symbolic computation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#automatic-differentiation">Automatic Differentiation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#self-check-questions">Self-check questions</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Timo Betcke, Erik Burman, Max Jensen
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

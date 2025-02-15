@@ -1,0 +1,976 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Stable Quadrature Schemes &#8212; Computational Methods MATH0058 lecture notes</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=b4b7a797" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '4.3_stable_quadrature_schemes';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Basic properties of eigenvalue problems" href="5.1_eigenvalues_basic_properties.html" />
+    <link rel="prev" title="Introduction to Quadrature" href="4.2_quadrature.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Computational Methods MATH0058 lecture notes - Home"/>
+    <img src="_static/logo.png" class="logo__image only-dark pst-js-only" alt="Computational Methods MATH0058 lecture notes - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="index.html">
+                    Welcome!
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Fundamentals</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="0.1_matrix_vector_norms.html">Measuring distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="0.2_error_analysis.html">Backward error analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="0.3_linear_system_error.html">The condition number of linear systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="0.4_complexity_notation.html">Asymptotic notation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Implementation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="1.1_floating_point_arithmetic.html">Floating point numbers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_numpy_and_data_layouts.html">Memory layout and Numpy</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="2.1_lu_decomposition.html">LU decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.2_lu_backward_error.html">Backward error and pivoting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.3_python_lu_decomposition.html">Python implementation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Orthogonal Decompositions</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="3.1_qr_decomposition.html">The QR Decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.2_singular_value_decomposition.html">The Singular Value Decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.3_least_squares_problems.html">Least-squares Problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.4_constrained_least_squares_problems.html">Constrained Problems</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Interpolation and Quadrature</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="4.1_interpolation.html">Polynomial Interpolation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.2_quadrature.html">Introduction to Quadrature</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Stable Quadrature Schemes</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Eigenvalue Problems</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="5.1_eigenvalues_basic_properties.html">Basic properties of eigenvalue problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.2_computing_eigenvalues.html">Computing eigenvalues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.3_computing_eigenspaces.html">Computing the eigensystem</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back matter</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="bm1_notation_and_facts.html">Notation and facts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bm2_programming_resources.html">Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bm3_markdown.html">Markdown and LaTeX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bm4_bibliography.html">Bibliography</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/4.3_stable_quadrature_schemes.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Stable Quadrature Schemes</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#composite-quadratures">Composite Quadratures</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-quadratures">Gaussian Quadratures</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#composite-newton-cotes-quadrature-rules">Composite Newton-Cotes quadrature rules</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-quadrature">Gaussian quadrature</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#self-check-questions">Self-check questions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-material">Optional material</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="stable-quadrature-schemes">
+<h1>Stable Quadrature Schemes<a class="headerlink" href="#stable-quadrature-schemes" title="Link to this heading">#</a></h1>
+<section id="composite-quadratures">
+<h2>Composite Quadratures<a class="headerlink" href="#composite-quadratures" title="Link to this heading">#</a></h2>
+<p>When dealing with functions <span class="math notranslate nohighlight">\(f\)</span> that may lack smoothness, it can be advantageous to divide the integration interval <span class="math notranslate nohighlight">\([a,b]\)</span> into <span class="math notranslate nohighlight">\(m\)</span> smaller, equally sized subintervals <span class="math notranslate nohighlight">\(\{[x_{i-1},x_i]\}_{i=1}^m\)</span>. Each subinterval has a length of <span class="math notranslate nohighlight">\(h:=(b-a)/m\)</span>. Within each subinterval, we apply a low-degree interpolatory quadrature formula.</p>
+<p>For example, using the trapezium rule on <span class="math notranslate nohighlight">\([x_{i-1},x_i]\)</span>, we find</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+   \mathcal{C}_{1,m}(f) &amp;= \frac{b-a}m\, \Bigl[ \Bigl( \frac{1}{2} f(x_0) + \frac{1}{2} f(x_1) \Bigr)
+   + \Bigl(\frac{1}{2} f(x_1) + \frac{1}{2} f(x_2) \Bigr) + \cdots
+   + \Bigl( \frac{1}{2} f(x_{m-1}) + \frac{1}{2} f(x_m) \Bigr) \Bigr] \notag\\
+   &amp;= h \Bigl[ \frac{1}{2} f(x_0) + \sum_{i=1}^{m-1} f(x_i) + \frac{1}{2} f(x_m) \Bigr].
+\end{align}
+\end{split}\]</div>
+<p>This scheme involves <span class="math notranslate nohighlight">\(m+1\)</span> evaluations of <span class="math notranslate nohighlight">\(f\)</span>. To use Simpson’s rule, we introduce an additional midpoint node <span class="math notranslate nohighlight">\(x_{i-1/2}:=(x_{i-1}+x_i)/2\)</span> in each subinterval. The composite Simpson’s rule is then given by:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+   \mathcal{C}_{2,m}(f) &amp;= \frac{b-a}{m} \, \Bigl[ \frac{1}{6} f(x_0) + \frac{2}{3} f(x_{1/2}) + \frac{1}{6} f(x_1)
+   + \frac{1}{6} f(x_1) + \frac{2}{3} f(x_{3/2}) + \frac{1}{6} f(x_2)\\
+   &amp; \phantom{= \frac{b-a}{m} \, \Bigl[} + \cdots + \frac{1}{6} f(x_{m-1}) + \frac{2}{3} f(x_{m-1/2}) + \frac{1}{6} f(x_m)\Bigr]\\
+   &amp;= \frac{h}{6} \Bigl[ f(x_0) + 4 \sum_{i=1}^{m} f(x_{i-1/2}) + 2 \sum_{i=1}^{m-1} f(x_i) + f(x_m) \Bigr].
+\end{align}
+\end{split}\]</div>
+<p>It involves <span class="math notranslate nohighlight">\(2m+1\)</span> evaluations of <span class="math notranslate nohighlight">\(f\)</span>.</p>
+<p>Error bounds for these methods can be obtained directly from those of the underlying methods. For <span class="math notranslate nohighlight">\(\mathcal{C}_{1,m}\)</span> we have, in the subinterval <span class="math notranslate nohighlight">\([x_{i-1},x_i]\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[
+\Bigl| \int_{x_{i-1}}^{x_i} f(x) dx - \tfrac{h}{2} (f(x_{i-1}) + f(x_i)) \Bigr| \le \frac{1}{2!}\,\max_{\xi\in[x_{i-1},x_i]}\,|f''(\xi)| \,\int_{x_{i-1}}^{x_i} |\omega_2(x)| dx = \frac{h^3}{12}\,\max_{\xi\in[x_{i-1},x_i]}\,|f''(\xi)|,
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\omega_2(x)=(x-x_{i-1})(x-x_i)\)</span>. Adding these up, we have in <span class="math notranslate nohighlight">\([a,b]=[x_0,x_m]\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[
+\bigl|\mathcal{I}(f)-\mathcal{C}_{1,m}(f)\bigr| \le \frac{mh^3}{12}\,\max_i\Bigl\{\max_{\xi\in[x_{i-1},x_i]}\,|f''(\xi)|\Bigr\} \leq (b-a)\,\frac{h^2}{12}\,\max_{\xi\in[a,b]}\,|f''(\xi)|.
+\]</div>
+</section>
+<section id="gaussian-quadratures">
+<h2>Gaussian Quadratures<a class="headerlink" href="#gaussian-quadratures" title="Link to this heading">#</a></h2>
+<p>The degree of exactness of an interpolatory quadrature <span class="math notranslate nohighlight">\(\mathcal{Q}_n\)</span> is at least <span class="math notranslate nohighlight">\(n\)</span>. By considering <span class="math notranslate nohighlight">\(\omega_{n+1}^2(x)=(x-x_0)^2\cdots(x-x_n)^2 \in \mathcal{P}_{2n+2}\)</span>, we find that the degree of exactness of any interpolatory quadrature cannot be equal to or larger than <span class="math notranslate nohighlight">\(2n+2\)</span>. Gauss showed that by judicious choice of the nodes <span class="math notranslate nohighlight">\(\{x_k\}\)</span>, one can indeed obtain a quadrature exact for all <span class="math notranslate nohighlight">\(f \in \mathcal{P}_{2n+1}\)</span>. The resulting Gaussian quadrature rests on the following:</p>
+<div class="proof theorem admonition" id="theorem-0">
+<p class="admonition-title"><span class="caption-number">Theorem 14 </span> (Gaussian quadrature)</p>
+<section class="theorem-content" id="proof-content">
+<p>The interpolatory quadrature formula <span class="math notranslate nohighlight">\(\mathcal{Q}_n\)</span> achieves a degree of exactness <span class="math notranslate nohighlight">\(2n+1\)</span> if and only if its nodes <span class="math notranslate nohighlight">\(x_0, \ldots, x_n\)</span> are such that the polynomial</p>
+<div class="math notranslate nohighlight">
+\[
+\omega_{n+1}(x) = \prod_{i=0}^n (x - x_i),
+\]</div>
+<p>meets the condition <span class="math notranslate nohighlight">\(\int_a^b \omega_{n+1}(x) \, p(x) \, dx = 0\)</span> for all <span class="math notranslate nohighlight">\(p \in \mathcal{P}_n\)</span>.</p>
+</section>
+</div><p>Thus, the nodes <span class="math notranslate nohighlight">\(\{x_k\}_{k=0}^n\)</span> are chosen so that the error polynomial <span class="math notranslate nohighlight">\(\omega_{n+1} \in \mathcal{P}_{n+1}\)</span> is in the orthogonal complement relative to the <span class="math notranslate nohighlight">\((n+1)\)</span>-dimensional space <span class="math notranslate nohighlight">\(\mathcal{P}_n\)</span> within the <span class="math notranslate nohighlight">\((n+2)\)</span>-dimensional space <span class="math notranslate nohighlight">\(\mathcal{P}_{n+1}\)</span> with respect to the inner product <span class="math notranslate nohighlight">\(\langle p, q \rangle = \int_a^b p(x) \, q(x) \, dx\)</span>. A proof of the theorem is given in the optional materials section.</p>
+<div class="proof definition admonition" id="definition-1">
+<p class="admonition-title"><span class="caption-number">Definition 10 </span></p>
+<section class="definition-content" id="proof-content">
+<p>An interpolatory quadrature method with <span class="math notranslate nohighlight">\(n+1\)</span> nodes that achieves a degree of exactness <span class="math notranslate nohighlight">\(2n+1\)</span> is termed a <em>Gaussian quadrature method</em>.</p>
+</section>
+</div><p>In short,</p>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{Q}_n \text{ Gaussian} \qquad \Leftrightarrow \qquad \langle \omega_{n+1}, p \rangle = 0 \quad \forall \, p \in \mathcal{P}_n.
+\]</div>
+<p>Once the nodes are determined, the coefficients can be computed as usual. Gaussian quadrature weights are always positive, unlike the coefficients <span class="math notranslate nohighlight">\(\sigma_k\)</span> of a general quadrature formula. This can be illustrated by considering</p>
+<div class="math notranslate nohighlight">
+\[
+L_k^2(x) = \prod_{i = 0 \atop i \neq k}^n \frac{(x-x_i)^2}{(x_k-x_j)^2} \in \mathcal{P}_{2n}.
+\]</div>
+<p>With the degree of exactness of  <span class="math notranslate nohighlight">\(2n+1\)</span> and <span class="math notranslate nohighlight">\(L_k^2(x_j) = \delta_{jk}\)</span>, we find that:</p>
+<div class="math notranslate nohighlight">
+\[
+0 &lt; \mathcal{I}(L_k^2) = \mathcal{Q}_n(L_k^2) = \sigma_k.
+\]</div>
+<p>In summary, Gaussian quadrature combines two crucial properties: stability and speed of convergence.</p>
+<p>While we only scratch the surface of Gaussian quadrature, its close relationship to orthogonal polynomials makes it a fascinating topic for further study, e.g. see <span id="id1">[<a class="reference internal" href="bm4_bibliography.html#id3" title="Endre Süli and David F. Mayers. An introduction to numerical analysis. Cambridge University Press, 2003. URL: https://ucl.primo.exlibrisgroup.com/permalink/44UCL_INST/hd4h9s/alma990027325160204761.">Süli and Mayers, 2003</a>]</span> and <span id="id2">[<a class="reference internal" href="bm4_bibliography.html#id4" title="Robert Plato. Concise numerical mathematics. Volume 57. American Mathematical Society, 2003. URL: https://ucl.primo.exlibrisgroup.com/permalink/44UCL_INST/155jbua/alma990010057180204761.">Plato, 2003</a>]</span> for more details.</p>
+</section>
+<section id="python-skills">
+<h2>Python skills<a class="headerlink" href="#python-skills" title="Link to this heading">#</a></h2>
+<section id="composite-newton-cotes-quadrature-rules">
+<h3>Composite Newton-Cotes quadrature rules<a class="headerlink" href="#composite-newton-cotes-quadrature-rules" title="Link to this heading">#</a></h3>
+<p>Scipy provides an implementation of the composite trapezium and Simpson’s rules, Numpy only has the former.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">integrate</span>
+
+<span class="c1"># Define a function to integrate</span>
+<span class="k">def</span> <span class="nf">my_function</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">**</span> <span class="mi">2</span>
+
+<span class="c1"># Define the interval</span>
+<span class="n">a</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># Lower limit</span>
+<span class="n">b</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># Upper limit</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">100</span>  <span class="c1"># Number of sample points</span>
+
+<span class="c1"># Generate sample points</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">my_function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="c1"># Trapezoidal Rule</span>
+<span class="n">trapz_result_np</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">trapz</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="n">trapz_result_scipy</span> <span class="o">=</span> <span class="n">integrate</span><span class="o">.</span><span class="n">trapz</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+
+<span class="c1"># Simpson&#39;s Rule</span>
+<span class="n">simps_result</span> <span class="o">=</span> <span class="n">integrate</span><span class="o">.</span><span class="n">simps</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+
+<span class="c1"># Display the results</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Trapezoidal Rule (numpy):&quot;</span><span class="p">,</span> <span class="n">trapz_result_np</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Trapezoidal Rule (scipy):&quot;</span><span class="p">,</span> <span class="n">trapz_result_scipy</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Simpson&#39;s Rule:&quot;</span><span class="p">,</span> <span class="n">simps_result</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="gaussian-quadrature">
+<h3>Gaussian quadrature<a class="headerlink" href="#gaussian-quadrature" title="Link to this heading">#</a></h3>
+<p>The code below compares exact integration with SciPy’s Gaussian quadrature implementation <code class="docutils literal notranslate"><span class="pre">integrate.quad</span></code>, which uses an adaptive composite formula  (based partly on Gauss–Kronrod quadrature). In addition, the Gaussian quadrature function <code class="docutils literal notranslate"><span class="pre">integrate.fixed_quad</span></code> with a specified number of quadrature points is evaluated.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy.integrate</span> <span class="k">as</span> <span class="nn">integrate</span>
+
+<span class="c1"># Define a function to integrate and its exact integral</span>
+<span class="k">def</span> <span class="nf">my_function</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="mi">9</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">**</span><span class="n">p</span>
+
+<span class="k">def</span> <span class="nf">integral_of_my_function</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">):</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="mi">9</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">b</span><span class="o">**</span><span class="p">(</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="n">a</span><span class="o">**</span><span class="p">(</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Define the interval</span>
+<span class="n">a</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># Lower limit</span>
+<span class="n">b</span> <span class="o">=</span> <span class="mi">5</span>  <span class="c1"># Upper limit</span>
+
+<span class="c1"># Using exact integration formula</span>
+<span class="n">result_exact</span> <span class="o">=</span> <span class="n">integral_of_my_function</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Exact integration:&quot;</span><span class="p">,</span> <span class="n">result_exact</span><span class="p">)</span>
+
+<span class="c1"># Using scipy.integrate.quad, which uses an (adaptive) composite Gaussian quadrature</span>
+<span class="n">result_quad</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">integrate</span><span class="o">.</span><span class="n">quad</span><span class="p">(</span><span class="n">my_function</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Gaussian Quadrature (scipy.integrate.quad):&quot;</span><span class="p">,</span> <span class="n">result_quad</span><span class="p">)</span>
+
+<span class="c1"># Using scipy.integrate.fixed_quad with different orders</span>
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]:</span>  <span class="c1"># Different number of quadrature points</span>
+    <span class="n">result_fixed_quad</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">integrate</span><span class="o">.</span><span class="n">fixed_quad</span><span class="p">(</span><span class="n">my_function</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Gaussian Quadrature of order </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2"> (fixed_quad):&quot;</span><span class="p">,</span> <span class="n">result_fixed_quad</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="self-check-questions">
+<h2>Self-check questions<a class="headerlink" href="#self-check-questions" title="Link to this heading">#</a></h2>
+<div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Show, for <span class="math notranslate nohighlight">\(f \in C^3[a,b]\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[
+\bigl|\mathcal{I}(f)-\mathcal{C}_{2,m}(f)\bigr| \le (b-a)\,\frac{h^3}{192}\,\max_{\xi\in[a,b]}\,|f'''(\xi)|.
+\]</div>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Using</p>
+<div class="math notranslate nohighlight">
+\[
+\int_{x_{i-1}}^{x_i} |\omega_3(x)| dx = h^4 \int_0^1 \bigl|(t-0)(t-1/2)(t-1)\bigr| dt = \frac{h^4}{32},
+\]</div>
+<p class="sd-card-text">we find</p>
+<div class="math notranslate nohighlight">
+\[
+\bigl|\mathcal{I}(f)-\mathcal{C}_{2,m}(f)\bigr| \le \frac{m}{3!}\,\frac{h^4}{32}\,\max_{\xi\in[a,b]}\,|f'''(\xi)| = (b-a)\,\frac{h^3}{192}\,\max_{\xi\in[a,b]}\,|f'''(\xi)|.
+\]</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p class="sd-card-text">When <span class="math notranslate nohighlight">\(f\)</span> is smooth enough, we could actually prove with a more sophisticated argument taking the symmetry of the nodes into account that</p>
+<div class="math notranslate nohighlight">
+\[
+\bigl|\mathcal{I}(f)-\mathcal{C}_{2,m}(f)\bigr| = (b-a)\,\frac{h^4}{2880}\,\max_{\xi\in[a,b]}\,|f^{(4)}(\xi)|.
+\]</div>
+</div>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Let <span class="math notranslate nohighlight">\(f(x) = \exp(-x^2)\)</span>. We wish to compare several methods to approximate</p>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{I}(f) := \int_0^1 f(x) dx
+\]</div>
+<p>where only <em>three</em> evaluations of <span class="math notranslate nohighlight">\(f\)</span> are allowed.</p>
+<p>Writing your formulas clearly, compute approximations to <span class="math notranslate nohighlight">\(\mathcal{I}(f)\)</span> using the:</p>
+<ol class="arabic simple">
+<li><p>rectangle rule, i.e. composite quadrature with <span class="math notranslate nohighlight">\(n=0\)</span> and <span class="math notranslate nohighlight">\(m=3\)</span>;</p></li>
+<li><p>trapezium rule, i.e. composite quadrature with <span class="math notranslate nohighlight">\(n=1\)</span> and <span class="math notranslate nohighlight">\(m=2\)</span>;</p></li>
+<li><p>closed Newton-Cotes with <span class="math notranslate nohighlight">\(n=2\)</span>.</p></li>
+</ol>
+<p>Compare with the exact answer <span class="math notranslate nohighlight">\(\mathcal{I}(f) = (\sqrt\pi/2)\,\textrm{erf}\,1=0.746824132812\cdots\)</span>.</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<ol class="arabic">
+<li><p class="sd-card-text">rectangle rule:</p>
+<div class="math notranslate nohighlight">
+\[
+   \mathcal{C}_{0,3}(f) = \frac{1}{3}\bigl[ f(\frac{1}{6}) + f(\frac{1}{2}) + f(\frac{5}{6}) \bigr] = 0.7502523\cdots
+   \]</div>
+</li>
+<li><p class="sd-card-text">trapezium rule:</p>
+<div class="math notranslate nohighlight">
+\[
+   \mathcal{C}_{1,2}(f) = \frac{1}{2}\bigl[\frac{1}{2} f(0) + f(\frac{1}{2}) + \frac{1}{2} f(1)\bigr] = 0.73137025\cdots
+   \]</div>
+</li>
+<li><p class="sd-card-text">closed Newton-Cotes with <span class="math notranslate nohighlight">\(n=2\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+   \mathcal{Q}_2(f) = \frac{1}{6} f(0) + \frac{2}{3} f(\frac{1}{2}) + \frac{1}{6} f(1) = 0.7471804289\cdots
+   \]</div>
+</li>
+</ol>
+<p class="sd-card-text">Comparing with the exact answer <span class="math notranslate nohighlight">\(\mathcal{I}(f)=0.746824132812\cdots\)</span>, the closed Newton-Cotes with <span class="math notranslate nohighlight">\(n=2\)</span> gives the best result.</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Let <span class="math notranslate nohighlight">\([a,b] = [-1,1]\)</span>.</p>
+<ol class="arabic simple">
+<li><p>Given the nodes <span class="math notranslate nohighlight">\(\{t_k\}=\bigl\{1/2,\bigl(1\pm\sqrt{3/5}\bigr)/2\bigr\}\)</span>, compute the coefficients <span class="math notranslate nohighlight">\(\{\sigma_k\}\)</span> of the interpolatory quadrature formula.</p></li>
+<li><p>Use your result to compute the interpolatory quadrature <span class="math notranslate nohighlight">\(\mathcal{Q}_2'(f)\)</span> for <span class="math notranslate nohighlight">\(f(x)=\exp(-x^2)\)</span> and compare with the results of the methods of the previous question.</p></li>
+</ol>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<ol class="arabic">
+<li><p class="sd-card-text">We compute</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+   \begin{align*}
+   \sigma_0 &amp; = \int_0^1 \frac{t-t_1}{t_0-t_1}\cdot\frac{t-t_2}{t_0-t_2} dt = \frac{5}{18} = 0.2777\cdots\\
+   \sigma_2 &amp; = \sigma_0 = \frac{5}{18} = 0.2777\cdots\\
+   \sigma_1 &amp; = 1 - (\sigma_0 + \sigma_2) = \frac{4}{9} = 0.4444\cdots.
+   \end{align*}
+   \end{split}\]</div>
+</li>
+<li><p class="sd-card-text">We get</p>
+<div class="math notranslate nohighlight">
+\[
+   \mathcal{Q}_2'(f) = \frac{5}{18} f(t_0) + \frac{4}{9} f(t_1) + \frac{5}{18} f(t_2) = 0.74681458419\cdots,
+   \]</div>
+<p class="sd-card-text">which is better than any of the results of the previous question.</p>
+</li>
+</ol>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Find nodes <span class="math notranslate nohighlight">\(\{t_0,t_1\}\subset[0,1]\)</span> and coefficients <span class="math notranslate nohighlight">\(\{\sigma_0,\sigma_1\}\)</span> such that the resulting quadrature formula has degree of exactness <span class="math notranslate nohighlight">\(3\)</span>, i.e.</p>
+<div class="math notranslate nohighlight">
+\[
+\sigma_0 f(t_0) + \sigma_1 f(t_1) = \int_0^1 f(t) \&gt;\mathrm{d}t,
+\]</div>
+<p>for every <span class="math notranslate nohighlight">\(f \in \mathcal{P}_3\)</span>. Hint: consider polynomials in <span class="math notranslate nohighlight">\(t-\frac{1}{2}\)</span> instead of <span class="math notranslate nohighlight">\(t\)</span>.</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Requiring the quadrature formula to be exact for <span class="math notranslate nohighlight">\(f(t)=1\)</span>, <span class="math notranslate nohighlight">\(t-\frac{1}{2}\)</span>, <span class="math notranslate nohighlight">\((t-\frac{1}{2})^2\)</span> and <span class="math notranslate nohighlight">\((t-\frac{1}{2})^3\)</span>, we have, with <span class="math notranslate nohighlight">\(\tau_i := t_i-\frac{1}{2}\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+   &amp;\sigma_0 + \sigma_1 = 1\\
+   &amp;\sigma_0\tau_0 + \sigma_1\tau_1 = 0\\
+   &amp;\sigma_0\tau_0^2 + \sigma_1\tau_1^2 = \frac{1}{12}\\
+   &amp;\sigma_0\tau_0^3 + \sigma_1\tau_1^3 = 0.
+\end{align*}
+\end{split}\]</div>
+<p class="sd-card-text">Since these relations are all symmetric in <span class="math notranslate nohighlight">\(\sigma_0\)</span> and <span class="math notranslate nohighlight">\(\sigma_1\)</span>, and in <span class="math notranslate nohighlight">\(\tau_0\)</span> and <span class="math notranslate nohighlight">\(\tau_1\)</span>, we look for a solution satisfying</p>
+<div class="math notranslate nohighlight">
+\[
+   \sigma_1 = \pm\sigma_0, \qquad \tau_1 = \pm\tau_0.
+\]</div>
+<p class="sd-card-text">The first equation implies that <span class="math notranslate nohighlight">\(\sigma_1 = \sigma_0 = \frac{1}{2}\)</span>. The second then implies that <span class="math notranslate nohighlight">\(\tau_1 = -\tau_0\)</span>; from the third equation, we find that <span class="math notranslate nohighlight">\(\tau_0 = 1/\sqrt{12}\)</span>.</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Similarly, find nodes <span class="math notranslate nohighlight">\(\{t_0,t_1,t_2\}\subset[0,1]\)</span> and coefficients <span class="math notranslate nohighlight">\(\{\sigma_0,\sigma_1,\sigma_2\}\)</span> such that</p>
+<div class="math notranslate nohighlight">
+\[
+\sigma_0 f(t_0) + \sigma_1 f(t_1) + \sigma_2 f(t_2) = \int_0^1 f(t) dt
+\]</div>
+<p>for every <span class="math notranslate nohighlight">\(f \in \mathcal{P}_5\)</span>. Hint: symmetry!</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">By symmetry, <span class="math notranslate nohighlight">\(t_1=\frac{1}{2}\)</span> and <span class="math notranslate nohighlight">\(t_2=1-t_0\)</span>, and <span class="math notranslate nohighlight">\(\sigma_2=\sigma_0=:\sigma\)</span>. Requiring that the quadrature is exact for constant functions, we have <span class="math notranslate nohighlight">\(\sigma_1=1-2\sigma\)</span>. Taking <span class="math notranslate nohighlight">\(f(t)=t^2\)</span> and <span class="math notranslate nohighlight">\(f(t)=t^4\)</span> (we do not get any more information
+from <span class="math notranslate nohighlight">\(t^3\)</span>), we get</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+   &amp;\sigma t_0^2 + (1-2\sigma)\frac{1}{4} + \sigma(1-t_0)^2 = \frac{1}{3}
+   &amp; &amp;\Rightarrow\qquad \sigma(2t_0-1)^2 = \frac{1}{6}\\
+   &amp;\sigma t_0^4 + (1-2\sigma)\frac{1}{16} + \sigma(1-t_0)^4 = \frac{1}{5}
+   &amp; &amp;\Rightarrow\qquad \sigma(2t_0-1)^2(4t_0^2-4t_0+7) = \frac{11}{10}\,.
+\end{align*}
+\end{split}\]</div>
+<p class="sd-card-text">(It is not surprising that <span class="math notranslate nohighlight">\(t_1=\frac{1}{2}\)</span> is a solution of these equations.) Putting these together,</p>
+<div class="math notranslate nohighlight">
+\[
+   4t_0^2 - 4t_0 + 7 = \frac{33}{5}
+   \qquad\Rightarrow\qquad
+   t_0 = \frac12\pm\frac12\sqrt{\frac35}
+   \quad\textrm{and}\quad
+   \sigma = \frac5{18}\,.
+\]</div>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Decompose the interval <span class="math notranslate nohighlight">\([a,b]\)</span> into <span class="math notranslate nohighlight">\(m\)</span> subintervals of equal length <span class="math notranslate nohighlight">\(h := (b-a)/m\)</span>. Let <span class="math notranslate nohighlight">\(\mathcal{C}_{h,1}\)</span> be the composite trapezium rule defined on these subintervals and let <span class="math notranslate nohighlight">\(\mathcal{C}_{h,2}\)</span> be the composite Simpson’s rule defined on these subintervals (thus for the calculation of <span class="math notranslate nohighlight">\(\mathcal{C}_{h,2}(f)\)</span> the function <span class="math notranslate nohighlight">\(f\)</span> is evaluated with a step-size of <span class="math notranslate nohighlight">\(h/2\)</span>). Show that</p>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{C}_{h,2}(f) = \frac{4}{3} \mathcal{C}_{h/2,1}(f) - \frac{1}{3} \mathcal{C}_{h,1}(f).
+\]</div>
+<p>Here <span class="math notranslate nohighlight">\(\mathcal{C}_{h/2,1}\)</span> is the trapezium rule with subintervals of the length <span class="math notranslate nohighlight">\(h/2\)</span>.</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Let</p>
+<div class="math notranslate nohighlight">
+\[
+x_i = a + i h = a + \frac{i}{m} (b-a), \qquad i = 0, 1, \ldots, m.
+\]</div>
+<p class="sd-card-text">We denote the mid-point of the interval <span class="math notranslate nohighlight">\([x_{i-1}, x_i]\)</span> by</p>
+<div class="math notranslate nohighlight">
+\[
+x_{i-1/2} := \frac{x_{i-1} + x_i}{2}.
+\]</div>
+<p class="sd-card-text">One calculates</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{eqnarray*}
+\frac{4}{3} \mathcal{C}_{h/2,1}(f) - \frac{1}{3} \mathcal{C}_{h,1}(f) &amp;=&amp; \frac{4}{3} \sum_{i = 1}^m \Bigl(\frac{h}{4} (f(x_{i-1}) + f(x_{i-1/2}))  +  \frac{h}{4} (f(x_{i-1/2}) + f(x_i))\Bigr)\\ 
+&amp;&amp; - \frac{1}{3} \sum_{i = 1}^m \Bigl( \frac{h}{2} (f(x_{i-1}) + f(x_i)) \Bigr)\\
+&amp;=&amp; \sum_{i = 1}^m \underbrace{\Bigl( \frac{h}{6} (f(x_{i-1}) + \frac{2 h}{3} (f(x_{i-1/2}) + \frac{h}{6} (f(x_{i-1}) \Bigr)}_{\mbox{Simpson's rule on $[x_{i-1}, x_i]$}}\\
+&amp;=&amp; \mathcal{C}_{h,2}(f).
+\end{eqnarray*}
+\end{split}\]</div>
+</div>
+</details></section>
+<section id="optional-material">
+<h2>Optional material<a class="headerlink" href="#optional-material" title="Link to this heading">#</a></h2>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Theory of Gaussian quadrature</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Gaussian quadrature is an advanced numerical method for evaluating integrals, particularly useful when dealing with functions that are difficult to integrate analytically. The general approach of Gaussian quadrature is based on the concept of weighted integrals, where the integration problem is defined as:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{I}(f) := \int_a^b f(x) \, \gamma(x) \, dx, \qquad f \in C[a,b],
+\]</div>
+<p class="sd-card-text">where <span class="math notranslate nohighlight">\(\gamma(x)\)</span> is a weight function that simplifies the integration process for certain types of functions.</p>
+<div class="note admonition">
+<p class="admonition-title">Understanding the role of the weight function <span class="math notranslate nohighlight">\(\gamma\)</span></p>
+<ol class="arabic simple">
+<li><p class="sd-card-text"><strong>Practical Applications</strong>: Often, one encounters integrals of functions <span class="math notranslate nohighlight">\(g(x)\)</span> that can be decomposed into a product of a smoothly varying function <span class="math notranslate nohighlight">\(f\)</span> and a weight function <span class="math notranslate nohighlight">\(\gamma\)</span>, such that <span class="math notranslate nohighlight">\(g = f \cdot \gamma\)</span>. In such cases, a common technique is to approximate <span class="math notranslate nohighlight">\(f\)</span> by a polynomial <span class="math notranslate nohighlight">\(p\)</span>, and then integrate the product <span class="math notranslate nohighlight">\(p \cdot \gamma\)</span>.</p></li>
+<li><p class="sd-card-text"><strong>Extension to Unbounded Domains</strong>: When extending this concept to unbounded integration domains, we consider <span class="math notranslate nohighlight">\(a = -\infty\)</span> and <span class="math notranslate nohighlight">\(b = \infty\)</span>. Here, <span class="math notranslate nohighlight">\(\gamma\)</span> is chosen to ensure that the product <span class="math notranslate nohighlight">\(p \cdot \gamma\)</span> remains integrable for polynomials <span class="math notranslate nohighlight">\(p\)</span> of degree <span class="math notranslate nohighlight">\(n\)</span>.</p></li>
+</ol>
+<p class="sd-card-text">For initial understanding, consider the simpler case where <span class="math notranslate nohighlight">\(\gamma \equiv 1\)</span> and <span class="math notranslate nohighlight">\(a, b \in \mathbb{R}\)</span>.</p>
+</div>
+<p class="sd-card-text">As before, we consider a quadrature formula of the form</p>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{Q}_n(f) = \sum_{k=0}^n \sigma_k f(x_k).
+\]</div>
+<p class="sd-card-text">In contrast to Newton-Cotes formulas, Gaussian quadrature benefits from the flexibility of choosing the nodes <span class="math notranslate nohighlight">\(x_k\)</span>. It is possible to significantly enhance the accuracy of the quadrature formula by optimising the node locations. We aim to achieve a quadrature method with a degree of exactness of <span class="math notranslate nohighlight">\(2n + 1\)</span>. This is facilitated by the concept of the scalar product:</p>
+<div class="math notranslate nohighlight">
+\[
+\langle f,g \rangle = \int_a^b f(x) g(x) \, \gamma(x) \, dx,
+\]</div>
+<p class="sd-card-text">This function <span class="math notranslate nohighlight">\(\gamma\)</span> is the same as the weight above and assumed to be piecewise continuous, integrable, and positive. Moreover, we assume that <span class="math notranslate nohighlight">\(\langle p, p \rangle\)</span> is finite for all <span class="math notranslate nohighlight">\(p \in \mathcal{P}_n\)</span>. Common examples include <span class="math notranslate nohighlight">\(\gamma = 1\)</span> for <span class="math notranslate nohighlight">\(a,b \in \mathbb{R}\)</span>, <span class="math notranslate nohighlight">\(\gamma = 1/t\)</span> for <span class="math notranslate nohighlight">\(a=0\)</span>, <span class="math notranslate nohighlight">\(b=\infty\)</span>, and <span class="math notranslate nohighlight">\(\gamma = 1/\sqrt{1-t^2}\)</span> for <span class="math notranslate nohighlight">\(a=-1\)</span>, <span class="math notranslate nohighlight">\(b=1\)</span>.</p>
+<p class="sd-card-text">Our focus is to demonstrate that the optimal quadrature nodes correspond to the roots of orthogonal polynomials. To understand this, we must explore two key results about orthogonal polynomials.</p>
+<div class="proof theorem admonition" id="theorem-2">
+<p class="admonition-title"><span class="caption-number">Theorem 15 </span> (Roots of orthogonal polynomials)</p>
+<section class="theorem-content" id="proof-content">
+<p class="sd-card-text">For a polynomial <span class="math notranslate nohighlight">\(\tilde{p} \in \mathcal{P}_{n+1}\)</span>, if</p>
+<div class="math notranslate nohighlight">
+\[
+\langle \tilde{p}, p \rangle = 0 \quad \forall \, p \in \mathcal{P}_n,
+\]</div>
+<p class="sd-card-text">then <span class="math notranslate nohighlight">\(\tilde{p}\)</span> either equals zero or has exactly <span class="math notranslate nohighlight">\(n+1\)</span> distinct roots in the open interval <span class="math notranslate nohighlight">\((a,b)\)</span>.</p>
+</section>
+</div><div class="proof admonition" id="proof">
+<p class="sd-card-text">Proof. Suppose <span class="math notranslate nohighlight">\(\tilde{p} \neq 0\)</span>. If <span class="math notranslate nohighlight">\(\tilde{p}\)</span> has roots <span class="math notranslate nohighlight">\(\xi_0, \xi_1, \ldots, \xi_\ell\)</span> where its sign changes, then construct a polynomial <span class="math notranslate nohighlight">\(s(x) = \prod_{j=0}^\ell (x - \xi_j)\)</span>. If no such roots exist, let <span class="math notranslate nohighlight">\(s(x) = 1\)</span>. The product <span class="math notranslate nohighlight">\(\tilde{p} \cdot s\)</span> does not change sign, implying <span class="math notranslate nohighlight">\(\langle \tilde{p}, s \rangle \neq 0\)</span>. The degree of <span class="math notranslate nohighlight">\(s\)</span> is greater than <span class="math notranslate nohighlight">\(n\)</span>, so <span class="math notranslate nohighlight">\(\tilde{p}\)</span> has more than <span class="math notranslate nohighlight">\(n\)</span> sign changes. However, as a polynomial in <span class="math notranslate nohighlight">\(\mathcal{P}_{n+1}\)</span>, <span class="math notranslate nohighlight">\(\tilde{p}\)</span> can have at most <span class="math notranslate nohighlight">\(n+1\)</span> sign changes.</p>
+</div>
+<p class="sd-card-text">This indicates that the roots of <span class="math notranslate nohighlight">\(\tilde{p}\)</span> are ideal candidates for quadrature nodes. However, a question arises: is there a unique polynomial that satisfies this condition? If different polynomials meet the criterion, they could have varying roots, affecting the choice of nodes. The following theorem addresses this concern.</p>
+<div class="proof theorem admonition" id="theorem-3">
+<p class="admonition-title"><span class="caption-number">Theorem 16 </span> (Uniqueness of the orthogonal polynomial)</p>
+<section class="theorem-content" id="proof-content">
+<p class="sd-card-text">For any two non-zero polynomials <span class="math notranslate nohighlight">\(\tilde{p}, \bar{p} \in \mathcal{P}_{n+1}\)</span> satisfying the condition</p>
+<div class="math notranslate nohighlight">
+\[
+\langle \tilde{p}, p \rangle = 0 \quad \forall \, p \in \mathcal{P}_n,
+\]</div>
+<p class="sd-card-text">there exists a non-zero scalar <span class="math notranslate nohighlight">\(\alpha \in \mathbb{R}\)</span> such that <span class="math notranslate nohighlight">\(\bar{p} = \alpha \, \tilde{p}\)</span>.</p>
+</section>
+</div><div class="proof admonition" id="proof">
+<p class="sd-card-text">Proof. Consider the polynomial representations of <span class="math notranslate nohighlight">\(\tilde{p}(x)\)</span> and <span class="math notranslate nohighlight">\(\bar{p}(x)\)</span>. The coefficient <span class="math notranslate nohighlight">\(\tilde{a}_{n+1}\)</span> must be non-zero; otherwise, <span class="math notranslate nohighlight">\(\tilde{p}\)</span> would belong to <span class="math notranslate nohighlight">\(\mathcal{P}_n\)</span>. Setting <span class="math notranslate nohighlight">\(\alpha = \bar{a}_{n+1} / \tilde{a}_{n+1}\)</span>, we define <span class="math notranslate nohighlight">\(\Delta p = \alpha \tilde{p} - \bar{p}\)</span>. This difference falls within <span class="math notranslate nohighlight">\(\mathcal{P}_n\)</span>, and from our condition, it follows that</p>
+<div class="math notranslate nohighlight">
+\[
+\| \Delta p \|^2 = \langle \Delta p, \Delta p \rangle = \langle \alpha \tilde{p} - \bar{p}, \Delta
+p \rangle = \alpha \langle \tilde{p}, \Delta p \rangle - \langle \bar{p}, \Delta p \rangle = 0,
+\]</div>
+<p class="sd-card-text">implying <span class="math notranslate nohighlight">\(\bar{p} = \alpha \, \tilde{p}\)</span>.</p>
+</div>
+<div class="proof example admonition" id="example-4">
+<p class="admonition-title"><span class="caption-number">Example 16 </span> (Orthonormal basis of <span class="math notranslate nohighlight">\(\mathcal{P}_2\)</span>)</p>
+<section class="example-content" id="proof-content">
+<p class="sd-card-text">Using the Gram-Schmidt method, we construct an orthonormal basis for <span class="math notranslate nohighlight">\(\mathcal{P}_2\)</span> with respect to the scalar product:</p>
+<div class="math notranslate nohighlight">
+\[
+\langle f,g \rangle = \int_{-1}^1 f(x) \, g(x) \, dx, \qquad \gamma = 1.
+\]</div>
+<p class="sd-card-text">The resulting basis functions are:</p>
+<div class="math notranslate nohighlight">
+\[
+q_0 = \frac{1}{\sqrt{2}},\quad q_1 = \sqrt{\frac{3}{2}} t,\quad q_2 = \sqrt{\frac{45}{8}} \Bigl(t^2 - \frac{1}{3}\Bigr).
+\]</div>
+<p class="sd-card-text">For <span class="math notranslate nohighlight">\(k=1\)</span>, <span class="math notranslate nohighlight">\(q_2\)</span> meets the orthogonality condition, as any polynomial <span class="math notranslate nohighlight">\(p \in \mathcal{P}_1\)</span> can be expressed as a linear combination of <span class="math notranslate nohighlight">\(q_0\)</span> and <span class="math notranslate nohighlight">\(q_1\)</span>, leading to <span class="math notranslate nohighlight">\(\langle q_2, p \rangle = 0\)</span>. The roots of <span class="math notranslate nohighlight">\(q_2\)</span> within <span class="math notranslate nohighlight">\((-1,1)\)</span> are <span class="math notranslate nohighlight">\(\pm \frac{1}{\sqrt{3}} \approx \pm 0.5774\)</span>. Other quadratic polynomials meeting this condition will be of the form <span class="math notranslate nohighlight">\(\delta (t^2 - 1/3)\)</span> for some <span class="math notranslate nohighlight">\(\delta \in \mathbb{R}\)</span>.</p>
+</section>
+</div><p class="sd-card-text">We now arrive at the central result.</p>
+<div class="proof theorem admonition" id="theorem-5">
+<p class="admonition-title"><span class="caption-number">Theorem 17 </span> (Main theorem on Gaussian quadrature)</p>
+<section class="theorem-content" id="proof-content">
+<p class="sd-card-text">For an integration weight <span class="math notranslate nohighlight">\(\gamma\)</span>, the interpolatory quadrature formula <span class="math notranslate nohighlight">\(\mathcal{Q}_n\)</span> achieves a degree of exactness <span class="math notranslate nohighlight">\(2n+1\)</span> with respect to <span class="math notranslate nohighlight">\(\gamma\)</span> if and only if its nodes <span class="math notranslate nohighlight">\(x_0, \ldots, x_n\)</span> are such that the polynomial</p>
+<div class="math notranslate nohighlight">
+\[
+\tilde{p}(x) = \prod_{i=0}^n (x - x_i),
+\]</div>
+<p class="sd-card-text">meets the orthogonality condition <span class="math notranslate nohighlight">\(\langle \tilde{p}, p \rangle = 0\)</span> for all <span class="math notranslate nohighlight">\(p \in \mathcal{P}_n\)</span>.</p>
+</section>
+</div><div class="proof admonition" id="proof">
+<p class="sd-card-text">Proof. a) If <span class="math notranslate nohighlight">\(\mathcal{Q}_n\)</span> has a degree of exactness <span class="math notranslate nohighlight">\(2n+1\)</span> with respect to <span class="math notranslate nohighlight">\(\gamma\)</span>, then for all <span class="math notranslate nohighlight">\(f = \tilde{p} \cdot p \in \mathcal{P}_{2n+1}\)</span> with <span class="math notranslate nohighlight">\(p \in \mathcal{P}_{n}\)</span>, it follows that</p>
+<div class="math notranslate nohighlight">
+\[
+\int_a^b \tilde{p}(x) \, p(x) \, \gamma(x) \, dx = \mathcal{Q}_n (\tilde{p} \cdot p) = 0,
+\]</div>
+<p class="sd-card-text">satisfying the orthogonality condition.</p>
+<p class="sd-card-text">b) Conversely, if the orthogonality condition holds, we show that <span class="math notranslate nohighlight">\(\mathcal{Q}_n\)</span> has a degree of exactness <span class="math notranslate nohighlight">\(2n +1\)</span>. For any <span class="math notranslate nohighlight">\(f \in \mathcal{P}_{2n+1}\)</span>, polynomial division yields <span class="math notranslate nohighlight">\(f = \tilde{p} \cdot p + r\)</span> with <span class="math notranslate nohighlight">\(p, r \in \mathcal{P}_n\)</span>. Then</p>
+<div class="math notranslate nohighlight">
+\[
+\int_a^b f(x) \, \gamma(x) \, dx = \int_a^b \tilde{p}(x) \, p(x) \, \gamma(x) \, dx + \int_a^b r(x) \, \gamma(x) \, dx = 0 + \int_a^b r(x) \, \gamma(x) \, dx.
+\]</div>
+<p class="sd-card-text">Similarly, because <span class="math notranslate nohighlight">\(\tilde{p}(x_k) = 0\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{Q}_n(f) = \sum_{i=0}^n \sigma_k \bigl( \tilde{p}(x_k) \, p(x_k) + r(x_k) \bigr) = \sum_{i=0}^n \sigma_k r(x_k) = \mathcal{Q}_n(r),
+\]</div>
+<p class="sd-card-text">leading to the conclusion that <span class="math notranslate nohighlight">\(\mathcal{Q}_n\)</span> integrates <span class="math notranslate nohighlight">\(f\)</span> exactly, proving its degree of exactness is <span class="math notranslate nohighlight">\(2n+1\)</span>.</p>
+</div>
+<p class="sd-card-text">This concludes the theoretical foundation of Gaussian quadrature. Next, we explore its practical implementation.</p>
+<div class="tip admonition">
+<p class="admonition-title">Task</p>
+<p class="sd-card-text">Given a set number of nodes <span class="math notranslate nohighlight">\(n+1\)</span> and a positive, piecewise continuous integration weight <span class="math notranslate nohighlight">\(\gamma\)</span>, the objective is to find the quadrature formula <span class="math notranslate nohighlight">\(\mathcal{Q}_n\)</span> with a degree of exactness <span class="math notranslate nohighlight">\(2n + 1\)</span> relative to <span class="math notranslate nohighlight">\(\gamma\)</span>.</p>
+</div>
+<p class="sd-card-text">To construct <span class="math notranslate nohighlight">\(\mathcal{Q}_n\)</span>, follow these steps:</p>
+<ol class="arabic simple">
+<li><p class="sd-card-text"><strong>Finding the Nodes</strong>: Select a polynomial <span class="math notranslate nohighlight">\(\tilde{p}\)</span> satisfying the orthogonality condition. If an orthogonal basis of <span class="math notranslate nohighlight">\(\mathcal{P}_{n+1}\)</span> is not known, use the Gram-Schmidt method starting with the basis <span class="math notranslate nohighlight">\(\{1, x, x^2, \ldots, x^n, x^{n+1}\}\)</span> of <span class="math notranslate nohighlight">\(\mathcal{P}_{n+1}\)</span>.</p></li>
+<li><p class="sd-card-text"><strong>Roots of <span class="math notranslate nohighlight">\(q_{n+1}\)</span></strong>: Determine the roots of <span class="math notranslate nohighlight">\(\tilde{p}\)</span>; these are the nodes of <span class="math notranslate nohighlight">\(\mathcal{Q}_n\)</span>.</p></li>
+<li><p class="sd-card-text"><strong>Calculating Weights</strong>: Compute the weights of <span class="math notranslate nohighlight">\(\mathcal{Q}_n\)</span> using the usual formula for interpolatory quadrature rules, involving the integration of a Lagrange basis polynomial.</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p class="sd-card-text">Finding roots of <span class="math notranslate nohighlight">\(\tilde{p}\)</span> for large <span class="math notranslate nohighlight">\(n\)</span> can be challenging. Special techniques for finding roots of orthogonal polynomials, such as recursion relationships, are available but beyond the scope of this discussion. Most literature on Gaussian quadrature delves into these techniques in detail; see <span id="id3">[<a class="reference internal" href="bm4_bibliography.html#id4" title="Robert Plato. Concise numerical mathematics. Volume 57. American Mathematical Society, 2003. URL: https://ucl.primo.exlibrisgroup.com/permalink/44UCL_INST/155jbua/alma990010057180204761.">Plato, 2003</a>]</span>.</p>
+</div>
+</div>
+</details></section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="4.2_quadrature.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Introduction to Quadrature</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="5.1_eigenvalues_basic_properties.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Basic properties of eigenvalue problems</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#composite-quadratures">Composite Quadratures</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-quadratures">Gaussian Quadratures</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#composite-newton-cotes-quadrature-rules">Composite Newton-Cotes quadrature rules</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-quadrature">Gaussian quadrature</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#self-check-questions">Self-check questions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-material">Optional material</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Timo Betcke, Erik Burman, Max Jensen
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

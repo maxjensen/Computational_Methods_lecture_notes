@@ -1,0 +1,758 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Measuring distances &#8212; Computational Methods MATH0058 lecture notes</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '0.1_matrix_vector_norms';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Backward error analysis" href="0.2_error_analysis.html" />
+    <link rel="prev" title="Welcome!" href="index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Computational Methods MATH0058 lecture notes - Home"/>
+    <img src="_static/logo.png" class="logo__image only-dark pst-js-only" alt="Computational Methods MATH0058 lecture notes - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="index.html">
+                    Welcome!
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Fundamentals</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Measuring distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="0.2_error_analysis.html">Backward error analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="0.3_linear_system_error.html">The condition number of linear systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="0.4_complexity_notation.html">Asymptotic notation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Implementation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="1.1_floating_point_arithmetic.html">Floating point numbers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_numpy_and_data_layouts.html">Memory layout and Numpy</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="2.1_lu_decomposition.html">LU decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.2_lu_backward_error.html">Backward error and pivoting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.3_python_lu_decomposition.html">Python implementation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Orthogonal Decompositions</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="3.1_qr_decomposition.html">The QR Decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.2_singular_value_decomposition.html">The Singular Value Decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.3_least_squares_problems.html">Least-squares Problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.4_constrained_least_squares_problems.html">Constrained Problems</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Interpolation and Quadrature</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="4.1_interpolation.html">Polynomial Interpolation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.2_quadrature.html">Introduction to Quadrature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.3_stable_quadrature_schemes.html">Stable Quadrature Schemes</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Eigenvalue Problems</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="5.1_eigenvalues_basic_properties.html">Basic properties of eigenvalue problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.2_computing_eigenvalues.html">Computing eigenvalues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.3_computing_eigenspaces.html">Computing the eigensystem</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back matter</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="bm1_notation_and_facts.html">Notation and facts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bm2_programming_resources.html">Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bm3_markdown.html">Markdown and LaTeX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bm4_bibliography.html">Bibliography</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/0.1_matrix_vector_norms.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Measuring distances</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#frequently-used-vector-norms">Frequently used vector norms</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#norm-equivalence">Norm equivalence</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-norms">Matrix norms</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submultiplicativity">Submultiplicativity</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#relative-and-absolute-errors">Relative and absolute errors</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#defining-vectors-and-matrices-with-numpy">Defining vectors and matrices with NumPy</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#computing-vector-norms">Computing vector norms</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#computing-matrix-norms">Computing matrix norms</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#self-check-questions">Self-check questions</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="measuring-distances">
+<h1>Measuring distances<a class="headerlink" href="#measuring-distances" title="Link to this heading">#</a></h1>
+<p>Much of computational mathematics concerns the question of how to approximate the infinite by the finite. The reason is obvious: In mathematics infinity is ubiquitous, while computers are limited to the finite.</p>
+<p>For this reason, many problems in computational mathematics fall into one of the following categories:</p>
+<p><strong>Infinite-dimensional problems:</strong> When solving an ordinary differential equation, we pose an equation whose solution belongs to an infinite-dimensional space, such as the vector space <span class="math notranslate nohighlight">\(C^1[a,b]\)</span> of continuously differentiable functions. In other words, the problem generally has an infinite number of degrees of freedom. While mathematical theory may provide analytic solutions for special ODEs, for challenging real-world problems, it is often only possible to make general qualitative statements about the solution. The question arises whether a computer can provide quantitative information about the solution. Since a computer can only handle a finite number of degrees of freedom, any numerical approach inevitably introduces an approximation error, resulting in a discrepancy between the numerical and exact solutions.</p>
+<p><strong>Infinite sets:</strong> Related to the above, even a finite-dimensional vector space, such as the real number line <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>, is an infinite set that must be represented by a finite set on a computer. This leads to the concept of floating-point numbers, which we shall discuss soon, and again introduces an approximation error.</p>
+<p><strong>Iterative problems:</strong> The solution to many mathematical problems can be expressed as the limit of a sequence, where each sequence element can be computed in a finite number of steps. For example, consider a <a class="reference external" href="https://en.wikipedia.org/wiki/Riemann_integral">Riemann integral</a> as the limit of increasingly refined Riemann sums or the root of a function as the limit of a <a class="reference external" href="https://en.wikipedia.org/wiki/Newton%27s_method">Newton iteration</a>. A computer can calculate the value of each sequence element in finite (but increasing) time. How large is the error, i.e., the difference between the computed element and the limit?</p>
+<p>If the objects of interest (such as an error) are from a vector space, the most suitable concept to measure their size is often that of a norm.</p>
+<div class="proof definition admonition" id="definition-0">
+<p class="admonition-title"><span class="caption-number">Definition 1 </span> (Norm axioms)</p>
+<section class="definition-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(V\)</span> be a real vector space, <span class="math notranslate nohighlight">\(\mathbb{R}^{+} := [0, \infty)\)</span>, and <span class="math notranslate nohighlight">\(\rho: V \rightarrow \mathbb{R}^{+}\)</span> a mapping from
+<span class="math notranslate nohighlight">\(V\)</span> into the non-negative numbers. <span class="math notranslate nohighlight">\(\rho\)</span> is called a norm if it satisfies the following properties:</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(\rho(\alpha x) = |\alpha| \rho(x)~\forall \alpha \in \mathbb{R};~x \in V\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\rho(x + y) \leq \rho(x) + \rho(y)~\forall x, y \in V\)</span> (triangle inequality)</p></li>
+<li><p><span class="math notranslate nohighlight">\(\rho(x) = 0\)</span> if and only if <span class="math notranslate nohighlight">\(x = 0\)</span>.</p></li>
+</ol>
+</section>
+</div><p>From these axioms, it immediately follows that</p>
+<div class="math notranslate nohighlight">
+\[
+0 = \rho(0) = \rho(x - x) \leq 2 \rho(x)
+\]</div>
+<!-- \rho(x) + \rho(-1 \cdot x) = -->
+<p>and therefore <span class="math notranslate nohighlight">\(\rho(x) \geq 0\)</span> for all <span class="math notranslate nohighlight">\(x \in V\)</span>. Hence, a norm is always non-negative.</p>
+<p>The first and third norm axioms are usually straightforward to prove. The challenging one is the second axiom, the triangle inequality.</p>
+<section id="frequently-used-vector-norms">
+<h2>Frequently used vector norms<a class="headerlink" href="#frequently-used-vector-norms" title="Link to this heading">#</a></h2>
+<p>Let <span class="math notranslate nohighlight">\(V\)</span> be the real vector space <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>. Let <span class="math notranslate nohighlight">\(x \in V\)</span> and denote by <span class="math notranslate nohighlight">\(x_j\)</span> the <span class="math notranslate nohighlight">\(j\)</span>-th component of <span class="math notranslate nohighlight">\(x\)</span>.</p>
+<p>The most frequently used vector norms are:</p>
+<ul class="simple">
+<li><p>The <span class="math notranslate nohighlight">\(1\)</span>-norm: <span class="math notranslate nohighlight">\(\|x\|_1 = \sum_{j=1}^n |x_j|\)</span>.</p></li>
+<li><p>The <span class="math notranslate nohighlight">\(2\)</span>-norm: <span class="math notranslate nohighlight">\(\|x\|_2 = \left(\sum_{j=1}^n |x_j|^2\right)^{1/2}\)</span>.</p></li>
+<li><p>The <span class="math notranslate nohighlight">\(\infty\)</span>-norm: <span class="math notranslate nohighlight">\(\|x\|_{\infty} = \max_j |x_j|\)</span>.</p></li>
+</ul>
+<p>The first two are special cases of the <span class="math notranslate nohighlight">\(\ell_p\)</span>-norm, defined as</p>
+<div class="math notranslate nohighlight">
+\[
+\|x\|_p = \left(\sum_{j=1}^n |x_j|^p\right)^{1/p}.
+\]</div>
+<p>The third is the limit as <span class="math notranslate nohighlight">\(p \to \infty\)</span>: <span class="math notranslate nohighlight">\(\|x\|_{\infty} = \lim_{p \to \infty} \|x\|_p\)</span> for all <span class="math notranslate nohighlight">\(x\)</span>.</p>
+</section>
+<section id="norm-equivalence">
+<h2>Norm equivalence<a class="headerlink" href="#norm-equivalence" title="Link to this heading">#</a></h2>
+<p>Which norm should we use? This usually depends on the application. A New York taxi driver will prefer the <span class="math notranslate nohighlight">\(1\)</span>-norm when calculating distances as they need to follow a street map and cannot travel diagonally to locations.</p>
+<p>In Numerical Analysis, we often want to prove whether a given numerical approximation converges. We consider several computations indexed by <span class="math notranslate nohighlight">\(n\)</span> and have a corresponding error quantity <span class="math notranslate nohighlight">\(e_n\)</span>. We want to show that the sequence of errors <span class="math notranslate nohighlight">\(\left\{e_n\right\}\)</span> converges to <span class="math notranslate nohighlight">\(0\)</span> as <span class="math notranslate nohighlight">\(n \to \infty\)</span>. Can it happen that an error converges to <span class="math notranslate nohighlight">\(0\)</span> in one norm but not in another norm? In finite-dimensional vector spaces, the answer is no. If a sequence converges in one norm, it also converges in all others. This is due to the following norm equivalence theorem.</p>
+<div class="proof theorem admonition" id="theorem-1">
+<p class="admonition-title"><span class="caption-number">Theorem 1 </span> (Norm equivalence in finite-dimensional vector spaces)</p>
+<section class="theorem-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(V\)</span> be a finite-dimensional vector space. Consider two norms <span class="math notranslate nohighlight">\(\|\cdot\|_a\)</span> and <span class="math notranslate nohighlight">\(\|\cdot\|_b\)</span> on <span class="math notranslate nohighlight">\(V\)</span>. Then, there exist positive constants <span class="math notranslate nohighlight">\(C_1\)</span>, <span class="math notranslate nohighlight">\(C_2\)</span> such that for all <span class="math notranslate nohighlight">\(x\in V\)</span></p>
+<div class="math notranslate nohighlight">
+\[
+C_1\|x\|_a\leq \|x\|_b\leq C_2\|x\|_a
+\]</div>
+</section>
+</div><div class="proof admonition" id="proof">
+<p>Proof. The proof requires some analysis and is not part of the lecture. A good reference for those interested in how it works is the following note by <a class="reference external" href="https://math.mit.edu/~stevenj/18.335/norm-equivalence.pdf">Steve Johnson at MIT</a>.</p>
+</div>
+<p>We note that norm equivalence is only a property of finite-dimensional vector spaces. For infinite-dimensional spaces (e.g., spaces of functions), it is easy to construct examples of sequences converging with respect to one norm but not another.</p>
+</section>
+<section id="matrix-norms">
+<h2>Matrix norms<a class="headerlink" href="#matrix-norms" title="Link to this heading">#</a></h2>
+<p>Let <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span>. Consider vector norms <span class="math notranslate nohighlight">\(\|x\|_a\)</span> for <span class="math notranslate nohighlight">\(x \in \mathbb{R}^n\)</span> and <span class="math notranslate nohighlight">\(\|y\|_b\)</span> for <span class="math notranslate nohighlight">\(y \in \mathbb{R}^m\)</span>. Then, an induced matrix norm can be defined as follows:</p>
+<div class="math notranslate nohighlight">
+\[
+\|A\|_{b, a} := \max_{x \in \mathbb{R}^n \setminus \{0\}} \frac{\|Ax\|_b}{\|x\|_a}
+\]</div>
+<p>If the same norm is used for both the domain and co-domain, we abbreviate <span class="math notranslate nohighlight">\(\|A\|_{a, a}\)</span> as <span class="math notranslate nohighlight">\(\|A\|_a\)</span>.</p>
+<p>The following three matrix norms derive from the corresponding vector norms (where <span class="math notranslate nohighlight">\(\lambda_{\max}\)</span> denotes the largest eigenvalue):</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\|A\|_1 = \max_{1 \leq j \leq n} \sum_{i=1}^m |a_{ij}| = \max_{x \in \mathbb{R}^n \setminus \{0\}} \frac{\|Ax\|_1}{\|x\|_1}\)</span>,</p></li>
+<li><p><span class="math notranslate nohighlight">\(\|A\|_2 = \sqrt{\lambda_{\max}(A^\top A)} = \max_{x \in \mathbb{R}^n \setminus \{0\}} \frac{\|Ax\|_2}{\|x\|_2}\)</span>,</p></li>
+<li><p><span class="math notranslate nohighlight">\(\|A\|_{\infty} = \max_{1 \leq i \leq m} \sum_{j=1}^n |a_{ij}| = \max_{x \in \mathbb{R}^n \setminus \{0\}} \frac{\|Ax\|_\infty}{\|x\|_\infty}\)</span>.</p></li>
+</ul>
+<p>Observe that <span class="math notranslate nohighlight">\(\|A\|_1 = \|A^\top\|_{\infty}\)</span>. The <span class="math notranslate nohighlight">\(\|A\|_2\)</span> matrix norm is difficult to evaluate as it requires computation of the largest eigenvalue of <span class="math notranslate nohighlight">\(A^\top A\)</span>, which is an computationally expensive operation. In practice, the following <strong>Frobenius</strong> norm is therefore frequently used instead of the matrix <span class="math notranslate nohighlight">\(2\)</span>-norm:</p>
+<div class="math notranslate nohighlight">
+\[
+\|A\|_F := \left(\sum_{ij} |a_{ij}|^2 \right)^{1/2}.
+\]</div>
+<p>One can show that</p>
+<div class="math notranslate nohighlight">
+\[
+\|A\|_2 \leq \|A\|_F \leq \sqrt{n} \|A\|_2, \qquad A \in \mathbb{R}^{n \times n}.
+\]</div>
+</section>
+<section id="submultiplicativity">
+<h2>Submultiplicativity<a class="headerlink" href="#submultiplicativity" title="Link to this heading">#</a></h2>
+<p>Let <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span> and <span class="math notranslate nohighlight">\(B \in \mathbb{R}^{n \times k}\)</span> with a corresponding vector-induced matrix norm <span class="math notranslate nohighlight">\(\|\cdot\|\)</span>. For any <span class="math notranslate nohighlight">\(v \in \mathbb{R}^k\)</span>, it holds <span class="math notranslate nohighlight">\(\| A w \| \leq \| A \| \, \| w \|\)</span>. Thus</p>
+<!--that
+
+$$
+\frac{\| B v \|}{\|v\|} \leq \max_{w \neq 0} \frac{\| B w \|}{\| w \|} = \| B \|
+$$
+
+and thus $\| B v \| \leq \| B \| \, \| v \|$. An analogous argument with $B v$ in place of $v$ gives-->
+<div class="math notranslate nohighlight">
+\[
+\|ABv\| \leq \|A\|\cdot\|Bv\|\leq \|A\|\cdot \|B\| \cdot \|v\|
+\]</div>
+<p>and therefore</p>
+<div class="math notranslate nohighlight">
+\[
+\|A \cdot B\|\leq \|A\|\cdot \|B\|.
+\]</div>
+<p>This property is called <strong>submultiplicativity</strong>. We have just proved it for any vector-induced matrix norm.</p>
+</section>
+<section id="relative-and-absolute-errors">
+<h2>Relative and absolute errors<a class="headerlink" href="#relative-and-absolute-errors" title="Link to this heading">#</a></h2>
+<p>Let <span class="math notranslate nohighlight">\(V\)</span> be a real vector space such as <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span> or <span class="math notranslate nohighlight">\(\mathbb{R}^{m \times n}\)</span>. Let <span class="math notranslate nohighlight">\(x \in V\)</span> be a quantity of interest and <span class="math notranslate nohighlight">\(\tilde{x} \in V\)</span> be its approximation. Given a norm <span class="math notranslate nohighlight">\(\| \cdot \|\)</span> of <span class="math notranslate nohighlight">\(V\)</span>, we call <span class="math notranslate nohighlight">\(\| x - \tilde{x} \|\)</span> the absolute error of the approximation (with respect to <span class="math notranslate nohighlight">\(\| \cdot \|\)</span>). If <span class="math notranslate nohighlight">\(x \neq 0\)</span> then <span class="math notranslate nohighlight">\(\| x - \tilde{x} \| / \| x \|\)</span> is the relative error.</p>
+</section>
+<section id="python-skills">
+<h2>Python skills<a class="headerlink" href="#python-skills" title="Link to this heading">#</a></h2>
+<section id="defining-vectors-and-matrices-with-numpy">
+<h3>Defining vectors and matrices with NumPy<a class="headerlink" href="#defining-vectors-and-matrices-with-numpy" title="Link to this heading">#</a></h3>
+<p>To work with vectors and matrices in Python, we can use the <code class="docutils literal notranslate"><span class="pre">numpy</span></code> library. Here is how you can define them:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># Define a vector</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+
+<span class="c1"># Define a matrix</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> 
+              <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+</pre></div>
+</div>
+</section>
+<section id="computing-vector-norms">
+<h3>Computing vector norms<a class="headerlink" href="#computing-vector-norms" title="Link to this heading">#</a></h3>
+<p>NumPy provides built-in functions to compute various norms of vectors:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">numpy.linalg</span> <span class="kn">import</span> <span class="n">norm</span>
+
+<span class="c1"># Compute 1-norm, 2-norm, and infinity-norm of a vector</span>
+<span class="n">norm_1</span> <span class="o">=</span> <span class="n">norm</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>       <span class="c1"># 1-norm</span>
+<span class="n">norm_2</span> <span class="o">=</span> <span class="n">norm</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>              <span class="c1"># 2-norm (default)</span>
+<span class="n">norm_inf</span> <span class="o">=</span> <span class="n">norm</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">)</span>  <span class="c1"># Infinity-norm</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;1-norm: </span><span class="si">{</span><span class="n">norm_1</span><span class="si">}</span><span class="s2">, 2-norm: </span><span class="si">{</span><span class="n">norm_2</span><span class="si">}</span><span class="s2">, Infinity-norm: </span><span class="si">{</span><span class="n">norm_inf</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="computing-matrix-norms">
+<h3>Computing matrix norms<a class="headerlink" href="#computing-matrix-norms" title="Link to this heading">#</a></h3>
+<p>Similarly, matrix norms can also be computed:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Compute Frobenius norm of a matrix</span>
+<span class="n">norm_F</span> <span class="o">=</span> <span class="n">norm</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="s1">&#39;fro&#39;</span><span class="p">)</span>   <span class="c1"># Frobenius norm</span>
+
+<span class="c1"># Compute 1-norm, 2-norm, and infinity-norm of a matrix</span>
+<span class="n">norm_1</span> <span class="o">=</span> <span class="n">norm</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>       <span class="c1"># 1-norm</span>
+<span class="n">norm_2</span> <span class="o">=</span> <span class="n">norm</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>       <span class="c1"># 2-norm</span>
+<span class="n">norm_inf</span> <span class="o">=</span> <span class="n">norm</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">)</span>  <span class="c1"># Infinity-norm</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Frobenius norm: </span><span class="si">{</span><span class="n">norm_F</span><span class="si">}</span><span class="s2">, 1-norm: </span><span class="si">{</span><span class="n">norm_1</span><span class="si">}</span><span class="s2">, 2-norm: </span><span class="si">{</span><span class="n">norm_2</span><span class="si">}</span><span class="s2">, Infinity-norm: </span><span class="si">{</span><span class="n">norm_inf</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="self-check-questions">
+<h2>Self-check questions<a class="headerlink" href="#self-check-questions" title="Link to this heading">#</a></h2>
+<div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Let <span class="math notranslate nohighlight">\(A\in\mathbb{R}^{m\times n}\)</span>. Prove that</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\|A\|_1 = \max_j \sum_i|a_{ij}|\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\|A\|_{\infty} = \max_i \sum_j|a_{ij}|\)</span>.</p></li>
+</ul>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">From the definition of a vector-induced matrix norm, we have that</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+\|A\|_1 &amp;= \max_{\|x\|_1 = 1} \sum_i |\left[Ax\right]_i|\\
+    &amp;\leq \max_{\|x\|_1 = 1} \sum_{i} \sum_j |a_{ij}| |x_j|\\
+    &amp;= \max_{\|x\|_1 = 1}  \sum_j |x_j|\sum_i |a_{ij}|\\
+    &amp;\leq \max_j\sum_i |a_{ij}| \max_{\|x\|_1 = 1} \sum_j|x_j|\\
+    &amp;=\max_j\sum_i |a_{ij}|.
+\end{aligned}
+\end{split}\]</div>
+<p class="sd-card-text">It remains to show that this upper bound is attainable. Let <span class="math notranslate nohighlight">\(\ell = \text{argmax}_j \sum_i |a_{ij}|\)</span> be an index <span class="math notranslate nohighlight">\(\ell\)</span> associated with the largest column sum. We then set <span class="math notranslate nohighlight">\(y_j = 0\)</span> for <span class="math notranslate nohighlight">\(j\neq \ell\)</span> and <span class="math notranslate nohighlight">\(y_\ell = 1\)</span>. It follows that <span class="math notranslate nohighlight">\(\| y \|_1 = 1\)</span> and</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\| A y \|_1}{\| y \|_1} = \max_j\sum_i |a_{ij}|. 
+\]</div>
+<p class="sd-card-text">For <span class="math notranslate nohighlight">\(\|A\|_{\infty}\)</span> we obtain</p>
+<div class="math notranslate nohighlight">
+\[
+\|A\|_{\infty} = \max_{\|x\|_{\infty} = 1} \max_i |\left[Ax\right]_i| \leq \max_i \sum_{j}|a_{ij}|.
+\]</div>
+<p class="sd-card-text">Let <span class="math notranslate nohighlight">\(k\)</span> be the row index for which the upper bound is attained. By choosing <span class="math notranslate nohighlight">\(x_j = \text{sign}~a_{kj}\)</span> we have that <span class="math notranslate nohighlight">\(\|Ax\|_{\infty} = \max_i \sum_{j}|a_{ij}|\)</span>, which confirms that the upper bound can be attained.</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>For the matrix <span class="math notranslate nohighlight">\(A = \begin{pmatrix} 2 &amp; 3 \\ 0 &amp; 1\end{pmatrix}\)</span>, compute <span class="math notranslate nohighlight">\(\|A\|_p\)</span> for <span class="math notranslate nohighlight">\(p=1, 2, \infty, F\)</span>.</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">We have <span class="math notranslate nohighlight">\(\|A\|_1 = 4\)</span>, <span class="math notranslate nohighlight">\(\|A\|_{\infty} = 5\)</span>, and <span class="math notranslate nohighlight">\(\|A\|_F = \sqrt{14}\)</span>. For <span class="math notranslate nohighlight">\(\|A\|_2\)</span>, we compute the eigenvalues of</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+A^\top A = \begin{pmatrix}4 &amp; 6\\ 6 &amp; 10\end{pmatrix},
+\end{split}\]</div>
+<p class="sd-card-text">giving us <span class="math notranslate nohighlight">\(\lambda_{1, 2} = 7 \pm 3\sqrt{5}\)</span>. Hence, <span class="math notranslate nohighlight">\(\|A\|_2 = \sqrt{7 + 3\sqrt{5}}\)</span>.</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Show that <span class="math notranslate nohighlight">\(\|x\|_{\infty} = \lim_{p\rightarrow\infty} \|x\|_p\)</span> for <span class="math notranslate nohighlight">\(x\in\mathbb{R}^n\)</span>.</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">For <span class="math notranslate nohighlight">\(x = 0\)</span>, the result holds because <span class="math notranslate nohighlight">\(\| x \|_\infty = \|x\|_p = 0\)</span> for all <span class="math notranslate nohighlight">\(p \in [1,\infty)\)</span>. Thus, assume for the remainder that <span class="math notranslate nohighlight">\(x \in \mathbb{R}^n \setminus \{ 0 \}\)</span>. Let <span class="math notranslate nohighlight">\(k\)</span> be an index of the largest element by magnitude in <span class="math notranslate nohighlight">\(x\)</span>. We have that</p>
+<div class="math notranslate nohighlight">
+\[
+\lim_{p\rightarrow\infty} \|x\|_p = \lim_{p\rightarrow\infty} \Bigl[ \sum_{j}|x_j|^p\Bigr]^{1/p} = |x_k|\lim_{p\rightarrow\infty} \Bigl[\underbrace{1 +  \sum_{j\neq k}|x_j/x_k|^p}_{=: d_p}\Bigr]^{1/p} = |x_k|.
+\]</div>
+<p class="sd-card-text">For the last inequality, we used that the term <span class="math notranslate nohighlight">\(d_p\)</span> is bounded from below by <span class="math notranslate nohighlight">\(1\)</span> and from above by <span class="math notranslate nohighlight">\(n\)</span> (accounting for the possibility that <span class="math notranslate nohighlight">\(x\)</span> can have multiple elements of the largest magnitude) so that <span class="math notranslate nohighlight">\(\lim_{p \to \infty} \sqrt[p]{d_p} \to 1\)</span>.</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Show that the Frobenius norm is submultiplicative: For matrices <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> with compatible dimensions such that the product <span class="math notranslate nohighlight">\(AB\)</span> exists, it holds that</p>
+<div class="math notranslate nohighlight">
+\[
+\|AB\|_F\leq \|A\|_F\cdot \|B\|_F.
+\]</div>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">First of all, since <span class="math notranslate nohighlight">\(\|A\|_2\leq \|A\|_F\)</span>, we have that</p>
+<div class="math notranslate nohighlight">
+\[
+\|Ax\|_2 \leq \|A\|_2\|x\|_2 \leq \|A\|_F\|x\|_2.
+\]</div>
+<p class="sd-card-text">We denote by <span class="math notranslate nohighlight">\(B_{:, j}\)</span> the <span class="math notranslate nohighlight">\(j\)</span>-th column of the matrix <span class="math notranslate nohighlight">\(B\)</span>. We can now write</p>
+<div class="math notranslate nohighlight">
+\[
+\|AB\|_F^2 = \sum_{j}\|AB_{:, j}\|_2^2\leq \|A\|_F^2\sum_{j}\|B_{:, j}\|_2^2 = \|A\|_F^2\cdot \|B\|_F^2,
+\]</div>
+<p class="sd-card-text">from which the result follows.</p>
+</div>
+</details></section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Welcome!</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="0.2_error_analysis.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Backward error analysis</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#frequently-used-vector-norms">Frequently used vector norms</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#norm-equivalence">Norm equivalence</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-norms">Matrix norms</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submultiplicativity">Submultiplicativity</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#relative-and-absolute-errors">Relative and absolute errors</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#defining-vectors-and-matrices-with-numpy">Defining vectors and matrices with NumPy</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#computing-vector-norms">Computing vector norms</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#computing-matrix-norms">Computing matrix norms</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#self-check-questions">Self-check questions</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Timo Betcke, Erik Burman, Max Jensen
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

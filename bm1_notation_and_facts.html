@@ -1,0 +1,586 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Notation and facts &#8212; Computational Methods MATH0058 lecture notes</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'bm1_notation_and_facts';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Python" href="bm2_programming_resources.html" />
+    <link rel="prev" title="Computing the eigensystem" href="5.3_computing_eigenspaces.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Computational Methods MATH0058 lecture notes - Home"/>
+    <img src="_static/logo.png" class="logo__image only-dark pst-js-only" alt="Computational Methods MATH0058 lecture notes - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="index.html">
+                    Welcome!
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Fundamentals</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="0.1_matrix_vector_norms.html">Measuring distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="0.2_error_analysis.html">Backward error analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="0.3_linear_system_error.html">The condition number of linear systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="0.4_complexity_notation.html">Asymptotic notation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Implementation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="1.1_floating_point_arithmetic.html">Floating point numbers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_numpy_and_data_layouts.html">Memory layout and Numpy</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="2.1_lu_decomposition.html">LU decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.2_lu_backward_error.html">Backward error and pivoting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.3_python_lu_decomposition.html">Python implementation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Orthogonal Decompositions</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="3.1_qr_decomposition.html">The QR Decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.2_singular_value_decomposition.html">The Singular Value Decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.3_least_squares_problems.html">Least-squares Problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.4_constrained_least_squares_problems.html">Constrained Problems</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Interpolation and Quadrature</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="4.1_interpolation.html">Polynomial Interpolation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.2_quadrature.html">Introduction to Quadrature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.3_stable_quadrature_schemes.html">Stable Quadrature Schemes</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Eigenvalue Problems</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="5.1_eigenvalues_basic_properties.html">Basic properties of eigenvalue problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.2_computing_eigenvalues.html">Computing eigenvalues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.3_computing_eigenspaces.html">Computing the eigensystem</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back matter</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Notation and facts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bm2_programming_resources.html">Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bm3_markdown.html">Markdown and LaTeX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bm4_bibliography.html">Bibliography</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/bm1_notation_and_facts.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Notation and facts</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notation">Notation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#facts">Facts</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="notation-and-facts">
+<h1>Notation and facts<a class="headerlink" href="#notation-and-facts" title="Link to this heading">#</a></h1>
+<section id="notation">
+<h2>Notation<a class="headerlink" href="#notation" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(f \in C[a,b]\)</span>: <span class="math notranslate nohighlight">\(f\)</span> is continuous on <span class="math notranslate nohighlight">\([a,b]\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(f \in C^n[a,b]\)</span>: <span class="math notranslate nohighlight">\(f\)</span> is <span class="math notranslate nohighlight">\(n\)</span> times continuously differentiable on <span class="math notranslate nohighlight">\([a,b]\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(f \in C^\infty[a,b]\)</span>: <span class="math notranslate nohighlight">\(f\)</span> is arbitrary times continuously differentiable on <span class="math notranslate nohighlight">\([a,b]\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathcal{P}_n\)</span>: The set of polynomials of degree at most <span class="math notranslate nohighlight">\(n\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\delta_{ij}\)</span>: The Kronecker delta, equal to <span class="math notranslate nohighlight">\(1\)</span> if <span class="math notranslate nohighlight">\(i=j\)</span> and 0 otherwise.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>: The <span class="math notranslate nohighlight">\(n\)</span>-dimensional real coordinate space.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbb{R}^{m \times n}\)</span>: The set of <span class="math notranslate nohighlight">\(m \times n\)</span> real matrices.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbb{R}^+\)</span>: The set of positive real numbers.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbb{C}^n\)</span>: The <span class="math notranslate nohighlight">\(n\)</span>-dimensional complex coordinate space.</p></li>
+<li><p><span class="math notranslate nohighlight">\(i\)</span>: The imaginary unit, <span class="math notranslate nohighlight">\(i^2 = -1\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\overline{z}\)</span>: The complex conjugate <span class="math notranslate nohighlight">\(z = x - i y\)</span> of <span class="math notranslate nohighlight">\(z = x + i y\)</span>, where <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> are real numbers.</p></li>
+<li><p><span class="math notranslate nohighlight">\(e_i\)</span>: The <span class="math notranslate nohighlight">\(i\)</span>-th standard basis vector.</p></li>
+<li><p><span class="math notranslate nohighlight">\(a_{ij}\)</span>: The element in the <span class="math notranslate nohighlight">\(i\)</span>-th row and <span class="math notranslate nohighlight">\(j\)</span>-th column of matrix <span class="math notranslate nohighlight">\(A\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(a_{:,j}\)</span> or <span class="math notranslate nohighlight">\(a_j\)</span>: The <span class="math notranslate nohighlight">\(j\)</span>-th column of matrix <span class="math notranslate nohighlight">\(A\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(a_{i,:}\)</span>: The <span class="math notranslate nohighlight">\(i\)</span>-th row of matrix <span class="math notranslate nohighlight">\(A\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(A^\top\)</span>: The transpose of matrix <span class="math notranslate nohighlight">\(A\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(A^H\)</span>: The conjugate transpose of matrix <span class="math notranslate nohighlight">\(A\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(I\)</span>: The identity matrix, sometimes <span class="math notranslate nohighlight">\(I_n\)</span> to denote the size.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\| \cdot \|_p\)</span>: <span class="math notranslate nohighlight">\(p\)</span>-norm of a vector of matrix.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\| \cdot \|_{b,a}\)</span>: matrix norm induced by the <span class="math notranslate nohighlight">\(\| \cdot \|_a\)</span> and <span class="math notranslate nohighlight">\(\| \cdot \|_b\)</span> vector norms.</p></li>
+<li><p><span class="math notranslate nohighlight">\(fl\)</span>: projection from <span class="math notranslate nohighlight">\(\mathbb{R}\)</span> onto the floating point numbers.</p></li>
+<li><p><span class="math notranslate nohighlight">\(E_{abs}\)</span>: absolute forward error.</p></li>
+<li><p><span class="math notranslate nohighlight">\(E_{rel}\)</span>: relative forward error.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\eta_{abs}\)</span>: absolute backward error.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\eta_{rel}\)</span>: relative backward error.</p></li>
+<li><p><span class="math notranslate nohighlight">\(K_{abs}\)</span>: absolute condition number.</p></li>
+<li><p><span class="math notranslate nohighlight">\(K_{rel}\)</span>: relative condition number.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\kappa_{abs}\)</span>: local absolute condition number.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\kappa_{rel}\)</span>: local relative condition number.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathcal{O}(f)\)</span>: assymptotic notation.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\langle f, g \rangle\)</span>: inner product of <span class="math notranslate nohighlight">\(f\)</span> and <span class="math notranslate nohighlight">\(g\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(f \otimes g\)</span>: outer product of <span class="math notranslate nohighlight">\(f\)</span> and <span class="math notranslate nohighlight">\(g\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\sigma_i\)</span>: <span class="math notranslate nohighlight">\(i\)</span>-th singular value of matrix.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\lambda_i\)</span>: <span class="math notranslate nohighlight">\(i\)</span>-th eigenvalue of matrix.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\text{diag}(a_1, \ldots, a_n)\)</span>: diagonal matrix with diagonal elements <span class="math notranslate nohighlight">\(a_1, \ldots, a_n \in \mathbb{R}\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\text{diag}(A)\)</span>: diagonal of matrix <span class="math notranslate nohighlight">\(A\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\det(A)\)</span>: determinant of matrix <span class="math notranslate nohighlight">\(A\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\text{rank}(A)\)</span>: rank of matrix <span class="math notranslate nohighlight">\(A\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\text{ker}(A)\)</span>: kernel (or null space) of matrix <span class="math notranslate nohighlight">\(A\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\text{ran}(A)\)</span>: range (or image) of matrix <span class="math notranslate nohighlight">\(A\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathcal{Q}_n\)</span>: quadrature rule with <span class="math notranslate nohighlight">\(n+1\)</span> nodes.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathcal{C}_{n,m}\)</span>: composite quadrature rule with <span class="math notranslate nohighlight">\(n+1\)</span> nodes in each of the <span class="math notranslate nohighlight">\(m\)</span> subintervals.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathcal{I}\)</span>: integral operator.</p></li>
+<li><p><span class="math notranslate nohighlight">\(L_k\)</span>: <span class="math notranslate nohighlight">\(k\)</span>th Lagrange basis polynomial.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\omega_{n+1}\)</span>: error polynomial.</p></li>
+</ul>
+</section>
+<section id="facts">
+<h2>Facts<a class="headerlink" href="#facts" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Geometric series</strong>: <span class="math notranslate nohighlight">\(\sum_{k=0}^n x^k = \frac{1-x^{n+1}}{1-x}\)</span> for <span class="math notranslate nohighlight">\(x \neq 1\)</span>. Converges to <span class="math notranslate nohighlight">\(\frac{1}{1-x}\)</span> if <span class="math notranslate nohighlight">\(|x| &lt; 1\)</span>.</p></li>
+<li><p><strong>Continuity and limits</strong>: A function <span class="math notranslate nohighlight">\(f\)</span> is continuous at a point <span class="math notranslate nohighlight">\(c\)</span> if <span class="math notranslate nohighlight">\(\lim_{x \to c} f(x) = f(c)\)</span>.</p></li>
+<li><p><strong>Boundedness of continuous functions</strong>: A continuous function on a closed, bounded interval is bounded.</p></li>
+<li><p><strong>Rolle’s theorem</strong>: If <span class="math notranslate nohighlight">\(f \in C[a,b]\)</span> and differentiable on <span class="math notranslate nohighlight">\((a,b)\)</span>, and <span class="math notranslate nohighlight">\(f(a) = f(b)\)</span>, then there exists a <span class="math notranslate nohighlight">\(c \in (a,b)\)</span> such that <span class="math notranslate nohighlight">\(f'(c) = 0\)</span>.</p></li>
+<li><p><strong>Mean value theorem</strong>: If <span class="math notranslate nohighlight">\(f \in C[a,b]\)</span> and differentiable on <span class="math notranslate nohighlight">\((a,b)\)</span>, there exists a <span class="math notranslate nohighlight">\(\xi \in (a,b)\)</span> such that <span class="math notranslate nohighlight">\(f'(c) = \frac{f(b) - f(a)}{b-a}\)</span>.</p></li>
+<li><p><strong>Taylor’s theorem</strong>: For <span class="math notranslate nohighlight">\(f \in C^{n+1}[a,b]\)</span> and <span class="math notranslate nohighlight">\(x_0, x \in [a,b]\)</span>, there’s a <span class="math notranslate nohighlight">\(\xi\)</span> between <span class="math notranslate nohighlight">\(x_0\)</span> and <span class="math notranslate nohighlight">\(x\)</span> with <span class="math notranslate nohighlight">\(f(x) = f(x_0) + f'(x_0)(x-x_0) + \frac{f''(x_0)}{2!}(x-x_0)^2 + \ldots + \frac{f^{(n)}(x_0)}{n!}(x-x_0)^n + \frac{f^{(n+1)}(\xi)}{(n+1)!}(x-x_0)^{n+1}.\)</span></p></li>
+<li><p><strong>Fundamental theorem of calculus:</strong> If <span class="math notranslate nohighlight">\(f\)</span> is continuous on <span class="math notranslate nohighlight">\([a, b]\)</span>, then <span class="math notranslate nohighlight">\(\int_a^b f(x) dx = F(b) - F(a)\)</span>, where <span class="math notranslate nohighlight">\(f\)</span> is the derivative of <span class="math notranslate nohighlight">\(F\)</span>.</p></li>
+<li><p><strong>Scalar product of vectors</strong>: The canonical scalar product of vectors <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> is <span class="math notranslate nohighlight">\(x^\top y\)</span>.</p></li>
+<li><p><strong>Outer product:</strong> The outer product of two vectors <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span>, denoted as <span class="math notranslate nohighlight">\(x \otimes y\)</span>, is a matrix where the element in the <span class="math notranslate nohighlight">\(i\)</span>-th row and <span class="math notranslate nohighlight">\(j\)</span>-th column is given by <span class="math notranslate nohighlight">\(x_i y_j\)</span>. Thus, <span class="math notranslate nohighlight">\(x \otimes y = xy^\top\)</span>.</p></li>
+<li><p><strong>Orthogonality</strong>: Two vectors are orthogonal if their scalar product is zero.</p></li>
+<li><p><strong>Orthogonal complement</strong>: The orthogonal complement of a subspace <span class="math notranslate nohighlight">\(V\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span> is the set of all vectors in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span> orthogonal to every vector in <span class="math notranslate nohighlight">\(V\)</span>.</p></li>
+<li><p><strong>Linear independence</strong>: A set of vectors is linearly independent if no vector in the set can be written as a linear combination of the others.</p></li>
+<li><p><strong>Basis and dimension</strong>: A basis of a vector space is a linearly independent set of vectors that spans the space. The number of vectors in a basis is the dimension of the space.</p></li>
+<li><p><strong>Rank of a matrix</strong>: The rank of a matrix is the maximum number of linearly independent rows or columns.</p></li>
+<li><p><strong>Eigenvectors and eigenvalues</strong>: For square matrix <span class="math notranslate nohighlight">\(A\)</span>, <span class="math notranslate nohighlight">\(v \neq 0\)</span> is an eigenvector if <span class="math notranslate nohighlight">\(Av = \lambda v\)</span> for some scalar <span class="math notranslate nohighlight">\(\lambda\)</span> (the eigenvalue).</p></li>
+<li><p><strong>Characteristic polynomial</strong>: The characteristic polynomial of the matrix <span class="math notranslate nohighlight">\(A\)</span> is <span class="math notranslate nohighlight">\(\det(A - \lambda I)\)</span>. Its roots are the eigenvalues of <span class="math notranslate nohighlight">\(A\)</span>.</p></li>
+<li><p><strong>Eigenvalues of triangular matrix</strong>: Eigenvalues of a triangular matrix are its diagonal elements.</p></li>
+<li><p><strong>Determinant and eigenvalues</strong>: The determinant of a matrix <span class="math notranslate nohighlight">\(A\)</span> is the product of its eigenvalues.</p></li>
+<li><p><strong>Inverse</strong>: A matrix <span class="math notranslate nohighlight">\(A\)</span> is invertible if and only if its determinant is non-zero. The inverse of <span class="math notranslate nohighlight">\(A\)</span> is <span class="math notranslate nohighlight">\(A^{-1}\)</span> such that <span class="math notranslate nohighlight">\(AA^{-1} = A^{-1}A = I\)</span></p></li>
+<li><p><strong>Singularity</strong>: A matrix is singular if it has no inverse, i.e., its determinant is zero.</p></li>
+<li><p><strong>Regular matrix</strong>: A matrix is regular if it is non-singular.</p></li>
+<li><p><strong>Transpose</strong>: The transpose of a matrix <span class="math notranslate nohighlight">\(A\)</span> is a matrix <span class="math notranslate nohighlight">\(A^\top\)</span> such that the element in the <span class="math notranslate nohighlight">\(i\)</span>-th row and <span class="math notranslate nohighlight">\(j\)</span>-th column of <span class="math notranslate nohighlight">\(A^\top\)</span> is the element in the <span class="math notranslate nohighlight">\(j\)</span>-th row and <span class="math notranslate nohighlight">\(i\)</span>-th column of <span class="math notranslate nohighlight">\(A\)</span>.</p></li>
+<li><p><strong>Conjugate transpose</strong>: The conjugate transpose of a matrix <span class="math notranslate nohighlight">\(A\)</span> is a matrix <span class="math notranslate nohighlight">\(A^H\)</span> such that the element in the <span class="math notranslate nohighlight">\(i\)</span>-th row and <span class="math notranslate nohighlight">\(j\)</span>-th column of <span class="math notranslate nohighlight">\(A^H\)</span> is the complex conjugate of the element in the <span class="math notranslate nohighlight">\(j\)</span>-th row and <span class="math notranslate nohighlight">\(i\)</span>-th column of <span class="math notranslate nohighlight">\(A\)</span>.</p></li>
+<li><p><strong>Orthogonal matrix</strong>: A matrix <span class="math notranslate nohighlight">\(Q\)</span> is orthogonal if <span class="math notranslate nohighlight">\(Q^\top Q = I\)</span>.</p></li>
+<li><p><strong>Unitary matrix</strong>: A matrix <span class="math notranslate nohighlight">\(U\)</span> is unitary if <span class="math notranslate nohighlight">\(U^HU = I\)</span>, where <span class="math notranslate nohighlight">\(U^H\)</span> is the conjugate transpose of <span class="math notranslate nohighlight">\(U\)</span>.</p></li>
+<li><p><strong>Positive definite matrix</strong>: A symmetric matrix <span class="math notranslate nohighlight">\(A\)</span> is positive definite if <span class="math notranslate nohighlight">\(x^\top Ax &gt; 0\)</span> for all non-zero vectors <span class="math notranslate nohighlight">\(x\)</span>.</p></li>
+<li><p><strong>Symmetric matrix</strong>: A matrix <span class="math notranslate nohighlight">\(A\)</span> is symmetric if <span class="math notranslate nohighlight">\(A = A^\top\)</span>.</p></li>
+<li><p><strong>Hermitian matrix</strong>: A matrix <span class="math notranslate nohighlight">\(A\)</span> is Hermitian if <span class="math notranslate nohighlight">\(A = A^H\)</span>, i.e., it is equal to its conjugate transpose.</p></li>
+<li><p><strong>Diagonal matrix</strong>: A matrix <span class="math notranslate nohighlight">\(A\)</span> is diagonal if all its off-diagonal elements are zero.</p></li>
+<li><p><strong>Diagonalisation</strong>: A matrix <span class="math notranslate nohighlight">\(A\)</span> is diagonalisable if it has <span class="math notranslate nohighlight">\(n\)</span> linearly independent eigenvectors. It can be written as <span class="math notranslate nohighlight">\(A = X \Lambda X^{-1}\)</span>, where <span class="math notranslate nohighlight">\(\Lambda\)</span> is a diagonal matrix of eigenvalues and <span class="math notranslate nohighlight">\(X\)</span> is a matrix of eigenvectors.</p></li>
+<li><p><strong>Geometric and algebraic multiplicity</strong>: The geometric multiplicity of an eigenvalue is the dimension of the eigenspace. The algebraic multiplicity is the number of times the eigenvalue appears as a root of the characteristic polynomial.</p></li>
+<li><p><strong>Backward and forward substitution:</strong> is used to solve a system of linear equations where the matrix is triangular. Backward substitution is also known as back substitution or backward elimination.</p></li>
+<li><p><strong>Gaussian elimination:</strong> is a method for solving linear systems. It consists of applying row operations to transform the matrix into triangular form and then solving for the variables. Gaussian elimination is also known as row reduction.</p></li>
+<li><p><strong>Polynomial division</strong>: Given polynomials <span class="math notranslate nohighlight">\(f\)</span> and <span class="math notranslate nohighlight">\(g\)</span>, there exist unique polynomials <span class="math notranslate nohighlight">\(q\)</span> and <span class="math notranslate nohighlight">\(r\)</span> such that <span class="math notranslate nohighlight">\(f = gq + r\)</span> and <span class="math notranslate nohighlight">\(\text{deg}(r) &lt; \text{deg}(g)\)</span>. <span class="math notranslate nohighlight">\(q\)</span> is the quotient and <span class="math notranslate nohighlight">\(r\)</span> is the remainder.</p></li>
+<li><p><strong>Fundamental theorem of algebra</strong>: Every polynomial that has a single variable, is of degree <span class="math notranslate nohighlight">\(n\)</span>, and has complex coefficients (excluding the zero polynomial), possesses precisely <span class="math notranslate nohighlight">\(n\)</span> complex roots when each root is counted according to its multiplicity.</p></li>
+<li><p><strong>Abel–Ruffini theorem</strong>: There is no general solution in radicals to polynomial equations of degree five or higher with arbitrary coefficients. Informally, the theorem says that for equations involving polynomials of degree five or higher, one can’t find a one-size-fits-all formula to solve them using just the basic arithmetic operations and root extractions.</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="5.3_computing_eigenspaces.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Computing the eigensystem</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="bm2_programming_resources.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Python</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notation">Notation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#facts">Facts</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Timo Betcke, Erik Burman, Max Jensen
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

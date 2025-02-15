@@ -1,0 +1,944 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>The Singular Value Decomposition &#8212; Computational Methods MATH0058 lecture notes</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '3.2_singular_value_decomposition';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Least-squares Problems" href="3.3_least_squares_problems.html" />
+    <link rel="prev" title="The QR Decomposition" href="3.1_qr_decomposition.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Computational Methods MATH0058 lecture notes - Home"/>
+    <img src="_static/logo.png" class="logo__image only-dark pst-js-only" alt="Computational Methods MATH0058 lecture notes - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="index.html">
+                    Welcome!
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Fundamentals</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="0.1_matrix_vector_norms.html">Measuring distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="0.2_error_analysis.html">Backward error analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="0.3_linear_system_error.html">The condition number of linear systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="0.4_complexity_notation.html">Asymptotic notation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Implementation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="1.1_floating_point_arithmetic.html">Floating point numbers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_numpy_and_data_layouts.html">Memory layout and Numpy</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="2.1_lu_decomposition.html">LU decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.2_lu_backward_error.html">Backward error and pivoting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.3_python_lu_decomposition.html">Python implementation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Orthogonal Decompositions</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="3.1_qr_decomposition.html">The QR Decomposition</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">The Singular Value Decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.3_least_squares_problems.html">Least-squares Problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.4_constrained_least_squares_problems.html">Constrained Problems</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Interpolation and Quadrature</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="4.1_interpolation.html">Polynomial Interpolation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.2_quadrature.html">Introduction to Quadrature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.3_stable_quadrature_schemes.html">Stable Quadrature Schemes</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Eigenvalue Problems</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="5.1_eigenvalues_basic_properties.html">Basic properties of eigenvalue problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.2_computing_eigenvalues.html">Computing eigenvalues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.3_computing_eigenspaces.html">Computing the eigensystem</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back matter</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="bm1_notation_and_facts.html">Notation and facts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bm2_programming_resources.html">Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bm3_markdown.html">Markdown and LaTeX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bm4_bibliography.html">Bibliography</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/3.2_singular_value_decomposition.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>The Singular Value Decomposition</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#insights">Insights</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#svd-and-low-rank-approximation">SVD and low-rank approximation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-reduced-svd">The reduced SVD</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#self-check-questions">Self-check questions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-material">Optional material</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="the-singular-value-decomposition">
+<h1>The Singular Value Decomposition<a class="headerlink" href="#the-singular-value-decomposition" title="Link to this heading">#</a></h1>
+<p>A matrix <span class="math notranslate nohighlight">\(\Sigma \in \mathbb{R}^{m \times n}\)</span> is called diagonal if <span class="math notranslate nohighlight">\(\sigma_{ij} = 0\)</span> for all <span class="math notranslate nohighlight">\(i \neq j\)</span>.</p>
+<div class="proof theorem admonition" id="theorem-0">
+<p class="admonition-title"><span class="caption-number">Theorem 4 </span> (Singular Value Decomposition)</p>
+<section class="theorem-content" id="proof-content">
+<p>For any matrix <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span>, there exists a singular value decomposition (SVD)</p>
+<div class="math notranslate nohighlight">
+\[
+A = U\Sigma V^\top,
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(U \in \mathbb{R}^{m \times m}\)</span> and <span class="math notranslate nohighlight">\(V \in \mathbb{R}^{n \times n}\)</span> are orthogonal matrices and <span class="math notranslate nohighlight">\(\Sigma\)</span> is diagonal with non-negative descending  diagonal elements <span class="math notranslate nohighlight">\(\sigma_i := \sigma_{ii}\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+\sigma_1 \geq \sigma_2 \geq \ldots \geq \sigma_n \geq 0.
+\]</div>
+</section>
+</div><p>The proof is given below in the optional materials section. For the remainder of the page, assume that <span class="math notranslate nohighlight">\(m \geq n\)</span>. The matrix <span class="math notranslate nohighlight">\(\Sigma \in \mathbb{R}^{m \times n}\)</span> is a block matrix of the form</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\Sigma = \begin{pmatrix} \tilde{\Sigma} \\ 0 \end{pmatrix},
+\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\tilde{\Sigma} = \text{diag}(\sigma_1, \sigma_2, \dots, \sigma_r, 0, \dots, 0)\)</span> is a diagonal matrix with non-negative real numbers <span class="math notranslate nohighlight">\(\sigma_1, \sigma_2, \dots, \sigma_r\)</span> on the diagonal, and <span class="math notranslate nohighlight">\(r\)</span> represents the rank of the matrix <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<p>These diagonal entries <span class="math notranslate nohighlight">\(\sigma_i\)</span> (for <span class="math notranslate nohighlight">\(i = 1, 2, \dots, n\)</span>) are known as the singular values of <span class="math notranslate nohighlight">\(A\)</span>. The columns <span class="math notranslate nohighlight">\(v_j\)</span> of <span class="math notranslate nohighlight">\(V\)</span> are called right singular vectors. The columns <span class="math notranslate nohighlight">\(u_j\)</span> of <span class="math notranslate nohighlight">\(U\)</span> are called left singular vectors.</p>
+<section id="insights">
+<h2>Insights<a class="headerlink" href="#insights" title="Link to this heading">#</a></h2>
+<ol class="arabic">
+<li><p><strong>Rank determination</strong>: The rank of matrix <span class="math notranslate nohighlight">\(A\)</span> is equal to <span class="math notranslate nohighlight">\(r\)</span>, defined as the count of non-zero singular values in the decomposition.</p></li>
+<li><p><strong>Kernel characterisation</strong>: The kernel (or null space) of <span class="math notranslate nohighlight">\(A\)</span>, denoted as <span class="math notranslate nohighlight">\(\text{ker}(A)\)</span>, is the span of the vectors <span class="math notranslate nohighlight">\(\{v_{r+1}, \dots, v_n\}\)</span>.</p></li>
+<li><p><strong>Range specification</strong>: The range of <span class="math notranslate nohighlight">\(A\)</span>, represented as <span class="math notranslate nohighlight">\(\text{ran}(A)\)</span>, is the span of the vectors <span class="math notranslate nohighlight">\(\{u_1, \dots, u_r\}\)</span>.</p></li>
+<li><p><strong><span class="math notranslate nohighlight">\(2\)</span>-norm relation</strong>: The <span class="math notranslate nohighlight">\(2\)</span> norm of <span class="math notranslate nohighlight">\(A\)</span> is equal to the greatest singular value, <span class="math notranslate nohighlight">\(\sigma_1\)</span>. Hence, <span class="math notranslate nohighlight">\(\|A\|_2 = \sigma_1\)</span>.</p></li>
+<li><p><strong>Frobenius norm calculation</strong>: Utilising the property that <span class="math notranslate nohighlight">\(\|Q A P\|_F = \|A\|_F\)</span> for any orthogonal matrices <span class="math notranslate nohighlight">\(Q\)</span> and <span class="math notranslate nohighlight">\(P\)</span>, we find that</p>
+<div class="math notranslate nohighlight">
+\[\|A\|_F =\left(\sum_{j=1}^r\sigma_j^2\right)^{1/2}.\]</div>
+</li>
+<li><p><strong>Norm inequalities</strong>: As a direct result, we deduce the inequality <span class="math notranslate nohighlight">\(\|A\|_2 \leq \|A\|_F \leq \sqrt{r}\|A\|_2\)</span>.</p></li>
+<li><p><strong>Inverse and condition number</strong>: For an invertible matrix <span class="math notranslate nohighlight">\(A\)</span>, its inverse is <span class="math notranslate nohighlight">\(A^{-1} = V\Sigma^{-1}U^\top\)</span>, and <span class="math notranslate nohighlight">\(\|A^{-1}\|_2 = \sigma_n^{-1}\)</span>. The relative condition number, <span class="math notranslate nohighlight">\(\kappa_{rel}(A)\)</span>, is thus <span class="math notranslate nohighlight">\(\frac{\sigma_1}{\sigma_n}\)</span>. The smallest perturbation that makes <span class="math notranslate nohighlight">\(A + \Delta A\)</span> singular is <span class="math notranslate nohighlight">\(\Delta A = -\sigma_n u_n v_n^\top\)</span>. Therefore, the condition number inversely relates to the smallest relative perturbation distance to singularity.</p></li>
+</ol>
+<p>See also the related self-check question below.</p>
+</section>
+<section id="svd-and-low-rank-approximation">
+<h2>SVD and low-rank approximation<a class="headerlink" href="#svd-and-low-rank-approximation" title="Link to this heading">#</a></h2>
+<p>The singular value decomposition of matrix <span class="math notranslate nohighlight">\(A\)</span>, represented as <span class="math notranslate nohighlight">\(A = U\Sigma V^\top\)</span>, can be expansively expressed as a sum of rank-1 matrices: For the element <span class="math notranslate nohighlight">\(a_{ij}\)</span> we find</p>
+<div class="math notranslate nohighlight">
+\[
+a_{ij} = \sum_{k,\ell = 1}^n u_{ik} \, \sigma_{k\ell} \, v_{j\ell} = \sum_{k = 1}^r u_{ik} \, \sigma_k \, v_{jk}.
+\]</div>
+<p>Thus, for the matrix <span class="math notranslate nohighlight">\(A\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[
+A = \sigma_1 u_1 v_1^\top + \sigma_2 u_2 v_2^\top + \dots + \sigma_r u_r v_r^\top,
+\]</div>
+<p>where each term <span class="math notranslate nohighlight">\(\sigma_j u_j v_j^\top\)</span> is a matrix of rank 1. Let us define a partial sum of these terms as <span class="math notranslate nohighlight">\(A_\nu\)</span>, given
+by:</p>
+<div class="math notranslate nohighlight">
+\[
+A_\nu := \sum_{k=1}^\nu \sigma_k u_k v_k^\top,
+\]</div>
+<p>for any <span class="math notranslate nohighlight">\(0 \leq \nu \leq r\)</span>. This partial sum captures the contribution of the first <span class="math notranslate nohighlight">\(\nu\)</span> singular values and their corresponding singular vectors to the matrix <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<p>The spectral norm of the difference between <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(A_\nu\)</span> is equal to the <span class="math notranslate nohighlight">\((\nu+1)\)</span>-th singular value, <span class="math notranslate nohighlight">\(\sigma_ {\nu+1}\)</span>. Thus, we have:</p>
+<div class="math notranslate nohighlight">
+\[
+\|A - A_{\nu}\|_2 = \sigma_{\nu+1}.
+\]</div>
+<p>This expression quantifies the significance of each singular value and its associated rank-1 component in approximating the original matrix <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<div class="prf-theorem admonition">
+<p class="admonition-title">Fact: Low-rank matrix approximation</p>
+<p>Let <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(A_{\nu}\)</span> be defined as above. Then</p>
+<div class="math notranslate nohighlight">
+\[
+\|A - A_{\nu}\|_2 = \min_{B\in\mathbb{R}^{m\times n}, \text{ rank}(B)\leq\nu} \|A - B\|_2 = \sigma_{\nu+1}.
+\]</div>
+</div>
+<p>This formulation highlights the utility of singular value decomposition (SVD) in reducing computational costs in numerical linear algebra tasks. Traditional matrix-matrix multiplications, without using advanced techniques like <a class="reference external" href="https://en.wikipedia.org/wiki/Strassen_algorithm">Strassen’s algorithm</a>, typically scale with a computational complexity of <span class="math notranslate nohighlight">\(\mathcal{O}(N^3)\)</span>. However, when dealing with the multiplication of two rank-1 matrices, such as <span class="math notranslate nohighlight">\(\sigma u v^\top\)</span> and <span class="math notranslate nohighlight">\(\hat{\sigma} \hat{u} \hat{v}^\top\)</span>, the process becomes much more efficient. The critical step involves calculating the scalar product <span class="math notranslate nohighlight">\(\langle v, \hat{u}\rangle\)</span>, which is then scaled by the product of <span class="math notranslate nohighlight">\(\sigma\)</span> and <span class="math notranslate nohighlight">\(\hat{\sigma}\)</span>. This results in the rank-1 representation of the overall product:</p>
+<div class="math notranslate nohighlight">
+\[
+(\sigma u v^\top) (\hat{\sigma} \hat{u} \hat{v}^\top) = (\sigma \hat{\sigma} \langle v, \hat{u}\rangle) u \hat{v}^\top.
+\]</div>
+<p>Building on this approach, the multiplication of rank-<span class="math notranslate nohighlight">\(\nu\)</span> approximations of two matrices <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> can be executed with a computational cost of <span class="math notranslate nohighlight">\(\mathcal{O}(n \cdot \nu^2)\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+A_\nu \cdot \hat{A}_\nu = \sum_{k,\ell} (\sigma_k u_k v_k^\top) (\hat{\sigma}_\ell \hat{u}_\ell \hat{v}_\ell^\top) = \sum_{k,\ell} (\sigma_k \hat{\sigma}_\ell \langle v_k, \hat{u}_\ell\rangle) u_k \hat{v}^\top_\ell.
+\]</div>
+<p>This method is particularly advantageous in applications where the singular values diminish rapidly in magnitude. In such scenarios, using a rank-<span class="math notranslate nohighlight">\(\nu\)</span> approximation yields substantial computational savings, often with only a moderate or negligible compromise in accuracy. This balance between efficiency and precision makes SVD a powerful tool in large-scale numerical computations.</p>
+</section>
+<section id="the-reduced-svd">
+<h2>The reduced SVD<a class="headerlink" href="#the-reduced-svd" title="Link to this heading">#</a></h2>
+<p>Above, we introduced the form of the SVD, which is known as the <em>full SVD</em> of <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+A = \begin{pmatrix} U_1 &amp; U_2 \end{pmatrix} \begin{pmatrix} \hat{\Sigma} &amp; 0 \\ 0 &amp; 0 \end{pmatrix} \begin{pmatrix} V_1 &amp; V_2 \end{pmatrix}^\top,
+\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(U = \begin{pmatrix} U_1 &amp; U_2 \end{pmatrix} \in \mathbb{R}^{m \times m}\)</span> and <span class="math notranslate nohighlight">\(V = \begin{pmatrix} V_1 &amp; V_2 \end{pmatrix} \in \mathbb{R}^{n \times n}\)</span> are orthogonal matrices derived from the SVD. Here,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\Sigma = \begin{pmatrix} \hat{\Sigma} &amp; 0 \\ 0 &amp; 0 \end{pmatrix}
+\end{split}\]</div>
+<p>represents the diagonal matrix in the decomposition. The columns of <span class="math notranslate nohighlight">\(U_2\)</span> span the orthogonal complement of the range of <span class="math notranslate nohighlight">\(A\)</span>, and the columns of <span class="math notranslate nohighlight">\(V_2\)</span> constitute the null space of <span class="math notranslate nohighlight">\(A\)</span>. The matrix <span class="math notranslate nohighlight">\(\hat{\Sigma} \in \mathbb{R}^{r \times r}\)</span> is a diagonal matrix with its diagonal elements consisting of the <em>positive</em> singular values <span class="math notranslate nohighlight">\(\sigma_1, \dots, \sigma_r\)</span>.</p>
+<p>The <em>reduced SVD</em> of <span class="math notranslate nohighlight">\(A\)</span> is defined as:</p>
+<div class="math notranslate nohighlight">
+\[
+A = U_1\hat{\Sigma}V_1^\top.
+\]</div>
+<p>This reduced SVD is usually sufficient for many computational applications. It leaves out those parts of <span class="math notranslate nohighlight">\(U\)</span>, <span class="math notranslate nohighlight">\(\Sigma\)</span> and <span class="math notranslate nohighlight">\(V\)</span>, which do not affect the product <span class="math notranslate nohighlight">\(U\Sigma V^\top\)</span>.</p>
+</section>
+<section id="python-skills">
+<h2>Python skills<a class="headerlink" href="#python-skills" title="Link to this heading">#</a></h2>
+<p>We still need to develop more theory to state a numerical method for finding the SVD of a matrix. Nonetheless, the SVD already serves us as an essential and flexible tool to tackle many challenges of computational mathematics.</p>
+<p>The below code illustrates how to compute the SVD of a matrix in NumPy.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="k">def</span> <span class="nf">SVD_report</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">full_matrices</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+  <span class="n">m</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+  <span class="n">n</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+  <span class="k">if</span> <span class="n">m</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The matrix must have at least as many rows as columns.&quot;</span><span class="p">)</span>
+
+  <span class="c1"># compute the SVD</span>
+  <span class="c1"># U and VT are the orthogonal matrices, and S contains the singular values.</span>
+  <span class="n">U</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">VT</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">full_matrices</span><span class="o">=</span><span class="n">full_matrices</span><span class="p">)</span>
+
+  <span class="c1"># Since S is returned as a 1D array, let us convert it to a diagonal matrix</span>
+  <span class="n">Sigma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">U</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">VT</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+  <span class="n">np</span><span class="o">.</span><span class="n">fill_diagonal</span><span class="p">(</span><span class="n">Sigma</span><span class="p">,</span> <span class="n">S</span><span class="p">)</span>  
+
+  <span class="c1"># Reconstruct the original matrix</span>
+  <span class="n">A_reconstructed</span> <span class="o">=</span> <span class="n">U</span> <span class="o">@</span> <span class="n">Sigma</span> <span class="o">@</span> <span class="n">VT</span>
+
+  <span class="c1"># Print the results</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Matrix A:&quot;</span><span class="p">)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">U matrix:&quot;</span><span class="p">)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="n">U</span><span class="p">)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">S vector:&quot;</span><span class="p">)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="n">S</span><span class="p">)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Sigma matrix:&quot;</span><span class="p">)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="n">Sigma</span><span class="p">)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">V^</span><span class="se">\t</span><span class="s2">op matrix:&quot;</span><span class="p">)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="n">VT</span><span class="p">)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Reconstructed Matrix A:&quot;</span><span class="p">)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="n">A_reconstructed</span><span class="p">)</span>
+
+<span class="c1"># Example 1: matrix with full column rank</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+              <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
+              <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">]])</span>
+
+<span class="c1"># Compute the reduced SVD</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Reduced SVD of full column rank matrix:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;---------------------------------------</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">SVD_report</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">full_matrices</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># Compute the full SVD</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">Full SVD of full column rank matrix:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;------------------------------------</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">SVD_report</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">full_matrices</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Example 2: matrix with deficient column rank</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+              <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
+              <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">]])</span>
+
+<span class="c1"># Compute the reduced SVD</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">Reduced SVD of deficient column rank matrix:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-------------------------------------------</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">SVD_report</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">full_matrices</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># Compute the full SVD</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">Full SVD of deficient column rank matrix:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;----------------------------------------</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">SVD_report</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">full_matrices</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="self-check-questions">
+<h2>Self-check questions<a class="headerlink" href="#self-check-questions" title="Link to this heading">#</a></h2>
+<div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Find the SVD of</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+A = \begin{pmatrix}
+0 &amp; 2 &amp; 0\\
+-3 &amp; 0 &amp; 0\\
+0 &amp; 0 &amp; 1
+\end{pmatrix}.
+\end{split}\]</div>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">While we have yet to discuss a general technique for finding the SVD, we can still determine it in simple enough settings using an ad hoc analysis.</p>
+<p class="sd-card-text">The matrix has only one non-zero entry in each column and row, a critical step towards finding the singular values. We order the entries by modulus and place them on the diagonal by permuting the first two rows. This can be achieved by multiplication with a permutation matrix from the left. Adjusting signs ensures all singular values are non-negative:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+A = 
+\begin{pmatrix}
+0 &amp; 1 &amp; 0\\
+-1 &amp; 0 &amp; 0\\
+0 &amp; 0 &amp; 1
+\end{pmatrix}
+\cdot
+\begin{pmatrix}
+3 &amp; 0 &amp; 0\\
+0 &amp; 2 &amp; 0\\
+0 &amp; 0 &amp; 1
+\end{pmatrix}
+\cdot
+\begin{pmatrix}
+1 &amp; 0 &amp; 0\\
+0 &amp; 1 &amp; 0\\
+0 &amp; 0 &amp; 1
+\end{pmatrix}
+= U \Sigma V^\top.
+\end{split}\]</div>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Explain why each of the insights listed above (just below the theorem about existence) of the SVD holds.</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">To prove these insights, let us assume that the SVD of a <span class="math notranslate nohighlight">\(A\)</span> is given by <span class="math notranslate nohighlight">\(A = U \Sigma V^\top\)</span>.</p>
+<p class="sd-card-text"><strong>Rank determination:</strong> We first show that <span class="math notranslate nohighlight">\(\text{rank}(A) \geq r\)</span>. Indeed, this is the case if one can find <span class="math notranslate nohighlight">\(r\)</span> linearly independent vectors in the range of <span class="math notranslate nohighlight">\(A\)</span>. Because <span class="math notranslate nohighlight">\(U\)</span> is orthogonal, its first <span class="math notranslate nohighlight">\(r\)</span> columns <span class="math notranslate nohighlight">\(\{u_1, \ldots, u_r\}\)</span> are linearly independent. Moreover, <span class="math notranslate nohighlight">\(u_j \in \text{ran}(A)\)</span> because the <span class="math notranslate nohighlight">\(j\)</span>th column vector <span class="math notranslate nohighlight">\(v_j\)</span> of <span class="math notranslate nohighlight">\(V\)</span> maps</p>
+<div class="math notranslate nohighlight">
+\[
+A \, v_j = U \, \Sigma V^\top \, v_j = U \, \Sigma \, e_j = \sigma_j \, U e_j = \sigma_j \, u_j.
+\]</div>
+<p class="sd-card-text">Now we show that <span class="math notranslate nohighlight">\(\text{rank}(A) \leq r\)</span>, recall the reduced SVD form <span class="math notranslate nohighlight">\(A = U_1\hat{\Sigma}V_1^\top\)</span>. This implies <span class="math notranslate nohighlight">\(\text{rank}(A) \leq \text{rank}(U_1)\)</span>. Because <span class="math notranslate nohighlight">\(U_1\)</span> has only <span class="math notranslate nohighlight">\(r\)</span> columns, the result follows.</p>
+<p class="sd-card-text"><strong>Kernel characterization:</strong> <span class="math notranslate nohighlight">\(Ax = 0\)</span> implies <span class="math notranslate nohighlight">\(U \Sigma V^\top x = 0\)</span>. Multiplying both sides by <span class="math notranslate nohighlight">\(U^\top\)</span>, we get <span class="math notranslate nohighlight">\(\Sigma V^\top x = 0\)</span>. This equation can only be satisfied by vectors in the span of the columns of <span class="math notranslate nohighlight">\(V\)</span> corresponding to zero singular values, which are <span class="math notranslate nohighlight">\(\{v_{r+1}, \dots, v_n\}\)</span>.</p>
+<p class="sd-card-text"><strong>Range specification:</strong> The above argument for the rank determination showed that the columns of <span class="math notranslate nohighlight">\(A\)</span> are spanned by the columns of <span class="math notranslate nohighlight">\(U\)</span> corresponding to non-zero singular values in <span class="math notranslate nohighlight">\(\Sigma\)</span>. Hence, <span class="math notranslate nohighlight">\(\text{ran}(A)\)</span> is spanned by <span class="math notranslate nohighlight">\(\{u_1, \dots, u_r\}\)</span>.</p>
+<p class="sd-card-text"><strong><span class="math notranslate nohighlight">\(2\)</span>-Norm relation:</strong> We matrix norm is induced by the Euclidean norm:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\| A \|_2 &amp; = \max_{x \neq 0} \frac{\| A x \|_2}{\| x \|_2} = \max_{x \neq 0} \frac{\| U \Sigma V^\top x \|_2}{\| x \|_2} \stackrel{\| x \| = \| V^\top x \|}{=} \max_{x \neq 0} \frac{\| U \Sigma V^\top x \|_2}{\| V^\top x \|_2}\\
+&amp; \stackrel{V^\top x = y}{=} \max_{y \neq 0} \frac{\| U \Sigma y \|_2}{\| y \|_2} \stackrel{\| U \Sigma y \| = \| \Sigma y \|}{=} \max_{y \neq 0} \frac{\| \Sigma y \|_2}{\| y \|_2} \stackrel{(*)}{=} \sigma_1.
+\end{align}
+\end{split}\]</div>
+<p class="sd-card-text">For <span class="math notranslate nohighlight">\((*)\)</span> we use that <span class="math notranslate nohighlight">\(\sigma_1\)</span> is attained by <span class="math notranslate nohighlight">\(\| \Sigma y \| / \| y \|\)</span> with <span class="math notranslate nohighlight">\(y = e_1\)</span> and that <span class="math notranslate nohighlight">\(\| \Sigma y \|^2 \leq \sum_i (\sigma_1 y_i)^2 = \sigma_1^2 \| y \|^2\)</span>.</p>
+<p class="sd-card-text"><strong>Frobenius norm calculation:</strong>
+To show that multiplication with an orthogonal matrix from the left and right does not change the Frobenius norm, we use that the multiplication with an orthogonal matrix does not change the <span class="math notranslate nohighlight">\(2\)</span>-norm of a vector:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\sum_{i,j} |(Q A P)_{ij}|^2 &amp; = \sum_j \| (Q A P)_{:,j} \|_2^2 = \sum_j \| (A P)_{:,j} \|_2^2 = \| A P \|_F^2\\
+&amp; = \| P^\top A^\top \|_F^2 = \sum_j \| (P^\top A^\top)_{:,j} \|_2^2 = \| A^\top \|F^2.
+\end{align}
+\end{split}\]</div>
+<p class="sd-card-text">Therefore,</p>
+<div class="math notranslate nohighlight">
+\[
+\| A \|_F^2 = \| U \Sigma V^\top \|_F^2 = \| \Sigma \|_F^2 = \sum_{i = 1}^r \sigma_i^2.
+\]</div>
+<p class="sd-card-text"><strong>Norm inequalities:</strong> We note that <span class="math notranslate nohighlight">\(\| A \|_2^2 = \sigma_1^2 \leq \sum_{i = 1}^r \sigma_i^2 = \| A \|_F^2 \leq r \sigma_1^2 = r \| A \|_2^2\)</span>.</p>
+<p class="sd-card-text"><strong>Inverse and condition number:</strong>
+Let <span class="math notranslate nohighlight">\(A\)</span> be invertible. Because <span class="math notranslate nohighlight">\((U \Sigma V^\top) (V \Sigma^{-1} U^\top) = I\)</span>, it is clear that <span class="math notranslate nohighlight">\(A^{-1} = V \Sigma^{-1} U^\top\)</span>. Therefore, <span class="math notranslate nohighlight">\(\|A^{-1}\|_2\)</span> is <span class="math notranslate nohighlight">\(\sigma_n^{-1}\)</span>, the reciprocal of the smallest singular value and the relative condition number for the <span class="math notranslate nohighlight">\(2\)</span>-norm is <span class="math notranslate nohighlight">\(\kappa_{rel}(A) = \| A \|_2 \cdot \| A^{-1} \|_2 = \sigma_1 / \sigma_n\)</span>.</p>
+<p class="sd-card-text">Using the theorem of the low-rank matrix approximation, the smallest perturbation <span class="math notranslate nohighlight">\(\Delta A\)</span> that makes <span class="math notranslate nohighlight">\(A + \Delta A\)</span> singular corresponds to the smallest singular value, so <span class="math notranslate nohighlight">\(\Delta A = -\sigma_n u_n v_n^\top\)</span>, implying that the condition number is inversely related to the smallest relative perturbation distance to singularity.</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Let <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span>, <span class="math notranslate nohighlight">\(m \geq n\)</span>. Show that the singular values of <span class="math notranslate nohighlight">\(A\)</span> are the square roots of the eigenvalues of <span class="math notranslate nohighlight">\(A^\top A\)</span>.</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">To show that the singular values of <span class="math notranslate nohighlight">\(A\)</span> are the square roots of the eigenvalues of <span class="math notranslate nohighlight">\(A^\top A\)</span>,
+consider the singular value decomposition of <span class="math notranslate nohighlight">\(A\)</span>, which is <span class="math notranslate nohighlight">\(A = U\Sigma V^\top\)</span>, where <span class="math notranslate nohighlight">\(\Sigma\)</span>  is a diagonal matrix containing the singular values of <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<p class="sd-card-text">Now, compute <span class="math notranslate nohighlight">\(A^\top A\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+A^\top A = (U\Sigma V^\top)^\top(U\Sigma V^\top) = V\Sigma^\top U^\top U\Sigma V^\top = V\Sigma^2V^\top.
+\]</div>
+<p class="sd-card-text">Since <span class="math notranslate nohighlight">\(U\)</span> and <span class="math notranslate nohighlight">\(V\)</span> are orthogonal matrices, <span class="math notranslate nohighlight">\(U^\top U = I_m\)</span> and <span class="math notranslate nohighlight">\(V^\top V = I_n\)</span>, where <span class="math notranslate nohighlight">\(I_m\)</span> and <span class="math notranslate nohighlight">\(I_n\)</span> are identity matrices of size <span class="math notranslate nohighlight">\(m\)</span> and <span class="math notranslate nohighlight">\(n\)</span>, respectively.</p>
+<p class="sd-card-text">In the equation <span class="math notranslate nohighlight">\(A^\top A = V\Sigma^2V^\top\)</span>, the matrix <span class="math notranslate nohighlight">\(\Sigma^2\)</span> contains the squares of the
+singular values of <span class="math notranslate nohighlight">\(A\)</span>. The matrix <span class="math notranslate nohighlight">\(A^\top A\)</span> is symmetric, and its eigenvalues are given by the diagonal elements of <span class="math notranslate nohighlight">\(\Sigma^2\)</span>. Thus, the singular values of <span class="math notranslate nohighlight">\(A\)</span> are the square roots of the eigenvalues of <span class="math notranslate nohighlight">\(A^\top A\)</span>.</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Let <span class="math notranslate nohighlight">\(A\in\mathbb{R}^{m\times n}\)</span> with <span class="math notranslate nohighlight">\(m\geq n\)</span>. Show that the smallest singular value <span class="math notranslate nohighlight">\(\sigma_n\)</span> of <span class="math notranslate nohighlight">\(A\)</span> satisfies</p>
+<div class="math notranslate nohighlight">
+\[
+\sigma_n = \min_{x\in\mathbb{R}^n} \frac{\|Ax\|_2}{\|x\|_2}.
+\]</div>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">The singular value decomposition of <span class="math notranslate nohighlight">\(A\)</span> is given as <span class="math notranslate nohighlight">\(A = U\Sigma V^\top\)</span>. Since the 2-norm is invariant under orthogonal transformations, we can replace <span class="math notranslate nohighlight">\(A\)</span> by <span class="math notranslate nohighlight">\(\Sigma\)</span> in the expression <span class="math notranslate nohighlight">\(\|Ax\|_2\)</span> without changing its value. Let <span class="math notranslate nohighlight">\(y = V^\top x\)</span>, which implies that <span class="math notranslate nohighlight">\(\|y\|_2 = \|x\|_2\)</span> due to the orthogonality of <span class="math notranslate nohighlight">\(V\)</span>. Therefore, the expression becomes:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\min_{\substack{x \in \mathbb{R}^n \\ x \neq 0}} \frac{\|Ax\|_2}{\|x\|_2} = \min_{\substack{y \in \mathbb{R}^n \\ y \neq 0}} \frac{\|\Sigma y\|_2}{\|y\|_2}.
+\end{split}\]</div>
+<p class="sd-card-text">Now, for any <span class="math notranslate nohighlight">\(y\)</span> with <span class="math notranslate nohighlight">\(\|y\|_2=1\)</span>, we have:</p>
+<div class="math notranslate nohighlight">
+\[
+\|\Sigma y\|_2^2 = \sum_{j=1}^n \sigma_j^2 y_j^2 \geq \sigma_n^2 \sum_{j=1}^n y_j^2 = \sigma_n^2,
+\]</div>
+<p class="sd-card-text">where the inequality arises because <span class="math notranslate nohighlight">\(\sigma_n\)</span> is the smallest singular value. This inequality becomes equality when <span class="math notranslate nohighlight">\(y\)</span> is chosen as the unit vector <span class="math notranslate nohighlight">\(e_n\)</span>, corresponding to the direction of the smallest singular value in the transformed space.</p>
+<p class="sd-card-text">Therefore, we conclude that the smallest singular value <span class="math notranslate nohighlight">\(\sigma_n\)</span> of <span class="math notranslate nohighlight">\(A\)</span> is the minimum of the ratio <span class="math notranslate nohighlight">\(\frac{\|Ax\|_2}{\|x\|_2}\)</span> over all non-zero vectors <span class="math notranslate nohighlight">\(x \in \mathbb{R}^n\)</span>. This result shows the significance of the smallest singular value in determining the behaviour of the matrix norm relative to the vector norm.</p>
+<p class="sd-card-text">The exercise reveals symmetry in characterising singular values: maximising the ratio yields the largest singular value while minimising it results in the smallest singular value.</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Explain how the orthogonal complement of the range of a matrix <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span> can be computed with its SVD <span class="math notranslate nohighlight">\(U \Sigma V^\top\)</span>.</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Let us denote the number of non-zero singular values as <span class="math notranslate nohighlight">\(r\)</span>. As established above (‘3rd insight’), the first <span class="math notranslate nohighlight">\(r\)</span> columns of <span class="math notranslate nohighlight">\(U\)</span> form a basis for <span class="math notranslate nohighlight">\(\text{ran}(A)\)</span>. Since <span class="math notranslate nohighlight">\(U\)</span> is orthogonal, its columns are orthonormal vectors. Thus, the set of columns <span class="math notranslate nohighlight">\(\{ u_{r+1}, u_{r+2}, \ldots, u_m \}\)</span> of <span class="math notranslate nohighlight">\(U\)</span> are orthonormal to the first <span class="math notranslate nohighlight">\(r\)</span> columns of <span class="math notranslate nohighlight">\(U\)</span> and hence to all vectors in <span class="math notranslate nohighlight">\(\text{ran}(A)\)</span>. The dimension of the orthogonal complement is <span class="math notranslate nohighlight">\(m-r\)</span>. Hence the vectors <span class="math notranslate nohighlight">\(\{ u_{r+1}, u_{r+2}, \ldots, u_m \}\)</span> form a basis for the orthogonal complement.</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Let <span class="math notranslate nohighlight">\(A = QR\)</span> be the QR decomposition of a matrix <span class="math notranslate nohighlight">\(A\in\mathbb{R}^{m\times n}\)</span> with
+<span class="math notranslate nohighlight">\(R\in\mathbb{R}^{n\times n}\)</span>. Show that the singular values of <span class="math notranslate nohighlight">\(A\)</span> are identical to those of <span class="math notranslate nohighlight">\(R\)</span>.</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">We represent <span class="math notranslate nohighlight">\(A\)</span> with its full QR decomposition:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+A = \begin{pmatrix} Q &amp; Q^{\perp} \end{pmatrix} \begin{pmatrix} R \\ 0 \end{pmatrix},
+\end{split}\]</div>
+<p class="sd-card-text">where <span class="math notranslate nohighlight">\(Q^{\perp} \in \mathbb{R}^{m \times (m-n)}\)</span> is the orthogonal complement of <span class="math notranslate nohighlight">\(Q\)</span>. Now, let the singular value decomposition (SVD) of <span class="math notranslate nohighlight">\(R\)</span> be <span class="math notranslate nohighlight">\(R = U\Sigma V^\top\)</span>, where <span class="math notranslate nohighlight">\(\Sigma\)</span> contains the singular values of <span class="math notranslate nohighlight">\(R\)</span>.</p>
+<p class="sd-card-text">Substituting the SVD of <span class="math notranslate nohighlight">\(R\)</span> into the QR decomposition, we get:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+A = \begin{pmatrix} Q &amp; Q^{\perp} \end{pmatrix} \begin{pmatrix} U &amp; 0 \\ 0 &amp; I \end{pmatrix} 
+\begin{pmatrix} \Sigma \\ 0 \end{pmatrix} V^\top.
+\end{split}\]</div>
+<p class="sd-card-text">Here, <span class="math notranslate nohighlight">\(I\)</span> is the identity matrix of appropriate size. Simplifying, we obtain:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+A = \left( \begin{pmatrix} Q &amp; Q^{\perp} \end{pmatrix} \begin{pmatrix} U &amp; 0 \\ 0 &amp; I \end{pmatrix} \right) 
+\begin{pmatrix} \Sigma \\ 0 \end{pmatrix} V^\top.
+\end{split}\]</div>
+<p class="sd-card-text">Notice that the matrix product</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{pmatrix} Q &amp; Q^{\perp} \end{pmatrix} \begin{pmatrix} U &amp; 0 \\ 0 &amp; I \end{pmatrix}\end{split}\]</div>
+<p class="sd-card-text">is orthogonal. Thus, the matrix <span class="math notranslate nohighlight">\(A\)</span> has been expressed in a form that reveals its singular value decomposition, where the singular values are precisely those contained in <span class="math notranslate nohighlight">\(\Sigma\)</span>. Therefore, the singular values of <span class="math notranslate nohighlight">\(A\)</span> are identical to those of <span class="math notranslate nohighlight">\(R\)</span>.</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Find all SVDs of the identity matrix <span class="math notranslate nohighlight">\(I\)</span>.</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Let <span class="math notranslate nohighlight">\(I = U\Sigma V^\top\)</span> be an SVD of <span class="math notranslate nohighlight">\(I\)</span>.</p>
+<ol class="arabic">
+<li><p class="sd-card-text">To show that <span class="math notranslate nohighlight">\(\Sigma = I\)</span>, we observe that <span class="math notranslate nohighlight">\(1 = \| v_i \|_2 = \| (U\Sigma V^\top) v_i \|_2 = \| \Sigma (V^\top v_i) \|_2 = \sigma_i\)</span> for the <span class="math notranslate nohighlight">\(i\)</span>th column vector <span class="math notranslate nohighlight">\(v_i\)</span> of <span class="math notranslate nohighlight">\(V\)</span> and singular value <span class="math notranslate nohighlight">\(\sigma_i\)</span>. We used here that <span class="math notranslate nohighlight">\(V\)</span> and <span class="math notranslate nohighlight">\(U\)</span> are orthogonal matrices.</p></li>
+<li><p class="sd-card-text">We now turn our attention to <span class="math notranslate nohighlight">\(U\)</span> and <span class="math notranslate nohighlight">\(V\)</span>. Because of the first step, the SVD simplifies to <span class="math notranslate nohighlight">\(I = U V^\top\)</span>, meaning that <span class="math notranslate nohighlight">\(V^\top\)</span> is the inverse of <span class="math notranslate nohighlight">\(U\)</span>. As the inverse of an orthogonal matrix is its transpose, we conclude <span class="math notranslate nohighlight">\(U = V\)</span>. Because all orthogonal matrices <span class="math notranslate nohighlight">\(Q\)</span> satisfy <span class="math notranslate nohighlight">\(I = Q Q^\top\)</span>, we deduce that the SVDs of <span class="math notranslate nohighlight">\(I\)</span> are precisely the factorisations of the form</p>
+<div class="math notranslate nohighlight">
+\[
+   I = Q I Q^\top, \qquad Q \text{ orthogonal.}
+   \]</div>
+</li>
+</ol>
+<p class="sd-card-text">This example shows that the SVD of a matrix is generally not unique.</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Consider a full-rank, square linear system <span class="math notranslate nohighlight">\(Ax = b\)</span>, where <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{n \times n}\)</span> and <span class="math notranslate nohighlight">\(b \in \mathbb{R}^n\)</span>. The singular value decomposition (SVD) of <span class="math notranslate nohighlight">\(A\)</span> is <span class="math notranslate nohighlight">\(A = U \Sigma V^\top\)</span>. The system can be solved using the SVD by setting up <span class="math notranslate nohighlight">\(U z = b\)</span>, <span class="math notranslate nohighlight">\(\Sigma y = z\)</span>, and <span class="math notranslate nohighlight">\(V^\top x = y\)</span>.</p>
+<p>Your task is to analyse the condition numbers of each stage of this process:</p>
+<ol class="arabic simple">
+<li><p>Determine the condition number of the matrix <span class="math notranslate nohighlight">\(U\)</span> and explain its significance in solving <span class="math notranslate nohighlight">\(U z = b\)</span>.</p></li>
+<li><p>Calculate the condition number of the diagonal matrix <span class="math notranslate nohighlight">\(\Sigma\)</span> and discuss how it affects the solution of <span class="math notranslate nohighlight">\(\Sigma y = z\)</span>.</p></li>
+<li><p>Evaluate the condition number of <span class="math notranslate nohighlight">\(V^\top\)</span> and its impact on solving <span class="math notranslate nohighlight">\(V^\top x = y\)</span>.</p></li>
+<li><p>Finally, relate the condition numbers found in steps 1-3 to the overall condition number of the matrix <span class="math notranslate nohighlight">\(A\)</span> and explain how they influence the stability and accuracy of solving the linear system <span class="math notranslate nohighlight">\(Ax = b\)</span>.</p></li>
+</ol>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<ol class="arabic simple">
+<li><p class="sd-card-text"><strong>Condition Number of <span class="math notranslate nohighlight">\(U\)</span>:</strong> Since <span class="math notranslate nohighlight">\(U\)</span> is an orthogonal matrix, its condition number is 1. This implies that the solution of <span class="math notranslate nohighlight">\(Uz = b\)</span> is numerically stable and not sensitive to small changes in <span class="math notranslate nohighlight">\(b\)</span>.</p></li>
+<li><p class="sd-card-text"><strong>Condition Number of <span class="math notranslate nohighlight">\(\Sigma\)</span>:</strong> The condition number of <span class="math notranslate nohighlight">\(\Sigma\)</span>, which is diagonal, is the ratio of the largest singular value to the smallest singular value of <span class="math notranslate nohighlight">\(A\)</span>.</p></li>
+<li><p class="sd-card-text"><strong>Condition Number of <span class="math notranslate nohighlight">\(V^\top\)</span>:</strong> Like <span class="math notranslate nohighlight">\(U\)</span>, <span class="math notranslate nohighlight">\(V^\top\)</span> is also an orthogonal matrix; thus, its condition number is 1. This ensures that solving <span class="math notranslate nohighlight">\(V^\top x = y\)</span> is numerically stable.</p></li>
+<li><p class="sd-card-text"><strong>Overall Condition Number of <span class="math notranslate nohighlight">\(A\)</span>:</strong> The condition number of <span class="math notranslate nohighlight">\(A\)</span> is the same as that of <span class="math notranslate nohighlight">\(\Sigma\)</span>, as both <span class="math notranslate nohighlight">\(U\)</span> and <span class="math notranslate nohighlight">\(V^\top\)</span> have condition numbers of 1. The condition number of <span class="math notranslate nohighlight">\(A\)</span> affects the sensitivity of the solution <span class="math notranslate nohighlight">\(x\)</span> to changes in <span class="math notranslate nohighlight">\(b\)</span>. A high condition number indicates potential numerical instability and inaccuracy in the computed solution, especially when <span class="math notranslate nohighlight">\(A\)</span> is close to singular.</p></li>
+</ol>
+</div>
+</details></section>
+<section id="optional-material">
+<h2>Optional material<a class="headerlink" href="#optional-material" title="Link to this heading">#</a></h2>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Existence of the Singular Value Decomposition</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<div class="proof theorem admonition" id="theorem-1">
+<p class="admonition-title"><span class="caption-number">Theorem 5 </span> (Existence of Singular Value Decomposition)</p>
+<section class="theorem-content" id="proof-content">
+<p class="sd-card-text">Every real matrix <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span> has a singular value decomposition (SVD).</p>
+</section>
+</div><div class="proof admonition" id="proof">
+<p class="sd-card-text">Proof. We utilise an inductive argument to establish the existence of the SVD for any matrix <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span>.</p>
+<ol class="arabic">
+<li><p class="sd-card-text"><strong>Base Case</strong>: Define the largest singular value of <span class="math notranslate nohighlight">\(A\)</span>, denoted as <span class="math notranslate nohighlight">\(\sigma_1\)</span>, to be <span class="math notranslate nohighlight">\(\sigma_1 := \|A\|_2\)</span>. Due to the properties of finite-dimensional vector spaces, there exists a unit vector <span class="math notranslate nohighlight">\(v_1 \in \mathbb{R}^n\)</span>, maximising <span class="math notranslate nohighlight">\(\max_{v \neq 0} \| A v \|_2 / \|v\|_2\)</span>, such that <span class="math notranslate nohighlight">\(Av_1 = \sigma_1 u_1\)</span> for some unit vector <span class="math notranslate nohighlight">\(u_1 \in \mathbb{R}^m\)</span>.</p></li>
+<li><p class="sd-card-text"><strong>Formation of Orthogonal Matrices <span class="math notranslate nohighlight">\(U_1\)</span> and <span class="math notranslate nohighlight">\(V_1\)</span></strong>:
+Construct orthogonal matrices <span class="math notranslate nohighlight">\(U_1\)</span> and <span class="math notranslate nohighlight">\(V_1\)</span> in the form:</p>
+<div class="math notranslate nohighlight">
+\[
+   V_1 = \begin{pmatrix} v_1 &amp; \hat{V}_1 \end{pmatrix}, \quad U_1 = \begin{pmatrix} u_1 &amp; \hat{U}_1 \end{pmatrix}
+   \]</div>
+<p class="sd-card-text">where <span class="math notranslate nohighlight">\(\hat{V}_1\)</span> and <span class="math notranslate nohighlight">\(\hat{U}_1\)</span> are matrices that complete <span class="math notranslate nohighlight">\(v_1\)</span> and <span class="math notranslate nohighlight">\(u_1\)</span> to orthonormal bases. Their existence is guaranteed by the Gram-Schmidt method.</p>
+</li>
+<li><p class="sd-card-text"><strong>Transformed Matrix <span class="math notranslate nohighlight">\(S\)</span></strong>:
+Consider the matrix <span class="math notranslate nohighlight">\(S := U_1^\top A V_1\)</span>, which takes the form:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+   S = \begin{pmatrix} \sigma_1 &amp; w^\top \\ 0 &amp; B \end{pmatrix}
+   \end{split}\]</div>
+<p class="sd-card-text">where <span class="math notranslate nohighlight">\(w\)</span> is a vector in <span class="math notranslate nohighlight">\(\mathbb{R}^{n-1}\)</span> and <span class="math notranslate nohighlight">\(B\)</span> is a <span class="math notranslate nohighlight">\((m-1) \times (n-1)\)</span> matrix.</p>
+</li>
+<li><p class="sd-card-text"><strong>Proof that <span class="math notranslate nohighlight">\(w = 0\)</span></strong>:
+To show <span class="math notranslate nohighlight">\(w = 0\)</span>, we use the properties of matrix norms:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+   \|S\|_2 = \|U_1^\top A V_1\|_2 \geq \left\| \begin{pmatrix} \sigma_1 &amp; w^\top \\ 0 &amp; B \end{pmatrix} \begin{pmatrix} \sigma_1 \\ w \end{pmatrix} \right\|_2 \bigg/ \left\| \begin{pmatrix} \sigma_1 \\ w \end{pmatrix} \right\|_2 \geq \left( \sigma_1^2 + \|w\|^2 \right)^{1/2}
+   \end{split}\]</div>
+<p class="sd-card-text">The inequality <span class="math notranslate nohighlight">\(\|Ax\| / \|x\| \leq \|A\|\)</span> and the disregard of the contribution of <span class="math notranslate nohighlight">\(Bw\)</span> in the norm lead to the conclusion that <span class="math notranslate nohighlight">\(\sigma_1 = \|S\|_2 \geq \left( \sigma_1^2 + \|w\|^2 \right)^{1/2}\)</span>, implying <span class="math notranslate nohighlight">\(w = 0\)</span>.</p>
+</li>
+<li><p class="sd-card-text"><strong>Inductive Step</strong>:
+Assume the SVD of <span class="math notranslate nohighlight">\(B\)</span> exists: <span class="math notranslate nohighlight">\(B = \hat{U} \hat{\Sigma} \hat{V}^\top\)</span>. Then <span class="math notranslate nohighlight">\(A\)</span> can be decomposed as:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+   A = U_1 \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; \hat{U} \end{pmatrix} \begin{pmatrix} \sigma_1 &amp; 0 \\ 0 &amp; \hat{\Sigma} \end{pmatrix} \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; \hat{V}^\top \end{pmatrix} V_1^\top
+   \end{split}\]</div>
+<p class="sd-card-text">Defining</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+   U = U_1 \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; \hat{U} \end{pmatrix}, \qquad V = \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; \hat{V}^\top \end{pmatrix} V_1^\top,
+   \end{split}\]</div>
+<p class="sd-card-text">we complete the inductive step.</p>
+</li>
+<li><p class="sd-card-text"><strong>Conclusion</strong>:
+Ultimately, the induction will reach a row or column vector, for which the existence of an SVD trivially holds.</p></li>
+</ol>
+</div>
+<p class="sd-card-text">The above proof does not inform us how to design an efficient numerical algorithm to construct the SVD of a matrix.</p>
+</div>
+</details></section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="3.1_qr_decomposition.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">The QR Decomposition</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="3.3_least_squares_problems.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Least-squares Problems</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#insights">Insights</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#svd-and-low-rank-approximation">SVD and low-rank approximation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-reduced-svd">The reduced SVD</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#self-check-questions">Self-check questions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-material">Optional material</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Timo Betcke, Erik Burman, Max Jensen
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

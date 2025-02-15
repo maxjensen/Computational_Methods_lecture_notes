@@ -1,0 +1,1023 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>The QR Decomposition &#8212; Computational Methods MATH0058 lecture notes</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '3.1_qr_decomposition';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="The Singular Value Decomposition" href="3.2_singular_value_decomposition.html" />
+    <link rel="prev" title="Python implementation" href="2.3_python_lu_decomposition.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Computational Methods MATH0058 lecture notes - Home"/>
+    <img src="_static/logo.png" class="logo__image only-dark pst-js-only" alt="Computational Methods MATH0058 lecture notes - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="index.html">
+                    Welcome!
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Fundamentals</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="0.1_matrix_vector_norms.html">Measuring distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="0.2_error_analysis.html">Backward error analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="0.3_linear_system_error.html">The condition number of linear systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="0.4_complexity_notation.html">Asymptotic notation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Implementation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="1.1_floating_point_arithmetic.html">Floating point numbers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_numpy_and_data_layouts.html">Memory layout and Numpy</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="2.1_lu_decomposition.html">LU decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.2_lu_backward_error.html">Backward error and pivoting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.3_python_lu_decomposition.html">Python implementation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Orthogonal Decompositions</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">The QR Decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.2_singular_value_decomposition.html">The Singular Value Decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.3_least_squares_problems.html">Least-squares Problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.4_constrained_least_squares_problems.html">Constrained Problems</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Interpolation and Quadrature</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="4.1_interpolation.html">Polynomial Interpolation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.2_quadrature.html">Introduction to Quadrature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.3_stable_quadrature_schemes.html">Stable Quadrature Schemes</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Eigenvalue Problems</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="5.1_eigenvalues_basic_properties.html">Basic properties of eigenvalue problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.2_computing_eigenvalues.html">Computing eigenvalues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.3_computing_eigenspaces.html">Computing the eigensystem</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back matter</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="bm1_notation_and_facts.html">Notation and facts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bm2_programming_resources.html">Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bm3_markdown.html">Markdown and LaTeX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bm4_bibliography.html">Bibliography</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/3.1_qr_decomposition.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>The QR Decomposition</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#orthogonal-matrices">Orthogonal matrices</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qr-decomposition-via-gram-schmidt-orthogonalisation">QR Decomposition via Gram-Schmidt Orthogonalisation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-decomposition-representation">Matrix Decomposition Representation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-linear-systems-of-equations-with-the-qr-decomposition">Solving linear systems of equations with the QR decomposition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reduced-vs-full-qr-decomposition">Reduced vs full QR decomposition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation-from-scratch">Implementation from scratch</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-numpy-s-implementation">Using Numpy’s implementation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#self-check-questions">Self-check questions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-material">Optional material</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="the-qr-decomposition">
+<h1>The QR Decomposition<a class="headerlink" href="#the-qr-decomposition" title="Link to this heading">#</a></h1>
+<section id="orthogonal-matrices">
+<h2>Orthogonal matrices<a class="headerlink" href="#orthogonal-matrices" title="Link to this heading">#</a></h2>
+<p>Let <span class="math notranslate nohighlight">\(Q \in \mathbb{R}^{n \times n}\)</span>. The matrix <span class="math notranslate nohighlight">\(Q\)</span> is called <em>orthogonal</em> if <span class="math notranslate nohighlight">\(Q^\top Q = I\)</span>, where <span class="math notranslate nohighlight">\(I\)</span> is the identity matrix. This definition implies that all rows and columns of <span class="math notranslate nohighlight">\(Q\)</span> are of unit length and are mutually orthogonal.</p>
+<p>The significance of orthogonal transformations lies in their ability to preserve angles and the 2-norm. To understand this, consider the standard Euclidean inner product, defined as <span class="math notranslate nohighlight">\(\langle x, y \rangle := y^\top x\)</span> for vectors <span class="math notranslate nohighlight">\(x, y \in \mathbb{R}^n\)</span>.</p>
+<p>Now, observe the effect of an orthogonal transformation <span class="math notranslate nohighlight">\(Q\)</span> on this inner product:</p>
+<div class="math notranslate nohighlight">
+\[
+\langle Qx, Qy \rangle = (Qx)^\top (Qy) = x^\top Q^\top Qy = x^\top Iy = \langle x, y \rangle.
+\]</div>
+<p>This equation shows that the inner product (and thus the angle) between <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> is preserved after applying the orthogonal transformation <span class="math notranslate nohighlight">\(Q\)</span>.</p>
+<p>Furthermore, the preservation of the 2-norm under orthogonal transformations can be seen as follows:</p>
+<div class="math notranslate nohighlight">
+\[
+\|Qx\|_2^2 = \langle Qx, Qx \rangle = x^\top Q^\top Qx = x^\top x = \|x\|_2^2.
+\]</div>
+<p>This demonstrates that a vector’s 2-norm (or length) is unchanged when multiplied by an orthogonal matrix.</p>
+</section>
+<section id="qr-decomposition-via-gram-schmidt-orthogonalisation">
+<h2>QR Decomposition via Gram-Schmidt Orthogonalisation<a class="headerlink" href="#qr-decomposition-via-gram-schmidt-orthogonalisation" title="Link to this heading">#</a></h2>
+<p>Consider a matrix <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span> with <span class="math notranslate nohighlight">\(m \geq n\)</span>. The aim is to orthogonalise the columns of <span class="math notranslate nohighlight">\(A\)</span>. This process is achieved through the Gram-Schmidt orthogonalisation method.</p>
+<div class="proof algorithm admonition" id="algorithm-0">
+<p class="admonition-title"><span class="caption-number">Algorithm 1 </span> (Gram-Schmidt Orthogonalisation)</p>
+<section class="algorithm-content" id="proof-content">
+<p><strong>Inputs</strong> <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span></p>
+<p><strong>Outputs</strong> <span class="math notranslate nohighlight">\(Q, R \in \mathbb{R}^{m \times n}\)</span></p>
+<ul>
+<li><p>Let <span class="math notranslate nohighlight">\(\tilde{q}_1\)</span> be the first column <span class="math notranslate nohighlight">\(a_1\)</span> of <span class="math notranslate nohighlight">\(A\)</span> and normalize <span class="math notranslate nohighlight">\(\tilde{q}_1\)</span> to obtain <span class="math notranslate nohighlight">\(q_1\)</span>, defined as:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+  \begin{aligned} 
+  \tilde{q}_1 &amp;:= a_1,\\
+  q_1 &amp;:= \frac{\tilde{q}_1}{\|\tilde{q}_1\|_2}
+  \end{aligned}
+  \end{split}\]</div>
+</li>
+<li><p>For <span class="math notranslate nohighlight">\(k\)</span> in <span class="math notranslate nohighlight">\(\{2, \ldots, n\}\)</span>:</p>
+<ul>
+<li><p>To compute column <span class="math notranslate nohighlight">\(q_k\)</span>, orthogonalize column <span class="math notranslate nohighlight">\(a_k\)</span> against all previous <span class="math notranslate nohighlight">\(q_j\)</span> (for <span class="math notranslate nohighlight">\(j = 1, \ldots, k-1\)</span>):</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+     \begin{aligned}
+     \tilde{q}_k &amp;:= a_k - \sum_{j=1}^{k-1}\langle a_k, q_j \rangle q_j,\\
+     q_k &amp;:= \frac{\tilde{q}_k}{\|\tilde{q}_k\|_2}.
+     \end{aligned}
+     \end{split}\]</div>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+</div><section id="matrix-decomposition-representation">
+<h3>Matrix Decomposition Representation<a class="headerlink" href="#matrix-decomposition-representation" title="Link to this heading">#</a></h3>
+<p>The Gram-Schmidt procedure can be expressed as a matrix decomposition:</p>
+<ul>
+<li><p>For each column <span class="math notranslate nohighlight">\(a_k\)</span> of <span class="math notranslate nohighlight">\(A\)</span>, we have:</p>
+<div class="math notranslate nohighlight">
+\[ a_k = \|\tilde{q}_k\|_2 q_k + \sum_{j=1}^{k-1}\langle a_k, q_j \rangle q_j \]</div>
+</li>
+<li><p>Hence, the matrix <span class="math notranslate nohighlight">\(A\)</span> can be decomposed as <span class="math notranslate nohighlight">\(A = QR\)</span> where:</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(Q = \begin{pmatrix} q_1, \ldots, q_n \end{pmatrix}\)</span> is a matrix with orthogonal columns.</p></li>
+<li><p><span class="math notranslate nohighlight">\(R\)</span> is an upper triangular matrix defined as:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+    R = \begin{pmatrix}
+    \|\tilde{q}_1\|_2 &amp; \langle a_2, q_1 \rangle &amp; \ldots &amp; \langle a_n, q_1 \rangle \\
+    &amp; \|\tilde{q}_2\|_2 &amp; \ddots &amp; \vdots \\
+    &amp; &amp; \ddots &amp; \langle a_n, q_{n-1} \rangle \\
+    &amp; &amp; &amp; \|\tilde{q}_n\|_2
+    \end{pmatrix}
+    \end{split}\]</div>
+</li>
+</ul>
+</li>
+</ul>
+<div class="prf-theorem admonition">
+<p class="admonition-title">Fact: QR Decomposition</p>
+<p>Given <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span> with <span class="math notranslate nohighlight">\(m \geq n\)</span>, a QR decomposition of <span class="math notranslate nohighlight">\(A = QR\)</span> exists, where <span class="math notranslate nohighlight">\(Q\)</span> is an <span class="math notranslate nohighlight">\(m \times n\)</span> matrix satisfying <span class="math notranslate nohighlight">\(Q^\top Q = I\)</span> and where <span class="math notranslate nohighlight">\(R\)</span> is an <span class="math notranslate nohighlight">\(n \times n\)</span> upper triangular matrix. If <span class="math notranslate nohighlight">\(A\)</span> has a full rank, then the QR decomposition is unique if we require the diagonal elements of <span class="math notranslate nohighlight">\(R\)</span> to be positive.</p>
+</div>
+</section>
+</section>
+<section id="solving-linear-systems-of-equations-with-the-qr-decomposition">
+<h2>Solving linear systems of equations with the QR decomposition<a class="headerlink" href="#solving-linear-systems-of-equations-with-the-qr-decomposition" title="Link to this heading">#</a></h2>
+<p>To solve <span class="math notranslate nohighlight">\(Ax = b\)</span>, we can employ the QR decomposition of <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{n \times n}\)</span>.</p>
+<p>The linear system <span class="math notranslate nohighlight">\(Ax = b\)</span> can be rewritten using the QR decomposition:</p>
+<ol class="arabic simple">
+<li><p>Original System: <span class="math notranslate nohighlight">\(Ax = b\)</span>.</p></li>
+<li><p>Substituting <span class="math notranslate nohighlight">\(A = QR\)</span>: <span class="math notranslate nohighlight">\(QRx = b\)</span>.</p></li>
+<li><p>Left-multiplying by <span class="math notranslate nohighlight">\(Q^\top\)</span> (since <span class="math notranslate nohighlight">\(Q\)</span> is orthogonal, <span class="math notranslate nohighlight">\(Q^\top Q = I\)</span>): <span class="math notranslate nohighlight">\(Q^\top QRx = Q^\top b\)</span>.</p></li>
+<li><p>Simplifying (as <span class="math notranslate nohighlight">\(Q^\top Q = I\)</span>): <span class="math notranslate nohighlight">\(Rx = Q^\top b\)</span>.</p></li>
+</ol>
+<p>The last equation, <span class="math notranslate nohighlight">\(Rx = Q^\top b\)</span>, represents an upper triangular system. This can be efficiently solved by backward substitution, starting from the previous equation and substituting backwards to find all unknowns.</p>
+<ul class="simple">
+<li><p><strong>Backward Stability</strong>: Solving linear systems via QR decomposition can be implemented so that it is backward stable.</p></li>
+<li><p><strong>Comparison with LU Decomposition</strong>: Despite its stability, the QR decomposition method for solving linear systems is less commonly used than the LU decomposition in practice. This is primarily due to its computational cost. The QR decomposition typically requires about twice as many operations as the LU decomposition, making it less efficient for large-scale problems. However, recall that LU decomposition is not backward stable.</p></li>
+</ul>
+</section>
+<section id="reduced-vs-full-qr-decomposition">
+<h2>Reduced vs full QR decomposition<a class="headerlink" href="#reduced-vs-full-qr-decomposition" title="Link to this heading">#</a></h2>
+<p>Consider the QR decomposition <span class="math notranslate nohighlight">\(A = QR\)</span> with <span class="math notranslate nohighlight">\(Q\in\mathbb{R}^{m\times n}\)</span> and <span class="math notranslate nohighlight">\(R\in\mathbb{R}^{n\times n}\)</span>. We call this QR decomposition a reduced QR decomposition. To define the full QR decomposition, let <span class="math notranslate nohighlight">\(Q^{\bot}\in\mathbb{R}^{m\times m-n}\)</span> be a matrix whose columns are orthonormal and satisfy <span class="math notranslate nohighlight">\(\hat{Q}^\top Q = 0\)</span> (i.e. they are a basis of the orthogonal complement of the range of <span class="math notranslate nohighlight">\(A\)</span>). We can reformulate the QR decomposition as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+A = \begin{pmatrix}Q &amp; Q^{\bot}\end{pmatrix}\begin{pmatrix}R\\ 0\end{pmatrix} =: \tilde{R}\tilde{Q}.
+\end{split}\]</div>
+<p>The QR decomposition <span class="math notranslate nohighlight">\(A = \tilde{Q}\tilde{R}\)</span> is called full QR decomposition. It is rarely used in practical computation as the columns of <span class="math notranslate nohighlight">\(Q^{\bot}\)</span> are usually not required. However, it is essential theoretically, as <span class="math notranslate nohighlight">\(Q^{\bot}\)</span> contains information about the range of <span class="math notranslate nohighlight">\(A\)</span> and its orthogonal complement. Moreover, <span class="math notranslate nohighlight">\(\tilde{Q}\)</span> is an orthogonal matrix, while <span class="math notranslate nohighlight">\(Q\)</span> is only a submatrix of an orthogonal matrix.</p>
+</section>
+<section id="python-skills">
+<h2>Python skills<a class="headerlink" href="#python-skills" title="Link to this heading">#</a></h2>
+<section id="implementation-from-scratch">
+<h3>Implementation from scratch<a class="headerlink" href="#implementation-from-scratch" title="Link to this heading">#</a></h3>
+<p>Step 1: Import Numpy</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+<p>Step 2: Implement the Gram-Schmidt method</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">gram_schmidt</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>
+    <span class="n">m</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">Q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span>
+    <span class="n">R</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span>
+
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">Q</span><span class="p">[:,</span> <span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">A</span><span class="p">[:,</span> <span class="n">k</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
+            <span class="n">R</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">Q</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">A</span><span class="p">[:,</span> <span class="n">k</span><span class="p">])</span>
+            <span class="n">Q</span><span class="p">[:,</span> <span class="n">k</span><span class="p">]</span> <span class="o">-=</span> <span class="n">R</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">k</span><span class="p">]</span> <span class="o">*</span> <span class="n">Q</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span>
+        <span class="n">R</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">Q</span><span class="p">[:,</span> <span class="n">k</span><span class="p">])</span>
+        <span class="n">Q</span><span class="p">[:,</span> <span class="n">k</span><span class="p">]</span> <span class="o">/=</span> <span class="n">R</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">k</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">Q</span><span class="p">,</span> <span class="n">R</span>
+</pre></div>
+</div>
+<p>Step 3: Test with the matrix of the first self-check question</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define a matrix</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">]])</span>
+
+<span class="c1"># Perform QR Decomposition</span>
+<span class="n">Q</span><span class="p">,</span> <span class="n">R</span> <span class="o">=</span> <span class="n">gram_schmidt</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Matrix Q:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">Q</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Matrix R:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">R</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Step 4: Verify the decomposition</p>
+<p>We can verify the decomposition by checking if <span class="math notranslate nohighlight">\(A \approx QR\)</span>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check if A is approximately equal to QR</span>
+<span class="n">A_approx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">Q</span><span class="p">,</span> <span class="n">R</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Matrix A reconstructed from Q and R:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">A_approx</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="using-numpy-s-implementation">
+<h3>Using Numpy’s implementation<a class="headerlink" href="#using-numpy-s-implementation" title="Link to this heading">#</a></h3>
+<p>Here is an example using Numpy’s implementation:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># Step 1: Create a random matrix</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Matrix A:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+
+<span class="c1"># Step 2: Perform QR decomposition</span>
+<span class="n">Q</span><span class="p">,</span> <span class="n">R</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">qr</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+
+<span class="c1"># Step 3: Display results</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Orthogonal Matrix Q:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">Q</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Upper Triangular Matrix R:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">R</span><span class="p">)</span>
+
+<span class="c1"># Step 4: Verification</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Product QR:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">Q</span><span class="p">,</span> <span class="n">R</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Product Q^T Q (should be close to identity):&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">Q</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">Q</span><span class="p">))</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="self-check-questions">
+<h2>Self-check questions<a class="headerlink" href="#self-check-questions" title="Link to this heading">#</a></h2>
+<div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Find the QR decomposition of the matrix</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} A = \begin{pmatrix} 3 &amp; 2 \\ 1 &amp; 4 \\ 0 &amp; 5 \end{pmatrix}.\end{split}\]</div>
+<p>using the Gram-Schmidt method.</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<ol class="arabic simple">
+<li><p class="sd-card-text"><strong>First Column (<span class="math notranslate nohighlight">\(q_1\)</span>)</strong>:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[\begin{split}q_1 = \begin{pmatrix} 0.9487 \\ 0.3162 \\ 0 \end{pmatrix}\end{split}\]</div>
+<ol class="arabic simple" start="2">
+<li><p class="sd-card-text"><strong>Orthogonalized Second Column (<span class="math notranslate nohighlight">\(\tilde{q}_2\)</span>)</strong>:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[\begin{split}\tilde{q}_2 = \begin{pmatrix} -1 \\ 3 \\ 5 \end{pmatrix}\end{split}\]</div>
+<ol class="arabic simple" start="3">
+<li><p class="sd-card-text"><strong>Normalized Second Column (<span class="math notranslate nohighlight">\(q_2\)</span>)</strong>:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[\begin{split}q_2 = \begin{pmatrix} -0.1690 \\ 0.5071 \\ 0.8452 \end{pmatrix}\end{split}\]</div>
+<ol class="arabic simple" start="4">
+<li><p class="sd-card-text"><strong>Orthogonal Matrix <span class="math notranslate nohighlight">\(Q\)</span></strong>:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[\begin{split}Q = \begin{pmatrix} 0.9487 &amp; -0.1690 \\ 0.3162 &amp; 0.5071 \\ 0 &amp; 0.8452 \end{pmatrix}\end{split}\]</div>
+<ol class="arabic simple" start="5">
+<li><p class="sd-card-text"><strong>Upper Triangular Matrix <span class="math notranslate nohighlight">\(R\)</span></strong>:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[\begin{split}R = \begin{pmatrix} 3.1623 &amp; 3.1623 \\ 0 &amp; 5.9161 \end{pmatrix}\end{split}\]</div>
+<p class="sd-card-text">The matrices <span class="math notranslate nohighlight">\(Q\)</span> and <span class="math notranslate nohighlight">\(R\)</span> form the QR decomposition of <span class="math notranslate nohighlight">\(A\)</span>, such that <span class="math notranslate nohighlight">\(A = QR\)</span>. The matrix <span class="math notranslate nohighlight">\(Q\)</span> contains orthonormal columns, and <span class="math notranslate nohighlight">\(R\)</span> is an upper triangular matrix.</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>A matrix <span class="math notranslate nohighlight">\(A\)</span> is called tridiagonal if on its diagonal and first off-diagonals contain nonzero entries: <span class="math notranslate nohighlight">\(a_{ij} = 0\)</span> if <span class="math notranslate nohighlight">\(|i - j| \geq 2\)</span>. Show that if <span class="math notranslate nohighlight">\(A\)</span> is tridiagonal, then <span class="math notranslate nohighlight">\(R\)</span> of its <span class="math notranslate nohighlight">\(QR\)</span> factorisation is nonzero only on the diagonal and the first two upper off-diagonals.</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Recall the structure of <span class="math notranslate nohighlight">\(R\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+    R = \begin{pmatrix}
+    \|\tilde{q}_1\|_2 &amp; \langle a_2, q_1 \rangle &amp; \ldots &amp; \langle a_n, q_1 \rangle \\
+                      &amp; \|\tilde{q}_2\|_2        &amp; \ddots &amp; \vdots \\
+                      &amp;                          &amp; \ddots &amp; \langle a_n, q_{n-1} \rangle \\
+                      &amp;                          &amp;        &amp; \|\tilde{q}_n\|_2
+    \end{pmatrix}
+    \end{split}\]</div>
+<p class="sd-card-text">We need to show <span class="math notranslate nohighlight">\(r_{ij} = 0\)</span> if <span class="math notranslate nohighlight">\(j + 2 \geq i\)</span>:</p>
+<ul>
+<li><p class="sd-card-text">The result trivially holds for the first three columns because of the triangularity of <span class="math notranslate nohighlight">\(R\)</span>. Thus, let <span class="math notranslate nohighlight">\(j \geq 4\)</span>.</p></li>
+<li><p class="sd-card-text">We know that the first <span class="math notranslate nohighlight">\(j - 2\)</span> entries of the <span class="math notranslate nohighlight">\(j\)</span>th column of <span class="math notranslate nohighlight">\(a_j\)</span> vanish because of the tridiagonal structure.</p></li>
+<li><p class="sd-card-text">We that <span class="math notranslate nohighlight">\(\mathrm{span}(a_1, \ldots, a_i) = \mathrm{span}(q_1, \ldots, q_i)\)</span> owing to the construction of the Gram-Schmid method. Because of the tridiagonal structure, only the <span class="math notranslate nohighlight">\((i+1)\)</span>th elements of <span class="math notranslate nohighlight">\(q_k\)</span>, <span class="math notranslate nohighlight">\(k \leq i\)</span>, can be nonzero.</p></li>
+<li><p class="sd-card-text">Therefore if <span class="math notranslate nohighlight">\(j + 2 \geq i\)</span></p>
+<div class="math notranslate nohighlight">
+\[
+  r_{ij} = \langle a_j, q_i \rangle = \sum_{k = 1}^n (a_j)_k, (q_i)_k = 0
+  \]</div>
+<p class="sd-card-text">because in each part of the sum, one factor equals <span class="math notranslate nohighlight">\(0\)</span>.</p>
+</li>
+</ul>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Given <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{n \times m}\)</span> with <span class="math notranslate nohighlight">\(m \geq n\)</span> show that the factorisation <span class="math notranslate nohighlight">\(A = LQ\)</span> exists, where <span class="math notranslate nohighlight">\(Q\)</span> is an <span class="math notranslate nohighlight">\(n \times m\)</span> matrix with orthogonal rows and where <span class="math notranslate nohighlight">\(L\)</span> is an <span class="math notranslate nohighlight">\(n \times n\)</span> lower triangular matrix.</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Using the <span class="math notranslate nohighlight">\(QR\)</span> decomposition <span class="math notranslate nohighlight">\(A^\top = \bar{Q} R\)</span> of the transpose,</p>
+<div class="math notranslate nohighlight">
+\[
+A = (A^\top)^\top = (\bar{Q} R)^\top = R^\top \bar{Q}^\top = L Q
+\]</div>
+<p class="sd-card-text">with <span class="math notranslate nohighlight">\(L := R^\top\)</span> and <span class="math notranslate nohighlight">\(Q := \bar{Q}^\top\)</span>.</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Determine the <span class="math notranslate nohighlight">\(2\times 2\)</span> matrix <span class="math notranslate nohighlight">\(Q\)</span> that rotates a vector by an angle <span class="math notranslate nohighlight">\(\theta\)</span>. Is this matrix orthogonal? Show that <span class="math notranslate nohighlight">\(Q^{-1}\)</span> is identical to the matrix that rotates vectors by an angle of <span class="math notranslate nohighlight">\(-\theta\)</span>.</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">The rotation matrix is given as follows:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}  
+Q =   
+\begin{pmatrix}  
+\cos\theta &amp; -\sin\theta\\  
+\sin\theta &amp; \cos\theta  
+\end{pmatrix}  
+\end{split}\]</div>
+<p class="sd-card-text">The matrix <span class="math notranslate nohighlight">\(Q\)</span> is orthogonal since <span class="math notranslate nohighlight">\(Q^\top Q=I\)</span>. The rotation matrix for the angle <span class="math notranslate nohighlight">\(-\theta\)</span> is obtained as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}  
+\hat{Q} =  
+\begin{pmatrix}  
+\cos\theta &amp; +\sin\theta\\  
+-\sin\theta &amp; \cos\theta  
+\end{pmatrix},  
+\end{split}\]</div>
+<p class="sd-card-text">which is just the transpose of <span class="math notranslate nohighlight">\(Q\)</span>. Hence, as expected, the inverse of <span class="math notranslate nohighlight">\(Q\)</span> is just the rotation by <span class="math notranslate nohighlight">\(-\theta\)</span>.</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Let <span class="math notranslate nohighlight">\(u\in\mathbb{R}^n\)</span> with <span class="math notranslate nohighlight">\(\|u\|_2=1\)</span>. Define <span class="math notranslate nohighlight">\(P=uu^\top\)</span>. Show that <span class="math notranslate nohighlight">\(P=P^2\)</span>. Is <span class="math notranslate nohighlight">\(P\)</span> an orthogonal matrix? Describe what <span class="math notranslate nohighlight">\(P\)</span> is doing. Matrices that satisfy <span class="math notranslate nohighlight">\(P=P^2\)</span> are also called projectors.</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">We have</p>
+<div class="math notranslate nohighlight">
+\[  
+P^2 = uu^\top uu^\top = uu^\top  
+\]</div>
+<p class="sd-card-text">since <span class="math notranslate nohighlight">\(u^\top u = 1\)</span>.</p>
+<p class="sd-card-text"><span class="math notranslate nohighlight">\(P\)</span> is not orthogonal since it is singular. If <span class="math notranslate nohighlight">\(v\bot u\)</span> then <span class="math notranslate nohighlight">\(Pv = 0\)</span>. <span class="math notranslate nohighlight">\(Px\)</span> is the projection of a vector <span class="math notranslate nohighlight">\(x\)</span> along <span class="math notranslate nohighlight">\(u\)</span>, that is it cancels out all components of <span class="math notranslate nohighlight">\(x\)</span> orthogonal to <span class="math notranslate nohighlight">\(u\)</span>.</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Let <span class="math notranslate nohighlight">\(P=P^2\)</span> be a projector satisfying <span class="math notranslate nohighlight">\(P=P^\top\)</span>. Show that <span class="math notranslate nohighlight">\(Q=I-2P\)</span> is an orthogonal matrix. Give a geometric interpretation of <span class="math notranslate nohighlight">\(Q\)</span>.</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">We have</p>
+<div class="math notranslate nohighlight">
+\[  
+(I-2P)^\top (I-2P) = (I -2P)^2 = I - 4P + 4P^2 = I  
+\]</div>
+<p class="sd-card-text">since <span class="math notranslate nohighlight">\(P=P^\top\)</span> and <span class="math notranslate nohighlight">\(P^2=P\)</span>. The matrix <span class="math notranslate nohighlight">\(Q\)</span> is a reflector. All components orthogonal to <span class="math notranslate nohighlight">\(P\)</span> are left untouched while all components in the range of <span class="math notranslate nohighlight">\(P\)</span> are subtracted twice, therefore being reflected. In the special case that <span class="math notranslate nohighlight">\(P=uu^\top\)</span> for <span class="math notranslate nohighlight">\(\|u\|_2=1\)</span>, the matrix <span class="math notranslate nohighlight">\(Q\)</span> is a Householder transformation.</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>In the following, we define two different ways of orthogonalising vectors.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>  
+  
+<span class="k">def</span> <span class="nf">gram_schmidt</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>  
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns an orthogonal basis for the columns in A.&quot;&quot;&quot;</span>  
+    
+    <span class="n">m</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  
+    <span class="n">n</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>  
+      
+    <span class="n">Q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>  
+    <span class="n">Q</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">A</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">A</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span>  
+      
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>  
+        <span class="n">t</span> <span class="o">=</span> <span class="n">A</span><span class="p">[:,</span> <span class="n">col</span><span class="p">]</span>  
+        <span class="n">inner_products</span> <span class="o">=</span> <span class="n">Q</span><span class="p">[:,</span> <span class="p">:</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">t</span>  
+        <span class="n">t</span> <span class="o">-=</span> <span class="n">Q</span><span class="p">[:,</span> <span class="p">:</span><span class="n">col</span><span class="p">]</span> <span class="o">@</span> <span class="n">inner_products</span>  
+        <span class="n">Q</span><span class="p">[:,</span> <span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">t</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>  
+      
+    <span class="k">return</span> <span class="n">Q</span>  
+
+<span class="k">def</span> <span class="nf">modified_gram_schmidt</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>  
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns an orthogonal basis for the columns in A.&quot;&quot;&quot;</span>  
+          
+    <span class="n">m</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  
+    <span class="n">n</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>  
+      
+    <span class="n">Q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>  
+    <span class="n">Q</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">A</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">A</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span>  
+      
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>  
+        <span class="n">t</span> <span class="o">=</span> <span class="n">A</span><span class="p">[:,</span> <span class="n">col</span><span class="p">]</span>  
+        <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">col</span><span class="p">):</span>  
+            <span class="n">t</span> <span class="o">-=</span> <span class="n">Q</span><span class="p">[:,</span> <span class="n">index</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">inner</span><span class="p">(</span><span class="n">Q</span><span class="p">[:,</span> <span class="n">index</span><span class="p">],</span> <span class="n">t</span><span class="p">))</span>  
+        <span class="n">Q</span><span class="p">[:,</span> <span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">t</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>  
+      
+    <span class="k">return</span> <span class="n">Q</span>
+</pre></div>
+</div>
+<p>Describe the difference between the two formulations and convince yourself that they are algebraically equivalent. How can one numerically demonstrate that the modified formulation is more accurate in floating point arithmetic?</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">The Gram-Schmidt orthogonalisation first forms all inner products against the previous vectors and then subtracts them. In contrast, the modified Gram-Schmidt method subtracts immediately after forming the inner product with a previous column <span class="math notranslate nohighlight">\(q\)</span>. Modified Gram-Schmidt is just a reordering of the orthogonalisation. However, it can be shown that modified Gram-Schmidt is numerically more stable.</p>
+<p class="sd-card-text">In the example below, we orthogonalise a matrix <span class="math notranslate nohighlight">\(A\)</span> with both methods and then compare the resulting matrix <span class="math notranslate nohighlight">\(Q\)</span> with the identity matrix. The relative residual of modified Gram-Schmidt is much closer to machine precision than that of Gram-Schmidt. In practice, therefore, usually modified Gram-Schmidt is used.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">m</span> <span class="o">=</span> <span class="mi">1000</span>  
+<span class="n">n</span> <span class="o">=</span> <span class="mi">1000</span>  
+  
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>  
+<span class="n">Q_gs</span> <span class="o">=</span> <span class="n">gram_schmidt</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>  
+<span class="n">Q_mgs</span> <span class="o">=</span> <span class="n">modified_gram_schmidt</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>  
+  
+<span class="n">ident</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>  
+<span class="n">res_gs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">Q_gs</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">Q_gs</span> <span class="o">-</span> <span class="n">ident</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">ident</span><span class="p">)</span>  
+<span class="n">res_mgs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">Q_mgs</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">Q_mgs</span> <span class="o">-</span> <span class="n">ident</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">ident</span><span class="p">)</span>  
+  
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Residual for Gram-Schmidt: </span><span class="si">{</span><span class="n">res_gs</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Residual for modified Gram-Schmidt: </span><span class="si">{</span><span class="n">res_mgs</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sd-card-text">This results in the output</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Residual</span> <span class="k">for</span> <span class="n">Gram</span><span class="o">-</span><span class="n">Schmidt</span><span class="p">:</span> <span class="mf">4.610285906483318e-11</span>
+<span class="n">Residual</span> <span class="k">for</span> <span class="n">modified</span> <span class="n">Gram</span><span class="o">-</span><span class="n">Schmidt</span><span class="p">:</span> <span class="mf">1.1165488100397485e-15</span>
+</pre></div>
+</div>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Equip the vector space <span class="math notranslate nohighlight">\(\mathcal{P}_3\)</span> of cubic polynomials</p>
+<div class="math notranslate nohighlight">
+\[
+\{ c_3 \, t^3 + c_2 \, t^2 + c_1 \, t + c_0 | \, (c_0, c_1, c_2, c_3) \in \mathbb{R}^4 \}
+\]</div>
+<p>with the scalar product</p>
+<div class="math notranslate nohighlight">
+\[
+\langle p, q \rangle = \int_a^b p(t) \, q(t) \, w(t) \, dt.
+\]</div>
+<p>Applying the Gram–Schmidt method to the basis <span class="math notranslate nohighlight">\(\{1, t, t^2, t^3\}\)</span>, compute orthogonal bases for <span class="math notranslate nohighlight">\(\mathcal{P}_3\)</span> in three cases:</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\((a,b) = (-1,1)\)</span> with <span class="math notranslate nohighlight">\(w(t)=1\)</span>;</p></li>
+<li><p><span class="math notranslate nohighlight">\((a,b) = (0,1)\)</span> with <span class="math notranslate nohighlight">\(w(t)=1\)</span>;</p></li>
+<li><p><span class="math notranslate nohighlight">\((a,b) = (0,1)\)</span> with <span class="math notranslate nohighlight">\(w(t)=\exp^{-t}\)</span>.</p></li>
+</ol>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">In all cases, let <span class="math notranslate nohighlight">\(a_j(t)=t^j\)</span>. Observe that we only need an orthogonal basis, not an orthonormal one. We therefore only write down the basis vectors <span class="math notranslate nohighlight">\(\tilde{q}_i\)</span>; their normalised counterparts still appear in the computations implicitly because, in the notation of the Gram-Schmidt algorithm above,</p>
+<div class="math notranslate nohighlight">
+\[
+\sum_{j=1}^{k-1}\langle a_k, q_j \rangle q_j = \sum_{j=1}^{k-1} \frac{\langle \tilde{q}_j, a_k \rangle}{\langle \tilde{q}_j, \tilde{q}_j \rangle} \tilde{q}_j.
+\]</div>
+<ol class="arabic">
+<li><p class="sd-card-text">Starting with <span class="math notranslate nohighlight">\(\tilde{q}_0(t)=1\)</span>, we compute</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+   \begin{align*}
+   &amp;\tilde{q}_1(t) = a_1(t) - \frac{\langle \tilde{q}_0,a_1 \rangle}{\langle \tilde{q}_0,\tilde{q}_0 \rangle}\tilde{q}_0(t) = t - 0,\\
+   &amp;\tilde{q}_2(t) = a_2(t) - \frac{\langle \tilde{q}_1,a_2 \rangle}{\langle \tilde{q}_1,\tilde{q}_1 \rangle}\tilde{q}_1(t)
+ - \frac{\langle \tilde{q}_0,a_2 \rangle}{\langle \tilde{q}_0,\tilde{q}_0 \rangle}\tilde{q}_0(t)
+ = t^2 - 0 - \frac13,\\
+   &amp;\tilde{q}_3(t) = a_3(t) - \frac{\langle \tilde{q}_2,a_3 \rangle}{\langle \tilde{q}_2,\tilde{q}_2 \rangle}\tilde{q}_2(t)
+ - \frac{\langle \tilde{q}_1,a_3 \rangle}{\langle \tilde{q}_1,\tilde{q}_1 \rangle}\tilde{q}_1(t)
+ - \frac{\langle \tilde{q}_0,a_3 \rangle}{\langle \tilde{q}_0,\tilde{q}_0 \rangle}\tilde{q}_0(t)
+   = t^3 - 0 - \frac{3t}5 - 0.
+   \end{align*}
+   \end{split}\]</div>
+<p class="sd-card-text">One could reduce the amount of actual computation by noting that <span class="math notranslate nohighlight">\((f, g)=0\)</span> whenever the product <span class="math notranslate nohighlight">\(f \cdot g\)</span> is odd; using this, <span class="math notranslate nohighlight">\(\tilde{q}_j\)</span> is odd for odd <span class="math notranslate nohighlight">\(j\)</span> and even for even <span class="math notranslate nohighlight">\(j\)</span>.</p>
+</li>
+<li><p class="sd-card-text">Starting with <span class="math notranslate nohighlight">\(\tilde{q}_0(t)=1\)</span>, we compute</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+   \begin{align*}
+   \tilde{q}_1(t) &amp; = a_1(t) - \frac{\langle \tilde{q}_0,a_1 \rangle}{\langle \tilde{q}_0,\tilde{q}_0 \rangle}\tilde{q}_0(t) = t - \frac12,\\
+   \tilde{q}_2(t) &amp; = a_2(t) - \frac{\langle \tilde{q}_1,a_2 \rangle}{\langle \tilde{q}_1,\tilde{q}_1 \rangle}\tilde{q}_1(t)
+ - \frac{\langle \tilde{q}_0,a_2 \rangle}{\langle \tilde{q}_0,\tilde{q}_0 \rangle}\tilde{q}_0(t)
+ = t^2 - 1\cdot\tilde{q}_1(t) - \frac13\cdot\tilde{q}_0(t) = t^2 - t + \frac16,\\
+   \tilde{q}_3(t) &amp; = a_3(t) - \frac{\langle \tilde{q}_2,a_3 \rangle}{\langle \tilde{q}_2,\tilde{q}_2 \rangle}\tilde{q}_2(t)
+ - \frac{\langle \tilde{q}_1,a_3 \rangle}{\langle \tilde{q}_1,\tilde{q}_1 \rangle}\tilde{q}_1(t)
+ - \frac{\langle \tilde{q}_0,a_3 \rangle}{\langle \tilde{q}_0,\tilde{q}_0 \rangle}\tilde{q}_0(t)\\
+   &amp; = t^3 - \frac32\cdot\tilde{q}_2(t) - \frac9{10}\cdot\tilde{q}_1(t) - \frac14\cdot\tilde{q}_0(t)
+ = t^3 - \frac{3t^2}2 + \frac{3t}5 - \frac1{20}.
+   \end{align*}
+   \end{split}\]</div>
+<p class="sd-card-text">No trick as in (a) is possible here.</p>
+</li>
+<li><p class="sd-card-text">Finally, starting with <span class="math notranslate nohighlight">\(\tilde{q}_0(t)=1\)</span>, we compute:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+   \begin{align*}
+   \tilde{q}_1(t) &amp; = a_1(t) - \frac{\langle \tilde{q}_0,a_1 \rangle}{\langle \tilde{q}_0,\tilde{q}_0 \rangle}\tilde{q}_0(t) = t - \frac{\exp-2}{\exp-1} = t - 0.4180232931,\\
+   \tilde{q}_2(t) &amp; = a_2(t) - \frac{\langle \tilde{q}_1,a_2 \rangle}{\langle \tilde{q}_1,\tilde{q}_1 \rangle}\tilde{q}_1(t)
+ - \frac{\langle \tilde{q}_0,a_2 \rangle}{\langle \tilde{q}_0,\tilde{q}_0 \rangle}\tilde{q}_0(t)\\
+ &amp; = t^2 - \frac{4\exp^2-13\exp+6}{\exp^2-3\exp+1}\,\tilde{q}_1(t) - \frac{2\exp-5}{\exp-1}\,\tilde{q}_0(t)
+ = t^2 - \frac{4\exp^2-13\exp+6}{\exp^2-3\exp+1}\,t + \frac{2\exp^2-8\exp+7}{\exp^2-3\exp+1}\\
+   &amp; = t^2 - 0.93317985227\,t + 0.1360210355\\
+   \tilde{q}_3(t) &amp; = a_3(t) - \frac{\langle \tilde{q}_2,a_3 \rangle}{\langle \tilde{q}_2,\tilde{q}_2 \rangle}\tilde{q}_2(t)
+ - \frac{\langle \tilde{q}_1,a_3 \rangle}{\langle \tilde{q}_1,\tilde{q}_1 \rangle}\tilde{q}_1(t)
+ - \frac{\langle \tilde{q}_0,a_3 \rangle}{\langle \tilde{q}_0,\tilde{q}_0 \rangle}\tilde{q}_0(t)\\
+   &amp; = t^3 - \frac{36\exp^3-194\exp^2+279\exp-48}{4\exp^3-21\exp^2+29\exp-4}\,\tilde{q}_2(t) - \frac{18\exp^2-61\exp+33}{\exp^2-3\exp+1}\,\tilde{q}_1(t) - \frac{6\exp-16}{\exp-1}\,\tilde{q}_0(t)\\
+   &amp; = t^3 - 1.435696868\,t^2 + 0.5378430946\,t - 0.040296542725.
+   \end{align*}
+   \end{split}\]</div>
+</li>
+</ol>
+</div>
+</details></section>
+<section id="optional-material">
+<h2>Optional material<a class="headerlink" href="#optional-material" title="Link to this heading">#</a></h2>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">QR Decomposition with Householder Transformations</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">While the Gram-Schmidt process is a common approach to obtain the QR decomposition of a matrix, the Householder transformation method provides a more stable alternative, especially for large matrices. In this section, we explore the QR decomposition using Householder transformations.</p>
+<h4 class="rubric" id="householder-transformations">Householder Transformations</h4>
+<p class="sd-card-text">Given a vector <span class="math notranslate nohighlight">\(v \in \mathbb{R}^n \setminus \{0\}\)</span>, the corresponding Householder transformation <span class="math notranslate nohighlight">\(H\)</span> of order <span class="math notranslate nohighlight">\(n\)</span> is defined as:</p>
+<div class="math notranslate nohighlight">
+\[ H = I - 2 \frac{vv^\top}{v^\topv}  \]</div>
+<p class="sd-card-text">Clearly,</p>
+<div class="math notranslate nohighlight">
+\[ H x = x - 2 \frac{v^\top x}{v^\topv} v \]</div>
+<p class="sd-card-text">Split <span class="math notranslate nohighlight">\(x = x_o + x_c\)</span> into the orthogonal and collinear part: <span class="math notranslate nohighlight">\(v^\top x_o = 0\)</span> and <span class="math notranslate nohighlight">\(\alpha v^\top = x_c\)</span> for some <span class="math notranslate nohighlight">\(\alpha \in \mathbb{R}\)</span>. Then</p>
+<div class="math notranslate nohighlight">
+\[
+H x = \left(x_o - 2 \frac{v^\top x_o}{v^\topv} v\right) + \left(x_c - 2 \frac{v^\top x_c}{v^\topv} v\right) = x_o - x_c,
+\]</div>
+<p class="sd-card-text">meaning that geometrically, Householder transformation is a reflection of <span class="math notranslate nohighlight">\(x\)</span> in the hyperplane, which is perpendicular to <span class="math notranslate nohighlight">\(v\)</span>.</p>
+<h4 class="rubric" id="application-in-qr-decomposition">Application in QR Decomposition</h4>
+<p class="sd-card-text">As with the Gram-Schmidt method above, the goal is to transform a given matrix <span class="math notranslate nohighlight">\(A\)</span> into an upper triangular matrix <span class="math notranslate nohighlight">\(R\)</span> using orthogonal transformations. This is achieved iteratively, column by column, using Householder matrices.</p>
+<p class="sd-card-text"><strong>Step-by-Step Process</strong>:</p>
+<ol class="arabic simple">
+<li><p class="sd-card-text"><strong>Target Vector</strong>: Consider the first column of <span class="math notranslate nohighlight">\(A\)</span>. Let us denote this column as <span class="math notranslate nohighlight">\(x\)</span>. We want to transform <span class="math notranslate nohighlight">\(x\)</span> into a new vector <span class="math notranslate nohighlight">\(x'\)</span> with the same norm as <span class="math notranslate nohighlight">\(x\)</span>, but all components are zero except for the first component.</p></li>
+<li><p class="sd-card-text"><strong>Constructing <span class="math notranslate nohighlight">\(v\)</span></strong>: To create the Householder matrix <span class="math notranslate nohighlight">\(H\)</span>, we first need to construct the vector <span class="math notranslate nohighlight">\(v\)</span>. This is done by taking <span class="math notranslate nohighlight">\(v = x - \|x\|e_1\)</span>, where <span class="math notranslate nohighlight">\(e_1\)</span> is the first unit vector. With <span class="math notranslate nohighlight">\(v\)</span> determined, we form the Householder matrix <span class="math notranslate nohighlight">\(H = I - 2 \frac{vv^\top}{v^\topv}\)</span>.</p></li>
+<li><p class="sd-card-text"><strong>Applying <span class="math notranslate nohighlight">\(H\)</span></strong>: Multiply <span class="math notranslate nohighlight">\(H\)</span> by <span class="math notranslate nohighlight">\(A\)</span> (i.e., <span class="math notranslate nohighlight">\(HA\)</span>) to reflect the first column of <span class="math notranslate nohighlight">\(A\)</span> about the plane orthogonal to <span class="math notranslate nohighlight">\(v\)</span>. This operation zeros out all elements below the diagonal in the first column; see Lecture 10 of <span id="id1">[<a class="reference internal" href="bm4_bibliography.html#id2" title="Lloyd N. Trefethen and David Bau, III. Numerical linear algebra. SIAM, 1997. URL: https://ucl.primo.exlibrisgroup.com/permalink/44UCL_INST/155jbua/alma990010608020204761.">Trefethen and Bau, 1997</a>]</span>.</p></li>
+<li><p class="sd-card-text"><strong>Iterative Process</strong>: Repeat the process for the submatrix of <span class="math notranslate nohighlight">\(A\)</span> excluding the already zeroed elements. Each step involves constructing a new Householder matrix to introduce zeros in the subsequent column below the diagonal.</p></li>
+</ol>
+<h4 class="rubric" id="comparing-with-the-gram-schmidt-method">Comparing with the Gram-Schmidt method</h4>
+<ul class="simple">
+<li><p class="sd-card-text"><strong>Numerical Stability</strong>: Householder transformations are generally more numerically stable than the classical (and modified) Gram-Schmidt processes.</p></li>
+<li><p class="sd-card-text"><strong>Efficiency in Large Matrices</strong>: For large matrices, the increased stability of Householder transformations often outweighs its higher computational complexity.</p></li>
+<li><p class="sd-card-text"><strong>Ease of Understanding</strong>: The Gram-Schmidt process is often easier to understand and implement.</p></li>
+</ul>
+</div>
+</details></section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="2.3_python_lu_decomposition.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Python implementation</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="3.2_singular_value_decomposition.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">The Singular Value Decomposition</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#orthogonal-matrices">Orthogonal matrices</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qr-decomposition-via-gram-schmidt-orthogonalisation">QR Decomposition via Gram-Schmidt Orthogonalisation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-decomposition-representation">Matrix Decomposition Representation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-linear-systems-of-equations-with-the-qr-decomposition">Solving linear systems of equations with the QR decomposition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reduced-vs-full-qr-decomposition">Reduced vs full QR decomposition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation-from-scratch">Implementation from scratch</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-numpy-s-implementation">Using Numpy’s implementation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#self-check-questions">Self-check questions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-material">Optional material</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Timo Betcke, Erik Burman, Max Jensen
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
