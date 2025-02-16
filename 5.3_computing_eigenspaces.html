@@ -482,6 +482,7 @@ A_k = Q_k^H \cdots Q_1^H \, A \, Q_1 \cdots Q_k \to Q^H A Q = R.
 <p>For real symmetric matrices the resulting QR iteration exhibits very fast cubic convergence, with <span class="math notranslate nohighlight">\(\mathcal{O}(n^3)\)</span> operations to achieve machine accuracy.</p>
 <section id="numerical-investigation-of-qr-iteration-steps">
 <h3>Numerical investigation of QR iteration steps<a class="headerlink" href="#numerical-investigation-of-qr-iteration-steps" title="Link to this heading">#</a></h3>
+<p>We investigate these techniques by means of a computational example.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">scipy.linalg</span> <span class="kn">import</span> <span class="n">qr</span><span class="p">,</span> <span class="n">hessenberg</span>
 <span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
@@ -494,13 +495,13 @@ A_k = Q_k^H \cdots Q_1^H \, A \, Q_1 \cdots Q_k \to Q^H A Q = R.
 <span class="n">A</span>  <span class="o">=</span> <span class="n">rand</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">rand</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Let us first tranform the matrix to upper Hessenberg form. This can be implemented as similarity transformation that does not change the eigenvalues.</p>
+<p>Let us first transform the matrix to upper Hessenberg form. This can be implemented as a similarity transformation that does not change the eigenvalues.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">H</span> <span class="o">=</span> <span class="n">hessenberg</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">spy</span><span class="p">(</span><span class="n">H</span><span class="p">)</span>
 </pre></div>
 </div>
 <p><img alt="Hessenberg form" src="_images/HessenbergA.png" /></p>
-<p>We see that the matrix and its first lower diagonal are nonzero. Upper Hessenberg structures are preserved by a QR iteration step. Let’s check this.</p>
+<p>We see that the matrix and its first subdiagonal are both non-zero. Upper Hessenberg structures are preserved by a QR iteration step. Let’s check this.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Q</span><span class="p">,</span> <span class="n">R</span> <span class="o">=</span> <span class="n">qr</span><span class="p">(</span><span class="n">H</span><span class="p">)</span>
 <span class="n">H2</span> <span class="o">=</span> <span class="n">R</span> <span class="o">@</span> <span class="n">Q</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">spy</span><span class="p">(</span><span class="n">H2</span><span class="p">)</span>
@@ -508,7 +509,7 @@ A_k = Q_k^H \cdots Q_1^H \, A \, Q_1 \cdots Q_k \to Q^H A Q = R.
 </div>
 <p><img alt="Hessenberg form" src="_images/HessenbergB.png" /></p>
 <p>This structure preservation can be used to implement a QR iteration step in a highly efficient manner. We will not go into technical details about this here.</p>
-<p>Let us now run a couple of iterations of the QR iteration and let’s see how quickly the second to last element in the last row of <span class="math notranslate nohighlight">\(H\)</span> converges to zero. If it is zero the bottom last diagonal element is a wanted eigenvalue (convince yourself that this is true).</p>
+<p>Let us now run a couple of iterations of the QR iteration and let’s see how quickly the second-to-last element in the last row of <span class="math notranslate nohighlight">\(H\)</span> converges to zero. If that subdiagonal element is zero, then the bottom-right diagonal entry is an eigenvalue (you can verify this by considering the block structure).</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nsteps</span> <span class="o">=</span> <span class="mi">300</span>
 
 <span class="n">H</span> <span class="o">=</span> <span class="n">hessenberg</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
@@ -524,7 +525,7 @@ A_k = Q_k^H \cdots Q_1^H \, A \, Q_1 \cdots Q_k \to Q^H A Q = R.
 </pre></div>
 </div>
 <p><img alt="residuals" src="_images/residuals.png" /></p>
-<p>The convergence is extremely slow. We can speed this up by a shift strategy. The idea is to modify the QR iteration step so that it reads</p>
+<p>The convergence is extremely slow. We can accelerate convergence using a shift strategy. This modifies the QR iteration step to the following form</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{aligned}
@@ -533,9 +534,9 @@ A^{(m+1)} &amp;= R_mQ_m + \sigma I.
 \end{aligned}
 \end{split}\]</div>
 <p>Hence, we subtract the shift and do the QR decomposition, and then when we compute <span class="math notranslate nohighlight">\(R_mQ_m\)</span> we add the shift back in.</p>
-<p>Once can show that a QR step is equivalent to inverse iteration applied to the last vector in the simultaneous iteration. Hence, by applying the shift we perform a shifted inverse iteration. What shall we use as shift?</p>
+<p>One can show that a QR step is equivalent to inverse iteration applied to the last vector in the simultaneous iteration. Hence, by applying the shift we perform a shifted inverse iteration. What shall we use as shift?</p>
 <p>It turns out that we achieve quadratic convergence if we simply use the bottom right element of the Hessenberg matrix in each step as shift. This is similar to the Rayleigh quotient method for symmetric problems, where we adapted the shift in each step.</p>
-<p>The following implements the shift strategy.</p>
+<p>The following implements the shift strategy. We define <code class="docutils literal notranslate"><span class="pre">residual</span> <span class="pre">=</span> <span class="pre">np.abs(H[-1,</span> <span class="pre">-2])</span> <span class="pre">/</span> <span class="pre">np.abs(H[-1,</span> <span class="pre">-1])</span></code> as a measure of how close the subdiagonal element is to zero relative to the diagonal.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nsteps</span> <span class="o">=</span> <span class="mi">7</span>
 
 <span class="n">H</span> <span class="o">=</span> <span class="n">hessenberg</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>

@@ -34,9 +34,9 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=b4b7a797" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- So that users can add custom icons -->
@@ -858,14 +858,14 @@ P^2 = uu^\top uu^\top = uu^\top
 <h4 class="rubric" id="householder-transformations">Householder Transformations</h4>
 <p class="sd-card-text">Given a vector <span class="math notranslate nohighlight">\(v \in \mathbb{R}^n \setminus \{0\}\)</span>, the corresponding Householder transformation <span class="math notranslate nohighlight">\(H\)</span> of order <span class="math notranslate nohighlight">\(n\)</span> is defined as:</p>
 <div class="math notranslate nohighlight">
-\[ H = I - 2 \frac{vv^\top}{v^\topv}  \]</div>
+\[ H = I - 2 \frac{vv^\top}{v^^\top v}  \]</div>
 <p class="sd-card-text">Clearly,</p>
 <div class="math notranslate nohighlight">
-\[ H x = x - 2 \frac{v^\top x}{v^\topv} v \]</div>
+\[ H x = x - 2 \frac{v^\top x}{v^^\top v} v \]</div>
 <p class="sd-card-text">Split <span class="math notranslate nohighlight">\(x = x_o + x_c\)</span> into the orthogonal and collinear part: <span class="math notranslate nohighlight">\(v^\top x_o = 0\)</span> and <span class="math notranslate nohighlight">\(\alpha v^\top = x_c\)</span> for some <span class="math notranslate nohighlight">\(\alpha \in \mathbb{R}\)</span>. Then</p>
 <div class="math notranslate nohighlight">
 \[
-H x = \left(x_o - 2 \frac{v^\top x_o}{v^\topv} v\right) + \left(x_c - 2 \frac{v^\top x_c}{v^\topv} v\right) = x_o - x_c,
+H x = \left(x_o - 2 \frac{v^\top x_o}{v^^\top v} v\right) + \left(x_c - 2 \frac{v^\top x_c}{v^^\top v} v\right) = x_o - x_c,
 \]</div>
 <p class="sd-card-text">meaning that geometrically, Householder transformation is a reflection of <span class="math notranslate nohighlight">\(x\)</span> in the hyperplane, which is perpendicular to <span class="math notranslate nohighlight">\(v\)</span>.</p>
 <h4 class="rubric" id="application-in-qr-decomposition">Application in QR Decomposition</h4>
@@ -873,7 +873,7 @@ H x = \left(x_o - 2 \frac{v^\top x_o}{v^\topv} v\right) + \left(x_c - 2 \frac{v^
 <p class="sd-card-text"><strong>Step-by-Step Process</strong>:</p>
 <ol class="arabic simple">
 <li><p class="sd-card-text"><strong>Target Vector</strong>: Consider the first column of <span class="math notranslate nohighlight">\(A\)</span>. Let us denote this column as <span class="math notranslate nohighlight">\(x\)</span>. We want to transform <span class="math notranslate nohighlight">\(x\)</span> into a new vector <span class="math notranslate nohighlight">\(x'\)</span> with the same norm as <span class="math notranslate nohighlight">\(x\)</span>, but all components are zero except for the first component.</p></li>
-<li><p class="sd-card-text"><strong>Constructing <span class="math notranslate nohighlight">\(v\)</span></strong>: To create the Householder matrix <span class="math notranslate nohighlight">\(H\)</span>, we first need to construct the vector <span class="math notranslate nohighlight">\(v\)</span>. This is done by taking <span class="math notranslate nohighlight">\(v = x - \|x\|e_1\)</span>, where <span class="math notranslate nohighlight">\(e_1\)</span> is the first unit vector. With <span class="math notranslate nohighlight">\(v\)</span> determined, we form the Householder matrix <span class="math notranslate nohighlight">\(H = I - 2 \frac{vv^\top}{v^\topv}\)</span>.</p></li>
+<li><p class="sd-card-text"><strong>Constructing <span class="math notranslate nohighlight">\(v\)</span></strong>: To create the Householder matrix <span class="math notranslate nohighlight">\(H\)</span>, we first need to construct the vector <span class="math notranslate nohighlight">\(v\)</span>. This is done by taking <span class="math notranslate nohighlight">\(v = x - \|x\|e_1\)</span>, where <span class="math notranslate nohighlight">\(e_1\)</span> is the first unit vector. With <span class="math notranslate nohighlight">\(v\)</span> determined, we form the Householder matrix <span class="math notranslate nohighlight">\(H = I - 2 \frac{vv^\top}{v^^\top v}\)</span>.</p></li>
 <li><p class="sd-card-text"><strong>Applying <span class="math notranslate nohighlight">\(H\)</span></strong>: Multiply <span class="math notranslate nohighlight">\(H\)</span> by <span class="math notranslate nohighlight">\(A\)</span> (i.e., <span class="math notranslate nohighlight">\(HA\)</span>) to reflect the first column of <span class="math notranslate nohighlight">\(A\)</span> about the plane orthogonal to <span class="math notranslate nohighlight">\(v\)</span>. This operation zeros out all elements below the diagonal in the first column; see Lecture 10 of <span id="id1">[<a class="reference internal" href="bm4_bibliography.html#id2" title="Lloyd N. Trefethen and David Bau, III. Numerical linear algebra. SIAM, 1997. URL: https://ucl.primo.exlibrisgroup.com/permalink/44UCL_INST/155jbua/alma990010608020204761.">Trefethen and Bau, 1997</a>]</span>.</p></li>
 <li><p class="sd-card-text"><strong>Iterative Process</strong>: Repeat the process for the submatrix of <span class="math notranslate nohighlight">\(A\)</span> excluding the already zeroed elements. Each step involves constructing a new Householder matrix to introduce zeros in the subsequent column below the diagonal.</p></li>
 </ol>
