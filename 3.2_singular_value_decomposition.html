@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>The Singular Value Decomposition &#8212; Computational Methods MATH0058 lecture notes</title>
+    <title>Singular value decomposition &#8212; Computational Methods MATH0058 lecture notes</title>
   
   
   
@@ -34,9 +34,9 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=b4b7a797" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- So that users can add custom icons -->
@@ -66,8 +66,8 @@
     <script>DOCUMENTATION_OPTIONS.pagename = '3.2_singular_value_decomposition';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Least-squares Problems" href="3.3_least_squares_problems.html" />
-    <link rel="prev" title="The QR Decomposition" href="3.1_qr_decomposition.html" />
+    <link rel="next" title="Least-squares problems" href="3.3_least_squares_problems.html" />
+    <link rel="prev" title="QR decomposition" href="3.1_qr_decomposition.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -191,20 +191,20 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Orthogonal Decompositions</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="3.1_qr_decomposition.html">The QR Decomposition</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">The Singular Value Decomposition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="3.3_least_squares_problems.html">Least-squares Problems</a></li>
-<li class="toctree-l1"><a class="reference internal" href="3.4_constrained_least_squares_problems.html">Constrained Problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.1_qr_decomposition.html">QR decomposition</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Singular value decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.3_least_squares_problems.html">Least-squares problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.4_constrained_least_squares_problems.html">Constrained problems</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Interpolation and Quadrature</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="4.1_interpolation.html">Polynomial Interpolation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="4.2_quadrature.html">Introduction to Quadrature</a></li>
-<li class="toctree-l1"><a class="reference internal" href="4.3_stable_quadrature_schemes.html">Stable Quadrature Schemes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.1_interpolation.html">Polynomial interpolation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.2_quadrature.html">Introduction to quadrature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.3_stable_quadrature_schemes.html">Stable quadrature schemes</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Eigenvalue Problems</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="5.1_eigenvalues_basic_properties.html">Basic properties of eigenvalue problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.1_eigenvalues_basic_properties.html">Basic properties</a></li>
 <li class="toctree-l1"><a class="reference internal" href="5.2_computing_eigenvalues.html">Computing eigenvalues</a></li>
 <li class="toctree-l1"><a class="reference internal" href="5.3_computing_eigenspaces.html">Computing the eigensystem</a></li>
 </ul>
@@ -344,7 +344,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>The Singular Value Decomposition</h1>
+    <h1>Singular value decomposition</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -371,8 +371,8 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="the-singular-value-decomposition">
-<h1>The Singular Value Decomposition<a class="headerlink" href="#the-singular-value-decomposition" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="singular-value-decomposition">
+<h1>Singular value decomposition<a class="headerlink" href="#singular-value-decomposition" title="Link to this heading">#</a></h1>
 <p>A matrix <span class="math notranslate nohighlight">\(\Sigma \in \mathbb{R}^{m \times n}\)</span> is called diagonal if <span class="math notranslate nohighlight">\(\sigma_{ij} = 0\)</span> for all <span class="math notranslate nohighlight">\(i \neq j\)</span>.</p>
 <div class="proof theorem admonition" id="theorem-0">
 <p class="admonition-title"><span class="caption-number">Theorem 4 </span> (Singular Value Decomposition)</p>
@@ -852,7 +852,7 @@ Ultimately, the induction will reach a row or column vector, for which the exist
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">The QR Decomposition</p>
+        <p class="prev-next-title">QR decomposition</p>
       </div>
     </a>
     <a class="right-next"
@@ -860,7 +860,7 @@ Ultimately, the induction will reach a row or column vector, for which the exist
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Least-squares Problems</p>
+        <p class="prev-next-title">Least-squares problems</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

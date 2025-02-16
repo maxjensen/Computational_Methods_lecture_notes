@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>The QR Decomposition &#8212; Computational Methods MATH0058 lecture notes</title>
+    <title>QR decomposition &#8212; Computational Methods MATH0058 lecture notes</title>
   
   
   
@@ -66,7 +66,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = '3.1_qr_decomposition';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="The Singular Value Decomposition" href="3.2_singular_value_decomposition.html" />
+    <link rel="next" title="Singular value decomposition" href="3.2_singular_value_decomposition.html" />
     <link rel="prev" title="Python implementation" href="2.3_python_lu_decomposition.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -191,20 +191,20 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Orthogonal Decompositions</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">The QR Decomposition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="3.2_singular_value_decomposition.html">The Singular Value Decomposition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="3.3_least_squares_problems.html">Least-squares Problems</a></li>
-<li class="toctree-l1"><a class="reference internal" href="3.4_constrained_least_squares_problems.html">Constrained Problems</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">QR decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.2_singular_value_decomposition.html">Singular value decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.3_least_squares_problems.html">Least-squares problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.4_constrained_least_squares_problems.html">Constrained problems</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Interpolation and Quadrature</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="4.1_interpolation.html">Polynomial Interpolation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="4.2_quadrature.html">Introduction to Quadrature</a></li>
-<li class="toctree-l1"><a class="reference internal" href="4.3_stable_quadrature_schemes.html">Stable Quadrature Schemes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.1_interpolation.html">Polynomial interpolation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.2_quadrature.html">Introduction to quadrature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.3_stable_quadrature_schemes.html">Stable quadrature schemes</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Eigenvalue Problems</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="5.1_eigenvalues_basic_properties.html">Basic properties of eigenvalue problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.1_eigenvalues_basic_properties.html">Basic properties</a></li>
 <li class="toctree-l1"><a class="reference internal" href="5.2_computing_eigenvalues.html">Computing eigenvalues</a></li>
 <li class="toctree-l1"><a class="reference internal" href="5.3_computing_eigenspaces.html">Computing the eigensystem</a></li>
 </ul>
@@ -344,7 +344,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>The QR Decomposition</h1>
+    <h1>QR decomposition</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -355,8 +355,8 @@
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#orthogonal-matrices">Orthogonal matrices</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qr-decomposition-via-gram-schmidt-orthogonalisation">QR Decomposition via Gram-Schmidt Orthogonalisation</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-decomposition-representation">Matrix Decomposition Representation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qr-decomposition-via-gram-schmidt-orthogonalisation">QR Decomposition via Gram-Schmidt orthogonalisation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-decomposition-representation">Matrix decomposition representation</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-linear-systems-of-equations-with-the-qr-decomposition">Solving linear systems of equations with the QR decomposition</a></li>
@@ -379,8 +379,8 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="the-qr-decomposition">
-<h1>The QR Decomposition<a class="headerlink" href="#the-qr-decomposition" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="qr-decomposition">
+<h1>QR decomposition<a class="headerlink" href="#qr-decomposition" title="Link to this heading">#</a></h1>
 <section id="orthogonal-matrices">
 <h2>Orthogonal matrices<a class="headerlink" href="#orthogonal-matrices" title="Link to this heading">#</a></h2>
 <p>Let <span class="math notranslate nohighlight">\(Q \in \mathbb{R}^{n \times n}\)</span>. The matrix <span class="math notranslate nohighlight">\(Q\)</span> is called <em>orthogonal</em> if <span class="math notranslate nohighlight">\(Q^\top Q = I\)</span>, where <span class="math notranslate nohighlight">\(I\)</span> is the identity matrix. This definition implies that all rows and columns of <span class="math notranslate nohighlight">\(Q\)</span> are of unit length and are mutually orthogonal.</p>
@@ -399,7 +399,7 @@
 <p>This demonstrates that a vector’s 2-norm (or length) is unchanged when multiplied by an orthogonal matrix.</p>
 </section>
 <section id="qr-decomposition-via-gram-schmidt-orthogonalisation">
-<h2>QR Decomposition via Gram-Schmidt Orthogonalisation<a class="headerlink" href="#qr-decomposition-via-gram-schmidt-orthogonalisation" title="Link to this heading">#</a></h2>
+<h2>QR Decomposition via Gram-Schmidt orthogonalisation<a class="headerlink" href="#qr-decomposition-via-gram-schmidt-orthogonalisation" title="Link to this heading">#</a></h2>
 <p>Consider a matrix <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span> with <span class="math notranslate nohighlight">\(m \geq n\)</span>. The aim is to orthogonalise the columns of <span class="math notranslate nohighlight">\(A\)</span>. This process is achieved through the Gram-Schmidt orthogonalisation method.</p>
 <div class="proof algorithm admonition" id="algorithm-0">
 <p class="admonition-title"><span class="caption-number">Algorithm 1 </span> (Gram-Schmidt Orthogonalisation)</p>
@@ -432,7 +432,7 @@
 </ul>
 </section>
 </div><section id="matrix-decomposition-representation">
-<h3>Matrix Decomposition Representation<a class="headerlink" href="#matrix-decomposition-representation" title="Link to this heading">#</a></h3>
+<h3>Matrix decomposition representation<a class="headerlink" href="#matrix-decomposition-representation" title="Link to this heading">#</a></h3>
 <p>The Gram-Schmidt procedure can be expressed as a matrix decomposition:</p>
 <ul>
 <li><p>For each column <span class="math notranslate nohighlight">\(a_k\)</span> of <span class="math notranslate nohighlight">\(A\)</span>, we have:</p>
@@ -931,7 +931,7 @@ H x = \left(x_o - 2 \frac{v^\top x_o}{v^^\top v} v\right) + \left(x_c - 2 \frac{
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">The Singular Value Decomposition</p>
+        <p class="prev-next-title">Singular value decomposition</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -953,8 +953,8 @@ H x = \left(x_o - 2 \frac{v^\top x_o}{v^^\top v} v\right) + \left(x_c - 2 \frac{
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#orthogonal-matrices">Orthogonal matrices</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qr-decomposition-via-gram-schmidt-orthogonalisation">QR Decomposition via Gram-Schmidt Orthogonalisation</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-decomposition-representation">Matrix Decomposition Representation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qr-decomposition-via-gram-schmidt-orthogonalisation">QR Decomposition via Gram-Schmidt orthogonalisation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-decomposition-representation">Matrix decomposition representation</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-linear-systems-of-equations-with-the-qr-decomposition">Solving linear systems of equations with the QR decomposition</a></li>

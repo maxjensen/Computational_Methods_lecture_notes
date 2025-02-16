@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Stable Quadrature Schemes &#8212; Computational Methods MATH0058 lecture notes</title>
+    <title>Stable quadrature schemes &#8212; Computational Methods MATH0058 lecture notes</title>
   
   
   
@@ -66,8 +66,8 @@
     <script>DOCUMENTATION_OPTIONS.pagename = '4.3_stable_quadrature_schemes';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Basic properties of eigenvalue problems" href="5.1_eigenvalues_basic_properties.html" />
-    <link rel="prev" title="Introduction to Quadrature" href="4.2_quadrature.html" />
+    <link rel="next" title="Basic properties" href="5.1_eigenvalues_basic_properties.html" />
+    <link rel="prev" title="Introduction to quadrature" href="4.2_quadrature.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -191,20 +191,20 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Orthogonal Decompositions</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="3.1_qr_decomposition.html">The QR Decomposition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="3.2_singular_value_decomposition.html">The Singular Value Decomposition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="3.3_least_squares_problems.html">Least-squares Problems</a></li>
-<li class="toctree-l1"><a class="reference internal" href="3.4_constrained_least_squares_problems.html">Constrained Problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.1_qr_decomposition.html">QR decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.2_singular_value_decomposition.html">Singular value decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.3_least_squares_problems.html">Least-squares problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.4_constrained_least_squares_problems.html">Constrained problems</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Interpolation and Quadrature</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="4.1_interpolation.html">Polynomial Interpolation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="4.2_quadrature.html">Introduction to Quadrature</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Stable Quadrature Schemes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.1_interpolation.html">Polynomial interpolation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.2_quadrature.html">Introduction to quadrature</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Stable quadrature schemes</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Eigenvalue Problems</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="5.1_eigenvalues_basic_properties.html">Basic properties of eigenvalue problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.1_eigenvalues_basic_properties.html">Basic properties</a></li>
 <li class="toctree-l1"><a class="reference internal" href="5.2_computing_eigenvalues.html">Computing eigenvalues</a></li>
 <li class="toctree-l1"><a class="reference internal" href="5.3_computing_eigenspaces.html">Computing the eigensystem</a></li>
 </ul>
@@ -344,7 +344,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Stable Quadrature Schemes</h1>
+    <h1>Stable quadrature schemes</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -354,8 +354,8 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#composite-quadratures">Composite Quadratures</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-quadratures">Gaussian Quadratures</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#composite-quadratures">Composite quadratures</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-quadratures">Gaussian quadratures</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#composite-newton-cotes-quadrature-rules">Composite Newton-Cotes quadrature rules</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-quadrature">Gaussian quadrature</a></li>
@@ -375,9 +375,9 @@
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="stable-quadrature-schemes">
-<h1>Stable Quadrature Schemes<a class="headerlink" href="#stable-quadrature-schemes" title="Link to this heading">#</a></h1>
+<h1>Stable quadrature schemes<a class="headerlink" href="#stable-quadrature-schemes" title="Link to this heading">#</a></h1>
 <section id="composite-quadratures">
-<h2>Composite Quadratures<a class="headerlink" href="#composite-quadratures" title="Link to this heading">#</a></h2>
+<h2>Composite quadratures<a class="headerlink" href="#composite-quadratures" title="Link to this heading">#</a></h2>
 <p>When dealing with functions <span class="math notranslate nohighlight">\(f\)</span> that may lack smoothness, it can be advantageous to divide the integration interval <span class="math notranslate nohighlight">\([a,b]\)</span> into <span class="math notranslate nohighlight">\(m\)</span> smaller, equally sized subintervals <span class="math notranslate nohighlight">\(\{[x_{i-1},x_i]\}_{i=1}^m\)</span>. Each subinterval has a length of <span class="math notranslate nohighlight">\(h:=(b-a)/m\)</span>. Within each subinterval, we apply a low-degree interpolatory quadrature formula.</p>
 <p>For example, using the trapezium rule on <span class="math notranslate nohighlight">\([x_{i-1},x_i]\)</span>, we find</p>
 <div class="math notranslate nohighlight">
@@ -412,7 +412,7 @@
 \]</div>
 </section>
 <section id="gaussian-quadratures">
-<h2>Gaussian Quadratures<a class="headerlink" href="#gaussian-quadratures" title="Link to this heading">#</a></h2>
+<h2>Gaussian quadratures<a class="headerlink" href="#gaussian-quadratures" title="Link to this heading">#</a></h2>
 <p>The degree of exactness of an interpolatory quadrature <span class="math notranslate nohighlight">\(\mathcal{Q}_n\)</span> is at least <span class="math notranslate nohighlight">\(n\)</span>. By considering <span class="math notranslate nohighlight">\(\omega_{n+1}^2(x)=(x-x_0)^2\cdots(x-x_n)^2 \in \mathcal{P}_{2n+2}\)</span>, we find that the degree of exactness of any interpolatory quadrature cannot be equal to or larger than <span class="math notranslate nohighlight">\(2n+2\)</span>. Gauss showed that by judicious choice of the nodes <span class="math notranslate nohighlight">\(\{x_k\}\)</span>, one can indeed obtain a quadrature exact for all <span class="math notranslate nohighlight">\(f \in \mathcal{P}_{2n+1}\)</span>. The resulting Gaussian quadrature rests on the following:</p>
 <div class="proof theorem admonition" id="theorem-0">
 <p class="admonition-title"><span class="caption-number">Theorem 14 </span> (Gaussian quadrature)</p>
@@ -881,7 +881,7 @@ q_0 = \frac{1}{\sqrt{2}},\quad q_1 = \sqrt{\frac{3}{2}} t,\quad q_2 = \sqrt{\fra
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Introduction to Quadrature</p>
+        <p class="prev-next-title">Introduction to quadrature</p>
       </div>
     </a>
     <a class="right-next"
@@ -889,7 +889,7 @@ q_0 = \frac{1}{\sqrt{2}},\quad q_1 = \sqrt{\frac{3}{2}} t,\quad q_2 = \sqrt{\fra
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Basic properties of eigenvalue problems</p>
+        <p class="prev-next-title">Basic properties</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -910,8 +910,8 @@ q_0 = \frac{1}{\sqrt{2}},\quad q_1 = \sqrt{\frac{3}{2}} t,\quad q_2 = \sqrt{\fra
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#composite-quadratures">Composite Quadratures</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-quadratures">Gaussian Quadratures</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#composite-quadratures">Composite quadratures</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-quadratures">Gaussian quadratures</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#composite-newton-cotes-quadrature-rules">Composite Newton-Cotes quadrature rules</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-quadrature">Gaussian quadrature</a></li>

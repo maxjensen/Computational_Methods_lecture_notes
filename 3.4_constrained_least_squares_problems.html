@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Constrained Problems &#8212; Computational Methods MATH0058 lecture notes</title>
+    <title>Constrained problems &#8212; Computational Methods MATH0058 lecture notes</title>
   
   
   
@@ -34,9 +34,9 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=b4b7a797" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- So that users can add custom icons -->
@@ -66,8 +66,8 @@
     <script>DOCUMENTATION_OPTIONS.pagename = '3.4_constrained_least_squares_problems';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Polynomial Interpolation" href="4.1_interpolation.html" />
-    <link rel="prev" title="Least-squares Problems" href="3.3_least_squares_problems.html" />
+    <link rel="next" title="Polynomial interpolation" href="4.1_interpolation.html" />
+    <link rel="prev" title="Least-squares problems" href="3.3_least_squares_problems.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -191,20 +191,20 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Orthogonal Decompositions</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="3.1_qr_decomposition.html">The QR Decomposition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="3.2_singular_value_decomposition.html">The Singular Value Decomposition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="3.3_least_squares_problems.html">Least-squares Problems</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Constrained Problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.1_qr_decomposition.html">QR decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.2_singular_value_decomposition.html">Singular value decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.3_least_squares_problems.html">Least-squares problems</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Constrained problems</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Interpolation and Quadrature</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="4.1_interpolation.html">Polynomial Interpolation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="4.2_quadrature.html">Introduction to Quadrature</a></li>
-<li class="toctree-l1"><a class="reference internal" href="4.3_stable_quadrature_schemes.html">Stable Quadrature Schemes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.1_interpolation.html">Polynomial interpolation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.2_quadrature.html">Introduction to quadrature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.3_stable_quadrature_schemes.html">Stable quadrature schemes</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Eigenvalue Problems</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="5.1_eigenvalues_basic_properties.html">Basic properties of eigenvalue problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.1_eigenvalues_basic_properties.html">Basic properties</a></li>
 <li class="toctree-l1"><a class="reference internal" href="5.2_computing_eigenvalues.html">Computing eigenvalues</a></li>
 <li class="toctree-l1"><a class="reference internal" href="5.3_computing_eigenspaces.html">Computing the eigensystem</a></li>
 </ul>
@@ -344,7 +344,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Constrained Problems</h1>
+    <h1>Constrained problems</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -354,6 +354,8 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#certificates-of-optimality">Certificates of optimality</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#duality">Duality</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#least-squares-problems">Least-squares problems</a></li>
 </ul>
@@ -371,7 +373,7 @@
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="constrained-problems">
-<h1>Constrained Problems<a class="headerlink" href="#constrained-problems" title="Link to this heading">#</a></h1>
+<h1>Constrained problems<a class="headerlink" href="#constrained-problems" title="Link to this heading">#</a></h1>
 <p>In many applications, optimisation problems are posed with constraints. We consider here constrained least-squares problems of the form</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -408,6 +410,8 @@ d \ge e \qquad \Leftrightarrow \qquad d_i \ge e_i \quad \forall \; i \in \{1, \l
 \]</div>
 <p>noting that the constant term <span class="math notranslate nohighlight">\(\frac{1}{2} a^\top a\)</span> can be removed without changing the set of minimisers. Because of our initial assumption <span class="math notranslate nohighlight">\(B = A^\top A\)</span> we shall assume throughout the section that <span class="math notranslate nohighlight">\(B\)</span> is symmetric and positive semi-definite. We refer to <span class="math notranslate nohighlight">\(\frac{1}{2} x^\top B x + b^\top x\)</span> as the <em>objective function</em>, <span class="math notranslate nohighlight">\(C x - c = 0\)</span> the <em>equality constraint</em> and <span class="math notranslate nohighlight">\(D x - d \ge 0\)</span> the <em>inequality constraint</em>. The <em>value</em> of the optimal control problem is that value of the objective function when evaluated at an optimal solution.</p>
 <p>Observe, that the value of the initial problem in least-squares form differs from that of quadratic programme because of the factor <span class="math notranslate nohighlight">\(\frac{1}{2}\)</span> and the squaring of the norm and the constant term, even if the set of optimal solutions coincide. However, given a optimal solution <span class="math notranslate nohighlight">\(x\)</span> it is simple to compute the value <span class="math notranslate nohighlight">\(\| A x - a \|_2\)</span>.</p>
+<section id="certificates-of-optimality">
+<h2>Certificates of optimality<a class="headerlink" href="#certificates-of-optimality" title="Link to this heading">#</a></h2>
 <p>In this section, we learn about <em>certificates of optimality</em>, which address a fundamental point: The algorithms to solve constrained least-squares problem are outside of the scope of this module. How, then, can you solve such problems with confidence? More generally, how can you use numerical methods, that you have not mathematically fully understood?</p>
 <p>This is a question you face now, as you only begin with computational mathematics and want to use a wide range of methods as quickly as possible. But even as a seasoned numerical analyst, you will need to think about deploying mathematical algorithms in application scenarios where users are not domain experts.</p>
 <p>A key realisation is that verifying whether a candidate solution is indeed equal to (or at least a good approximation of) an exaxt solution is often much simpler than finding such a candidate in the first place.</p>
@@ -418,6 +422,9 @@ F(t) = \int_0^\top f(x) dx,
 \]</div>
 <p>it can be hard to find <span class="math notranslate nohighlight">\(F\)</span> given <span class="math notranslate nohighlight">\(f\)</span>, but once a candidate <span class="math notranslate nohighlight">\(F\)</span> is found, it is relatively easy to check that its derivative is <span class="math notranslate nohighlight">\(f\)</span>. Similarly, various encryption methods rely on the fact that it is easier to multiply two prime numbers than to find the prime factors of a given product.</p>
 <p>A certificate of optimality consists of a candidate solution together with additional information that makes it relatively easy to confirm the quality of the candidate solution; even if the method by which the candidate solution was obtained is not examined. In other areas of numerical analysis and scientific computing one finds similar concepts; for example, <em>a posteriori error bounds</em> are used to appraise the quality of numerical solutions of differential equations.</p>
+</section>
+<section id="duality">
+<h2>Duality<a class="headerlink" href="#duality" title="Link to this heading">#</a></h2>
 <p>There are different types of certificates of optimality; many of them are based on the important concept of <em>duality</em>, which plays a key role throughout scientific computing; differential equations again serve as a good example.</p>
 <p>The <em>Lagrangian function</em> associated with the primal problem is</p>
 <div class="math notranslate nohighlight">
@@ -516,6 +523,7 @@ c^\top y + d^\top s - \frac{1}{2} x^\top B x \, \leq \, &amp; (C \bar{x})^\top y
 <p>Proof. The proof is beyond the scope of the lecture notes. See <span id="id1">[<a class="reference internal" href="bm4_bibliography.html#id7" title="Jorge Nocedal and Stephen J. Wright. Numerical optimization. Springer Series in Operations Research and Financial Engineering. Springer, New York, second edition, 2006. URL: https://ucl.primo.exlibrisgroup.com/permalink/44UCL_INST/155jbua/alma990010854280204761.">Nocedal and Wright, 2006</a>]</span> for details.</p>
 </div>
 <p>In contrast, many optimisation problems, for example with non-convex objective function or constraints, exhibit a positive duality gap, making it more difficult to certify optimality.</p>
+</section>
 <section id="python-skills">
 <h2>Python skills<a class="headerlink" href="#python-skills" title="Link to this heading">#</a></h2>
 <p><a class="reference external" href="https://www.cvxpy.org/">CVXPY</a> is a Python library designed to make the construction and solving of quadratic and other convex optimisation problems straightforward. Its high-level syntax allows users to specify an objective and constraints in a manner similar to writing down the mathematical formulation. Under the hood, CVXPY automatically transforms the problem into a canonical form, selects an appropriate solver, and returns primal and dual solutions, all while handling domain restrictions, dual variables, and convergence tolerances. This streamlined workflow makes it an ideal tool for both <a class="reference external" href="https://www.cvxpy.org/examples/index.html">instructional examples</a> and real-world applications.</p>
@@ -1089,7 +1097,7 @@ L(\bar{x}, \bar{y}, \bar{s}) = L(x, y, s)
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Least-squares Problems</p>
+        <p class="prev-next-title">Least-squares problems</p>
       </div>
     </a>
     <a class="right-next"
@@ -1097,7 +1105,7 @@ L(\bar{x}, \bar{y}, \bar{s}) = L(x, y, s)
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Polynomial Interpolation</p>
+        <p class="prev-next-title">Polynomial interpolation</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1118,6 +1126,8 @@ L(\bar{x}, \bar{y}, \bar{s}) = L(x, y, s)
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#certificates-of-optimality">Certificates of optimality</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#duality">Duality</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#least-squares-problems">Least-squares problems</a></li>
 </ul>

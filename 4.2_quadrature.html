@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Introduction to Quadrature &#8212; Computational Methods MATH0058 lecture notes</title>
+    <title>Introduction to quadrature &#8212; Computational Methods MATH0058 lecture notes</title>
   
   
   
@@ -66,8 +66,8 @@
     <script>DOCUMENTATION_OPTIONS.pagename = '4.2_quadrature';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Stable Quadrature Schemes" href="4.3_stable_quadrature_schemes.html" />
-    <link rel="prev" title="Polynomial Interpolation" href="4.1_interpolation.html" />
+    <link rel="next" title="Stable quadrature schemes" href="4.3_stable_quadrature_schemes.html" />
+    <link rel="prev" title="Polynomial interpolation" href="4.1_interpolation.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -191,20 +191,20 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Orthogonal Decompositions</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="3.1_qr_decomposition.html">The QR Decomposition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="3.2_singular_value_decomposition.html">The Singular Value Decomposition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="3.3_least_squares_problems.html">Least-squares Problems</a></li>
-<li class="toctree-l1"><a class="reference internal" href="3.4_constrained_least_squares_problems.html">Constrained Problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.1_qr_decomposition.html">QR decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.2_singular_value_decomposition.html">Singular value decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.3_least_squares_problems.html">Least-squares problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.4_constrained_least_squares_problems.html">Constrained problems</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Interpolation and Quadrature</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="4.1_interpolation.html">Polynomial Interpolation</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Introduction to Quadrature</a></li>
-<li class="toctree-l1"><a class="reference internal" href="4.3_stable_quadrature_schemes.html">Stable Quadrature Schemes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.1_interpolation.html">Polynomial interpolation</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Introduction to quadrature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.3_stable_quadrature_schemes.html">Stable quadrature schemes</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Eigenvalue Problems</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="5.1_eigenvalues_basic_properties.html">Basic properties of eigenvalue problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.1_eigenvalues_basic_properties.html">Basic properties</a></li>
 <li class="toctree-l1"><a class="reference internal" href="5.2_computing_eigenvalues.html">Computing eigenvalues</a></li>
 <li class="toctree-l1"><a class="reference internal" href="5.3_computing_eigenspaces.html">Computing the eigensystem</a></li>
 </ul>
@@ -344,7 +344,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Introduction to Quadrature</h1>
+    <h1>Introduction to quadrature</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -354,7 +354,7 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpolatory-quadratures">Interpolatory Quadratures</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpolatory-quadratures">Interpolatory quadratures</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#error-bound">Error bound</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#runge-phenomenon">Runge phenomenon</a></li>
 </ul>
@@ -373,7 +373,7 @@
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="introduction-to-quadrature">
-<h1>Introduction to Quadrature<a class="headerlink" href="#introduction-to-quadrature" title="Link to this heading">#</a></h1>
+<h1>Introduction to quadrature<a class="headerlink" href="#introduction-to-quadrature" title="Link to this heading">#</a></h1>
 <p>In this section, we aim to approximate the definite integral</p>
 <div class="math notranslate nohighlight">
 \[
@@ -399,7 +399,7 @@
 \end{split}\]</div>
 <p>Therefore, a quadrature formula <span class="math notranslate nohighlight">\(\mathcal{Q}_n\)</span> with a degree of exactness <span class="math notranslate nohighlight">\(r\)</span> perfectly approximates the integral of any polynomial in <span class="math notranslate nohighlight">\(\mathcal{P}_r\)</span>, the set of all polynomials of degree up to <span class="math notranslate nohighlight">\(r\)</span>.</p>
 <section id="interpolatory-quadratures">
-<h2>Interpolatory Quadratures<a class="headerlink" href="#interpolatory-quadratures" title="Link to this heading">#</a></h2>
+<h2>Interpolatory quadratures<a class="headerlink" href="#interpolatory-quadratures" title="Link to this heading">#</a></h2>
 <p>Interpolatory quadrature involves approximating a function <span class="math notranslate nohighlight">\(f\)</span> by a polynomial <span class="math notranslate nohighlight">\(p\)</span> that interpolates <span class="math notranslate nohighlight">\(f\)</span> at given nodes <span class="math notranslate nohighlight">\(\{x_k\}\)</span>, and then integrating this polynomial. Utilising Lagrange interpolation, <span class="math notranslate nohighlight">\(p(x)\)</span> is expressed as</p>
 <div class="math notranslate nohighlight">
 \[
@@ -705,7 +705,7 @@ a_k := \int_a^b L_k(x) \, dx.
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Polynomial Interpolation</p>
+        <p class="prev-next-title">Polynomial interpolation</p>
       </div>
     </a>
     <a class="right-next"
@@ -713,7 +713,7 @@ a_k := \int_a^b L_k(x) \, dx.
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Stable Quadrature Schemes</p>
+        <p class="prev-next-title">Stable quadrature schemes</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -734,7 +734,7 @@ a_k := \int_a^b L_k(x) \, dx.
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpolatory-quadratures">Interpolatory Quadratures</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpolatory-quadratures">Interpolatory quadratures</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#error-bound">Error bound</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#runge-phenomenon">Runge phenomenon</a></li>
 </ul>
