@@ -34,9 +34,9 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=b4b7a797" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- So that users can add custom icons -->
@@ -181,7 +181,7 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Implementation</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="1.1_floating_point_arithmetic.html">Floating point numbers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="1.2_numpy_and_data_layouts.html">Memory layout and Numpy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_numpy_and_data_layouts.html">Memory layout and NumPy</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition</span></p>
 <ul class="nav bd-sidenav">
@@ -381,10 +381,10 @@
 <h1>Measuring distances<a class="headerlink" href="#measuring-distances" title="Link to this heading">#</a></h1>
 <p>Much of computational mathematics concerns the question of how to approximate the infinite by the finite. The reason is obvious: In mathematics infinity is ubiquitous, while computers are limited to the finite.</p>
 <p>For this reason, many problems in computational mathematics fall into one of the following categories:</p>
-<p><strong>Infinite-dimensional problems:</strong> When solving an ordinary differential equation, we pose an equation whose solution belongs to an infinite-dimensional space, such as the vector space <span class="math notranslate nohighlight">\(C^1[a,b]\)</span> of continuously differentiable functions. In other words, the problem generally has an infinite number of degrees of freedom. While mathematical theory may provide analytic solutions for special ODEs, for challenging real-world problems, it is often only possible to make general qualitative statements about the solution. The question arises whether a computer can provide quantitative information about the solution. Since a computer can only handle a finite number of degrees of freedom, any numerical approach inevitably introduces an approximation error, resulting in a discrepancy between the numerical and exact solutions.</p>
-<p><strong>Infinite sets:</strong> Related to the above, even a finite-dimensional vector space, such as the real number line <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>, is an infinite set that must be represented by a finite set on a computer. This leads to the concept of floating-point numbers, which we shall discuss soon, and again introduces an approximation error.</p>
-<p><strong>Iterative problems:</strong> The solution to many mathematical problems can be expressed as the limit of a sequence, where each sequence element can be computed in a finite number of steps. For example, consider a <a class="reference external" href="https://en.wikipedia.org/wiki/Riemann_integral">Riemann integral</a> as the limit of increasingly refined Riemann sums or the root of a function as the limit of a <a class="reference external" href="https://en.wikipedia.org/wiki/Newton%27s_method">Newton iteration</a>. A computer can calculate the value of each sequence element in finite (but increasing) time. How large is the error, i.e., the difference between the computed element and the limit?</p>
-<p>If the objects of interest (such as an error) are from a vector space, the most suitable concept to measure their size is often that of a norm.</p>
+<p><strong>Infinite-dimensional problems:</strong> Solving an ordinary differential equation involves finding a solution within an infinite-dimensional space, like the vector space <span class="math notranslate nohighlight">\(C^1[a, b]\)</span> of continuously differentiable functions. In other words, the problem generally has an infinite number of degrees of freedom. While mathematical theory may provide analytic solutions for special ODEs, for challenging real-world problems, it is often only possible to make general qualitative statements about the solution. The question arises whether a computer can provide quantitative information about the solution. Since a computer can only handle a finite number of degrees of freedom, any numerical approach inevitably introduces an approximation error, resulting in a discrepancy between the numerical and exact solutions.</p>
+<p><strong>Infinite sets:</strong> Even finite-dimensional vector spaces, like the real number line <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>, are infinite sets that require finite representation on computers. This necessitates the use of floating-point numbers (discussed later) and introduces approximation errors.</p>
+<p><strong>Iterative problems:</strong> The solution to many mathematical problems can be expressed as the limit of a sequence, where each sequence element can be computed in a finite number of steps. For example, consider a <a class="reference external" href="https://en.wikipedia.org/wiki/Riemann_integral">Riemann integral</a> as the limit of increasingly refined Riemann sums or the root of a function as the limit of a <a class="reference external" href="https://en.wikipedia.org/wiki/Newton%27s_method">Newton iteration</a>. While computers can calculate sequence elements in finite time, it’s crucial to consider the error, i.e., the difference between a computed element and the true limit.</p>
+<p>When the objects of interest, such as errors, belong to a vector space, a norm is often the most appropriate tool for quantifying their magnitude.</p>
 <div class="proof definition admonition" id="definition-0">
 <p class="admonition-title"><span class="caption-number">Definition 1 </span> (Norm axioms)</p>
 <section class="definition-content" id="proof-content">
@@ -396,14 +396,14 @@
 <li><p><span class="math notranslate nohighlight">\(\rho(x) = 0\)</span> if and only if <span class="math notranslate nohighlight">\(x = 0\)</span>.</p></li>
 </ol>
 </section>
-</div><p>From these axioms, it immediately follows that</p>
+</div><p>These axioms imply that</p>
 <div class="math notranslate nohighlight">
 \[
 0 = \rho(0) = \rho(x - x) \leq 2 \rho(x)
 \]</div>
 <!-- \rho(x) + \rho(-1 \cdot x) = -->
 <p>and therefore <span class="math notranslate nohighlight">\(\rho(x) \geq 0\)</span> for all <span class="math notranslate nohighlight">\(x \in V\)</span>. Hence, a norm is always non-negative.</p>
-<p>The first and third norm axioms are usually straightforward to prove. The challenging one is the second axiom, the triangle inequality.</p>
+<p>The first and third norm axioms are usually straightforward to prove. The triangle inequality is typically the most challenging axiom to prove.</p>
 <section id="frequently-used-vector-norms">
 <h2>Frequently used vector norms<a class="headerlink" href="#frequently-used-vector-norms" title="Link to this heading">#</a></h2>
 <p>Let <span class="math notranslate nohighlight">\(V\)</span> be the real vector space <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>. Let <span class="math notranslate nohighlight">\(x \in V\)</span> and denote by <span class="math notranslate nohighlight">\(x_j\)</span> the <span class="math notranslate nohighlight">\(j\)</span>-th component of <span class="math notranslate nohighlight">\(x\)</span>.</p>
@@ -452,7 +452,7 @@ C_1\|x\|_a\leq \|x\|_b\leq C_2\|x\|_a
 <li><p><span class="math notranslate nohighlight">\(\|A\|_2 = \sqrt{\lambda_{\max}(A^\top A)} = \max_{x \in \mathbb{R}^n \setminus \{0\}} \frac{\|Ax\|_2}{\|x\|_2}\)</span>,</p></li>
 <li><p><span class="math notranslate nohighlight">\(\|A\|_{\infty} = \max_{1 \leq i \leq m} \sum_{j=1}^n |a_{ij}| = \max_{x \in \mathbb{R}^n \setminus \{0\}} \frac{\|Ax\|_\infty}{\|x\|_\infty}\)</span>.</p></li>
 </ul>
-<p>Observe that <span class="math notranslate nohighlight">\(\|A\|_1 = \|A^\top\|_{\infty}\)</span>. The <span class="math notranslate nohighlight">\(\|A\|_2\)</span> matrix norm is difficult to evaluate as it requires computation of the largest eigenvalue of <span class="math notranslate nohighlight">\(A^\top A\)</span>, which is an computationally expensive operation. In practice, the following <strong>Frobenius</strong> norm is therefore frequently used instead of the matrix <span class="math notranslate nohighlight">\(2\)</span>-norm:</p>
+<p>Observe that <span class="math notranslate nohighlight">\(\|A\|_1 = \|A^\top\|_{\infty}\)</span>. Calculating the <span class="math notranslate nohighlight">\(||A||_2\)</span> matrix norm is computationally expensive, as it requires determining the largest eigenvalue of <span class="math notranslate nohighlight">\(A^\top A\)</span>. Therefore, the <em>Frobenius norm</em> is often used as an alternative:</p>
 <div class="math notranslate nohighlight">
 \[
 \|A\|_F := \left(\sum_{ij} |a_{ij}|^2 \right)^{1/2}.

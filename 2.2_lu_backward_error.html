@@ -34,9 +34,9 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=b4b7a797" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- So that users can add custom icons -->
@@ -181,7 +181,7 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Implementation</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="1.1_floating_point_arithmetic.html">Floating point numbers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="1.2_numpy_and_data_layouts.html">Memory layout and Numpy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_numpy_and_data_layouts.html">Memory layout and NumPy</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition</span></p>
 <ul class="current nav bd-sidenav">
@@ -373,9 +373,9 @@
                   
   <section class="tex2jax_ignore mathjax_ignore" id="backward-error-and-pivoting">
 <h1>Backward error and pivoting<a class="headerlink" href="#backward-error-and-pivoting" title="Link to this heading">#</a></h1>
-<p>Recall that we can bound the forward error from the condition number and the backward error. The conditional number is a property of the linear system, not of the numerical method we employ (such as the LU decomposition) and we already settled that <span class="math notranslate nohighlight">\(\kappa(A) = \| A \| \cdot \| A^{-1} \|\)</span>.</p>
+<p>Recall that we can bound the forward error from the condition number and the backward error. The condition number is a property of the linear system, not of the numerical method we employ (such as the LU decomposition), and we have established that <span class="math notranslate nohighlight">\(\kappa(A) = | A | \cdot | A^{-1} |\)</span>.</p>
 <p>The backward error of the LU decomposition remains a subject of significant interest. Despite the long-established nature of LU decomposition, several open questions persist regarding its backward error.</p>
-<p>Fundamentally, the LU decomposition is not backward stable, and we will examine specific examples illustrating this instability. In some cases, LU decomposition can lead to a catastrophic increase in backward error.</p>
+<p>Fundamentally, LU decomposition is not backward stable, and we will examine specific examples illustrating this instability. In some cases, LU decomposition can lead to a catastrophic increase in backward error.</p>
 <p>To address this issue, a widely used modification known as pivoting is introduced. This refinement substantially improves the stability of the algorithm in almost all cases. However, it is still possible to construct matrices for which the pivoted algorithm remains unstable. Such cases, however, are highly pathological and rarely arise in practical applications.</p>
 <section id="backward-error-of-the-lu-decomposition">
 <h2>Backward error of the LU decomposition<a class="headerlink" href="#backward-error-of-the-lu-decomposition" title="Link to this heading">#</a></h2>
@@ -452,7 +452,7 @@ A_{\epsilon} =
 </div></section>
 <section id="lu-decomposition-with-pivoting">
 <h2>LU decomposition with pivoting<a class="headerlink" href="#lu-decomposition-with-pivoting" title="Link to this heading">#</a></h2>
-<p>The above examples motivates a modification of the LU decomposition, called <strong>column pivoted</strong> (or simply <strong>pivoted</strong>) LU. The idea is simple. Suppose that <span class="math notranslate nohighlight">\(a_{31}\)</span> is the element with the largest magnitude in the first column of <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{3 \times 3}\)</span>. We then exchange the third and the
+<p>The above examples motivates a modification of the LU decomposition, called <strong>column-pivoted</strong> (or simply <strong>pivoted</strong>) LU. The idea is simple. Suppose that <span class="math notranslate nohighlight">\(a_{31}\)</span> is the element with the largest magnitude in the first column of <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{3 \times 3}\)</span>. We then exchange the third and the
 first row to get</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -484,7 +484,7 @@ a_{31} &amp; a_{32} &amp; a_{33}\\
 0 &amp; \tilde{a}_{12} &amp; \tilde{a}_{13}
 \end{pmatrix}
 \end{split}\]</div>
-<p>Before we proceed with the LU decomposition we swap the second and third row if the element at position <span class="math notranslate nohighlight">\((3, 2)\)</span> is larger by magnitude than the entry at position at <span class="math notranslate nohighlight">\((2, 2)\)</span>, using</p>
+<p>Before proceeding with the LU decomposition, we swap the second and third rows if the element at position <span class="math notranslate nohighlight">\((3, 2)\)</span> is larger by magnitude than the entry at position at <span class="math notranslate nohighlight">\((2, 2)\)</span>, using</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 P^{(2)}\begin{pmatrix}
@@ -498,7 +498,7 @@ P^{(2)}\begin{pmatrix}
 \[
 F^{(2)} P^{(2)} F^{(1)} P^{(1)} A = U.
 \]</div>
-<p>This pivoting strategy guarantees that we have <span class="math notranslate nohighlight">\(|\ell_{i, j}|\leq 1\)</span> for all <span class="math notranslate nohighlight">\(i, j\)</span>.</p>
+<p>This pivoting strategy guarantees that <span class="math notranslate nohighlight">\(|\ell_{i, j}|\leq 1\)</span> for all <span class="math notranslate nohighlight">\(i, j\)</span>.</p>
 <div class="proof definition admonition" id="definition-1">
 <p class="admonition-title"><span class="caption-number">Definition 6 </span> (Permutation matrix)</p>
 <section class="definition-content" id="proof-content">
@@ -509,7 +509,7 @@ P = \Big( e^{(\pi(1))} \Big| \cdots \Big| e^{(\pi(n))} \Big)
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(e^{(k)} \in \mathbb{R}^n\)</span> is the <span class="math notranslate nohighlight">\(k\)</span>th canonical basis vector.</p>
 </section>
-</div><p>In other words, a permutation matrix is obtained through re-arranging the columns (or rows) of the identity matrix. As shown in a self-check question below, a reordering of rows is precisely the effect of muliplication with a permutation matrix from the left.</p>
+</div><p>In other words, a permutation matrix is obtained by re-arranging the rows of the identity matrix. As shown in a self-check question below, reordering rows is precisely the effect of multiplication by a permutation matrix from the left.</p>
 <div class="admonition-fact-pivoted-lu-decomposition admonition">
 <p class="admonition-title">Fact: Pivoted LU decomposition</p>
 <p>Let <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{n \times n}\)</span>. Then there are a lower triangular <span class="math notranslate nohighlight">\(L\)</span>, upper triangular <span class="math notranslate nohighlight">\(U\)</span> and permutation matrix <span class="math notranslate nohighlight">\(P\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^{n \times n}\)</span> such that</p>

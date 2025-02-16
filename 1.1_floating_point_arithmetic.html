@@ -34,9 +34,9 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=b4b7a797" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- So that users can add custom icons -->
@@ -66,7 +66,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = '1.1_floating_point_arithmetic';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Memory layout and Numpy" href="1.2_numpy_and_data_layouts.html" />
+    <link rel="next" title="Memory layout and NumPy" href="1.2_numpy_and_data_layouts.html" />
     <link rel="prev" title="Asymptotic notation" href="0.4_complexity_notation.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -181,7 +181,7 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Implementation</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Floating point numbers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="1.2_numpy_and_data_layouts.html">Memory layout and Numpy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_numpy_and_data_layouts.html">Memory layout and NumPy</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition</span></p>
 <ul class="nav bd-sidenav">
@@ -354,13 +354,13 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definition-of-floating-point-numbers">Definition of floating point numbers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definition-of-floating-point-numbers">Definition of floating-point numbers</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ieee-754">IEEE 754</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#floating-point-arithmetic">Floating-point arithmetic</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#floating-point-data-types-in-numpy">Floating point data types in Numpy</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#querying-floating-point-properties">Querying floating point properties</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#special-floating-point-values">Special floating point values</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#floating-point-data-types-in-numpy">Floating point data types in NumPy</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#querying-floating-point-properties">Querying floating-point properties</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#special-floating-point-values">Special floating-point values</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#self-check-questions">Self-check questions</a></li>
@@ -378,22 +378,22 @@
   <section class="tex2jax_ignore mathjax_ignore" id="floating-point-numbers">
 <h1>Floating point numbers<a class="headerlink" href="#floating-point-numbers" title="Link to this heading">#</a></h1>
 <p>In the following, we explore how computers represent numbers. Integers are the simplest to understand. A computer can only represent a finite range of integers, for example, some implementations can store integers between <span class="math notranslate nohighlight">\(-2^{63} = -9223372036854775808\)</span> and <span class="math notranslate nohighlight">\(2^{63}-1 = 9223372036854775807\)</span>.</p>
-<p>Next, consider rational numbers such as <span class="math notranslate nohighlight">\(1/3 = 0.33333\ldots\)</span>. One might attempt to work directly with fractional expressions like <span class="math notranslate nohighlight">\(1/3\)</span> and keep track of numerators and denominators. However, the number of digits in both the numerator and denominator tends to grow significantly as computations progress, making this approach impractical in most cases. Real numbers such as <span class="math notranslate nohighlight">\(\pi\)</span> or <span class="math notranslate nohighlight">\(e\)</span> pose an even greater challenge because they cannot be represented as fractions of integers.</p>
+<p>Next, consider rational numbers such as <span class="math notranslate nohighlight">\(1/3 = 0.33333\ldots\)</span>. One might attempt to work directly with fractional expressions like <span class="math notranslate nohighlight">\(1/3\)</span> and keep track of numerators and denominators. However, the number of digits in both the numerator and denominator tends to grow significantly as computations progress, making this approach impractical in most cases. Irrational numbers such as <span class="math notranslate nohighlight">\(\pi\)</span> or <span class="math notranslate nohighlight">\(e\)</span> pose an even greater challenge because they cannot be represented as fractions of integers.</p>
 <p>The solution for <span class="math notranslate nohighlight">\(\mathbb{Q}\)</span> and <span class="math notranslate nohighlight">\(\mathbb{R}\)</span> is the same: we must truncate their representation after a finite number of digits, thereby introducing a small error. Complex numbers, in terms of their storage in computer memory, are treated like two real numbers.</p>
 <section id="definition-of-floating-point-numbers">
-<h2>Definition of floating point numbers<a class="headerlink" href="#definition-of-floating-point-numbers" title="Link to this heading">#</a></h2>
-<p>The basic idea behind floating point numbers is to define a finite subset of <span class="math notranslate nohighlight">\(\mathbb{Q}\)</span> that has a finer spacing for small numbers, allowing computations to account for small quantities, while employing a wider spacing for large numbers, thus covering a large range between the smallest and largest represented numbers.</p>
+<h2>Definition of floating-point numbers<a class="headerlink" href="#definition-of-floating-point-numbers" title="Link to this heading">#</a></h2>
+<p>The basic idea behind floating-point numbers is to define a finite subset of <span class="math notranslate nohighlight">\(\mathbb{Q}\)</span> that has a finer spacing for small numbers, allowing computations to account for small quantities, while employing a wider spacing for large numbers, thus covering a large range between the smallest and largest represented numbers.</p>
 <div class="proof definition admonition" id="definition-0">
 <p class="admonition-title"><span class="caption-number">Definition 4 </span></p>
 <section class="definition-content" id="proof-content">
-<p>We call <span class="math notranslate nohighlight">\(\mathcal{F}\)</span> a set of floating point numbers if</p>
+<p>We call <span class="math notranslate nohighlight">\(\mathcal{F}\)</span> a set of floating-point numbers if</p>
 <div class="math notranslate nohighlight">
 \[
 \mathcal{F} = \{ 0 \} \cup \left\{(-1)^s\cdot b^e \cdot \frac{m}{b^{p-1}} :\right. \left. s \in \{ 0,1\}; e_{min}\leq e \leq e_{max}; b^{p-1}\leq m\leq b^{p}-1\right\}.
 \]</div>
 <p>for some <span class="math notranslate nohighlight">\(b, p \in \{2, 3, 4, \ldots\}\)</span> and <span class="math notranslate nohighlight">\(e_\min, e_\max \in \mathbb{Z}\)</span> with <span class="math notranslate nohighlight">\(e_\min &lt; e_\max\)</span>.</p>
 </section>
-</div><p>The above rigorous definition of floating point numbers allows us to prove theorems that consider that computers only support finite precision arithmetic.</p>
+</div><p>The above rigorous definition of floating-point numbers allows us to prove theorems that consider that computers only support finite-precision arithmetic.</p>
 <p>The definition already indicates how the numbers of <span class="math notranslate nohighlight">\(\mathcal{F}\)</span> are best represented in the base-<span class="math notranslate nohighlight">\(b\)</span> numerical system. Most commonly, we look at binary numbers, i.e., base <span class="math notranslate nohighlight">\(b = 2\)</span>, and sometimes at decimal numbers, i.e., base <span class="math notranslate nohighlight">\(b = 10\)</span>. The factor <span class="math notranslate nohighlight">\((-1)^s\)</span> determines the sign of the number. The factor <span class="math notranslate nohighlight">\(b^e\)</span> determines the position of the leading digit. The final factor <span class="math notranslate nohighlight">\(\frac{m}{b^{p-1}}\)</span> takes values between <span class="math notranslate nohighlight">\(1 = b^{p-1} / b^{p-1}\)</span> and <span class="math notranslate nohighlight">\((b^{p}-1) / b^{p-1} = b - 1 / b^{p-1}\)</span>. For large <span class="math notranslate nohighlight">\(p\)</span>, we find <span class="math notranslate nohighlight">\(b \approx (b^{p}-1) / b^{p-1}\)</span>. Thus, varying the mantissa <span class="math notranslate nohighlight">\(m\)</span> allows us to approximate different numbers, whose leading digit is in the same position:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -477,31 +477,31 @@
 </table>
 </div>
 </section>
-</div><p>A graphical representation (<a class="reference external" href="https://en.wikipedia.org/wiki/Floating-point_arithmetic">Source Wikipedia</a>) of a floating point set is</p>
+</div><p>A graphical representation (<a class="reference external" href="https://en.wikipedia.org/wiki/Floating-point_arithmetic">Source Wikipedia</a>) of a floating-point set is</p>
 <p><img alt="Floating point precision" src="_images/FloatingPointPrecision.png" /></p>
-<p>Often we say floats instead of floating point numbers.</p>
+<p>The term ‘floats’ is often used as a shorthand for ‘floating-point numbers’.</p>
 </section>
 <section id="ieee-754">
 <h2>IEEE 754<a class="headerlink" href="#ieee-754" title="Link to this heading">#</a></h2>
-<p>The previous example is not practical because that <span class="math notranslate nohighlight">\(\mathcal{F}\)</span> is far too small. Instead, the most widely used floating point sets are defined in the <a class="reference external" href="https://ieeexplore.ieee.org/document/8766229">IEEE 754 standard</a>.</p>
+<p>The previous example is not practical because that <span class="math notranslate nohighlight">\(\mathcal{F}\)</span> is far too small. Instead, the most widely used floating-point sets are defined in the <a class="reference external" href="https://ieeexplore.ieee.org/document/8766229">IEEE 754 standard</a>.</p>
 <p>The two most common types of floating-point numbers are IEEE double precision and IEEE single precision. The former provides around 15 digits of accuracy, while the latter offers around 7 digits of accuracy.</p>
 <ul class="simple">
 <li><p><strong>IEEE double precision:</strong> <span class="math notranslate nohighlight">\(e_{min} = -1022, e_{max} = 1023, p = 53\)</span>, <span class="math notranslate nohighlight">\(b = 2\)</span></p></li>
 <li><p><strong>IEEE single precision:</strong> <span class="math notranslate nohighlight">\(e_{min} = -126, e_{max} = 127, p = 24\)</span>, <span class="math notranslate nohighlight">\(b = 2\)</span></p></li>
 </ul>
 <p>For almost all purposes, this is more than sufficient. Take, for example, the gravitational constant <span class="math notranslate nohighlight">\(G\)</span>. It is known to around 4 digits of accuracy, only a fraction of the number of digits available in modern computers.</p>
-<p>For most numerical calculations, double precision is preferred. The reason is that in some computations, errors might accumulate, leading to a loss of accuracy. In double precision, we have much more headroom for this than in single precision.</p>
+<p>For most numerical calculations, double precision is preferred because, in some computations, errors might accumulate, leading to a loss of accuracy. Double precision provides much more headroom for this than single precision.</p>
 <p>However, not all applications require such precision. For example, many machine learning applications use the half-precision type, which is even less accurate than single precision but can be evaluated extremely efficiently on dedicated hardware, e.g., tensor cores on modern machine learning accelerators.</p>
 </section>
 <section id="floating-point-arithmetic">
 <h2>Floating-point arithmetic<a class="headerlink" href="#floating-point-arithmetic" title="Link to this heading">#</a></h2>
-<p>The distance between neighbouring floats with same leading digit is <span class="math notranslate nohighlight">\(2^e b^{1-p}\)</span>. Let <span class="math notranslate nohighlight">\(x \in [b^{e_{min}}, b^{e_{max}+1}]\)</span>, i.e. be a real number between the smallest and largest float. Define <span class="math notranslate nohighlight">\(\epsilon_{mach} := \frac{1}{2} b^{1-p}\)</span>. There exists <span class="math notranslate nohighlight">\(x' \in \mathcal{F}\)</span> such that <span class="math notranslate nohighlight">\(|x - x'| \leq \epsilon_{mach} |x|\)</span>. <strong>In words, <span class="math notranslate nohighlight">\(\epsilon_{mach}\)</span> is the relative distance to the next floating point number in <span class="math notranslate nohighlight">\(\mathcal{F}\)</span>.</strong></p>
+<p>The distance between neighbouring floats with same leading digit is <span class="math notranslate nohighlight">\(2^e b^{1-p}\)</span>. Let <span class="math notranslate nohighlight">\(x \in [b^{e_{min}}, b^{e_{max}+1}]\)</span>, i.e. be a real number between the smallest and largest float. Define <span class="math notranslate nohighlight">\(\epsilon_{mach} := \frac{1}{2} b^{1-p}\)</span>. There exists <span class="math notranslate nohighlight">\(x' \in \mathcal{F}\)</span> such that <span class="math notranslate nohighlight">\(|x - x'| \leq \epsilon_{mach} |x|\)</span>. <strong>In words, <span class="math notranslate nohighlight">\(\epsilon_{mach}\)</span> is the relative distance to the next floating-point number in <span class="math notranslate nohighlight">\(\mathcal{F}\)</span>.</strong></p>
 <p>Define the projection</p>
 <div class="math notranslate nohighlight">
 \[
 fl: x \rightarrow fl(x),
 \]</div>
-<p>where <span class="math notranslate nohighlight">\(fl(x)\)</span> is the closest floating point number in <span class="math notranslate nohighlight">\(\mathcal{F}\)</span>. If there are two floating point numbers of equal distance choose the one with smaller absolute value. It follows that <span class="math notranslate nohighlight">\(fl(x) = x \cdot (1 + \epsilon)\)</span> for some <span class="math notranslate nohighlight">\(|\epsilon| \leq \epsilon_{mach}\)</span>.</p>
+<p>where <span class="math notranslate nohighlight">\(fl(x)\)</span> is the closest floating-point number in <span class="math notranslate nohighlight">\(\mathcal{F}\)</span>. If there are two floating-point numbers of equal distance choose the one with smaller absolute value. It follows that <span class="math notranslate nohighlight">\(fl(x) = x \cdot (1 + \epsilon)\)</span> for some <span class="math notranslate nohighlight">\(|\epsilon| \leq \epsilon_{mach}\)</span>.</p>
 <div class="proof theorem admonition" id="theorem-2">
 <p class="admonition-title"><span class="caption-number">Theorem 2 </span> (Fundamental Theorem of Floating Point Arithmetic)</p>
 <section class="theorem-content" id="proof-content">
@@ -511,32 +511,32 @@ fl: x \rightarrow fl(x),
 x\odot y = (x \cdot y)(1+\epsilon).
 \]</div>
 </section>
-</div><p>Most modern computer architectures follow the mathematical assumptions on floating point set to guarantee the Fundamental Theorem. For additional details we refer to the recommended lecture book <span id="id1">[<a class="reference internal" href="bm4_bibliography.html#id2" title="Lloyd N. Trefethen and David Bau, III. Numerical linear algebra. SIAM, 1997. URL: https://ucl.primo.exlibrisgroup.com/permalink/44UCL_INST/155jbua/alma990010608020204761.">Trefethen and Bau, 1997</a>]</span>.</p>
+</div><p>Most modern computer architectures follow the mathematical assumptions about floating-point sets to guarantee the Fundamental Theorem. For additional details we refer to the recommended lecture book <span id="id1">[<a class="reference internal" href="bm4_bibliography.html#id2" title="Lloyd N. Trefethen and David Bau, III. Numerical linear algebra. SIAM, 1997. URL: https://ucl.primo.exlibrisgroup.com/permalink/44UCL_INST/155jbua/alma990010608020204761.">Trefethen and Bau, 1997</a>]</span>.</p>
 </section>
 <section id="python-skills">
 <h2>Python skills<a class="headerlink" href="#python-skills" title="Link to this heading">#</a></h2>
-<p>The Numpy module provides convenient tools to query the properties of floating point numbers. First, import Numpy as follows:</p>
+<p>The NumPy module provides convenient tools to query the properties of floating-point numbers. First, import NumPy as follows:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>  <span class="c1"># Import the numpy extension module and alias it as np</span>
 </pre></div>
 </div>
 <section id="floating-point-data-types-in-numpy">
-<h3>Floating point data types in Numpy<a class="headerlink" href="#floating-point-data-types-in-numpy" title="Link to this heading">#</a></h3>
-<p>Numpy defines the following data types for floating point numbers:</p>
+<h3>Floating point data types in NumPy<a class="headerlink" href="#floating-point-data-types-in-numpy" title="Link to this heading">#</a></h3>
+<p>NumPy defines the following data types for floating-point numbers:</p>
 <ul class="simple">
 <li><p><strong>IEEE double precision</strong>: <code class="docutils literal notranslate"><span class="pre">np.float</span></code>, <code class="docutils literal notranslate"><span class="pre">np.double</span></code>, <code class="docutils literal notranslate"><span class="pre">np.float64</span></code></p></li>
 <li><p><strong>IEEE single precision</strong>: <code class="docutils literal notranslate"><span class="pre">np.single</span></code>, <code class="docutils literal notranslate"><span class="pre">np.float32</span></code></p></li>
 </ul>
 </section>
 <section id="querying-floating-point-properties">
-<h3>Querying floating point properties<a class="headerlink" href="#querying-floating-point-properties" title="Link to this heading">#</a></h3>
-<p>Use <code class="docutils literal notranslate"><span class="pre">np.finfo</span></code> to query floating point properties. For example:</p>
+<h3>Querying floating-point properties<a class="headerlink" href="#querying-floating-point-properties" title="Link to this heading">#</a></h3>
+<p>Use <code class="docutils literal notranslate"><span class="pre">np.finfo</span></code> to query floating-point properties. For example:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">double_precision_info</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Key properties of double precision floating point numbers:</p>
+<p>Key properties of double precision floating-point numbers:</p>
 <ul class="simple">
 <li><p><strong>Maximum value</strong>: <code class="docutils literal notranslate"><span class="pre">double_precision_info.max</span></code></p></li>
-<li><p><strong>Smallest (absolute) normalized value</strong>: <code class="docutils literal notranslate"><span class="pre">double_precision_info.tiny</span></code></p></li>
+<li><p><strong>Smallest (absolute) normalised value</strong>: <code class="docutils literal notranslate"><span class="pre">double_precision_info.tiny</span></code></p></li>
 <li><p><strong>Smallest relative difference (machine epsilon)</strong>: <code class="docutils literal notranslate"><span class="pre">double_precision_info.eps</span></code></p></li>
 <li><p><strong>Approximate relative precision</strong>: <code class="docutils literal notranslate"><span class="pre">double_precision_info.precision</span></code></p></li>
 </ul>
@@ -547,8 +547,8 @@ x\odot y = (x \cdot y)(1+\epsilon).
 </div>
 </section>
 <section id="special-floating-point-values">
-<h3>Special floating point values<a class="headerlink" href="#special-floating-point-values" title="Link to this heading">#</a></h3>
-<p>The floating point standard also defines:</p>
+<h3>Special floating-point values<a class="headerlink" href="#special-floating-point-values" title="Link to this heading">#</a></h3>
+<p>The floating-point standard also defines:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">NaN</span></code>: Not a number</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">inf</span></code>: Infinity</p></li>
@@ -560,14 +560,14 @@ x\odot y = (x \cdot y)(1+\epsilon).
 </pre></div>
 </div>
 <blockquote>
-<div><p><strong>Note</strong>: Numpy adheres to the IEEE 754 standard, so operations like division by zero return <code class="docutils literal notranslate"><span class="pre">NaN</span></code> rather than raising an error.</p>
+<div><p><strong>Note</strong>: NumPy adheres to the IEEE 754 standard, so operations like division by zero return <code class="docutils literal notranslate"><span class="pre">NaN</span></code> rather than raising an error.</p>
 </div></blockquote>
 <p>Python itself is not fully IEEE 754 compliant. Consider:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span>
 <span class="n">b</span> <span class="o">=</span> <span class="mf">0.</span> <span class="o">/</span> <span class="mf">0.</span>  <span class="c1"># Raises ZeroDivisionError in Python</span>
 </pre></div>
 </div>
-<p>This behaviour is one reason why Numpy is critical for numerical computations in Python, as it adheres more closely to the IEEE 754 standard.</p>
+<p>This behaviour is one reason why NumPy is critical for numerical computations in Python, as it adheres more closely to the IEEE 754 standard.</p>
 </section>
 </section>
 <section id="self-check-questions">
@@ -584,7 +584,7 @@ x\odot y = (x \cdot y)(1+\epsilon).
 \[
 \epsilon_{mach} = \frac{1}{2}b^{1-p},
 \]</div>
-<p class="sd-card-text">where <span class="math notranslate nohighlight">\(b\)</span> is the base and <span class="math notranslate nohighlight">\(p\)</span> is the precision. It represents half the distance from 1 to the next floating point number and quantifies the maximum relative error between a real number <span class="math notranslate nohighlight">\(x\)</span> and its closest floating point representation <span class="math notranslate nohighlight">\(x'\)</span>. Mathematically:</p>
+<p class="sd-card-text">where <span class="math notranslate nohighlight">\(b\)</span> is the base and <span class="math notranslate nohighlight">\(p\)</span> is the precision. It represents half the distance from 1 to the next floating-point number and quantifies the maximum relative error between a real number <span class="math notranslate nohighlight">\(x\)</span> and its closest floating-point representation <span class="math notranslate nohighlight">\(x'\)</span>. Mathematically:</p>
 <div class="math notranslate nohighlight">
 \[
 |x - x'| \leq |x| \epsilon_{mach}.
@@ -602,14 +602,14 @@ x\odot y = (x \cdot y)(1+\epsilon).
 \[
 \epsilon_{mach} = 2^{-53} \approx 1.11 \times 10^{-16}.
 \]</div>
-<p class="sd-card-text">This means the relative error when mapping a real number to its floating point representation is accurate to approximately 15 significant digits.</p>
+<p class="sd-card-text">This means the relative error when mapping a real number to its floating-point representation is accurate to approximately 15 significant digits.</p>
 </div>
 </details><div class="tip admonition">
 <p class="admonition-title"><strong>Question</strong></p>
-<p>Consider a floating point system with base <span class="math notranslate nohighlight">\(b=2\)</span>, precision <span class="math notranslate nohighlight">\(p=5\)</span>, <span class="math notranslate nohighlight">\(e_{\min}=-6\)</span>, and <span class="math notranslate nohighlight">\(e_{\max}=6\)</span>.</p>
+<p>Consider a floating-point system with base <span class="math notranslate nohighlight">\(b=2\)</span>, precision <span class="math notranslate nohighlight">\(p=5\)</span>, <span class="math notranslate nohighlight">\(e_{\min}=-6\)</span>, and <span class="math notranslate nohighlight">\(e_{\max}=6\)</span>.</p>
 <ol class="arabic">
 <li><p>Determine the machine epsilon <span class="math notranslate nohighlight">\(\epsilon_{mach}\)</span> for this system.</p></li>
-<li><p>Show that any real number <span class="math notranslate nohighlight">\(x\)</span> (within the representable range) can be approximated by a floating point number <span class="math notranslate nohighlight">\(fl(x)\)</span> such that:</p>
+<li><p>Show that any real number <span class="math notranslate nohighlight">\(x\)</span> (within the representable range) can be approximated by a floating-point number <span class="math notranslate nohighlight">\(fl(x)\)</span> such that:</p>
 <div class="math notranslate nohighlight">
 \[
    |x - fl(x)| \leq \epsilon_{mach} |x|.
@@ -627,7 +627,7 @@ x\odot y = (x \cdot y)(1+\epsilon).
    \epsilon_{mach} = \tfrac{1}{2} \cdot 2^{1-5} = \tfrac{1}{2} \cdot 2^{-4} = 2^{-5} = \frac{1}{32}.
    \]</div>
 </li>
-<li><p class="sd-card-text">For any real number <span class="math notranslate nohighlight">\(x\)</span> in the representable range, the floating point number <span class="math notranslate nohighlight">\(fl(x)\)</span> is chosen as a closest number in the given floating point set. By definition of the rounding rule,</p>
+<li><p class="sd-card-text">For any real number <span class="math notranslate nohighlight">\(x\)</span> in the representable range, the floating-point number <span class="math notranslate nohighlight">\(fl(x)\)</span> is chosen as a closest number in the given floating-point set. By definition of the rounding rule,</p>
 <div class="math notranslate nohighlight">
 \[
    |x - fl(x)| \leq \tfrac{1}{2}\text{(spacing at scale of }x).
@@ -643,7 +643,7 @@ x\odot y = (x \cdot y)(1+\epsilon).
 </div>
 </details><div class="tip admonition">
 <p class="admonition-title"><strong>Question</strong></p>
-<p>Consider floating point arithmetic in base <span class="math notranslate nohighlight">\(b\)</span> with precision <span class="math notranslate nohighlight">\(p\)</span>. Assume <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> are floating point numbers that do not differ too drastically in magnitude. Show that the computed sum <span class="math notranslate nohighlight">\(fl(x \oplus y)\)</span> satisfies</p>
+<p>Consider floating-point arithmetic in base <span class="math notranslate nohighlight">\(b\)</span> with precision <span class="math notranslate nohighlight">\(p\)</span>. Assume <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> are floating-point numbers that do not differ too drastically in magnitude. Show that the computed sum <span class="math notranslate nohighlight">\(fl(x \oplus y)\)</span> satisfies</p>
 <div class="math notranslate nohighlight">
 \[
 \frac{|(x+y)-fl(x \oplus y)|}{|x+y|} \leq \epsilon_{mach}
@@ -653,7 +653,7 @@ x\odot y = (x \cdot y)(1+\epsilon).
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
 <span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
-<p class="sd-card-text">By the Fundamental Theorem of Floating Point Arithmetic, any floating point operation on representable numbers <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> can be written as</p>
+<p class="sd-card-text">By the Fundamental Theorem of Floating Point Arithmetic, any floating-point operation on representable numbers <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> can be written as</p>
 <div class="math notranslate nohighlight">
 \[
 x \oplus y = (x+y)(1+\epsilon),
@@ -672,7 +672,7 @@ x \oplus y = (x+y)(1+\epsilon),
 </div>
 </details><div class="tip admonition">
 <p class="admonition-title"><strong>Question</strong></p>
-<p>Consider a floating point system with base <span class="math notranslate nohighlight">\(b=10\)</span>, precision <span class="math notranslate nohighlight">\(p=3\)</span>, and exponent range <span class="math notranslate nohighlight">\(e_{\min}=-2\)</span>, <span class="math notranslate nohighlight">\(e_{\max}=2\)</span>. Given a real number <span class="math notranslate nohighlight">\(x=1.23456\)</span>, determine its floating point representation <span class="math notranslate nohighlight">\(fl(x)\)</span> and estimate the relative error <span class="math notranslate nohighlight">\(\frac{|x-fl(x)|}{|x|}\)</span>. Compare your computed relative error with <span class="math notranslate nohighlight">\(\epsilon_{mach}\)</span>.</p>
+<p>Consider a floating-point system with base <span class="math notranslate nohighlight">\(b=10\)</span>, precision <span class="math notranslate nohighlight">\(p=3\)</span>, and exponent range <span class="math notranslate nohighlight">\(e_{\min}=-2\)</span>, <span class="math notranslate nohighlight">\(e_{\max}=2\)</span>. Given a real number <span class="math notranslate nohighlight">\(x=1.23456\)</span>, determine its floating-point representation <span class="math notranslate nohighlight">\(fl(x)\)</span> and estimate the relative error <span class="math notranslate nohighlight">\(\frac{|x-fl(x)|}{|x|}\)</span>. Compare your computed relative error with <span class="math notranslate nohighlight">\(\epsilon_{mach}\)</span>.</p>
 </div>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
@@ -751,7 +751,7 @@ x \oplus y = (x+y)(1+\epsilon),
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Memory layout and Numpy</p>
+        <p class="prev-next-title">Memory layout and NumPy</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -772,13 +772,13 @@ x \oplus y = (x+y)(1+\epsilon),
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definition-of-floating-point-numbers">Definition of floating point numbers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definition-of-floating-point-numbers">Definition of floating-point numbers</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ieee-754">IEEE 754</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#floating-point-arithmetic">Floating-point arithmetic</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#floating-point-data-types-in-numpy">Floating point data types in Numpy</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#querying-floating-point-properties">Querying floating point properties</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#special-floating-point-values">Special floating point values</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#floating-point-data-types-in-numpy">Floating point data types in NumPy</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#querying-floating-point-properties">Querying floating-point properties</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#special-floating-point-values">Special floating-point values</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#self-check-questions">Self-check questions</a></li>

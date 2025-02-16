@@ -34,9 +34,9 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=b4b7a797" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- So that users can add custom icons -->
@@ -181,7 +181,7 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Implementation</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="1.1_floating_point_arithmetic.html">Floating point numbers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="1.2_numpy_and_data_layouts.html">Memory layout and Numpy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_numpy_and_data_layouts.html">Memory layout and NumPy</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition</span></p>
 <ul class="nav bd-sidenav">
@@ -363,7 +363,7 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reduced-vs-full-qr-decomposition">Reduced vs full QR decomposition</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation-from-scratch">Implementation from scratch</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-numpy-s-implementation">Using Numpy’s implementation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-numpy-s-implementation">Using NumPy’s implementation</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#self-check-questions">Self-check questions</a></li>
@@ -475,7 +475,7 @@
 <p>The last equation, <span class="math notranslate nohighlight">\(Rx = Q^\top b\)</span>, represents an upper triangular system. This can be efficiently solved by backward substitution, starting from the previous equation and substituting backwards to find all unknowns.</p>
 <ul class="simple">
 <li><p><strong>Backward Stability</strong>: Solving linear systems via QR decomposition can be implemented so that it is backward stable.</p></li>
-<li><p><strong>Comparison with LU Decomposition</strong>: Despite its stability, the QR decomposition method for solving linear systems is less commonly used than the LU decomposition in practice. This is primarily due to its computational cost. The QR decomposition typically requires about twice as many operations as the LU decomposition, making it less efficient for large-scale problems. However, recall that LU decomposition is not backward stable.</p></li>
+<li><p><strong>Comparison with LU Decomposition</strong>: Despite its stability, QR decomposition method for solving linear systems is less commonly used than LU decomposition in practice. This is primarily due to its computational cost. The QR decomposition typically requires about twice as many operations as the LU decomposition, making it less efficient for large-scale problems. However, recall that LU decomposition is not backward stable.</p></li>
 </ul>
 </section>
 <section id="reduced-vs-full-qr-decomposition">
@@ -491,7 +491,7 @@ A = \begin{pmatrix}Q &amp; Q^{\bot}\end{pmatrix}\begin{pmatrix}R\\ 0\end{pmatrix
 <h2>Python skills<a class="headerlink" href="#python-skills" title="Link to this heading">#</a></h2>
 <section id="implementation-from-scratch">
 <h3>Implementation from scratch<a class="headerlink" href="#implementation-from-scratch" title="Link to this heading">#</a></h3>
-<p>Step 1: Import Numpy</p>
+<p>Step 1: Import NumPy</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 </pre></div>
 </div>
@@ -531,8 +531,8 @@ A = \begin{pmatrix}Q &amp; Q^{\bot}\end{pmatrix}\begin{pmatrix}R\\ 0\end{pmatrix
 </div>
 </section>
 <section id="using-numpy-s-implementation">
-<h3>Using Numpy’s implementation<a class="headerlink" href="#using-numpy-s-implementation" title="Link to this heading">#</a></h3>
-<p>Here is an example using Numpy’s implementation:</p>
+<h3>Using NumPy’s implementation<a class="headerlink" href="#using-numpy-s-implementation" title="Link to this heading">#</a></h3>
+<p>Here is an example using NumPy’s implementation:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="c1"># Step 1: Create a random matrix</span>
@@ -961,7 +961,7 @@ H x = \left(x_o - 2 \frac{v^\top x_o}{v^^\top v} v\right) + \left(x_c - 2 \frac{
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reduced-vs-full-qr-decomposition">Reduced vs full QR decomposition</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation-from-scratch">Implementation from scratch</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-numpy-s-implementation">Using Numpy’s implementation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-numpy-s-implementation">Using NumPy’s implementation</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#self-check-questions">Self-check questions</a></li>

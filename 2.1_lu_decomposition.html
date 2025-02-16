@@ -34,9 +34,9 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=b4b7a797" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- So that users can add custom icons -->
@@ -67,7 +67,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Backward error and pivoting" href="2.2_lu_backward_error.html" />
-    <link rel="prev" title="Memory layout and Numpy" href="1.2_numpy_and_data_layouts.html" />
+    <link rel="prev" title="Memory layout and NumPy" href="1.2_numpy_and_data_layouts.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -181,7 +181,7 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Implementation</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="1.1_floating_point_arithmetic.html">Floating point numbers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="1.2_numpy_and_data_layouts.html">Memory layout and Numpy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_numpy_and_data_layouts.html">Memory layout and NumPy</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition</span></p>
 <ul class="current nav bd-sidenav">
@@ -377,7 +377,7 @@
 <h1>LU decomposition<a class="headerlink" href="#lu-decomposition" title="Link to this heading">#</a></h1>
 <p>Solving linear systems of equations is among the most fundamental operations in a computer. Many problems (even
 nonlinear ones) eventually reduce to sequences of linear system solves.</p>
-<p>Most students learn about <a class="reference external" href="https://en.wikipedia.org/wiki/Gaussian_elimination">Gaussian elimination</a>, which is also known as row reduction, in school. The LU decomposition is simply a more organised way to perform Gaussian elimination.</p>
+<p>Most students learn about <a class="reference external" href="https://en.wikipedia.org/wiki/Gaussian_elimination">Gaussian elimination</a>, also known as row reduction, in school. The LU decomposition is simply a more organised way to perform Gaussian elimination.</p>
 <section id="basic-idea">
 <h2>Basic idea<a class="headerlink" href="#basic-idea" title="Link to this heading">#</a></h2>
 <p>We consider the linear system of equations</p>
@@ -426,7 +426,7 @@ Ly = b, \qquad Ux = y.
 <p class="admonition-title">Fact: Invertible triangular systems</p>
 <p>A triangular matrix is invertible if and only if its diagonal elements are non-zero.</p>
 </div>
-<p>What is the cost of this triangular solve? We count the number of additions, subtractions, multiplications, and divisions.</p>
+<p>What is the cost of solving this triangular system? We count the number of additions, subtractions, multiplications, and divisions.</p>
 <ul>
 <li><p>For each <span class="math notranslate nohighlight">\(i\)</span>, there are <span class="math notranslate nohighlight">\(n - i\)</span> multiplications and <span class="math notranslate nohighlight">\(n - i - 1\)</span> additions, plus one subtraction and one division.</p></li>
 <li><p>Hence, the overall number of operations (<span class="math notranslate nohighlight">\(ops\)</span>) is</p>
@@ -512,7 +512,7 @@ F = I - f \cdot (e^{(s)})^\top = I - f \otimes e^{(s)}.
 </section>
 <section id="deriving-the-lu-decomposition">
 <h2>Deriving the LU decomposition<a class="headerlink" href="#deriving-the-lu-decomposition" title="Link to this heading">#</a></h2>
-<p>So far we changed the description of Gaussian elimination, but not added any substantial new mathematics. That is going to change now: the inverses of Frobenius matrices are known and efficiently computable. This is a rare property!</p>
+<p>So far, we have changed the description of Gaussian elimination, but have not added any substantially new mathematics. That is going to change now: the inverses of Frobenius matrices are known and efficiently computable. This is a rare property!</p>
 <div class="proof lemma admonition" id="lemma-1">
 <p class="admonition-title"><span class="caption-number">Lemma 2 </span></p>
 <section class="lemma-content" id="proof-content">
@@ -590,7 +590,7 @@ A = LU.
 </div></section>
 <section id="the-complete-algorithm">
 <h2>The complete algorithm<a class="headerlink" href="#the-complete-algorithm" title="Link to this heading">#</a></h2>
-<p>Consider we want to solve the linear system</p>
+<p>Consider that we want to solve the linear system</p>
 <div class="math notranslate nohighlight">
 \[
 Ax = b
@@ -626,7 +626,7 @@ A = LU
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;U:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">U</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>We can use the above factors to solve the linear system with different right-hand sides. The inverse of <code class="docutils literal notranslate"><span class="pre">P</span></code> is <code class="docutils literal notranslate"><span class="pre">P</span></code> itself.</p>
+<p>We can use the above factors to solve the linear system with different right-hand sides. The inverse of <code class="docutils literal notranslate"><span class="pre">P</span></code> is its own transpose.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example right-hand sides</span>
 <span class="n">b1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
 <span class="n">b2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
@@ -1250,7 +1250,7 @@ A =
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Memory layout and Numpy</p>
+        <p class="prev-next-title">Memory layout and NumPy</p>
       </div>
     </a>
     <a class="right-next"

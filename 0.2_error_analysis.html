@@ -34,9 +34,9 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=b4b7a797" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- So that users can add custom icons -->
@@ -181,7 +181,7 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Implementation</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="1.1_floating_point_arithmetic.html">Floating point numbers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="1.2_numpy_and_data_layouts.html">Memory layout and Numpy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_numpy_and_data_layouts.html">Memory layout and NumPy</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition</span></p>
 <ul class="nav bd-sidenav">
@@ -530,7 +530,7 @@ K_{rel} := \sup_{x,x+\Delta x \in D \atop \Delta x \neq 0, f(x) \neq 0} \frac{\|
 \[
 \kappa_{abs}(x) = \| \nabla f(x) \|_{Y,X}, \qquad \kappa_{rel}(x) = \frac{\| x \|_X}{\| f(x) \|_Y}\| \nabla f(x) \|_{Y,X}.
 \]</div>
-<p>We use here gradient and Jacobian as interchangable concepts. Returning to equation <span class="math notranslate nohighlight">\((2)\)</span> above, we find</p>
+<p>We use here gradient and Jacobian as interchangeable concepts. Returning to equation <span class="math notranslate nohighlight">\((2)\)</span> above, we find</p>
 <div class="math notranslate nohighlight">
 \[
 \|y - \tilde{y}\|_Y = \frac{\|f(x) - f(x + \Delta x)\|_Y}{\| \Delta x \|_X} \| \Delta x \|_X \leq K_{abs} \| \Delta x \|_X
@@ -545,8 +545,8 @@ K_{rel} := \sup_{x,x+\Delta x \in D \atop \Delta x \neq 0, f(x) \neq 0} \frac{\|
 \[
 \frac{\|\Delta f\|_Y}{\|f(x)\|_Y} \leq \kappa_{rel}(x)\cdot \frac{\|\Delta x\|_X}{\|x\|_X} + \text{higher-order terms}.
 \]</div>
-<p><strong>In words, the relative forward error is bounded by the product of the condition number and the relative backward error.</strong></p>
-<p>What is a good condition number in practice? Ideally, we want the condition number to be as small as possible so that errors in the input data are not amplified in the output error. For each magnitude of the condition number, we lose one digit of accuracy in the output error. This can be seen as follows: Assume we work in double precision and that the algorithm has a backward error that is a small multiple of <span class="math notranslate nohighlight">\(\epsilon_{mach}\)</span>. Hence, if the condition number is <span class="math notranslate nohighlight">\(100\)</span>, we expect to lose two digits of accuracy in the forward error. If the condition number is in the order of <span class="math notranslate nohighlight">\(\epsilon_{mach}^{-1}\)</span>, then we will likely lose almost all digits.</p>
+<p><strong>In summary, the relative forward error is bounded by the product of the condition number and the relative backward error.</strong></p>
+<p>What is a good condition number in practice? Ideally, we want the condition number to be as small as possible so that errors in the input data are not amplified in the output error. For each magnitude of the condition number, we lose one digit of accuracy in the output error. This can be seen as follows: Assume we work in double precision and that the algorithm has a backward error that is a small multiple of <span class="math notranslate nohighlight">\(\epsilon_{mach}\)</span>. Hence, if the condition number is <span class="math notranslate nohighlight">\(100\)</span>, we expect to lose two digits of accuracy in the forward error. If the condition number is in the order of <span class="math notranslate nohighlight">\(\epsilon_{mach}^{-1}\)</span>, then we will likely lose almost all significant digits.</p>
 <p>If a condition number is small, we say that the problem is <em>well-conditioned</em>. If the condition number is large, we say that the problem is <em>ill-conditioned</em>. The precise meaning of these terms depends on the requirements of the application.</p>
 <div class="admonition-worst-case-bound admonition">
 <p class="admonition-title">Worst-case Bound</p>
@@ -589,7 +589,7 @@ f'(x) \approx \frac{f(x+h) - f(x-h)}{2h}
 </section>
 <section id="symbolic-computation">
 <h3>Symbolic computation<a class="headerlink" href="#symbolic-computation" title="Link to this heading">#</a></h3>
-<p>Python also has libraries, such as <code class="docutils literal notranslate"><span class="pre">sympy</span></code>, that can compute the derivitive symbolically, similar to manual calculations or computer algebra programmes such as Mathematica.</p>
+<p>Python also has libraries, such as <code class="docutils literal notranslate"><span class="pre">sympy</span></code>, that can compute the derivative symbolically, similar to manual calculations or computer algebra programmes such as Mathematica.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sympy</span> <span class="k">as</span> <span class="nn">sp</span>
 
 <span class="c1"># Define a symbolic variable</span>

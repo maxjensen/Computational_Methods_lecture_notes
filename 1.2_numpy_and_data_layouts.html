@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Memory layout and Numpy &#8212; Computational Methods MATH0058 lecture notes</title>
+    <title>Memory layout and NumPy &#8212; Computational Methods MATH0058 lecture notes</title>
   
   
   
@@ -34,9 +34,9 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=b4b7a797" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- So that users can add custom icons -->
@@ -181,7 +181,7 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Implementation</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="1.1_floating_point_arithmetic.html">Floating point numbers</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Memory layout and Numpy</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Memory layout and NumPy</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition</span></p>
 <ul class="nav bd-sidenav">
@@ -344,7 +344,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Memory layout and Numpy</h1>
+    <h1>Memory layout and NumPy</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -355,14 +355,14 @@
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#memory-layouts">Memory layouts</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#numpy-to-the-rescue">Numpy to the rescue</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#blas-and-lapack">BLAS and Lapack</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#numpy-to-the-rescue">NumPy to the rescue</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#blas-and-lapack">BLAS and LAPACK</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-arrays">Creating Arrays</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#accessing-array-properties">Accessing Array Properties</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#accessing-elements">Accessing Elements</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#modifying-arrays">Modifying Arrays</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-with-numpy-and-matplotlib">Plotting with Numpy and Matplotlib</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-with-numpy-and-matplotlib">Plotting with NumPy and Matplotlib</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-operations">Matrix Operations</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-linear-systems">Solving Linear Systems</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#further-resources">Further Resources</a></li>
@@ -380,7 +380,7 @@
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="memory-layout-and-numpy">
-<h1>Memory layout and Numpy<a class="headerlink" href="#memory-layout-and-numpy" title="Link to this heading">#</a></h1>
+<h1>Memory layout and NumPy<a class="headerlink" href="#memory-layout-and-numpy" title="Link to this heading">#</a></h1>
 <section id="memory-layouts">
 <h2>Memory layouts<a class="headerlink" href="#memory-layouts" title="Link to this heading">#</a></h2>
 <p>We can imagine memory as a linear collection of consecutive memory addresses, each representing one byte.</p>
@@ -410,13 +410,13 @@ A = \begin{pmatrix} 1 &amp; 2\\ 3 &amp; 4\end{pmatrix}
 <p>Both memory layout styles are used across scientific computing, and it is important to know the assumed layout in a given numerical library. Ignoring data layouts leads to inefficiency if code has to translate on the fly between the layouts, or even bugs if a library ignores the layout differences.</p>
 </section>
 <section id="numpy-to-the-rescue">
-<h2>Numpy to the rescue<a class="headerlink" href="#numpy-to-the-rescue" title="Link to this heading">#</a></h2>
-<p><a class="reference external" href="https://numpy.org/">Numpy</a> addresses these issues by providing an array type that reserves consecutive chunks of memory and allows the user to transparently map data onto this memory, either using C-style ordering (default) or Fortran-style ordering (optional). Numpy also ensures that operations between arrays of different orderings are executed correctly (although it is best to avoid this). Numpy has long established itself as the de facto standard for array types in Python. Indeed, many other libraries have adopted the Numpy syntax and conventions to ensure their data types interoperate seamlessly with Numpy.</p>
-<p><strong>Numpy is a major reason for the significant success of Python.</strong></p>
-<p>Recently, an associated <a class="reference external" href="https://www.nature.com/articles/s41586-020-2649-2">Numpy paper</a> was published in Nature, which is quite rare for a software library and demonstrates how fundamental Numpy has become to any science that relies on data processing. Most of these operations are implemented by calling natively into accelerated BLAS/Lapack functions.</p>
+<h2>NumPy to the rescue<a class="headerlink" href="#numpy-to-the-rescue" title="Link to this heading">#</a></h2>
+<p><a class="reference external" href="https://numpy.org/">NumPy</a> addresses these issues by providing an array type that reserves consecutive chunks of memory and allows the user to transparently map data onto this memory, either using C-style ordering (default) or Fortran-style ordering (optional). NumPy also ensures that operations between arrays of different orderings are executed correctly (although it is best to avoid this). NumPy has long established itself as the de facto standard for array types in Python. Indeed, many other libraries have adopted the NumPy syntax and conventions to ensure their data types interoperate seamlessly with NumPy.</p>
+<p><strong>NumPy is a major reason for the significant success of Python.</strong></p>
+<p>Recently, an associated <a class="reference external" href="https://www.nature.com/articles/s41586-020-2649-2">NumPy paper</a> was published in Nature, which is quite rare for a software library and demonstrates how fundamental NumPy has become to any science that relies on data processing. Most of these operations are implemented by calling natively into accelerated BLAS/LAPACK functions.</p>
 </section>
 <section id="blas-and-lapack">
-<h2>BLAS and Lapack<a class="headerlink" href="#blas-and-lapack" title="Link to this heading">#</a></h2>
+<h2>BLAS and LAPACK<a class="headerlink" href="#blas-and-lapack" title="Link to this heading">#</a></h2>
 <p><a class="reference external" href="http://www.netlib.org/blas/">BLAS (Basic Linear Algebra Subroutines)</a> defines a set of interfaces to standard linear algebra functions. There are three BLAS variants: Level 1, 2, and 3.</p>
 <ul class="simple">
 <li><p>BLAS Level 1 defines functions that require <span class="math notranslate nohighlight">\(O(n)\)</span> computational complexity (<span class="math notranslate nohighlight">\(n\)</span> is the number of elements), such as vector addition, multiplication with scalars, or dot products.</p></li>
@@ -424,18 +424,18 @@ A = \begin{pmatrix} 1 &amp; 2\\ 3 &amp; 4\end{pmatrix}
 <li><p>BLAS Level 3 defines functions that require <span class="math notranslate nohighlight">\(O(n^3)\)</span> computational complexity, of which the most important one is the matrix-matrix product.</p></li>
 </ul>
 <p>A reference BLAS implementation exists from <a class="reference external" href="http://www.netlib.org">http://www.netlib.org</a>. However, this should never be used in practice. The key to fast BLAS operations is implementations that optimally use the CPU cache architecture to minimise data transfer delays. Several BLAS libraries exist that are optimised for modern CPUs and not only exploit caching but also SIMD acceleration and multi-core processing. Examples of such libraries are <a class="reference external" href="https://software.intel.com/content/www/us/en/develop/tools/math-kernel-library.html">Intel MKL</a>, <a class="reference external" href="https://www.openblas.net/">OpenBLAS</a>, or <a class="reference external" href="https://github.com/flame/blis">BLIS</a>.</p>
-<p><a class="reference external" href="http://netlib.org/lapack">Lapack</a> is a library of advanced linear algebra functions such as linear system solves, eigenvalue problems, singular values, least-squares problems, etc., using BLAS. Lapack routines are highly optimised to use matrix-matrix Level-3 BLAS operations whenever possible. The reason is memory efficiency. The ratio of computational complexity to memory complexity for matrix-matrix products is <span class="math notranslate nohighlight">\(O(n^3)\)</span> to <span class="math notranslate nohighlight">\(O(n^2)\)</span>. Hence, for larger problems, we have far more operations than memory accesses, which is desirable as memory accesses are slow.</p>
-<p>Numpy links against available BLAS and Lapack libraries to ensure the most efficient implementations of linear algebra operations. If Numpy is installed from conda-forge, then by default, the OpenBLAS library is used. Alternatively, one can also use Intel MKL.</p>
+<p><a class="reference external" href="http://netlib.org/lapack">LAPACK</a> is a library of advanced linear algebra functions such as linear system solves, eigenvalue problems, singular values, least-squares problems, etc., using BLAS. LAPACK routines are highly optimised to use matrix-matrix Level-3 BLAS operations whenever possible. The reason is memory efficiency. The ratio of computational complexity to memory complexity for matrix-matrix products is <span class="math notranslate nohighlight">\(O(n^3)\)</span> to <span class="math notranslate nohighlight">\(O(n^2)\)</span>. Hence, for larger problems, we have far more operations than memory accesses, which is desirable as memory accesses are slow.</p>
+<p>NumPy links against available BLAS and LAPACK libraries to ensure the most efficient implementations of linear algebra operations. If NumPy is installed from conda-forge, then by default, the OpenBLAS library is used. Alternatively, one can also use Intel MKL.</p>
 </section>
 <section id="python-skills">
 <h2>Python skills<a class="headerlink" href="#python-skills" title="Link to this heading">#</a></h2>
-<p>We already know that Numpy is a fundamental library for scientific computing in Python. Here’s a quick introduction to its basic features and functionality. To use Numpy, import it as follows:</p>
+<p>We already know that NumPy is a fundamental library for scientific computing in Python. Here’s a quick introduction to its basic features and functionality. To use NumPy, import it as follows:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 </pre></div>
 </div>
 <section id="creating-arrays">
 <h3>Creating Arrays<a class="headerlink" href="#creating-arrays" title="Link to this heading">#</a></h3>
-<p>The basic data type in Numpy is the array. Here are some examples of how to create arrays:</p>
+<p>The basic data type in NumPy is the array. Here are some examples of how to create arrays:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># A double-precision array with three entries</span>
 <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">3.5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mf">18.1</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float64&#39;</span><span class="p">)</span>
 
@@ -499,7 +499,7 @@ A = \begin{pmatrix} 1 &amp; 2\\ 3 &amp; 4\end{pmatrix}
 </div>
 </section>
 <section id="plotting-with-numpy-and-matplotlib">
-<h3>Plotting with Numpy and Matplotlib<a class="headerlink" href="#plotting-with-numpy-and-matplotlib" title="Link to this heading">#</a></h3>
+<h3>Plotting with NumPy and Matplotlib<a class="headerlink" href="#plotting-with-numpy-and-matplotlib" title="Link to this heading">#</a></h3>
 <p>Together with Matplotlib, you can easily plot data:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 
@@ -515,7 +515,7 @@ A = \begin{pmatrix} 1 &amp; 2\\ 3 &amp; 4\end{pmatrix}
 </section>
 <section id="matrix-operations">
 <h3>Matrix Operations<a class="headerlink" href="#matrix-operations" title="Link to this heading">#</a></h3>
-<p>Matrix and vector operations in Numpy include:</p>
+<p>Matrix and vector operations in NumPy include:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Generate random matrices</span>
 <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
 <span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
@@ -530,7 +530,7 @@ A = \begin{pmatrix} 1 &amp; 2\\ 3 &amp; 4\end{pmatrix}
 </section>
 <section id="solving-linear-systems">
 <h3>Solving Linear Systems<a class="headerlink" href="#solving-linear-systems" title="Link to this heading">#</a></h3>
-<p>Numpy can solve linear systems of equations:</p>
+<p>NumPy can solve linear systems of equations:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
 <span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
 
@@ -546,7 +546,7 @@ A = \begin{pmatrix} 1 &amp; 2\\ 3 &amp; 4\end{pmatrix}
 </section>
 <section id="further-resources">
 <h3>Further Resources<a class="headerlink" href="#further-resources" title="Link to this heading">#</a></h3>
-<p>For a more comprehensive introduction, refer to the <a class="reference external" href="https://numpy.org/doc/stable/user/index.html">Numpy user guide</a>.</p>
+<p>For a more comprehensive introduction, refer to the <a class="reference external" href="https://numpy.org/doc/stable/user/index.html">NumPy user guide</a>.</p>
 </section>
 </section>
 </section>
@@ -617,14 +617,14 @@ A = \begin{pmatrix} 1 &amp; 2\\ 3 &amp; 4\end{pmatrix}
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#memory-layouts">Memory layouts</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#numpy-to-the-rescue">Numpy to the rescue</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#blas-and-lapack">BLAS and Lapack</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#numpy-to-the-rescue">NumPy to the rescue</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#blas-and-lapack">BLAS and LAPACK</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-arrays">Creating Arrays</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#accessing-array-properties">Accessing Array Properties</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#accessing-elements">Accessing Elements</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#modifying-arrays">Modifying Arrays</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-with-numpy-and-matplotlib">Plotting with Numpy and Matplotlib</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-with-numpy-and-matplotlib">Plotting with NumPy and Matplotlib</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-operations">Matrix Operations</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-linear-systems">Solving Linear Systems</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#further-resources">Further Resources</a></li>

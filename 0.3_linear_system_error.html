@@ -34,9 +34,9 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=b4b7a797" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- So that users can add custom icons -->
@@ -181,7 +181,7 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Implementation</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="1.1_floating_point_arithmetic.html">Floating point numbers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="1.2_numpy_and_data_layouts.html">Memory layout and Numpy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_numpy_and_data_layouts.html">Memory layout and NumPy</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition</span></p>
 <ul class="nav bd-sidenav">
@@ -370,7 +370,7 @@
                   
   <section class="tex2jax_ignore mathjax_ignore" id="the-condition-number-of-linear-systems">
 <h1>The condition number of linear systems<a class="headerlink" href="#the-condition-number-of-linear-systems" title="Link to this heading">#</a></h1>
-<p>Recall that the condition number quantifies the sensitivity of a function evaluation <span class="math notranslate nohighlight">\(f(x + \Delta x)\)</span> to perturbations <span class="math notranslate nohighlight">\(\Delta x\)</span>. It is independent of the numerical method used (which is encoded by <span class="math notranslate nohighlight">\(\tilde{f}\)</span>) and instead serves as an indicator of the inherent difficulty of numerically evaluating <span class="math notranslate nohighlight">\(f\)</span>, regardless of the specific method employed.</p>
+<p>The condition number reflects how sensitive a function evaluation <span class="math notranslate nohighlight">\(f(x + \Delta x)\)</span> is to changes in <span class="math notranslate nohighlight">\(\Delta x\)</span>. It doesn’t depend on the numerical method <span class="math notranslate nohighlight">\(\tilde{f}\)</span> and shows how hard it is to evaluate <span class="math notranslate nohighlight">\(f\)</span> numerically, no matter which method is used.</p>
 <p>With this in mind, we now compute the condition number for linear systems of equations <span class="math notranslate nohighlight">\(Ay = b\)</span> with <span class="math notranslate nohighlight">\(A\in\mathbb{R}^{n\times n}\)</span> and <span class="math notranslate nohighlight">\(b\in\mathbb{R}^n\)</span>. We assume that <span class="math notranslate nohighlight">\(A\)</span> is non-singular and <span class="math notranslate nohighlight">\(b \neq 0\)</span>. We use <span class="math notranslate nohighlight">\(\|\cdot\|\)</span> to denote both the vector norm on <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span> and the induced matrix norm on <span class="math notranslate nohighlight">\(\mathbb{R}^{n\times n}\)</span>.</p>
 <p>We consider the following two problems:</p>
 <ol class="arabic simple">

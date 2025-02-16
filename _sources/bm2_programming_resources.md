@@ -14,12 +14,12 @@
 - [Classes and Objects](https://drive.google.com/file/d/1J4mUPOzkPCS-s2N9n68iXwRHI1cyU0P0/view?usp=sharing)
 - [Dictionaries](https://drive.google.com/file/d/1J4mUPOzkPCS-s2N9n68iXwRHI1cyU0P0/view?usp=sharing)
 - [Modules and Packages](https://colab.research.google.com/drive/1Zko2D2lOeGXM5wS8vraIasLOlQcwINrz?usp=sharing)
-- [Numpy](https://colab.research.google.com/drive/1eCbOGspVMXcnO8DNKBzf7CHinJLpOsd7?usp=sharing)
+- [NumPy](https://colab.research.google.com/drive/1eCbOGspVMXcnO8DNKBzf7CHinJLpOsd7?usp=sharing)
 - [Plotting](https://colab.research.google.com/drive/1i79qZhj0Bs2l4ghGAspf-sRIwzB7OykJ?usp=sharing)
 
 ## External programming resources
 
 - [Python homepage](https://www.python.org/): The official Python website.
-- [Numpy tutorial](https://numpy.org/learn/): A tutorial to get started with Numpy.
+- [NumPy tutorial](https://numpy.org/learn/): A tutorial to get started with NumPy.
 - [Pyplot tutorial](https://matplotlib.org/stable/tutorials/pyplot.html): A tutorial to get started with Pyplot.
 - [SciPy user guide](https://docs.scipy.org/doc/scipy/tutorial/index.html): A comprehensive guide to the SciPy library.
