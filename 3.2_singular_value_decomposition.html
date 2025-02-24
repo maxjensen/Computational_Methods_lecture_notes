@@ -34,9 +34,9 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=b4b7a797" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- So that users can add custom icons -->
@@ -181,7 +181,7 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Implementation</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="1.1_floating_point_arithmetic.html">Floating point numbers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="1.2_numpy_and_data_layouts.html">Memory layout and Numpy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_numpy_and_data_layouts.html">Memory layout and NumPy</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition</span></p>
 <ul class="nav bd-sidenav">
@@ -639,16 +639,14 @@ Let <span class="math notranslate nohighlight">\(A\)</span> be invertible. Becau
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
 <span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
-<p class="sd-card-text">To show that the singular values of <span class="math notranslate nohighlight">\(A\)</span> are the square roots of the eigenvalues of <span class="math notranslate nohighlight">\(A^\top A\)</span>,
-consider the singular value decomposition of <span class="math notranslate nohighlight">\(A\)</span>, which is <span class="math notranslate nohighlight">\(A = U\Sigma V^\top\)</span>, where <span class="math notranslate nohighlight">\(\Sigma\)</span>  is a diagonal matrix containing the singular values of <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<p class="sd-card-text">To show that the singular values of <span class="math notranslate nohighlight">\(A\)</span> are the square roots of the eigenvalues of <span class="math notranslate nohighlight">\(A^\top A\)</span>,  consider the singular value decomposition of <span class="math notranslate nohighlight">\(A\)</span>, which is <span class="math notranslate nohighlight">\(A = U\Sigma V^\top\)</span>, where <span class="math notranslate nohighlight">\(\Sigma \in \mathbb{R}^{m \times n}\)</span> is a diagonal matrix containing the singular values of <span class="math notranslate nohighlight">\(A\)</span>.</p>
 <p class="sd-card-text">Now, compute <span class="math notranslate nohighlight">\(A^\top A\)</span>:</p>
 <div class="math notranslate nohighlight">
 \[
-A^\top A = (U\Sigma V^\top)^\top(U\Sigma V^\top) = V\Sigma^\top U^\top U\Sigma V^\top = V\Sigma^2V^\top.
+A^\top A = (U\Sigma V^\top)^\top(U\Sigma V^\top) = V\Sigma^\top U^\top U\Sigma V^\top = V (\Sigma^\top \Sigma) V^\top.
 \]</div>
 <p class="sd-card-text">Since <span class="math notranslate nohighlight">\(U\)</span> and <span class="math notranslate nohighlight">\(V\)</span> are orthogonal matrices, <span class="math notranslate nohighlight">\(U^\top U = I_m\)</span> and <span class="math notranslate nohighlight">\(V^\top V = I_n\)</span>, where <span class="math notranslate nohighlight">\(I_m\)</span> and <span class="math notranslate nohighlight">\(I_n\)</span> are identity matrices of size <span class="math notranslate nohighlight">\(m\)</span> and <span class="math notranslate nohighlight">\(n\)</span>, respectively.</p>
-<p class="sd-card-text">In the equation <span class="math notranslate nohighlight">\(A^\top A = V\Sigma^2V^\top\)</span>, the matrix <span class="math notranslate nohighlight">\(\Sigma^2\)</span> contains the squares of the
-singular values of <span class="math notranslate nohighlight">\(A\)</span>. The matrix <span class="math notranslate nohighlight">\(A^\top A\)</span> is symmetric, and its eigenvalues are given by the diagonal elements of <span class="math notranslate nohighlight">\(\Sigma^2\)</span>. Thus, the singular values of <span class="math notranslate nohighlight">\(A\)</span> are the square roots of the eigenvalues of <span class="math notranslate nohighlight">\(A^\top A\)</span>.</p>
+<p class="sd-card-text">In the equation <span class="math notranslate nohighlight">\(A^\top A = V (\Sigma^\top \Sigma) V^\top\)</span>, the matrix <span class="math notranslate nohighlight">\(\Sigma^\top \Sigma\)</span> contains the squares of the singular values of <span class="math notranslate nohighlight">\(A\)</span>. The matrix <span class="math notranslate nohighlight">\(A^\top A\)</span> is symmetric, and its eigenvalues are given by the diagonal elements of <span class="math notranslate nohighlight">\(\Sigma^\top \Sigma\)</span>. Thus, the singular values of <span class="math notranslate nohighlight">\(A\)</span> are the square roots of the eigenvalues of <span class="math notranslate nohighlight">\(A^\top A\)</span>.</p>
 </div>
 </details><div class="tip admonition">
 <p class="admonition-title"><strong>Question</strong></p>
