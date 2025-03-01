@@ -384,10 +384,10 @@
 &amp; D x \ge d.
 \end{array}
 \end{split}\]</div>
-<p>where <span class="math notranslate nohighlight">\(a \in \mathbb{R}^n\)</span>, <span class="math notranslate nohighlight">\(c \in \mathbb{R}^m\)</span>, <span class="math notranslate nohighlight">\(d \in \mathbb{R}^p\)</span>, <span class="math notranslate nohighlight">\(C \in \mathbb{R}^{m \times n}\)</span>, <span class="math notranslate nohighlight">\(D \in \mathbb{R}^{p \times n}\)</span> and <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{n \times n}\)</span>. The expression <span class="math notranslate nohighlight">\(D x \ge d\)</span> is to be understood componentwise: for <span class="math notranslate nohighlight">\(d, e \in \mathbb{R}^p\)</span>,</p>
+<p>where <span class="math notranslate nohighlight">\(a \in \mathbb{R}^m\)</span>, <span class="math notranslate nohighlight">\(c \in \mathbb{R}^p\)</span>, <span class="math notranslate nohighlight">\(d \in \mathbb{R}^q\)</span>, <span class="math notranslate nohighlight">\(C \in \mathbb{R}^{p \times n}\)</span>, <span class="math notranslate nohighlight">\(D \in \mathbb{R}^{q \times n}\)</span> and <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span>. The expression <span class="math notranslate nohighlight">\(D x \ge d\)</span> is to be understood componentwise: for <span class="math notranslate nohighlight">\(d, e \in \mathbb{R}^p\)</span>,</p>
 <div class="math notranslate nohighlight">
 \[
-d \ge e \qquad \Leftrightarrow \qquad d_i \ge e_i \quad \forall \; i \in \{1, \ldots, p\}.
+d \ge e \qquad \Leftrightarrow \qquad d_i \ge e_i \quad \forall \; i \in \{1, \ldots, q\}.
 \]</div>
 <p>Because of the constraints, the techniques from the previous section do not apply directly, as the problem is inherently nonlinear.</p>
 <p>Setting <span class="math notranslate nohighlight">\(B = A^\top A\)</span> and <span class="math notranslate nohighlight">\(b = - A^\top a\)</span>, we rewrite the above least-squares problem in the generic form of a quadratic programme.</p>
@@ -536,22 +536,22 @@ c^\top y + d^\top s - \frac{1}{2} x^\top B x \, \leq \, &amp; (C \bar{x})^\top y
 <span class="c1"># ------------------------------------------------</span>
 <span class="c1"># Example data (adjust as appropriate).</span>
 <span class="c1"># ------------------------------------------------</span>
-<span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span>
+<span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">q</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span>
 <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
 <span class="c1"># Construct a least-squares setup:</span>
-<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
-<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
 <span class="n">B</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">A</span>
 <span class="n">b_vec</span> <span class="o">=</span> <span class="o">-</span><span class="n">A</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">a</span>
 
 <span class="c1"># Constraints:</span>
 <span class="c1">#   Cx - c = 0  -&gt;  in CVXPY: C@x == c</span>
 <span class="c1">#   Dx - d &gt;= 0 -&gt;  in CVXPY: D@x &gt;= d</span>
-<span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
-<span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
-<span class="n">D</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
-<span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+<span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+<span class="n">D</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
 
 <span class="c1"># Define the variable and constraints in CVXPY</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
@@ -833,7 +833,7 @@ s \ge 0.
 </div>
 </details><div class="tip admonition">
 <p class="admonition-title"><strong>Question</strong></p>
-<p>To examine optimisation problems without strong duality, we consider a possibly non-quadratic optimisation problem. Given <span class="math notranslate nohighlight">\(f : \mathbb{R}^n \to \mathbb{R}\)</span>, <span class="math notranslate nohighlight">\(h : \mathbb{R}^n \to \mathbb{R}^m\)</span> and <span class="math notranslate nohighlight">\(g : \mathbb{R}^n \to \mathbb{R}^p\)</span>, let the Lagrangian function be</p>
+<p>To examine optimisation problems without strong duality, we consider a possibly non-quadratic optimisation problem. Given <span class="math notranslate nohighlight">\(f : \mathbb{R}^n \to \mathbb{R}\)</span>, <span class="math notranslate nohighlight">\(h : \mathbb{R}^n \to \mathbb{R}^p\)</span> and <span class="math notranslate nohighlight">\(g : \mathbb{R}^n \to \mathbb{R}^q\)</span>, let the Lagrangian function be</p>
 <div class="math notranslate nohighlight">
 \[
 L(x, y, s) :=f(x) - y^\top h(x) - s^\top g(x),
@@ -841,15 +841,15 @@ L(x, y, s) :=f(x) - y^\top h(x) - s^\top g(x),
 <p>giving rise to the primal problem</p>
 <div class="math notranslate nohighlight">
 \[
-p := \min_x \underbrace{\max_{y, s \atop s \geq 0} L(x, y, s)}_{=: P(x)} = \min_x P(x)
+v_p := \min_x \underbrace{\max_{y, s \atop s \geq 0} L(x, y, s)}_{=: P(x)} = \min_x P(x)
 \]</div>
 <p>and the dual problem</p>
 <div class="math notranslate nohighlight">
 \[
-d := \max_{y, s \atop s \geq 0} \underbrace{\min_x L(x, y, s)}_{=: D(y,s)} = \max_{y, s \atop s \geq 0} D(y,s).
+v_d := \max_{y, s \atop s \geq 0} \underbrace{\min_x L(x, y, s)}_{=: D(y,s)} = \max_{y, s \atop s \geq 0} D(y,s).
 \]</div>
 <p>Suppose that a minimiser <span class="math notranslate nohighlight">\(\bar{x}\)</span> of the primal problem exists and that a maximiser <span class="math notranslate nohighlight">\((y,s)\)</span> of the dual problem exists. For that <span class="math notranslate nohighlight">\((y,s)\)</span> let <span class="math notranslate nohighlight">\(x\)</span> be a minimiser of <span class="math notranslate nohighlight">\(\min_x L(x, y, s)\)</span>.</p>
-<p>We say that strong duality does not hold if <span class="math notranslate nohighlight">\(d &lt; p\)</span>; note that the inquality is strict. Explain why in this case <span class="math notranslate nohighlight">\((\bar{x}, (x,y,s))\)</span> cannot be used as certificate of optimimality as above.</p>
+<p>We say that strong duality does not hold if <span class="math notranslate nohighlight">\(v_d &lt; v_p\)</span>; note that the inquality is strict. Explain why in this case <span class="math notranslate nohighlight">\((\bar{x}, (x,y,s))\)</span> cannot be used as certificate of optimimality as above.</p>
 </div>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
@@ -860,7 +860,7 @@ d := \max_{y, s \atop s \geq 0} \underbrace{\min_x L(x, y, s)}_{=: D(y,s)} = \ma
 L(\bar{x}, \bar{y}, \bar{s}) = L(x, y, s)
 \]</div>
 <p class="sd-card-text">where <span class="math notranslate nohighlight">\(\bar{y}\)</span>, <span class="math notranslate nohighlight">\(\bar{s}\)</span> are maximisers of the inner primal optimisation problem <span class="math notranslate nohighlight">\(\max_{\bar{y}, \bar{s} \atop \bar{s} \geq 0} L(x, y, s)\)</span>.</p>
-<p class="sd-card-text">But if strong duality does not hold, then this equality is not satisfied (<span class="math notranslate nohighlight">\(d \neq p\)</span>) and the alternative characterisation of optimal solutions fails.</p>
+<p class="sd-card-text">But if strong duality does not hold, then this equality is not satisfied (<span class="math notranslate nohighlight">\(v_d \neq v_p\)</span>) and the alternative characterisation of optimal solutions fails.</p>
 <p class="sd-card-text"><strong>Note:</strong> You may observe a slight asymmetry in the way we state the certificate of optimality: The primal problem <span class="math notranslate nohighlight">\(\min_x P(x) = \min_x \max_{y, s \atop s \geq 0} L(x, y, s)\)</span> has the variable <span class="math notranslate nohighlight">\(x\)</span> of the outer optimisation and <span class="math notranslate nohighlight">\((y,s)\)</span> of the inner optimisation. For the dual problem <span class="math notranslate nohighlight">\(\max_{y, s \atop s \geq 0} D(y,s) = \max_{y, s \atop s \geq 0} \min_x L(x, y, s)\)</span> roles are reversed. The certificate <span class="math notranslate nohighlight">\((\bar{x}, (x,y,s))\)</span> refers to the outer variable of the <em>primal</em> problem while to the <em>inner and outer</em> variables of the dual problem. This happened because in the chapter above our starting point was the quadratic programme, in which <span class="math notranslate nohighlight">\(\bar{y}\)</span>, <span class="math notranslate nohighlight">\(\bar{s}\)</span> do not appear explicitly. For the abstract theory we could always assume that <span class="math notranslate nohighlight">\(\bar{y}\)</span>, <span class="math notranslate nohighlight">\(\bar{s}\)</span> can be recovered from solving the inner primal optimisation problem, restoring symmetry.</p>
 </div>
 </details><div class="tip admonition">
