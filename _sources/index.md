@@ -10,7 +10,8 @@ These foundational concepts are not only intellectually enriching but also serve
 
 We hope you enjoy this module and find it as fascinating as we do!
 
-[Notation and facts](bm1_notation_and_facts.md)  
-[Programming resources](bm2_programming_resources.md)  
-[Markdown and LaTeX](bm3_markdown.md)  
-[Bibliography](bm4_bibliography.md)
+- [Notation and facts](bm1_notation_and_facts.md)  
+- [Programming resources](bm2_programming_resources.md)  
+- [Markdown and LaTeX](bm3_markdown.md)  
+- [Bibliography](bm4_bibliography.md)
+- [Report typos](https://forms.office.com/Pages/ResponsePage.aspx?id=_oivH5ipW0yTySEKEdmlwhGTAQNIyHhGsGdi2tF5jepUOEU4Tk9TNTc1MjZONkJHWDBMU0FBTDJQRC4u)
