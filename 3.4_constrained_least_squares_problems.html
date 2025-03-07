@@ -34,9 +34,9 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=b4b7a797" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- So that users can add custom icons -->
@@ -681,7 +681,7 @@ b = -\,A a = \begin{pmatrix}-4 \\ -5\end{pmatrix}.
 &amp; x_1 \ge 0,\; x_2 \ge 0.
 \end{array}
 \end{split}\]</div>
-<p class="sd-card-text"><strong>Step 2. Dual quadratic programme:</strong> We define the Lagrangian function with multipliers <span class="math notranslate nohighlight">\(y \in \mathbb{R}\)</span> for the equality and <span class="math notranslate nohighlight">\(s \in \mathbb{R}^2_{\ge 0}\)</span> for <span class="math notranslate nohighlight">\(x \ge 0\)</span>:</p>
+<p class="sd-card-text"><strong>Step 2. Lagrangian function:</strong> We define the Lagrangian function with multipliers <span class="math notranslate nohighlight">\(y \in \mathbb{R}\)</span> for the equality and <span class="math notranslate nohighlight">\(s \in \mathbb{R}^2_{\ge 0}\)</span> for <span class="math notranslate nohighlight">\(x \ge 0\)</span>:</p>
 <div class="math notranslate nohighlight">
 \[
 L(x,y,s) 
@@ -695,7 +695,7 @@ y\,\bigl(x_1 + x_2 \,-\,1\bigr)
 s^\top x.
 \]</div>
 <p class="sd-card-text">The term <span class="math notranslate nohighlight">\(-\,y\,(x_1+x_2 -1)\)</span> encodes <span class="math notranslate nohighlight">\(x_1 + x_2 = 1\)</span>, while <span class="math notranslate nohighlight">\(-\,s^\top x\)</span> encodes <span class="math notranslate nohighlight">\(x \ge 0\)</span> with <span class="math notranslate nohighlight">\(s \ge 0\)</span>.</p>
-<p class="sd-card-text">Reversing the order of <span class="math notranslate nohighlight">\(\min\)</span> and <span class="math notranslate nohighlight">\(\max\)</span> yields the dual:</p>
+<p class="sd-card-text"><strong>Step 3. Dual quadratic programme:</strong> Reversing the order of <span class="math notranslate nohighlight">\(\min\)</span> and <span class="math notranslate nohighlight">\(\max\)</span> in from of the Lagrangian yields the dual. This results in the following quadratic programme:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{aligned}
@@ -707,12 +707,6 @@ s^\top x.
 \end{aligned}
 \end{split}\]</div>
 <p class="sd-card-text">where <span class="math notranslate nohighlight">\(c^\top y = 1 \cdot y\)</span> (because the equality constraint is <span class="math notranslate nohighlight">\(x_1+x_2=1\)</span>) and <span class="math notranslate nohighlight">\(d^\top s = 0\)</span> (because <span class="math notranslate nohighlight">\(d = 0\)</span> in the inequality constraints).</p>
-<p class="sd-card-text"><strong>Step 3. Lagrangian function:</strong> From the above steps:</p>
-<div class="math notranslate nohighlight">
-\[
-L(x,y,s) \;=\; \tfrac12\,x^\top B\,x \;+\; b^\top x \;-\; y\,(x_1 + x_2 -1) \;-\; s^\top x,
-\]</div>
-<p class="sd-card-text">where <span class="math notranslate nohighlight">\(\;y \in \mathbb{R}\)</span> and <span class="math notranslate nohighlight">\(\;s \in \mathbb{R}^2_{\ge 0}\)</span>.</p>
 <p class="sd-card-text"><strong>Step 4. Checking the first certificate of optimality:</strong> We are given a <em>candidate</em> solution <span class="math notranslate nohighlight">\(\bar{x}^{(1)} = (0.5, 0.5)^\top\)</span> and a <em>dual triple</em> <span class="math notranslate nohighlight">\((\,x^{(1)},\,y^{(1)},\,s^{(1)}) = \bigl((0.5,0.5)^\top,\,1,\,(0,0)\bigr)\)</span>. We must check the <em>three</em> conditions for a valid certificate of optimality:</p>
 <ol class="arabic simple">
 <li><p class="sd-card-text"><em>Primal feasibility</em> of <span class="math notranslate nohighlight">\(\bar{x}\)</span>: This holds because <span class="math notranslate nohighlight">\(x_1^{(1)} + x_2^{(1)} = 0.5 + 0.5 = 1\)</span> and <span class="math notranslate nohighlight">\(x_1^{(1)},\,x_2^{(1)} \ge 0\)</span>.</p></li>
@@ -726,7 +720,7 @@ B\,x^{(1)} = \begin{pmatrix}4.5\\4.5\end{pmatrix} \neq y \begin{pmatrix}1\\1\end
 <li><p class="sd-card-text"><em>Equality of primal and dual objective values</em> (only relevant once both are feasible).</p></li>
 </ol>
 <p class="sd-card-text">Because the second step <em>fails</em>, this certificate does <em>not</em> ensure that <span class="math notranslate nohighlight">\(\bar{x}^{(1)}\)</span> is optimal. (However note that that the certificate fails does not prove that <span class="math notranslate nohighlight">\(\bar{x}^{(1)}\)</span> is not optimal.)</p>
-<p class="sd-card-text"><strong>Step 5. Checking the second certificate of optimality:</strong> We are given a <em>candidate</em> solution <span class="math notranslate nohighlight">\(\bar{x}^{(2)} = (0.5, 0.5)^\top\)</span> and a <em>dual triple</em> <span class="math notranslate nohighlight">\((\,x^{(2)},\,y^{(2)},\,s^{(2)}) = \bigl((0.5,0.5)^\top,\,1,\,(0,0)\bigr)\)</span>.</p>
+<p class="sd-card-text"><strong>Step 5. Checking the second certificate of optimality:</strong> We are given a <em>candidate</em> solution <span class="math notranslate nohighlight">\(\bar{x}^{(2)} = (0, 1)^\top\)</span> and a <em>dual triple</em> <span class="math notranslate nohighlight">\((\,x^{(2)},\,y^{(2)},\,s^{(2)}) = \bigl((0.5,0.5)^\top,\,0,\,(0,0)\bigr)\)</span>.</p>
 <ol class="arabic simple">
 <li><p class="sd-card-text"><em>Primal feasibility</em> of <span class="math notranslate nohighlight">\(\bar{x}\)</span>: This holds because <span class="math notranslate nohighlight">\(x_1 + x_2 = 0 + 1 = 1\)</span> and <span class="math notranslate nohighlight">\(x_1,\,x_2 \ge 0\)</span>.</p></li>
 <li><p class="sd-card-text"><em>Dual feasibility</em> of <span class="math notranslate nohighlight">\((x,y,s)\)</span> This holds because <span class="math notranslate nohighlight">\(s = (0,0)\)</span> satisfies <span class="math notranslate nohighlight">\(s \ge 0\)</span> and</p></li>
