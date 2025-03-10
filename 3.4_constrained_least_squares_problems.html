@@ -695,7 +695,7 @@ y\,\bigl(x_1 + x_2 \,-\,1\bigr)
 s^\top x.
 \]</div>
 <p class="sd-card-text">The term <span class="math notranslate nohighlight">\(-\,y\,(x_1+x_2 -1)\)</span> encodes <span class="math notranslate nohighlight">\(x_1 + x_2 = 1\)</span>, while <span class="math notranslate nohighlight">\(-\,s^\top x\)</span> encodes <span class="math notranslate nohighlight">\(x \ge 0\)</span> with <span class="math notranslate nohighlight">\(s \ge 0\)</span>.</p>
-<p class="sd-card-text"><strong>Step 3. Dual quadratic programme:</strong> Reversing the order of <span class="math notranslate nohighlight">\(\min\)</span> and <span class="math notranslate nohighlight">\(\max\)</span> in from of the Lagrangian yields the dual. This results in the following quadratic programme:</p>
+<p class="sd-card-text">**Step 3. The least-squares problem has the following quadratic programme:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{aligned}
@@ -707,7 +707,7 @@ s^\top x.
 \end{aligned}
 \end{split}\]</div>
 <p class="sd-card-text">where <span class="math notranslate nohighlight">\(c^\top y = 1 \cdot y\)</span> (because the equality constraint is <span class="math notranslate nohighlight">\(x_1+x_2=1\)</span>) and <span class="math notranslate nohighlight">\(d^\top s = 0\)</span> (because <span class="math notranslate nohighlight">\(d = 0\)</span> in the inequality constraints).</p>
-<p class="sd-card-text"><strong>Step 4. Checking the first certificate of optimality:</strong> We are given a <em>candidate</em> solution <span class="math notranslate nohighlight">\(\bar{x}^{(1)} = (0.5, 0.5)^\top\)</span> and a <em>dual triple</em> <span class="math notranslate nohighlight">\((\,x^{(1)},\,y^{(1)},\,s^{(1)}) = \bigl((0.5,0.5)^\top,\,1,\,(0,0)\bigr)\)</span>. We must check the <em>three</em> conditions for a valid certificate of optimality:</p>
+<p class="sd-card-text"><strong>Step 4. Checking the first certificate of optimality:</strong> We are given a <em>candidate</em> solution <span class="math notranslate nohighlight">\(\bar{x}^{(1)} = (0.5, 0.5)^\top\)</span> and a <em>dual triple</em> <span class="math notranslate nohighlight">\((\,x^{(1)},\,y^{(1)},\,s^{(1)}) = \bigl((0.5,0.5)^\top,\,1,\,(0,0)\bigr)\)</span>. We must check <em>three</em> conditions for a valid certificate of optimality:</p>
 <ol class="arabic simple">
 <li><p class="sd-card-text"><em>Primal feasibility</em> of <span class="math notranslate nohighlight">\(\bar{x}\)</span>: This holds because <span class="math notranslate nohighlight">\(x_1^{(1)} + x_2^{(1)} = 0.5 + 0.5 = 1\)</span> and <span class="math notranslate nohighlight">\(x_1^{(1)},\,x_2^{(1)} \ge 0\)</span>.</p></li>
 <li><p class="sd-card-text"><em>Dual feasibility</em> of <span class="math notranslate nohighlight">\((x,y,s)\)</span>: This does <em>not</em> hold. While we have <span class="math notranslate nohighlight">\(s^{(1)} = (0,0) \ge 0\)</span>, the equality constraint is not satisfied:</p></li>
@@ -730,9 +730,9 @@ B\,x^{(1)} = \begin{pmatrix}4.5\\4.5\end{pmatrix} \neq y \begin{pmatrix}1\\1\end
 B\,x = \begin{pmatrix}4\\5\end{pmatrix} = y \begin{pmatrix}1\\1\end{pmatrix} + s - b = \begin{pmatrix}0\\0\end{pmatrix} + \begin{pmatrix}0\\0\end{pmatrix} - \begin{pmatrix}-4\\-5\end{pmatrix}.
 \end{split}\]</div>
 <ol class="arabic simple" start="3">
-<li><p class="sd-card-text"><em>Equality of primal and dual objective values</em>: This holds because <span class="math notranslate nohighlight">\(\tfrac12 \,\bar{x}^\top B\,\bar{x} \;+\; b^\top \bar{x} = -2.5 = y \;-\;\tfrac12\,x^\top B\,x = -2.5\)</span></p></li>
+<li><p class="sd-card-text"><em>Equality of primal and dual objective values</em>: This holds because <span class="math notranslate nohighlight">\(\tfrac12 \,\bar{x}^\top B\,\bar{x} \;+\; b^\top \bar{x} = -2.5 = y \;-\;\tfrac12\,x^\top B\,x\)</span></p></li>
 </ol>
-<p class="sd-card-text">Therefore certificate passed all checks and <span class="math notranslate nohighlight">\(\bar{x}^{(2)}\)</span> is an optimal solution of the primal problem.</p>
+<p class="sd-card-text">Therefore, the certificate passed all checks and <span class="math notranslate nohighlight">\(\bar{x}^{(2)}\)</span> is an optimal solution to the primal problem.</p>
 </div>
 </details><div class="tip admonition">
 <p class="admonition-title"><strong>Question</strong></p>
