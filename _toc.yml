@@ -38,3 +38,4 @@ parts:
     - file: bm2_programming_resources
     - file: bm3_markdown
     - file: bm4_bibliography
+    - file: bm5_typos
