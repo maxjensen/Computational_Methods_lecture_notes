@@ -67,7 +67,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Memory layout and NumPy" href="1.2_numpy_and_data_layouts.html" />
-    <link rel="prev" title="Asymptotic notation" href="0.4_complexity_notation.html" />
+    <link rel="prev" title="The condition number of linear systems" href="0.3_linear_system_error.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -171,12 +171,11 @@
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Fundamentals</span></p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Abstract error analysis</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="0.1_matrix_vector_norms.html">Measuring distances</a></li>
 <li class="toctree-l1"><a class="reference internal" href="0.2_error_analysis.html">Backward error analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="0.3_linear_system_error.html">The condition number of linear systems</a></li>
-<li class="toctree-l1"><a class="reference internal" href="0.4_complexity_notation.html">Asymptotic notation</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Implementation</span></p>
 <ul class="current nav bd-sidenav">
@@ -186,8 +185,9 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">LU Decomposition</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="2.1_lu_decomposition.html">LU decomposition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="2.2_lu_backward_error.html">Backward error and pivoting</a></li>
-<li class="toctree-l1"><a class="reference internal" href="2.3_python_lu_decomposition.html">Python implementation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.2_complexity_notation.html">Asymptotic notation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.3_lu_backward_error.html">Backward error and pivoting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.4_python_lu_decomposition.html">Python implementation</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Orthogonal Decompositions</span></p>
 <ul class="nav bd-sidenav">
@@ -385,7 +385,7 @@
 <h2>Definition of floating-point numbers<a class="headerlink" href="#definition-of-floating-point-numbers" title="Link to this heading">#</a></h2>
 <p>The basic idea behind floating-point numbers is to define a finite subset of <span class="math notranslate nohighlight">\(\mathbb{Q}\)</span> that has a finer spacing for small numbers, allowing computations to account for small quantities, while employing a wider spacing for large numbers, thus covering a large range between the smallest and largest represented numbers.</p>
 <div class="proof definition admonition" id="definition-0">
-<p class="admonition-title"><span class="caption-number">Definition 4 </span></p>
+<p class="admonition-title"><span class="caption-number">Definition 2 </span></p>
 <section class="definition-content" id="proof-content">
 <p>We call <span class="math notranslate nohighlight">\(\mathcal{F}\)</span> a set of floating-point numbers if</p>
 <div class="math notranslate nohighlight">
@@ -739,12 +739,12 @@ x \oplus y = (x+y)(1+\epsilon),
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="0.4_complexity_notation.html"
+       href="0.3_linear_system_error.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Asymptotic notation</p>
+        <p class="prev-next-title">The condition number of linear systems</p>
       </div>
     </a>
     <a class="right-next"
