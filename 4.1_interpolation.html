@@ -34,9 +34,9 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=b4b7a797" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- So that users can add custom icons -->
@@ -829,6 +829,100 @@ L_j(-x) = \prod_{\substack{i=0 \\ i \neq j}}^{n} \frac{-x - x_i}{x_j - x_i} = \p
 \[
 p(-x) = \sum_{j=0}^{n} f(x_j) L_j(-x) = \sum_{j=0}^{n} f(- x_{j'}) L_{j'}(x) = - \sum_{j=0}^{n} f(x_{j'}) L_{j'}(x) = - p(x).
 \]</div>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Some applications require that the interpolating polynomial matches prescibed derivative values in addition to function values. In this spirit, show that for pairwise distinct real numbers <span class="math notranslate nohighlight">\(x_0, x_1, \ldots, x_r\)</span> and nonnegative integers <span class="math notranslate nohighlight">\(m_0, m_1, \ldots, m_r \in \mathbb{N}\)</span> satisfying</p>
+<div class="math notranslate nohighlight">
+\[
+\sum_{j=0}^r m_j = n + 1,
+\]</div>
+<p>together with given real numbers <span class="math notranslate nohighlight">\(f_j^{(\nu)}\)</span> for <span class="math notranslate nohighlight">\(\nu = 0, 1, \ldots, m_j - 1\)</span> and <span class="math notranslate nohighlight">\(j = 0, 1, \ldots, r\)</span>, there is exactly one polynomial <span class="math notranslate nohighlight">\(P \in \mathcal{P}_n\)</span> such that</p>
+<div class="math notranslate nohighlight">
+\[
+P^{(\nu)}(x_j) \;=\; f_j^{(\nu)} \quad\text{for}\quad \nu = 0, 1, \ldots, m_j - 1, \quad j = 0, 1, \ldots, r.
+\]</div>
+<p>Here <span class="math notranslate nohighlight">\(P^{(\nu)}\)</span> denotes the <span class="math notranslate nohighlight">\(\nu\)</span>th derivative of <span class="math notranslate nohighlight">\(P\)</span>.</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text"><strong>Uniqueness:</strong> Let <span class="math notranslate nohighlight">\(P, Q \in \mathcal{P}_n\)</span> be two polynomials that satisfy the interpolation conditions. Consider their difference <span class="math notranslate nohighlight">\(R := P - Q\)</span>. We have</p>
+<div class="math notranslate nohighlight">
+\[
+R \;\in\; \mathcal{P}_n, \quad R^{(\nu)}(x_j) \;=\; 0 \;\;\text{for}\;\; \nu = 0, 1, \ldots, m_j - 1,\; j = 0, 1, \ldots, r.
+\]</div>
+<p class="sd-card-text">In other words, <span class="math notranslate nohighlight">\(R(x)\)</span> and its first <span class="math notranslate nohighlight">\((m_j - 1)\)</span> derivatives vanish at each <span class="math notranslate nohighlight">\(x_j\)</span>.</p>
+<p class="sd-card-text">A root of multiplicity <span class="math notranslate nohighlight">\(m\)</span> at a point <span class="math notranslate nohighlight">\(x = x_0\)</span> means the polynomial and its first <span class="math notranslate nohighlight">\((m - 1)\)</span> derivatives vanish at <span class="math notranslate nohighlight">\(x_0\)</span>. Consequently, <span class="math notranslate nohighlight">\(R\)</span> has a root of multiplicity <span class="math notranslate nohighlight">\(m_j\)</span> at <span class="math notranslate nohighlight">\(x_j\)</span>. Summed over <span class="math notranslate nohighlight">\(j = 0,1,\dots,r\)</span>, the number of roots of <span class="math notranslate nohighlight">\(R\)</span>, counted with multiplicity, is</p>
+<div class="math notranslate nohighlight">
+\[
+\sum_{j=0}^r m_j \;=\; n+1.
+\]</div>
+<p class="sd-card-text">A non-zero polynomial of degree at most <span class="math notranslate nohighlight">\(n\)</span> can have at most <span class="math notranslate nohighlight">\(n\)</span> distinct roots, counting multiplicities. But here, <span class="math notranslate nohighlight">\(R\)</span> has <span class="math notranslate nohighlight">\(n+1\)</span> roots in total, implying that <span class="math notranslate nohighlight">\(R \equiv 0\)</span>. Therefore, <span class="math notranslate nohighlight">\(P \equiv Q\)</span>, which proves <em>uniqueness</em>.</p>
+<p class="sd-card-text"><strong>Existence:</strong> To prove existence, we use the ansatz</p>
+<div class="math notranslate nohighlight">
+\[
+P(x) \;=\; \sum_{k=0}^n \alpha_k\,x^k
+\]</div>
+<p class="sd-card-text">for some coefficients <span class="math notranslate nohighlight">\(\alpha_0, \alpha_1, \ldots, \alpha_n\)</span>. The interpolation conditions</p>
+<div class="math notranslate nohighlight">
+\[
+P^{(\nu)}(x_j) \;=\; f_j^{(\nu)}
+\]</div>
+<p class="sd-card-text">translate into</p>
+<div class="math notranslate nohighlight">
+\[
+\sum_{k=0}^n a_{\nu,j,k}\,\alpha_k \;=\; f_j^{(\nu)} \quad\text{for}\quad \nu = 0, 1, \ldots, m_j - 1, \quad j = 0, 1, \ldots, r,
+\]</div>
+<p class="sd-card-text">where</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+a_{\nu,j,k} \;=\;
+\begin{cases}
+k\,(k-1)\,\dots\,(k-\nu+1)\, x_j^{\,k-\nu} &amp; \text{if } \nu \le k,\\
+0 &amp; \text{otherwise}.
+\end{cases}
+\end{split}\]</div>
+<p class="sd-card-text">This forms a system of <span class="math notranslate nohighlight">\(\sum_{j=0}^r m_j \;=\; n + 1\)</span> linear equations for the <span class="math notranslate nohighlight">\(n + 1\)</span> unknowns <span class="math notranslate nohighlight">\(\alpha_0, \alpha_1, \ldots, \alpha_n\)</span>. By the uniqueness result above, if all <span class="math notranslate nohighlight">\(f_j^{(\nu)} = 0\)</span>, the only solution is the trivial one:</p>
+<div class="math notranslate nohighlight">
+\[
+\alpha_0 = \alpha_1 = \cdots = \alpha_n = 0.
+\]</div>
+<p class="sd-card-text">Hence, the corresponding system matrix has only the trivial null space and is therefore invertible. It follows that the general system also admits a (non-trivial) solution. This proves existence.</p>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Let <span class="math notranslate nohighlight">\(\varphi_0, \varphi_1, \dots, \varphi_n: C[a,b] \to \mathbb{R}\)</span> be linear functionals, and let
+<span class="math notranslate nohighlight">\(\mathcal{V} \subset C[a,b]\)</span> be a linear subspace of dimension <span class="math notranslate nohighlight">\(n+1\)</span>.</p>
+<ol class="arabic">
+<li><p>Show that the <em>generalised interpolation problem</em></p>
+<blockquote>
+<div><p>Find <span class="math notranslate nohighlight">\(v \in \mathcal{V}\)</span> such that <span class="math notranslate nohighlight">\(\varphi_j(v) = \varphi_j(f)\)</span> for <span class="math notranslate nohighlight">\(j = 0,1,\dots,n\)</span></p>
+</div></blockquote>
+<p>is uniquely solvable for each <span class="math notranslate nohighlight">\(f \in C[a,b]\)</span> <em>if and only if</em> the function <span class="math notranslate nohighlight">\(f=0\)</span> has only <span class="math notranslate nohighlight">\(v=0\)</span> as its generalised interpolant.</p>
+</li>
+<li><p>Assume the generalised interpolation problem is uniquely solvable for every <span class="math notranslate nohighlight">\(f \in C[a,b]\)</span>. Let <span class="math notranslate nohighlight">\(\mathcal{L}_n : C[a,b] \to \mathcal{V}\)</span> be the corresponding <em>interpolation operator</em>, i.e. <span class="math notranslate nohighlight">\(\mathcal{L}_n f = v\)</span>. Show that <span class="math notranslate nohighlight">\(\mathcal{L}_n\)</span> is a linear map and that, for <span class="math notranslate nohighlight">\(f \in C[a,b]\)</span>, the identity <span class="math notranslate nohighlight">\(\mathcal{L}_n f = f\)</span> holds <em>if and only if</em> <span class="math notranslate nohighlight">\(f\)</span> lies in <span class="math notranslate nohighlight">\(\mathcal{V}\)</span>.</p></li>
+</ol>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">We consider the linear map</p>
+<div class="math notranslate nohighlight">
+\[
+A: \mathcal{V} \;\to\; \mathbb{R}^{\,n+1}, \quad v \;\mapsto\; \bigl(\varphi_j(v)\bigr)_{j=0,\dots,n}.
+\]</div>
+<p class="sd-card-text">Because <span class="math notranslate nohighlight">\(\dim \mathcal{V} = n+1\)</span>, this linear map <span class="math notranslate nohighlight">\(A\)</span> is injective if and only if it is bijective.</p>
+<p class="sd-card-text"><strong>Part 1.</strong> First <span class="math notranslate nohighlight">\(\Longrightarrow\)</span>. Clearly, for the function <span class="math notranslate nohighlight">\(f=0\)</span>, the generalised interpolation problem is solved by <span class="math notranslate nohighlight">\(v = 0\)</span>. By the assumption of uniqueness, <span class="math notranslate nohighlight">\(v=0\)</span> is the only solution.</p>
+<p class="sd-card-text">Now <span class="math notranslate nohighlight">\(\Longleftarrow\)</span>. Under the hypothesis, <span class="math notranslate nohighlight">\(A\)</span> is injective and thus bijective. Therefore, for every continuous function <span class="math notranslate nohighlight">\(f : [a,b] \to \mathbb{R}\)</span>, there exists <em>exactly one</em> function <span class="math notranslate nohighlight">\(v \in \mathcal{V}\)</span> satisfying the interpolation conditions <span class="math notranslate nohighlight">\(\varphi_j(v) = \varphi_j(f)\)</span> for <span class="math notranslate nohighlight">\(j = 0,1,\dots,n\)</span>. That proves the statement.</p>
+<p class="sd-card-text"><strong>Part 2.</strong> Consider the map</p>
+<div class="math notranslate nohighlight">
+\[
+Q: C[a,b] \;\to\; \mathbb{R}^{\,n+1},
+\quad
+f \;\mapsto\; \bigl(\varphi_j(f)\bigr)_{j=0,\dots,n}.
+\]</div>
+<p class="sd-card-text">This map <span class="math notranslate nohighlight">\(Q\)</span> is linear, and therefore the operator <span class="math notranslate nohighlight">\(\mathcal{L}_n = A^{-1} Q\)</span> is also linear. Furthermore, for any <span class="math notranslate nohighlight">\(f \in \mathcal{V}\)</span>, the solution to the generalised interpolation problem is exactly <span class="math notranslate nohighlight">\(v = f\)</span>. Consequently, <span class="math notranslate nohighlight">\(\mathcal{L}_n f = f\)</span>. Finally, for every continuous function <span class="math notranslate nohighlight">\(f : [a,b] \to \mathbb{R}\)</span>, we have <span class="math notranslate nohighlight">\(\mathcal{L}_n f \in \mathcal{V}\)</span>. Thus, if <span class="math notranslate nohighlight">\(\mathcal{L}_n f = f\)</span>, it follows that <span class="math notranslate nohighlight">\(f\)</span> itself must lie in <span class="math notranslate nohighlight">\(\mathcal{V}\)</span>. This completes the proof.</p>
 </div>
 </details></section>
 <section id="optional-material">

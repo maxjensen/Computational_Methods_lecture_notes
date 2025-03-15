@@ -695,7 +695,7 @@ y\,\bigl(x_1 + x_2 \,-\,1\bigr)
 s^\top x.
 \]</div>
 <p class="sd-card-text">The term <span class="math notranslate nohighlight">\(-\,y\,(x_1+x_2 -1)\)</span> encodes <span class="math notranslate nohighlight">\(x_1 + x_2 = 1\)</span>, while <span class="math notranslate nohighlight">\(-\,s^\top x\)</span> encodes <span class="math notranslate nohighlight">\(x \ge 0\)</span> with <span class="math notranslate nohighlight">\(s \ge 0\)</span>.</p>
-<p class="sd-card-text">**Step 3. The least-squares problem has the following quadratic programme:</p>
+<p class="sd-card-text"><strong>Step 3. Dual quadratic programme:</strong> The least-squares problem has the following quadratic programme:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{aligned}
@@ -730,7 +730,7 @@ B\,x^{(1)} = \begin{pmatrix}4.5\\4.5\end{pmatrix} \neq y \begin{pmatrix}1\\1\end
 B\,x = \begin{pmatrix}4\\5\end{pmatrix} = y \begin{pmatrix}1\\1\end{pmatrix} + s - b = \begin{pmatrix}0\\0\end{pmatrix} + \begin{pmatrix}0\\0\end{pmatrix} - \begin{pmatrix}-4\\-5\end{pmatrix}.
 \end{split}\]</div>
 <ol class="arabic simple" start="3">
-<li><p class="sd-card-text"><em>Equality of primal and dual objective values</em>: This holds because <span class="math notranslate nohighlight">\(\tfrac12 \,\bar{x}^\top B\,\bar{x} \;+\; b^\top \bar{x} = -2.5 = y \;-\;\tfrac12\,x^\top B\,x\)</span></p></li>
+<li><p class="sd-card-text"><em>Equality of primal and dual objective values</em>: This holds because <span class="math notranslate nohighlight">\(\tfrac12 \,\bar{x}^\top B\,\bar{x} \;+\; b^\top \bar{x} = -2.5 = y \;-\;\tfrac12\,x^\top B\,x\)</span>.</p></li>
 </ol>
 <p class="sd-card-text">Therefore, the certificate passed all checks and <span class="math notranslate nohighlight">\(\bar{x}^{(2)}\)</span> is an optimal solution to the primal problem.</p>
 </div>
@@ -755,7 +755,7 @@ L(x, y, s) := \frac{1}{2} x^\top B x + b^\top x - y^\top (C x - c) - s^\top (D x
 <summary class="sd-summary-title sd-card-header">
 <span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
 <p class="sd-card-text">If any component <span class="math notranslate nohighlight">\((Cx - c)_i \neq 0\)</span>, we can send the corresponding <span class="math notranslate nohighlight">\(y_i\)</span> to <span class="math notranslate nohighlight">\(+\infty\)</span> or <span class="math notranslate nohighlight">\(-\infty\)</span> (depending on the sign of <span class="math notranslate nohighlight">\((Cx - c)_i\)</span>), causing the term <span class="math notranslate nohighlight">\(-\,y_i\,(Cx - c)_i\)</span> to grow without bound.  Therefore, to keep the Lagrangian finite, we need <span class="math notranslate nohighlight">\((Cx - c)_i = 0\)</span> for all <span class="math notranslate nohighlight">\(i\)</span>, i.e. <span class="math notranslate nohighlight">\(Cx = c\)</span>.</p>
-<p class="sd-card-text">Similarly, if <span class="math notranslate nohighlight">\((Dx - d)_j &lt; 0\)</span> for some <span class="math notranslate nohighlight">\(j\)</span>, choosing <span class="math notranslate nohighlight">\(s_j \to +\infty\)</span> makes <span class="math notranslate nohighlight">\(-\,s_j\,(Dx - d)_j\)</span> go to <span class="math notranslate nohighlight">\(+\infty\)</span>. Hence, to avoid an unbounded Lagrangian, we require <span class="math notranslate nohighlight">\(Dx \ge d\)</span>. Thus, the maximum is finite only if <span class="math notranslate nohighlight">\(Cx = c\)</span> and <span class="math notranslate nohighlight">\(Dx \ge d\)</span>. In that scenario, we can simply pick <span class="math notranslate nohighlight">\(y = 0\)</span> and <span class="math notranslate nohighlight">\(s = 0\)</span>, yielding</p>
+<p class="sd-card-text">Similarly, if <span class="math notranslate nohighlight">\((Dx - d)_j &lt; 0\)</span> for some <span class="math notranslate nohighlight">\(j\)</span>, choosing <span class="math notranslate nohighlight">\(s_j \to +\infty\)</span> makes <span class="math notranslate nohighlight">\(-\,s_j\,(Dx - d)_j\)</span> go to <span class="math notranslate nohighlight">\(+\infty\)</span>. Hence, to avoid an unbounded Lagrangian, we require <span class="math notranslate nohighlight">\(Dx \ge d\)</span>. Thus, the maximum is finite only if <span class="math notranslate nohighlight">\(Cx = c\)</span> and <span class="math notranslate nohighlight">\(Dx \ge d\)</span>. In that scenario, we pick <span class="math notranslate nohighlight">\(s = 0\)</span> and any <span class="math notranslate nohighlight">\(y\)</span> to maximise <span class="math notranslate nohighlight">\(L(x,y,s)\)</span>, yielding</p>
 <div class="math notranslate nohighlight">
 \[
 \max_{y,s \ge 0} L(x,y,s)
@@ -775,7 +775,7 @@ L(x, y, s) := \frac{1}{2} x^\top B x + b^\top x - y^\top (C x - c) - s^\top (D x
 </div>
 </details><div class="tip admonition">
 <p class="admonition-title"><strong>Question</strong></p>
-<p>Show that the dual problem</p>
+<p>Show that the dual problem (with <span class="math notranslate nohighlight">\(B\)</span> symmetric)</p>
 <div class="math notranslate nohighlight">
 \[
 \max_{y, s \atop s \geq 0} \min_x L(x, y, s) = \max_{y, s \atop s \geq 0} \min_x \Big[ \frac{1}{2} x^\top B x + b^\top x - y^\top (C x - c) - s^\top (D x - d) \Big]
@@ -799,12 +799,12 @@ L(x, y, s) := \frac{1}{2} x^\top B x + b^\top x - y^\top (C x - c) - s^\top (D x
 \[
 0 = \nabla_{\!x} \, L (x,y,s) = Bx + b - C^\top y - D^\top s.
 \]</div>
-<p class="sd-card-text">If there are two solutions <span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(\tilde{x}\)</span> of <span class="math notranslate nohighlight">\(B x = C^\top y + D^\top s - b\)</span> then</p>
+<p class="sd-card-text">If there are two solutions <span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(\tilde{x}\)</span> of <span class="math notranslate nohighlight">\(B x = C^\top y + D^\top s - b\)</span> then <span class="math notranslate nohighlight">\(x^\top B\,x = \tilde{x}^\top B\,\tilde{x}\)</span> because</p>
 <div class="math notranslate nohighlight">
 \[
 x^\top B\,x - \tilde{x}^\top B\,\tilde{x} = (x - \tilde{x})^\top (C^\top y + D^\top s - b) = (x - \tilde{x})^\top B\,x = 0
 \]</div>
-<p class="sd-card-text">because <span class="math notranslate nohighlight">\(x - \tilde{x} \in \ker B^\top = \ker B\)</span>. Therefore for any solution <span class="math notranslate nohighlight">\(\tilde{x}\)</span> of <span class="math notranslate nohighlight">\(B x = C^\top y + D^\top s - b\)</span>, the inner minimisation problem satisfies</p>
+<p class="sd-card-text">using that the symmetry of <span class="math notranslate nohighlight">\(B\)</span> ensures that <span class="math notranslate nohighlight">\(x - \tilde{x} \in \ker B^\top = \ker B\)</span>. Therefore the solutions <span class="math notranslate nohighlight">\(\tilde{x}\)</span> of <span class="math notranslate nohighlight">\(B x = C^\top y + D^\top s - b\)</span> are exactly the minimisers of the inner minimisation problem. Hence for such <span class="math notranslate nohighlight">\(\tilde{x}\)</span> we find</p>
 <div class="math notranslate nohighlight">
 \[
 \min_x L(x,y,s) \;=\; c^\top y \;+\; d^\top s \;-\; \tfrac12 \,\tilde{x}^\top B\,\tilde{x},
