@@ -1,33 +1,33 @@
 format: jb-book
 root: index
 parts:
-- caption: Fundamentals
+- caption: Abstract error analysis
   chapters:
     - file: 0.1_matrix_vector_norms
     - file: 0.2_error_analysis
     - file: 0.3_linear_system_error
-    - file: 0.4_complexity_notation
 - caption: Implementation
   chapters:
     - file: 1.1_floating_point_arithmetic
     - file: 1.2_numpy_and_data_layouts
-- caption: LU Decomposition
+- caption: LU decomposition
   chapters:
     - file: 2.1_lu_decomposition
-    - file: 2.2_lu_backward_error
-    - file: 2.3_python_lu_decomposition
-- caption: Orthogonal Decompositions
+    - file: 2.2_complexity_notation
+    - file: 2.3_lu_backward_error
+    - file: 2.4_python_lu_decomposition
+- caption: Orthogonal decompositions
   chapters:
     - file: 3.1_qr_decomposition
     - file: 3.2_singular_value_decomposition
     - file: 3.3_least_squares_problems
     - file: 3.4_constrained_least_squares_problems
-- caption: Interpolation and Quadrature
+- caption: Interpolation and quadrature
   chapters:
     - file: 4.1_interpolation
     - file: 4.2_quadrature
     - file: 4.3_stable_quadrature_schemes
-- caption: Eigenvalue Problems
+- caption: Eigenvalue problems
   chapters:
     - file: 5.1_eigenvalues_basic_properties
     - file: 5.2_computing_eigenvalues
