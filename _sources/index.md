@@ -2,7 +2,7 @@
 
 **Welcome to the Fascinating World of Numerical Algorithms!**
 
-In this module, we invite you to explore numerical algorithms' intricate and compelling world, where precision meets practicality. 
+In this module, we invite you to explore numerical algorithms' intricate and compelling world, where precision meets practicality.
 
 As your gateway into this subject, we'll delve into the essentials of numerical linear algebra and numerical analysis. Our journey will cover crucial techniques such as LU, QR and Singular Value Decomposition as well as eigenvalue computations in numerical linear algebra. In the domain of numerical analysis, we'll explore orthogonal approximation, interpolation, and quadrature.
 

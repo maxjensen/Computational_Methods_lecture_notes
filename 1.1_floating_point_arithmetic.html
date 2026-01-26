@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=ca93fcec" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=b4b7a797" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -406,7 +406,7 @@ document.write(`
 <div class="proof definition admonition" id="definition-0">
 <p class="admonition-title"><span class="caption-number">Definition 2 </span></p>
 <section class="definition-content" id="proof-content">
-<p>We call <span class="math notranslate nohighlight">\(\mathcal{F}\)</span> a set of floating-point numbers if</p>
+<p>We call <span class="math notranslate nohighlight">\(\mathcal{F}\)</span> a set of floating-point numbers if lfljgf</p>
 <div class="math notranslate nohighlight">
 \[
 \mathcal{F} = \{ 0 \} \cup \left\{(-1)^s\cdot b^e \cdot \frac{m}{b^{p-1}} :\right. \left. s \in \{ 0,1\}; e_{min}\leq e \leq e_{max}; b^{p-1}\leq m\leq b^{p}-1\right\}.
@@ -515,7 +515,7 @@ document.write(`
 </section>
 <section id="floating-point-arithmetic">
 <h2>Floating-point arithmetic<a class="headerlink" href="#floating-point-arithmetic" title="Link to this heading">#</a></h2>
-<p>The distance between neighbouring floats with same leading digit is <span class="math notranslate nohighlight">\(2^e b^{1-p}\)</span>. Let <span class="math notranslate nohighlight">\(x \in [b^{e_{min}}, b^{e_{max}+1}]\)</span>, i.e. be a real number between the smallest and largest float. Define <span class="math notranslate nohighlight">\(\epsilon_{mach} := \frac{1}{2} b^{1-p}\)</span>. There exists <span class="math notranslate nohighlight">\(x' \in \mathcal{F}\)</span> such that <span class="math notranslate nohighlight">\(|x - x'| \leq \epsilon_{mach} |x|\)</span>. <strong>In words, <span class="math notranslate nohighlight">\(\epsilon_{mach}\)</span> is the relative distance to the next floating-point number in <span class="math notranslate nohighlight">\(\mathcal{F}\)</span>.</strong></p>
+<p>The distance between neighbouring floats with same leading digit is <span class="math notranslate nohighlight">\(2^e b^{1-p}\)</span>. Let <span class="math notranslate nohighlight">\(x \in \mathbb{R}\)</span> be between the smallest and largest floating-point number. Define <span class="math notranslate nohighlight">\(\epsilon_{mach} := \frac{1}{2} b^{1-p}\)</span>. There exists <span class="math notranslate nohighlight">\(x' \in \mathcal{F}\)</span> such that <span class="math notranslate nohighlight">\(|x - x'| \leq \epsilon_{mach} |x|\)</span>. <strong>In words, <span class="math notranslate nohighlight">\(\epsilon_{mach}\)</span> is the relative distance to the next floating-point number in <span class="math notranslate nohighlight">\(\mathcal{F}\)</span>.</strong></p>
 <p>Define the projection</p>
 <div class="math notranslate nohighlight">
 \[
@@ -556,7 +556,7 @@ x\odot y = (x \cdot y)(1+\epsilon).
 <p>Key properties of double precision floating-point numbers:</p>
 <ul class="simple">
 <li><p><strong>Maximum value</strong>: <code class="docutils literal notranslate"><span class="pre">double_precision_info.max</span></code></p></li>
-<li><p><strong>Smallest (absolute) normalised value</strong>: <code class="docutils literal notranslate"><span class="pre">double_precision_info.tiny</span></code></p></li>
+<li><p><strong>Smallest (absolute) normalized value</strong>: <code class="docutils literal notranslate"><span class="pre">double_precision_info.tiny</span></code></p></li>
 <li><p><strong>Smallest relative difference (machine epsilon)</strong>: <code class="docutils literal notranslate"><span class="pre">double_precision_info.eps</span></code></p></li>
 <li><p><strong>Approximate relative precision</strong>: <code class="docutils literal notranslate"><span class="pre">double_precision_info.precision</span></code></p></li>
 </ul>
