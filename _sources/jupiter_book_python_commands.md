@@ -2,66 +2,74 @@
 
 - Make sure changes are saved before executing the below.
 
-## Entering the `jb1` environment
+## Entering the `legacy` environment
 
-- In VSC, you can set the compiler, using Command Palette → Python: Select Interpreter → Enter interpreter path… and picking the interpreter
+- In VS Code, you can set the interpreter using Command Palette → Python: Select Interpreter → Enter interpreter path… and pick:
 
 ```
-/Users/maxjensen/Annexe/Python/Python/envs/jb1/.venv/bin/python
+$HOME/Python/envs/legacy/bin/python
 ```
 
 Alternatively,
 
 ```
-source /Users/maxjensen/Annexe/Python/Python/envs/jb1/.venv/bin/activate
+source $HOME/Python/envs/legacy/bin/activate
 ```
 
 - Compile to HTML:
 
 ```
-uv run jupyter-book build .
+jupyter-book build .
 ```
 
 - Compile to single page HTML and then PDF:
 
 ```
-uv run jupyter-book build . --builder pdfhtml
+jupyter-book build . --builder pdfhtml
 ```
 
 - Clean:
 
 ```
-uv run jupyter-book clean .
+jupyter-book clean .
 ```
 
 - Upload to Github:
 
 ```
-uv run ghp-import -n -p -f _build/html
+ghp-import -n -p -f _build/html
 ```
 
-## Not entering the `jb1` environment
+## Not entering the `legacy` environment
 
 - Compile to HTML:
 
 ```
-uv --project ~/Annexe/Python/Python/envs/jb1 run jupyter-book build .
+source $HOME/Python/envs/legacy/bin/activate
+uv --project $HOME/Python/Python_standard_configuration/envs/legacy run --active jupyter-book build .
+deactivate
 ```
 
 - Compile to single page HTML and then PDF:
 
 ```
-uv --project ~/Annexe/Python/Python/envs/jb1 run jupyter-book build . --builder pdfhtml
+source $HOME/Python/envs/legacy/bin/activate
+uv --project $HOME/Python/Python_standard_configuration/envs/legacy run --active jupyter-book build . --builder pdfhtml
+deactivate
 ```
 
 - Clean:
 
 ```
-uv --project ~/Annexe/Python/Python/envs/jb1 run jupyter-book clean .
+source $HOME/Python/envs/legacy/bin/activate
+uv --project $HOME/Python/Python_standard_configuration/envs/legacy run --active jupyter-book clean .
+deactivate
 ```
 
 - Upload to Github:
 
 ```
-uv --project ~/Annexe/Python/Python/envs/jb1 run ghp-import -n -p -f _build/html
+source $HOME/Python/envs/legacy/bin/activate
+uv --project $HOME/Python/Python_standard_configuration/envs/legacy run --active ghp-import -n -p -f _build/html
+deactivate
 ```

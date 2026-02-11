@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=b4b7a797" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=8c6b312c" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -417,7 +417,7 @@ document.write(`
 \[
 \|\Delta A\| = \|L\|\cdot \|U\| \, \mathcal{O}(\epsilon_{mach}).
 \]</div>
-<p>One might naively conclude that this guarantees the backward stability of LU decomposition. However, backward stability requires <span class="math notranslate nohighlight">\(\| \Delta A \| / \|A\| = \mathcal{O}(\epsilon_{mach})\)</span> whereas in our bound,  <span class="math notranslate nohighlight">\(\|L\|\cdot
+<p>One might naively conclude that this guarantees the backward stability of LU decomposition. However, backward stability requires <span class="math notranslate nohighlight">\(\| \Delta A \| / \|A\| = \mathcal{O}(\epsilon_{mach})\)</span> whereas in our bound, <span class="math notranslate nohighlight">\(\|L\|\cdot
 \|U\|\)</span> appears in the denominator.</p>
 <p>So the question of backward stability of the <span class="math notranslate nohighlight">\(LU\)</span> decomposition is reduced to the problem of when we have that</p>
 <div class="math notranslate nohighlight">
@@ -545,12 +545,7 @@ PA = LU.
 \[
 F^{(n-1)} P^{(n-1)} \cdots F^{(2)} P^{(2)} F^{(1)} P^{(1)} A = U.
 \]</div>
-<p>There is a commutation property between permutation and Frobenius matrices,</p>
-<div class="math notranslate nohighlight">
-\[
-P (I - f \, (e^{(i)})^\top) P = I - (P f) \, (e^{(i)})^\top
-\]</div>
-<p>for elementary permutations <span class="math notranslate nohighlight">\(P\)</span>, that ultimately allows to reorder the product so that</p>
+<p>There is a commutation property between permutation and Frobenius matrices that ultimately allows to reorder the product so that</p>
 <div class="math notranslate nohighlight">
 \[
 \hat{F}_{n-1} \cdots \hat{F}_1 P A = U,
