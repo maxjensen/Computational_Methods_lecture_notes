@@ -432,9 +432,9 @@ d \ge e \qquad \Leftrightarrow \qquad d_i \ge e_i \quad \forall \; i \in \{1, \l
 <p>Observe, that the value of the initial problem in least-squares form differs from that of quadratic programme because of the factor <span class="math notranslate nohighlight">\(\frac{1}{2}\)</span> and the squaring of the norm and the constant term, even if the set of optimal solutions coincide. However, given a optimal solution <span class="math notranslate nohighlight">\(x\)</span> it is simple to compute the value <span class="math notranslate nohighlight">\(\| A x - a \|_2\)</span>.</p>
 <section id="certificates-of-optimality">
 <h2>Certificates of optimality<a class="headerlink" href="#certificates-of-optimality" title="Link to this heading">#</a></h2>
-<p>In this section, we learn about <em>certificates of optimality</em>, which address a fundamental point: The algorithms to solve constrained least-squares problem are outside of the scope of this module. How, then, can you solve such problems with confidence? More generally, how can you use numerical methods, that you have not mathematically fully understood?</p>
+<p>In this section, we learn about <em>certificates of optimality</em>, which address a fundamental point: The algorithms to solve constrained least-squares problem are outside the scope of this module. How, then, can you solve such problems with confidence? More generally, how can you use numerical methods, that you have not mathematically fully understood?</p>
 <p>This is a question you face now, as you only begin with computational mathematics and want to use a wide range of methods as quickly as possible. But even as a seasoned numerical analyst, you will need to think about deploying mathematical algorithms in application scenarios where users are not domain experts.</p>
-<p>A key realisation is that verifying whether a candidate solution is indeed equal to (or at least a good approximation of) an exaxt solution is often much simpler than finding such a candidate in the first place.</p>
+<p>A key realisation is that verifying whether a candidate solution is indeed equal to (or at least a good approximation of) an exact solution is often much simpler than finding such a candidate in the first place.</p>
 <p>You are familiar with this situation from other areas of mathematics: For</p>
 <div class="math notranslate nohighlight">
 \[
