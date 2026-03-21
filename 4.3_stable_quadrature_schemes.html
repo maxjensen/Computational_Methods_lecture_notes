@@ -458,7 +458,7 @@ document.write(`
 <p>Once the nodes are determined, the coefficients can be computed as usual. Gaussian quadrature weights are always positive, unlike the coefficients <span class="math notranslate nohighlight">\(\sigma_k\)</span> of a general quadrature formula. This can be illustrated by considering</p>
 <div class="math notranslate nohighlight">
 \[
-L_k^2(x) = \prod_{i = 0 \atop i \neq k}^n \frac{(x-x_i)^2}{(x_k-x_j)^2} \in \mathcal{P}_{2n}.
+L_k^2(x) = \prod_{j = 0 \atop j \neq k}^n \frac{(x-x_j)^2}{(x_k-x_j)^2} \in \mathcal{P}_{2n}.
 \]</div>
 <p>With the degree of exactness of  <span class="math notranslate nohighlight">\(2n+1\)</span> and <span class="math notranslate nohighlight">\(L_k^2(x_j) = \delta_{jk}\)</span>, we find that:</p>
 <div class="math notranslate nohighlight">
