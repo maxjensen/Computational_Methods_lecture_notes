@@ -395,8 +395,8 @@ document.write(`
 <p>From <a class="reference internal" href="bm1_notation_and_facts.html"><span class="std std-doc">Abel–Ruffini theorem</span></a>, it follows that for equations involving polynomials of degree five or higher, one can’t find a one-size-fits-all formula to solve them using just the basic arithmetic operations and root extractions. Since we can phrase the eigenvalue problem as finding the roots of the characteristic polynomial (and every polynomial is the characteristic polynomial of some matrix), we cannot generally compute eigenvalues in closed form for matrices with dimensions larger than 4. Hence, we need iterative methods to compute eigenvalues. The most fundamental method to compute eigenvalues is the power method.</p>
 <section id="the-power-method">
 <h2>The power method<a class="headerlink" href="#the-power-method" title="Link to this heading">#</a></h2>
-<p>The task is to compute the largest eigenvalue of a given diagonalisable matrix <span class="math notranslate nohighlight">\(A\in\mathbb{C}^{n\times n}\)</span>.</p>
-<div class="proof algorithm admonition" id="algorithm-0">
+<p>The task is to compute the dominant eigenvalue of a given diagonalisable matrix <span class="math notranslate nohighlight">\(A\in\mathbb{C}^{n\times n}\)</span>, that is, the eigenvalue with the largest modulus.</p>
+<div class="proof algorithm admonition" id="alg-power-method">
 <p class="admonition-title"><span class="caption-number">Algorithm 2 </span> (Power Method)</p>
 <section class="algorithm-content" id="proof-content">
 <p><strong>Inputs</strong> <span class="math notranslate nohighlight">\(A\in\mathbb{C}^{n\times n}\)</span> diagonalisable, <span class="math notranslate nohighlight">\(z^{(0)} \in\mathbb{C}^n \setminus \{ 0 \}\)</span></p>
@@ -416,17 +416,17 @@ document.write(`
 \[  
 A^{k} q^{(0)} = \sum_{j=1}^n\alpha_j\lambda_j^kx_j = \alpha_1\lambda_1^{k}\left(x_1+\sum_{j=2}^n\frac{\alpha_j}{\alpha_1}\left(\frac{\lambda_j}{\lambda_1}\right)^kx_j\right).  
 \]</div>
-<p>Therefore, when <span class="math notranslate nohighlight">\(|\lambda_1| &gt; |\lambda_j|\)</span> for <span class="math notranslate nohighlight">\(j &gt; 1\)</span>,</p>
+<p>Therefore, when <span class="math notranslate nohighlight">\(|\lambda_1| &gt; |\lambda_j|\)</span> for <span class="math notranslate nohighlight">\(j &gt; 1\)</span>, we would like to write (but generally can’t):</p>
 <div class="math notranslate nohighlight">
 \[
 q^{(k)} = \frac{A^{k} q^{(0)}}{\| A^{k} q^{(0)} \|} \to \frac{\alpha_1 \lambda_1^{k} x_1}{\| \alpha_1  \lambda_1^{k} x_1 \|} \qquad \text{as } k \to \infty.
 \]</div>
-<p>Consequently, with</p>
+<p>The problem is that the <span class="math notranslate nohighlight">\(\lambda_1^{k}\)</span>-term may not converge as <span class="math notranslate nohighlight">\(k \to \infty\)</span>. Instead, we write</p>
 <div class="math notranslate nohighlight">
 \[
-\tilde{q}^{(k)} := \frac{|\alpha_1|}{\alpha_1} \, \left( \frac{|\lambda_1|}{\lambda_1} \right)^k \, q^{(k)} \to x_1 \qquad \text{as } k \to \infty,
+\tilde{q}^{(k)} := \frac{|\alpha_1|}{\alpha_1} \, \left( \frac{|\lambda_1|}{\lambda_1} \right)^k \, q^{(k)} \to x_1 \qquad \text{as } k \to \infty.
 \]</div>
-<p>the power method successfully converges to the eigenvector <span class="math notranslate nohighlight">\(x_1\)</span>  with the convergence rate and error magnitude order given by <span class="math notranslate nohighlight">\(\mathcal{O}\bigl(\left|\lambda_2 / \lambda_1\right|^k\bigr)\)</span>.</p>
+<p>In this sense, the power method successfully converges to the eigenvector <span class="math notranslate nohighlight">\(x_1\)</span> with convergence rate and error magnitude of order <span class="math notranslate nohighlight">\(\mathcal{O}\bigl(\left|\lambda_2 / \lambda_1\right|^k\bigr)\)</span>.</p>
 <p>The approximation of the eigenvalue relies on the perturbation result for <span class="math notranslate nohighlight">\(\tilde{q}^{(k)} = x_1 + \epsilon\)</span></p>
 <div class="math notranslate nohighlight">
 \[
@@ -438,7 +438,7 @@ q^{(k)} = \frac{A^{k} q^{(0)}}{\| A^{k} q^{(0)} \|} \to \frac{\alpha_1 \lambda_1
 R(A,x) := \frac{x^H A x}{x^H x},
 \]</div>
 <p>called the <em>Rayleigh quotient</em> of <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(x\)</span>. In practice, one needs to terminate the <code class="docutils literal notranslate"><span class="pre">for</span></code> loop of the power iteration after a prescribed number of iterations or through some criterion indicating the quality of the eigenvalue or eigenvector approximation. In fact, <span class="math notranslate nohighlight">\(\lambda^{(k)} = (q^{(k)})^HAq^{(k)}\)</span> may be taken out of the <code class="docutils literal notranslate"><span class="pre">for</span></code> loop and computed only with the final <span class="math notranslate nohighlight">\(q^{(k)}\)</span>.</p>
-<div class="proof example admonition" id="example-1">
+<div class="proof example admonition" id="ex-power-method-diagonal">
 <p class="admonition-title"><span class="caption-number">Example 17 </span></p>
 <section class="example-content" id="proof-content">
 <p>Consider the simple diagonal matrix</p>
@@ -484,7 +484,7 @@ A = I_n + (\lambda_1 - 1) \, e_1 \otimes e_1 = \text{diag}(\lambda_1, 1, \ldots,
 </div>
 </div>
 </details></section>
-</div><div class="proof example admonition" id="example-2">
+</div><div class="proof example admonition" id="ex-power-method-wilkinson">
 <p class="admonition-title"><span class="caption-number">Example 18 </span></p>
 <section class="example-content" id="proof-content">
 <p>Consider the Wilkinson polynomial <span class="math notranslate nohighlight">\(P_n(z) = \prod_{j=1}^n (z-j)\)</span> and its companion matrix <span class="math notranslate nohighlight">\(C_n\)</span>, <span class="math notranslate nohighlight">\(n \in \mathbb{N}\)</span>. Clearly, the eigenvalues of <span class="math notranslate nohighlight">\(C_n\)</span> are <span class="math notranslate nohighlight">\(\{1, \ldots, n\}\)</span>.</p>
@@ -508,7 +508,7 @@ A = I_n + (\lambda_1 - 1) \, e_1 \otimes e_1 = \text{diag}(\lambda_1, 1, \ldots,
 <span class="k">def</span><span class="w"> </span><span class="nf">companion_matrix</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate the companion matrix for a given polynomial represented by its coefficients.&quot;&quot;&quot;</span>
     <span class="c1"># normalise the leading coefficient</span>
-    <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
     <span class="n">a</span> <span class="o">=</span> <span class="n">a</span> <span class="o">/</span> <span class="n">a</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
     <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
     <span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
@@ -530,7 +530,7 @@ A = I_n + (\lambda_1 - 1) \, e_1 \otimes e_1 = \text{diag}(\lambda_1, 1, \ldots,
     <span class="c1"># Start with the polynomial x - 1</span>
     <span class="n">poly</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
-    <span class="c1"># Multiply the current polynomial by x - i using integer arithmetic</span>
+        <span class="c1"># Multiply the current polynomial by x - i using integer arithmetic</span>
         <span class="n">poly</span> <span class="o">=</span> <span class="n">poly_multiply</span><span class="p">(</span><span class="n">poly</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="n">i</span><span class="p">])</span>
     <span class="n">poly</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
     <span class="k">return</span> <span class="n">poly</span>
@@ -539,9 +539,9 @@ A = I_n + (\lambda_1 - 1) \, e_1 \otimes e_1 = \text{diag}(\lambda_1, 1, \ldots,
 <span class="n">k</span> <span class="o">=</span> <span class="mi">200</span>
 <span class="n">i_max</span> <span class="o">=</span> <span class="mi">5</span>
 <span class="n">lambda_iterates</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">k</span><span class="p">,</span> <span class="n">i_max</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">i_max</span><span class="p">):</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i_max</span><span class="p">):</span>
     <span class="c1"># Parameters and initial setup</span>
-    <span class="n">n</span> <span class="o">=</span> <span class="mi">5</span> <span class="o">*</span> <span class="n">i</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="mi">5</span> <span class="o">*</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
     <span class="n">A</span> <span class="o">=</span> <span class="n">companion_matrix</span><span class="p">(</span><span class="n">wilkinson_polynomial_coefficients</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
     <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>  <span class="c1"># Complex starting vector</span>
     <span class="n">lambda_iterates</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">power_method</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
@@ -557,9 +557,9 @@ A = I_n + (\lambda_1 - 1) \, e_1 \otimes e_1 = \text{diag}(\lambda_1, 1, \ldots,
 </div></section>
 <section id="inverse-iteration">
 <h2>Inverse Iteration<a class="headerlink" href="#inverse-iteration" title="Link to this heading">#</a></h2>
-<p>The principal idea of inverse iteration is to transform the spectrum of the matrix <span class="math notranslate nohighlight">\(A\)</span> to accelerate the convergence to eigenvalues.</p>
-<p>Let <span class="math notranslate nohighlight">\(A x=\lambda x\)</span> and <span class="math notranslate nohighlight">\(\sigma \in \mathbb{C}\)</span> not be an eigenvalue. Then we have <span class="math notranslate nohighlight">\((A-\sigma I)^{-1}x=(\lambda-\sigma)^{-1}x\)</span>. The largest eigenvalue of <span class="math notranslate nohighlight">\((A-\sigma I)^{-1}\)</span> is the one that is closest to <span class="math notranslate nohighlight">\(\sigma\)</span>, and we can expect that the power method to <span class="math notranslate nohighlight">\((A-\sigma I)^{-1}\)</span> in place of <span class="math notranslate nohighlight">\(A\)</span> will converge fast to the eigenvalue close to <span class="math notranslate nohighlight">\(\sigma\)</span>.</p>
-<div class="proof algorithm admonition" id="algorithm-3">
+<p>The principal idea of inverse iteration is to transform the spectrum of the matrix <span class="math notranslate nohighlight">\(A\)</span> to accelerate convergence to an eigenvalue.</p>
+<p>Let <span class="math notranslate nohighlight">\(A x=\lambda x\)</span> and let <span class="math notranslate nohighlight">\(\sigma \in \mathbb{C}\)</span> not be an eigenvalue. Then we have <span class="math notranslate nohighlight">\((A-\sigma I)^{-1}x=(\lambda-\sigma)^{-1}x\)</span>. The dominant eigenvalue of <span class="math notranslate nohighlight">\((A-\sigma I)^{-1}\)</span> is the one for which <span class="math notranslate nohighlight">\(\lambda\)</span> is closest to <span class="math notranslate nohighlight">\(\sigma\)</span>, and we can expect that the power method applied to <span class="math notranslate nohighlight">\((A-\sigma I)^{-1}\)</span> in place of <span class="math notranslate nohighlight">\(A\)</span> will converge rapidly to an eigenvalue close to <span class="math notranslate nohighlight">\(\sigma\)</span>.</p>
+<div class="proof algorithm admonition" id="alg-inverse-iteration">
 <p class="admonition-title"><span class="caption-number">Algorithm 3 </span> (Inverse Iteration)</p>
 <section class="algorithm-content" id="proof-content">
 <p><strong>Inputs</strong> <span class="math notranslate nohighlight">\(A\in\mathbb{C}^{n\times n}\)</span> diagonalisable, <span class="math notranslate nohighlight">\(z^{(0)} \in\mathbb{C}^n \setminus \{ 0 \}\)</span>, <span class="math notranslate nohighlight">\(\sigma \in\mathbb{C}\)</span> not eigenvalue of <span class="math notranslate nohighlight">\(A\)</span></p>
@@ -574,7 +574,7 @@ A = I_n + (\lambda_1 - 1) \, e_1 \otimes e_1 = \text{diag}(\lambda_1, 1, \ldots,
 </li>
 </ul>
 </section>
-</div><div class="proof example admonition" id="example-4">
+</div><div class="proof example admonition" id="ex-inverse-iteration-diagonal">
 <p class="admonition-title"><span class="caption-number">Example 19 </span></p>
 <section class="example-content" id="proof-content">
 <p>We revisit the first example above and consider again the matrix <span class="math notranslate nohighlight">\(A = \text{diag}(\lambda_1, 1, \ldots, 1)\)</span> for <span class="math notranslate nohighlight">\(\lambda_1\)</span> and <span class="math notranslate nohighlight">\(n\)</span> as above. The following plot uses the inverse iteration with <span class="math notranslate nohighlight">\(\sigma = 1.1 \, \lambda_1\)</span>, illustrating a situation where the eigenvalue of interest is known within a 10% tolerance.</p>
@@ -593,7 +593,7 @@ A = I_n + (\lambda_1 - 1) \, e_1 \otimes e_1 = \text{diag}(\lambda_1, 1, \ldots,
   
     <span class="k">def</span><span class="w"> </span><span class="nf">applyMat</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>  
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Computes (A - sigma I)^{-1} x = (PLU)^{-1} x = U^{-1} L^{-1} P^T x&quot;&quot;&quot;</span>  
-        <span class="k">return</span> <span class="n">solve_triangular</span><span class="p">(</span><span class="n">U</span><span class="p">,</span> <span class="n">solve_triangular</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">x</span><span class="p">),</span> <span class="n">lower</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>  
+        <span class="k">return</span> <span class="n">solve_triangular</span><span class="p">(</span><span class="n">U</span><span class="p">,</span> <span class="n">solve_triangular</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">P</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">x</span><span class="p">,</span> <span class="n">lower</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>  
 
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>  
         <span class="n">q</span> <span class="o">=</span> <span class="n">z</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>  
@@ -623,7 +623,7 @@ A = I_n + (\lambda_1 - 1) \, e_1 \otimes e_1 = \text{diag}(\lambda_1, 1, \ldots,
 </div>
 </div>
 </details></section>
-</div><div class="proof example admonition" id="example-5">
+</div><div class="proof example admonition" id="ex-inverse-iteration-wilkinson">
 <p class="admonition-title"><span class="caption-number">Example 20 </span></p>
 <section class="example-content" id="proof-content">
 <p>In this example, we investigate how the choice of <span class="math notranslate nohighlight">\(\sigma\)</span> impacts the performance of the inverse iteration. The matrix is the companion matrix of the Wilkinson polynomial for <span class="math notranslate nohighlight">\(n = 20\)</span> and <span class="math notranslate nohighlight">\(\sigma = n+1, \ldots, n+6\)</span>.</p>
@@ -633,6 +633,7 @@ A = I_n + (\lambda_1 - 1) \, e_1 \otimes e_1 = \text{diag}(\lambda_1, 1, \ldots,
 <span class="sd-summary-text">Python code</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.linalg</span><span class="w"> </span><span class="kn">import</span> <span class="n">lu</span><span class="p">,</span> <span class="n">solve_triangular</span>
 <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">inverse_iteration</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>  
@@ -642,7 +643,7 @@ A = I_n + (\lambda_1 - 1) \, e_1 \otimes e_1 = \text{diag}(\lambda_1, 1, \ldots,
   
     <span class="k">def</span><span class="w"> </span><span class="nf">applyMat</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>  
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Computes (A - sigma I)^{-1} x = (PLU)^{-1} x = U^{-1} L^{-1} P^T x&quot;&quot;&quot;</span>  
-        <span class="k">return</span> <span class="n">solve_triangular</span><span class="p">(</span><span class="n">U</span><span class="p">,</span> <span class="n">solve_triangular</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">x</span><span class="p">),</span> <span class="n">lower</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>  
+        <span class="k">return</span> <span class="n">solve_triangular</span><span class="p">(</span><span class="n">U</span><span class="p">,</span> <span class="n">solve_triangular</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">P</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">x</span><span class="p">,</span> <span class="n">lower</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>  
 
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>  
         <span class="n">q</span> <span class="o">=</span> <span class="n">z</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>  
@@ -654,7 +655,7 @@ A = I_n + (\lambda_1 - 1) \, e_1 \otimes e_1 = \text{diag}(\lambda_1, 1, \ldots,
 <span class="k">def</span><span class="w"> </span><span class="nf">companion_matrix</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate the companion matrix for a given polynomial represented by its coefficients.&quot;&quot;&quot;</span>
     <span class="c1"># normalise the leading coefficient</span>
-    <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
     <span class="n">a</span> <span class="o">=</span> <span class="n">a</span> <span class="o">/</span> <span class="n">a</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
     <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
     <span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
@@ -676,7 +677,7 @@ A = I_n + (\lambda_1 - 1) \, e_1 \otimes e_1 = \text{diag}(\lambda_1, 1, \ldots,
     <span class="c1"># Start with the polynomial x - 1</span>
     <span class="n">poly</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
-    <span class="c1"># Multiply the current polynomial by x - i using integer arithmetic</span>
+        <span class="c1"># Multiply the current polynomial by x - i using integer arithmetic</span>
         <span class="n">poly</span> <span class="o">=</span> <span class="n">poly_multiply</span><span class="p">(</span><span class="n">poly</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="n">i</span><span class="p">])</span>
     <span class="n">poly</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
     <span class="k">return</span> <span class="n">poly</span>
@@ -685,13 +686,14 @@ A = I_n + (\lambda_1 - 1) \, e_1 \otimes e_1 = \text{diag}(\lambda_1, 1, \ldots,
 <span class="n">k</span> <span class="o">=</span> <span class="mi">200</span>
 <span class="n">n</span> <span class="o">=</span> <span class="mi">20</span>
 <span class="n">i_max</span> <span class="o">=</span> <span class="mi">7</span>
-<span class="n">lambda_iterates</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">k</span><span class="p">,</span> <span class="n">i_max</span><span class="p">))</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">i_max</span><span class="p">):</span>
+<span class="n">lambda_iterates</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">k</span><span class="p">,</span> <span class="n">i_max</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i_max</span><span class="p">):</span>
     <span class="c1"># Parameters and initial setup</span>
     <span class="n">A</span> <span class="o">=</span> <span class="n">companion_matrix</span><span class="p">(</span><span class="n">wilkinson_polynomial_coefficients</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
     <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>  <span class="c1"># Complex starting vector</span>
-    <span class="n">lambda_iterates</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">inverse_iteration</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">n</span> <span class="o">+</span> <span class="n">i</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">lambda_iterates</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">n</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;σ = </span><span class="si">{</span><span class="n">n</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">sigma</span> <span class="o">=</span> <span class="n">n</span> <span class="o">+</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">lambda_iterates</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">inverse_iteration</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">lambda_iterates</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">n</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;σ = </span><span class="si">{</span><span class="n">sigma</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$|\lambda_1^{(k)} - \lambda_1|$&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Iteration $j$&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
@@ -705,7 +707,7 @@ A = I_n + (\lambda_1 - 1) \, e_1 \otimes e_1 = \text{diag}(\lambda_1, 1, \ldots,
 <section id="rayleigh-quotient-iteration">
 <h2>Rayleigh quotient iteration<a class="headerlink" href="#rayleigh-quotient-iteration" title="Link to this heading">#</a></h2>
 <p>One can combine the inverse iteration with evaluating the Rayleigh quotient. The idea is that instead of the fixed value <span class="math notranslate nohighlight">\(\sigma\)</span> in each step, we use as a shift the value of the Rayleigh quotient. The resulting algorithm is called Rayleigh quotient iteration. For symmetric problems, this approach is most effective: the convergence is even cubic.</p>
-<div class="proof algorithm admonition" id="algorithm-6">
+<div class="proof algorithm admonition" id="alg-rayleigh-quotient-iteration">
 <p class="admonition-title"><span class="caption-number">Algorithm 4 </span> (Rayleigh Quotient Iteration)</p>
 <section class="algorithm-content" id="proof-content">
 <p><strong>Inputs</strong> <span class="math notranslate nohighlight">\(A\in\mathbb{C}^{n\times n}\)</span> diagonalisable, <span class="math notranslate nohighlight">\(z^{(0)} \in\mathbb{C}^n \setminus \{ 0 \}\)</span>, <span class="math notranslate nohighlight">\(\sigma \in\mathbb{C}\)</span> not eigenvalue of <span class="math notranslate nohighlight">\(A\)</span></p>
@@ -722,13 +724,13 @@ A = I_n + (\lambda_1 - 1) \, e_1 \otimes e_1 = \text{diag}(\lambda_1, 1, \ldots,
 </li>
 </ul>
 </section>
-</div><p>While for the inverse iteration, the LU or QR decomposition of <span class="math notranslate nohighlight">\(A - \sigma I\)</span> only needs to be computed once, the Rayleigh quotient iteration requires a new decomposition in each iteration or an algorithm for the solution of linear systems that does not rely on a matrix decomposition.</p>
-<div class="proof example admonition" id="example-7">
+</div><p>For inverse iteration, the LU or QR decomposition of <span class="math notranslate nohighlight">\(A - \sigma I\)</span> only needs to be computed once. In contrast, the matrix in the Rayleigh quotient iteration changes every iteration, so in the most direct implementation a new decomposition is required at each step. In practice, this means that solving the arising linear systems requires more thought, for example by using iterative methods.</p>
+<div class="proof example admonition" id="ex-rayleigh-iteration-diagonal">
 <p class="admonition-title"><span class="caption-number">Example 21 </span></p>
 <section class="example-content" id="proof-content">
 <p>We revisit the example with the matrix <span class="math notranslate nohighlight">\(A = \text{diag}(\lambda_1, 1, \ldots, 1)\)</span> for <span class="math notranslate nohighlight">\(\lambda_1 = 1.1, 1.5, 2.0, 4.0, 8.0\)</span> and <span class="math notranslate nohighlight">\(n = 100\)</span> once more. The following plot starts the Rayleigh iteration with <span class="math notranslate nohighlight">\(\sigma = 1.01 \, \lambda_1\)</span>, illustrating a situation where a <em>very</em> good estimate of the eigenvalue of interest is known.</p>
 <p><img alt="Rayleigh_iteration" src="_images/Rayleigh_iteration.png" /></p>
-<p>The convergence is rapid. However, with an initial <span class="math notranslate nohighlight">\(\sigma = 1.1 \, \lambda_1\)</span> convergence happens instead to <span class="math notranslate nohighlight">\(\lambda_2 = 1\)</span>, i.e. not the largest eigenvalue.</p>
+<p>The convergence is rapid. However, with an initial <span class="math notranslate nohighlight">\(\sigma = 1.1 \, \lambda_1\)</span>, the iteration converges instead to <span class="math notranslate nohighlight">\(\lambda_2 = 1\)</span>, i.e. not to the dominant eigenvalue.</p>
 <p><img alt="Rayleigh_iteration_less_acurate" src="_images/Rayleigh_iteration_less_acurate.png" /></p>
 <p>The problem can be addressed by rejecting updates of <span class="math notranslate nohighlight">\(\sigma\)</span>, which differ too significantly from the previous estimate.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">rayleigh_quotient_iteration</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
@@ -750,9 +752,9 @@ A = I_n + (\lambda_1 - 1) \, e_1 \otimes e_1 = \text{diag}(\lambda_1, 1, \ldots,
     <span class="k">return</span> <span class="n">lambda_iterates</span>
 </pre></div>
 </div>
-<p>With the line <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">np.abs(lambda_iterates[i]</span> <span class="pre">-</span> <span class="pre">sigma)</span> <span class="pre">&lt;</span> <span class="pre">0.1</span> <span class="pre">*</span> <span class="pre">sigma:</span></code>, it is ensured that <span class="math notranslate nohighlight">\(\sigma\)</span> is only modified if the change is by less than 10%. The <code class="docutils literal notranslate"><span class="pre">try</span></code> and <code class="docutils literal notranslate"><span class="pre">except</span></code> structure allows the execution of the code within the <code class="docutils literal notranslate"><span class="pre">try</span></code> block and in case of an (almost) singular <span class="math notranslate nohighlight">\(A - \sigma I\)</span>, to break the <code class="docutils literal notranslate"><span class="pre">for</span></code> loop without terminating the entire code execution. The <code class="docutils literal notranslate"><span class="pre">break</span></code> keyword ends the <code class="docutils literal notranslate"><span class="pre">for</span></code> (or <code class="docutils literal notranslate"><span class="pre">while</span></code>) loop. The resulting method still converges fast with an initial guess <span class="math notranslate nohighlight">\(\sigma = 1.1 \, \lambda_1\)</span> – understanding convergence as reaching nearly machine accuracy.</p>
+<p>With the line <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">np.abs(lambda_iterates[i]</span> <span class="pre">-</span> <span class="pre">sigma)</span> <span class="pre">&lt;</span> <span class="pre">0.1</span> <span class="pre">*</span> <span class="pre">sigma:</span></code>, <span class="math notranslate nohighlight">\(\sigma\)</span> is modified only if the change is by less than 10%. The <code class="docutils literal notranslate"><span class="pre">try</span></code> and <code class="docutils literal notranslate"><span class="pre">except</span></code> structure allows the code in the <code class="docutils literal notranslate"><span class="pre">try</span></code> block to be executed and, in the case of an (almost) singular <span class="math notranslate nohighlight">\(A - \sigma I\)</span>, to break the <code class="docutils literal notranslate"><span class="pre">for</span></code> loop without terminating the entire code execution. The <code class="docutils literal notranslate"><span class="pre">break</span></code> keyword ends the <code class="docutils literal notranslate"><span class="pre">for</span></code> (or <code class="docutils literal notranslate"><span class="pre">while</span></code>) loop. The resulting method still converges rapidly with an initial guess <span class="math notranslate nohighlight">\(\sigma = 1.1 \, \lambda_1\)</span>, where convergence is understood as reaching nearly machine accuracy.</p>
 <p><img alt="Rayleigh_iteration_safeguard" src="_images/Rayleigh_iteration_safeguard.png" /></p>
-<p>Clearly, the stability and convergence analysis of the Rayleigh quotient iteration deserves attention.</p>
+<p>Clearly, the stability and convergence analysis of the Rayleigh quotient iteration deserve further attention.</p>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
 <span class="sd-summary-text">Python code</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
@@ -822,7 +824,7 @@ A = I_n + (\lambda_1 - 1) \, e_1 \otimes e_1 = \text{diag}(\lambda_1, 1, \ldots,
   
     <span class="k">def</span><span class="w"> </span><span class="nf">applyMat</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>  
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Computes (A - sigma I)^{-1} x = (PLU)^{-1} x = U^{-1} L^{-1} P^T x&quot;&quot;&quot;</span>  
-        <span class="k">return</span> <span class="n">solve_triangular</span><span class="p">(</span><span class="n">U</span><span class="p">,</span> <span class="n">solve_triangular</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">x</span><span class="p">),</span> <span class="n">lower</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>  
+        <span class="k">return</span> <span class="n">solve_triangular</span><span class="p">(</span><span class="n">U</span><span class="p">,</span> <span class="n">solve_triangular</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">P</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">x</span><span class="p">,</span> <span class="n">lower</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>  
   
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>  
         <span class="n">q</span> <span class="o">=</span> <span class="n">z</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>  

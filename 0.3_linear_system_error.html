@@ -390,7 +390,7 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="the-condition-number-of-linear-systems">
 <h1>The condition number of linear systems<a class="headerlink" href="#the-condition-number-of-linear-systems" title="Link to this heading">#</a></h1>
-<p>The condition number reflects how sensitive a function evaluation <span class="math notranslate nohighlight">\(f(x + \Delta x)\)</span> is to changes in <span class="math notranslate nohighlight">\(\Delta x\)</span>. It doesn’t depend on the numerical method <span class="math notranslate nohighlight">\(\tilde{f}\)</span> and shows how hard it is to evaluate <span class="math notranslate nohighlight">\(f\)</span> numerically, no matter which method is used.</p>
+<p>The condition number reflects how sensitive the value of a function is to perturbations in its input. It does not depend on the numerical method <span class="math notranslate nohighlight">\(\tilde{f}\)</span> and indicates how hard it is to evaluate <span class="math notranslate nohighlight">\(f\)</span> numerically, no matter which method is used.</p>
 <p>With this in mind, we now compute the condition number for linear systems of equations <span class="math notranslate nohighlight">\(Ay = b\)</span> with <span class="math notranslate nohighlight">\(A\in\mathbb{R}^{n\times n}\)</span> and <span class="math notranslate nohighlight">\(b\in\mathbb{R}^n\)</span>. We assume that <span class="math notranslate nohighlight">\(A\)</span> is non-singular and <span class="math notranslate nohighlight">\(b \neq 0\)</span>. We use <span class="math notranslate nohighlight">\(\|\cdot\|\)</span> to denote both the vector norm on <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span> and the induced matrix norm on <span class="math notranslate nohighlight">\(\mathbb{R}^{n\times n}\)</span>.</p>
 <p>We consider the following two problems:</p>
 <ol class="arabic simple">
@@ -409,7 +409,7 @@ document.write(`
 \Delta y &amp;= (A + \Delta A)^{-1}(-\Delta A y + \Delta b)\\
 &amp;= \left[A(I + A^{-1}\Delta A)\right]^{-1}(-\Delta A y + \Delta b)\\
 &amp;= \left(I + A^{-1}\Delta A\right)^{-1}A^{-1}(-\Delta Ay+\Delta b).
-\end{aligned}.
+\end{aligned}
 \end{split}\]</div>
 <p>To continue, we use the following lemma, whose proof is given in the optional materials. It is a direct generalisation of a well-known result for scalars (i.e. <span class="math notranslate nohighlight">\(n = 1\)</span> and the norm is the modulus) to the matrix setting.</p>
 <div class="proof lemma admonition" id="lemma-0">
@@ -448,8 +448,8 @@ document.write(`
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{align*}
-\kappa_2(A) = &amp; \lim_{\delta\rightarrow 0} \sup_{A,A+\Delta A \in \mathbb{R}^{n \times n} \atop 0 &lt; \| \Delta A \| \leq \delta} \frac{\| f_2(A+\Delta A) - f_2(A) \|_{\mathbb{R}^{n \times n}} / \| f_2(A) \|_{\mathbb{R}^{n \times n}}}{\| \Delta A \|_{\mathbb{R}^{n \times n}} / \| A \|_{\mathbb{R}^{n \times n}}} \\
-= &amp; \lim_{\delta\rightarrow 0} \sup_{A,A+\Delta A \in \mathbb{R}^{n \times n} \atop 0 &lt; \| \Delta A \| \leq \delta} \frac{\| \Delta y \|_{\mathbb{R}^{n \times n}} / \| y \|_{\mathbb{R}^{n \times n}}}{\| \Delta A \|_{\mathbb{R}^{n \times n}} / \| A \|_{\mathbb{R}^{n \times n}}} \leq \|A^{-1}\|\cdot \|A\|.
+\kappa_2(A) = &amp; \lim_{\delta\rightarrow 0} \sup_{A,A+\Delta A \in \mathbb{R}^{n \times n} \atop 0 &lt; \| \Delta A \| \leq \delta} \frac{\| f_2(A+\Delta A) - f_2(A) \|_{\mathbb{R}^{n}} / \| f_2(A) \|_{\mathbb{R}^{n}}}{\| \Delta A \|_{\mathbb{R}^{n \times n}} / \| A \|_{\mathbb{R}^{n \times n}}} \\
+= &amp; \lim_{\delta\rightarrow 0} \sup_{A,A+\Delta A \in \mathbb{R}^{n \times n} \atop 0 &lt; \| \Delta A \| \leq \delta} \frac{\| \Delta y \|_{\mathbb{R}^{n}} / \| y \|_{\mathbb{R}^{n}}}{\| \Delta A \|_{\mathbb{R}^{n \times n}} / \| A \|_{\mathbb{R}^{n \times n}}} \leq \|A^{-1}\|\cdot \|A\|.
 \end{align*}
 \end{split}\]</div>
 <p>Therefore, both condition numbers <span class="math notranslate nohighlight">\(A \mapsto A^{-1}b\)</span> and <span class="math notranslate nohighlight">\(b \mapsto A^{-1}b\)</span> are bounded above by <span class="math notranslate nohighlight">\(\|A^{-1}\|\cdot \|A\|\)</span>. This bound is sharp, as recorded by the following fact.</p>
@@ -461,7 +461,7 @@ document.write(`
 \kappa_1(b) = \kappa_2(A) = \|A^{-1}\|\cdot \|A\|.
 \]</div>
 </div>
-<p>The condition number <span class="math notranslate nohighlight">\(\kappa_{rel}(A)\)</span> has an important interpretation. It measures how close the linear system is to being singular. More precisely,</p>
+<p>The condition number <span class="math notranslate nohighlight">\(\kappa_2(A)\)</span> has an important interpretation. It measures how close the matrix is to being singular. More precisely,</p>
 <div class="math notranslate nohighlight">
 \[
 \min\left\{\frac{\|\Delta A\|_2}{\|A\|_2}: A + \Delta A \text{ singular} \right\} = \frac{1}{\kappa_{rel}(A)}.

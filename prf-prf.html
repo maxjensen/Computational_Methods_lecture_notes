@@ -336,162 +336,390 @@ document.write(`
    <h1>Proof Index</h1>
 
    <div class="modindex-jumpbox">
-   <a href="#cap-algorithm-0"><strong>algorithm-0</strong></a> | 
-   <a href="#cap-algorithm-1"><strong>algorithm-1</strong></a> | 
-   <a href="#cap-algorithm-3"><strong>algorithm-3</strong></a> | 
-   <a href="#cap-algorithm-6"><strong>algorithm-6</strong></a> | 
-   <a href="#cap-definition-0"><strong>definition-0</strong></a> | 
-   <a href="#cap-definition-1"><strong>definition-1</strong></a> | 
-   <a href="#cap-definition-2"><strong>definition-2</strong></a> | 
-   <a href="#cap-definition-3"><strong>definition-3</strong></a> | 
-   <a href="#cap-definition-5"><strong>definition-5</strong></a> | 
-   <a href="#cap-example-0"><strong>example-0</strong></a> | 
-   <a href="#cap-example-1"><strong>example-1</strong></a> | 
-   <a href="#cap-example-2"><strong>example-2</strong></a> | 
-   <a href="#cap-example-3"><strong>example-3</strong></a> | 
-   <a href="#cap-example-4"><strong>example-4</strong></a> | 
-   <a href="#cap-example-5"><strong>example-5</strong></a> | 
-   <a href="#cap-example-7"><strong>example-7</strong></a> | 
+   <a href="#cap-alg-gram-schmidt-orthogonalisation"><strong>alg-gram-schmidt-orthogonalisation</strong></a> | 
+   <a href="#cap-alg-inverse-iteration"><strong>alg-inverse-iteration</strong></a> | 
+   <a href="#cap-alg-power-method"><strong>alg-power-method</strong></a> | 
+   <a href="#cap-alg-pure-qr-iteration"><strong>alg-pure-qr-iteration</strong></a> | 
+   <a href="#cap-alg-rayleigh-quotient-iteration"><strong>alg-rayleigh-quotient-iteration</strong></a> | 
+   <a href="#cap-def-big-o-at-infinity"><strong>def-big-o-at-infinity</strong></a> | 
+   <a href="#cap-def-big-o-at-point"><strong>def-big-o-at-point</strong></a> | 
+   <a href="#cap-def-characteristic-polynomial"><strong>def-characteristic-polynomial</strong></a> | 
+   <a href="#cap-def-chebyshev-polynomials-first-kind"><strong>def-chebyshev-polynomials-first-kind</strong></a> | 
+   <a href="#cap-def-eigenvalue-problem"><strong>def-eigenvalue-problem</strong></a> | 
+   <a href="#cap-def-floating-point-set"><strong>def-floating-point-set</strong></a> | 
+   <a href="#cap-def-frobenius-matrix"><strong>def-frobenius-matrix</strong></a> | 
+   <a href="#cap-def-gaussian-quadrature-method"><strong>def-gaussian-quadrature-method</strong></a> | 
+   <a href="#cap-def-hermitian-matrix"><strong>def-hermitian-matrix</strong></a> | 
+   <a href="#cap-def-norm-axioms"><strong>def-norm-axioms</strong></a> | 
+   <a href="#cap-def-permutation-matrix"><strong>def-permutation-matrix</strong></a> | 
+   <a href="#cap-def-pseudoinverse"><strong>def-pseudoinverse</strong></a> | 
+   <a href="#cap-def-scalar-product"><strong>def-scalar-product</strong></a> | 
+   <a href="#cap-def-unitary-matrix"><strong>def-unitary-matrix</strong></a> | 
+   <a href="#cap-ex-backward-error-linear-systems-noninvertible"><strong>ex-backward-error-linear-systems-noninvertible</strong></a> | 
+   <a href="#cap-ex-backward-error-linearisation"><strong>ex-backward-error-linearisation</strong></a> | 
+   <a href="#cap-ex-backward-error-reversed-roles"><strong>ex-backward-error-reversed-roles</strong></a> | 
+   <a href="#cap-ex-error-analysis-difference-quotient"><strong>ex-error-analysis-difference-quotient</strong></a> | 
+   <a href="#cap-ex-error-analysis-linear-system"><strong>ex-error-analysis-linear-system</strong></a> | 
+   <a href="#cap-ex-error-analysis-taylor"><strong>ex-error-analysis-taylor</strong></a> | 
+   <a href="#cap-ex-floating-point-binary-toy-model"><strong>ex-floating-point-binary-toy-model</strong></a> | 
+   <a href="#cap-ex-interpolation-chebyshev-nodes"><strong>ex-interpolation-chebyshev-nodes</strong></a> | 
+   <a href="#cap-ex-interpolation-uniform-nodes"><strong>ex-interpolation-uniform-nodes</strong></a> | 
+   <a href="#cap-ex-interpolatory-quadrature-formulas"><strong>ex-interpolatory-quadrature-formulas</strong></a> | 
+   <a href="#cap-ex-inverse-iteration-diagonal"><strong>ex-inverse-iteration-diagonal</strong></a> | 
+   <a href="#cap-ex-inverse-iteration-wilkinson"><strong>ex-inverse-iteration-wilkinson</strong></a> | 
+   <a href="#cap-ex-lu-counterexample-backward-stability"><strong>ex-lu-counterexample-backward-stability</strong></a> | 
+   <a href="#cap-ex-lu-failure-of-backward-stability"><strong>ex-lu-failure-of-backward-stability</strong></a> | 
+   <a href="#cap-ex-orthogonal-approximation-legendre-product-basis"><strong>ex-orthogonal-approximation-legendre-product-basis</strong></a> | 
+   <a href="#cap-ex-orthogonal-approximation-linear-polynomials"><strong>ex-orthogonal-approximation-linear-polynomials</strong></a> | 
+   <a href="#cap-ex-orthonormal-basis-p2"><strong>ex-orthonormal-basis-p2</strong></a> | 
+   <a href="#cap-ex-power-method-diagonal"><strong>ex-power-method-diagonal</strong></a> | 
+   <a href="#cap-ex-power-method-wilkinson"><strong>ex-power-method-wilkinson</strong></a> | 
+   <a href="#cap-ex-rayleigh-iteration-diagonal"><strong>ex-rayleigh-iteration-diagonal</strong></a> | 
+   <a href="#cap-ex-scalar-products"><strong>ex-scalar-products</strong></a> | 
    <a href="#cap-lemma-0"><strong>lemma-0</strong></a> | 
    <a href="#cap-lemma-1"><strong>lemma-1</strong></a> | 
    <a href="#cap-lemma-2"><strong>lemma-2</strong></a> | 
-   <a href="#cap-theorem-0"><strong>theorem-0</strong></a> | 
-   <a href="#cap-theorem-1"><strong>theorem-1</strong></a> | 
-   <a href="#cap-theorem-2"><strong>theorem-2</strong></a> | 
-   <a href="#cap-theorem-3"><strong>theorem-3</strong></a> | 
-   <a href="#cap-theorem-5"><strong>theorem-5</strong></a> | 
-   <a href="#cap-theorem-6"><strong>theorem-6</strong></a> | 
-   <a href="#cap-theorem-7"><strong>theorem-7</strong></a>
+   <a href="#cap-thm-chebyshev-cosine-identity"><strong>thm-chebyshev-cosine-identity</strong></a> | 
+   <a href="#cap-thm-chebyshev-interpolation-error-bound"><strong>thm-chebyshev-interpolation-error-bound</strong></a> | 
+   <a href="#cap-thm-chebyshev-minimises-error-polynomial"><strong>thm-chebyshev-minimises-error-polynomial</strong></a> | 
+   <a href="#cap-thm-convergence-pure-qr-iteration"><strong>thm-convergence-pure-qr-iteration</strong></a> | 
+   <a href="#cap-thm-existence-of-singular-value-decomposition"><strong>thm-existence-of-singular-value-decomposition</strong></a> | 
+   <a href="#cap-thm-existence-schur-decomposition"><strong>thm-existence-schur-decomposition</strong></a> | 
+   <a href="#cap-thm-floating-point-arithmetic"><strong>thm-floating-point-arithmetic</strong></a> | 
+   <a href="#cap-thm-gaussian-quadrature"><strong>thm-gaussian-quadrature</strong></a> | 
+   <a href="#cap-thm-interpolation-error-bound"><strong>thm-interpolation-error-bound</strong></a> | 
+   <a href="#cap-thm-interpolation-existence-uniqueness"><strong>thm-interpolation-existence-uniqueness</strong></a> | 
+   <a href="#cap-thm-lu-existence-without-pivoting"><strong>thm-lu-existence-without-pivoting</strong></a> | 
+   <a href="#cap-thm-main-gaussian-quadrature"><strong>thm-main-gaussian-quadrature</strong></a> | 
+   <a href="#cap-thm-norm-equivalence"><strong>thm-norm-equivalence</strong></a> | 
+   <a href="#cap-thm-normal-equation-least-squares"><strong>thm-normal-equation-least-squares</strong></a> | 
+   <a href="#cap-thm-roots-of-orthogonal-polynomials"><strong>thm-roots-of-orthogonal-polynomials</strong></a> | 
+   <a href="#cap-thm-singular-value-decomposition"><strong>thm-singular-value-decomposition</strong></a> | 
+   <a href="#cap-thm-strong-duality"><strong>thm-strong-duality</strong></a> | 
+   <a href="#cap-thm-uniqueness-of-orthogonal-polynomial"><strong>thm-uniqueness-of-orthogonal-polynomial</strong></a> | 
+   <a href="#cap-thm-weak-duality"><strong>thm-weak-duality</strong></a>
    </div>
 
    <table class="indextable modindextable">
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-algorithm-0"><td></td><td>
-       <strong>algorithm-0</strong></td><td></td></tr>
+     <tr class="cap" id="cap-alg-gram-schmidt-orthogonalisation"><td></td><td>
+       <strong>alg-gram-schmidt-orthogonalisation</strong></td><td></td></tr>
      <tr>
        <td></td>
        <td>
-       <a href="3.1_qr_decomposition.html#algorithm-0"><code class="xref">algorithm-0</code></a> <em>(3.1_qr_decomposition)</em></td><td>
+       <a href="3.1_qr_decomposition.html#alg-gram-schmidt-orthogonalisation"><code class="xref">alg-gram-schmidt-orthogonalisation</code></a> <em>(3.1_qr_decomposition)</em></td><td>
        <em>algorithm</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-algorithm-1"><td></td><td>
-       <strong>algorithm-1</strong></td><td></td></tr>
+     <tr class="cap" id="cap-alg-inverse-iteration"><td></td><td>
+       <strong>alg-inverse-iteration</strong></td><td></td></tr>
      <tr>
        <td></td>
        <td>
-       <a href="5.3_computing_eigenspaces.html#algorithm-1"><code class="xref">algorithm-1</code></a> <em>(5.3_computing_eigenspaces)</em></td><td>
+       <a href="5.2_computing_eigenvalues.html#alg-inverse-iteration"><code class="xref">alg-inverse-iteration</code></a> <em>(5.2_computing_eigenvalues)</em></td><td>
        <em>algorithm</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-algorithm-3"><td></td><td>
-       <strong>algorithm-3</strong></td><td></td></tr>
+     <tr class="cap" id="cap-alg-power-method"><td></td><td>
+       <strong>alg-power-method</strong></td><td></td></tr>
      <tr>
        <td></td>
        <td>
-       <a href="5.2_computing_eigenvalues.html#algorithm-3"><code class="xref">algorithm-3</code></a> <em>(5.2_computing_eigenvalues)</em></td><td>
+       <a href="5.2_computing_eigenvalues.html#alg-power-method"><code class="xref">alg-power-method</code></a> <em>(5.2_computing_eigenvalues)</em></td><td>
        <em>algorithm</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-algorithm-6"><td></td><td>
-       <strong>algorithm-6</strong></td><td></td></tr>
+     <tr class="cap" id="cap-alg-pure-qr-iteration"><td></td><td>
+       <strong>alg-pure-qr-iteration</strong></td><td></td></tr>
      <tr>
        <td></td>
        <td>
-       <a href="5.2_computing_eigenvalues.html#algorithm-6"><code class="xref">algorithm-6</code></a> <em>(5.2_computing_eigenvalues)</em></td><td>
+       <a href="5.3_computing_eigenspaces.html#alg-pure-qr-iteration"><code class="xref">alg-pure-qr-iteration</code></a> <em>(5.3_computing_eigenspaces)</em></td><td>
        <em>algorithm</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-definition-0"><td></td><td>
-       <strong>definition-0</strong></td><td></td></tr>
+     <tr class="cap" id="cap-alg-rayleigh-quotient-iteration"><td></td><td>
+       <strong>alg-rayleigh-quotient-iteration</strong></td><td></td></tr>
      <tr>
        <td></td>
        <td>
-       <a href="1.1_floating_point_arithmetic.html#definition-0"><code class="xref">definition-0</code></a> <em>(1.1_floating_point_arithmetic)</em></td><td>
+       <a href="5.2_computing_eigenvalues.html#alg-rayleigh-quotient-iteration"><code class="xref">alg-rayleigh-quotient-iteration</code></a> <em>(5.2_computing_eigenvalues)</em></td><td>
+       <em>algorithm</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-def-big-o-at-infinity"><td></td><td>
+       <strong>def-big-o-at-infinity</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="2.2_complexity_notation.html#def-big-o-at-infinity"><code class="xref">def-big-o-at-infinity</code></a> <em>(2.2_complexity_notation)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-definition-1"><td></td><td>
-       <strong>definition-1</strong></td><td></td></tr>
+     <tr class="cap" id="cap-def-big-o-at-point"><td></td><td>
+       <strong>def-big-o-at-point</strong></td><td></td></tr>
      <tr>
        <td></td>
        <td>
-       <a href="4.3_stable_quadrature_schemes.html#definition-1"><code class="xref">definition-1</code></a> <em>(4.3_stable_quadrature_schemes)</em></td><td>
+       <a href="2.2_complexity_notation.html#def-big-o-at-point"><code class="xref">def-big-o-at-point</code></a> <em>(2.2_complexity_notation)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-definition-2"><td></td><td>
-       <strong>definition-2</strong></td><td></td></tr>
+     <tr class="cap" id="cap-def-characteristic-polynomial"><td></td><td>
+       <strong>def-characteristic-polynomial</strong></td><td></td></tr>
      <tr>
        <td></td>
        <td>
-       <a href="5.1_eigenvalues_basic_properties.html#definition-2"><code class="xref">definition-2</code></a> <em>(5.1_eigenvalues_basic_properties)</em></td><td>
+       <a href="5.1_eigenvalues_basic_properties.html#def-characteristic-polynomial"><code class="xref">def-characteristic-polynomial</code></a> <em>(5.1_eigenvalues_basic_properties)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-definition-3"><td></td><td>
-       <strong>definition-3</strong></td><td></td></tr>
+     <tr class="cap" id="cap-def-chebyshev-polynomials-first-kind"><td></td><td>
+       <strong>def-chebyshev-polynomials-first-kind</strong></td><td></td></tr>
      <tr>
        <td></td>
        <td>
-       <a href="5.1_eigenvalues_basic_properties.html#definition-3"><code class="xref">definition-3</code></a> <em>(5.1_eigenvalues_basic_properties)</em></td><td>
+       <a href="4.1_interpolation.html#def-chebyshev-polynomials-first-kind"><code class="xref">def-chebyshev-polynomials-first-kind</code></a> <em>(4.1_interpolation)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-definition-5"><td></td><td>
-       <strong>definition-5</strong></td><td></td></tr>
+     <tr class="cap" id="cap-def-eigenvalue-problem"><td></td><td>
+       <strong>def-eigenvalue-problem</strong></td><td></td></tr>
      <tr>
        <td></td>
        <td>
-       <a href="4.1_interpolation.html#definition-5"><code class="xref">definition-5</code></a> <em>(4.1_interpolation)</em></td><td>
+       <a href="5.1_eigenvalues_basic_properties.html#def-eigenvalue-problem"><code class="xref">def-eigenvalue-problem</code></a> <em>(5.1_eigenvalues_basic_properties)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-example-0"><td></td><td>
-       <strong>example-0</strong></td><td></td></tr>
+     <tr class="cap" id="cap-def-floating-point-set"><td></td><td>
+       <strong>def-floating-point-set</strong></td><td></td></tr>
      <tr>
        <td></td>
        <td>
-       <a href="2.3_lu_backward_error.html#example-0"><code class="xref">example-0</code></a> <em>(2.3_lu_backward_error)</em></td><td>
+       <a href="1.1_floating_point_arithmetic.html#def-floating-point-set"><code class="xref">def-floating-point-set</code></a> <em>(1.1_floating_point_arithmetic)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-def-frobenius-matrix"><td></td><td>
+       <strong>def-frobenius-matrix</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="2.1_lu_decomposition.html#def-frobenius-matrix"><code class="xref">def-frobenius-matrix</code></a> <em>(2.1_lu_decomposition)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-def-gaussian-quadrature-method"><td></td><td>
+       <strong>def-gaussian-quadrature-method</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="4.3_stable_quadrature_schemes.html#def-gaussian-quadrature-method"><code class="xref">def-gaussian-quadrature-method</code></a> <em>(4.3_stable_quadrature_schemes)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-def-hermitian-matrix"><td></td><td>
+       <strong>def-hermitian-matrix</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="5.1_eigenvalues_basic_properties.html#def-hermitian-matrix"><code class="xref">def-hermitian-matrix</code></a> <em>(5.1_eigenvalues_basic_properties)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-def-norm-axioms"><td></td><td>
+       <strong>def-norm-axioms</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="0.1_matrix_vector_norms.html#def-norm-axioms"><code class="xref">def-norm-axioms</code></a> <em>(0.1_matrix_vector_norms)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-def-permutation-matrix"><td></td><td>
+       <strong>def-permutation-matrix</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="2.3_lu_backward_error.html#def-permutation-matrix"><code class="xref">def-permutation-matrix</code></a> <em>(2.3_lu_backward_error)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-def-pseudoinverse"><td></td><td>
+       <strong>def-pseudoinverse</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="3.3_least_squares_problems.html#def-pseudoinverse"><code class="xref">def-pseudoinverse</code></a> <em>(3.3_least_squares_problems)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-def-scalar-product"><td></td><td>
+       <strong>def-scalar-product</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="3.3_least_squares_problems.html#def-scalar-product"><code class="xref">def-scalar-product</code></a> <em>(3.3_least_squares_problems)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-def-unitary-matrix"><td></td><td>
+       <strong>def-unitary-matrix</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="5.1_eigenvalues_basic_properties.html#def-unitary-matrix"><code class="xref">def-unitary-matrix</code></a> <em>(5.1_eigenvalues_basic_properties)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-ex-backward-error-linear-systems-noninvertible"><td></td><td>
+       <strong>ex-backward-error-linear-systems-noninvertible</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="0.2_error_analysis.html#ex-backward-error-linear-systems-noninvertible"><code class="xref">ex-backward-error-linear-systems-noninvertible</code></a> <em>(0.2_error_analysis)</em></td><td>
        <em>example</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-example-1"><td></td><td>
-       <strong>example-1</strong></td><td></td></tr>
+     <tr class="cap" id="cap-ex-backward-error-linearisation"><td></td><td>
+       <strong>ex-backward-error-linearisation</strong></td><td></td></tr>
      <tr>
        <td></td>
        <td>
-       <a href="1.1_floating_point_arithmetic.html#example-1"><code class="xref">example-1</code></a> <em>(1.1_floating_point_arithmetic)</em></td><td>
+       <a href="0.2_error_analysis.html#ex-backward-error-linearisation"><code class="xref">ex-backward-error-linearisation</code></a> <em>(0.2_error_analysis)</em></td><td>
        <em>example</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-example-2"><td></td><td>
-       <strong>example-2</strong></td><td></td></tr>
+     <tr class="cap" id="cap-ex-backward-error-reversed-roles"><td></td><td>
+       <strong>ex-backward-error-reversed-roles</strong></td><td></td></tr>
      <tr>
        <td></td>
        <td>
-       <a href="4.1_interpolation.html#example-2"><code class="xref">example-2</code></a> <em>(4.1_interpolation)</em></td><td>
+       <a href="0.2_error_analysis.html#ex-backward-error-reversed-roles"><code class="xref">ex-backward-error-reversed-roles</code></a> <em>(0.2_error_analysis)</em></td><td>
        <em>example</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-example-3"><td></td><td>
-       <strong>example-3</strong></td><td></td></tr>
+     <tr class="cap" id="cap-ex-error-analysis-difference-quotient"><td></td><td>
+       <strong>ex-error-analysis-difference-quotient</strong></td><td></td></tr>
      <tr>
        <td></td>
        <td>
-       <a href="3.3_least_squares_problems.html#example-3"><code class="xref">example-3</code></a> <em>(3.3_least_squares_problems)</em></td><td>
+       <a href="0.2_error_analysis.html#ex-error-analysis-difference-quotient"><code class="xref">ex-error-analysis-difference-quotient</code></a> <em>(0.2_error_analysis)</em></td><td>
        <em>example</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-example-4"><td></td><td>
-       <strong>example-4</strong></td><td></td></tr>
+     <tr class="cap" id="cap-ex-error-analysis-linear-system"><td></td><td>
+       <strong>ex-error-analysis-linear-system</strong></td><td></td></tr>
      <tr>
        <td></td>
        <td>
-       <a href="4.3_stable_quadrature_schemes.html#example-4"><code class="xref">example-4</code></a> <em>(4.3_stable_quadrature_schemes)</em></td><td>
+       <a href="0.2_error_analysis.html#ex-error-analysis-linear-system"><code class="xref">ex-error-analysis-linear-system</code></a> <em>(0.2_error_analysis)</em></td><td>
        <em>example</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-example-5"><td></td><td>
-       <strong>example-5</strong></td><td></td></tr>
+     <tr class="cap" id="cap-ex-error-analysis-taylor"><td></td><td>
+       <strong>ex-error-analysis-taylor</strong></td><td></td></tr>
      <tr>
        <td></td>
        <td>
-       <a href="5.2_computing_eigenvalues.html#example-5"><code class="xref">example-5</code></a> <em>(5.2_computing_eigenvalues)</em></td><td>
+       <a href="0.2_error_analysis.html#ex-error-analysis-taylor"><code class="xref">ex-error-analysis-taylor</code></a> <em>(0.2_error_analysis)</em></td><td>
        <em>example</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-example-7"><td></td><td>
-       <strong>example-7</strong></td><td></td></tr>
+     <tr class="cap" id="cap-ex-floating-point-binary-toy-model"><td></td><td>
+       <strong>ex-floating-point-binary-toy-model</strong></td><td></td></tr>
      <tr>
        <td></td>
        <td>
-       <a href="5.2_computing_eigenvalues.html#example-7"><code class="xref">example-7</code></a> <em>(5.2_computing_eigenvalues)</em></td><td>
+       <a href="1.1_floating_point_arithmetic.html#ex-floating-point-binary-toy-model"><code class="xref">ex-floating-point-binary-toy-model</code></a> <em>(1.1_floating_point_arithmetic)</em></td><td>
+       <em>example</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-ex-interpolation-chebyshev-nodes"><td></td><td>
+       <strong>ex-interpolation-chebyshev-nodes</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="4.1_interpolation.html#ex-interpolation-chebyshev-nodes"><code class="xref">ex-interpolation-chebyshev-nodes</code></a> <em>(4.1_interpolation)</em></td><td>
+       <em>example</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-ex-interpolation-uniform-nodes"><td></td><td>
+       <strong>ex-interpolation-uniform-nodes</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="4.1_interpolation.html#ex-interpolation-uniform-nodes"><code class="xref">ex-interpolation-uniform-nodes</code></a> <em>(4.1_interpolation)</em></td><td>
+       <em>example</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-ex-interpolatory-quadrature-formulas"><td></td><td>
+       <strong>ex-interpolatory-quadrature-formulas</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="4.2_quadrature.html#ex-interpolatory-quadrature-formulas"><code class="xref">ex-interpolatory-quadrature-formulas</code></a> <em>(4.2_quadrature)</em></td><td>
+       <em>example</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-ex-inverse-iteration-diagonal"><td></td><td>
+       <strong>ex-inverse-iteration-diagonal</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="5.2_computing_eigenvalues.html#ex-inverse-iteration-diagonal"><code class="xref">ex-inverse-iteration-diagonal</code></a> <em>(5.2_computing_eigenvalues)</em></td><td>
+       <em>example</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-ex-inverse-iteration-wilkinson"><td></td><td>
+       <strong>ex-inverse-iteration-wilkinson</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="5.2_computing_eigenvalues.html#ex-inverse-iteration-wilkinson"><code class="xref">ex-inverse-iteration-wilkinson</code></a> <em>(5.2_computing_eigenvalues)</em></td><td>
+       <em>example</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-ex-lu-counterexample-backward-stability"><td></td><td>
+       <strong>ex-lu-counterexample-backward-stability</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="2.3_lu_backward_error.html#ex-lu-counterexample-backward-stability"><code class="xref">ex-lu-counterexample-backward-stability</code></a> <em>(2.3_lu_backward_error)</em></td><td>
+       <em>example</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-ex-lu-failure-of-backward-stability"><td></td><td>
+       <strong>ex-lu-failure-of-backward-stability</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="2.3_lu_backward_error.html#ex-lu-failure-of-backward-stability"><code class="xref">ex-lu-failure-of-backward-stability</code></a> <em>(2.3_lu_backward_error)</em></td><td>
+       <em>example</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-ex-orthogonal-approximation-legendre-product-basis"><td></td><td>
+       <strong>ex-orthogonal-approximation-legendre-product-basis</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="3.3_least_squares_problems.html#ex-orthogonal-approximation-legendre-product-basis"><code class="xref">ex-orthogonal-approximation-legendre-product-basis</code></a> <em>(3.3_least_squares_problems)</em></td><td>
+       <em>example</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-ex-orthogonal-approximation-linear-polynomials"><td></td><td>
+       <strong>ex-orthogonal-approximation-linear-polynomials</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="3.3_least_squares_problems.html#ex-orthogonal-approximation-linear-polynomials"><code class="xref">ex-orthogonal-approximation-linear-polynomials</code></a> <em>(3.3_least_squares_problems)</em></td><td>
+       <em>example</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-ex-orthonormal-basis-p2"><td></td><td>
+       <strong>ex-orthonormal-basis-p2</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="4.3_stable_quadrature_schemes.html#ex-orthonormal-basis-p2"><code class="xref">ex-orthonormal-basis-p2</code></a> <em>(4.3_stable_quadrature_schemes)</em></td><td>
+       <em>example</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-ex-power-method-diagonal"><td></td><td>
+       <strong>ex-power-method-diagonal</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="5.2_computing_eigenvalues.html#ex-power-method-diagonal"><code class="xref">ex-power-method-diagonal</code></a> <em>(5.2_computing_eigenvalues)</em></td><td>
+       <em>example</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-ex-power-method-wilkinson"><td></td><td>
+       <strong>ex-power-method-wilkinson</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="5.2_computing_eigenvalues.html#ex-power-method-wilkinson"><code class="xref">ex-power-method-wilkinson</code></a> <em>(5.2_computing_eigenvalues)</em></td><td>
+       <em>example</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-ex-rayleigh-iteration-diagonal"><td></td><td>
+       <strong>ex-rayleigh-iteration-diagonal</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="5.2_computing_eigenvalues.html#ex-rayleigh-iteration-diagonal"><code class="xref">ex-rayleigh-iteration-diagonal</code></a> <em>(5.2_computing_eigenvalues)</em></td><td>
+       <em>example</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-ex-scalar-products"><td></td><td>
+       <strong>ex-scalar-products</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="3.3_least_squares_problems.html#ex-scalar-products"><code class="xref">ex-scalar-products</code></a> <em>(3.3_least_squares_problems)</em></td><td>
        <em>example</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-lemma-0"><td></td><td>
@@ -518,60 +746,156 @@ document.write(`
        <a href="2.1_lu_decomposition.html#lemma-2"><code class="xref">lemma-2</code></a> <em>(2.1_lu_decomposition)</em></td><td>
        <em>lemma</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-theorem-0"><td></td><td>
-       <strong>theorem-0</strong></td><td></td></tr>
+     <tr class="cap" id="cap-thm-chebyshev-cosine-identity"><td></td><td>
+       <strong>thm-chebyshev-cosine-identity</strong></td><td></td></tr>
      <tr>
        <td></td>
        <td>
-       <a href="4.3_stable_quadrature_schemes.html#theorem-0"><code class="xref">theorem-0</code></a> <em>(4.3_stable_quadrature_schemes)</em></td><td>
+       <a href="4.1_interpolation.html#thm-chebyshev-cosine-identity"><code class="xref">thm-chebyshev-cosine-identity</code></a> <em>(4.1_interpolation)</em></td><td>
        <em>theorem</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-theorem-1"><td></td><td>
-       <strong>theorem-1</strong></td><td></td></tr>
+     <tr class="cap" id="cap-thm-chebyshev-interpolation-error-bound"><td></td><td>
+       <strong>thm-chebyshev-interpolation-error-bound</strong></td><td></td></tr>
      <tr>
        <td></td>
        <td>
-       <a href="4.1_interpolation.html#theorem-1"><code class="xref">theorem-1</code></a> <em>(4.1_interpolation)</em></td><td>
+       <a href="4.1_interpolation.html#thm-chebyshev-interpolation-error-bound"><code class="xref">thm-chebyshev-interpolation-error-bound</code></a> <em>(4.1_interpolation)</em></td><td>
        <em>theorem</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-theorem-2"><td></td><td>
-       <strong>theorem-2</strong></td><td></td></tr>
+     <tr class="cap" id="cap-thm-chebyshev-minimises-error-polynomial"><td></td><td>
+       <strong>thm-chebyshev-minimises-error-polynomial</strong></td><td></td></tr>
      <tr>
        <td></td>
        <td>
-       <a href="4.3_stable_quadrature_schemes.html#theorem-2"><code class="xref">theorem-2</code></a> <em>(4.3_stable_quadrature_schemes)</em></td><td>
+       <a href="4.1_interpolation.html#thm-chebyshev-minimises-error-polynomial"><code class="xref">thm-chebyshev-minimises-error-polynomial</code></a> <em>(4.1_interpolation)</em></td><td>
        <em>theorem</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-theorem-3"><td></td><td>
-       <strong>theorem-3</strong></td><td></td></tr>
+     <tr class="cap" id="cap-thm-convergence-pure-qr-iteration"><td></td><td>
+       <strong>thm-convergence-pure-qr-iteration</strong></td><td></td></tr>
      <tr>
        <td></td>
        <td>
-       <a href="4.3_stable_quadrature_schemes.html#theorem-3"><code class="xref">theorem-3</code></a> <em>(4.3_stable_quadrature_schemes)</em></td><td>
+       <a href="5.3_computing_eigenspaces.html#thm-convergence-pure-qr-iteration"><code class="xref">thm-convergence-pure-qr-iteration</code></a> <em>(5.3_computing_eigenspaces)</em></td><td>
        <em>theorem</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-theorem-5"><td></td><td>
-       <strong>theorem-5</strong></td><td></td></tr>
+     <tr class="cap" id="cap-thm-existence-of-singular-value-decomposition"><td></td><td>
+       <strong>thm-existence-of-singular-value-decomposition</strong></td><td></td></tr>
      <tr>
        <td></td>
        <td>
-       <a href="4.3_stable_quadrature_schemes.html#theorem-5"><code class="xref">theorem-5</code></a> <em>(4.3_stable_quadrature_schemes)</em></td><td>
+       <a href="3.2_singular_value_decomposition.html#thm-existence-of-singular-value-decomposition"><code class="xref">thm-existence-of-singular-value-decomposition</code></a> <em>(3.2_singular_value_decomposition)</em></td><td>
        <em>theorem</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-theorem-6"><td></td><td>
-       <strong>theorem-6</strong></td><td></td></tr>
+     <tr class="cap" id="cap-thm-existence-schur-decomposition"><td></td><td>
+       <strong>thm-existence-schur-decomposition</strong></td><td></td></tr>
      <tr>
        <td></td>
        <td>
-       <a href="4.1_interpolation.html#theorem-6"><code class="xref">theorem-6</code></a> <em>(4.1_interpolation)</em></td><td>
+       <a href="5.3_computing_eigenspaces.html#thm-existence-schur-decomposition"><code class="xref">thm-existence-schur-decomposition</code></a> <em>(5.3_computing_eigenspaces)</em></td><td>
        <em>theorem</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-theorem-7"><td></td><td>
-       <strong>theorem-7</strong></td><td></td></tr>
+     <tr class="cap" id="cap-thm-floating-point-arithmetic"><td></td><td>
+       <strong>thm-floating-point-arithmetic</strong></td><td></td></tr>
      <tr>
        <td></td>
        <td>
-       <a href="4.1_interpolation.html#theorem-7"><code class="xref">theorem-7</code></a> <em>(4.1_interpolation)</em></td><td>
+       <a href="1.1_floating_point_arithmetic.html#thm-floating-point-arithmetic"><code class="xref">thm-floating-point-arithmetic</code></a> <em>(1.1_floating_point_arithmetic)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-thm-gaussian-quadrature"><td></td><td>
+       <strong>thm-gaussian-quadrature</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="4.3_stable_quadrature_schemes.html#thm-gaussian-quadrature"><code class="xref">thm-gaussian-quadrature</code></a> <em>(4.3_stable_quadrature_schemes)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-thm-interpolation-error-bound"><td></td><td>
+       <strong>thm-interpolation-error-bound</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="4.1_interpolation.html#thm-interpolation-error-bound"><code class="xref">thm-interpolation-error-bound</code></a> <em>(4.1_interpolation)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-thm-interpolation-existence-uniqueness"><td></td><td>
+       <strong>thm-interpolation-existence-uniqueness</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="4.1_interpolation.html#thm-interpolation-existence-uniqueness"><code class="xref">thm-interpolation-existence-uniqueness</code></a> <em>(4.1_interpolation)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-thm-lu-existence-without-pivoting"><td></td><td>
+       <strong>thm-lu-existence-without-pivoting</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="2.1_lu_decomposition.html#thm-lu-existence-without-pivoting"><code class="xref">thm-lu-existence-without-pivoting</code></a> <em>(2.1_lu_decomposition)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-thm-main-gaussian-quadrature"><td></td><td>
+       <strong>thm-main-gaussian-quadrature</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="4.3_stable_quadrature_schemes.html#thm-main-gaussian-quadrature"><code class="xref">thm-main-gaussian-quadrature</code></a> <em>(4.3_stable_quadrature_schemes)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-thm-norm-equivalence"><td></td><td>
+       <strong>thm-norm-equivalence</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="0.1_matrix_vector_norms.html#thm-norm-equivalence"><code class="xref">thm-norm-equivalence</code></a> <em>(0.1_matrix_vector_norms)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-thm-normal-equation-least-squares"><td></td><td>
+       <strong>thm-normal-equation-least-squares</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="3.3_least_squares_problems.html#thm-normal-equation-least-squares"><code class="xref">thm-normal-equation-least-squares</code></a> <em>(3.3_least_squares_problems)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-thm-roots-of-orthogonal-polynomials"><td></td><td>
+       <strong>thm-roots-of-orthogonal-polynomials</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="4.3_stable_quadrature_schemes.html#thm-roots-of-orthogonal-polynomials"><code class="xref">thm-roots-of-orthogonal-polynomials</code></a> <em>(4.3_stable_quadrature_schemes)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-thm-singular-value-decomposition"><td></td><td>
+       <strong>thm-singular-value-decomposition</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="3.2_singular_value_decomposition.html#thm-singular-value-decomposition"><code class="xref">thm-singular-value-decomposition</code></a> <em>(3.2_singular_value_decomposition)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-thm-strong-duality"><td></td><td>
+       <strong>thm-strong-duality</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="3.4_constrained_least_squares_problems.html#thm-strong-duality"><code class="xref">thm-strong-duality</code></a> <em>(3.4_constrained_least_squares_problems)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-thm-uniqueness-of-orthogonal-polynomial"><td></td><td>
+       <strong>thm-uniqueness-of-orthogonal-polynomial</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="4.3_stable_quadrature_schemes.html#thm-uniqueness-of-orthogonal-polynomial"><code class="xref">thm-uniqueness-of-orthogonal-polynomial</code></a> <em>(4.3_stable_quadrature_schemes)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-thm-weak-duality"><td></td><td>
+       <strong>thm-weak-duality</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="3.4_constrained_least_squares_problems.html#thm-weak-duality"><code class="xref">thm-weak-duality</code></a> <em>(3.4_constrained_least_squares_problems)</em></td><td>
        <em>theorem</em></td></tr>
    </table>
 

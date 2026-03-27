@@ -399,7 +399,7 @@ document.write(`
   <section class="tex2jax_ignore mathjax_ignore" id="basic-properties">
 <h1>Basic properties<a class="headerlink" href="#basic-properties" title="Link to this heading">#</a></h1>
 <p>Eigenvalues are often complex, making it essential to consider eigenvalue problems within the setting of complex vector spaces.</p>
-<div class="proof definition admonition" id="definition-0">
+<div class="proof definition admonition" id="def-eigenvalue-problem">
 <p class="admonition-title"><span class="caption-number">Definition 11 </span></p>
 <section class="definition-content" id="proof-content">
 <p>Consider a matrix <span class="math notranslate nohighlight">\(A\)</span> in <span class="math notranslate nohighlight">\(\mathbb{C}^{n \times n}\)</span>. An <em>eigenvalue problem</em> is the task to find a non-zero vector <span class="math notranslate nohighlight">\(x \in \mathbb{C}^n\)</span>, called <em>eigenvector</em>, and a scalar <span class="math notranslate nohighlight">\(\lambda \in \mathbb{C}\)</span>, called <em>eigenvalue</em>, such that:</p>
@@ -411,24 +411,24 @@ A x = \lambda x.
 </div><p>The following section briefly outlines key distinctions in handling complex spaces.</p>
 <section id="complex-vector-spaces">
 <h2>Complex vector spaces<a class="headerlink" href="#complex-vector-spaces" title="Link to this heading">#</a></h2>
-<p>For complex spaces, the Euclidean inner product is defined as:</p>
+<p>For complex spaces, we use the Euclidean inner product</p>
 <div class="math notranslate nohighlight">
 \[
 \langle x, y \rangle = x^\top \, \overline{y} = \sum_j x_j \, \overline{y}_j.
 \]</div>
-<p>It requires taking the complex conjugate of <span class="math notranslate nohighlight">\(y\)</span> in the inner product calculation. The 2-norm of a vector is <span class="math notranslate nohighlight">\(\|x\|_2 = \langle x, x \rangle^{1/2}\)</span>.</p>
+<p>which requires taking the complex conjugate of <span class="math notranslate nohighlight">\(y\)</span>. The 2-norm of a vector is <span class="math notranslate nohighlight">\(\|x\|_2 = \langle x, x \rangle^{1/2}\)</span>.</p>
 <p>In complex spaces, the counterpart to transposed matrices is the conjugate transpose <span class="math notranslate nohighlight">\(A^H := \bar{A}^\top\)</span>. With this, the following relation holds:</p>
 <div class="math notranslate nohighlight">
 \[
 \langle Ax, y \rangle = \langle x, A^H y \rangle.
 \]</div>
-<div class="proof definition admonition" id="definition-1">
+<div class="proof definition admonition" id="def-hermitian-matrix">
 <p class="admonition-title"><span class="caption-number">Definition 12 </span> (Hermitian matrix)</p>
 <section class="definition-content" id="proof-content">
 <p>A matrix is <em>Hermitian</em> (or <em>self-adjoint</em>) if <span class="math notranslate nohighlight">\(A^H = A\)</span>.</p>
 </section>
-</div><p>Consequently, the diagonal elements of a Hermitian matrix are real-valued. Reflecting the altered inner product definition, the concept of orthogonal matrices in complex spaces changes to unitary matrices.</p>
-<div class="proof definition admonition" id="definition-2">
+</div><p>Consequently, the diagonal elements of a Hermitian matrix are real-valued. Reflecting the modified inner product, the role of orthogonal matrices in complex spaces is played by unitary matrices.</p>
+<div class="proof definition admonition" id="def-unitary-matrix">
 <p class="admonition-title"><span class="caption-number">Definition 13 </span> (Unitary matrix)</p>
 <section class="definition-content" id="proof-content">
 <p>A matrix <span class="math notranslate nohighlight">\(Q \in \mathbb{C}^{n \times n}\)</span> is <em>unitary</em> if <span class="math notranslate nohighlight">\(Q^H Q = I\)</span>.</p>
@@ -447,7 +447,7 @@ A x = \lambda x.
 \[
 \det(\lambda I - A) = 0.
 \]</div>
-<div class="proof definition admonition" id="definition-3">
+<div class="proof definition admonition" id="def-characteristic-polynomial">
 <p class="admonition-title"><span class="caption-number">Definition 14 </span></p>
 <section class="definition-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(A \in \mathbb{C}^{n \times n}\)</span>. We define the <em>characteristic polynomial</em> of <span class="math notranslate nohighlight">\(A\)</span> as</p>
@@ -456,17 +456,17 @@ A x = \lambda x.
 p(\lambda) := \det(\lambda I - A).
 \]</div>
 </section>
-</div><p>Expanding this determinant reveals that <span class="math notranslate nohighlight">\(p\)</span> is a polynomial with degree <span class="math notranslate nohighlight">\(n\)</span>. Let <span class="math notranslate nohighlight">\(\lambda_j\)</span> be the <span class="math notranslate nohighlight">\(j\)</span>th root of <span class="math notranslate nohighlight">\(p\)</span>. Then:</p>
+</div><p>Expanding this determinant reveals that <span class="math notranslate nohighlight">\(p\)</span> is a polynomial of degree <span class="math notranslate nohighlight">\(n\)</span>. Let <span class="math notranslate nohighlight">\(\lambda_j\)</span> be the <span class="math notranslate nohighlight">\(j\)</span>th root of <span class="math notranslate nohighlight">\(p\)</span>. Then</p>
 <div class="math notranslate nohighlight">
 \[
 p(\lambda) = \prod_j (\lambda - \lambda_j)^{\alpha_j},
 \]</div>
-<p>where <span class="math notranslate nohighlight">\(\alpha_j\)</span> is the algebraic multiplicity of the <span class="math notranslate nohighlight">\(j\)</span>th root. According to the fundamental theorem of algebra, <span class="math notranslate nohighlight">\(n = \sum_j \alpha_j\)</span>, meaning an <span class="math notranslate nohighlight">\(n \times n\)</span> matrix has <span class="math notranslate nohighlight">\(n\)</span> eigenvalues, including multiplicities.</p>
-<p>The geometric multiplicity <span class="math notranslate nohighlight">\(\beta_j\)</span> of an eigenvalue <span class="math notranslate nohighlight">\(\lambda_j\)</span> is the dimension of the kernel of <span class="math notranslate nohighlight">\(\lambda_j I - A\)</span>. If  <span class="math notranslate nohighlight">\(\beta_j = 1\)</span> then <span class="math notranslate nohighlight">\(\lambda_j\)</span> is a  simple eigenvalue. Generally, <span class="math notranslate nohighlight">\(\beta_j \leq \alpha_j\)</span>. The relationship between algebraic and geometric multiplicities can be further explored through the concept of Jordan normal form, which is briefly described in the optional material.</p>
+<p>where <span class="math notranslate nohighlight">\(\alpha_j\)</span> is the algebraic multiplicity of the <span class="math notranslate nohighlight">\(j\)</span>th root. According to the fundamental theorem of algebra, <span class="math notranslate nohighlight">\(n = \sum_j \alpha_j\)</span>, meaning an <span class="math notranslate nohighlight">\(n \times n\)</span> matrix has <span class="math notranslate nohighlight">\(n\)</span> eigenvalues when counted with multiplicity.</p>
+<p>The geometric multiplicity <span class="math notranslate nohighlight">\(\beta_j\)</span> of an eigenvalue <span class="math notranslate nohighlight">\(\lambda_j\)</span> is the dimension of the kernel of <span class="math notranslate nohighlight">\(\lambda_j I - A\)</span>. If <span class="math notranslate nohighlight">\(\alpha_j = 1\)</span>, then <span class="math notranslate nohighlight">\(\lambda_j\)</span> is called a simple eigenvalue. Generally, <span class="math notranslate nohighlight">\(\beta_j \leq \alpha_j\)</span>. The relationship between algebraic and geometric multiplicities can be further explored through the concept of Jordan normal form, which is briefly described in the optional material.</p>
 </section>
 <section id="eigenvalue-decomposition">
 <h2>Eigenvalue decomposition<a class="headerlink" href="#eigenvalue-decomposition" title="Link to this heading">#</a></h2>
-<p>If for all <span class="math notranslate nohighlight">\(j\)</span>, the algebraic and geometric multiplicities are equal (<span class="math notranslate nohighlight">\(\alpha_j = \beta_j\)</span>), the matrix <span class="math notranslate nohighlight">\(A\)</span> admits an eigenvalue decomposition</p>
+<p>If, for every eigenvalue, the algebraic and geometric multiplicities are equal, then the matrix <span class="math notranslate nohighlight">\(A\)</span> admits an eigenvalue decomposition</p>
 <div class="math notranslate nohighlight">
 \[
 A = X\Lambda X^{-1},
@@ -476,12 +476,12 @@ A = X\Lambda X^{-1},
 <section id="the-companion-matrix">
 <h2>The companion matrix<a class="headerlink" href="#the-companion-matrix" title="Link to this heading">#</a></h2>
 <p>The companion matrix of a polynomial <span class="math notranslate nohighlight">\(p\)</span> is a special square matrix whose characteristic polynomial is <span class="math notranslate nohighlight">\(p\)</span>. Thus, the companion matrix’s eigenvalues are the polynomial’s roots. This makes companion matrices useful in numerical algebra for finding polynomial roots.</p>
-<p>Given the polynomial</p>
+<p>Given the monic polynomial</p>
 <div class="math notranslate nohighlight">
 \[
 p(x) = x^n + a_{n-1}x^{n-1} + \cdots + a_2x^2 + a_1x + a_0
 \]</div>
-<p>of degree <span class="math notranslate nohighlight">\(n\)</span> with leading coefficient <span class="math notranslate nohighlight">\(a_n = 1\)</span>, the companion matrix <span class="math notranslate nohighlight">\(C\)</span> of <span class="math notranslate nohighlight">\(p(x)\)</span> is an <span class="math notranslate nohighlight">\(n \times n\)</span> matrix defined as:</p>
+<p>of degree <span class="math notranslate nohighlight">\(n\)</span>, the companion matrix <span class="math notranslate nohighlight">\(C\)</span> of <span class="math notranslate nohighlight">\(p\)</span> is the <span class="math notranslate nohighlight">\(n \times n\)</span> matrix</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 C = \begin{pmatrix}
@@ -529,7 +529,7 @@ C = \begin{pmatrix}
 </section>
 <section id="eigenvalue-decomposition-with-python">
 <h3>Eigenvalue decomposition with Python<a class="headerlink" href="#eigenvalue-decomposition-with-python" title="Link to this heading">#</a></h3>
-<p>Shortly, we will be delving into constructing numerical methods to compute eigenvalues and eigenvectors. Here, we look at a simple example, which uses NumPy’s eigensystem solver as a black box.</p>
+<p>Shortly, we will turn to numerical methods for computing eigenvalues and eigenvectors. Here, we look at a simple example using NumPy’s eigensystem solver as a black box.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
 <span class="c1"># Define a complex matrix A</span>
@@ -629,7 +629,7 @@ y' = Ay,
 \[
 y'(t) = \lambda y_0 e^{\lambda t} = A y_0 e^{\lambda t} = A y(t).
 \]</div>
-<p class="sd-card-text">This perspective emphasises eigenvalues as not merely properties of matrices but as fundamental characteristics of dynamical systems governed by the matrix <span class="math notranslate nohighlight">\(A\)</span>. This view contrasts singular values, which are more about the mapping attributes of a matrix <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<p class="sd-card-text">This perspective emphasises eigenvalues as not merely properties of matrices but as fundamental characteristics of dynamical systems governed by the matrix <span class="math notranslate nohighlight">\(A\)</span>. This contrasts with singular values, which are more closely tied to the mapping properties of a matrix <span class="math notranslate nohighlight">\(A\)</span>.</p>
 </div>
 </details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
@@ -701,9 +701,9 @@ y_1^H(x_1 - \alpha x_2) = 0,
 <p class="sd-card-text">In the above notation, we may write this more succinctly as</p>
 <div class="math notranslate nohighlight">
 \[
-|\delta \lambda| \leq \kappa_{rel}(X) \| \delta A \|_2,
+|\delta \lambda| \leq \kappa_2(X) \| \delta A \|_2,
 \]</div>
-<p class="sd-card-text">where <span class="math notranslate nohighlight">\(\kappa_{rel}(A) = \|X\|_2 \|X^{-1}\|_2\)</span>. This theorem relates the perturbation of eigenvalues to the condition number of the eigenvector matrix <span class="math notranslate nohighlight">\(X\)</span>, offering a maximum bound for eigenvalue perturbations. For a Hermitian matrix <span class="math notranslate nohighlight">\(A\)</span>, the eigenvector matrix is unitary, implying that the condition number is 1, simplifying the Bauer-Fike theorem.</p>
+<p class="sd-card-text">where <span class="math notranslate nohighlight">\(\kappa_2(X) = \|X\|_2 \|X^{-1}\|_2\)</span>. This theorem relates the perturbation of eigenvalues to the condition number of the eigenvector matrix <span class="math notranslate nohighlight">\(X\)</span>, offering an upper bound for eigenvalue perturbations. For a Hermitian matrix <span class="math notranslate nohighlight">\(A\)</span>, the eigenvector matrix can be chosen unitary, implying that the condition number is <span class="math notranslate nohighlight">\(1\)</span>, which simplifies the Bauer-Fike theorem.</p>
 </div>
 </details></section>
 </section>

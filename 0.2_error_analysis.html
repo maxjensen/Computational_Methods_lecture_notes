@@ -378,9 +378,9 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#backward-error">Backward error</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#condition-number">Condition number</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finite-differences">Finite Differences</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finite-differences">Finite differences</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#symbolic-computation">Symbolic computation</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#automatic-differentiation">Automatic Differentiation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#automatic-differentiation">Automatic differentiation</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#self-check-questions">Self-check questions</a></li>
@@ -397,9 +397,9 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="backward-error-analysis">
 <h1>Backward error analysis<a class="headerlink" href="#backward-error-analysis" title="Link to this heading">#</a></h1>
-<p>Modern error analysis (in finite dimensional settings) traces its origins to the seminal work of <a class="reference external" href="https://en.wikipedia.org/wiki/James_H._Wilkinson">James Hardy Wilkinson</a>. It distinguishes between forward error, which is the error in the result of an algorithm, and backward error, which is a measure of perturbation in the input data.</p>
+<p>Modern error analysis in finite-dimensional settings traces its origins to the seminal work of <a class="reference external" href="https://en.wikipedia.org/wiki/James_H._Wilkinson">James Hardy Wilkinson</a>. It distinguishes between forward error, which is the error in the result of an algorithm, and backward error, which measures the perturbation in the input data.</p>
 <p>In the following, we denote by <span class="math notranslate nohighlight">\(f: D \rightarrow Y\)</span> a function that maps data from an input space <span class="math notranslate nohighlight">\(D\)</span> to an output space <span class="math notranslate nohighlight">\(Y\)</span>. We assume that <span class="math notranslate nohighlight">\(D \subset X\)</span> and that both <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are finite-dimensional real vector spaces with the respective norms <span class="math notranslate nohighlight">\(\| \cdot \|_X\)</span> and <span class="math notranslate nohighlight">\(\| \cdot \|_Y\)</span>. Correspondingly, we define a function <span class="math notranslate nohighlight">\(\tilde{f}: D \to Y\)</span>, which represents an approximate evaluation of <span class="math notranslate nohighlight">\(f\)</span>.</p>
-<div class="proof example admonition" id="example-0">
+<div class="proof example admonition" id="ex-error-analysis-taylor">
 <p class="admonition-title"><span class="caption-number">Example 1 </span></p>
 <section class="example-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(f : \mathbb{R}^n \to \mathbb{R}\)</span> be a differentiable function and</p>
@@ -409,17 +409,17 @@ document.write(`
 \]</div>
 <p>its first-order Taylor expansion about <span class="math notranslate nohighlight">\(\bar{x}\)</span>.</p>
 </section>
-</div><div class="proof example admonition" id="example-1">
+</div><div class="proof example admonition" id="ex-error-analysis-difference-quotient">
 <p class="admonition-title"><span class="caption-number">Example 2 </span></p>
 <section class="example-content" id="proof-content">
-<p>Approximate the derivative <span class="math notranslate nohighlight">\(f := g'\)</span> by a difference quotient of <span class="math notranslate nohighlight">\(g\)</span></p>
+<p>Approximate the derivative <span class="math notranslate nohighlight">\(f := g'\)</span> by a difference quotient of <span class="math notranslate nohighlight">\(g\)</span>:</p>
 <div class="math notranslate nohighlight">
 \[
 \tilde{f}(x) = \frac{g(x + h) - g(x)}{h}.
 \]</div>
 <p>for some <span class="math notranslate nohighlight">\(h &gt; 0\)</span>.</p>
 </section>
-</div><div class="proof example admonition" id="example-2">
+</div><div class="proof example admonition" id="ex-error-analysis-linear-system">
 <p class="admonition-title"><span class="caption-number">Example 3 </span></p>
 <section class="example-content" id="proof-content">
 <p>Consider the solution of the non-singular linear system of equations</p>
@@ -459,7 +459,7 @@ f(\tilde{x}) = \tilde{y} = \tilde{f}(x).
 \]</div>
 </div></blockquote>
 <p>In other words, we ask if the exact function <span class="math notranslate nohighlight">\(f\)</span> could produce the same output as <span class="math notranslate nohighlight">\(\tilde{f}\)</span> but with a slight perturbation in the input data. The idea is that our approximate function <span class="math notranslate nohighlight">\(\tilde{f}\)</span> is useful if only a small perturbation is needed for the input data so that <span class="math notranslate nohighlight">\(f\)</span> produces the same output as <span class="math notranslate nohighlight">\(\tilde{f}\)</span>. Note that the perturbation generally depends on the input <span class="math notranslate nohighlight">\(x\)</span>.</p>
-<div class="proof example admonition" id="example-3">
+<div class="proof example admonition" id="ex-backward-error-linearisation">
 <p class="admonition-title"><span class="caption-number">Example 4 </span></p>
 <section class="example-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(f(x) = x^2 + x\)</span> and <span class="math notranslate nohighlight">\(\tilde{f} = x\)</span>, its linearisation at <span class="math notranslate nohighlight">\(0\)</span>. Let <span class="math notranslate nohighlight">\(x = 1\)</span> so that <span class="math notranslate nohighlight">\(\tilde{y} = 1\)</span>. The function <span class="math notranslate nohighlight">\(f\)</span> attains <span class="math notranslate nohighlight">\(1\)</span> at <span class="math notranslate nohighlight">\(\tilde{x}_{1,2} := - \frac{1}{2} \pm \frac{\sqrt{5}}{2}\)</span>.</p>
@@ -467,12 +467,12 @@ f(\tilde{x}) = \tilde{y} = \tilde{f}(x).
 </a>
 <p>Therefore, <span class="math notranslate nohighlight">\(\Delta x_1 := \tilde{x}_1 - x = (- \frac{1}{2} + \frac{\sqrt{5}}{2}) - 1\)</span> and <span class="math notranslate nohighlight">\(\Delta x_2 := \tilde{x}_2 - x = (- \frac{1}{2} - \frac{\sqrt{5}}{2}) - 1\)</span> are perturbations of <span class="math notranslate nohighlight">\(x\)</span> to reproduce <span class="math notranslate nohighlight">\(\tilde{f}\)</span>’s output.</p>
 </section>
-</div><div class="proof example admonition" id="example-4">
+</div><div class="proof example admonition" id="ex-backward-error-reversed-roles">
 <p class="admonition-title"><span class="caption-number">Example 5 </span></p>
 <section class="example-content" id="proof-content">
 <p>In the second example, we reverse the roles of <span class="math notranslate nohighlight">\(f\)</span> and <span class="math notranslate nohighlight">\(\tilde{f}\)</span>. Let <span class="math notranslate nohighlight">\(f(x) = x\)</span> and <span class="math notranslate nohighlight">\(\tilde{f} = x^2 + x\)</span>. Given <span class="math notranslate nohighlight">\(\tilde{y} = 1\)</span>, there are two possible inputs: <span class="math notranslate nohighlight">\(- \frac{1}{2} \pm \frac{\sqrt{5}}{2}\)</span>. Re-reading the question in the box above clarifies that we assume the choice of input is given: suppose it is the positive input <span class="math notranslate nohighlight">\(x = - \frac{1}{2} + \frac{\sqrt{5}}{2}\)</span>. Now, with <span class="math notranslate nohighlight">\(\tilde{x} = 1\)</span>, the perturbation is <span class="math notranslate nohighlight">\(\Delta x_1 := \tilde{x} - x = 1 - (- \frac{1}{2} + \frac{\sqrt{5}}{2})\)</span>.</p>
 </section>
-</div><p>The potential lack of bijectivity of <span class="math notranslate nohighlight">\(f\)</span> makes the backward error concept more complex than that of the forward error: there may be many possible <span class="math notranslate nohighlight">\(\Delta x\)</span> satisfying <span class="math notranslate nohighlight">\(\tilde{y} = f(x + \Delta x)\)</span>. We wish to find a smallest perturbation <span class="math notranslate nohighlight">\(\Delta x\)</span>, meaning it is obtained by solving a minimisation problem.</p>
+</div><p>The potential lack of bijectivity of <span class="math notranslate nohighlight">\(f\)</span> makes the backward error concept more complex than that of the forward error: there may be many possible <span class="math notranslate nohighlight">\(\Delta x\)</span> satisfying <span class="math notranslate nohighlight">\(\tilde{y} = f(x + \Delta x)\)</span>. We wish to find the smallest such perturbation, which leads to a minimisation problem.</p>
 <p>Therefore, the absolute backward error of <span class="math notranslate nohighlight">\(f\)</span> at <span class="math notranslate nohighlight">\(\tilde{y}\)</span> with input <span class="math notranslate nohighlight">\(x \in \tilde{f}^{-1}(\tilde{y})\)</span> is defined as</p>
 <div class="math notranslate nohighlight">
 \[
@@ -481,12 +481,12 @@ f(\tilde{x}) = \tilde{y} = \tilde{f}(x).
 <p>To express the above, we can also sometimes write more compactly</p>
 <div class="math notranslate nohighlight">
 \[
-\eta_{abs}(\tilde{y}, x) = \inf \{ \| \Delta x \|_X : \, \Delta x \in f(\tilde{y})^{-1} - x\}.
+\eta_{abs}(\tilde{y}, x) = \inf \{ \| \Delta x \|_X : \, \Delta x \in f^{-1}(\tilde{y}) - x\}.
 \]</div>
 <p>Similarly, the relative backward error of <span class="math notranslate nohighlight">\(f\)</span> at <span class="math notranslate nohighlight">\(\tilde{y}\)</span> with input <span class="math notranslate nohighlight">\(x \in \tilde{f}^{-1}(\tilde{y})\)</span> is defined as</p>
 <div class="math notranslate nohighlight">
 \[
-\eta_{rel}(\tilde{y}, x) := \inf \Big\{ \frac{\| \Delta x \|_X}{\|x\|_X} : \, \Delta x \in f(\tilde{y})^{-1} - x \Big\} = \frac{\eta_{abs}(\tilde{y}, x)}{\|x\|_X}.
+\eta_{rel}(\tilde{y}, x) := \inf \Big\{ \frac{\| \Delta x \|_X}{\|x\|_X} : \, \Delta x \in f^{-1}(\tilde{y}) - x \Big\} = \frac{\eta_{abs}(\tilde{y}, x)}{\|x\|_X}.
 \]</div>
 <p>Recall that <span class="math notranslate nohighlight">\(\inf \emptyset = \infty\)</span>; thus, if no <span class="math notranslate nohighlight">\(\Delta x\)</span> exists such that <span class="math notranslate nohighlight">\(f(x+ \Delta x) = \tilde{y}\)</span>, then</p>
 <div class="math notranslate nohighlight">
@@ -504,7 +504,7 @@ f(\tilde{x}) = \tilde{y} = \tilde{f}(x).
 \eta_{rel}(\tilde{y}) = \frac{\|\Delta x\|_X}{\|x\|_X} = \frac{\| x - \tilde{x} \|_X}{\|x\|_X}.
 \]</div>
 <p>Thus, for invertible <span class="math notranslate nohighlight">\(f\)</span> and <span class="math notranslate nohighlight">\(\tilde{f}\)</span>, the absolute (resp. relative) backward error of <span class="math notranslate nohighlight">\(f\)</span> at <span class="math notranslate nohighlight">\(\tilde{y}\)</span> is equal to the absolute (resp. relative) forward error of <span class="math notranslate nohighlight">\(\tilde{f}^{-1}\)</span> at <span class="math notranslate nohighlight">\(\tilde{y}\)</span>, now viewing <span class="math notranslate nohighlight">\(f\)</span> as an approximation of <span class="math notranslate nohighlight">\(\tilde{f}\)</span>.</p>
-<div class="proof example admonition" id="example-5">
+<div class="proof example admonition" id="ex-backward-error-linear-systems-noninvertible">
 <p class="admonition-title"><span class="caption-number">Example 6 </span></p>
 <section class="example-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(f(A, b) = A^{-1} b\)</span> as introduced in this section. Then, given a vector <span class="math notranslate nohighlight">\(\tilde{y}\)</span>, <span class="math notranslate nohighlight">\(f^{-1}(\tilde{y})\)</span> is the set of matrix-vector pairs <span class="math notranslate nohighlight">\((A,b)\)</span> such that <span class="math notranslate nohighlight">\(A \tilde{y} = b\)</span>. Clearly, there are many linear systems that have the solution <span class="math notranslate nohighlight">\(\tilde{y}\)</span> and therefore this <span class="math notranslate nohighlight">\(f\)</span> is not invertible.</p>
@@ -525,7 +525,7 @@ f(\tilde{x}) = \tilde{y} = \tilde{f}(x).
 \end{aligned}
 \end{split}\]</div>
 <p>Equality (2) is possible by choosing <span class="math notranslate nohighlight">\(\tilde{x} = x + \Delta x\)</span> such that <span class="math notranslate nohighlight">\(\tilde{f}(x) = f(\tilde{x})\)</span>. Hence, <span class="math notranslate nohighlight">\(\Delta x\)</span> is the backward perturbation associated with the output <span class="math notranslate nohighlight">\(\tilde{y}\)</span>. The right-hand side in (5) is the product of the derivative of <span class="math notranslate nohighlight">\(f\)</span> and the size of the backward error.</p>
-<p>Inequality (5) demonstrates that the absolute forward error depends on a product of two quantities: the sensitivity of <span class="math notranslate nohighlight">\(f\)</span> to perturbations (there <span class="math notranslate nohighlight">\(\|\nabla f (x)\|_{Y,X}\)</span>) and the size of the absolute backward error <span class="math notranslate nohighlight">\(\|x-\tilde{x}\|\)</span>. This is of fundamental importance and we shall now turn to methods to measure the sensitivity of <span class="math notranslate nohighlight">\(f\)</span> via its <em>condition numbers</em>. The output forward error will still be large if the problem is highly sensitive to perturbations, even though the backward error may be small.</p>
+<p>Inequality (5) demonstrates that the absolute forward error depends on a product of two quantities: the sensitivity of <span class="math notranslate nohighlight">\(f\)</span> to perturbations, here measured by <span class="math notranslate nohighlight">\(\|\nabla f (x)\|_{Y,X}\)</span>, and the size of the absolute backward error <span class="math notranslate nohighlight">\(\|x-\tilde{x}\|\)</span>. This is of fundamental importance, and we now turn to methods for measuring the sensitivity of <span class="math notranslate nohighlight">\(f\)</span> via its <em>condition numbers</em>. The forward error can still be large if the problem is highly sensitive to perturbations, even when the backward error is small.</p>
 <p>The <em>absolute condition number</em> of <span class="math notranslate nohighlight">\(f : D \to Y\)</span> is defined as</p>
 <div class="math notranslate nohighlight">
 \[
@@ -546,7 +546,7 @@ K_{rel} := \sup_{x,x+\Delta x \in D \atop \Delta x \neq 0, f(x) \neq 0} \frac{\|
 \[
 \kappa_{rel}(x) := \lim_{\delta\rightarrow 0} \sup_{x+\Delta x \in D \atop 0 &lt; \| \Delta x \| \leq \delta} \frac{\| \Delta f \|_Y / \| f(x) \|_Y}{\| \Delta x \|_X / \| x \|_X}.
 \]</div>
-<p>Hence, <span class="math notranslate nohighlight">\(\kappa_{rel}\)</span> measures the largest possible ratio of relative output error with respect to relative input error under small perturbations. Simplifying the quotients places <span class="math notranslate nohighlight">\(x\)</span> in the numerator so that the case <span class="math notranslate nohighlight">\(x = 0\)</span> is not interpreted as a division by zero. If <span class="math notranslate nohighlight">\(f\)</span> is differentiable, you can show (self-check question)</p>
+<p>Hence, <span class="math notranslate nohighlight">\(\kappa_{rel}(x)\)</span> measures the largest possible ratio of relative output error to relative input error under small perturbations near <span class="math notranslate nohighlight">\(x\)</span>. If <span class="math notranslate nohighlight">\(f\)</span> is differentiable, you can show (self-check question)</p>
 <div class="math notranslate nohighlight">
 \[
 \kappa_{abs}(x) = \| \nabla f(x) \|_{Y,X}, \qquad \kappa_{rel}(x) = \frac{\| x \|_X}{\| f(x) \|_Y}\| \nabla f(x) \|_{Y,X}.
@@ -585,9 +585,9 @@ multiple of machine precision.
 </section>
 <section id="python-skills">
 <h2>Python skills<a class="headerlink" href="#python-skills" title="Link to this heading">#</a></h2>
-<p>When working with numerical computations, derivatives are frequently required. The above formulas for the condition numbers are an example. There are several approaches to approximate or compute them, we begin here by demonstrating a numerical approximation with finite differences, followed by alternative approachs using symbolic and automatic differentiation methods.</p>
+<p>When working with numerical computations, derivatives are frequently required. The above formulas for the condition numbers are one example. There are several ways to approximate or compute them. We begin with a numerical approximation by finite differences, followed by alternative approaches using symbolic and automatic differentiation.</p>
 <section id="finite-differences">
-<h3>Finite Differences<a class="headerlink" href="#finite-differences" title="Link to this heading">#</a></h3>
+<h3>Finite differences<a class="headerlink" href="#finite-differences" title="Link to this heading">#</a></h3>
 <p>An efficient way to approximate the derivative of a function  <span class="math notranslate nohighlight">\(f : \mathbb{R} \to \mathbb{R}\)</span> at a point <span class="math notranslate nohighlight">\(x\)</span> is to use a finite difference scheme. The derivative <span class="math notranslate nohighlight">\(f'(x)\)</span> can be approximated for example using a central difference formula:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -610,7 +610,7 @@ f'(x) \approx \frac{f(x+h) - f(x-h)}{2h}
 </section>
 <section id="symbolic-computation">
 <h3>Symbolic computation<a class="headerlink" href="#symbolic-computation" title="Link to this heading">#</a></h3>
-<p>Python also has libraries, such as <code class="docutils literal notranslate"><span class="pre">sympy</span></code>, that can compute the derivative symbolically, similar to manual calculations or computer algebra programmes such as Mathematica.</p>
+<p>Python also has libraries, such as <code class="docutils literal notranslate"><span class="pre">sympy</span></code>, that can compute derivatives symbolically, similar to manual calculations or computer algebra systems such as Mathematica.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sympy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sp</span>
 
 <span class="c1"># Define a symbolic variable</span>
@@ -631,8 +631,8 @@ f'(x) \approx \frac{f(x+h) - f(x-h)}{2h}
 </div>
 </section>
 <section id="automatic-differentiation">
-<h3>Automatic Differentiation<a class="headerlink" href="#automatic-differentiation" title="Link to this heading">#</a></h3>
-<p>Another way to compute derivatives in Python is through libraries that implement automatic differentiation at runtime, rather than relying on symbolic manipulation. One such tool is autograd, which can take ordinary Python functions using numpy and return functions representing their derivatives, combining symbolic and numerical techniques. This approach is particularly convenient for more complex functions or situations where symbolic differentiation is cumbersome.</p>
+<h3>Automatic differentiation<a class="headerlink" href="#automatic-differentiation" title="Link to this heading">#</a></h3>
+<p>Another way to compute derivatives in Python is through libraries that implement automatic differentiation at runtime, rather than relying on symbolic manipulation. One such tool is <code class="docutils literal notranslate"><span class="pre">autograd</span></code>, which can take ordinary Python functions using NumPy and return functions representing their derivatives. This approach is particularly convenient for more complex functions or situations where symbolic differentiation is cumbersome.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">autograd.numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">autograd</span><span class="w"> </span><span class="kn">import</span> <span class="n">grad</span>
 
@@ -776,7 +776,7 @@ and $\kappa(A)\rightarrow\infty$ as $\epsilon\rightarrow 0$. The reason is simpl
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
 <span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
-<p class="sd-card-text">The Jacobian of <span class="math notranslate nohighlight">\(f\)</span> is <span class="math notranslate nohighlight">\(J = \Delta f = \begin{pmatrix}1 &amp; -1\end{pmatrix}\)</span>. Hence, <span class="math notranslate nohighlight">\(\|J\|_{\infty} = 2\)</span>. For the condition number, we obtain</p>
+<p class="sd-card-text">The Jacobian of <span class="math notranslate nohighlight">\(f\)</span> is <span class="math notranslate nohighlight">\(J = \nabla f = \begin{pmatrix}1 &amp; -1\end{pmatrix}\)</span>. Hence, <span class="math notranslate nohighlight">\(\|J\|_{\infty} = 2\)</span>. For the condition number, we obtain</p>
 <div class="math notranslate nohighlight">
 \[
 \kappa = \frac{\|x\|_\infty}{\|f(x)\|_\infty} \|J\|_\infty = \frac{2 \max\left\{|x_1|, |x_2|\right\}}{|x_1 - x_2|}.
@@ -836,21 +836,21 @@ f(x + \Delta x) = f(x) + \nabla f(x) \cdot \Delta x + h(x + \Delta x) \cdot \Del
 <p>Let <span class="math notranslate nohighlight">\(f : D \subset X \to Y\)</span> be differentiable and <span class="math notranslate nohighlight">\(\| x \|_X \neq 0\)</span> and <span class="math notranslate nohighlight">\(\| f(x) \|_Y \neq 0\)</span>, <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> being finite-dimensional real vector spaces. Show that</p>
 <div class="math notranslate nohighlight">
 \[
-\frac{\|\Delta f\|_Y}{\|f(x)\|_Y} \leq K_{rel}(x)\cdot \frac{\|\Delta x\|_X}{\|x\|_X}
+\frac{\|\Delta f\|_Y}{\|f(x)\|_Y} \leq K_{rel}\cdot \frac{\|\Delta x\|_X}{\|x\|_X}
 \]</div>
 <p>and</p>
 <div class="math notranslate nohighlight">
 \[
-\frac{\|\Delta f\|_Y}{\|f\|_Y} \leq \kappa_{rel}(x)\cdot \frac{\|\Delta x\|_X}{\|x\|_X} + \text{higher-order terms}
+\frac{\|\Delta f\|_Y}{\|f(x)\|_Y} \leq \kappa_{rel}(x)\cdot \frac{\|\Delta x\|_X}{\|x\|_X} + \text{higher-order terms}
 \]</div>
 </div>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
 <span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
-<p class="sd-card-text">We only show the second bound; the first follows from an inquality similar to <span class="math notranslate nohighlight">\((*)\)</span> below, with an adjusted set over which the supremum is taken. We multiple and divide by an auxiary term: for <span class="math notranslate nohighlight">\(\|\Delta x\|_X &gt; 0\)</span>,</p>
+<p class="sd-card-text">We only show the second bound; the first follows from an inequality similar to <span class="math notranslate nohighlight">\((*)\)</span> below, with an adjusted set over which the supremum is taken. We multiply and divide by an auxiliary term: for <span class="math notranslate nohighlight">\(\|\Delta x\|_X &gt; 0\)</span>,</p>
 <div class="math notranslate nohighlight">
 \[
-\frac{\|\Delta f\|_Y}{\|f\|_Y} \leq \Bigl( \frac{\|\Delta f\|_Y}{\|f\|_Y} \Big/ \frac{\|\Delta x\|_X}{\|x\|_X} \Bigr) \frac{\|\Delta x\|_X}{\|x\|_X} \stackrel{(*)}{\leq} \frac{\|\Delta x\|_X}{\|x\|_X} \sup_{0 &lt; \| \Delta \tilde{x} \|_X \leq \| \Delta x \|_X} \Bigl( \frac{\| f(x + \Delta \tilde{x}) - f(x) \|_Y}{\| f(x) \|_Y} \Big/ \frac{\|\Delta \tilde{x}\|_X}{\|x\|_X} \Bigr)
+\frac{\|\Delta f\|_Y}{\|f(x)\|_Y} \leq \Bigl( \frac{\|\Delta f\|_Y}{\|f(x)\|_Y} \Big/ \frac{\|\Delta x\|_X}{\|x\|_X} \Bigr) \frac{\|\Delta x\|_X}{\|x\|_X} \stackrel{(*)}{\leq} \frac{\|\Delta x\|_X}{\|x\|_X} \sup_{0 &lt; \| \Delta \tilde{x} \|_X \leq \| \Delta x \|_X} \Bigl( \frac{\| f(x + \Delta \tilde{x}) - f(x) \|_Y}{\| f(x) \|_Y} \Big/ \frac{\|\Delta \tilde{x}\|_X}{\|x\|_X} \Bigr)
 \]</div>
 <p class="sd-card-text">Because <span class="math notranslate nohighlight">\(\| f(x) \| \neq 0\)</span> and <span class="math notranslate nohighlight">\(f\)</span> is differentiable, we may use the arguments of the previous self-check question to show that the function</p>
 <div class="math notranslate nohighlight">
@@ -944,9 +944,9 @@ g(\Delta x) = \kappa_{rel}(x) + \tilde{h}(\Delta x).
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#backward-error">Backward error</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#condition-number">Condition number</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-skills">Python skills</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finite-differences">Finite Differences</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finite-differences">Finite differences</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#symbolic-computation">Symbolic computation</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#automatic-differentiation">Automatic Differentiation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#automatic-differentiation">Automatic differentiation</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#self-check-questions">Self-check questions</a></li>

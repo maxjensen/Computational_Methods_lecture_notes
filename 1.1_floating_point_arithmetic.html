@@ -403,7 +403,7 @@ document.write(`
 <section id="definition-of-floating-point-numbers">
 <h2>Definition of floating-point numbers<a class="headerlink" href="#definition-of-floating-point-numbers" title="Link to this heading">#</a></h2>
 <p>The basic idea behind floating-point numbers is to define a finite subset of <span class="math notranslate nohighlight">\(\mathbb{Q}\)</span> that has a finer spacing for small numbers, allowing computations to account for small quantities, while employing a wider spacing for large numbers, thus covering a large range between the smallest and largest represented numbers.</p>
-<div class="proof definition admonition" id="definition-0">
+<div class="proof definition admonition" id="def-floating-point-set">
 <p class="admonition-title"><span class="caption-number">Definition 2 </span></p>
 <section class="definition-content" id="proof-content">
 <p>We call <span class="math notranslate nohighlight">\(\mathcal{F}\)</span> a set of floating-point numbers if</p>
@@ -419,7 +419,7 @@ document.write(`
 \[
 \frac{m}{b^{p-1}} = 1, 1+b^{1-p}, 1+2b^{1-p}, \dots, b-b^{1-p}
 \]</div>
-<div class="proof example admonition" id="example-1">
+<div class="proof example admonition" id="ex-floating-point-binary-toy-model">
 <p class="admonition-title"><span class="caption-number">Example 7 </span></p>
 <section class="example-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(b = 2\)</span>, <span class="math notranslate nohighlight">\(p = 2\)</span>, <span class="math notranslate nohighlight">\(e_\min = -1\)</span> and <span class="math notranslate nohighlight">\(e_\max = 1\)</span>. It follows that <span class="math notranslate nohighlight">\(b^{p-1} = 2\)</span> and <span class="math notranslate nohighlight">\(b^p - 1 = 3\)</span>. Then <span class="math notranslate nohighlight">\(\mathcal{F}\)</span> consists of <span class="math notranslate nohighlight">\(0\)</span> and the numbers enumerated in the following table:</p>
@@ -503,7 +503,7 @@ document.write(`
 </section>
 <section id="ieee-754">
 <h2>IEEE 754<a class="headerlink" href="#ieee-754" title="Link to this heading">#</a></h2>
-<p>The previous example is not practical because that <span class="math notranslate nohighlight">\(\mathcal{F}\)</span> is far too small. Instead, the most widely used floating-point sets are defined in the <a class="reference external" href="https://ieeexplore.ieee.org/document/8766229">IEEE 754 standard</a>.</p>
+<p>The previous example is not practical because <span class="math notranslate nohighlight">\(\mathcal{F}\)</span> is far too small. Instead, the most widely used floating-point sets are defined in the <a class="reference external" href="https://ieeexplore.ieee.org/document/8766229">IEEE 754 standard</a>.</p>
 <p>The two most common types of floating-point numbers are IEEE double precision and IEEE single precision. The former provides around 15 digits of accuracy, while the latter offers around 7 digits of accuracy.</p>
 <ul class="simple">
 <li><p><strong>IEEE double precision:</strong> <span class="math notranslate nohighlight">\(e_{min} = -1022, e_{max} = 1023, p = 53\)</span>, <span class="math notranslate nohighlight">\(b = 2\)</span></p></li>
@@ -515,20 +515,20 @@ document.write(`
 </section>
 <section id="floating-point-arithmetic">
 <h2>Floating-point arithmetic<a class="headerlink" href="#floating-point-arithmetic" title="Link to this heading">#</a></h2>
-<p>The distance between neighbouring floats with same leading digit is <span class="math notranslate nohighlight">\(2^e b^{1-p}\)</span>. Let <span class="math notranslate nohighlight">\(x \in \mathbb{R}\)</span> be between the smallest and largest floating-point number. Define <span class="math notranslate nohighlight">\(\epsilon_{mach} := \frac{1}{2} b^{1-p}\)</span>. There exists <span class="math notranslate nohighlight">\(x' \in \mathcal{F}\)</span> such that <span class="math notranslate nohighlight">\(|x - x'| \leq \epsilon_{mach} |x|\)</span>. <strong>In words, <span class="math notranslate nohighlight">\(\epsilon_{mach}\)</span> is the relative distance to the next floating-point number in <span class="math notranslate nohighlight">\(\mathcal{F}\)</span>.</strong></p>
+<p>The distance between neighbouring floats with the same leading digit is <span class="math notranslate nohighlight">\(b^e b^{1-p}\)</span>. Let <span class="math notranslate nohighlight">\(x \in \mathbb{R}\)</span> lie between the smallest and largest floating-point numbers. Define <span class="math notranslate nohighlight">\(\epsilon_{mach} := \frac{1}{2} b^{1-p}\)</span>. There exists <span class="math notranslate nohighlight">\(x' \in \mathcal{F}\)</span> such that <span class="math notranslate nohighlight">\(|x - x'| \leq \epsilon_{mach} |x|\)</span>. <strong>In words, <span class="math notranslate nohighlight">\(\epsilon_{mach}\)</span> is half the relative distance from a number to the next floating-point number at the same scale.</strong></p>
 <p>Define the projection</p>
 <div class="math notranslate nohighlight">
 \[
 fl: x \rightarrow fl(x),
 \]</div>
-<p>where <span class="math notranslate nohighlight">\(fl(x)\)</span> is the closest floating-point number in <span class="math notranslate nohighlight">\(\mathcal{F}\)</span>. If there are two floating-point numbers of equal distance choose the one with smaller absolute value. It follows that <span class="math notranslate nohighlight">\(fl(x) = x \cdot (1 + \epsilon)\)</span> for some <span class="math notranslate nohighlight">\(|\epsilon| \leq \epsilon_{mach}\)</span>.</p>
-<div class="proof theorem admonition" id="theorem-2">
+<p>where <span class="math notranslate nohighlight">\(fl(x)\)</span> is the closest floating-point number in <span class="math notranslate nohighlight">\(\mathcal{F}\)</span>. If there are two floating-point numbers at equal distance, choose the one with smaller absolute value. It follows that <span class="math notranslate nohighlight">\(fl(x) = x \cdot (1 + \epsilon)\)</span> for some <span class="math notranslate nohighlight">\(|\epsilon| \leq \epsilon_{mach}\)</span>.</p>
+<div class="proof theorem admonition" id="thm-floating-point-arithmetic">
 <p class="admonition-title"><span class="caption-number">Theorem 2 </span> (Fundamental Theorem of Floating Point Arithmetic)</p>
 <section class="theorem-content" id="proof-content">
-<p>Define <span class="math notranslate nohighlight">\(x\odot y = fl(x \cdot y)\)</span>, where <span class="math notranslate nohighlight">\(\odot\)</span> is one of <span class="math notranslate nohighlight">\(+,-,\times,\div\)</span>. Then for all <span class="math notranslate nohighlight">\(x,y\in\mathcal{F}\)</span> there exists <span class="math notranslate nohighlight">\(\epsilon\)</span> with <span class="math notranslate nohighlight">\(|\epsilon| \leq \epsilon_{mach}\)</span> such that</p>
+<p>Define <span class="math notranslate nohighlight">\(x\odot y = fl(x \mathbin{\circ} y)\)</span>, where <span class="math notranslate nohighlight">\(\odot\)</span> denotes the computed operation corresponding to one of the exact operations <span class="math notranslate nohighlight">\(\circ \in \{+,-,\times,\div\}\)</span>. Then for all <span class="math notranslate nohighlight">\(x,y\in\mathcal{F}\)</span> there exists <span class="math notranslate nohighlight">\(\epsilon\)</span> with <span class="math notranslate nohighlight">\(|\epsilon| \leq \epsilon_{mach}\)</span> such that</p>
 <div class="math notranslate nohighlight">
 \[ 
-x\odot y = (x \cdot y)(1+\epsilon).
+x\odot y = (x \mathbin{\circ} y)(1+\epsilon).
 \]</div>
 </section>
 </div><p>Most modern computer architectures follow the mathematical assumptions about floating-point sets to guarantee the Fundamental Theorem. For additional details we refer to the recommended lecture book <span id="id1">[<a class="reference internal" href="bm4_bibliography.html#id2" title="Lloyd N. Trefethen and David Bau, III. Numerical linear algebra. SIAM, 1997. URL: https://ucl.primo.exlibrisgroup.com/permalink/44UCL_INST/155jbua/alma990010608020204761.">Trefethen and Bau, 1997</a>]</span>.</p>
@@ -543,7 +543,7 @@ x\odot y = (x \cdot y)(1+\epsilon).
 <h3>Floating point data types in NumPy<a class="headerlink" href="#floating-point-data-types-in-numpy" title="Link to this heading">#</a></h3>
 <p>NumPy defines the following data types for floating-point numbers:</p>
 <ul class="simple">
-<li><p><strong>IEEE double precision</strong>: <code class="docutils literal notranslate"><span class="pre">np.float</span></code>, <code class="docutils literal notranslate"><span class="pre">np.double</span></code>, <code class="docutils literal notranslate"><span class="pre">np.float64</span></code></p></li>
+<li><p><strong>IEEE double precision</strong>: <code class="docutils literal notranslate"><span class="pre">np.double</span></code>, <code class="docutils literal notranslate"><span class="pre">np.float64</span></code></p></li>
 <li><p><strong>IEEE single precision</strong>: <code class="docutils literal notranslate"><span class="pre">np.single</span></code>, <code class="docutils literal notranslate"><span class="pre">np.float32</span></code></p></li>
 </ul>
 </section>
@@ -580,7 +580,7 @@ x\odot y = (x \cdot y)(1+\epsilon).
 </pre></div>
 </div>
 <blockquote>
-<div><p><strong>Note</strong>: NumPy adheres to the IEEE 754 standard, so operations like division by zero return <code class="docutils literal notranslate"><span class="pre">NaN</span></code> rather than raising an error.</p>
+<div><p><strong>Note</strong>: NumPy adheres much more closely to the IEEE 754 standard than plain Python scalar arithmetic. Operations such as <code class="docutils literal notranslate"><span class="pre">0.0</span> <span class="pre">/</span> <span class="pre">0.0</span></code> therefore typically produce <code class="docutils literal notranslate"><span class="pre">NaN</span></code> together with a runtime warning rather than raising an exception.</p>
 </div></blockquote>
 <p>Python itself is not fully IEEE 754 compliant. Consider:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span>

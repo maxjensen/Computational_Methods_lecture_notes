@@ -404,7 +404,7 @@ document.write(`
 &amp; D x \ge d.
 \end{array}
 \end{split}\]</div>
-<p>where <span class="math notranslate nohighlight">\(a \in \mathbb{R}^m\)</span>, <span class="math notranslate nohighlight">\(c \in \mathbb{R}^p\)</span>, <span class="math notranslate nohighlight">\(d \in \mathbb{R}^q\)</span>, <span class="math notranslate nohighlight">\(C \in \mathbb{R}^{p \times n}\)</span>, <span class="math notranslate nohighlight">\(D \in \mathbb{R}^{q \times n}\)</span> and <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span>. The expression <span class="math notranslate nohighlight">\(D x \ge d\)</span> is to be understood componentwise: for <span class="math notranslate nohighlight">\(d, e \in \mathbb{R}^p\)</span>,</p>
+<p>where <span class="math notranslate nohighlight">\(a \in \mathbb{R}^m\)</span>, <span class="math notranslate nohighlight">\(c \in \mathbb{R}^p\)</span>, <span class="math notranslate nohighlight">\(d \in \mathbb{R}^q\)</span>, <span class="math notranslate nohighlight">\(C \in \mathbb{R}^{p \times n}\)</span>, <span class="math notranslate nohighlight">\(D \in \mathbb{R}^{q \times n}\)</span> and <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span>. The expression <span class="math notranslate nohighlight">\(D x \ge d\)</span> is to be understood componentwise: for <span class="math notranslate nohighlight">\(d, e \in \mathbb{R}^q\)</span>,</p>
 <div class="math notranslate nohighlight">
 \[
 d \ge e \qquad \Leftrightarrow \qquad d_i \ge e_i \quad \forall \; i \in \{1, \ldots, q\}.
@@ -426,10 +426,10 @@ d \ge e \qquad \Leftrightarrow \qquad d_i \ge e_i \quad \forall \; i \in \{1, \l
 <p>Both problems have the same minimisers because</p>
 <div class="math notranslate nohighlight">
 \[
-\textstyle \frac{1}{2} \| A x - a \|_2^2 = \frac{1}{2} x^\top A^\top A  x - a^\top A x + \frac{1}{2} a^\top a = x^\top B x + b^\top x + \frac{1}{2} a^\top a,
+\textstyle \frac{1}{2} \| A x - a \|_2^2 = \frac{1}{2} x^\top A^\top A  x - a^\top A x + \frac{1}{2} a^\top a = \frac{1}{2} x^\top B x + b^\top x + \frac{1}{2} a^\top a,
 \]</div>
-<p>noting that the constant term <span class="math notranslate nohighlight">\(\frac{1}{2} a^\top a\)</span> can be removed without changing the set of minimisers. Because of our initial assumption <span class="math notranslate nohighlight">\(B = A^\top A\)</span> we shall assume throughout the section that <span class="math notranslate nohighlight">\(B\)</span> is symmetric and positive semi-definite. We refer to <span class="math notranslate nohighlight">\(\frac{1}{2} x^\top B x + b^\top x\)</span> as the <em>objective function</em>, <span class="math notranslate nohighlight">\(C x - c = 0\)</span> the <em>equality constraint</em> and <span class="math notranslate nohighlight">\(D x - d \ge 0\)</span> the <em>inequality constraint</em>. The <em>value</em> of the optimal control problem is that value of the objective function when evaluated at an optimal solution.</p>
-<p>Observe, that the value of the initial problem in least-squares form differs from that of quadratic programme because of the factor <span class="math notranslate nohighlight">\(\frac{1}{2}\)</span> and the squaring of the norm and the constant term, even if the set of optimal solutions coincide. However, given a optimal solution <span class="math notranslate nohighlight">\(x\)</span> it is simple to compute the value <span class="math notranslate nohighlight">\(\| A x - a \|_2\)</span>.</p>
+<p>noting that the constant term <span class="math notranslate nohighlight">\(\frac{1}{2} a^\top a\)</span> can be removed without changing the set of minimisers. Because of our initial assumption <span class="math notranslate nohighlight">\(B = A^\top A\)</span> we shall assume throughout the section that <span class="math notranslate nohighlight">\(B\)</span> is symmetric and positive semi-definite. We refer to <span class="math notranslate nohighlight">\(\frac{1}{2} x^\top B x + b^\top x\)</span> as the <em>objective function</em>, <span class="math notranslate nohighlight">\(C x - c = 0\)</span> as the <em>equality constraint</em>, and <span class="math notranslate nohighlight">\(D x - d \ge 0\)</span> as the <em>inequality constraint</em>. The <em>value</em> of the quadratic programme is the value of the objective function evaluated at an optimal solution.</p>
+<p>Observe that the value of the initial problem in least-squares form differs from that of the quadratic programme because of the factor <span class="math notranslate nohighlight">\(\frac{1}{2}\)</span>, the squaring of the norm, and the constant term, even though the set of optimal solutions coincides. However, given an optimal solution <span class="math notranslate nohighlight">\(x\)</span>, it is simple to compute the value <span class="math notranslate nohighlight">\(\| A x - a \|_2\)</span>.</p>
 <section id="certificates-of-optimality">
 <h2>Certificates of optimality<a class="headerlink" href="#certificates-of-optimality" title="Link to this heading">#</a></h2>
 <p>In this section, we learn about <em>certificates of optimality</em>, which address a fundamental point: The algorithms to solve constrained least-squares problem are outside the scope of this module. How, then, can you solve such problems with confidence? More generally, how can you use numerical methods, that you have not mathematically fully understood?</p>
@@ -438,7 +438,7 @@ d \ge e \qquad \Leftrightarrow \qquad d_i \ge e_i \quad \forall \; i \in \{1, \l
 <p>You are familiar with this situation from other areas of mathematics: For</p>
 <div class="math notranslate nohighlight">
 \[
-F(t) = \int_0^\top f(x) dx,
+F(t) = \int_0^t f(x)\, dx,
 \]</div>
 <p>it can be hard to find <span class="math notranslate nohighlight">\(F\)</span> given <span class="math notranslate nohighlight">\(f\)</span>, but once a candidate <span class="math notranslate nohighlight">\(F\)</span> is found, it is relatively easy to check that its derivative is <span class="math notranslate nohighlight">\(f\)</span>. Similarly, various encryption methods rely on the fact that it is easier to multiply two prime numbers than to find the prime factors of a given product.</p>
 <p>A certificate of optimality consists of a candidate solution together with additional information that makes it relatively easy to confirm the quality of the candidate solution; even if the method by which the candidate solution was obtained is not examined. In other areas of numerical analysis and scientific computing one finds similar concepts; for example, <em>a posteriori error bounds</em> are used to appraise the quality of numerical solutions of differential equations.</p>
@@ -491,7 +491,7 @@ L(x, y, s) := \frac{1}{2} x^\top B x + b^\top x - y^\top (C x - c) - s^\top (D x
 </div>
 <p>We call <span class="math notranslate nohighlight">\(x\)</span> a <em>feasible point</em> of the primal problem if <span class="math notranslate nohighlight">\(C x = c\)</span> and <span class="math notranslate nohighlight">\(D x \ge d\)</span>. Similarly, <span class="math notranslate nohighlight">\((x,y,s)\)</span> is feasible for the dual problem if <span class="math notranslate nohighlight">\(C^\top y + D^\top s - B x = b\)</span> and <span class="math notranslate nohighlight">\(s \ge 0\)</span>. In short, feasible points are those that satisfy the constraints.</p>
 <p>There is a fundamental connection between the primal and dual problem</p>
-<div class="proof theorem admonition" id="theorem-0">
+<div class="proof theorem admonition" id="thm-weak-duality">
 <p class="admonition-title"><span class="caption-number">Theorem 7 </span> (Weak duality)</p>
 <section class="theorem-content" id="proof-content">
 <p>Assume that <span class="math notranslate nohighlight">\(\bar{x}\)</span> and <span class="math notranslate nohighlight">\((x,y,s)\)</span> are feasible points of the primal and dual problems, respectively. Then</p>
@@ -499,7 +499,7 @@ L(x, y, s) := \frac{1}{2} x^\top B x + b^\top x - y^\top (C x - c) - s^\top (D x
 \[
 c^\top y + d^\top s - \frac{1}{2} x^\top B x \leq \frac{1}{2} \bar{x}^\top B \bar{x} + b^\top \bar{x}.
 \]</div>
-<p>In other words, among feasible points, the objective function of the dual problem attains values below than or equal to those of the primal function.</p>
+<p>In other words, among feasible points, the objective value of the dual problem is always less than or equal to that of the primal problem.</p>
 </section>
 </div><div class="proof admonition" id="proof">
 <p>Proof. For feasible <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\((x,y,s)\)</span>,</p>
@@ -514,13 +514,13 @@ c^\top y + d^\top s - \frac{1}{2} x^\top B x \, \leq \, &amp; (C \bar{x})^\top y
 \end{align*}
 \end{split}\]</div>
 </div>
-<p>Bearing the weak duality theorem in mind, we call a pair <span class="math notranslate nohighlight">\((\bar{x}, (x,y,s))\)</span> a certificate of optimality. To check that <span class="math notranslate nohighlight">\(\bar{x}\)</span> is indeed solution to the primal problem we need to do the following:</p>
+<p>Bearing the weak duality theorem in mind, we call a pair <span class="math notranslate nohighlight">\((\bar{x}, (x,y,s))\)</span> a certificate of optimality. To check that <span class="math notranslate nohighlight">\(\bar{x}\)</span> is indeed a solution of the primal problem, we need to do the following:</p>
 <ol class="arabic simple">
 <li><p>Check that <span class="math notranslate nohighlight">\(\bar{x}\)</span> is a feasible point of the primal problem.</p></li>
 <li><p>Check that <span class="math notranslate nohighlight">\((x,y,s)\)</span> is a feasible point of the dual problem.</p></li>
 <li><p>Check that <span class="math notranslate nohighlight">\(c^\top y + d^\top s - \frac{1}{2} x^\top B x = \frac{1}{2} \bar{x}^\top B \bar{x} + b^\top \bar{x}\)</span>.</p></li>
 </ol>
-<p>All those steps only require the evaluation of simple matrix vector and scalar products.</p>
+<p>All these steps only require the evaluation of simple matrix-vector and scalar products.</p>
 <p>Why does this work? Suppose that <span class="math notranslate nohighlight">\(\bar{x}\)</span> and <span class="math notranslate nohighlight">\((x,y,s)\)</span> passed the above tests 1., 2. and 3., but <span class="math notranslate nohighlight">\(\bar{x}\)</span> was not an optimal solution. Then there exists another feasible point <span class="math notranslate nohighlight">\(\tilde{x}\)</span> of the primal problem with an even lower value:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -534,7 +534,7 @@ c^\top y + d^\top s - \frac{1}{2} x^\top B x \, \leq \, &amp; (C \bar{x})^\top y
 \]</div>
 <p>is called the <em>duality gap</em>.</p>
 <p>One might wonder if certificates of the type <span class="math notranslate nohighlight">\((\bar{x}, (x,y,s))\)</span> are too restrictive: Could there be optimisation problems for which the duality gap exceeds 0? Then the above certificate of optimality would not work even if optimal solutions are found (self-check question). The following deep result, known as strong duality, shows that this cannot happen for constrained least-squares problems.</p>
-<div class="proof theorem admonition" id="theorem-1">
+<div class="proof theorem admonition" id="thm-strong-duality">
 <p class="admonition-title"><span class="caption-number">Theorem 8 </span> (Strong duality)</p>
 <section class="theorem-content" id="proof-content">
 <p>Assume that either the primal or dual problem has a feasible point. Then this problem is bounded if and only if the other has a feasible point.  In such cases, both problems have optimal solutions and share the same optimal value.</p>
@@ -617,7 +617,7 @@ c^\top y + d^\top s - \frac{1}{2} x^\top B x \, \leq \, &amp; (C \bar{x})^\top y
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Duality gap:&quot;</span><span class="p">,</span> <span class="n">gap</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Note that CVXPY does not directly return the <span class="math notranslate nohighlight">\(x\)</span> of the dual problem; it merely provides <span class="math notranslate nohighlight">\(y\)</span> and <span class="math notranslate nohighlight">\(s\)</span>. We recover the dual <span class="math notranslate nohighlight">\(x\)</span> from the dual equality constraint. The pseudo-inverse (<code class="docutils literal notranslate"><span class="pre">pinv</span></code>) is needed if B is only positive semidefinite. As always, a near-zero duality gap indicates strong duality and certifies that the solution is optimal.</p>
+<p>Note that CVXPY does not directly return the <span class="math notranslate nohighlight">\(x\)</span> of the dual problem; it merely provides <span class="math notranslate nohighlight">\(y\)</span> and <span class="math notranslate nohighlight">\(s\)</span>. We recover one admissible dual <span class="math notranslate nohighlight">\(x\)</span> from the dual equality constraint. The pseudo-inverse (<code class="docutils literal notranslate"><span class="pre">pinv</span></code>) is needed if <span class="math notranslate nohighlight">\(B\)</span> is only positive semidefinite. As always, a near-zero duality gap indicates strong duality and certifies that the solution is optimal.</p>
 </section>
 </section>
 <section id="self-check-questions">

@@ -434,7 +434,7 @@ document.write(`
 <section id="gaussian-quadratures">
 <h2>Gaussian quadratures<a class="headerlink" href="#gaussian-quadratures" title="Link to this heading">#</a></h2>
 <p>The degree of exactness of an interpolatory quadrature <span class="math notranslate nohighlight">\(\mathcal{Q}_n\)</span> is at least <span class="math notranslate nohighlight">\(n\)</span>. By considering <span class="math notranslate nohighlight">\(\omega_{n+1}^2(x)=(x-x_0)^2\cdots(x-x_n)^2 \in \mathcal{P}_{2n+2}\)</span>, we find that the degree of exactness of any interpolatory quadrature cannot be equal to or larger than <span class="math notranslate nohighlight">\(2n+2\)</span>. Gauss showed that by judicious choice of the nodes <span class="math notranslate nohighlight">\(\{x_k\}\)</span>, one can indeed obtain a quadrature exact for all <span class="math notranslate nohighlight">\(f \in \mathcal{P}_{2n+1}\)</span>. The resulting Gaussian quadrature rests on the following:</p>
-<div class="proof theorem admonition" id="theorem-0">
+<div class="proof theorem admonition" id="thm-gaussian-quadrature">
 <p class="admonition-title"><span class="caption-number">Theorem 14 </span> (Gaussian quadrature)</p>
 <section class="theorem-content" id="proof-content">
 <p>The interpolatory quadrature formula <span class="math notranslate nohighlight">\(\mathcal{Q}_n\)</span> achieves a degree of exactness <span class="math notranslate nohighlight">\(2n+1\)</span> if and only if its nodes <span class="math notranslate nohighlight">\(x_0, \ldots, x_n\)</span> are such that the polynomial</p>
@@ -445,7 +445,7 @@ document.write(`
 <p>meets the condition <span class="math notranslate nohighlight">\(\int_a^b \omega_{n+1}(x) \, p(x) \, dx = 0\)</span> for all <span class="math notranslate nohighlight">\(p \in \mathcal{P}_n\)</span>.</p>
 </section>
 </div><p>Thus, the nodes <span class="math notranslate nohighlight">\(\{x_k\}_{k=0}^n\)</span> are chosen so that the error polynomial <span class="math notranslate nohighlight">\(\omega_{n+1} \in \mathcal{P}_{n+1}\)</span> is in the orthogonal complement relative to the <span class="math notranslate nohighlight">\((n+1)\)</span>-dimensional space <span class="math notranslate nohighlight">\(\mathcal{P}_n\)</span> within the <span class="math notranslate nohighlight">\((n+2)\)</span>-dimensional space <span class="math notranslate nohighlight">\(\mathcal{P}_{n+1}\)</span> with respect to the inner product <span class="math notranslate nohighlight">\(\langle p, q \rangle = \int_a^b p(x) \, q(x) \, dx\)</span>. A proof of the theorem is given in the optional materials section.</p>
-<div class="proof definition admonition" id="definition-1">
+<div class="proof definition admonition" id="def-gaussian-quadrature-method">
 <p class="admonition-title"><span class="caption-number">Definition 10 </span></p>
 <section class="definition-content" id="proof-content">
 <p>An interpolatory quadrature method with <span class="math notranslate nohighlight">\(n+1\)</span> nodes that achieves a degree of exactness <span class="math notranslate nohighlight">\(2n+1\)</span> is termed a <em>Gaussian quadrature method</em>.</p>
@@ -472,7 +472,7 @@ L_k^2(x) = \prod_{j = 0 \atop j \neq k}^n \frac{(x-x_j)^2}{(x_k-x_j)^2} \in \mat
 <h2>Python skills<a class="headerlink" href="#python-skills" title="Link to this heading">#</a></h2>
 <section id="composite-newton-cotes-quadrature-rules">
 <h3>Composite Newton-Cotes quadrature rules<a class="headerlink" href="#composite-newton-cotes-quadrature-rules" title="Link to this heading">#</a></h3>
-<p>Scipy provides an implementation of the composite trapezium and Simpson’s rules, NumPy only has the former.</p>
+<p>SciPy provides implementations of the composite trapezium and Simpson’s rules, and NumPy provides the composite trapezium rule.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">integrate</span>
 
@@ -489,16 +489,16 @@ L_k^2(x) = \prod_{j = 0 \atop j \neq k}^n \frac{(x-x_j)^2}{(x_k-x_j)^2} \in \mat
 <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">my_function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 
-<span class="c1"># Trapezoidal Rule</span>
-<span class="n">trapz_result_np</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">trapz</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
-<span class="n">trapz_result_scipy</span> <span class="o">=</span> <span class="n">integrate</span><span class="o">.</span><span class="n">trapz</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="c1"># Trapezium Rule</span>
+<span class="n">trapz_result_np</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">trapezoid</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="n">trapz_result_scipy</span> <span class="o">=</span> <span class="n">integrate</span><span class="o">.</span><span class="n">trapezoid</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
 
 <span class="c1"># Simpson&#39;s Rule</span>
-<span class="n">simps_result</span> <span class="o">=</span> <span class="n">integrate</span><span class="o">.</span><span class="n">simps</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="n">simps_result</span> <span class="o">=</span> <span class="n">integrate</span><span class="o">.</span><span class="n">simpson</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">)</span>
 
 <span class="c1"># Display the results</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Trapezoidal Rule (numpy):&quot;</span><span class="p">,</span> <span class="n">trapz_result_np</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Trapezoidal Rule (scipy):&quot;</span><span class="p">,</span> <span class="n">trapz_result_scipy</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Trapezium Rule (numpy):&quot;</span><span class="p">,</span> <span class="n">trapz_result_np</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Trapezium Rule (scipy):&quot;</span><span class="p">,</span> <span class="n">trapz_result_scipy</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Simpson&#39;s Rule:&quot;</span><span class="p">,</span> <span class="n">simps_result</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -626,7 +626,7 @@ L_k^2(x) = \prod_{j = 0 \atop j \neq k}^n \frac{(x-x_j)^2}{(x_k-x_j)^2} \in \mat
 <div class="math notranslate nohighlight">
 \[\begin{split}
    \begin{align*}
-   \sigma_0 &amp; = \int_0^1 \frac{t-t_1}{t_0-t_1}\cdot\frac{t-t_2}{t_0-t_2} dt = \frac{5}{18} = 0.2777\cdots\\
+   \sigma_0 &amp; = \int_0^1 \frac{t-t_1}{t_0-t_1}\cdot\frac{t-t_2}{t_0-t_2} \, dt = \frac{5}{18} = 0.2777\cdots\\
    \sigma_2 &amp; = \sigma_0 = \frac{5}{18} = 0.2777\cdots\\
    \sigma_1 &amp; = 1 - (\sigma_0 + \sigma_2) = \frac{4}{9} = 0.4444\cdots.
    \end{align*}
@@ -732,7 +732,7 @@ x_{i-1/2} := \frac{x_{i-1} + x_i}{2}.
 \begin{eqnarray*}
 \frac{4}{3} \mathcal{C}_{h/2,1}(f) - \frac{1}{3} \mathcal{C}_{h,1}(f) &amp;=&amp; \frac{4}{3} \sum_{i = 1}^m \Bigl(\frac{h}{4} (f(x_{i-1}) + f(x_{i-1/2}))  +  \frac{h}{4} (f(x_{i-1/2}) + f(x_i))\Bigr)\\ 
 &amp;&amp; - \frac{1}{3} \sum_{i = 1}^m \Bigl( \frac{h}{2} (f(x_{i-1}) + f(x_i)) \Bigr)\\
-&amp;=&amp; \sum_{i = 1}^m \underbrace{\Bigl( \frac{h}{6} (f(x_{i-1}) + \frac{2 h}{3} (f(x_{i-1/2}) + \frac{h}{6} (f(x_{i-1}) \Bigr)}_{\mbox{Simpson's rule on $[x_{i-1}, x_i]$}}\\
+&amp;=&amp; \sum_{i = 1}^m \underbrace{\Bigl( \frac{h}{6} f(x_{i-1}) + \frac{2h}{3} f(x_{i-1/2}) + \frac{h}{6} f(x_i) \Bigr)}_{\mbox{Simpson's rule on $[x_{i-1}, x_i]$}}\\
 &amp;=&amp; \mathcal{C}_{h,2}(f).
 \end{eqnarray*}
 \end{split}\]</div>
@@ -769,7 +769,7 @@ x_{i-1/2} := \frac{x_{i-1} + x_i}{2}.
 \]</div>
 <p class="sd-card-text">This function <span class="math notranslate nohighlight">\(\gamma\)</span> is the same as the weight above and assumed to be piecewise continuous, integrable, and positive. Moreover, we assume that <span class="math notranslate nohighlight">\(\langle p, p \rangle\)</span> is finite for all <span class="math notranslate nohighlight">\(p \in \mathcal{P}_n\)</span>. Common examples include <span class="math notranslate nohighlight">\(\gamma = 1\)</span> for <span class="math notranslate nohighlight">\(a,b \in \mathbb{R}\)</span>, <span class="math notranslate nohighlight">\(\gamma = 1/t\)</span> for <span class="math notranslate nohighlight">\(a=0\)</span>, <span class="math notranslate nohighlight">\(b=\infty\)</span>, and <span class="math notranslate nohighlight">\(\gamma = 1/\sqrt{1-t^2}\)</span> for <span class="math notranslate nohighlight">\(a=-1\)</span>, <span class="math notranslate nohighlight">\(b=1\)</span>.</p>
 <p class="sd-card-text">Our focus is to demonstrate that the optimal quadrature nodes correspond to the roots of orthogonal polynomials. To understand this, we must explore two key results about orthogonal polynomials.</p>
-<div class="proof theorem admonition" id="theorem-2">
+<div class="proof theorem admonition" id="thm-roots-of-orthogonal-polynomials">
 <p class="admonition-title"><span class="caption-number">Theorem 15 </span> (Roots of orthogonal polynomials)</p>
 <section class="theorem-content" id="proof-content">
 <p class="sd-card-text">For a polynomial <span class="math notranslate nohighlight">\(\tilde{p} \in \mathcal{P}_{n+1}\)</span>, if</p>
@@ -783,7 +783,7 @@ x_{i-1/2} := \frac{x_{i-1} + x_i}{2}.
 <p class="sd-card-text">Proof. Suppose <span class="math notranslate nohighlight">\(\tilde{p} \neq 0\)</span>. If <span class="math notranslate nohighlight">\(\tilde{p}\)</span> has roots <span class="math notranslate nohighlight">\(\xi_0, \xi_1, \ldots, \xi_\ell\)</span> where its sign changes, then construct a polynomial <span class="math notranslate nohighlight">\(s(x) = \prod_{j=0}^\ell (x - \xi_j)\)</span>. If no such roots exist, let <span class="math notranslate nohighlight">\(s(x) = 1\)</span>. The product <span class="math notranslate nohighlight">\(\tilde{p} \cdot s\)</span> does not change sign, implying <span class="math notranslate nohighlight">\(\langle \tilde{p}, s \rangle \neq 0\)</span>. The degree of <span class="math notranslate nohighlight">\(s\)</span> is greater than <span class="math notranslate nohighlight">\(n\)</span>, so <span class="math notranslate nohighlight">\(\tilde{p}\)</span> has more than <span class="math notranslate nohighlight">\(n\)</span> sign changes. However, as a polynomial in <span class="math notranslate nohighlight">\(\mathcal{P}_{n+1}\)</span>, <span class="math notranslate nohighlight">\(\tilde{p}\)</span> can have at most <span class="math notranslate nohighlight">\(n+1\)</span> sign changes.</p>
 </div>
 <p class="sd-card-text">This indicates that the roots of <span class="math notranslate nohighlight">\(\tilde{p}\)</span> are ideal candidates for quadrature nodes. However, a question arises: is there a unique polynomial that satisfies this condition? If different polynomials meet the criterion, they could have varying roots, affecting the choice of nodes. The following theorem addresses this concern.</p>
-<div class="proof theorem admonition" id="theorem-3">
+<div class="proof theorem admonition" id="thm-uniqueness-of-orthogonal-polynomial">
 <p class="admonition-title"><span class="caption-number">Theorem 16 </span> (Uniqueness of the orthogonal polynomial)</p>
 <section class="theorem-content" id="proof-content">
 <p class="sd-card-text">For any two non-zero polynomials <span class="math notranslate nohighlight">\(\tilde{p}, \bar{p} \in \mathcal{P}_{n+1}\)</span> satisfying the condition</p>
@@ -802,7 +802,7 @@ p \rangle = \alpha \langle \tilde{p}, \Delta p \rangle - \langle \bar{p}, \Delta
 \]</div>
 <p class="sd-card-text">implying <span class="math notranslate nohighlight">\(\bar{p} = \alpha \, \tilde{p}\)</span>.</p>
 </div>
-<div class="proof example admonition" id="example-4">
+<div class="proof example admonition" id="ex-orthonormal-basis-p2">
 <p class="admonition-title"><span class="caption-number">Example 16 </span> (Orthonormal basis of <span class="math notranslate nohighlight">\(\mathcal{P}_2\)</span>)</p>
 <section class="example-content" id="proof-content">
 <p class="sd-card-text">Using the Gram-Schmidt method, we construct an orthonormal basis for <span class="math notranslate nohighlight">\(\mathcal{P}_2\)</span> with respect to the scalar product:</p>
@@ -818,7 +818,7 @@ q_0 = \frac{1}{\sqrt{2}},\quad q_1 = \sqrt{\frac{3}{2}} t,\quad q_2 = \sqrt{\fra
 <p class="sd-card-text">For <span class="math notranslate nohighlight">\(k=1\)</span>, <span class="math notranslate nohighlight">\(q_2\)</span> meets the orthogonality condition, as any polynomial <span class="math notranslate nohighlight">\(p \in \mathcal{P}_1\)</span> can be expressed as a linear combination of <span class="math notranslate nohighlight">\(q_0\)</span> and <span class="math notranslate nohighlight">\(q_1\)</span>, leading to <span class="math notranslate nohighlight">\(\langle q_2, p \rangle = 0\)</span>. The roots of <span class="math notranslate nohighlight">\(q_2\)</span> within <span class="math notranslate nohighlight">\((-1,1)\)</span> are <span class="math notranslate nohighlight">\(\pm \frac{1}{\sqrt{3}} \approx \pm 0.5774\)</span>. Other quadratic polynomials meeting this condition will be of the form <span class="math notranslate nohighlight">\(\delta (t^2 - 1/3)\)</span> for some <span class="math notranslate nohighlight">\(\delta \in \mathbb{R}\)</span>.</p>
 </section>
 </div><p class="sd-card-text">We now arrive at the central result.</p>
-<div class="proof theorem admonition" id="theorem-5">
+<div class="proof theorem admonition" id="thm-main-gaussian-quadrature">
 <p class="admonition-title"><span class="caption-number">Theorem 17 </span> (Main theorem on Gaussian quadrature)</p>
 <section class="theorem-content" id="proof-content">
 <p class="sd-card-text">For an integration weight <span class="math notranslate nohighlight">\(\gamma\)</span>, the interpolatory quadrature formula <span class="math notranslate nohighlight">\(\mathcal{Q}_n\)</span> achieves a degree of exactness <span class="math notranslate nohighlight">\(2n+1\)</span> with respect to <span class="math notranslate nohighlight">\(\gamma\)</span> if and only if its nodes <span class="math notranslate nohighlight">\(x_0, \ldots, x_n\)</span> are such that the polynomial</p>

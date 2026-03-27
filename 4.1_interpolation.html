@@ -415,27 +415,27 @@ y_j = \delta_{ij},
 \[  
 L_j(x)= \prod_{i=0,i \neq j}^n \frac{(x-x_i)}{(x_j-x_i)}.  
 \]</div>
-<p>because <span class="math notranslate nohighlight">\(\text{deg}(L_j)=n\)</span> and <span class="math notranslate nohighlight">\(L_j\)</span> interpolates <span class="math notranslate nohighlight">\(y_j = \delta_{ij}\)</span> at <span class="math notranslate nohighlight">\(x_j\)</span>. The functions <span class="math notranslate nohighlight">\(L_k\)</span> are called <em>Lagrange basis polynomials</em>.</p>
+<p>because <span class="math notranslate nohighlight">\(\deg(L_j)=n\)</span> and <span class="math notranslate nohighlight">\(L_j(x_i)=\delta_{ij}\)</span> for all <span class="math notranslate nohighlight">\(i \in \{0,\ldots,n\}\)</span>. The functions <span class="math notranslate nohighlight">\(L_j\)</span> are called <em>Lagrange basis polynomials</em>.</p>
 <p>The solution to the original interpolation problem is now constructed as</p>
 <div class="math notranslate nohighlight">
 \[  
 p_n(x)= \sum_{j=0}^n y_j L_j(x).  
 \]</div>
-<p>We refer to <span class="math notranslate nohighlight">\(p\)</span>, when written in this form, as the <em>Lagrange interpolation polynomial</em>. We still need to prove uniqueness.</p>
-<div class="proof theorem admonition" id="theorem-0">
+<p>We refer to <span class="math notranslate nohighlight">\(p_n\)</span>, when written in this form, as the <em>Lagrange interpolation polynomial</em>. We still need to prove uniqueness.</p>
+<div class="proof theorem admonition" id="thm-interpolation-existence-uniqueness">
 <p class="admonition-title"><span class="caption-number">Theorem 9 </span> (Existence and uniqueness of interpolating polynomial)</p>
 <section class="theorem-content" id="proof-content">
 <p>Given <span class="math notranslate nohighlight">\(\{ (x_i,y_i) \}_{i=0}^n\)</span> with <span class="math notranslate nohighlight">\(x_i &lt; x_{i+1}\)</span>, there exists a unique <span class="math notranslate nohighlight">\(p_n \in \mathcal{P}_n\)</span> such that <span class="math notranslate nohighlight">\(p_n(x_i) = y_i\)</span> for all <span class="math notranslate nohighlight">\(i = 0, \ldots, n\)</span>.</p>
 </section>
 </div><div class="proof admonition" id="proof">
-<p>Proof. Let <span class="math notranslate nohighlight">\(q_n(x)\)</span> be another polynomial of degree at most <span class="math notranslate nohighlight">\(n\)</span> that satisfies <span class="math notranslate nohighlight">\(q_n(x_j)=y_j\)</span>. Let <span class="math notranslate nohighlight">\(w_n:=p_n-q_n\)</span>. We then have <span class="math notranslate nohighlight">\(w(x_j)=0\)</span>, <span class="math notranslate nohighlight">\(j=0,\dots,n\)</span>. Hence, <span class="math notranslate nohighlight">\(w_n\)</span> is a polynomial of maximum degree <span class="math notranslate nohighlight">\(n\)</span> with <span class="math notranslate nohighlight">\(n+1\)</span> distinct zeros. However, since a nontrivial polynomial of degree <span class="math notranslate nohighlight">\(n\)</span> can have at most <span class="math notranslate nohighlight">\(n\)</span> zeros, it follows that <span class="math notranslate nohighlight">\(w\equiv 0\)</span>, showing that <span class="math notranslate nohighlight">\(p_n\)</span> is the unique interpolation polynomial.</p>
+<p>Proof. Let <span class="math notranslate nohighlight">\(q_n(x)\)</span> be another polynomial of degree at most <span class="math notranslate nohighlight">\(n\)</span> that satisfies <span class="math notranslate nohighlight">\(q_n(x_j)=y_j\)</span>. Let <span class="math notranslate nohighlight">\(w_n:=p_n-q_n\)</span>. We then have <span class="math notranslate nohighlight">\(w_n(x_j)=0\)</span>, <span class="math notranslate nohighlight">\(j=0,\dots,n\)</span>. Hence, <span class="math notranslate nohighlight">\(w_n\)</span> is a polynomial of degree at most <span class="math notranslate nohighlight">\(n\)</span> with <span class="math notranslate nohighlight">\(n+1\)</span> distinct zeros. However, since a nontrivial polynomial of degree at most <span class="math notranslate nohighlight">\(n\)</span> can have at most <span class="math notranslate nohighlight">\(n\)</span> zeros, it follows that <span class="math notranslate nohighlight">\(w_n\equiv 0\)</span>, showing that <span class="math notranslate nohighlight">\(p_n\)</span> is the unique interpolation polynomial.</p>
 </div>
 <p>We denote the <em>error polynomial</em> by</p>
 <div class="math notranslate nohighlight">
 \[
 \omega_{n+1}(x) := \prod_{j = 0}^n (x - x_j).
 \]</div>
-<div class="proof theorem admonition" id="theorem-1">
+<div class="proof theorem admonition" id="thm-interpolation-error-bound">
 <p class="admonition-title"><span class="caption-number">Theorem 10 </span> (Interpolation error bound)</p>
 <section class="theorem-content" id="proof-content">
 <p>Suppose <span class="math notranslate nohighlight">\(f \in C^{n+1}[a,b]\)</span> and <span class="math notranslate nohighlight">\(a \le x_0 &lt; \ldots &lt; x_n \le b\)</span>. Let <span class="math notranslate nohighlight">\(p \in \mathcal{P}_n\)</span> such that <span class="math notranslate nohighlight">\(p(x_i) = f(x_i)\)</span> for <span class="math notranslate nohighlight">\(i \in \{ 0, \dots, n\}\)</span>. Then for every <span class="math notranslate nohighlight">\(x \in [a,b]\)</span> there is a <span class="math notranslate nohighlight">\(\xi \in [a,b]\)</span>, depending on <span class="math notranslate nohighlight">\(x\)</span>, such that</p>
@@ -451,7 +451,7 @@ f(x) - p(x) = \frac{\omega_{n+1}(x) f^{(n+1)}(\xi)}{(n+1)!}.
 </div>
 <p>Here <span class="math notranslate nohighlight">\(\| g \|_\infty = \max_{x \in [a,b]} |g(x)|\)</span> denotes the <span class="math notranslate nohighlight">\(\infty\)</span>-norm on <span class="math notranslate nohighlight">\(C[a,b]\)</span>.</p>
 <p>The <span class="math notranslate nohighlight">\(p\)</span> of the Weierstrass approximation theorem has to be selected with much care, and an unrefined interpolation method will generally not provide polynomials which approximate arbitrarily well. This is mainly due to the Runge phenomenon.</p>
-<div class="proof example admonition" id="example-2">
+<div class="proof example admonition" id="ex-interpolation-uniform-nodes">
 <p class="admonition-title"><span class="caption-number">Example 13 </span> (Interpolation with uniformly distributed nodes)</p>
 <section class="example-content" id="proof-content">
 <p>Unless very smooth functions such as <span class="math notranslate nohighlight">\(\cos\)</span> are interpolated (recall that <span class="math notranslate nohighlight">\(\| \cos^{(n)} \|_\infty = 1\)</span> for all <span class="math notranslate nohighlight">\(n\)</span>th derivatives <span class="math notranslate nohighlight">\(\cos^{(n)}\)</span>, <span class="math notranslate nohighlight">\(n \in \mathbb{N}\)</span>), one observes that interpolating polynomials of high-order exhibit strong oscillations near the interval ends. This behaviour is known as the Runge phenomenon.</p>
@@ -575,14 +575,14 @@ sign(x)</label><div class="sd-tab-content docutils">
 </div>
 </div>
 </details><p>Note that the error polynomial’s <span class="math notranslate nohighlight">\(\infty\)</span>-norm decreases as <span class="math notranslate nohighlight">\(n \to \infty\)</span>; however, it is not fast enough to counter the often observed increase in the magnitude of <span class="math notranslate nohighlight">\(f^{(n+1)}(\xi)\)</span> as <span class="math notranslate nohighlight">\(n \to \infty\)</span>.</p>
-<p>Can nodes be distributed non-uniformly to better reduce the magnitude of <span class="math notranslate nohighlight">\(\omega\)</span> throughout the interpolation domain? In other words, is there a distribution of nodes <span class="math notranslate nohighlight">\(\{\tilde{x}_0, \ldots, \tilde{x}_m \}\)</span> which has the smallest error polynomial <span class="math notranslate nohighlight">\(\tilde{\omega}_{n+1}\)</span>?</p>
+<p>Can nodes be distributed non-uniformly to better reduce the magnitude of <span class="math notranslate nohighlight">\(\omega\)</span> throughout the interpolation domain? In other words, is there a distribution of nodes <span class="math notranslate nohighlight">\(\{\tilde{x}_0, \ldots, \tilde{x}_n \}\)</span> which has the smallest error polynomial <span class="math notranslate nohighlight">\(\tilde{\omega}_{n+1}\)</span>?</p>
 <p>There is indeed such a choice of nodes: these are the roots of Chebyshev polynomials. For <span class="math notranslate nohighlight">\(n \in \mathbb{N}\)</span> they are defined as</p>
 <div class="math notranslate nohighlight">
 \[
-\tilde{x}_i = \cos \Bigl( \frac{2 i + 1}{2 n} \pi \Bigr), \qquad i \in \{ 0, \ldots, n\}.
+\tilde{x}_i = \cos \Bigl( \frac{2 i + 1}{2 (n+1)} \pi \Bigr), \qquad i \in \{ 0, \ldots, n\}.
 \]</div>
 <p>(Note: Some texts define <span class="math notranslate nohighlight">\(i\)</span> to start from <span class="math notranslate nohighlight">\(1\)</span> in the definition of Chebyshev nodes and adjust <span class="math notranslate nohighlight">\(n\)</span> accordingly. This is only a notational difference.)</p>
-<div class="proof theorem admonition" id="theorem-3">
+<div class="proof theorem admonition" id="thm-chebyshev-minimises-error-polynomial">
 <p class="admonition-title"><span class="caption-number">Theorem 11 </span></p>
 <section class="theorem-content" id="proof-content">
 <p>Consider <span class="math notranslate nohighlight">\(n+1\)</span> arbitrary, pairwise distinct nodes <span class="math notranslate nohighlight">\(x_0, x_1, \ldots, x_n\)</span> in <span class="math notranslate nohighlight">\([-1,1]\)</span> with error polynomial <span class="math notranslate nohighlight">\(\omega_{n+1}\)</span>. Then</p>
@@ -618,7 +618,7 @@ sign(x)</label><div class="sd-tab-content docutils">
     <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">omega_xx</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;n = </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
 <span class="c1"># Formatting the plot</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Error polynomial for Chebechev nodes&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Error polynomial for Chebyshev nodes&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
@@ -627,7 +627,7 @@ sign(x)</label><div class="sd-tab-content docutils">
 </pre></div>
 </div>
 </div>
-</details><div class="proof example admonition" id="example-4">
+</details><div class="proof example admonition" id="ex-interpolation-chebyshev-nodes">
 <p class="admonition-title"><span class="caption-number">Example 14 </span> (Interpolation with Chebyshev nodes)</p>
 <section class="example-content" id="proof-content">
 <p>Here, the same functions as above are interpolated again, this time using Chebyshev nodes. The difference is striking, with a fairly good approximation even in the discontinuous example of the sign function.</p>
@@ -750,7 +750,7 @@ sign(x)</label><div class="sd-tab-content docutils">
 
 <span class="c1"># Plot</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_eval</span><span class="p">,</span> <span class="n">f</span><span class="p">(</span><span class="n">x_eval</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Original Function (|x|)&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_eval</span><span class="p">,</span> <span class="n">f</span><span class="p">(</span><span class="n">x_eval</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Original Function sign(x)&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_eval</span><span class="p">,</span> <span class="n">y_interp_chebyshev</span><span class="p">,</span> <span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Chebyshev Interpolation&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_eval</span><span class="p">,</span> <span class="n">y_interp_uniform</span><span class="p">,</span> <span class="s1">&#39;-.&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Uniform Interpolation&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">chebyshev_nodes</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="n">f</span><span class="p">(</span><span class="n">chebyshev_nodes</span><span class="p">(</span><span class="n">n</span><span class="p">)),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Chebyshev Nodes&#39;</span><span class="p">)</span>
@@ -972,7 +972,7 @@ C = \frac{f^{(n+1)}(\xi)}{(n+1)!}.
 </details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
 <span class="sd-summary-text">Chebyshev interpolation</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
-<div class="proof definition admonition" id="definition-5">
+<div class="proof definition admonition" id="def-chebyshev-polynomials-first-kind">
 <p class="admonition-title"><span class="caption-number">Definition 9 </span></p>
 <section class="definition-content" id="proof-content">
 <p class="sd-card-text"><em>Chebyshev polynomials of first kind</em> are defined by the recursive formula</p>
@@ -982,7 +982,7 @@ T_0(x) = 1, \quad T_1(x) = x, \quad T_{n+1}(x) = 2 x T_n(x) - T_{n-1}(x).
 \]</div>
 </section>
 </div><p class="sd-card-text">Chebyshev polynomials are considered on the reference interval <span class="math notranslate nohighlight">\([-1,1]\)</span> with only a few exceptions. We shall use the terms Chebyshev polynomial of the first kind and Chebyshev polynomial synonymously.</p>
-<div class="proof theorem admonition" id="theorem-6">
+<div class="proof theorem admonition" id="thm-chebyshev-cosine-identity">
 <p class="admonition-title"><span class="caption-number">Theorem 12 </span></p>
 <section class="theorem-content" id="proof-content">
 <p class="sd-card-text">For <span class="math notranslate nohighlight">\(n \in \mathbb{N}\)</span> and <span class="math notranslate nohighlight">\(x \in [-1,1]\)</span> the identity <span class="math notranslate nohighlight">\(T_n(x) = \cos(n \arccos x)\)</span> holds.</p>
@@ -1010,7 +1010,7 @@ T_{n+1}(x) &amp;= 2 x T_n(x) - T_{n-1}(x) = 2 \cos \theta \cos(n \theta) - \cos(
 \tilde{y}_i = \cos \Bigl( \frac{i \pi}{n} \Bigr), \qquad i \in \{ 0, \ldots, n\},
 \]</div>
 <p class="sd-card-text">with <span class="math notranslate nohighlight">\(T_n(\tilde{y}_i) = (-1)^i\)</span>. The roots <span class="math notranslate nohighlight">\(\tilde{x}_i\)</span> are called Chebyshev nodes. The below theorem states that the <span class="math notranslate nohighlight">\(\tilde{x}_i\)</span> are the best nodes to minimise the oscillations of the error polynomial.</p>
-<div class="proof theorem admonition" id="theorem-7">
+<div class="proof theorem admonition" id="thm-chebyshev-interpolation-error-bound">
 <p class="admonition-title"><span class="caption-number">Theorem 13 </span></p>
 <section class="theorem-content" id="proof-content">
 <p class="sd-card-text">Suppose <span class="math notranslate nohighlight">\(p \in \mathcal{P}_n\)</span> interpolates <span class="math notranslate nohighlight">\(f \in C^{(n+1)}[a,b]\)</span> at the Chebyshev nodes <span class="math notranslate nohighlight">\(\tilde{x}_0, \ldots, \tilde{x}_n\)</span>. Let <span class="math notranslate nohighlight">\(\tilde{\omega}_{n+1}\)</span> be the error polynomial corresponding to these nodes. Then</p>

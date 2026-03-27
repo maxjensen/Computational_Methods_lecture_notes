@@ -396,30 +396,31 @@ document.write(`
 p(n) = 3n^3 + 5n^2 + 1.
 \]</div>
 <p>As <span class="math notranslate nohighlight">\(n\)</span> becomes large, the <span class="math notranslate nohighlight">\(n^3\)</span> term dominates the growth, making the coefficients of lower-order terms and the constant factor of the leading term negligible. To express this dominant behaviour succinctly, we use <span class="math notranslate nohighlight">\(\mathcal{O}\)</span>-notation.</p>
-<div class="proof definition admonition" id="definition-0">
+<div class="proof definition admonition" id="def-big-o-at-infinity">
 <p class="admonition-title"><span class="caption-number">Definition 4 </span> (<span class="math notranslate nohighlight">\(\mathcal{O}\)</span>-notation as <span class="math notranslate nohighlight">\(x \to \infty\)</span>)</p>
 <section class="definition-content" id="proof-content">
-<p>Let <span class="math notranslate nohighlight">\(g(x)\)</span> and <span class="math notranslate nohighlight">\(f(x)\)</span> be functions defined for <span class="math notranslate nohighlight">\(n \in \mathbb{X}\)</span>, <span class="math notranslate nohighlight">\(\mathbb{X} \in \{ \mathbb{N}, \mathbb{R} \}\)</span>. If there exist an <span class="math notranslate nohighlight">\(x_0 \in \mathbb{X}\)</span> and a constant <span class="math notranslate nohighlight">\(C &gt; 0\)</span> such that</p>
+<p>Let <span class="math notranslate nohighlight">\(g(x)\)</span> and <span class="math notranslate nohighlight">\(f(x)\)</span> be functions defined for <span class="math notranslate nohighlight">\(x \in \mathbb{X}\)</span>, <span class="math notranslate nohighlight">\(\mathbb{X} \in \{ \mathbb{N}, \mathbb{R} \}\)</span>. If there exist an <span class="math notranslate nohighlight">\(x_0 \in \mathbb{X}\)</span> and a constant <span class="math notranslate nohighlight">\(C &gt; 0\)</span> such that</p>
 <div class="math notranslate nohighlight">
 \[
-|g(x)| \leq Cf(x)
+|g(x)| \leq C|f(x)|
 \]</div>
 <p>for all <span class="math notranslate nohighlight">\(x \geq x_0\)</span>, we write <span class="math notranslate nohighlight">\(g(x) = \mathcal{O}(f(x))\)</span> as <span class="math notranslate nohighlight">\(x \to \infty\)</span>.</p>
 </section>
 </div><p>The <span class="math notranslate nohighlight">\(\mathcal{O}\)</span>-notation can also be used to describe how a function approaches a finite value <span class="math notranslate nohighlight">\(y \in \mathbb{X}\)</span>. The most common case is <span class="math notranslate nohighlight">\(y = 0\)</span>.</p>
-<div class="proof definition admonition" id="definition-1">
+<div class="proof definition admonition" id="def-big-o-at-point">
 <p class="admonition-title"><span class="caption-number">Definition 5 </span> (<span class="math notranslate nohighlight">\(\mathcal{O}\)</span>-notation as <span class="math notranslate nohighlight">\(x \to y\)</span>)</p>
 <section class="definition-content" id="proof-content">
-<p>Let <span class="math notranslate nohighlight">\(g(x)\)</span> and <span class="math notranslate nohighlight">\(f(x)\)</span> be functions defined for <span class="math notranslate nohighlight">\(n \in \mathbb{X}\)</span>, <span class="math notranslate nohighlight">\(\mathbb{X} \in \{ \mathbb{N}, \mathbb{R} \}\)</span>. If there exist an <span class="math notranslate nohighlight">\(\delta \in \mathbb{X}\)</span> and a constant <span class="math notranslate nohighlight">\(C &gt; 0\)</span> such that</p>
+<p>Let <span class="math notranslate nohighlight">\(g(x)\)</span> and <span class="math notranslate nohighlight">\(f(x)\)</span> be functions defined for <span class="math notranslate nohighlight">\(x \in \mathbb{X}\)</span>, <span class="math notranslate nohighlight">\(\mathbb{X} \in \{ \mathbb{N}, \mathbb{R} \}\)</span>. If there exist a <span class="math notranslate nohighlight">\(\delta &gt; 0\)</span> and a constant <span class="math notranslate nohighlight">\(C &gt; 0\)</span> such that</p>
 <div class="math notranslate nohighlight">
 \[
-|g(x)| \leq Cf(x)
+|g(x)| \leq C|f(x)|
 \]</div>
 <p>for all <span class="math notranslate nohighlight">\(x \in B_\delta(y) := \{ x \in \mathbb{X} : | x - y | \leq \delta \} \)</span>, we write <span class="math notranslate nohighlight">\(g(x) = \mathcal{O}(f(x))\)</span> as <span class="math notranslate nohighlight">\(x \to y\)</span>.</p>
 </section>
-</div><p>In most cases, <span class="math notranslate nohighlight">\(f\)</span> is chosen so that <span class="math notranslate nohighlight">\(f(x) \to 0\)</span> as <span class="math notranslate nohighlight">\(x \to \infty\)</span> (resp. <span class="math notranslate nohighlight">\(x \to y\)</span>).</p>
+</div><p>In most cases, when studying approximations near a finite point <span class="math notranslate nohighlight">\(y\)</span>, <span class="math notranslate nohighlight">\(f\)</span> is chosen so that <span class="math notranslate nohighlight">\(f(x) \to 0\)</span> as <span class="math notranslate nohighlight">\(x \to y\)</span>.</p>
 <!--
 ```{prf:example} Highest-order coefficient
+:label: ex-big-o-highest-order-at-infinity
 For the polynomial above, we have
 
 $$
@@ -430,6 +431,7 @@ We might also write $p(n) = \mathcal{O}(5n^3)$, but the constant factor 5 is usu
 ```
 
 ```{prf:example} Highest-order coefficient
+:label: ex-big-o-highest-order-at-point
 Many examples arise from Taylor’s theorem. For instance, as $x \rightarrow 0$,
 
 $$
@@ -447,10 +449,7 @@ meaning the remainder term is on the order of $x^2$.
 <section id="python-skills">
 <h2>Python skills<a class="headerlink" href="#python-skills" title="Link to this heading">#</a></h2>
 <p>Below is a simple Python demonstration that illustrates the concept of dominant terms and how differences in growth rates can be empirically observed. While <span class="math notranslate nohighlight">\(\mathcal{O}\)</span>-notation is a mathematical concept, this code can give an intuitive feel for how one term outpaces another as input sizes grow.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
-
-<span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
     <span class="c1"># Suppose f(n) = 3n^3 + 5n^2 + 1</span>
     <span class="k">return</span> <span class="mi">3</span><span class="o">*</span><span class="n">n</span><span class="o">**</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">5</span><span class="o">*</span><span class="n">n</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span>
 
@@ -471,7 +470,7 @@ meaning the remainder term is on the order of $x^2$.
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="se">\t</span><span class="si">{</span><span class="n">fn</span><span class="si">}</span><span class="se">\t</span><span class="si">{</span><span class="n">gn</span><span class="si">}</span><span class="se">\t</span><span class="si">{</span><span class="n">ratio</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>By running this script, you will see that as n grows, <span class="math notranslate nohighlight">\(f(n)/g(n)\)</span> approaches a constant (in this case <span class="math notranslate nohighlight">\(3\)</span>), indicating that the cubic term is the dominant part of <span class="math notranslate nohighlight">\(f(n)\)</span>.</p>
+<p>By running this script, you will see that as <span class="math notranslate nohighlight">\(n\)</span> grows, <span class="math notranslate nohighlight">\(f(n)/g(n)\)</span> approaches a constant (in this case <span class="math notranslate nohighlight">\(3\)</span>), indicating that the cubic term is the dominant part of <span class="math notranslate nohighlight">\(f(n)\)</span>.</p>
 <p>The ratio stabilises because both <span class="math notranslate nohighlight">\(f(n)\)</span> and <span class="math notranslate nohighlight">\(g(n)\)</span> grow at the same asymptotic rate (<span class="math notranslate nohighlight">\(n^3\)</span>), and the leading coefficient of <span class="math notranslate nohighlight">\(f\)</span> is <span class="math notranslate nohighlight">\(3\)</span>. This aligns with <span class="math notranslate nohighlight">\(f(n) = \mathcal{O}(n^3)\)</span>.</p>
 <p>To push the demonstration further, you could compare <span class="math notranslate nohighlight">\(f(n)\)</span> to <span class="math notranslate nohighlight">\(h(n)=n^4\)</span>, where <span class="math notranslate nohighlight">\(h(n)\)</span> grows faster. You would see that <span class="math notranslate nohighlight">\(f(n)/h(n) \to 0\)</span> as <span class="math notranslate nohighlight">\(n\)</span> grows, illustrating that <span class="math notranslate nohighlight">\(f(n)\)</span> is <span class="math notranslate nohighlight">\(\mathcal{O}(n^4)\)</span>, but <span class="math notranslate nohighlight">\(h(n)\)</span> is not <span class="math notranslate nohighlight">\(\mathcal{O}(n^3)\)</span>.</p>
 </section>

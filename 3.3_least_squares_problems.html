@@ -420,7 +420,7 @@ document.write(`
 A^\top A\hat{x} = A^\top a.
 \]</div>
 <p>is called the normal equation of the least-squares problem.</p>
-<div class="proof theorem admonition" id="theorem-0">
+<div class="proof theorem admonition" id="thm-normal-equation-least-squares">
 <p class="admonition-title"><span class="caption-number">Theorem 6 </span> (Normal equation of least-squares approximations)</p>
 <section class="theorem-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span>, <span class="math notranslate nohighlight">\(a \in \mathbb{R}^m\)</span>. Then</p>
@@ -454,10 +454,10 @@ A^\top A\hat{x} = A^\top a.
 </div>
 <section id="properties-of-the-normal-equation">
 <h3>Properties of the normal equation<a class="headerlink" href="#properties-of-the-normal-equation" title="Link to this heading">#</a></h3>
-<p>We assume in this section that <span class="math notranslate nohighlight">\(m \ge n\)</span> and that <span class="math notranslate nohighlight">\(A\)</span> has a full rank. Let <span class="math notranslate nohighlight">\(A = U\Sigma V^\top \in \mathbb{R}^{m \times n}\)</span> be the SVD of <span class="math notranslate nohighlight">\(A\)</span>. To generalise the relative condition number of a square matrix, we define the relative condition number for a rectangular <span class="math notranslate nohighlight">\((m \times n)\)</span>-matrix as</p>
+<p>We assume in this section that <span class="math notranslate nohighlight">\(m \ge n\)</span> and that <span class="math notranslate nohighlight">\(A\)</span> has full rank. Let <span class="math notranslate nohighlight">\(A = U\Sigma V^\top \in \mathbb{R}^{m \times n}\)</span> be the SVD of <span class="math notranslate nohighlight">\(A\)</span>. For a rectangular matrix with full column rank, we define its <span class="math notranslate nohighlight">\(2\)</span>-norm condition number by</p>
 <div class="math notranslate nohighlight">
 \[
-\kappa_{rel}(A):=\sigma_1/\sigma_n.
+\kappa_2(A):=\sigma_1/\sigma_n.
 \]</div>
 <p>We also have</p>
 <div class="math notranslate nohighlight">
@@ -468,7 +468,7 @@ A^\top A = V\Sigma^\top\Sigma V^\top \in \mathbb{R}^{n \times n},
 <p>Furthermore,</p>
 <div class="math notranslate nohighlight">
 \[
-\kappa_{rel}(A^\top A) = \sigma_1^2 / \sigma_n^2 = \kappa_{rel}(A)^2.
+\kappa_2(A^\top A) = \sigma_1^2 / \sigma_n^2 = \kappa_2(A)^2.
 \]</div>
 <p>It follows that the linear system in the normal equation has a <em>squared condition number</em> compared to the original matrix <span class="math notranslate nohighlight">\(A\)</span>.</p>
 <p>Subsequently, we will explore orthogonalisation methods to circumvent this condition number squaring, offering a more stable approach to solving the least-squares problem.</p>
@@ -481,7 +481,7 @@ A^\top A = V\Sigma^\top\Sigma V^\top \in \mathbb{R}^{n \times n},
 \[\begin{split}
 A = \begin{pmatrix} Q_1 &amp; Q_2 \end{pmatrix}\begin{pmatrix} R \\ 0 \end{pmatrix},
 \end{split}\]</div>
-<p>where <span class="math notranslate nohighlight">\(Q_1\)</span> and <span class="math notranslate nohighlight">\(Q_2\)</span> are orthogonal matrices, and <span class="math notranslate nohighlight">\(R\)</span> is an upper triangular matrix. Substituting this decomposition into the least-squares problem, we get:</p>
+<p>where <span class="math notranslate nohighlight">\(Q_1 \in \mathbb{R}^{m\times n}\)</span> and <span class="math notranslate nohighlight">\(Q_2 \in \mathbb{R}^{m\times (m-n)}\)</span> have orthonormal columns, <span class="math notranslate nohighlight">\(\begin{pmatrix}Q_1 &amp; Q_2\end{pmatrix}\)</span> is orthogonal, and <span class="math notranslate nohighlight">\(R \in \mathbb{R}^{n\times n}\)</span> is upper triangular. Substituting this decomposition into the least-squares problem, we get:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \|Ax - a\|_2 = \left\|\begin{pmatrix} Q_1 &amp; Q_2 \end{pmatrix}\begin{pmatrix} R \\ 0 \end{pmatrix}x - a\right\|_2 =
@@ -495,10 +495,9 @@ R \hat{x} = Q_1^\top a.
 <p>Returning to the question of the <span class="math notranslate nohighlight">\(2\)</span>-norm condition number:</p>
 <div class="math notranslate nohighlight">
 \[
-\kappa_{rel}(R) = \kappa_{rel}(Q^\top A) = \| Q^\top A \|_2 \, \| (Q^\top A)^{-1} \|_2 \leq \| Q^\top \|_2 \, \| A \|_2 \, \|
-A^{-1} \|_2 \, \| Q \|_2 = \kappa_{rel}(A),
+\kappa_2(R) = \kappa_2(Q_1R) = \kappa_2(A),
 \]</div>
-<p>where we use the submultiplicativity of the matrix <span class="math notranslate nohighlight">\(2\)</span>-norm and that <span class="math notranslate nohighlight">\(\| Q \|_2 = 1\)</span> and <span class="math notranslate nohighlight">\(Q^\top = Q^{-1}\)</span>.</p>
+<p>because left multiplication by a matrix with orthonormal columns preserves singular values. Hence <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(R\)</span> have the same singular values.</p>
 <p>Consequently, the <span class="math notranslate nohighlight">\(QR\)</span> decomposition approach effectively circumvents the condition number squaring issue associated with the normal equation method.</p>
 </section>
 <section id="solving-least-squares-problems-with-the-svd">
@@ -513,19 +512,19 @@ A = U\Sigma V^\top = \begin{pmatrix} U_1 &amp; U_2 \end{pmatrix} \begin{pmatrix}
 \[
 \|Ax-a\|_2 = \|U\Sigma V^\top x - a\|_2.
 \]</div>
-<p>Let <span class="math notranslate nohighlight">\([y_1, y_2]^\top = [V_1^\top x, V_2^\top x]^\top\)</span> and factorise out <span class="math notranslate nohighlight">\(U\)</span> to obtain</p>
+<p>Let <span class="math notranslate nohighlight">\(y = V^\top x\)</span>, partitioned as <span class="math notranslate nohighlight">\(y=\begin{pmatrix}y_1\\ y_2\end{pmatrix}\)</span> with <span class="math notranslate nohighlight">\(y_1 = V_1^\top x\)</span> and <span class="math notranslate nohighlight">\(y_2 = V_2^\top x\)</span>, and factor out <span class="math notranslate nohighlight">\(U\)</span> to obtain</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \|Ax - a\|_2 = \left\|\begin{pmatrix} \hat{\Sigma} &amp; 0 \\ 0 &amp; 0 \end{pmatrix} \begin{pmatrix} y_1\\ y_2 \end{pmatrix} - \begin{pmatrix}U_1^\top a\\
 U_2^\top a\end{pmatrix}\right\|_2.
 \end{split}\]</div>
-<p>The second block row as well as the choice of <span class="math notranslate nohighlight">\(y_2\)</span> do not affect the least-squares norm and, hence, <span class="math notranslate nohighlight">\(y_1 = \hat{\Sigma}^{-1} U_1^\top a\)</span> and therefore</p>
+<p>The second block row cannot be influenced by the choice of <span class="math notranslate nohighlight">\(x\)</span>, and the least-squares norm depends on <span class="math notranslate nohighlight">\(y_2\)</span> only through zeros. Hence <span class="math notranslate nohighlight">\(y_1 = \hat{\Sigma}^{-1} U_1^\top a\)</span>, while <span class="math notranslate nohighlight">\(y_2\)</span> is arbitrary. Choosing <span class="math notranslate nohighlight">\(y_2 = 0\)</span> gives the minimum-norm minimiser</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \hat{x}= \begin{pmatrix} V_1 &amp; V_2 \end{pmatrix} \begin{pmatrix} \hat{\Sigma}^{-1} &amp; 0 \\ 0 &amp; 0 \end{pmatrix} \begin{pmatrix} U_1 &amp; U_2 \end{pmatrix}^\top a
 \end{split}\]</div>
-<p>is a (possibly non-unique) minimiser of the least-squares problem. This leads to the important concept of a pseudo-inverse of a matrix.</p>
-<div class="proof definition admonition" id="definition-1">
+<p>is the minimum-norm minimiser of the least-squares problem. This leads to the important concept of a pseudo-inverse of a matrix.</p>
+<div class="proof definition admonition" id="def-pseudoinverse">
 <p class="admonition-title"><span class="caption-number">Definition 7 </span> (Pseudo-inverse of a matrix)</p>
 <section class="definition-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(U \Sigma V^\top\)</span> be an SVD of <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span> and <span class="math notranslate nohighlight">\(m \geq n\)</span>. Then the pseudo-inverse of <span class="math notranslate nohighlight">\(A\)</span> is</p>
@@ -535,7 +534,7 @@ A^{\dagger} := V \begin{pmatrix} \hat{\Sigma}^{-1} &amp; 0 \\ 0 &amp; 0 \end{pma
 \end{split}\]</div>
 <p>where <span class="math notranslate nohighlight">\(\hat{\Sigma} \in \mathbb{R}^{r \times r}\)</span> and <span class="math notranslate nohighlight">\(r = \text{rank}(A)\)</span>.</p>
 </section>
-</div><p>The pseudo-inverse of <span class="math notranslate nohighlight">\(A\)</span> is a generalisation of the inverse of <span class="math notranslate nohighlight">\(A\)</span>. In the same way that <span class="math notranslate nohighlight">\(A^{-1}a\)</span> solves the linear system <span class="math notranslate nohighlight">\(Ax=a\)</span> for a square matrix <span class="math notranslate nohighlight">\(A\)</span>, the pseudo-inverse <span class="math notranslate nohighlight">\(A^{\dagger}\)</span> applied to <span class="math notranslate nohighlight">\(a\)</span> solves the least-squares minimisation problem <span class="math notranslate nohighlight">\(\|Ax-a\|_2\)</span> for rectangular <span class="math notranslate nohighlight">\(A\)</span>.</p>
+</div><p>The pseudo-inverse of <span class="math notranslate nohighlight">\(A\)</span> is a generalisation of the inverse of <span class="math notranslate nohighlight">\(A\)</span>. In the same way that <span class="math notranslate nohighlight">\(A^{-1}a\)</span> solves the linear system <span class="math notranslate nohighlight">\(Ax=a\)</span> for a square matrix <span class="math notranslate nohighlight">\(A\)</span>, the pseudo-inverse <span class="math notranslate nohighlight">\(A^{\dagger}\)</span> applied to <span class="math notranslate nohighlight">\(a\)</span> gives the minimum-norm least-squares solution for rectangular <span class="math notranslate nohighlight">\(A\)</span>.</p>
 </section>
 <section id="python-skills">
 <h2>Python skills<a class="headerlink" href="#python-skills" title="Link to this heading">#</a></h2>
@@ -571,11 +570,11 @@ A^{\dagger} := V \begin{pmatrix} \hat{\Sigma}^{-1} &amp; 0 \\ 0 &amp; 0 \end{pma
 <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>  <span class="c1"># A random 5x3 matrix</span>
 <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>  <span class="c1"># A random vector of length 5</span>
 
-<span class="c1"># Step 2: Perform SVD</span>
-<span class="n">U</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">VT</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="c1"># Step 2: Perform the reduced SVD</span>
+<span class="n">U</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">VT</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">full_matrices</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
 <span class="c1"># Step 3: Compute the pseudo-inverse</span>
-<span class="n">Sigma_inv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">sigma</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">))))</span>
+<span class="n">Sigma_inv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">sigma</span><span class="p">)</span>
 <span class="n">A_pseudo_inverse</span> <span class="o">=</span> <span class="n">VT</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">Sigma_inv</span> <span class="o">@</span> <span class="n">U</span><span class="o">.</span><span class="n">T</span>
 
 <span class="c1"># Step 4: Solve for x</span>
@@ -796,7 +795,7 @@ A^{\dagger} = \begin{pmatrix} 0.5 &amp; 0 \\ 0 &amp; 0 \end{pmatrix}.
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
 <span class="sd-summary-text">Principles of orthogonal approximation</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
-<div class="proof definition admonition" id="definition-2">
+<div class="proof definition admonition" id="def-scalar-product">
 <p class="admonition-title"><span class="caption-number">Definition 8 </span></p>
 <section class="definition-content" id="proof-content">
 <p class="sd-card-text">Let <span class="math notranslate nohighlight">\(V\)</span> be a vector space over ,<span class="math notranslate nohighlight">\(\mathbb{K} \in \{ \mathbb{R}, \mathbb{C} \}\)</span>. A mapping</p>
@@ -832,7 +831,7 @@ s : V \times V \to \mathbb{K}
 <p class="admonition-title">Fact: Interpolation error bound</p>
 <p class="sd-card-text">Let <span class="math notranslate nohighlight">\((V, \langle \cdot, \cdot \rangle)\)</span> be an inner product space. Then, the mapping <span class="math notranslate nohighlight">\(v \mapsto \sqrt{\langle v, v \rangle}\)</span> defines a norm.</p>
 </div>
-<div class="proof example admonition" id="example-3">
+<div class="proof example admonition" id="ex-scalar-products">
 <p class="admonition-title"><span class="caption-number">Example 10 </span></p>
 <section class="example-content" id="proof-content">
 <p class="sd-card-text">(a) Let <span class="math notranslate nohighlight">\(A\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^{n \times n}\)</span> be a symmetric, positive definite matrix. Then the mapping</p>
@@ -904,7 +903,7 @@ A x = a
 <p class="admonition-title">Fact: Orthogonal approximation</p>
 <p class="sd-card-text">The matrix <span class="math notranslate nohighlight">\(A\)</span> is positive definite and therefore invertible.</p>
 </div>
-<div class="proof example admonition" id="example-4">
+<div class="proof example admonition" id="ex-orthogonal-approximation-linear-polynomials">
 <p class="admonition-title"><span class="caption-number">Example 11 </span></p>
 <section class="example-content" id="proof-content">
 <p class="sd-card-text">Let <span class="math notranslate nohighlight">\(\Omega = (-1,1)^2\)</span> be non-empty, open and <span class="math notranslate nohighlight">\(V = L^2(\Omega, \mathbb{R})\)</span>. Let <span class="math notranslate nohighlight">\(P = \mathcal{P}_{1,2}\)</span> be the space of <span class="math notranslate nohighlight">\(2\)</span>-variate polynomials with degrees less than or equal to <span class="math notranslate nohighlight">\(1\)</span>. The space <span class="math notranslate nohighlight">\(\mathcal{P}_{1,2}\)</span> has the basis</p>
@@ -1055,7 +1054,7 @@ p_{1,2} = t_1 \cdot \Bigl( \frac{3}{2} t_2^2 - \frac{1}{2} \Bigr) = \alpha_{1,2}
 <p class="sd-card-text">A selection of <span class="math notranslate nohighlight">\(n\)</span> linearly independent, nonzero vectors in an <span class="math notranslate nohighlight">\(n\)</span>-dimensional vector space <span class="math notranslate nohighlight">\(V\)</span>, <span class="math notranslate nohighlight">\(n \in \mathbb{N}\)</span>, is a basis of ,<span class="math notranslate nohighlight">\(V\)</span>.</p>
 </div>
 <p class="sd-card-text">Therefore the <span class="math notranslate nohighlight">\(p_{jk}\)</span> are a basis of <span class="math notranslate nohighlight">\(\mathcal{Q}_{2,2}\)</span>. The matrix <span class="math notranslate nohighlight">\(A\)</span> above is diagonal if the <span class="math notranslate nohighlight">\(p_{jk}\)</span> are orthogonal.</p>
-<div class="proof example admonition" id="example-5">
+<div class="proof example admonition" id="ex-orthogonal-approximation-legendre-product-basis">
 <p class="admonition-title"><span class="caption-number">Example 12 </span></p>
 <section class="example-content" id="proof-content">
 <p class="sd-card-text">Let <span class="math notranslate nohighlight">\(V = L^2((-1,1)^2, \mathbb{R})\)</span>. Compute the best approximation <span class="math notranslate nohighlight">\(p\)</span> to</p>

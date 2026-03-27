@@ -405,7 +405,7 @@ document.write(`
 <p><strong>Infinite sets:</strong> Even finite-dimensional vector spaces, like the real number line <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>, are infinite sets that require finite representation on computers. This necessitates the use of floating-point numbers (discussed later) and introduces approximation errors.</p>
 <p><strong>Iterative problems:</strong> The solution to many mathematical problems can be expressed as the limit of a sequence, where each sequence element can be computed in a finite number of steps. For example, consider a <a class="reference external" href="https://en.wikipedia.org/wiki/Riemann_integral">Riemann integral</a> as the limit of increasingly refined Riemann sums or the root of a function as the limit of a <a class="reference external" href="https://en.wikipedia.org/wiki/Newton%27s_method">Newton iteration</a>. While computers can calculate sequence elements in finite time, it’s crucial to consider the error, i.e., the difference between a computed element and the true limit.</p>
 <p>When the objects of interest, such as errors, belong to a vector space, a norm is often the most appropriate tool for quantifying their magnitude.</p>
-<div class="proof definition admonition" id="definition-0">
+<div class="proof definition admonition" id="def-norm-axioms">
 <p class="admonition-title"><span class="caption-number">Definition 1 </span> (Norm axioms)</p>
 <section class="definition-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(V\)</span> be a real vector space, <span class="math notranslate nohighlight">\(\mathbb{R}^{+} := [0, \infty)\)</span>, and <span class="math notranslate nohighlight">\(\rho: V \rightarrow \mathbb{R}^{+}\)</span> a mapping from
@@ -442,9 +442,9 @@ document.write(`
 </section>
 <section id="norm-equivalence">
 <h2>Norm equivalence<a class="headerlink" href="#norm-equivalence" title="Link to this heading">#</a></h2>
-<p>Which norm should we use? This usually depends on the application. A New York taxi driver will prefer the <span class="math notranslate nohighlight">\(1\)</span>-norm when calculating distances as they need to follow a street map and cannot travel diagonally to locations.</p>
+<p>Which norm should we use? This usually depends on the application. For example, a taxi driver navigating a rectangular street grid will prefer the <span class="math notranslate nohighlight">\(1\)</span>-norm when measuring distances, since diagonal travel is not possible.</p>
 <p>In Numerical Analysis, we often want to prove whether a given numerical approximation converges. We consider several computations indexed by <span class="math notranslate nohighlight">\(n\)</span> and have a corresponding error quantity <span class="math notranslate nohighlight">\(e_n\)</span>. We want to show that the sequence of errors <span class="math notranslate nohighlight">\(\left\{e_n\right\}\)</span> converges to <span class="math notranslate nohighlight">\(0\)</span> as <span class="math notranslate nohighlight">\(n \to \infty\)</span>. Can it happen that an error converges to <span class="math notranslate nohighlight">\(0\)</span> in one norm but not in another norm? In finite-dimensional vector spaces, the answer is no. If a sequence converges in one norm, it also converges in all others. This is due to the following norm equivalence theorem.</p>
-<div class="proof theorem admonition" id="theorem-1">
+<div class="proof theorem admonition" id="thm-norm-equivalence">
 <p class="admonition-title"><span class="caption-number">Theorem 1 </span> (Norm equivalence in finite-dimensional vector spaces)</p>
 <section class="theorem-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(V\)</span> be a finite-dimensional vector space. Consider two norms <span class="math notranslate nohighlight">\(\|\cdot\|_a\)</span> and <span class="math notranslate nohighlight">\(\|\cdot\|_b\)</span> on <span class="math notranslate nohighlight">\(V\)</span>. Then, there exist positive constants <span class="math notranslate nohighlight">\(C_1\)</span>, <span class="math notranslate nohighlight">\(C_2\)</span> such that for all <span class="math notranslate nohighlight">\(x\in V\)</span></p>
@@ -465,14 +465,14 @@ C_1\|x\|_a\leq \|x\|_b\leq C_2\|x\|_a
 \[
 \|A\|_{b, a} := \max_{x \in \mathbb{R}^n \setminus \{0\}} \frac{\|Ax\|_b}{\|x\|_a}
 \]</div>
-<p>If the same norm is used for both the domain and co-domain, we abbreviate <span class="math notranslate nohighlight">\(\|A\|_{a, a}\)</span> as <span class="math notranslate nohighlight">\(\|A\|_a\)</span>.</p>
+<p>If the same norm is used for both the domain and codomain, we abbreviate <span class="math notranslate nohighlight">\(\|A\|_{a, a}\)</span> as <span class="math notranslate nohighlight">\(\|A\|_a\)</span>.</p>
 <p>The following three matrix norms derive from the corresponding vector norms (where <span class="math notranslate nohighlight">\(\lambda_{\max}\)</span> denotes the largest eigenvalue):</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(\|A\|_1 = \max_{1 \leq j \leq n} \sum_{i=1}^m |a_{ij}| = \max_{x \in \mathbb{R}^n \setminus \{0\}} \frac{\|Ax\|_1}{\|x\|_1}\)</span>,</p></li>
 <li><p><span class="math notranslate nohighlight">\(\|A\|_2 = \sqrt{\lambda_{\max}(A^\top A)} = \max_{x \in \mathbb{R}^n \setminus \{0\}} \frac{\|Ax\|_2}{\|x\|_2}\)</span>,</p></li>
 <li><p><span class="math notranslate nohighlight">\(\|A\|_{\infty} = \max_{1 \leq i \leq m} \sum_{j=1}^n |a_{ij}| = \max_{x \in \mathbb{R}^n \setminus \{0\}} \frac{\|Ax\|_\infty}{\|x\|_\infty}\)</span>.</p></li>
 </ul>
-<p>Observe that <span class="math notranslate nohighlight">\(\|A\|_1 = \|A^\top\|_{\infty}\)</span>. Calculating the <span class="math notranslate nohighlight">\(||A||_2\)</span> matrix norm is computationally expensive, as it requires determining the largest eigenvalue of <span class="math notranslate nohighlight">\(A^\top A\)</span>. Therefore, the <em>Frobenius norm</em> is often used as an alternative:</p>
+<p>Observe that <span class="math notranslate nohighlight">\(\|A\|_1 = \|A^\top\|_{\infty}\)</span>. Calculating the <span class="math notranslate nohighlight">\(\|A\|_2\)</span> matrix norm is computationally expensive, as it requires determining the largest eigenvalue of <span class="math notranslate nohighlight">\(A^\top A\)</span>. Therefore, the <em>Frobenius norm</em> is often used as an alternative:</p>
 <div class="math notranslate nohighlight">
 \[
 \|A\|_F := \left(\sum_{ij} |a_{ij}|^2 \right)^{1/2}.
@@ -485,7 +485,7 @@ C_1\|x\|_a\leq \|x\|_b\leq C_2\|x\|_a
 </section>
 <section id="submultiplicativity">
 <h2>Submultiplicativity<a class="headerlink" href="#submultiplicativity" title="Link to this heading">#</a></h2>
-<p>Let <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span> and <span class="math notranslate nohighlight">\(B \in \mathbb{R}^{n \times k}\)</span> with a corresponding vector-induced matrix norm <span class="math notranslate nohighlight">\(\|\cdot\|\)</span>. For any <span class="math notranslate nohighlight">\(v \in \mathbb{R}^k\)</span>, it holds <span class="math notranslate nohighlight">\(\| A w \| \leq \| A \| \, \| w \|\)</span>. Thus</p>
+<p>Let <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span> and <span class="math notranslate nohighlight">\(B \in \mathbb{R}^{n \times k}\)</span> with a corresponding vector-induced matrix norm <span class="math notranslate nohighlight">\(\|\cdot\|\)</span>. For any <span class="math notranslate nohighlight">\(w \in \mathbb{R}^n\)</span>, it holds <span class="math notranslate nohighlight">\(\| A w \| \leq \| A \| \, \| w \|\)</span>. Thus, for any <span class="math notranslate nohighlight">\(v \in \mathbb{R}^k\)</span>,</p>
 <!--that
 
 $$
@@ -616,7 +616,7 @@ A^\top A = \begin{pmatrix}4 &amp; 6\\ 6 &amp; 10\end{pmatrix},
 \[
 \lim_{p\rightarrow\infty} \|x\|_p = \lim_{p\rightarrow\infty} \Bigl[ \sum_{j}|x_j|^p\Bigr]^{1/p} = |x_k|\lim_{p\rightarrow\infty} \Bigl[\underbrace{1 +  \sum_{j\neq k}|x_j/x_k|^p}_{=: d_p}\Bigr]^{1/p} = |x_k|.
 \]</div>
-<p class="sd-card-text">For the last inequality, we used that the term <span class="math notranslate nohighlight">\(d_p\)</span> is bounded from below by <span class="math notranslate nohighlight">\(1\)</span> and from above by <span class="math notranslate nohighlight">\(n\)</span> (accounting for the possibility that <span class="math notranslate nohighlight">\(x\)</span> can have multiple elements of the largest magnitude) so that <span class="math notranslate nohighlight">\(\lim_{p \to \infty} \sqrt[p]{d_p} \to 1\)</span>.</p>
+<p class="sd-card-text">For the last step, we used that the term <span class="math notranslate nohighlight">\(d_p\)</span> is bounded from below by <span class="math notranslate nohighlight">\(1\)</span> and from above by <span class="math notranslate nohighlight">\(n\)</span> (accounting for the possibility that <span class="math notranslate nohighlight">\(x\)</span> can have multiple elements of the largest magnitude), so that <span class="math notranslate nohighlight">\(\lim_{p \to \infty} \sqrt[p]{d_p} \to 1\)</span>.</p>
 </div>
 </details><div class="tip admonition">
 <p class="admonition-title"><strong>Question</strong></p>

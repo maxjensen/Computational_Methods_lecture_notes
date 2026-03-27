@@ -376,12 +376,12 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="python-implementation">
 <h1>Python implementation<a class="headerlink" href="#python-implementation" title="Link to this heading">#</a></h1>
-<p>In the following, we demonstrate a simple LU decomposition in Python. We also present timing comparisons against the Python implementation from Scipy to show that <strong>one should never use one’s own implementation of the LU decomposition but always use existing NumPy/Scipy routines</strong>.</p>
+<p>In the following, we demonstrate a simple LU decomposition in Python. We also present timing comparisons against the implementation from SciPy to show that <strong>one should not use a handwritten LU decomposition in practice, but instead rely on existing NumPy/SciPy routines</strong>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.linalg</span><span class="w"> </span><span class="kn">import</span> <span class="n">lu</span> <span class="k">as</span> <span class="n">scipy_lu</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">lu</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Our cool LU implementation.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A simple LU decomposition without pivoting.&quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Input matrix must be square.&quot;</span><span class="p">)</span>
@@ -395,7 +395,7 @@ document.write(`
 
     <span class="n">np</span><span class="o">.</span><span class="n">fill_diagonal</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
-    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">col</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
             <span class="n">L</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">U</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">]</span> <span class="o">/</span> <span class="n">U</span><span class="p">[</span><span class="n">col</span><span class="p">,</span> <span class="n">col</span><span class="p">]</span>
             <span class="n">U</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">:]</span> <span class="o">=</span> <span class="n">U</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">:]</span> <span class="o">-</span> <span class="n">L</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">]</span> <span class="o">*</span> <span class="n">U</span><span class="p">[</span><span class="n">col</span><span class="p">,</span> <span class="n">col</span><span class="p">:]</span>
@@ -404,7 +404,7 @@ document.write(`
     <span class="k">return</span> <span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">U</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>The optimised code of the SciPy library is significantly faster. Here is a test case.</p>
+<p>This simple implementation works only when no zero pivots occur. The highly optimised code in SciPy is also significantly faster. Here is a test case.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="mi">200</span>
 <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
 <span class="n">L</span><span class="p">,</span> <span class="n">U</span> <span class="o">=</span> <span class="n">lu</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
@@ -416,18 +416,18 @@ document.write(`
 <span class="n">runtime_scipy_lu</span> <span class="o">=</span> <span class="o">%</span><span class="n">timeit</span> <span class="o">-</span><span class="n">o</span> <span class="n">scipy_lu</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Runtime of our LU (s): </span><span class="si">{</span><span class="n">runtime_my_lu</span><span class="o">.</span><span class="n">best</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Runtime of Scipy LU (s): </span><span class="si">{</span><span class="n">runtime_scipy_lu</span><span class="o">.</span><span class="n">best</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Runtime of SciPy LU (s): </span><span class="si">{</span><span class="n">runtime_scipy_lu</span><span class="o">.</span><span class="n">best</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The speed ratio between the two implementations is: </span><span class="si">{</span><span class="n">runtime_my_lu</span><span class="o">.</span><span class="n">best</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">runtime_scipy_lu</span><span class="o">.</span><span class="n">best</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>A typical output is below, with some variation to be expected between different computers.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">The</span> <span class="n">residual</span> <span class="ow">is</span><span class="p">:</span> <span class="mf">2.285256427880218e-13</span>
-<span class="mf">50.6</span> <span class="n">ms</span> <span class="err">±</span> <span class="mi">474</span> <span class="n">µs</span> <span class="n">per</span> <span class="n">loop</span> <span class="p">(</span><span class="n">mean</span> <span class="err">±</span> <span class="n">std</span><span class="o">.</span> <span class="n">dev</span><span class="o">.</span> <span class="n">of</span> <span class="mi">7</span> <span class="n">runs</span><span class="p">,</span> <span class="mi">10</span> <span class="n">loops</span> <span class="n">each</span><span class="p">)</span>
-<span class="mf">2.26</span> <span class="n">ms</span> <span class="err">±</span> <span class="mi">461</span> <span class="n">µs</span> <span class="n">per</span> <span class="n">loop</span> <span class="p">(</span><span class="n">mean</span> <span class="err">±</span> <span class="n">std</span><span class="o">.</span> <span class="n">dev</span><span class="o">.</span> <span class="n">of</span> <span class="mi">7</span> <span class="n">runs</span><span class="p">,</span> <span class="mi">100</span> <span class="n">loops</span> <span class="n">each</span><span class="p">)</span>
-<span class="n">Runtime</span> <span class="n">of</span> <span class="n">our</span> <span class="n">LU</span> <span class="p">(</span><span class="n">s</span><span class="p">):</span> <span class="mf">0.05018079660003423</span>
-<span class="n">Runtime</span> <span class="n">of</span> <span class="n">Scipy</span> <span class="n">LU</span> <span class="p">(</span><span class="n">s</span><span class="p">):</span> <span class="mf">0.0018813237100403057</span>
-<span class="n">The</span> <span class="n">speed</span> <span class="n">ratio</span> <span class="n">between</span> <span class="n">the</span> <span class="n">two</span> <span class="n">implementations</span> <span class="ow">is</span><span class="p">:</span> <span class="mf">26.673132503581297</span>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>The residual is: 2.285256427880218e-13
+50.6 ms ± 474 µs per loop (mean ± std. dev. of 7 runs, 10 loops each)
+2.26 ms ± 461 µs per loop (mean ± std. dev. of 7 runs, 100 loops each)
+Runtime of our LU (s): 0.05018079660003423
+Runtime of SciPy LU (s): 0.0018813237100403057
+The speed ratio between the two implementations is: 26.673132503581297
 </pre></div>
 </div>
 </section>

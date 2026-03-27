@@ -400,7 +400,7 @@ document.write(`
 <h2>The Schur decomposition<a class="headerlink" href="#the-schur-decomposition" title="Link to this heading">#</a></h2>
 <p>The eigenvalue decomposition <span class="math notranslate nohighlight">\(A = X\Lambda X^{-1}\)</span> is not always suitable for computational purposes. It might not exist, requiring a Jordan normal form instead. Even though small machine perturbations usually ensure diagonalizability in floating-point arithmetic, the proximity to a Jordan form can introduce instabilities. The eigenvector matrix <span class="math notranslate nohighlight">\(X\)</span> might also be ill-conditioned, making its inverse computationally unreliable.</p>
 <p>For practical computations, the Schur decomposition of <span class="math notranslate nohighlight">\(A\)</span> is more robust.</p>
-<div class="proof theorem admonition" id="theorem-0">
+<div class="proof theorem admonition" id="thm-existence-schur-decomposition">
 <p class="admonition-title"><span class="caption-number">Theorem 18 </span> (Existence of the Schur decomposition)</p>
 <section class="theorem-content" id="proof-content">
 <p>Every complex matrix <span class="math notranslate nohighlight">\(A \in \mathbb{C}^{n \times n}\)</span> has a Schur decomposition</p>
@@ -410,10 +410,10 @@ A = Q R Q^H
 \]</div>
 <p>with unitary <span class="math notranslate nohighlight">\(Q\in\mathbb{C}^{n\times n}\)</span> and upper triangular <span class="math notranslate nohighlight">\(R\in\mathbb{C}^{n\times n}\)</span>.</p>
 </section>
-</div><p>The proof is given in the optional material section below. Let’s explore some key properties of the Schur decomposition:</p>
+</div><p>The proof is given in the optional material section below. Let us note some key properties of the Schur decomposition:</p>
 <ul>
 <li><p><strong>Eigenvalues</strong>: The eigenvalues of <span class="math notranslate nohighlight">\(A\)</span> are the diagonal elements of <span class="math notranslate nohighlight">\(R\)</span>. This is evident from the equation <span class="math notranslate nohighlight">\(\det(\lambda I - A) = \det Q \det Q^H \det(\lambda I - R)\)</span> and expanding the determinant of <span class="math notranslate nohighlight">\(\lambda I - R\)</span> along its diagonal.</p></li>
-<li><p><strong>Hermitian Matrices</strong>: For Hermitian <span class="math notranslate nohighlight">\(A\)</span>, the Schur decomposition coincides with the eigenvalue decomposition. Since <span class="math notranslate nohighlight">\(A = A^H\)</span>, it implies <span class="math notranslate nohighlight">\(R = R^H\)</span>, which means <span class="math notranslate nohighlight">\(R\)</span> is diagonal. The first column of <span class="math notranslate nohighlight">\(Q\)</span> corresponds to the eigenvector for the eigenvalue <span class="math notranslate nohighlight">\(r_{11}\)</span> in <span class="math notranslate nohighlight">\(R\)</span>.</p></li>
+<li><p><strong>Hermitian Matrices</strong>: For Hermitian <span class="math notranslate nohighlight">\(A\)</span>, the Schur decomposition coincides with the eigenvalue decomposition. Since <span class="math notranslate nohighlight">\(A = A^H\)</span>, it follows that <span class="math notranslate nohighlight">\(R = R^H\)</span>, so <span class="math notranslate nohighlight">\(R\)</span> is diagonal. The columns of <span class="math notranslate nohighlight">\(Q\)</span> are then orthonormal eigenvectors of <span class="math notranslate nohighlight">\(A\)</span>.</p></li>
 <li><p><strong>Invariant Subspaces</strong>: Consider <span class="math notranslate nohighlight">\(R_k\)</span>, the upper left <span class="math notranslate nohighlight">\(k \times k\)</span> principal submatrix of <span class="math notranslate nohighlight">\(R\)</span>, and <span class="math notranslate nohighlight">\(Q_k \in \mathbb{C}^{n \times k}\)</span>, the matrix of the first <span class="math notranslate nohighlight">\(k\)</span> columns of <span class="math notranslate nohighlight">\(Q\)</span>. It holds that <span class="math notranslate nohighlight">\(AQ_k = Q_kR_k\)</span>. This implies that for any vector <span class="math notranslate nohighlight">\(v\)</span> in the span of <span class="math notranslate nohighlight">\(\{q_1, \ldots, q_k\}\)</span>, <span class="math notranslate nohighlight">\(Av\)</span> is also in this span:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -426,14 +426,14 @@ A = Q R Q^H
 <section id="pure-qr-iteration">
 <h2>Pure QR iteration<a class="headerlink" href="#pure-qr-iteration" title="Link to this heading">#</a></h2>
 <p>In its basic form, the QR iteration is surprisingly simple.</p>
-<div class="proof algorithm admonition" id="algorithm-1">
+<div class="proof algorithm admonition" id="alg-pure-qr-iteration">
 <p class="admonition-title"><span class="caption-number">Algorithm 5 </span> (Pure QR iteration)</p>
 <section class="algorithm-content" id="proof-content">
 <p><strong>Inputs</strong> <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{n \times n}\)</span></p>
-<p><strong>Outputs</strong> In the limit <span class="math notranslate nohighlight">\(Q, R \in \mathbb{R}^{n \times n}\)</span></p>
+<p><strong>Outputs</strong> <span class="math notranslate nohighlight">\(\{A_k\}_{k\in\mathbb{N}} \subset \mathbb{R}^{n\times n}\)</span>, <span class="math notranslate nohighlight">\(\{Q_k\}_{k\in\mathbb{N}} \subset \mathbb{R}^{n\times n}\)</span>, <span class="math notranslate nohighlight">\(\{R_k\}_{k\in\mathbb{N}} \subset \mathbb{R}^{n\times n}\)</span></p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(A_0 := A\)</span>.</p></li>
-<li><p>For <span class="math notranslate nohighlight">\(k\)</span> in <span class="math notranslate nohighlight">\(\{1, \ldots, n\}\)</span>:</p>
+<li><p>For <span class="math notranslate nohighlight">\(k \in \mathbb{N} \setminus \{0\}\)</span>:</p>
 <ul>
 <li><p>Compute QR factorisation of <span class="math notranslate nohighlight">\(A_{k-1}\)</span>: <span class="math notranslate nohighlight">\(Q_k \, R_k = A_{k-1}\)</span></p></li>
 <li><p><span class="math notranslate nohighlight">\(A_k = R_k \, Q_k\)</span></p></li>
@@ -457,10 +457,10 @@ A = Q_1 \cdots Q_k \, A_k \, Q_k^H \cdots Q_1^H.
 \| Q_1 \cdots Q_k - Q \| \to 0, \qquad \| A_k - R \| \to 0,
 \]</div>
 <p>where the convergence may be (by norm equivalence) understood in any matrix norm <span class="math notranslate nohighlight">\(\| \cdot \|\)</span>.</p>
-<div class="proof theorem admonition" id="theorem-2">
+<div class="proof theorem admonition" id="thm-convergence-pure-qr-iteration">
 <p class="admonition-title"><span class="caption-number">Theorem 19 </span> (Convergence of the pure QR iteration)</p>
 <section class="theorem-content" id="proof-content">
-<p>Let <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{n \times n}\)</span> be non-singular and diagonalisable with in modulus distinct eigenvalues:</p>
+<p>Let <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{n \times n}\)</span> be non-singular and diagonalisable with eigenvalues of distinct moduli:</p>
 <div class="math notranslate nohighlight">
 \[
 | \lambda_1 | &gt; | \lambda_2 | &gt; \ldots &gt; | \lambda_n | &gt; 0.
@@ -468,7 +468,7 @@ A = Q_1 \cdots Q_k \, A_k \, Q_k^H \cdots Q_1^H.
 <p>Suppose that the inverse of the matrix <span class="math notranslate nohighlight">\(T = (v_1| \ldots| v_n) \in \mathbb{R}^{n \times n}\)</span> of normalised eigenvectors <span class="math notranslate nohighlight">\(v_k\)</span> of <span class="math notranslate nohighlight">\(\lambda_k\)</span> has an LU decomposition without pivoting (i.e. <span class="math notranslate nohighlight">\(T^{-1} = LU\)</span>). Then, with signs adjusted as necessary, the <span class="math notranslate nohighlight">\(A_k\)</span> converge linearly to <span class="math notranslate nohighlight">\(R\)</span>:</p>
 <div class="math notranslate nohighlight">
 \[
-A_k = R + \mathcal{O}(q^m), \qquad q := \max_k \frac{|\lambda_{k+1}|}{\lambda_k}.
+A_k = R + \mathcal{O}(q^k), \qquad q := \max_k \frac{|\lambda_{k+1}|}{|\lambda_k|}.
 \]</div>
 </section>
 </div><div class="proof admonition" id="proof">
@@ -484,7 +484,7 @@ A Q_1 \cdots Q_k = Q_1 \cdots Q_k \, A_k = Q_1 \cdots Q_{k+1} R_{k+1}.
 A q_k = (R_{k+1})_{11} q_{k+1}.
 \]</div>
 <p>This is exactly the defining equation of the power iteration, with that top-left entry <span class="math notranslate nohighlight">\((R_{k+1})_{11}\)</span> taking the role of <span class="math notranslate nohighlight">\(\lambda^{(k)} = (q_k)^H A q_k = (R_{k+1})_{11} \| q_{k+1} \|^2 = (R_{k+1})_{11}\)</span>. As the hypotheses of the theorem include those needed for the convergence proof of the power iteration, <span class="math notranslate nohighlight">\((R_{k+1})_{11} \to \lambda_1\)</span> and <span class="math notranslate nohighlight">\(q_k \to v_1\)</span> as <span class="math notranslate nohighlight">\(k \to \infty\)</span>.</p>
-<p>In the case <span class="math notranslate nohighlight">\(n = 2\)</span>, the second column of <span class="math notranslate nohighlight">\(Q_1 \cdots Q_k\)</span>, being orthonormal to the first, converges (up to sign adjustments) to <span class="math notranslate nohighlight">\(v_2\)</span>, which is known to be orthogonal to <span class="math notranslate nohighlight">\(v_1\)</span>. Finally,</p>
+<p>In the case <span class="math notranslate nohighlight">\(n = 2\)</span>, once the first column of <span class="math notranslate nohighlight">\(Q_1 \cdots Q_k\)</span> has converged, the second column is determined up to sign by orthogonality. Hence, after adjusting signs if necessary, the products <span class="math notranslate nohighlight">\(Q_1 \cdots Q_k\)</span> converge to an orthogonal matrix <span class="math notranslate nohighlight">\(Q\)</span>. Finally,</p>
 <div class="math notranslate nohighlight">
 \[
 A_k = Q_k^H \cdots Q_1^H \, A \, Q_1 \cdots Q_k \to Q^H A Q = R.
@@ -493,20 +493,19 @@ A_k = Q_k^H \cdots Q_1^H \, A \, Q_1 \cdots Q_k \to Q^H A Q = R.
 </section>
 <section id="practical-qr-iteration">
 <h2>Practical QR iteration<a class="headerlink" href="#practical-qr-iteration" title="Link to this heading">#</a></h2>
-<p>In practice, the QR iteration is modified to increase that rate of convergence.</p>
+<p>In practice, the QR iteration is modified to increase the rate of convergence.</p>
 <ul class="simple">
 <li><p>The first is to build in the idea of shifts, that we have already come across as <span class="math notranslate nohighlight">\(\sigma\)</span> when studying the inverse iteration.</p></li>
-<li><p>The second is to transform the matrix first into a similar tri-diagonal matrix (only the diagonal and the first off-diagonals have non-zero entries).</p></li>
+<li><p>The second is to transform the matrix first into a similar Hessenberg matrix; in the symmetric case this reduces to a tridiagonal matrix.</p></li>
 <li><p>In addition, techniques can be applied to break the iteration into smaller (computationally cheaper) subproblems when zeros in off-diagonal entries are discovered. These approaches are called deflation strategies.</p></li>
 </ul>
-<p>For real symmetric matrices the resulting QR iteration exhibits very fast cubic convergence, with <span class="math notranslate nohighlight">\(\mathcal{O}(n^3)\)</span> operations to achieve machine accuracy.</p>
+<p>For real symmetric matrices the resulting QR iteration is very efficient and requires only <span class="math notranslate nohighlight">\(\mathcal{O}(n^3)\)</span> operations to reach machine accuracy.</p>
 <section id="numerical-investigation-of-qr-iteration-steps">
 <h3>Numerical investigation of QR iteration steps<a class="headerlink" href="#numerical-investigation-of-qr-iteration-steps" title="Link to this heading">#</a></h3>
 <p>We investigate these techniques by means of a computational example.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.linalg</span><span class="w"> </span><span class="kn">import</span> <span class="n">qr</span><span class="p">,</span> <span class="n">hessenberg</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
-<span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
 </pre></div>
 </div>
 <p>We start with some random matrix <span class="math notranslate nohighlight">\(A\)</span>.</p>
@@ -553,7 +552,7 @@ A^{(m)} -\sigma I &amp;= Q_mR_m\\
 A^{(m+1)} &amp;= R_mQ_m + \sigma I.
 \end{aligned}
 \end{split}\]</div>
-<p>Hence, we subtract the shift and do the QR decomposition, and then when we compute <span class="math notranslate nohighlight">\(R_mQ_m\)</span> we add the shift back in.</p>
+<p>Hence, we subtract the shift, compute the QR decomposition, and then add the shift back after forming <span class="math notranslate nohighlight">\(R_mQ_m\)</span>.</p>
 <p>One can show that a QR step is equivalent to inverse iteration applied to the last vector in the simultaneous iteration. Hence, by applying the shift we perform a shifted inverse iteration. What shall we use as shift?</p>
 <p>It turns out that we achieve quadratic convergence if we simply use the bottom right element of the Hessenberg matrix in each step as shift. This is similar to the Rayleigh quotient method for symmetric problems, where we adapted the shift in each step.</p>
 <p>The following implements the shift strategy. We define <code class="docutils literal notranslate"><span class="pre">residual</span> <span class="pre">=</span> <span class="pre">np.abs(H[-1,</span> <span class="pre">-2])</span> <span class="pre">/</span> <span class="pre">np.abs(H[-1,</span> <span class="pre">-1])</span></code> as a measure of how close the subdiagonal element is to zero relative to the diagonal.</p>
@@ -624,7 +623,7 @@ A^{(m+1)} &amp;= R_mQ_m + \sigma I.
 
 <span class="k">def</span><span class="w"> </span><span class="nf">pure_qr_iteration</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-10</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Computes the eigenvalues and eigenvectors of matrix A using the pure QR iteration method.</span>
+<span class="sd">    Computes approximate eigenvalues and eigenvectors of a real symmetric matrix A using the pure QR iteration method.</span>
 
 <span class="sd">    Parameters:</span>
 <span class="sd">    A (numpy.ndarray): The input square matrix.</span>
@@ -635,7 +634,7 @@ A^{(m+1)} &amp;= R_mQ_m + \sigma I.
 <span class="sd">    numpy.ndarray: Approximated eigenvalues.</span>
 <span class="sd">    numpy.ndarray: Approximate eigenvectors.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">A_k</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>  <span class="c1"># Ensure floating-point computation</span>
+    <span class="n">A_k</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>  <span class="c1"># This implementation is intended for real matrices</span>
     <span class="n">n</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">eigenvectors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>  <span class="c1"># Accumulate eigenvectors</span>
 
@@ -644,8 +643,8 @@ A^{(m+1)} &amp;= R_mQ_m + \sigma I.
         <span class="n">A_k</span> <span class="o">=</span> <span class="n">R</span> <span class="o">@</span> <span class="n">Q</span>  <span class="c1"># Update A_k</span>
         <span class="n">eigenvectors</span> <span class="o">=</span> <span class="n">eigenvectors</span> <span class="o">@</span> <span class="n">Q</span>  <span class="c1"># Update eigenvectors</span>
 
-        <span class="c1"># Check for convergence: sum of squared off-diagonal elements</span>
-        <span class="n">off_diagonal_norm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">A_k</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">triu_indices</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">)]</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+        <span class="c1"># Check for convergence using the strictly lower triangular part</span>
+        <span class="n">off_diagonal_norm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">tril</span><span class="p">(</span><span class="n">A_k</span><span class="p">,</span> <span class="n">k</span><span class="o">=-</span><span class="mi">1</span><span class="p">))</span>
         <span class="k">if</span> <span class="n">off_diagonal_norm</span> <span class="o">&lt;</span> <span class="n">tol</span><span class="p">:</span>
             <span class="k">break</span>
     
@@ -671,10 +670,10 @@ A^{(m+1)} &amp;= R_mQ_m + \sigma I.
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;NumPy Eigenvectors:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">eigenvectors_np</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>We have used here the helper function <code class="docutils literal notranslate"><span class="pre">normalize_eigenvectors</span></code>, which ensures eigenvectors have unit length and a positive first nonzero entry.</p>
+<p>We have used here the helper function <code class="docutils literal notranslate"><span class="pre">normalize_eigenvectors</span></code>, which ensures eigenvectors have unit length and, for real vectors, a positive first nonzero entry.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">normalize_eigenvectors</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-10</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Normalizes eigenvectors such that each has unit length and a positive first nonzero entry.</span>
+<span class="sd">    Normalizes eigenvectors such that each has unit length and, for real vectors, a positive first nonzero entry.</span>
 
 <span class="sd">    Parameters:</span>
 <span class="sd">    V (numpy.ndarray): Matrix of eigenvectors (columns are eigenvectors).</span>
@@ -688,12 +687,12 @@ A^{(m+1)} &amp;= R_mQ_m + \sigma I.
     <span class="n">norms</span><span class="p">[</span><span class="n">norms</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># Avoid division by zero</span>
     <span class="n">V_norm</span> <span class="o">=</span> <span class="n">V</span> <span class="o">/</span> <span class="n">norms</span>  
 
-    <span class="c1"># Ensure the first nonzero entry of each eigenvector is positive</span>
+    <span class="c1"># Ensure the first nonzero entry of each real eigenvector is positive</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">V_norm</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
         <span class="n">first_nonzero_index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">V_norm</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Find nonzero indices</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">first_nonzero_index</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">first_nonzero</span> <span class="o">=</span> <span class="n">first_nonzero_index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># First nonzero row index</span>
-            <span class="k">if</span> <span class="n">V_norm</span><span class="p">[</span><span class="n">first_nonzero</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>  
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isrealobj</span><span class="p">(</span><span class="n">V_norm</span><span class="p">)</span> <span class="ow">and</span> <span class="n">V_norm</span><span class="p">[</span><span class="n">first_nonzero</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="n">V_norm</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">*=</span> <span class="o">-</span><span class="mi">1</span>  <span class="c1"># Flip sign</span>
 
     <span class="c1"># Set small values to zero</span>
@@ -751,9 +750,9 @@ Q = \begin{pmatrix}
 <summary class="sd-summary-title sd-card-header">
 <span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
 <p class="sd-card-text">We begin by recording that the eigenvalues of <span class="math notranslate nohighlight">\(Q\)</span> are complex: <span class="math notranslate nohighlight">\(\lambda_1 = i\)</span> and <span class="math notranslate nohighlight">\(\lambda_2 = -i\)</span>.</p>
-<p class="sd-card-text">The pure QR iterations computes <span class="math notranslate nohighlight">\(Q_k = Q\)</span> and <span class="math notranslate nohighlight">\(R_k = I\)</span>. Thus <span class="math notranslate nohighlight">\(A_k = R_k Q_k = Q\)</span>. Thus the iteration creates a constant sequence <span class="math notranslate nohighlight">\((Q_k, R_k, A_k)\)</span> that thus converges.</p>
+<p class="sd-card-text">The pure QR iteration computes <span class="math notranslate nohighlight">\(Q_k = Q\)</span> and <span class="math notranslate nohighlight">\(R_k = I\)</span>. Hence <span class="math notranslate nohighlight">\(A_k = R_k Q_k = Q\)</span> for every <span class="math notranslate nohighlight">\(k\)</span>, so the iteration creates a constant sequence <span class="math notranslate nohighlight">\((Q_k, R_k, A_k)\)</span> and therefore converges.</p>
 <p class="sd-card-text">In particular, <span class="math notranslate nohighlight">\(A_k\)</span> does not converge to an upper triangular matrix and as complex numbers do not arise in the computations, the eigenvalues do not appear explicitly as entries of a matrix.</p>
-<p class="sd-card-text">We note that the so-called real form of the Schur decomposition is attained, in which pair of complex eigenvalues give rise to <span class="math notranslate nohighlight">\(2 \times 2\)</span> blocks on the diagonal of an almost triangular factor <span class="math notranslate nohighlight">\(R\)</span>.</p>
+<p class="sd-card-text">We note that the real Schur form is attained instead, in which pairs of complex conjugate eigenvalues give rise to <span class="math notranslate nohighlight">\(2 \times 2\)</span> blocks on the diagonal of an almost triangular factor.</p>
 </div>
 </details><div class="tip admonition">
 <p class="admonition-title"><strong>Question</strong></p>
@@ -770,7 +769,7 @@ A = \begin{pmatrix}
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
 <span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
-<p class="sd-card-text">We begin by recording that the eigenvalues of <span class="math notranslate nohighlight">\(A\)</span>: <span class="math notranslate nohighlight">\(\lambda_1 = 2\)</span> and <span class="math notranslate nohighlight">\(\lambda_2 = 0\)</span>.</p>
+<p class="sd-card-text">We begin by recording that the eigenvalues of <span class="math notranslate nohighlight">\(A\)</span> are <span class="math notranslate nohighlight">\(\lambda_1 = 2\)</span> and <span class="math notranslate nohighlight">\(\lambda_2 = 0\)</span>.</p>
 <p class="sd-card-text">The pure QR iteration computes</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -778,7 +777,7 @@ Q_1 = \frac{1}{\sqrt{2}}\begin{pmatrix} 1 &amp; \phantom{-}1\\ 1 &amp; -1 \end{p
 \qquad R_1 = \begin{pmatrix} \sqrt{2} &amp; \sqrt{2}\\ 0 &amp; 0 \end{pmatrix},
 \qquad A_1 = \begin{pmatrix} 2 &amp; 0 \\ 0 &amp; 0 \end{pmatrix}.
 \end{split}\]</div>
-<p class="sd-card-text">From now on <span class="math notranslate nohighlight">\(Q_k = I\)</span> and <span class="math notranslate nohighlight">\(R_k = A_k = A_1\)</span>. The sequence converged and indeed the eigenvalues are found on the diagonal of all <span class="math notranslate nohighlight">\(A_k\)</span>.</p>
+<p class="sd-card-text">From now on <span class="math notranslate nohighlight">\(Q_k = I\)</span> and <span class="math notranslate nohighlight">\(R_k = A_k = A_1\)</span>. The sequence converges, and the eigenvalues are found on the diagonal of all subsequent <span class="math notranslate nohighlight">\(A_k\)</span>.</p>
 </div>
 </details></section>
 </section>

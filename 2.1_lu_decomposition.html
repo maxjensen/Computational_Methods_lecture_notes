@@ -394,7 +394,7 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="lu-decomposition">
 <h1>LU decomposition<a class="headerlink" href="#lu-decomposition" title="Link to this heading">#</a></h1>
-<p>Solving linear systems of equations is among the most fundamental operations in a computer. Many problems (even
+<p>Solving linear systems of equations is among the most fundamental operations on a computer. Many problems (even
 nonlinear ones) eventually reduce to sequences of linear system solves.</p>
 <p>Most students learn about <a class="reference external" href="https://en.wikipedia.org/wiki/Gaussian_elimination">Gaussian elimination</a>, also known as row reduction, in school. The LU decomposition is simply a more organised way to perform Gaussian elimination.</p>
 <section id="basic-idea">
@@ -506,7 +506,7 @@ F^{(s)} =
 \end{pmatrix},
 \qquad \ell_{i,s} = \frac{A^{(s)}_{is}}{A^{(s)}_{ss}}.
 \end{split}\]</div>
-<div class="proof definition admonition" id="definition-0">
+<div class="proof definition admonition" id="def-frobenius-matrix">
 <p class="admonition-title"><span class="caption-number">Definition 3 </span></p>
 <section class="definition-content" id="proof-content">
 <p>A matrix where all diagonal elements are <span class="math notranslate nohighlight">\(1\)</span>, with zeros elsewhere except for nonzero entries in column <span class="math notranslate nohighlight">\(s\)</span> below the diagonal is called a Frobenius matrix of index <span class="math notranslate nohighlight">\(s\)</span>.</p>
@@ -548,7 +548,7 @@ G = I + f \otimes e^{(s)}
 \[
 \sum_{k = 1}^n F_{ik} \, G_{kj} = \delta_{ij} - f_i \, e^{(s)}_j + f_i \, e^{(s)}_j - \sum_{k = 1}^n f_i  e^{(s)}_k f_k  e^{(s)}_j = \delta_{ij}.
 \]</div>
-<p>Here <span class="math notranslate nohighlight">\(\delta_{ij}\)</span> is the Kronecker product.</p>
+<p>Here <span class="math notranslate nohighlight">\(\delta_{ij}\)</span> is the Kronecker delta.</p>
 </div>
 <p>Note that the inverse of a Frobenius matrix is also a Frobenius matrix. We now learn that products of Frobenius matrices can be computed with great ease.</p>
 <div class="proof lemma admonition" id="lemma-2">
@@ -597,7 +597,7 @@ U := A^{(n)} = F^{(n-1)} \, A^{(n-1)} = F^{(n-1)} \cdots F^{(1)} A^{(1)}.
 LU = G^{(1)} \cdots G^{(n-1)} F^{(n-1)} \cdots F^{(1)} A^{(1)} = A^{(1)} = A.
 \]</div>
 <p>We showed that if Gaussian elimination works (without causing division by 0 or needing row or column permutations, called pivoting) then we can find an LU decomposition.</p>
-<div class="proof theorem admonition" id="theorem-3">
+<div class="proof theorem admonition" id="thm-lu-existence-without-pivoting">
 <p class="admonition-title"><span class="caption-number">Theorem 3 </span></p>
 <section class="theorem-content" id="proof-content">
 <p>Suppose <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{n \times n}\)</span> can be transformed into an upper triangular <span class="math notranslate nohighlight">\(U \in \mathbb{R}^{n \times n}\)</span> by Gaussian elimination (without pivoting). Then there exists a lower triangular <span class="math notranslate nohighlight">\(L \in \mathbb{R}^{n \times n}\)</span> such that</p>
@@ -625,7 +625,7 @@ A = LU
 </section>
 <section id="python-skills">
 <h2>Python skills<a class="headerlink" href="#python-skills" title="Link to this heading">#</a></h2>
-<p>To perform LU decomposition in Python, we can use the <code class="docutils literal notranslate"><span class="pre">scipy.linalg.lu</span></code> function from the SciPy library. This function returns the permutation matrix <code class="docutils literal notranslate"><span class="pre">P</span></code>, lower triangular matrix <code class="docutils literal notranslate"><span class="pre">L</span></code>, and upper triangular matrix <code class="docutils literal notranslate"><span class="pre">U</span></code> such that <code class="docutils literal notranslate"><span class="pre">PA</span> <span class="pre">=</span> <span class="pre">LU</span></code>. We shall investigate the use of <code class="docutils literal notranslate"><span class="pre">P</span></code> in the next section.</p>
+<p>To perform LU decomposition in Python, we can use the <code class="docutils literal notranslate"><span class="pre">scipy.linalg.lu</span></code> function from the SciPy library. This function returns the permutation matrix <code class="docutils literal notranslate"><span class="pre">P</span></code>, lower triangular matrix <code class="docutils literal notranslate"><span class="pre">L</span></code>, and upper triangular matrix <code class="docutils literal notranslate"><span class="pre">U</span></code> such that <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">=</span> <span class="pre">P</span> <span class="pre">&#64;</span> <span class="pre">L</span> <span class="pre">&#64;</span> <span class="pre">U</span></code>. We shall investigate the use of <code class="docutils literal notranslate"><span class="pre">P</span></code> in the next section.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.linalg</span><span class="w"> </span><span class="kn">import</span> <span class="n">lu</span>
 
@@ -640,17 +640,17 @@ A = LU
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;U:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">U</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>We can use the above factors to solve the linear system with different right-hand sides. The inverse of <code class="docutils literal notranslate"><span class="pre">P</span></code> is its own transpose.</p>
+<p>We can use the above factors to solve the linear system with different right-hand sides. Since <code class="docutils literal notranslate"><span class="pre">P</span></code> is a permutation matrix, its inverse is its transpose.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example right-hand sides</span>
 <span class="n">b1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
 <span class="n">b2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
 
-<span class="c1"># Check that P is its own inverse</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;P * P =</span><span class="se">\n</span><span class="s2"> </span><span class="si">{</span><span class="n">P</span><span class="w"> </span><span class="o">@</span><span class="w"> </span><span class="n">P</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="c1"># Check that P^{-1} = P^T</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;P.T @ P =</span><span class="se">\n</span><span class="s2"> </span><span class="si">{</span><span class="n">P</span><span class="o">.</span><span class="n">T</span><span class="w"> </span><span class="o">@</span><span class="w"> </span><span class="n">P</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">trig_solve</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
-  <span class="c1"># Forward substitution to solve Ly = P b</span>
-  <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>
+  <span class="c1"># Since A = P L U, solve L y = P.T b first</span>
+  <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">P</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">b</span><span class="p">)</span>
 
   <span class="c1"># Backward substitution to solve Ux = y</span>
   <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">U</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
@@ -701,7 +701,7 @@ x_1\\ x_2 \\ x_3
 <p class="sd-card-text">with</p>
 <div class="math notranslate nohighlight">
 \[
-\tilde{a}_{22} = a_{22} - l_{21}a_{12}, \quad \tilde{a}_{23} = a_{23} - \ell_{21}a_{13}
+\tilde{a}_{22} = a_{22} - \ell_{21}a_{12}, \quad \tilde{a}_{23} = a_{23} - \ell_{21}a_{13}
 \]</div>
 <p class="sd-card-text">and <span class="math notranslate nohighlight">\(b_2\)</span> modified correspondingly. We then define <span class="math notranslate nohighlight">\(\ell_{31} = \frac{a_{31}}{a_{11}}\)</span> and proceed in a similar way with
 the third row to obtain</p>

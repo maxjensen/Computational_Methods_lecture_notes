@@ -435,13 +435,13 @@ p(x) = \sum_{k=0}^n f(x_k) L_k(x), \quad \text{where } L_k(x) = \prod_{l\ne k} \
 \[
 \sigma_k = \int_a^b L_k(x) dx.
 \]</div>
-<p>Hence, the interpolatory quadrature formula becomes <span class="math notranslate nohighlight">\(\mathcal{Q}_n(f) = \sum_{k=0}^n \sigma_k f(x_k)\)</span>. The degree of exactness of <span class="math notranslate nohighlight">\(\mathcal{Q}_n\)</span> is at least <span class="math notranslate nohighlight">\(n\)</span>, and it for <span class="math notranslate nohighlight">\(n \geq 0\)</span> holds that</p>
+<p>Hence, the interpolatory quadrature formula becomes <span class="math notranslate nohighlight">\(\mathcal{Q}_n(f) = \sum_{k=0}^n \sigma_k f(x_k)\)</span>. The degree of exactness of <span class="math notranslate nohighlight">\(\mathcal{Q}_n\)</span> is at least <span class="math notranslate nohighlight">\(n\)</span>, and for <span class="math notranslate nohighlight">\(n \geq 0\)</span> it holds that</p>
 <div class="math notranslate nohighlight">
 \[
 \sum_{k=0}^n \sigma_k = b-a, \qquad\mathcal{Q}_n(1) = \mathcal{I}(1).
 \]</div>
 <p>In the case of equidistant nodes, we obtain the <em>Newton-Cotes formulas</em>, and if these nodes include the endpoints <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span>, the formulas are termed <em>closed</em> Newton-Cotes formulas.</p>
-<div class="proof example admonition" id="example-0">
+<div class="proof example admonition" id="ex-interpolatory-quadrature-formulas">
 <p class="admonition-title"><span class="caption-number">Example 15 </span> (Interpolatory quadrature formulas)</p>
 <section class="example-content" id="proof-content">
 <ul>
@@ -488,7 +488,7 @@ p(x) = \sum_{k=0}^n f(x_k) L_k(x), \quad \text{where } L_k(x) = \prod_{l\ne k} \
 </section>
 <section id="python-skills">
 <h2>Python skills<a class="headerlink" href="#python-skills" title="Link to this heading">#</a></h2>
-<p>Here is an implementation of the trapezium and Simpson’s rule in Python.</p>
+<p>Here is an implementation of the trapezium rule and Simpson’s rule in Python.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">trapezium_rule</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
     <span class="k">return</span> <span class="p">(</span><span class="n">b</span> <span class="o">-</span> <span class="n">a</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">+</span> <span class="n">f</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
 
@@ -535,12 +535,12 @@ p(x) = \sum_{k=0}^n f(x_k) L_k(x), \quad \text{where } L_k(x) = \prod_{l\ne k} \
 </div>
 </details><div class="tip admonition">
 <p class="admonition-title"><strong>Question</strong></p>
-<p>A quadrature rule <span class="math notranslate nohighlight">\(\mathcal{Q}\)</span> has a negative weight <span class="math notranslate nohighlight">\(\sigma_k\)</span>. Show that there exists a non-negative function <span class="math notranslate nohighlight">\(g\)</span> such <span class="math notranslate nohighlight">\(\mathcal{Q}(g) &lt; 0\)</span>. This means that the quadrature rule assigns a negative estimate of the integral to the non-negative function.</p>
+<p>A quadrature rule <span class="math notranslate nohighlight">\(\mathcal{Q}\)</span> has a negative weight <span class="math notranslate nohighlight">\(\sigma_k\)</span>. Show that there exists a non-negative function <span class="math notranslate nohighlight">\(g\)</span> such that <span class="math notranslate nohighlight">\(\mathcal{Q}(g) &lt; 0\)</span>. This means that the quadrature rule assigns a negative estimate of the integral to a non-negative function.</p>
 </div>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
 <span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
-<p class="sd-card-text">Let <span class="math notranslate nohighlight">\(x_i\)</span> be the <span class="math notranslate nohighlight">\(i\)</span>th node of <span class="math notranslate nohighlight">\(\mathcal{Q}\)</span>. We define <span class="math notranslate nohighlight">\(g : [a,b] \to \mathbb{R}\)</span> to be <span class="math notranslate nohighlight">\(\delta_{ik}\)</span> at nodes <span class="math notranslate nohighlight">\(x_i\)</span>, and on the restrictions <span class="math notranslate nohighlight">\([x_i, x_{i+1}]\)</span> between nodes be the linear interpolant of those values.</p>
+<p class="sd-card-text">Let <span class="math notranslate nohighlight">\(x_i\)</span> be the <span class="math notranslate nohighlight">\(i\)</span>th node of <span class="math notranslate nohighlight">\(\mathcal{Q}\)</span>. We define <span class="math notranslate nohighlight">\(g : [a,b] \to \mathbb{R}\)</span> to be <span class="math notranslate nohighlight">\(\delta_{ik}\)</span> at the nodes <span class="math notranslate nohighlight">\(x_i\)</span>, and on the subintervals <span class="math notranslate nohighlight">\([x_i, x_{i+1}]\)</span> between nodes to be the linear interpolant of those values.</p>
 <p class="sd-card-text">Then <span class="math notranslate nohighlight">\(g\)</span> is non-negative; however,</p>
 <div class="math notranslate nohighlight">
 \[
@@ -559,11 +559,11 @@ p(x) = \sum_{k=0}^n f(x_k) L_k(x), \quad \text{where } L_k(x) = \prod_{l\ne k} \
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
 <span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
-<p class="sd-card-text">Let <span class="math notranslate nohighlight">\(x_i^{(n)}\)</span> be the <span class="math notranslate nohighlight">\(i\)</span>th node of <span class="math notranslate nohighlight">\(\mathcal{Q}_n\)</span>. We define <span class="math notranslate nohighlight">\(g^{(n)} : [a,b] \to \mathbb{R}\)</span> to be <span class="math notranslate nohighlight">\(\text{sign}(\sigma_k^{(n)})\)</span> at nodes <span class="math notranslate nohighlight">\(x_i^{(n)}\)</span>, and on the restrictions <span class="math notranslate nohighlight">\([x_i^{(n)}, x_{i+1}^{(n)}]\)</span> between nodes be the linear interpolant of those values.</p>
+<p class="sd-card-text">Let <span class="math notranslate nohighlight">\(x_i^{(n)}\)</span> be the <span class="math notranslate nohighlight">\(i\)</span>th node of <span class="math notranslate nohighlight">\(\mathcal{Q}_n\)</span>. We define <span class="math notranslate nohighlight">\(g^{(n)} : [a,b] \to \mathbb{R}\)</span> to be <span class="math notranslate nohighlight">\(\text{sign}(\sigma_i^{(n)})\)</span> at the nodes <span class="math notranslate nohighlight">\(x_i^{(n)}\)</span>, and on the subintervals <span class="math notranslate nohighlight">\([x_i^{(n)}, x_{i+1}^{(n)}]\)</span> between nodes to be the linear interpolant of those values.</p>
 <p class="sd-card-text">Then</p>
 <div class="math notranslate nohighlight">
 \[
-\mathcal{Q}_n(g^{(n)}) = \sum_{k=0}^n \sigma_k^{(n)} g^{(n)}(x_k) = \sum_{k=0}^n | \sigma_k | \to \infty \qquad n \to \infty.
+\mathcal{Q}_n(g^{(n)}) = \sum_{k=0}^n \sigma_k^{(n)} g^{(n)}(x_k^{(n)}) = \sum_{k=0}^n \bigl| \sigma_k^{(n)} \bigr| \to \infty \qquad n \to \infty.
 \]</div>
 <p class="sd-card-text">However, <span class="math notranslate nohighlight">\(|\mathcal{I}(g^{(n)})| \leq (b-a)\)</span>. In the notation of the Foundation chapter on the forward error, the exact operator is <span class="math notranslate nohighlight">\(f: C[a,b] \to \mathbb{R}, g \mapsto \mathcal{I}(g)\)</span>, while the <span class="math notranslate nohighlight">\(n\)</span>th quadrature approximation is <span class="math notranslate nohighlight">\(\tilde{f}_n: C[a,b] \to \mathbb{R}, g \mapsto \mathcal{Q}_n(g)\)</span>.</p>
 <p class="sd-card-text">Thus, we established that the largest relative forward error, observed over the set of continuous functions, diverges as <span class="math notranslate nohighlight">\(n \to \infty\)</span>:</p>
@@ -571,7 +571,7 @@ p(x) = \sum_{k=0}^n f(x_k) L_k(x), \quad \text{where } L_k(x) = \prod_{l\ne k} \
 \[
 \sup_{g \in C[a,b]} \frac{| f(g) - \tilde{f}_n(g) |}{|f(g)|} \geq \frac{| f(g^{(n)}) - \tilde{f}_n(g^{(n)}) |}{|f(g^{(n)})|}  \to \infty,
 \]</div>
-<p class="sd-card-text">using <span class="math notranslate nohighlight">\(0 &lt; f(g^{(n)}) \leq b - a\)</span>.</p>
+<p class="sd-card-text">using <span class="math notranslate nohighlight">\(0 &lt; f(g^{(n)}) \leq b - a\)</span> for infinitely many <span class="math notranslate nohighlight">\(n\)</span>.</p>
 </div>
 </details><div class="tip admonition">
 <p class="admonition-title"><strong>Question</strong></p>

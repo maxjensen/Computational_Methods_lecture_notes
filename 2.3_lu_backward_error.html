@@ -393,7 +393,7 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="backward-error-and-pivoting">
 <h1>Backward error and pivoting<a class="headerlink" href="#backward-error-and-pivoting" title="Link to this heading">#</a></h1>
-<p>Recall that we can bound the forward error from the condition number and the backward error. The condition number is a property of the linear system, not of the numerical method we employ (such as the LU decomposition), and we have established that <span class="math notranslate nohighlight">\(\kappa(A) = | A | \cdot | A^{-1} |\)</span>.</p>
+<p>Recall that we can bound the forward error in terms of the condition number and the backward error. The condition number is a property of the linear system, not of the numerical method we employ (such as the LU decomposition), and we have established that <span class="math notranslate nohighlight">\(\kappa(A) = \| A \| \cdot \| A^{-1} \|\)</span>.</p>
 <p>The backward error of the LU decomposition remains a subject of significant interest. Despite the long-established nature of LU decomposition, several open questions persist regarding its backward error.</p>
 <p>Fundamentally, LU decomposition is not backward stable, and we will examine specific examples illustrating this instability. In some cases, LU decomposition can lead to a catastrophic increase in backward error.</p>
 <p>To address this issue, a widely used modification known as pivoting is introduced. This refinement substantially improves the stability of the algorithm in almost all cases. However, it is still possible to construct matrices for which the pivoted algorithm remains unstable. Such cases, however, are highly pathological and rarely arise in practical applications.</p>
@@ -417,14 +417,13 @@ document.write(`
 \[
 \|\Delta A\| = \|L\|\cdot \|U\| \, \mathcal{O}(\epsilon_{mach}).
 \]</div>
-<p>One might naively conclude that this guarantees the backward stability of LU decomposition. However, backward stability requires <span class="math notranslate nohighlight">\(\| \Delta A \| / \|A\| = \mathcal{O}(\epsilon_{mach})\)</span> whereas in our bound, <span class="math notranslate nohighlight">\(\|L\|\cdot
-\|U\|\)</span> appears in the denominator.</p>
+<p>One might naively conclude that this guarantees the backward stability of LU decomposition. However, backward stability requires <span class="math notranslate nohighlight">\(\| \Delta A \| / \|A\| = \mathcal{O}(\epsilon_{mach})\)</span>, whereas in our bound, <span class="math notranslate nohighlight">\(\|L\|\cdot \|U\|\)</span> appears in the numerator.</p>
 <p>So the question of backward stability of the <span class="math notranslate nohighlight">\(LU\)</span> decomposition is reduced to the problem of when we have that</p>
 <div class="math notranslate nohighlight">
 \[
 \|A\| \approx \|L\|\cdot \|U\|.
 \]</div>
-<div class="proof example admonition" id="example-0">
+<div class="proof example admonition" id="ex-lu-failure-of-backward-stability">
 <p class="admonition-title"><span class="caption-number">Example 8 </span> (Failure of backward stability)</p>
 <section class="example-content" id="proof-content">
 <p>Let</p>
@@ -472,7 +471,7 @@ A_{\epsilon} =
 </div></section>
 <section id="lu-decomposition-with-pivoting">
 <h2>LU decomposition with pivoting<a class="headerlink" href="#lu-decomposition-with-pivoting" title="Link to this heading">#</a></h2>
-<p>The above examples motivates a modification of the LU decomposition, called <strong>column-pivoted</strong> (or simply <strong>pivoted</strong>) LU. The idea is simple. Suppose that <span class="math notranslate nohighlight">\(a_{31}\)</span> is the element with the largest magnitude in the first column of <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{3 \times 3}\)</span>. We then exchange the third and the
+<p>The above examples motivate a modification of the LU decomposition, called <strong>row-pivoted</strong> (or simply <strong>pivoted</strong>) LU. The idea is simple. Suppose that <span class="math notranslate nohighlight">\(a_{31}\)</span> is the element with the largest magnitude in the first column of <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{3 \times 3}\)</span>. We then exchange the third and the
 first row to get</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -504,10 +503,11 @@ a_{31} &amp; a_{32} &amp; a_{33}\\
 0 &amp; \tilde{a}_{12} &amp; \tilde{a}_{13}
 \end{pmatrix}
 \end{split}\]</div>
-<p>Before proceeding with the LU decomposition, we swap the second and third rows if the element at position <span class="math notranslate nohighlight">\((3, 2)\)</span> is larger by magnitude than the entry at position at <span class="math notranslate nohighlight">\((2, 2)\)</span>, using</p>
+<p>Before proceeding with the LU decomposition, we swap the second and third rows if the element at position <span class="math notranslate nohighlight">\((3, 2)\)</span> is larger in magnitude than the entry at position <span class="math notranslate nohighlight">\((2, 2)\)</span>, using</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-P^{(2)}\begin{pmatrix}
+P^{(2)} =
+\begin{pmatrix}
 1 &amp; 0 &amp; 0\\
 0 &amp; 0 &amp; 1\\
 0 &amp; 1 &amp; 0
@@ -519,7 +519,7 @@ P^{(2)}\begin{pmatrix}
 F^{(2)} P^{(2)} F^{(1)} P^{(1)} A = U.
 \]</div>
 <p>This pivoting strategy guarantees that <span class="math notranslate nohighlight">\(|\ell_{i, j}|\leq 1\)</span> for all <span class="math notranslate nohighlight">\(i, j\)</span>.</p>
-<div class="proof definition admonition" id="definition-1">
+<div class="proof definition admonition" id="def-permutation-matrix">
 <p class="admonition-title"><span class="caption-number">Definition 6 </span> (Permutation matrix)</p>
 <section class="definition-content" id="proof-content">
 <p><span class="math notranslate nohighlight">\(P \in \mathbb{R}^{n \times n}\)</span> is a permutation matrix if there exists a bijective mapping <span class="math notranslate nohighlight">\(\pi : \{1, \ldots, n\} \to \{1, \ldots, n\}\)</span> (called permutation) such that</p>
@@ -581,7 +581,7 @@ C_a \| B \|_* \leq \| B \| \leq C_b \| B \|_* \qquad \forall B \in \mathbb{R}^{n
 <section id="counterexample-to-backward-stability">
 <h2>Counterexample to backward stability<a class="headerlink" href="#counterexample-to-backward-stability" title="Link to this heading">#</a></h2>
 <p>For most matrices, the growth factor <span class="math notranslate nohighlight">\(\rho\)</span> remains small when pivoting is employed. However, one counterexample suffices to demonstrate that LU decomposition with pivoting is not backward stable.</p>
-<div class="proof example admonition" id="example-2">
+<div class="proof example admonition" id="ex-lu-counterexample-backward-stability">
 <p class="admonition-title"><span class="caption-number">Example 9 </span> (Counterexample to backward stability)</p>
 <section class="example-content" id="proof-content">
 <p>Define <span class="math notranslate nohighlight">\(A_n \in \mathbb{R}^{n \times n}\)</span> as the matrix with ones on the diagonal and in the last column, and <span class="math notranslate nohighlight">\(-1\)</span> on all entries below the diagonal. For instance, <span class="math notranslate nohighlight">\(A_8\)</span> is:</p>
@@ -598,20 +598,18 @@ C_a \| B \|_* \leq \| B \| \leq C_b \| B \|_* \qquad \forall B \in \mathbb{R}^{n
  -1 &amp; -1 &amp; -1 &amp; -1 &amp; -1 &amp; -1 &amp; -1 &amp;  \phantom{-}1
 \end{pmatrix}.
 \end{split}\]</div>
-<p>Since the diagonal and subdiagonal entries have modulus one, pivoting does not cause row interchanges. Let <span class="math notranslate nohighlight">\(A_n = L_n U_n\)</span>. It can be shown that <span class="math notranslate nohighlight">\(U_n\)</span> is the identity matrix except in its last column, whose <span class="math notranslate nohighlight">\(i\)</span>th entry is <span class="math notranslate nohighlight">\(2^{i-1}\)</span>:</p>
+<p>Since the diagonal and subdiagonal entries have modulus one, pivoting does not cause row interchanges. Let <span class="math notranslate nohighlight">\(A_n = L_n U_n\)</span>. It can be shown that <span class="math notranslate nohighlight">\(U_n\)</span> is the identity matrix except in its last column, whose <span class="math notranslate nohighlight">\(i\)</span>th entry is <span class="math notranslate nohighlight">\(2^{i-1}\)</span>. For <span class="math notranslate nohighlight">\(n=8\)</span>,</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 U_8 = \begin{pmatrix}
-1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 \\
-0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 2 \\
-0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 4 \\
-0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 8 \\
-0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 16 \\
-0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 32 \\
-0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 64 \\
-0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 128 \\
-0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 256 \\
-0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 512
+1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 \\
+0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 2 \\
+0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 4 \\
+0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 8 \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 16 \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 32 \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 64 \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 128
 \end{pmatrix}
 \end{split}\]</div>
 <p>Hence, the growth factor is <span class="math notranslate nohighlight">\(\rho(A) = 2^{n-1}\)</span>, which increases exponentially with <span class="math notranslate nohighlight">\(n\)</span>. In double-precision arithmetic (<span class="math notranslate nohighlight">\(\epsilon_{\mathrm{mach}} = 2^{-52}\)</span>), taking <span class="math notranslate nohighlight">\(n = 53\)</span> leads to a backward error of order one. For <span class="math notranslate nohighlight">\(n = 100\)</span>, the magnitude of the backward error is on the order of</p>
