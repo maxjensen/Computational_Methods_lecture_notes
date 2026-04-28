@@ -128,10 +128,10 @@ import numpy as np
 
 LaTeX is a sophisticated typesetting system for mathematical texts. Markdown borrows from LaTeX to typeset mathematical formulas without going into the full complexity of LaTeX. For more information about LaTeX see for example [Learn LaTeX in 30 minutes](https://www.overleaf.com/learn/latex/Learn_LaTeX_in_30_minutes) and [Wikibooks](https://en.wikibooks.org/wiki/LaTeX/Mathematics).
 
-We switch to inline formulas with a single `$` and to a display formula with a double `$$`.
+We write inline formulas with a single `$` and display formulas with double `$$`.
 
 ```markdown
-While $f(x) \ne g(y)$ is space-saving, this if often clearer:
+While $f(x) \ne g(y)$ is space-saving, this is often clearer:
 
 $$
 f(x) \ne g(x)
@@ -141,7 +141,7 @@ $$
 gives
 
 ---
-While $f(x) \ne g(y)$ is space-saving, this if often clearer:
+While $f(x) \ne g(y)$ is space-saving, this is often clearer:
 
 $$
 f(x) \ne g(x)
@@ -223,10 +223,10 @@ gives
 - $\tilde a$
 - $\breve a$
 - $\hat a$
-- $a^ \prime$
-- $a^ \dagger$
-- $a^ \ast$
-- $a^ \star$
+- $a^\prime$
+- $a^\dagger$
+- $a^\ast$
+- $a^\star$
 - $\mathcal A$
 - $\mathrm a$
 - $\cdots$
@@ -245,10 +245,10 @@ gives
 - $\tilde a$
 - $\breve a$
 - $\hat a$
-- $a^ \prime$
-- $a^ \dagger$
-- $a^ \ast$
-- $a^ \star$
+- $a^\prime$
+- $a^\dagger$
+- $a^\ast$
+- $a^\star$
 - $\mathcal A$
 - $\mathrm a$
 - $\cdots$
@@ -321,18 +321,6 @@ M =
 $$
 
 $$
-M =
-\begin{pmatrix}
-1 & 0 \\
-0 & 1
-\end{pmatrix}
-\begin{pmatrix}
-1 & 0 \\
-0 & 1
-\end{pmatrix}
-$$
-
-$$
 A_{m,n} =
 \begin{pmatrix}
 a_{1,1} & a_{1,2} & \cdots & a_{1,n} \\
@@ -344,7 +332,7 @@ $$
 
 ## Functions
 
-Special function names such as trigonometic functions are traditionally written in non-italic font. To achieve this, write `f(x) = \sin(x)` instead of `f(x) = sin(x)`, which gives $f(x) = \sin(x)$ instead of $f(x) = sin(x)$.
+Special function names such as trigonometric functions are traditionally written in non-italic font. To achieve this, write `f(x) = \sin(x)` instead of `f(x) = sin(x)`, which gives $f(x) = \sin(x)$ instead of $f(x) = sin(x)$.
 
 Similarly, `\cos(x) \qquad \log(x) \qquad \exp(x)` gives
 
@@ -404,7 +392,7 @@ x_n \rightarrow 0 \text{ as } n \rightarrow \infty
 $$
 
 $$
-\|A\|_p := \sup_{x \in R^n \setminus \{0\}} \frac{\|Ax\|_p}{\|x\|_p}
+\|A\|_p := \sup_{x \in \mathbb{R}^n \setminus \{0\}} \frac{\|Ax\|_p}{\|x\|_p}
 $$
 
 Question: Find the roots of
