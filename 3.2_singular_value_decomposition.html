@@ -222,7 +222,7 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Back matter</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="bm1_notation_and_facts.html">Notation and facts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="bm2_programming_resources.html">Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bm2_programming_resources.html">Programming resources</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bm3_markdown.html">Markdown and LaTeX</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bm4_bibliography.html">Bibliography</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bm5_typos.html">Report typos</a></li>
@@ -464,7 +464,7 @@ A_\nu := \sum_{k=1}^\nu \sigma_k u_k v_k^\top,
 \|A - A_{\nu}\|_2 = \min_{B\in\mathbb{R}^{m\times n}, \text{ rank}(B)\leq\nu} \|A - B\|_2 = \sigma_{\nu+1}.
 \]</div>
 </div>
-<p>This formulation highlights the utility of singular value decomposition (SVD) in reducing computational costs in numerical linear algebra tasks. Traditional matrix-matrix multiplications, without using advanced techniques like <a class="reference external" href="https://en.wikipedia.org/wiki/Strassen_algorithm">Strassen’s algorithm</a>, typically scale with a computational complexity of <span class="math notranslate nohighlight">\(\mathcal{O}(N^3)\)</span>. However, when dealing with the multiplication of two rank-1 matrices, such as <span class="math notranslate nohighlight">\(\sigma u v^\top\)</span> and <span class="math notranslate nohighlight">\(\hat{\sigma} \hat{u} \hat{v}^\top\)</span>, the process becomes much more efficient. The critical step involves calculating the scalar product <span class="math notranslate nohighlight">\(\langle v, \hat{u}\rangle\)</span>, which is then scaled by the product of <span class="math notranslate nohighlight">\(\sigma\)</span> and <span class="math notranslate nohighlight">\(\hat{\sigma}\)</span>. This results in the rank-1 representation of the overall product:</p>
+<p>This formulation highlights the utility of singular value decomposition (SVD) in reducing computational costs in numerical linear algebra tasks. Traditional matrix-matrix multiplications, without using advanced techniques like <a class="reference external" href="https://en.wikipedia.org/wiki/Strassen_algorithm">Strassen’s algorithm</a>, typically scale with a computational complexity of <span class="math notranslate nohighlight">\(\mathcal{O}(n^3)\)</span> for square <span class="math notranslate nohighlight">\(n \times n\)</span> matrices. However, when dealing with the multiplication of two rank-1 matrices, such as <span class="math notranslate nohighlight">\(\sigma u v^\top\)</span> and <span class="math notranslate nohighlight">\(\hat{\sigma} \hat{u} \hat{v}^\top\)</span>, the process becomes much more efficient. The critical step involves calculating the scalar product <span class="math notranslate nohighlight">\(\langle v, \hat{u}\rangle\)</span>, which is then scaled by the product of <span class="math notranslate nohighlight">\(\sigma\)</span> and <span class="math notranslate nohighlight">\(\hat{\sigma}\)</span>. This results in the rank-1 representation of the overall product:</p>
 <div class="math notranslate nohighlight">
 \[
 (\sigma u v^\top) (\hat{\sigma} \hat{u} \hat{v}^\top) = (\sigma \hat{\sigma} \langle v, \hat{u}\rangle) u \hat{v}^\top.
@@ -472,7 +472,7 @@ A_\nu := \sum_{k=1}^\nu \sigma_k u_k v_k^\top,
 <p>Building on this approach, the multiplication of rank-<span class="math notranslate nohighlight">\(\nu\)</span> approximations of two matrices <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> can be executed with a computational cost of <span class="math notranslate nohighlight">\(\mathcal{O}(n \cdot \nu^2)\)</span>:</p>
 <div class="math notranslate nohighlight">
 \[
-A_\nu \cdot \hat{A}_\nu = \sum_{k,\ell} (\sigma_k u_k v_k^\top) (\hat{\sigma}_\ell \hat{u}_\ell \hat{v}_\ell^\top) = \sum_{k,\ell} (\sigma_k \hat{\sigma}_\ell \langle v_k, \hat{u}_\ell\rangle) u_k \hat{v}^\top_\ell.
+A_\nu \cdot \hat{A}_\nu = \sum_{k,\ell = 1}^\nu (\sigma_k u_k v_k^\top) (\hat{\sigma}_\ell \hat{u}_\ell \hat{v}_\ell^\top) = \sum_{k,\ell = 1}^\nu (\sigma_k \hat{\sigma}_\ell \langle v_k, \hat{u}_\ell\rangle) u_k \hat{v}^\top_\ell.
 \]</div>
 <p>This method is particularly advantageous in applications where the singular values diminish rapidly in magnitude. In such scenarios, using a rank-<span class="math notranslate nohighlight">\(\nu\)</span> approximation yields substantial computational savings, often with only a moderate or negligible compromise in accuracy. This balance between efficiency and precision makes SVD a powerful tool in large-scale numerical computations.</p>
 </section>

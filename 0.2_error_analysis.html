@@ -222,7 +222,7 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Back matter</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="bm1_notation_and_facts.html">Notation and facts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="bm2_programming_resources.html">Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bm2_programming_resources.html">Programming resources</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bm3_markdown.html">Markdown and LaTeX</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bm4_bibliography.html">Bibliography</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bm5_typos.html">Report typos</a></li>
@@ -407,7 +407,7 @@ document.write(`
 \[
 \tilde{f}(x) = f(\bar{x}) + \nabla f(\bar{x}) \cdot (x - \bar{x})
 \]</div>
-<p>its first-order Taylor expansion about <span class="math notranslate nohighlight">\(\bar{x}\)</span>.</p>
+<p>its first-order Taylor expansion about <span class="math notranslate nohighlight">\(\bar{x}\)</span>. We use the convention here that <span class="math notranslate nohighlight">\(\nabla f\)</span> is a row and <span class="math notranslate nohighlight">\(x - \bar{x}\)</span> a column vector.</p>
 </section>
 </div><div class="proof example admonition" id="ex-error-analysis-difference-quotient">
 <p class="admonition-title"><span class="caption-number">Example 2 </span></p>
@@ -770,21 +770,6 @@ and $\kappa(A)\rightarrow\infty$ as $\epsilon\rightarrow 0$. The reason is simpl
 -->
 <div class="tip admonition">
 <p class="admonition-title"><strong>Question</strong></p>
-<p>Let <span class="math notranslate nohighlight">\(x \in \mathbb{R}^2\)</span> and <span class="math notranslate nohighlight">\(f(x) = x_1 - x_2\)</span>. Compute the <span class="math notranslate nohighlight">\(\infty\)</span>-norm condition number <span class="math notranslate nohighlight">\(\kappa_{rel}(x)\)</span> of <span class="math notranslate nohighlight">\(f(x)\)</span>. For what inputs is the condition number large?</p>
-<p>Hint: Use the expression for the condition number of a differentiable function.</p>
-</div>
-<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
-<summary class="sd-summary-title sd-card-header">
-<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
-<p class="sd-card-text">The Jacobian of <span class="math notranslate nohighlight">\(f\)</span> is <span class="math notranslate nohighlight">\(J = \nabla f = \begin{pmatrix}1 &amp; -1\end{pmatrix}\)</span>. Hence, <span class="math notranslate nohighlight">\(\|J\|_{\infty} = 2\)</span>. For the condition number, we obtain</p>
-<div class="math notranslate nohighlight">
-\[
-\kappa = \frac{\|x\|_\infty}{\|f(x)\|_\infty} \|J\|_\infty = \frac{2 \max\left\{|x_1|, |x_2|\right\}}{|x_1 - x_2|}.
-\]</div>
-<p class="sd-card-text">The condition number is large if <span class="math notranslate nohighlight">\(x_1 \approx x_2\)</span>. This reflects the issue of cancellation errors. Consider two numbers <span class="math notranslate nohighlight">\(x_1\)</span> and <span class="math notranslate nohighlight">\(x_2\)</span> that agree to the first 5 digits and each of them is accurate to 7 digits. The difference between the two numbers will only be accurate to 2 digits since the first 5 correct digits cancel each other out.</p>
-</div>
-</details><div class="tip admonition">
-<p class="admonition-title"><strong>Question</strong></p>
 <p>Let <span class="math notranslate nohighlight">\(f : D \subset X \to Y\)</span> be differentiable, where <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are finite-dimensional real vector spaces. Show that</p>
 <div class="math notranslate nohighlight">
 \[
@@ -830,6 +815,21 @@ f(x + \Delta x) = f(x) + \nabla f(x) \cdot \Delta x + h(x + \Delta x) \cdot \Del
 \kappa_{rel}(x) =
 \frac{\| x \|_X}{\| f(x) \|_Y} \lim_{\delta\rightarrow 0} \sup_{0&lt;\|\Delta x\|\leq \delta} \frac{\| f(x + \Delta x) - f(x) \|_Y}{\| \Delta x\|_X} = \frac{\| x \|_X}{\| f(x) \|_Y} \| \nabla f(x) \|_{Y,X}.
 \]</div>
+</div>
+</details><div class="tip admonition">
+<p class="admonition-title"><strong>Question</strong></p>
+<p>Let <span class="math notranslate nohighlight">\(x \in \mathbb{R}^2\)</span> and <span class="math notranslate nohighlight">\(f(x) = x_1 - x_2\)</span>. Compute the <span class="math notranslate nohighlight">\(\infty\)</span>-norm condition number <span class="math notranslate nohighlight">\(\kappa_{rel}(x)\)</span> of <span class="math notranslate nohighlight">\(f(x)\)</span>. For what inputs is the condition number large?</p>
+<p>Hint: Use the expression for the condition number of a differentiable function.</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Answer</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">The Jacobian of <span class="math notranslate nohighlight">\(f\)</span> is <span class="math notranslate nohighlight">\(J = \nabla f = \begin{pmatrix}1 &amp; -1\end{pmatrix}\)</span>. Hence, <span class="math notranslate nohighlight">\(\|J\|_{\infty} = 1\)</span> is the row-sum norm of <span class="math notranslate nohighlight">\(\begin{pmatrix}1 &amp; -1\end{pmatrix}\)</span>. For the condition number, we obtain</p>
+<div class="math notranslate nohighlight">
+\[
+\kappa = \frac{\|x\|_\infty}{\|f(x)\|_\infty} \|J\|_\infty = \frac{1 \cdot \max\left\{|x_1|, |x_2|\right\}}{|x_1 - x_2|}.
+\]</div>
+<p class="sd-card-text">The condition number is large if <span class="math notranslate nohighlight">\(x_1 \approx x_2\)</span>. This reflects the issue of cancellation errors. Consider two numbers <span class="math notranslate nohighlight">\(x_1\)</span> and <span class="math notranslate nohighlight">\(x_2\)</span> that agree to the first 5 digits and each of them is accurate to 7 digits. The difference between the two numbers will only be accurate to 2 digits since the first 5 correct digits cancel each other out.</p>
 </div>
 </details><div class="tip admonition">
 <p class="admonition-title"><strong>Question</strong></p>

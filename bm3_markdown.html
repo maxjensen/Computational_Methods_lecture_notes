@@ -32,9 +32,9 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=8c6b312c" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -64,7 +64,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Bibliography" href="bm4_bibliography.html" />
-    <link rel="prev" title="Python" href="bm2_programming_resources.html" />
+    <link rel="prev" title="Programming resources" href="bm2_programming_resources.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -222,7 +222,7 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Back matter</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="bm1_notation_and_facts.html">Notation and facts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="bm2_programming_resources.html">Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bm2_programming_resources.html">Programming resources</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Markdown and LaTeX</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bm4_bibliography.html">Bibliography</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bm5_typos.html">Report typos</a></li>
@@ -548,8 +548,8 @@ import numpy as np
 <section id="latex-and-adding-mathematics-to-markdown">
 <h2>LaTeX and adding mathematics to Markdown<a class="headerlink" href="#latex-and-adding-mathematics-to-markdown" title="Link to this heading">#</a></h2>
 <p>LaTeX is a sophisticated typesetting system for mathematical texts. Markdown borrows from LaTeX to typeset mathematical formulas without going into the full complexity of LaTeX. For more information about LaTeX see for example <a class="reference external" href="https://www.overleaf.com/learn/latex/Learn_LaTeX_in_30_minutes">Learn LaTeX in 30 minutes</a> and <a class="reference external" href="https://en.wikibooks.org/wiki/LaTeX/Mathematics">Wikibooks</a>.</p>
-<p>We switch to inline formulas with a single <code class="docutils literal notranslate"><span class="pre">$</span></code> and to a display formula with a double <code class="docutils literal notranslate"><span class="pre">$$</span></code>.</p>
-<div class="highlight-markdown notranslate"><div class="highlight"><pre><span></span>While $f(x) \ne g(y)$ is space-saving, this if often clearer:
+<p>We write inline formulas with a single <code class="docutils literal notranslate"><span class="pre">$</span></code> and display formulas with double <code class="docutils literal notranslate"><span class="pre">$$</span></code>.</p>
+<div class="highlight-markdown notranslate"><div class="highlight"><pre><span></span>While $f(x) \ne g(y)$ is space-saving, this is often clearer:
 
 $$
 f(x) \ne g(x)
@@ -558,7 +558,7 @@ $$
 </div>
 <p>gives</p>
 <hr class="docutils" />
-<p>While <span class="math notranslate nohighlight">\(f(x) \ne g(y)\)</span> is space-saving, this if often clearer:</p>
+<p>While <span class="math notranslate nohighlight">\(f(x) \ne g(y)\)</span> is space-saving, this is often clearer:</p>
 <div class="math notranslate nohighlight">
 \[
 f(x) \ne g(x)
@@ -639,10 +639,10 @@ f(x) \ne g(x)
 <span class="k">-</span><span class="w"> </span>$\tilde a$
 <span class="k">-</span><span class="w"> </span>$\breve a$
 <span class="k">-</span><span class="w"> </span>$\hat a$
-<span class="k">-</span><span class="w"> </span>$a^ \prime$
-<span class="k">-</span><span class="w"> </span>$a^ \dagger$
-<span class="k">-</span><span class="w"> </span>$a^ \ast$
-<span class="k">-</span><span class="w"> </span>$a^ \star$
+<span class="k">-</span><span class="w"> </span>$a^\prime$
+<span class="k">-</span><span class="w"> </span>$a^\dagger$
+<span class="k">-</span><span class="w"> </span>$a^\ast$
+<span class="k">-</span><span class="w"> </span>$a^\star$
 <span class="k">-</span><span class="w"> </span>$\mathcal A$
 <span class="k">-</span><span class="w"> </span>$\mathrm a$
 <span class="k">-</span><span class="w"> </span>$\cdots$
@@ -661,10 +661,10 @@ f(x) \ne g(x)
 <li><p><span class="math notranslate nohighlight">\(\tilde a\)</span></p></li>
 <li><p><span class="math notranslate nohighlight">\(\breve a\)</span></p></li>
 <li><p><span class="math notranslate nohighlight">\(\hat a\)</span></p></li>
-<li><p><span class="math notranslate nohighlight">\(a^ \prime\)</span></p></li>
-<li><p><span class="math notranslate nohighlight">\(a^ \dagger\)</span></p></li>
-<li><p><span class="math notranslate nohighlight">\(a^ \ast\)</span></p></li>
-<li><p><span class="math notranslate nohighlight">\(a^ \star\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(a^\prime\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(a^\dagger\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(a^\ast\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(a^\star\)</span></p></li>
 <li><p><span class="math notranslate nohighlight">\(\mathcal A\)</span></p></li>
 <li><p><span class="math notranslate nohighlight">\(\mathrm a\)</span></p></li>
 <li><p><span class="math notranslate nohighlight">\(\cdots\)</span></p></li>
@@ -739,18 +739,6 @@ M =
 \end{split}\]</div>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-M =
-\begin{pmatrix}
-1 &amp; 0 \\
-0 &amp; 1
-\end{pmatrix}
-\begin{pmatrix}
-1 &amp; 0 \\
-0 &amp; 1
-\end{pmatrix}
-\end{split}\]</div>
-<div class="math notranslate nohighlight">
-\[\begin{split}
 A_{m,n} =
 \begin{pmatrix}
 a_{1,1} &amp; a_{1,2} &amp; \cdots &amp; a_{1,n} \\
@@ -762,7 +750,7 @@ a_{m,1} &amp; a_{m,2} &amp; \cdots &amp; a_{m,n}
 </section>
 <section id="functions">
 <h2>Functions<a class="headerlink" href="#functions" title="Link to this heading">#</a></h2>
-<p>Special function names such as trigonometic functions are traditionally written in non-italic font. To achieve this, write <code class="docutils literal notranslate"><span class="pre">f(x)</span> <span class="pre">=</span> <span class="pre">\sin(x)</span></code> instead of <code class="docutils literal notranslate"><span class="pre">f(x)</span> <span class="pre">=</span> <span class="pre">sin(x)</span></code>, which gives <span class="math notranslate nohighlight">\(f(x) = \sin(x)\)</span> instead of <span class="math notranslate nohighlight">\(f(x) = sin(x)\)</span>.</p>
+<p>Special function names such as trigonometric functions are traditionally written in non-italic font. To achieve this, write <code class="docutils literal notranslate"><span class="pre">f(x)</span> <span class="pre">=</span> <span class="pre">\sin(x)</span></code> instead of <code class="docutils literal notranslate"><span class="pre">f(x)</span> <span class="pre">=</span> <span class="pre">sin(x)</span></code>, which gives <span class="math notranslate nohighlight">\(f(x) = \sin(x)\)</span> instead of <span class="math notranslate nohighlight">\(f(x) = sin(x)\)</span>.</p>
 <p>Similarly, <code class="docutils literal notranslate"><span class="pre">\cos(x)</span> <span class="pre">\qquad</span> <span class="pre">\log(x)</span> <span class="pre">\qquad</span> <span class="pre">\exp(x)</span></code> gives</p>
 <div class="math notranslate nohighlight">
 \[
@@ -820,7 +808,7 @@ x_n \rightarrow 0 \text{ as } n \rightarrow \infty
 \]</div>
 <div class="math notranslate nohighlight">
 \[
-\|A\|_p := \sup_{x \in R^n \setminus \{0\}} \frac{\|Ax\|_p}{\|x\|_p}
+\|A\|_p := \sup_{x \in \mathbb{R}^n \setminus \{0\}} \frac{\|Ax\|_p}{\|x\|_p}
 \]</div>
 <p>Question: Find the roots of</p>
 <div class="math notranslate nohighlight">
@@ -875,7 +863,7 @@ x_\pm = -\frac{p}{2} \pm \sqrt{\Big(\frac{p}{2}\Big)^2 - q}
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Python</p>
+        <p class="prev-next-title">Programming resources</p>
       </div>
     </a>
     <a class="right-next"
